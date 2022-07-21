@@ -1,0 +1,356 @@
+@import './global.css';
+@tailwind components;
+
+/* ================================================================ */
+/* LAYOUT */
+@layer components {
+    .layout {
+        @apply w-screen md:px-2;
+    }
+}
+/*  SECTIONS */
+@layer components {
+    .section {
+        @apply h-auto w-full md:h-full;
+    }
+    .count-section {
+        counter-increment: section 1;
+    }
+    .section-container {
+        @apply mx-auto h-full w-full max-w-[1240px];
+        @apply mb-24 py-24 sm:mb-12;
+    }
+    .section {
+        & .section-intro {
+            @apply h-screen;
+        }
+        & .section-about {
+            @apply h-full w-full;
+        }
+        & .section-exp {
+            @apply h-full w-full;
+        }
+        & .section-featured {
+            @apply h-full w-full;
+        }
+        & .section-projects {
+            @apply h-full w-full;
+        }
+        & .section-contact {
+            @apply h-full w-full;
+        }
+    }
+}
+
+/* ================================================================ */
+/*  NAVBAR  */
+@layer components {
+    #nav {
+        @apply fixed z-40 w-screen;
+    }
+    .nav-content {
+        @apply flex-center h-12 w-full transform-none bg-theme-background px-2;
+        @apply md:flex-btw md:px-8 lg:px-14;
+    }
+    .nav-logo {
+        @apply z-10;
+        & * {
+            @apply cursor-pointer text-lg uppercase text-lightgrey;
+            @apply duration-150 ease-in hover:text-white;
+        }
+    }
+    .nav-links {
+        @apply md:flex-center absolute left-0 hidden h-14 w-screen;
+        & ul {
+            @apply flex-center justify-between;
+            & li {
+                @apply mx-3 text-sm tracking-tight text-lightgrey md:mx-5 lg:mx-7;
+                transition: 0.25s linear;
+                counter-increment: item 1;
+                &:before {
+                    content: '0' counter(item) '.';
+                    transition: 0.25s linear;
+                    @apply mr-[5px] text-[80%] italic tracking-normal text-white;
+                }
+                & a {
+                    @apply relative w-full pb-1;
+                    &:after {
+                        content: '';
+                        transition: transform 0.25s 0.1s linear;
+                        @apply absolute bottom-0 left-0 h-[1.5px] w-full bg-neon;
+                        @apply origin-bottom-right scale-x-0;
+                    }
+                }
+                &:hover {
+                    @apply text-white;
+                    & a:after {
+                        @apply origin-bottom-left scale-x-100;
+                    }
+                    &:before {
+                        @apply text-neon;
+                    }
+                }
+            }
+        }
+    }
+    .resume-btn {
+        @apply flex-center absolute right-4 top-0 z-10 h-12;
+        @apply md:relative md:right-0;
+        & > * {
+            @apply cursor-pointer text-lg text-teal duration-150 ease-in hover:text-neon;
+        }
+        & h1 {
+            @apply invisible uppercase md:visible;
+        }
+        & .symbol {
+            @apply md:hidden;
+        }
+    }
+    .resume-symbol {
+        @apply flex-center md:hidden;
+        @apply absolute right-4 top-0 z-10 h-12;
+        @apply cursor-pointer text-lg text-teal duration-150 ease-in hover:text-neon;
+        &:after {
+            content: attr(data-title);
+            @apply pointer-events-none absolute right-0 top-4 -z-10 rounded text-xs uppercase text-white opacity-0 duration-150 ease-linear;
+            @apply md:hidden;
+        }
+        &:hover:after {
+            @apply pointer-events-none right-5 opacity-100 delay-700 duration-300 ease-linear;
+        }
+    }
+    .resume-banner {
+        @apply absolute left-0 -z-10 h-[60px] w-full origin-top bg-eee underline underline-offset-4;
+        @apply md:flex-center hidden;
+        & > * {
+            @apply styled-link -mt-1 select-none text-lg font-medium text-darkblack underline underline-offset-4;
+            @apply text-base sm:text-lg;
+        }
+    }
+}
+/* BURGER */
+@layer components {
+    .burger {
+        @apply flex-center absolute left-0 z-50 m-auto cursor-pointer rounded bg-transparent px-4;
+        @apply md:hidden;
+        & * {
+            @apply duration-100 ease-linear;
+        }
+        &:hover {
+            & * {
+                @apply stroke-neon;
+            }
+        }
+    }
+}
+/* MENU */
+@layer components {
+    .menu {
+        @apply fixed left-0 top-0 h-screen w-screen bg-darkblack/70 duration-600;
+        @apply lg:hidden;
+    }
+    .menu.closed {
+        @apply bg-transparent delay-500 duration-600 ease-out;
+        @apply invisible;
+    }
+    .menuBox {
+        @apply flex-col-btw absolute top-0 right-0 bottom-0 w-full bg-black px-10 pt-1 pb-1;
+        @apply sm:w-[80%] md:w-[70%];
+        &:after {
+            content: '';
+            @apply translate-y-[100%] opacity-0 duration-600;
+            @apply absolute top-0 right-0 left-0 bottom-0 -z-10;
+            @apply bg-gradient-to-b from-transparent via-grey/20 to-neon/10;
+        }
+    }
+    .menuBox.open {
+        &:after {
+            content: '';
+            @apply translate-y-0 opacity-100 delay-500 duration-600 ease-out;
+            @apply absolute top-0 right-0 left-0 bottom-0 -z-10;
+            @apply bg-gradient-to-b from-transparent via-grey/20 to-neon/10;
+        }
+    }
+
+    .menu-logo {
+        @apply h-44 w-full opacity-100;
+        & > * {
+            @apply flex-center relative h-full w-full;
+        }
+    }
+    .menu-content {
+        @apply flex-col-btw h-full w-full pt-10;
+        @apply opacity-100;
+        & .menu-links {
+            @apply flex-center w-full justify-start sm:justify-center;
+            & ul {
+                @apply uppercase;
+                & li {
+                    @apply styled-li my-1 py-4 text-lg text-white;
+                    @apply duration-100 hover:text-neon;
+                    & a {
+                        @apply relative w-full;
+                        &:after {
+                            content: '';
+                            transition: transform 0.25s linear;
+                            @apply absolute bottom-0 left-0 h-[1.5px] w-full bg-neon;
+                            @apply origin-bottom-right scale-x-0;
+                        }
+                    }
+                    &:hover {
+                        & a:after {
+                            @apply origin-bottom-left scale-x-100;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .menu-footer {
+        @apply flex-col-evenly h-72 w-full;
+        & > .menu-resume {
+            & > * {
+                @apply styled-element;
+                @apply px-6 py-1;
+            }
+        }
+        & > .menu-socials {
+            @apply flex-evenly w-full;
+            & > * {
+                @apply styled-element;
+                @apply p-4;
+            }
+        }
+    }
+}
+/* FOOTER */
+@layer components {
+    .footer {
+        @apply flex-col-center w-screen pt-4;
+        & * {
+            @apply text-xs;
+        }
+        & > p:first-child span {
+            @apply styled-link cursor-default;
+        }
+    }
+}
+
+/* FORM */
+@layer components {
+    .ct-form {
+        @apply flex-center w-full;
+        & form {
+            @apply flex-col-center my-10 w-full;
+            @apply max-w-[1000px];
+            & div:first-child {
+                @apply relative w-full;
+                @apply lg:flex-center;
+            }
+            & .form-item {
+                @apply w-full lg:mx-10;
+                &:first-child {
+                    @apply lg:ml-0;
+                }
+                &:last-child {
+                    @apply lg:mr-0;
+                }
+            }
+            & > .form-item:nth-child(2) {
+                counter-increment: form-item 3;
+            }
+            & .form-item {
+                @apply flex-col-center mb-2;
+                counter-increment: form-item 1;
+                & * {
+                    @apply w-full;
+                }
+                & label {
+                    @apply text-sm font-semibold uppercase;
+                    &:before {
+                        content: '0' counter(form-item) '. ';
+                        @apply text-tan;
+                    }
+                }
+                & input,
+                & textarea {
+                    @apply mb-5 flex border-b-[1.5px] border-lightgrey bg-transparent p-3 text-xs outline-none;
+                    &::placeholder {
+                        @apply font-robotoMono opacity-75;
+                    }
+                }
+            }
+            & textarea {
+                @apply resize-none bg-transparent;
+            }
+            & .ct-submit {
+                @apply styled-element mt-10 w-full p-4;
+            }
+        }
+        & .err-item {
+            @apply mt-[-10px] mb-[10px] font-robotoMono text-xs font-thin italic text-red/75;
+            line-height: 0.25em;
+        }
+    }
+}
+/* ================================================================ */
+/* STYLED ELEMENT */
+/* STYLED IMAGE  */
+@layer components {
+    .styled-image {
+        @apply styled-element rounded;
+        &:after,
+        &:before {
+            @apply rounded;
+        }
+        & img {
+            @apply rounded;
+        }
+    }
+}
+/* STYLED LI  */
+@layer components {
+    .styled-li {
+        @apply tracking-widest;
+        counter-increment: item 1;
+        &:before {
+            content: '0' counter(item) '.';
+            @apply mr-[10px] text-[90%] italic tracking-normal text-neon;
+        }
+    }
+}
+
+/* ================================================================ */
+/* LOADER */
+@layer components {
+    .loader-wrap {
+        @apply flex-center relative z-[99] h-screen w-screen overflow-hidden bg-theme-background;
+
+        --neon: theme(colors.neon);
+        --neon-opa: rgba(102, 252, 241, 0.25);
+        --teal: theme(colors.teal);
+        --border: rgb(39, 132, 128);
+        --transparent: theme(colors.transparent);
+    }
+    .loader {
+        @apply flex-col-center relative m-auto;
+    }
+    .loader-components {
+        @apply m-0 flex h-full w-full flex-wrap items-start justify-start p-0;
+    }
+    .square {
+        @apply relative m-[0.5px] rounded bg-neon opacity-0;
+        &:nth-child(odd) {
+            @apply bg-teal;
+        }
+    }
+    .loader-bg {
+        @apply absolute -z-10 mx-auto translate-y-[-50%] scale-0  opacity-0;
+        background: radial-gradient(
+            var(--neon) 0%,
+            var(--teal) 0%,
+            var(--transparent) 20%,
+            var(--transparent) 100%
+        );
+    }
+}

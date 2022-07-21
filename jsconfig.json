@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+            "@components": ["src/components/index"],
+            "@hooks": ["src/hooks/index"],
+            "@styles/*": ["src/styles/*"],
+            "@utils": ["src/utils/index.js"],
+            "@store": ["store/index.js"],
+            "@config": ["src/config.js"],
+
+            "@assets": ["public/index.js"],
+            "@data": ["public/static.js"]
+        }
+    }
+}

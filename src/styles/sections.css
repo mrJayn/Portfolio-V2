@@ -1,0 +1,283 @@
+@import './global.css';
+@tailwind components;
+
+/* STYLED INTRO  */
+@layer components {
+    .intro-content {
+        @apply flex-col-top h-full w-full;
+        @apply md:pt-[50px];
+        & * {
+            @apply text-center md:text-left;
+        }
+
+        & > div:first-child {
+            @apply flex-center;
+        }
+        & p {
+            &:last-of-type {
+                @apply max-w-[85%] py-4;
+            }
+        }
+        & h2 {
+            @apply pb-2;
+        }
+        & > div:last-child {
+            @apply styled-element p-3 md:mx-auto;
+        }
+    }
+}
+
+/* ABOUT  */
+@layer components {
+    #about {
+    }
+    .about-content {
+        @apply flex-col-center w-full;
+        @apply grid-cols-2 gap-3 md:grid;
+        & .card {
+            @apply cursor-pointer rounded bg-gradient-to-t from-eee/50 to-eee/20;
+            @apply h-[500px] md:h-[490px] lg:h-[580px];
+        }
+        & .info-card {
+            @apply flex-col-center relative w-full whitespace-pre-line;
+            & h4 {
+                @apply text-4xl font-semibold uppercase tracking-tight text-darkblack md:text-3xl;
+            }
+            & p {
+                @apply relative z-10 mb-2 p-2 pt-0 text-center text-md font-medium text-black;
+                word-spacing: 1px;
+            }
+            & button {
+                @apply flex-center z-10 w-full cursor-default text-lg;
+                & span {
+                    @apply styled-link -mt-1 cursor-pointer select-none font-normal text-teal underline underline-offset-4;
+                }
+            }
+            & .cardImg {
+                @apply flex-center relative w-full;
+                & > div {
+                    @apply relative m-3 aspect-[9/10] min-w-[320px];
+                    @apply h-[200px] md:h-[190px] lg:h-[280px];
+
+                    & span img {
+                        @apply h-full w-full rounded;
+                    }
+                }
+            }
+        }
+        & .image-card {
+            @apply md:flex-center relative hidden w-full;
+            & > div {
+                @apply relative m-3 aspect-[9/10] min-w-[320px];
+                @apply max-h-[476px] md:max-h-[466px] lg:max-h-[556px];
+                & span img {
+                    @apply h-full w-full rounded;
+                }
+            }
+        }
+    }
+    .skills {
+        @apply w-full;
+        & h3 {
+            @apply styled-heading-2 pb-0 text-base;
+        }
+        & ul {
+            @apply mx-auto grid h-full w-fit gap-x-4;
+            @apply grid-cols-2;
+            & li {
+                @apply my-[1px] h-[2em] px-5 text-xs;
+                @apply flex-left rounded bg-eee pl-2;
+                & p {
+                    @apply pl-2 font-robotoMono text-xs font-normal italic text-darkblack;
+                }
+            }
+        }
+    }
+    .about-read {
+        @apply absolute;
+        & > * {
+            @apply h-0 duration-300;
+        }
+        & > *[data-expanded='true'] {
+            @apply h-auto duration-300;
+        }
+
+        & * {
+            @apply origin-top;
+        }
+    }
+    .exitBtn {
+        @apply absolute z-10 -mt-[2px] h-8 w-8 cursor-pointer text-red;
+        &:after {
+            content: '';
+            @apply absolute top-0 left-0 right-0 bottom-0;
+        }
+        &:hover {
+            @apply scale-110 after:border-2 after:border-red;
+        }
+        &:active {
+            &:after {
+                @apply scale-95;
+            }
+        }
+    }
+}
+
+/* FEATURED  */
+@layer components {
+    #featured {
+        & h2 {
+            @apply styled-heading;
+        }
+    }
+    .featured-content {
+        @apply w-full;
+        & li {
+            @apply styled-element before:shadow-elem-bef after:shadow-elem-aft;
+            /*           @apply ts-project relative grid grid-cols-12 items-center;*/
+            &:not(:last-of-type) {
+                @apply mb-[30px] md:mb-[100px];
+            }
+
+            & .fp-img {
+                @apply relative z-[1] h-full rounded-xl bg-white/10 opacity-20 md:z-[-1] md:rounded-md md:opacity-30;
+                grid-area: 1 / 1 / -1 / -1;
+                @apply md:col-start-5;
+                & > * {
+                    @apply rounded-xl md:rounded-md;
+                }
+            }
+            & .fp-content {
+                @apply flex-col-top relative h-full py-6;
+                @apply md:items-start md:py-10 lg:pb-16 lg:pt-12;
+                grid-area: 1 / 1 / -1 / -1;
+                @apply md:col-end-9;
+                @apply lg:col-end-7;
+                & h3 {
+                    @apply w-full text-center md:text-left;
+                }
+                & .fp-tech {
+                    @apply flex-evenly min-w-[80%] py-2 text-center text-xs italic  lg:text-sm;
+                    & p {
+                        @apply w-full border-l-[1px] border-r-[1px] border-dashed border-teal px-3;
+                    }
+                }
+                & .fp-desc {
+                    @apply h-40 py-4 lg:h-48;
+                    & > div {
+                        @apply relative m-auto mx-2 block h-auto w-auto rounded p-4 indent-6 text-xs tracking-normal;
+                        box-shadow: 0px -2px 5px -2.5px theme(colors.grey);
+                        @apply bg-theme-background/75 md:shadow-xl md:shadow-black/50;
+                    }
+                }
+                & .fp-link {
+                    @apply top-6 my-4 px-8 py-2 italic;
+                    @apply styled-element z-10;
+                }
+            }
+        }
+        & li:nth-of-type(2n + 1) {
+            & .fp-img {
+                @apply md:col-start-1 md:col-end-9;
+            }
+            & .fp-content {
+                @apply md:col-start-5 md:col-end-[-1];
+                @apply lg:col-start-7 lg:col-end-[-1];
+                @apply md:items-end;
+                & h3 {
+                    @apply md:pr-4 md:text-right;
+                }
+
+                & .fp-link {
+                    @apply mt-0;
+                }
+            }
+        }
+    }
+}
+/* PROJECTS  */
+@layer components {
+    #projects {
+        & h3 {
+            @apply styled-heading-2;
+        }
+    }
+    .projects-content {
+        @apply relative grid grid-cols-1 items-center;
+        @apply md:grid-cols-2 lg:grid-cols-3;
+
+        & .pr {
+            @apply flex-col-left relative h-full w-full cursor-pointer py-4 px-6 text-white;
+            @apply ts-project;
+            background: linear-gradient(
+                to bottom left,
+                rgba(69, 162, 158, 0.25),
+                rgb(31, 40, 51)
+            );
+            & .pr-ghub {
+                @apply absolute top-4 right-6;
+            }
+            & .pr-wrap {
+                @apply w-full;
+
+                & h4 {
+                    @apply border-b-2 border-lightgrey/75 pb-2 text-white;
+                }
+                & > div {
+                    @apply w-full;
+                    & .pr-tech {
+                        @apply flex-left py-2 text-sm;
+                        & p {
+                            @apply border-l-[1px] border-r-[1px] border-dashed border-lightgrey/50 px-[15px];
+                        }
+                    }
+                    & .pr-desc {
+                        @apply py-2 text-left indent-5 text-sm;
+
+                        & p {
+                            @apply h-24 tracking-normal;
+                            /* height = lineHeight(1.5em) x max lines(4) = 6em  */
+                        }
+                    }
+                }
+            }
+            & img {
+                @apply opacity-10;
+            }
+        }
+    }
+}
+/* CONTACT  */
+@layer components {
+    #contact {
+        & h3 {
+            @apply styled-heading-2 text-xl;
+        }
+        & h2 {
+            @apply flex-center w-full bg-gradient-to-br from-grey to-teal  bg-clip-text text-4xl text-transparent;
+        }
+    }
+    .ct {
+        @apply flex-col-btw w-full;
+        @apply text-sm font-medium md:text-base lg:text-lg;
+        & h4 {
+            @apply py-4 text-center;
+        }
+    }
+    .ct-content {
+        @apply flex-center relative h-full w-full;
+        & > div {
+            @apply w-full text-center;
+
+            & span {
+                @apply relative inline-block;
+                & .mailto {
+                    @apply styled-link flex-center;
+                    & *:not(span) {
+                        @apply mx-[1px];
+                    }
+                }
+            }
+        }
+    }
+}

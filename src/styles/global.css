@@ -1,0 +1,219 @@
+@import './components.css';
+@import './sections.css';
+@tailwind base;
+@tailwind utilities;
+
+/* ================== BASE ================== */
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+        @apply block overflow-hidden;
+        @apply m-0 h-screen w-screen min-w-[320px] p-0;
+        @apply font-montserrat text-base font-normal tracking-tight text-grey;
+        line-height: 1.5;
+    }
+    h1 {
+        @apply text-6xl font-bold text-darkblack;
+    }
+
+    h2 {
+        @apply text-5xl font-semibold text-teal;
+    }
+    h3 {
+        @apply text-4xl font-medium text-teal;
+    }
+    h4 {
+        @apply text-3xl font-medium text-teal;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    p,
+    button {
+        @apply antialiased;
+    }
+}
+/* ================== UTILITIES ================== */
+/* FLEX BOXES */
+@layer utilities {
+    .flex-center {
+        @apply flex items-center justify-center;
+    }
+    .flex-top {
+        @apply flex items-start justify-center;
+    }
+    .flex-left {
+        @apply flex items-center justify-start;
+    }
+    .flex-btw {
+        @apply flex items-center justify-between;
+    }
+    .flex-evenly {
+        @apply flex items-start justify-evenly;
+    }
+
+    .flex-col-center {
+        @apply flex flex-col items-center justify-center;
+    }
+    .flex-col-top {
+        @apply flex flex-col items-center justify-start;
+    }
+    .flex-col-left {
+        @apply flex flex-col items-start justify-center;
+    }
+    .flex-col-btw {
+        @apply flex flex-col items-center justify-between;
+    }
+    .flex-col-evenly {
+        @apply flex flex-col items-center justify-evenly;
+    }
+}
+/* STYLED HEADINGS */
+@layer utilities {
+    .styled-heading {
+        @apply flex w-full items-center whitespace-nowrap pb-6 text-3xl font-semibold tracking-normal;
+        @apply pb-5 sm:pb-10 lg:pb-12;
+        &:before {
+            @apply mt-1 mr-[10px] text-2xl font-thin tracking-tight text-teal content-['0'counter(section)'.'];
+        }
+        &:after {
+            @apply mt-6 ml-5 block h-[1.5px] w-full rounded-full bg-gradient-to-l from-transparent to-teal content-[""];
+        }
+    }
+    .styled-heading-2 {
+        @apply flex w-full items-center whitespace-nowrap pb-4 tracking-tight;
+        @apply pb-4 sm:pb-8;
+        @apply text-lg font-normal;
+        &:before {
+            @apply mx-[10px] block h-[1.5px] w-full rounded-full bg-gradient-to-l from-tan via-tan to-transparent content-[""];
+        }
+        &:after {
+            @apply mx-[10px] block h-[1.5px] w-full rounded-full bg-gradient-to-r from-tan via-tan to-transparent content-[""];
+        }
+
+        & > span {
+            @apply flex items-center whitespace-nowrap;
+            &:before {
+                @apply mr-[10px] font-thin tracking-tighter text-teal content-['0'counter(section)'.'];
+            }
+        }
+    }
+}
+/* STYLED ELEMENT */
+@layer utilities {
+    :root {
+        --fade: 5px;
+        --fade-after: 5px;
+        --shift-1: 0px;
+        --shift-1-after: 2px;
+        --stroke: 0px;
+        --transform-coef: 0rem;
+        --transition: 0.2s ease-in-out;
+        --transition-after: 0.2s ease-in-out;
+
+        --shift-2: calc(var(--shift-1) * -1);
+        --shift-2-after: calc(var(--shift-1-after) * -1);
+        --transform-coef-2: calc(var(--transform-coef) * -1);
+    }
+    .styled-element {
+        @apply hover:activ;
+        @apply relative cursor-pointer rounded bg-eee;
+        &:before {
+            content: '';
+            box-shadow: var(--shift-1) var(--shift-1) var(--fade) var(--stroke)
+                theme(colors.tan);
+            transition: var(--transition);
+
+            @apply absolute top-0 right-0 bottom-0 left-0 -z-10 rounded;
+        }
+        &:after {
+            content: '';
+            box-shadow: var(--shift-2) var(--shift-2) var(--fade) var(--stroke)
+                theme(colors.neon);
+            transition: var(--transition);
+
+            @apply absolute top-0 right-0 bottom-0 left-0 -z-10 rounded;
+        }
+    }
+
+    .activ {
+        @apply text-teal;
+        &:before {
+            box-shadow: var(--shift-1-after) var(--shift-1-after)
+                var(--fade-after) var(--stroke) theme(colors.tan);
+            transform: translate(var(--transform-coef), var(--transform-coef));
+            transition: var(--transition-after);
+        }
+        &:after {
+            box-shadow: var(--shift-2-after) var(--shift-2-after)
+                var(--fade-after) var(--stroke) theme(colors.neon);
+            transform: translate(
+                var(--transform-coef-2),
+                var(--transform-coef-2)
+            );
+            transition: var(--transition-after);
+        }
+    }
+}
+/* STYLED LINKS  */
+@layer utilities {
+    .styled-link {
+        @apply relative cursor-pointer font-thin text-lightgrey;
+        transition: color 0.25s linear;
+        &:after {
+            content: '';
+            transition: transform 0.25s linear;
+            @apply absolute  bottom-0 left-0 h-[1.5px] w-full bg-neon;
+            @apply origin-bottom-right scale-x-0;
+        }
+        &:hover:after {
+            @apply origin-bottom-left scale-x-100;
+        }
+    }
+}
+
+/* TRANSITIONS */
+@layer utilities {
+    .ts-default {
+        @apply transition-all duration-250 ease-out;
+    }
+    /* navbar */
+    .ts-nav-up {
+        @apply transition-all duration-600 ease-in;
+    }
+    .ts-nav-down {
+        @apply transition-all duration-600 ease-out;
+    }
+    /* element */
+    .ts-elem {
+        @apply transition-all duration-300 ease-in;
+    }
+    .ts-elem-return {
+        @apply transition-all duration-300 ease-out;
+    }
+    /* image */
+    .ts-img {
+        @apply transition-all duration-600 ease-in;
+    }
+    .ts-img-return {
+        @apply transition-all duration-600 ease-out;
+    }
+    /* button */
+    .ts-button {
+        @apply transition-all duration-250 ease-out;
+    }
+    .ts-button-return {
+        @apply transition-all duration-350 ease-in;
+    }
+    /* project */
+    .ts-project {
+        @apply transition-opacity duration-600 ease-out;
+    }
+    .ts-project * {
+        transition: all 0.35s ease;
+    }
+}

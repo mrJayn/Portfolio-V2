@@ -3,6 +3,7 @@
         "baseUrl": "./",
         "paths": {
             "@components": ["src/components/index"],
+            "@item": ["src/components/items/*"],
             "@hooks": ["src/hooks/index"],
             "@styles/*": ["src/styles/*"],
             "@utils": ["src/utils/index.js"],

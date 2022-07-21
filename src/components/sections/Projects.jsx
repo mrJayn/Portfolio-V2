@@ -9,11 +9,10 @@ const Projects = () => {
             <h3>Other Projects by Me</h3>
             <div className="projects-content">
                 {data.projects.map((ap) => (
-                    <div className="pr useInView" key={ap.item}>
-                        <div className="pr-ghub">
+                    <div className="project useInView" key={ap.item}>
+                        <div className="gh-link">
                             <a
                                 href={ap.github}
-                                aria-label="GitHub Link"
                                 target="_blank"
                                 rel="noreferrer"
                             >
@@ -44,7 +43,7 @@ const Projects = () => {
                         </a>
                         <Image
                             src={ap.src}
-                            alt="/"
+                            alt={`${ap.title} Project Image`}
                             layout="fill"
                             objectFit="cover"
                         />

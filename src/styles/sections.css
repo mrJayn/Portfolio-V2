@@ -22,7 +22,7 @@
             @apply pb-2;
         }
         & > div:last-child {
-            @apply styled-element p-3 md:mx-auto;
+            @apply p-3 md:mx-auto;
         }
     }
 }
@@ -126,14 +126,12 @@
 /* FEATURED  */
 @layer components {
     #featured {
-        & h2 {
-            @apply styled-heading;
-        }
+        @apply w-full;
     }
     .featured-content {
         @apply w-full;
         & li {
-            @apply styled-element before:shadow-elem-bef after:shadow-elem-aft;
+            @apply before:shadow-elem-bef after:shadow-elem-aft;
             /*           @apply ts-project relative grid grid-cols-12 items-center;*/
             &:not(:last-of-type) {
                 @apply mb-[30px] md:mb-[100px];
@@ -172,7 +170,7 @@
                 }
                 & .fp-link {
                     @apply top-6 my-4 px-8 py-2 italic;
-                    @apply styled-element z-10;
+                    @apply z-10;
                 }
             }
         }
@@ -195,6 +193,37 @@
         }
     }
 }
+/* FEATURED TEST */
+@layer components {
+    .slider-container {
+        @apply relative w-full overflow-hidden;
+        @apply h-[500px] md:h-[490px] lg:h-[580px];
+    }
+
+    .slide {
+        @apply absolute top-0 left-24 right-24 bottom-0 rounded bg-eee;
+    }
+
+    /* position of indicator container */
+    .Indicators {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+    }
+
+    .Indicator-container {
+        padding: 20px;
+        cursor: pointer;
+    }
+
+    .Indicator {
+        @apply relative aspect-square h-3 rounded-full bg-darkblack;
+    }
+
+    .Indicator-highlight {
+        @apply absolute -top-1 -left-1 aspect-square h-5 rounded-full bg-neon/80;
+    }
+}
 /* PROJECTS  */
 @layer components {
     #projects {
@@ -206,15 +235,15 @@
         @apply relative grid grid-cols-1 items-center;
         @apply md:grid-cols-2 lg:grid-cols-3;
 
-        & .pr {
-            @apply flex-col-left relative h-full w-full cursor-pointer py-4 px-6 text-white;
-            @apply ts-project;
+        & .project {
+            @apply flex-col-left relative h-full w-full py-4 px-6 text-white;
+            @apply md:cursor-pointer;
             background: linear-gradient(
                 to bottom left,
                 rgba(69, 162, 158, 0.25),
                 rgb(31, 40, 51)
             );
-            & .pr-ghub {
+            & .gh-link {
                 @apply absolute top-4 right-6;
             }
             & .pr-wrap {

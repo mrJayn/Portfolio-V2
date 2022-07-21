@@ -38,40 +38,6 @@
     }
 }
 /* ================== UTILITIES ================== */
-/* FLEX BOXES */
-@layer utilities {
-    .flex-center {
-        @apply flex items-center justify-center;
-    }
-    .flex-top {
-        @apply flex items-start justify-center;
-    }
-    .flex-left {
-        @apply flex items-center justify-start;
-    }
-    .flex-btw {
-        @apply flex items-center justify-between;
-    }
-    .flex-evenly {
-        @apply flex items-start justify-evenly;
-    }
-
-    .flex-col-center {
-        @apply flex flex-col items-center justify-center;
-    }
-    .flex-col-top {
-        @apply flex flex-col items-center justify-start;
-    }
-    .flex-col-left {
-        @apply flex flex-col items-start justify-center;
-    }
-    .flex-col-btw {
-        @apply flex flex-col items-center justify-between;
-    }
-    .flex-col-evenly {
-        @apply flex flex-col items-center justify-evenly;
-    }
-}
 /* STYLED HEADINGS */
 @layer utilities {
     .styled-heading {
@@ -101,6 +67,13 @@
                 @apply mr-[10px] font-thin tracking-tighter text-teal content-['0'counter(section)'.'];
             }
         }
+    }
+}
+/* ELEMENTs */
+@layer utilities {
+    .basic {
+        @apply bg-eee;
+        box-shadow: 0 0 1px 1px theme(colors.black);
     }
 }
 /* STYLED ELEMENT */
@@ -162,7 +135,8 @@
 /* STYLED LINKS  */
 @layer utilities {
     .styled-link {
-        @apply relative cursor-pointer font-thin text-lightgrey;
+        @apply relative cursor-pointer font-thin text-black;
+
         transition: color 0.25s linear;
         &:after {
             content: '';
@@ -215,5 +189,40 @@
     }
     .ts-project * {
         transition: all 0.35s ease;
+    }
+}
+
+/* FLEX BOXES */
+@layer utilities {
+    .flex-center {
+        @apply flex items-center justify-center;
+    }
+    .flex-top {
+        @apply flex items-start justify-center;
+    }
+    .flex-left {
+        @apply flex items-center justify-start;
+    }
+    .flex-btw {
+        @apply flex items-center justify-between;
+    }
+    .flex-evenly {
+        @apply flex items-start justify-evenly;
+    }
+
+    .flex-col-center {
+        @apply flex flex-col items-center justify-center;
+    }
+    .flex-col-top {
+        @apply flex flex-col items-center justify-start;
+    }
+    .flex-col-left {
+        @apply flex flex-col items-start justify-center;
+    }
+    .flex-col-btw {
+        @apply flex flex-col items-center justify-between;
+    }
+    .flex-col-evenly {
+        @apply flex flex-col items-center justify-evenly;
     }
 }

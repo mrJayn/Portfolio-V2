@@ -1,5 +1,13 @@
 import Head from 'next/head'
-import { Intro, About, Featured, Projects, Contact, Layout } from '@components'
+import {
+    Intro,
+    About,
+    Featured,
+    Projects,
+    Contact,
+    Layout,
+    OtherProjects,
+} from '@components'
 
 export default function Home({ data }) {
     return (

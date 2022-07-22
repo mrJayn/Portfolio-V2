@@ -6,7 +6,7 @@ const Element = ({ children, href, vars = null, ...props }) => {
     const [hover, setHover] = useState(false)
     return (
         <motion.div
-            className={`styled-element ${hover ? 'active' : ''}`}
+            className={`element ${hover ? 'active' : ''}`}
             whileTap={{ scale: -1, borderRadius: '50%' }}
             onHoverStart={() => setHover(true)}
             onHoverEnd={() => setHover(false)}

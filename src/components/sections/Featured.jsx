@@ -1,53 +1,140 @@
-import { useState } from 'react'
-import Image from 'next/image'
-import { motion, useCycle, AnimateSharedLayout } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
+import { wrap } from '@popmotion/popcorn'
 
-import data from '@data'
+import { Featured_Item, Section } from '@components'
 
-import { Section } from '@components'
-import { Featured_Project } from '@components'
+const variants = {
+    enter: (direction) => ({
+        x: direction > 0 ? '100%' : '-100%',
+        opacity: 0,
+    }),
+    show: {
+        x: 0,
+        opacity: 1,
+        transition: { delay: 0.25, duration: 0.5, ease: 'easeOut' },
+    },
+    exit: (direction) => ({
+        x: direction < 0 ? '100%' : '-100%',
+        opacity: 0,
+        transition: { duration: 0.35, ease: 'easeIn' },
+    }),
+}
 
-const pages = [0, 1, 2]
+const slides = [0, 1, 2]
 
 const Featured = () => {
-    const [featuredProject, setFeaturedProject] = useCycle(
-        'project1',
-        'project2',
-        'project3'
-    )
+    // ========================
 
-    const [[currentSlide, direction], setCurrentPage] = useState([0, 0])
+    const [[currentSlide, direction], setSlide] = useState([0, 0])
+    const [reset, SetReset] = useState(false)
+    const i = wrap(0, slides.length, currentSlide)
+    const threshold = 100
 
-    function setPage(newPage, newDirection) {
-        if (!newDirection) newDirection = newPage - currentSlide
-        setCurrentPage([newPage, newDirection])
+    function detectGesture(e, { offset, velocity }) {
+        const swipe = Math.abs(offset.x) * velocity.x
+        const nextSlide = currentSlide
+
+        if (swipe < -threshold) {
+            paginate(1)
+            nextSlide = currentSlide + 1
+        } else if (swipe > threshold) {
+            paginate(-1)
+            nextSlide = currentSlide - 1
+        }
     }
+
+    const paginate = (newDirection) => {
+        if (
+            currentSlide + newDirection < slides.length &&
+            currentSlide + newDirection >= 0
+        ) {
+            // moving , normal
+            setSlide([currentSlide + newDirection, newDirection])
+        } else if (currentSlide + newDirection === slides.length) {
+            // last slide >> first slide
+            setSlide([0, newDirection])
+        } else if (currentSlide + newDirection === -1) {
+            // first slide >> last slide
+            setSlide([slides.length - 1, newDirection])
+        }
+    }
+
+    function handleIndicator(selectedSlide, newDirection) {
+        if (!newDirection) newDirection = selectedSlide - currentSlide
+        setSlide([selectedSlide, newDirection])
+    }
+
+    // If un-touched, slides will automatically sldie every 4 seconds
+    const handleDrag = () => {
+        SetReset(true)
+        setTimeout(() => {
+            SetReset(false)
+        }, 1000)
+    }
+
+    useEffect(() => {
+        if (reset) {
+            const interval = setInterval(() => {
+                if (currentSlide + 1 === slides.length) {
+                    setSlide([0, 1])
+                } else {
+                    setSlide([currentSlide + 1, 1])
+                }
+            }, 10000)
+            return () => clearInterval(interval)
+        }
+    }, [currentSlide, setSlide, reset])
 
     return (
         <Section id="featured">
-            <Featured_Project
-                currentPage={currentSlide}
-                direction={direction}
-                setPage={setPage}
+            <div className="slider-container">
+                <AnimatePresence initial={false} custom={direction}>
+                    <motion.div
+                        className="slide"
+                        data-slide={currentSlide}
+                        key={currentSlide}
+                        custom={direction}
+                        variants={variants}
+                        initial="enter"
+                        animate="show"
+                        exit="exit"
+                        drag="x"
+                        dragConstraints={{
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                        }}
+                        dragElastic={1}
+                        onDragEnd={detectGesture}
+                        onDrag={handleDrag}
+                    >
+                        <Featured_Item currentSlide={i} />
+                    </motion.div>
+                </AnimatePresence>
+            </div>
+            <SlideSelectors
+                currentSlide={currentSlide}
+                handleClick={handleIndicator}
             />
-            <SlideSelectors currentSlide={currentSlide} setPage={setPage} />
         </Section>
     )
 }
 
-const SlideSelectors = ({ currentSlide, setPage }) => {
+const SlideSelectors = ({ currentSlide, handleClick }) => {
     return (
-        <AnimateSharedLayout>
+        <LayoutGroup>
             <div className="Indicators">
-                {pages.map((page) => (
+                {slides.map((item) => (
                     <Indicator
-                        key={page}
-                        onClick={() => setPage(page)}
-                        isSelected={page === currentSlide}
+                        key={item}
+                        onClick={() => handleClick(item)}
+                        isSelected={item === currentSlide}
                     />
                 ))}
             </div>
-        </AnimateSharedLayout>
+        </LayoutGroup>
     )
 }
 
@@ -67,38 +154,3 @@ const Indicator = ({ isSelected, onClick }) => {
 }
 
 export default Featured
-
-/**
- * <ul className="featured-content">
-                <AnimatePresence>
-                    {data.featured.map((fp) => (
-                        <li className="fp useInView" key={fp.item}>
-                            <div className="fp-img">
-                                <Image
-                                    src={fp.src}
-                                    alt="/"
-                                    layout="fill"
-                                    objectFit="contain"
-                                    objectPosition="top"
-                                />
-                            </div>
-
-                            <div className="fp-content">
-                                <h3>{fp.title}</h3>
-                                <div className="fp-tech">
-                                    {fp.tech.map((i) => {
-                                        return <p key={i}>{i}</p>
-                                    })}
-                                </div>
-                                <div className="fp-desc">
-                                    <div>{fp.text}</div>
-                                </div>
-                                <div className="fp-link">
-                                    <a href={fp.url}>View on GitHub</a>
-                                </div>
-                            </div>
-                        </li>
-                    ))}
-                </AnimatePresence>
-            </ul>
- */

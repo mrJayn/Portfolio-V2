@@ -123,107 +123,118 @@
     }
 }
 
+/* FEATURED SLIDER */
+@layer components {
+    #featured {
+        & > div {
+            @apply h-full w-full;
+        }
+    }
+    .slider-container {
+        @apply relative w-full overflow-hidden;
+        @apply h-[350px] sm:h-[500px] md:h-[490px] lg:h-[580px];
+    }
+
+    .slide {
+        @apply absolute top-0 left-5 right-5 bottom-0 rounded bg-eee;
+    }
+    .slide[data-slide='0'] {
+        & h3 {
+            @apply text-teal;
+        }
+    }
+    .slide[data-slide='1'] {
+        & h3 {
+            @apply text-red;
+        }
+    }
+    .slide[data-slide='2'] {
+        & h3 {
+            @apply text-tan;
+        }
+    }
+
+    .Indicators {
+        @apply flex-center mt-1;
+        & .Indicator-container {
+            @apply cursor-pointer p-5;
+            & .Indicator {
+                @apply relative aspect-square h-3 rounded-full bg-darkblack;
+                & .Indicator-highlight {
+                    @apply absolute -top-1 -left-1 aspect-square h-5 rounded-full bg-neon/80;
+                }
+            }
+        }
+    }
+}
 /* FEATURED  */
 @layer components {
     #featured {
         @apply w-full;
     }
-    .featured-content {
-        @apply w-full;
-        & li {
-            @apply before:shadow-elem-bef after:shadow-elem-aft;
-            /*           @apply ts-project relative grid grid-cols-12 items-center;*/
-            &:not(:last-of-type) {
-                @apply mb-[30px] md:mb-[100px];
-            }
+    .featured-project {
+        @apply before:shadow-elem-bef after:shadow-elem-aft;
+        /*           @apply ts-project relative grid grid-cols-12 items-center;*/
+        &:not(:last-of-type) {
+            @apply mb-[30px] md:mb-[100px];
+        }
 
-            & .fp-img {
-                @apply relative z-[1] h-full rounded-xl bg-white/10 opacity-20 md:z-[-1] md:rounded-md md:opacity-30;
-                grid-area: 1 / 1 / -1 / -1;
-                @apply md:col-start-5;
-                & > * {
-                    @apply rounded-xl md:rounded-md;
-                }
-            }
-            & .fp-content {
-                @apply flex-col-top relative h-full py-6;
-                @apply md:items-start md:py-10 lg:pb-16 lg:pt-12;
-                grid-area: 1 / 1 / -1 / -1;
-                @apply md:col-end-9;
-                @apply lg:col-end-7;
-                & h3 {
-                    @apply w-full text-center md:text-left;
-                }
-                & .fp-tech {
-                    @apply flex-evenly min-w-[80%] py-2 text-center text-xs italic  lg:text-sm;
-                    & p {
-                        @apply w-full border-l-[1px] border-r-[1px] border-dashed border-teal px-3;
-                    }
-                }
-                & .fp-desc {
-                    @apply h-40 py-4 lg:h-48;
-                    & > div {
-                        @apply relative m-auto mx-2 block h-auto w-auto rounded p-4 indent-6 text-xs tracking-normal;
-                        box-shadow: 0px -2px 5px -2.5px theme(colors.grey);
-                        @apply bg-theme-background/75 md:shadow-xl md:shadow-black/50;
-                    }
-                }
-                & .fp-link {
-                    @apply top-6 my-4 px-8 py-2 italic;
-                    @apply z-10;
-                }
+        & .fp-img {
+            @apply relative z-[1] h-full rounded-xl bg-white/10 opacity-20 md:z-[-1] md:rounded-md md:opacity-30;
+            grid-area: 1 / 1 / -1 / -1;
+            @apply md:col-start-5;
+            & > * {
+                @apply rounded-xl md:rounded-md;
             }
         }
-        & li:nth-of-type(2n + 1) {
-            & .fp-img {
-                @apply md:col-start-1 md:col-end-9;
+        & .fp-content {
+            @apply flex-col-top relative h-full py-6;
+            @apply md:items-start md:py-10 lg:pb-16 lg:pt-12;
+            grid-area: 1 / 1 / -1 / -1;
+            @apply md:col-end-9;
+            @apply lg:col-end-7;
+            & h3 {
+                @apply w-full text-center md:text-left;
             }
-            & .fp-content {
-                @apply md:col-start-5 md:col-end-[-1];
-                @apply lg:col-start-7 lg:col-end-[-1];
-                @apply md:items-end;
-                & h3 {
-                    @apply md:pr-4 md:text-right;
+            & .fp-tech {
+                @apply flex-evenly min-w-[80%] py-2 text-center text-xs italic  lg:text-sm;
+                & p {
+                    @apply w-full border-l-[1px] border-r-[1px] border-dashed border-teal px-3;
                 }
+            }
+            & .fp-desc {
+                @apply h-40 py-4 lg:h-48;
+                & > div {
+                    @apply relative m-auto mx-2 block h-auto w-auto rounded p-4 indent-6 text-xs tracking-normal;
+                    box-shadow: 0px -2px 5px -2.5px theme(colors.grey);
+                    @apply bg-theme-background/75 md:shadow-xl md:shadow-black/50;
+                }
+            }
+            & .fp-link {
+                @apply top-6 my-4 px-8 py-2 italic;
+                @apply z-10;
+            }
+        }
+    }
+    & li:nth-of-type(2n + 1) {
+        & .fp-img {
+            @apply md:col-start-1 md:col-end-9;
+        }
+        & .fp-content {
+            @apply md:col-start-5 md:col-end-[-1];
+            @apply lg:col-start-7 lg:col-end-[-1];
+            @apply md:items-end;
+            & h3 {
+                @apply md:pr-4 md:text-right;
+            }
 
-                & .fp-link {
-                    @apply mt-0;
-                }
+            & .fp-link {
+                @apply mt-0;
             }
         }
     }
 }
-/* FEATURED TEST */
-@layer components {
-    .slider-container {
-        @apply relative w-full overflow-hidden;
-        @apply h-[500px] md:h-[490px] lg:h-[580px];
-    }
 
-    .slide {
-        @apply absolute top-0 left-24 right-24 bottom-0 rounded bg-eee;
-    }
-
-    /* position of indicator container */
-    .Indicators {
-        display: flex;
-        justify-content: center;
-        margin-top: 30px;
-    }
-
-    .Indicator-container {
-        padding: 20px;
-        cursor: pointer;
-    }
-
-    .Indicator {
-        @apply relative aspect-square h-3 rounded-full bg-darkblack;
-    }
-
-    .Indicator-highlight {
-        @apply absolute -top-1 -left-1 aspect-square h-5 rounded-full bg-neon/80;
-    }
-}
 /* PROJECTS  */
 @layer components {
     #projects {

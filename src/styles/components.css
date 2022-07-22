@@ -11,7 +11,7 @@
 /*  SECTIONS */
 @layer components {
     .section {
-        @apply h-auto w-full md:h-full;
+        @apply h-auto w-full md:h-auto;
     }
     .count-section {
         counter-increment: section 1;
@@ -22,22 +22,22 @@
     }
     .section {
         & .section-intro {
-            @apply h-screen;
+            @apply h-auto w-full md:h-screen;
         }
         & .section-about {
-            @apply h-full w-full;
+            @apply h-auto w-full md:h-screen;
         }
         & .section-exp {
-            @apply h-full w-full;
+            @apply h-auto w-full md:h-screen;
         }
         & .section-featured {
-            @apply h-full w-full;
+            @apply h-auto w-full md:h-screen;
         }
         & .section-projects {
-            @apply h-full w-full;
+            @apply h-auto w-full md:h-screen;
         }
         & .section-contact {
-            @apply h-full w-full;
+            @apply h-auto w-full md:h-screen;
         }
     }
 }
@@ -46,7 +46,7 @@
 /*  NAVBAR  */
 @layer components {
     #nav {
-        @apply fixed z-40 w-screen;
+        @apply fixed  z-40 w-full;
     }
     .nav-content {
         @apply flex-center h-12 w-full transform-none bg-theme-background px-2;

@@ -28,46 +28,24 @@ const data = {
         },
     },
 
-    navLinks: [
+    sectionLinks: [
         {
-            item: '1',
+            item: 'section-link-about',
             title: 'About',
             url: '/#about',
         },
         {
-            item: '2',
+            item: 'section-link-experience',
             title: 'Experience',
             url: '/#exp',
         },
         {
-            item: '3',
+            item: 'section-link-projects',
             title: 'Projects',
             url: '/#featured',
         },
         {
-            item: '4',
-            title: 'Contact',
-            url: '/#contact',
-        },
-    ],
-    menuLinks: [
-        {
-            item: '1',
-            title: 'About',
-            url: '/#about',
-        },
-        {
-            item: '2',
-            title: 'Experience',
-            url: '/#exp',
-        },
-        {
-            item: '3',
-            title: 'Projects',
-            url: '/#featured',
-        },
-        {
-            item: '4',
+            item: 'section-link-contact',
             title: 'Contact',
             url: '/#contact',
         },
@@ -148,7 +126,8 @@ const data = {
             title: 'Property Finder',
             category: 'none',
             tech: ['React', 'Javascript', 'FireBase', 'Tailwind'],
-            text: 'This is a descritpion Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam obcaecati aliquid dignissimos vero. Doloremque repellendus eveniet, eius commodi assumenda ut voluptate nesciunt! Repudiandae tenetur molestiae saepe suscipit, distinctio ullam nulla.',
+            description:
+                'This is a descritpion Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam obcaecati aliquid dignissimos vero. Doloremque repellendus eveniet, eius commodi assumenda ut voluptate nesciunt! Repudiandae tenetur molestiae saepe suscipit, distinctio ullam nulla.',
             src: assets.featured.property,
             github: 'https://github.com/bchiang7/spotify-profile',
             url: 'https://spotify-profile.herokuapp.com/',
@@ -158,7 +137,8 @@ const data = {
             title: 'ML Face Recognition Software',
             category: 'none',
             tech: ['Python', 'TensorFlow', 'Torch'],
-            text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, molestiae dolorum ad explicabo non nostrum ni dicta? Placeat rem animi amet minima praesentium architecto ab ut harum reprehenderit!',
+            description:
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, molestiae dolorum ad explicabo non nostrum ni dicta? Placeat rem animi amet minima praesentium architecto ab ut harum reprehenderit!',
             src: assets.featured.crypto,
             github: 'https://github.com/bchiang7/spotify-profile',
             url: 'https://spotify-profile.herokuapp.com/',
@@ -168,7 +148,8 @@ const data = {
             title: 'Soething Cool',
             category: 'none',
             tech: ['react', 'nextjs', 'framer-motion'],
-            text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, molestiae dolorum ad explicabo non nostrum ni dicta? Placeat rem animi amet minima praesentium architecto ab ut harum reprehenderit!',
+            description:
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, molestiae dolorum ad explicabo non nostrum ni dicta? Placeat rem animi amet minima praesentium architecto ab ut harum reprehenderit!',
             src: assets.projects.cohort,
             github: 'https://github.com/bchiang7/spotify-profile',
             url: 'https://spotify-profile.herokuapp.com/',
@@ -179,8 +160,8 @@ const data = {
             item: '1',
             title: 'Cohort Analysis',
             category: 'Data Analysis',
-            technologies: ['Python', 'Matplotlib', 'pandas', 'Seaborn'],
-            message: 'Cohort Analysis of retained customers over time',
+            tech: ['Python', 'Matplotlib', 'pandas'],
+            description: 'Cohort Analysis of retained customers over time',
             src: assets.projects.cohort,
             github: 'https://github.com/mrJayn/Cohort-Analysis',
             url: '/',
@@ -189,8 +170,8 @@ const data = {
             item: '2',
             title: 'Archived Project 2',
             category: '',
-            technologies: ['React', 'Nextjs', 'tech3'],
-            message: 'A simple front end design for my Web App',
+            tech: ['React', 'Nextjs', 'tech3'],
+            description: 'A simple front end design for my Web App',
             src: assets.projects.crypto,
             github: 'https://github.com/bchiang7/spotify-profile',
             url: '/',
@@ -199,8 +180,8 @@ const data = {
             item: '3',
             title: 'Archived Project 3',
             category: '',
-            technologies: ['Python', 'Tensorflow', 'Tech3'],
-            message:
+            tech: ['Python', 'Tensorflow', 'Tech3'],
+            description:
                 'A simple wrkt computational app made with python and tensorflow',
             src: assets.projects.property,
             github: 'https://github.com/bchiang7/spotify-profile',
@@ -210,8 +191,8 @@ const data = {
             item: '4',
             title: 'Archived Project 4',
             category: '',
-            technologies: ['React', 'Nextjs', 'tech3'],
-            message: 'A simple front end design for my Web App',
+            tech: ['React', 'Nextjs', 'tech3'],
+            description: 'A simple front end design for my Web App',
             src: assets.projects.crypto,
             github: 'https://github.com/bchiang7/spotify-profile',
             url: '/',
@@ -220,8 +201,8 @@ const data = {
             item: '5',
             title: 'Archived Project 5',
             category: '',
-            technologies: ['Python', 'Tensorflow', 'Tech3'],
-            message:
+            tech: ['Python', 'Tensorflow', 'Tech3'],
+            description:
                 'A simple wrkt computational app made with python and tensorflow',
             src: assets.projects.netflix,
             github: 'https://github.com/bchiang7/spotify-profile',
@@ -231,12 +212,22 @@ const data = {
             item: '6',
             title: 'Archived Project 6',
             category: '',
-            technologies: ['React', 'Nextjs', 'tech3'],
-            message: 'A simple front end design for my Web App',
+            tech: ['React', 'Nextjs', 'tech3'],
+            description: 'A simple front end design for my Web App',
             src: assets.projects.twitch,
             github: 'https://github.com/bchiang7/spotify-profile',
             url: '/',
         },
+        /*{
+            item: '',
+            title: 'Archived Project',
+            category: '',
+            tech: ['', '', ''],
+            description: '',
+            src: assets.projects. ,
+            github: '/',
+            url: '/',
+        },*/
     ],
     formInputs: [
         {

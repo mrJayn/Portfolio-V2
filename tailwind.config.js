@@ -10,20 +10,20 @@ module.exports = {
     ],
     theme: {
         screens: {
-            min: '320px',
-            sm: '420px',
+            sm: '410px',
             md: '768px',
             lg: '1024px',
-            max: '1440px',
         },
         colors: {
             darkblack: '#000',
             black: '#0b0c10',
+            charcoal: '#1b1c20',
             grey: '#1f2833',
             lightgrey: '#c5c6c7',
             white: '#fff',
             eee: '#eeeeee',
             teal: '#45a29e',
+            lightTeal: '#c1e8e6',
             neon: '#66fcf1',
             tan: '#deb992',
             red: '#dd0000',

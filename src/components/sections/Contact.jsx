@@ -33,29 +33,32 @@ const child = {
 
 const Contact = () => {
     return (
-        <Section id="contact" last={true}>
-            <h3>
-                <span>Whats Next?</span>
-            </h3>
-            <h2>Get in Touch</h2>
-            <div className="ct useInView">
-                <h4>I&apos;d love to hear from you!</h4>
-                <motion.div className="ct-content">
-                    <div>
-                        Whether you&apos;d like to contact me about a full time
-                        position or project you might be interested in building,
-                        You can leave me a message below, or at my&nbsp;
-                        <span>
-                            <Link href={`mailto:${data.personal.email}`}>
-                                <div className="mailto">
-                                    <span>email me</span>
-                                    <HiChevronDoubleRight />
-                                </div>
-                            </Link>
-                        </span>
-                    </div>
-                </motion.div>
-                <Form />
+        <Section id="contact">
+            <div className="contact-content">
+                <h3>
+                    <span>Whats Next?</span>
+                </h3>
+                <h2>Get in Touch</h2>
+                <div className="ct useInView">
+                    <h4>I&apos;d love to hear from you!</h4>
+                    <motion.div className="ct-content">
+                        <div>
+                            Whether you&apos;d like to contact me about a full
+                            time position or project you might be interested in
+                            building, You can leave me a message below, or at
+                            my&nbsp;
+                            <span>
+                                <Link href={`mailto:${data.personal.email}`}>
+                                    <div className="mailto">
+                                        <span>email me</span>
+                                        <HiChevronDoubleRight />
+                                    </div>
+                                </Link>
+                            </span>
+                        </div>
+                    </motion.div>
+                    <Form />
+                </div>
             </div>
         </Section>
     )

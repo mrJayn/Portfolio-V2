@@ -1,50 +1,27 @@
 import { motion } from 'framer-motion'
-import { useState } from 'react'
-import { theme } from 'tailwind.config'
-import { transparent } from 'tailwindcss/colors'
+import { myVariants } from '@utils'
+
+const [top, center, bottom] = [
+    myVariants.burger.top,
+    myVariants.burger.center,
+    myVariants.burger.bottom,
+]
 
 const Burger = ({
     isOpen = false,
     size = 20,
-    strokeWidth = 3,
-    color = theme.colors.teal,
     lineProps = null,
-    transition = { type: 'spring', stiffness: 260, damping: 20 },
+    transition = {
+        type: 'spring',
+        stiffness: 260,
+        damping: 25,
+    },
     ...props
 }) => {
     const variant = isOpen ? 'opened' : 'closed'
 
-    const top = {
-        closed: {
-            rotate: 0,
-            translateY: 0,
-        },
-        opened: {
-            rotate: 45,
-            translateY: 2,
-        },
-    }
-    const center = {
-        closed: {
-            opacity: 1,
-        },
-        opened: {
-            opacity: 0,
-        },
-    }
-    const bottom = {
-        closed: {
-            rotate: 0,
-            translateY: 0,
-        },
-        opened: {
-            rotate: -45,
-            translateY: -2,
-        },
-    }
     lineProps = {
-        strokeWidth: strokeWidth,
-        stroke: color,
+        strokeWidth: 3,
         vectorEffect: 'non-scaling-stroke',
         initial: 'closed',
         animate: variant,
@@ -91,4 +68,5 @@ const Burger = ({
         </motion.div>
     )
 }
+
 export default Burger

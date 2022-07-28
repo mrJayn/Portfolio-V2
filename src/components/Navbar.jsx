@@ -1,64 +1,34 @@
-import React, { useState, useEffect } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { animate, AnimatePresence, motion } from 'framer-motion'
-
-import data from '@data'
-import { spring, toggleScrolling } from '@utils'
-
-import { Menu, Burger } from '@components'
+import React, { useState, useEffect, useRef } from 'react'
 import { FaFileSignature } from 'react-icons/fa'
+import Link from 'next/link'
+import { motion } from 'framer-motion'
 
-const sections = data.navLinks
+import { myVariants, toggleScrolling } from '@utils'
+import { Menu, Burger } from '@components'
+import data from '@data'
 
-const parent = {
-    init: {
-        opacity: 0,
-        transition: { staggerChildren: 0.15, delayChildren: 0.2 },
-    },
-    show: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.15,
-            staggerDirection: 1,
-        },
-    },
-}
-const child = {
-    init: {
-        y: '-100px',
-        opacity: 0,
-        transition: spring,
-    },
-    show: {
-        y: '0px',
-        opacity: 1,
-        transition: spring,
-    },
-}
-
+const [parent, child_logo, child_link, parent_links, child] = [
+    myVariants.nav.parent,
+    myVariants.nav.child_logo,
+    myVariants.nav.child_links,
+    myVariants.nav.parent_links,
+    myVariants.nav.child,
+]
 const Navbar = ({ isLoading, basePath }) => {
-    const [anim, setAnim] = useState('init')
+    const [navState, setNavState] = useState('hidden')
     const [menuState, setMenuState] = useState(false)
-    const [banner, setBanner] = useState(false)
-    const [resumebtn, setResumrbtn] = useState(false)
-    const handleMenuClick = () => {
+    const [viewerDelay, setViewerDelay] = useState()
+    const ref = useRef()
+
+    // open/close Menu
+    function handleMenu() {
         setMenuState(!menuState)
-        toggleScrolling({ menuState })
+        toggleScrolling(menuState)
     }
-
-    useEffect(() => {
-        const handleBanner = () => {
-            setBanner(window.scrollY < 10)
-        }
-        window.addEventListener('scroll', handleBanner)
-
-        return () => window.removeEventListener('scroll', handleBanner)
-    }, [setBanner, basePath])
-
+    // setState/Hide Menu at Medium(768px) Breakpoint
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth > 1024 && menuState) {
+            if (window.innerWidth > 767 && menuState) {
                 setMenuState(!menuState)
                 toggleScrolling({ menuState })
             }
@@ -67,137 +37,78 @@ const Navbar = ({ isLoading, basePath }) => {
         return () => window.removeEventListener('resize', handleResize)
     }, [menuState])
 
+    // initialize animations after Loader
     useEffect(() => {
         if (!isLoading) {
-            setAnim('show')
-            setTimeout(() => {
-                setBanner(true)
-                setResumrbtn(true)
-            }, 2000)
+            setViewerDelay(ref.current.clientWidth < 768)
+            setNavState('show')
         }
     }, [isLoading, basePath])
 
     return (
-        <div className="nav" id="nav">
+        <div className="nav" id="nav" ref={ref}>
             <motion.div
                 className="nav-content"
+                data-state={navState}
                 initial={false}
-                animate={`${anim}`}
+                animate={navState}
                 variants={parent}
             >
                 {/** Hamburger **/}
-                <Burger isOpen={menuState} onClick={handleMenuClick} />
+                <Burger
+                    isOpen={menuState}
+                    onClick={handleMenu}
+                    variants={child}
+                />
 
                 {/** nav-Logo **/}
-                <motion.div className="nav-logo" variants={child}>
+                <motion.div className="nav-logo" variants={child_logo}>
                     <Link href="/#intro">
-                        <h1>MikeJayne</h1>
+                        <p>MikeJayne</p>
                     </Link>
                 </motion.div>
 
                 {/** Nav-Links **/}
-                <motion.div className="nav-links" variants={parent}>
-                    <ul>
-                        {sections.map((link) => (
+                <motion.div className="nav-links" variants={child}>
+                    <motion.ul variants={parent_links}>
+                        {data.sectionLinks.map((link) => (
                             <motion.li
                                 key={`nav-link-${link.item}`}
-                                variants={child}
+                                variants={child_link}
                             >
                                 <Link href={link.url}>{link.title}</Link>
                             </motion.li>
                         ))}
-                    </ul>
+                    </motion.ul>
                 </motion.div>
 
-                {/** Resume-Inline-Btn **/}
-                {resumebtn && <ResumeBtn banner={banner} basePath={basePath} />}
-                {ResumeBtn_small}
+                {/** Resume Buttons **/}
+                <motion.div className="nav-btns" variants={child}>
+                    {basePath && ResumeBtn}
+                </motion.div>
             </motion.div>
 
-            <ResumeBanner banner={banner} basePath={basePath} />
-
             {/** Menu **/}
-            <Menu state={menuState} handleClick={handleMenuClick} />
+            <Menu state={menuState} handleClick={handleMenu} />
         </div>
     )
 }
 
-const ResumeBtn = ({ banner, basePath }) => {
-    const variants = {
-        show: {
-            top: '0px',
-            opacity: 1,
-            transition: {
-                opacity: {
-                    duration: 0.25,
-                    delay: 0.25,
-                },
-                top: {
-                    duration: 0.5,
-                },
-            },
-        },
-        hide: {
-            top: '48px',
-            opacity: 0,
-            transition: {
-                opacity: {
-                    duration: 0.25,
-                },
-                top: {
-                    duration: 0.5,
-                },
-            },
-        },
-    }
-    return (
-        <AnimatePresence>
-            {basePath && !banner && (
-                <motion.div
-                    className="resume-btn"
-                    initial={'hide'}
-                    animate={'show'}
-                    exit={'hide'}
-                    variants={variants}
-                    data-title="Resume"
-                >
-                    <Link className href="/resume">
-                        <h1>Resume</h1>
-                    </Link>
-                </motion.div>
-            )}
-        </AnimatePresence>
-    )
-}
-const ResumeBtn_small = (
-    <div className="resume-symbol">
-        <Link href="/resume">
-            <FaFileSignature className="symbol" size={20} />
-        </Link>
-    </div>
+const ResumeBtn = (
+    <>
+        <div className="resume-btn-lg">
+            <Link href="/resume">
+                <p>Resume</p>
+            </Link>
+        </div>
+        <div className="resume-btn-sm" data-label="Resume">
+            <Link href="/resume">
+                <a>
+                    <FaFileSignature className="symbol" />
+                </a>
+            </Link>
+        </div>
+    </>
 )
-const ResumeBanner = ({ banner, basePath }) => {
-    return (
-        <AnimatePresence>
-            {basePath && banner && (
-                <motion.div
-                    className="resume-banner"
-                    initial={{ top: '-12px' }}
-                    animate={{
-                        top: '48px',
-                    }}
-                    exit={{ top: '-12px' }}
-                    transition={{
-                        duration: 0.5,
-                    }}
-                >
-                    <Link href="/resume">
-                        <span>Check out my Resume!</span>
-                    </Link>
-                </motion.div>
-            )}
-        </AnimatePresence>
-    )
-}
 
 export default Navbar

@@ -1,54 +1,41 @@
-import Image from 'next/image'
-import { Section } from '@components'
-import { FaGithub } from 'react-icons/fa'
-import data from '@data'
+import { useState, useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
+import { Section, Project_Items } from '@components'
 
 const Projects = () => {
+    const [width, setWidth] = useState(0)
+    const REF = useRef()
+
+    useEffect(() => {
+        setWidth(REF.current.scrollWidth - REF.current.offsetWidth)
+    }, [width])
+
     return (
-        <Section id="projects" count={false} subsection={true}>
-            <h3>Other Projects by Me</h3>
+        <Section id="projects" count={false}>
             <div className="projects-content">
-                {data.projects.map((ap) => (
-                    <div className="project useInView" key={ap.item}>
-                        <div className="gh-link">
-                            <a
-                                href={ap.github}
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                <FaGithub size={25} />
-                            </a>
-                        </div>
-                        <a
-                            href="visit-project"
-                            aria-label="Project Link"
-                            target="_blank"
-                            className="pr-wrap"
+                <h3>Other Projects by Me</h3>
+                <motion.div className="projects-wrap">
+                    {/** SLIDER-WRAP **/}
+                    <motion.div className="slider-wrap" ref={REF}>
+                        {/** SLIDER **/}
+                        <motion.div
+                            className="slider"
+                            drag="x"
+                            dragConstraints={{
+                                right: 0,
+                                left: -width,
+                            }}
+                            dragTransition={{
+                                bounceStiffness: 600,
+                                bounceDamping: 30,
+                            }}
+                            whileTap={{ cursor: 'grabbing' }}
                         >
-                            <h4>{ap.title}</h4>
-                            <div>
-                                <div className="pr-tech">
-                                    {ap.technologies.map((item) => {
-                                        return (
-                                            <p className="tech-item" key={item}>
-                                                {item}
-                                            </p>
-                                        )
-                                    })}
-                                </div>
-                                <div className="pr-desc">
-                                    <p>{ap.message}</p>
-                                </div>
-                            </div>
-                        </a>
-                        <Image
-                            src={ap.src}
-                            alt={`${ap.title} Project Image`}
-                            layout="fill"
-                            objectFit="cover"
-                        />
-                    </div>
-                ))}
+                            {/** PROJECT **/}
+                            <Project_Items />
+                        </motion.div>
+                    </motion.div>
+                </motion.div>
             </div>
         </Section>
     )

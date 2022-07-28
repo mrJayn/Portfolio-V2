@@ -1,63 +1,91 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { FaGithub, FaCodepen, FaLinkedinIn } from 'react-icons/fa'
+import { AiOutlineMail } from 'react-icons/ai'
+import data from '@data'
 
-const container_variants = {
-    open: {
-        transition: { staggerChildren: 0.07, delayChildren: 0.2 },
-    },
-    closed: {
-        transition: {
-            staggerChildren: 0.05,
-            staggerDirection: -1,
-        },
-    },
-}
-const item_variants = {
-    open: {
-        y: 0,
-        opacity: 1,
-        transition: {
-            y: { stiffness: 1000, velocity: -100 },
-        },
-    },
-    closed: {
-        y: 50,
-        opacity: 0,
-        transition: {
-            y: { stiffness: 1000 },
-        },
-    },
-}
-
-const MenuLink = ({ link, handleClick, variants }) => {
+const MenuContent = ({ menuState, handleClick, parent, child }) => {
+    const dy = 10
     return (
-        <motion.li
-            onClick={handleClick}
-            variants={variants}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
+        <motion.div
+            className="menu-content"
+            initial={false}
+            animate={menuState}
         >
-            <Link href={link.url}>{link.title}</Link>
-        </motion.li>
+            {/** LINKS **/}
+            <motion.ul
+                className="menu-sections"
+                variants={parent}
+                custom={true}
+            >
+                {data.sectionLinks.map((link) => (
+                    <motion.li
+                        key={`section-link-${link.item}`}
+                        onClick={handleClick}
+                        variants={child}
+                        whileTap={{ scale: 0.95 }}
+                    >
+                        <Link href={link.url}>{link.title}</Link>
+                    </motion.li>
+                ))}
+            </motion.ul>
+            {/** FOOTER  **/}
+            <motion.div
+                className="menu-footer"
+                variants={parent}
+                custom={false}
+            >
+                {/** FOOTER RESUME **/}
+                <motion.div
+                    className="menu-resume"
+                    variants={child}
+                    custom={dy}
+                    onClick={handleClick}
+                >
+                    <Link href="/resume">
+                        <p>Resume</p>
+                    </Link>
+                </motion.div>
+                {/** FOOTER LINKS **/}
+                <motion.a
+                    href={data.personal.social.github.url}
+                    variants={child}
+                    custom={dy}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <FaGithub />
+                </motion.a>
+                <motion.a
+                    href={data.personal.social.codepen.url}
+                    variants={child}
+                    custom={dy}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <FaCodepen />
+                </motion.a>
+                <motion.a
+                    href={data.personal.social.linkedin.url}
+                    variants={child}
+                    custom={dy}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <FaLinkedinIn />
+                </motion.a>
+                <motion.a
+                    href={data.personal.social.gmail.url}
+                    variants={child}
+                    custom={dy}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <AiOutlineMail />
+                </motion.a>
+            </motion.div>
+        </motion.div>
     )
 }
 
-const MenuContent = ({ sections, handleClick }) => {
-    return (
-        <div className="menu-content">
-            <motion.div variants={container_variants} className="menu-links">
-                <ul>
-                    {sections.map((i) => (
-                        <MenuLink
-                            key={`menu-link-${i.item}`}
-                            link={i}
-                            handleClick={handleClick}
-                            variants={item_variants}
-                        />
-                    ))}
-                </ul>
-            </motion.div>
-        </div>
-    )
-}
 export default MenuContent

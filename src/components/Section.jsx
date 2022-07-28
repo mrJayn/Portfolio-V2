@@ -10,10 +10,11 @@ const Section = ({ children, id, count = true, ...props }) => {
         animate()
     }, [])
     return (
-        <section className={`section ${count && 'count-section'}`} id={id}>
-            <div className={`useInView section-container section-${id}`}>
-                {children}
-            </div>
+        <section
+            className={`section useInView ${count && 'count-section'}`}
+            id={id}
+        >
+            <div>{children}</div>
         </section>
     )
 }

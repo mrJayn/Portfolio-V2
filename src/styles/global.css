@@ -6,7 +6,8 @@
 /* ================== BASE ================== */
 @layer base {
     html {
-        scroll-behavior: smooth;
+        @apply snap-y snap-mandatory;
+        @apply scroll-smooth md:snap-none;
     }
     body {
         @apply block overflow-hidden;
@@ -41,8 +42,8 @@
 /* STYLED HEADINGS */
 @layer utilities {
     .styled-heading {
-        @apply flex w-full items-center whitespace-nowrap pb-6 text-3xl font-semibold tracking-normal;
-        @apply pb-5 sm:pb-10 lg:pb-12;
+        @apply flex w-full items-center whitespace-nowrap text-3xl font-semibold tracking-normal;
+        @apply pb-0 sm:pb-10 lg:pb-12;
         &:before {
             @apply mt-1 mr-[10px] text-2xl font-thin tracking-tight text-teal content-['0'counter(section)'.'];
         }
@@ -51,8 +52,8 @@
         }
     }
     .styled-heading-2 {
-        @apply flex w-full items-center whitespace-nowrap pb-4 tracking-tight;
-        @apply pb-4 sm:pb-8;
+        @apply flex w-full items-center whitespace-nowrap tracking-tight;
+        @apply pb-0 sm:pb-8;
         @apply text-lg font-normal;
         &:before {
             @apply mx-[10px] block h-[1.5px] w-full rounded-full bg-gradient-to-l from-tan via-tan to-transparent content-[""];
@@ -60,7 +61,6 @@
         &:after {
             @apply mx-[10px] block h-[1.5px] w-full rounded-full bg-gradient-to-r from-tan via-tan to-transparent content-[""];
         }
-
         & > span {
             @apply flex items-center whitespace-nowrap;
             &:before {
@@ -135,9 +135,9 @@
 /* STYLED LINKS  */
 @layer utilities {
     .styled-link {
-        @apply relative cursor-pointer font-thin text-black;
+        @apply relative cursor-pointer text-black;
 
-        transition: color 0.25s linear;
+        transition: transform 0.25s linear;
         &:after {
             content: '';
             transition: transform 0.25s linear;
@@ -145,6 +145,34 @@
             @apply origin-bottom-right scale-x-0;
         }
         &:hover:after {
+            @apply origin-bottom-left scale-x-100;
+        }
+    }
+}
+/* STYLED LI  */
+@layer utilities {
+    .styled-li {
+        @apply text-lightgrey hover:text-white;
+        transition: 0.25s linear;
+        counter-increment: item 1;
+        &:before {
+            content: '0' counter(item) '.';
+            transition: 0.25s linear;
+            @apply mr-[5px] text-[80%] italic tracking-normal text-white;
+        }
+        &:hover:before {
+            @apply text-neon;
+        }
+        & a {
+            @apply relative w-full pb-1;
+            &:after {
+                content: '';
+                transition: transform 0.25s 0.1s linear;
+                @apply absolute bottom-0 left-0 h-[1.5px] w-full bg-neon;
+                @apply origin-bottom-right scale-x-0;
+            }
+        }
+        &:hover a:after {
             @apply origin-bottom-left scale-x-100;
         }
     }
@@ -191,7 +219,6 @@
         transition: all 0.35s ease;
     }
 }
-
 /* FLEX BOXES */
 @layer utilities {
     .flex-center {

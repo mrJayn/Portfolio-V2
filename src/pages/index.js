@@ -9,9 +9,10 @@ import {
     Experience,
 } from '@components'
 
-export default function Home({ data }) {
+export default function Home() {
     return (
-        <div>
+        <>
+            {/**  fragment above, for majority of dev. was a DIV  **/}
             <Head>
                 <title>MikeJayne.com</title>
                 <meta
@@ -27,6 +28,6 @@ export default function Home({ data }) {
                 <Projects />
                 <Contact />
             </Layout>
-        </div>
+        </>
     )
 }

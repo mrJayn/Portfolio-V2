@@ -15,76 +15,98 @@ SPRING DEFAULTS =
     },
 */
 
+const default_spring = {
+    type: 'spring',
+    stiffness: 150,
+    damping: 30,
+    velocity: 50,
+}
+
 export const myVariants = {
+    entry: {
+        hide: {
+            opacity: 0,
+            y: '-10px',
+        },
+        enter: {
+            opacity: 1,
+            y: '0px',
+        },
+        exit: {
+            opacity: 0,
+            y: '10px',
+            transitionEnd: { y: '0px' },
+        },
+    },
     nav: {
         parent: {
             show: {
-                opacity: 1,
-                transition: {
-                    when: 'beforeChildren',
-                    staggerChildren: 0.5,
-                    staggerDirection: 1,
-                },
+                transition: default_spring,
             },
-            hidden: {
-                opacity: 0,
-            },
+            hidden: {},
         },
         child: {
-            show: {
-                when: 'beforeChildren',
-                y: '0px',
+            show: (largeScreen = false) => ({
                 opacity: 1,
+                y: 0,
                 transition: {
-                    type: 'spring',
-                    stiffness: 1000,
-                    velocity: 300,
-                    restDelta: 0.02,
+                    delay: largeScreen ? 1.5 : 0,
+                    duration: 0.5,
                 },
-            },
+            }),
             hidden: {
-                y: '-25px',
                 opacity: 0,
+                transition: default_spring,
             },
         },
-        child_logo: {
-            show: {
+
+        logo: {
+            show: (largeScreen = false) => ({
                 opacity: [
                     0, 0.5, 0.25, 0.75, 0.1, 0.75, 0, 0, 0, 0, 0.5, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0.5, 0.25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5,
                     0.25, 0.75, 1,
                 ],
                 transition: {
-                    delay: 1.25,
+                    when: 'afterChildren',
+                    delay: largeScreen ? 2 : 1.25,
                     duration: 1.5,
                 },
-            },
+            }),
             hidden: {
                 opacity: 0,
+                transition: default_spring,
             },
         },
-        child_links: {
+        links: {
             show: {
                 opacity: 1,
                 transition: {
-                    duration: 0.25,
-                },
-            },
-            hidden: {
-                opacity: 0,
-            },
-        },
-        parent_links: {
-            show: {
-                opacity: 1,
-                transition: {
-                    when: 'beforeChildren',
-                    staggerChildren: 0.07,
+                    staggerChildren: 0.1,
                     staggerDirection: 1,
                 },
             },
             hidden: {
                 opacity: 0,
+                transition: {
+                    exitTransition: default_spring,
+                    when: 'beforeChildren',
+                },
+            },
+        },
+        links_child: {
+            show: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                    type: 'spring',
+                    stiffness: 150,
+                    damping: 30,
+                    velocity: 50,
+                },
+            },
+            hidden: {
+                y: '-50px',
             },
         },
     },

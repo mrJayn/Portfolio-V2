@@ -132,6 +132,19 @@
         }
     }
 }
+/* STYLED IMAGE  */
+@layer utilities {
+    .styled-image {
+        @apply styled-element rounded;
+        &:after,
+        &:before {
+            @apply rounded;
+        }
+        & img {
+            @apply rounded;
+        }
+    }
+}
 /* STYLED LINKS  */
 @layer utilities {
     .styled-link {
@@ -177,7 +190,6 @@
         }
     }
 }
-
 /* TRANSITIONS */
 @layer utilities {
     .ts-default {

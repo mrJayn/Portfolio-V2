@@ -4,49 +4,52 @@
 :root {
     --nav-height: 48px;
 }
-
+@layer components {
+    .progress-background {
+        @apply fixed top-0 left-0  z-10 h-screen w-screen  bg-gradient-to-b from-charcoal via-black to-charcoal;
+    }
+    .progress-square {
+        @apply fixed top-[50%] left-0  z-10 h-3 w-3 origin-bottom rounded-sm md:h-6 md:w-6;
+    }
+}
 /* ================================================================ */
 /* LAYOUT - px */
 @layer components {
-    .layout {
-        @apply relative w-screen md:px-2;
+    #layout {
+        @apply relative w-screen;
     }
 }
 /*  SECTIONS - py */
 @layer components {
     .section {
         @apply mb-24 md:mb-0;
-        @apply relative h-screen w-full max-w-[1240px];
+        @apply relative h-screen w-full max-w-[1440px] lg:mx-auto;
 
         & > div {
-            @apply h-full snap-start;
+            @apply h-full w-full snap-start;
         }
     }
     .count-section {
         counter-increment: section 1;
     }
 }
-
 /*  NAVBAR  */
 @layer components {
     .nav {
         @apply fixed z-40 w-full;
     }
     .nav-content {
-        @apply flex-center h-12 w-full transform-none bg-charcoal px-2;
-        @apply md:flex-btw lg:px-10;
+        @apply flex-center h-12 w-full transform-none bg-charcoal;
+        @apply md:flex-btw md:px-4 lg:px-16;
     }
-    .nav-content[data-state='hidden'] {
-        @apply invisible;
-    }
+
     .nav-logo {
         @apply z-10;
-        border: solid 1px red;
-
         & p {
             text-shadow: 0 0 3px theme(colors.neon);
-            @apply cursor-pointer text-lg font-medium uppercase text-white duration-250 ease-in;
-            @apply hover:text-lightTeal hover:duration-350 hover:ease-out;
+            @apply cursor-pointer text-2xl font-medium uppercase text-white duration-250 ease-in;
+            @apply hover:text-lightTeal;
+            @apply md:text-lg;
         }
     }
     .nav-links {
@@ -62,17 +65,19 @@
         }
     }
     .nav-btns {
+        @apply flex-center;
+        @apply absolute right-3 top-0 z-10 h-full text-teal;
+        @apply md:relative md:right-0 md:text-white;
+
         & .resume-btn-lg {
-            @apply right-0 top-0 hidden;
-            @apply md:flex-center;
-            border: solid 1px red;
+            @apply md:flex-center hidden;
             & p {
-                @apply z-10 cursor-pointer text-lg font-semibold uppercase text-white duration-250 ease-in;
-                @apply hover:text-lightTeal hover:duration-350 hover:ease-out;
+                @apply cursor-pointer text-lg font-semibold uppercase  duration-250 ease-in;
+                @apply hover:text-lightTeal;
             }
         }
         & .resume-btn-sm {
-            @apply flex-center absolute right-4 top-0 z-10 h-12 cursor-pointer text-[28px] text-teal duration-150 ease-in;
+            @apply flex-center cursor-pointer text-[28px]  duration-250 ease-in;
             @apply hover:text-neon;
             @apply md:hidden;
             &:after {
@@ -93,7 +98,7 @@
         @apply flex-center absolute left-0 z-50 m-auto cursor-pointer rounded bg-transparent px-4;
         @apply md:hidden;
         & * {
-            @apply stroke-teal duration-100 ease-linear;
+            @apply stroke-teal transition-colors duration-250 ease-in;
         }
         &:hover {
             & * {
@@ -279,33 +284,18 @@
 /* FOOTER */
 @layer components {
     .footer {
-        @apply flex-col-center w-screen pt-4;
-        & * {
-            @apply text-xs;
-        }
-        & > p:first-child span {
-            @apply styled-link cursor-default;
-        }
-    }
-}
-
-/* ================================================================ */
-/* STYLED ELEMENT */
-/* STYLED IMAGE  */
-@layer components {
-    .styled-image {
-        @apply styled-element rounded;
-        &:after,
-        &:before {
-            @apply rounded;
-        }
-        & img {
-            @apply rounded;
+        @apply flex-col-center w-screen pt-4 pb-2 text-center text-sm font-medium uppercase text-grey/50;
+        & p:first-child span {
+            @apply styled-link font-robotoMono text-base;
+            @apply cursor-default  text-black;
+            text-transform: capitalize;
+            &:after {
+                @apply bg-black;
+            }
         }
     }
 }
 
-/* ================================================================ */
 /* LOADER */
 @layer components {
     .loader-wrap {

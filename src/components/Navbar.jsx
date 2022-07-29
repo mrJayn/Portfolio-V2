@@ -1,25 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { FaFileSignature } from 'react-icons/fa'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
+import { FaFileSignature } from 'react-icons/fa'
 
 import { myVariants, toggleScrolling } from '@utils'
 import { Menu, Burger } from '@components'
 import data from '@data'
 
-const [parent, child_logo, child_link, parent_links, child] = [
+const [parent, child, logo, links, links_child] = [
     myVariants.nav.parent,
-    myVariants.nav.child_logo,
-    myVariants.nav.child_links,
-    myVariants.nav.parent_links,
     myVariants.nav.child,
+    myVariants.nav.logo,
+    myVariants.nav.links,
+    myVariants.nav.links_child,
 ]
-const Navbar = ({ isLoading, basePath }) => {
+
+const Navbar = ({ isLoading, isMain }) => {
     const [navState, setNavState] = useState('hidden')
     const [menuState, setMenuState] = useState(false)
-    const [viewerDelay, setViewerDelay] = useState()
+    const [largeScreen, setLargeScreen] = useState()
     const ref = useRef()
-
     // open/close Menu
     function handleMenu() {
         setMenuState(!menuState)
@@ -40,57 +40,77 @@ const Navbar = ({ isLoading, basePath }) => {
     // initialize animations after Loader
     useEffect(() => {
         if (!isLoading) {
-            setViewerDelay(ref.current.clientWidth < 768)
+            setLargeScreen(ref.current.clientWidth > 767)
             setNavState('show')
         }
-    }, [isLoading, basePath])
+    }, [isLoading])
 
     return (
-        <div className="nav" id="nav" ref={ref}>
-            <motion.div
-                className="nav-content"
-                data-state={navState}
-                initial={false}
-                animate={navState}
-                variants={parent}
-            >
-                {/** Hamburger **/}
-                <Burger
-                    isOpen={menuState}
-                    onClick={handleMenu}
-                    variants={child}
-                />
+        <AnimatePresence exitBeforeEnter>
+            {!isLoading && (
+                <motion.nav
+                    className="nav"
+                    id="nav"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    ref={ref}
+                >
+                    {/** Menu **/}
+                    <Menu state={menuState} handleClick={handleMenu} />
+                    {/** NAV **/}
+                    <motion.div
+                        className="nav-content"
+                        initial={false}
+                        animate={navState}
+                        variants={parent}
+                        custom={largeScreen}
+                    >
+                        {/** Hamburger **/}
+                        <Burger
+                            state={menuState}
+                            variants={child}
+                            onClick={handleMenu}
+                        />
 
-                {/** nav-Logo **/}
-                <motion.div className="nav-logo" variants={child_logo}>
-                    <Link href="/#intro">
-                        <p>MikeJayne</p>
-                    </Link>
-                </motion.div>
+                        {/** nav-Logo **/}
+                        <motion.div
+                            className="nav-logo"
+                            variants={logo}
+                            custom={largeScreen}
+                        >
+                            <Link href="/#intro">
+                                <p>MikeJayne</p>
+                            </Link>
+                        </motion.div>
 
-                {/** Nav-Links **/}
-                <motion.div className="nav-links" variants={child}>
-                    <motion.ul variants={parent_links}>
-                        {data.sectionLinks.map((link) => (
-                            <motion.li
-                                key={`nav-link-${link.item}`}
-                                variants={child_link}
-                            >
-                                <Link href={link.url}>{link.title}</Link>
-                            </motion.li>
-                        ))}
-                    </motion.ul>
-                </motion.div>
+                        {/** Nav-Links **/}
+                        <motion.div className="nav-links" variants={child}>
+                            <motion.ul variants={links}>
+                                {data.sectionLinks.map((link) => (
+                                    <motion.li
+                                        key={`nav-link-${link.item}`}
+                                        variants={links_child}
+                                    >
+                                        <Link href={link.url}>
+                                            {link.title}
+                                        </Link>
+                                    </motion.li>
+                                ))}
+                            </motion.ul>
+                        </motion.div>
 
-                {/** Resume Buttons **/}
-                <motion.div className="nav-btns" variants={child}>
-                    {basePath && ResumeBtn}
-                </motion.div>
-            </motion.div>
-
-            {/** Menu **/}
-            <Menu state={menuState} handleClick={handleMenu} />
-        </div>
+                        {/** Resume Buttons **/}
+                        <motion.div
+                            className="nav-btns"
+                            variants={child}
+                            custom={largeScreen}
+                        >
+                            {isMain && ResumeBtn}
+                        </motion.div>
+                    </motion.div>
+                </motion.nav>
+            )}
+        </AnimatePresence>
     )
 }
 

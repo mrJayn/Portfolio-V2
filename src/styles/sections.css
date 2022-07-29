@@ -9,7 +9,6 @@
         & * {
             @apply text-center md:text-left;
         }
-
         & > div:first-child {
             @apply flex-center;
         }
@@ -33,7 +32,6 @@
         @apply flex-col-center h-full w-full;
         @apply grid-cols-2 gap-3 md:grid;
     }
-
     .about {
         @apply overflow-y-scroll;
     }
@@ -133,7 +131,6 @@
             }
         }
     }
-
     .featured-project {
         @apply before:shadow-elem-bef after:shadow-elem-aft;
         /*           @apply ts-project relative grid grid-cols-12 items-center;*/

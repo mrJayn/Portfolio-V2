@@ -8,7 +8,7 @@ const [top, center, bottom] = [
 ]
 
 const Burger = ({
-    isOpen = false,
+    state,
     size = 20,
     lineProps = null,
     transition = {
@@ -18,13 +18,11 @@ const Burger = ({
     },
     ...props
 }) => {
-    const variant = isOpen ? 'opened' : 'closed'
-
     lineProps = {
         strokeWidth: 3,
         vectorEffect: 'non-scaling-stroke',
         initial: 'closed',
-        animate: variant,
+        animate: state ? 'opened' : 'closed',
         transition,
         ...lineProps,
     }

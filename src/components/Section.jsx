@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { srConfig } from 'src/utils/sr'
+import srConfig from '@utils'
 
 const Section = ({ children, id, count = true, ...props }) => {
     useEffect(() => {
@@ -11,10 +11,12 @@ const Section = ({ children, id, count = true, ...props }) => {
     }, [])
     return (
         <section
-            className={`section useInView ${count && 'count-section'}`}
+            className={`useInView relative mb-24 h-screen w-full max-w-[1440px] md:mb-0 lg:mx-auto  ${
+                count && 'count-section'
+            }`}
             id={id}
         >
-            <div>{children}</div>
+            <div className="h-full w-full snap-start">{children}</div>
         </section>
     )
 }

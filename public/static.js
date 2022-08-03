@@ -30,23 +30,19 @@ const data = {
 
     sectionLinks: [
         {
-            item: 'section-link-about',
-            title: 'About',
+            title: 'about',
             url: '/#about',
         },
         {
-            item: 'section-link-experience',
-            title: 'Experience',
-            url: '/#exp',
+            title: 'experience',
+            url: '/#experience',
         },
         {
-            item: 'section-link-projects',
-            title: 'Projects',
+            title: 'projects',
             url: '/#featured',
         },
         {
-            item: 'section-link-contact',
-            title: 'Contact',
+            title: 'contact',
             url: '/#contact',
         },
     ],

@@ -20,7 +20,7 @@ const MenuContent = ({ menuState, handleClick, parent, child }) => {
             >
                 {data.sectionLinks.map((link) => (
                     <motion.li
-                        key={`section-link-${link.item}`}
+                        key={`menu-linkTo-${link.title}`}
                         onClick={handleClick}
                         variants={child}
                         whileTap={{ scale: 0.95 }}

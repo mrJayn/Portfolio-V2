@@ -1,15 +1,14 @@
 import { motion } from 'framer-motion'
-import { myVariants } from '@utils'
+import { menu_vars } from '@variants'
 import MenuContent from './MenuContent'
-
-const [menu_clip, parent, child] = [
-    myVariants.menu.menu_clip,
-    myVariants.menu.parent,
-    myVariants.menu.child,
-]
 
 const Menu = ({ state, handleClick }) => {
     const menuState = state ? 'show' : 'hide'
+    const [menu_clip, parent, child] = [
+        menu_vars.menu_clip,
+        menu_vars.parent,
+        menu_vars.child,
+    ]
     return (
         <motion.div
             className="menu"

@@ -5,6 +5,7 @@ import { HiX } from 'react-icons/hi'
 
 import { Section, Cards, Skills } from '@components'
 import data from '@data'
+
 import { toggleScrolling } from '@utils'
 
 const About = () => {

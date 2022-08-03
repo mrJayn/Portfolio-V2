@@ -2,13 +2,14 @@
     "compilerOptions": {
         "baseUrl": "./",
         "paths": {
-            "@components": ["src/components/index"],
-            "@item": ["src/components/items/*"],
-            "@hooks": ["src/hooks/index"],
-            "@styles/*": ["src/styles/*"],
-            "@utils": ["src/utils/index.js"],
-            "@store": ["store/index.js"],
+            "@components": ["src/components/index.js"],
+
+            "@hooks": ["src/hooks/index.js"],
+            "@utils": ["src/utils/utils.js"],
+            "@variants": ["src/utils/fmVariants.js"],
+
             "@config": ["src/config.js"],
+            "@styles/*": ["src/styles/*"],
 
             "@assets": ["public/index.js"],
             "@data": ["public/static.js"]

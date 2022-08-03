@@ -4,35 +4,17 @@
 :root {
     --nav-height: 48px;
 }
+/*  Progress Page  */
 @layer components {
-    .progress-background {
-        @apply fixed top-0 left-0  z-10 h-screen w-screen  bg-gradient-to-b from-charcoal via-black to-charcoal;
+    .progress-container {
+        @apply flex-center fixed top-0  left-0 z-10 h-screen  w-screen  bg-charcoal/50;
     }
     .progress-square {
-        @apply fixed top-[50%] left-0  z-10 h-3 w-3 origin-bottom rounded-sm md:h-6 md:w-6;
+        @apply fixed top-[50%] left-[50%] z-10 h-3  w-3 translate-x-[-50%] translate-y-[-50%] rounded-sm md:h-6 md:w-6;
     }
 }
 /* ================================================================ */
-/* LAYOUT - px */
-@layer components {
-    #layout {
-        @apply relative w-screen;
-    }
-}
-/*  SECTIONS - py */
-@layer components {
-    .section {
-        @apply mb-24 md:mb-0;
-        @apply relative h-screen w-full max-w-[1440px] lg:mx-auto;
 
-        & > div {
-            @apply h-full w-full snap-start;
-        }
-    }
-    .count-section {
-        counter-increment: section 1;
-    }
-}
 /*  NAVBAR  */
 @layer components {
     .nav {
@@ -95,15 +77,34 @@
 /* BURGER */
 @layer components {
     .burger {
-        @apply flex-center absolute left-0 z-50 m-auto cursor-pointer rounded bg-transparent px-4;
+        @apply flex-center absolute left-0 top-0 z-50  aspect-square h-full cursor-pointer rounded bg-transparent px-4;
         @apply md:hidden;
-        & * {
-            @apply stroke-teal transition-colors duration-250 ease-in;
-        }
         &:hover {
             & * {
                 @apply stroke-neon;
             }
+        }
+        & * {
+            @apply stroke-teal transition-colors duration-250 ease-in;
+        }
+    }
+    .burger[data-returnLabel='true'] {
+        @apply md:top-20  md:block;
+        &:before {
+            content: '';
+            @apply absolute -top-2 left-3 -z-10 hidden aspect-square h-10 rounded-full bg-charcoal/50 duration-250 ease-in;
+            @apply md:block;
+        }
+        &:hover:before {
+            @apply bg-grey/50;
+        }
+        &:after {
+            content: 'BACK';
+            @apply pointer-events-none absolute left-0 top-4 -z-10 rounded font-robotoMono text-xs uppercase text-white opacity-0 duration-150 ease-in;
+            @apply md:hidden;
+        }
+        &:hover:after {
+            @apply pointer-events-none left-[85%] opacity-100 delay-700 duration-300 ease-out;
         }
     }
 }
@@ -327,5 +328,62 @@
             var(--transparent) 20%,
             var(--transparent) 100%
         );
+    }
+}
+
+/* RESUME */
+@layer components {
+    .resumePage {
+        @apply flex-col-top relative mx-auto h-auto min-h-[90vh] w-full  max-w-[1240px] p-3 pt-16;
+        @apply md:flex-btw;
+    }
+
+    .toggle-btn {
+        @apply flex-center  absolute z-10 cursor-pointer rounded bg-transparent duration-600 ease-out;
+        @apply right-4 top-3;
+        & * {
+            @apply z-[100] origin-center stroke-teal transition-colors duration-250 ease-in;
+        }
+        &:hover {
+            & * {
+                @apply stroke-neon;
+            }
+        }
+    }
+    .toggle-btn.opened {
+        @apply origin-center scale-90 duration-600 ease-in-out;
+        & * {
+            @apply stroke-red/40;
+        }
+        &:hover {
+            & * {
+                @apply stroke-red;
+            }
+        }
+    }
+
+    .controls-wrap {
+        @apply fixed left-0 right-0 top-12 bottom-0 z-10  rounded-md;
+        & .controls-menu {
+            @apply h-full w-full rounded-md bg-charcoal/50;
+            & ul {
+                @apply flex-col-evenly h-full;
+                & li {
+                    @apply flex-center h-[60px] w-[60px]  rounded-md bg-eee text-center;
+                    @apply md:mx-0 md:my-6 md:h-[100px] md:w-[100px];
+                }
+            }
+        }
+    }
+
+    .resumePage-img {
+        @apply relative  aspect-[8.5/11] h-full max-h-[80vh] w-full rounded-md bg-grey/50 p-1 duration-600 ease-in-out;
+        & > div {
+            @apply relative mx-auto h-full rounded-md;
+            border: solid 2px #aaa;
+            & img {
+                @apply rounded-md;
+            }
+        }
     }
 }

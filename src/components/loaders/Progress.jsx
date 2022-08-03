@@ -1,14 +1,14 @@
 import { AnimatePresence, motion } from 'framer-motion'
-const background = {
+const container = {
     hide: {
-        scaleX: 0,
+        opacity: 0,
     },
-    enter: {
-        scaleX: [0, 1, 1, 0],
-        originX: [0, 0, 1, 1],
+    show: {
+        opacity: [0, 1, 1, 0],
         transition: {
             type: 'linear',
-            duration: 1.75,
+            duration: 1.5,
+            times: [0.33, 0.66, 1],
         },
     },
 }
@@ -17,52 +17,46 @@ const items = {
         x: 0,
     },
     enter: (custom) => ({
-        x: [
-            custom % 2 == 0 ? '65vw' : '35vw',
-            custom % 2 == 0 ? '54vw' : '46vw',
-            custom % 2 == 0 ? '46vw' : '54vw',
-            custom % 2 == 0 ? '35vw' : '65vw',
-        ],
-        y: [
-            custom % 2 == 0 ? '-10vw' : '10vw',
-            custom % 2 == 0 ? '4vw' : '-4vw',
-            custom % 2 == 0 ? '-20vw' : '20vw',
-        ],
-        scale: [0, 0.5, 1, 0.5, 0],
-        opacity: [0, 0.5, 1, 0.5, 0],
-        rotateZ: [0, 35],
+        x: [0, custom % 2 == 0 ? 100 : -100, custom % 2 == 0 ? -100 : 100, 0],
+        y: [0, custom % 2 == 0 ? -50 : 50, 0],
+        opacity: [0.75, 1, 0.75],
+        scale: [0, 1.5, 0],
         transition: {
             type: 'linear',
-            delay: custom * 0.025 + 0.1,
+            duration: 0.5,
+            delay: custom * 0.025 + 0.25,
+            repeat: 1,
+            repeatType: 'loop',
         },
     }),
 }
-const squares = [...Array(15).keys()]
+const squares = 20
+
 const Progress = ({ isAnimating, setIsAnimating }) => {
     return (
         <AnimatePresence exitBeforeEnter>
             {isAnimating && (
                 <>
                     <motion.div
-                        className="progress-background"
-                        variants={background}
-                        initial="hide"
-                        animate="enter"
-                        custom={0}
+                        className="progress-container"
+                        variants={container}
+                        initial={'hide'}
+                        animate="show"
                         onAnimationComplete={() => setIsAnimating(false)}
-                    />
-                    {squares.map((i) => (
-                        <motion.div
-                            key={`square-${i}`}
-                            className={`progress-square ${
-                                i % 3 == 0 ? 'bg-teal/50' : 'bg-neon'
-                            }`}
-                            variants={items}
-                            initial="hide"
-                            animate="enter"
-                            custom={i}
-                        />
-                    ))}
+                    >
+                        {[...Array(squares).keys()].map((i) => (
+                            <motion.div
+                                key={`square-${i}`}
+                                className={`progress-square ${
+                                    i % 3 == 0 ? 'bg-teal' : 'bg-neon'
+                                }`}
+                                variants={items}
+                                initial="hide"
+                                animate="enter"
+                                custom={i}
+                            />
+                        ))}
+                    </motion.div>
                 </>
             )}
         </AnimatePresence>

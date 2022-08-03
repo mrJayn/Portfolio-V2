@@ -10,15 +10,13 @@
         @apply scroll-smooth md:snap-none;
     }
     body {
-        @apply block overflow-hidden;
+        @apply block leading-normal;
         @apply m-0 h-screen w-screen min-w-[320px] p-0;
         @apply font-montserrat text-base font-normal tracking-tight text-grey;
-        line-height: 1.5;
     }
     h1 {
         @apply text-6xl font-bold text-darkblack;
     }
-
     h2 {
         @apply text-5xl font-semibold text-teal;
     }
@@ -69,13 +67,7 @@
         }
     }
 }
-/* ELEMENTs */
-@layer utilities {
-    .basic {
-        @apply bg-eee;
-        box-shadow: 0 0 1px 1px theme(colors.black);
-    }
-}
+
 /* STYLED ELEMENT */
 @layer utilities {
     :root {
@@ -190,47 +182,13 @@
         }
     }
 }
-/* TRANSITIONS */
+/* CLASSES */
 @layer utilities {
-    .ts-default {
-        @apply transition-all duration-250 ease-out;
-    }
-    /* navbar */
-    .ts-nav-up {
-        @apply transition-all duration-600 ease-in;
-    }
-    .ts-nav-down {
-        @apply transition-all duration-600 ease-out;
-    }
-    /* element */
-    .ts-elem {
-        @apply transition-all duration-300 ease-in;
-    }
-    .ts-elem-return {
-        @apply transition-all duration-300 ease-out;
-    }
-    /* image */
-    .ts-img {
-        @apply transition-all duration-600 ease-in;
-    }
-    .ts-img-return {
-        @apply transition-all duration-600 ease-out;
-    }
-    /* button */
-    .ts-button {
-        @apply transition-all duration-250 ease-out;
-    }
-    .ts-button-return {
-        @apply transition-all duration-350 ease-in;
-    }
-    /* project */
-    .ts-project {
-        @apply transition-opacity duration-600 ease-out;
-    }
-    .ts-project * {
-        transition: all 0.35s ease;
+    .count-section {
+        counter-increment: section 1;
     }
 }
+
 /* FLEX BOXES */
 @layer utilities {
     .flex-center {

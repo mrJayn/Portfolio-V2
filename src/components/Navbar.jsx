@@ -3,27 +3,45 @@ import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion'
 import { FaFileSignature } from 'react-icons/fa'
 
-import { myVariants, toggleScrolling } from '@utils'
-import { Menu, Burger } from '@components'
+import { toggleScrolling } from '@utils'
+import { nav_vars, resumeVars } from '@variants'
+import { Menu, Burger, ResumeActions } from '@components'
 import data from '@data'
+import { useRouter } from 'next/router'
 
-const [parent, child, logo, links, links_child] = [
-    myVariants.nav.parent,
-    myVariants.nav.child,
-    myVariants.nav.logo,
-    myVariants.nav.links,
-    myVariants.nav.links_child,
+const [parent, child, logo, links_ul, links_li] = [
+    nav_vars.parent,
+    nav_vars.child,
+    nav_vars.logo,
+    nav_vars.links_ul,
+    nav_vars.links_li,
 ]
 
 const Navbar = ({ isLoading, isMain }) => {
     const [navState, setNavState] = useState('hidden')
     const [menuState, setMenuState] = useState(false)
+    const [resControls, setResControls] = useState(false)
+    const router = useRouter()
     const [largeScreen, setLargeScreen] = useState()
     const ref = useRef()
     // open/close Menu
-    function handleMenu() {
+    const handleBurger = () => {
         setMenuState(!menuState)
         toggleScrolling(menuState)
+    }
+    const handleReturn = (e) => {
+        e.preventDefault()
+        setResControls(false)
+
+        setTimeout(() => {
+            router.push('/')
+        }, 100)
+    }
+    // ResumeBtn
+    function handleResumeBtn() {
+        if (menuState) {
+            handleBurger()
+        }
     }
     // setState/Hide Menu at Medium(768px) Breakpoint
     useEffect(() => {
@@ -36,7 +54,6 @@ const Navbar = ({ isLoading, isMain }) => {
         window.addEventListener('resize', handleResize)
         return () => window.removeEventListener('resize', handleResize)
     }, [menuState])
-
     // initialize animations after Loader
     useEffect(() => {
         if (!isLoading) {
@@ -44,7 +61,7 @@ const Navbar = ({ isLoading, isMain }) => {
             setNavState('show')
         }
     }, [isLoading])
-
+    console.log(resControls)
     return (
         <AnimatePresence exitBeforeEnter>
             {!isLoading && (
@@ -55,8 +72,10 @@ const Navbar = ({ isLoading, isMain }) => {
                     animate={{ opacity: 1 }}
                     ref={ref}
                 >
-                    {/** Menu **/}
-                    <Menu state={menuState} handleClick={handleMenu} />
+                    {/** Menus **/}
+                    <Menu state={menuState} handleClick={handleBurger} />
+                    <ResumeActions.ResumeControls state={resControls} />
+
                     {/** NAV **/}
                     <motion.div
                         className="nav-content"
@@ -67,9 +86,10 @@ const Navbar = ({ isLoading, isMain }) => {
                     >
                         {/** Hamburger **/}
                         <Burger
+                            isMain={isMain}
                             state={menuState}
                             variants={child}
-                            onClick={handleMenu}
+                            onClick={isMain ? handleBurger : handleReturn}
                         />
 
                         {/** nav-Logo **/}
@@ -85,13 +105,13 @@ const Navbar = ({ isLoading, isMain }) => {
 
                         {/** Nav-Links **/}
                         <motion.div className="nav-links" variants={child}>
-                            <motion.ul variants={links}>
+                            <motion.ul variants={links_ul}>
                                 {data.sectionLinks.map((link) => (
                                     <motion.li
-                                        key={`nav-link-${link.item}`}
-                                        variants={links_child}
+                                        key={`nav-linkTo-${link.title}`}
+                                        variants={links_li}
                                     >
-                                        <Link href={link.url}>
+                                        <Link href={link.url} scroll={false}>
                                             {link.title}
                                         </Link>
                                     </motion.li>
@@ -104,8 +124,20 @@ const Navbar = ({ isLoading, isMain }) => {
                             className="nav-btns"
                             variants={child}
                             custom={largeScreen}
+                            onClick={handleResumeBtn}
                         >
-                            {isMain && ResumeBtn}
+                            <AnimatePresence exitBeforeEnter>
+                                {isMain ? (
+                                    <ResumeBtn />
+                                ) : (
+                                    <ResumeActions.ControlsBtn
+                                        isOpen={resControls}
+                                        onClick={() =>
+                                            setResControls(!resControls)
+                                        }
+                                    />
+                                )}
+                            </AnimatePresence>
                         </motion.div>
                     </motion.div>
                 </motion.nav>
@@ -114,21 +146,28 @@ const Navbar = ({ isLoading, isMain }) => {
     )
 }
 
-const ResumeBtn = (
-    <>
-        <div className="resume-btn-lg">
-            <Link href="/resume">
-                <p>Resume</p>
-            </Link>
-        </div>
-        <div className="resume-btn-sm" data-label="Resume">
-            <Link href="/resume">
-                <a>
-                    <FaFileSignature className="symbol" />
-                </a>
-            </Link>
-        </div>
-    </>
-)
+const ResumeBtn = () => {
+    return (
+        <motion.div
+            initial="hidden"
+            animate="enter"
+            exit="exit"
+            variants={resumeVars.btnWrap}
+        >
+            <div className="resume-btn-lg">
+                <Link href="/resume">
+                    <p>Resume</p>
+                </Link>
+            </div>
+            <div className="resume-btn-sm" data-label="Resume">
+                <Link href="/resume">
+                    <a>
+                        <FaFileSignature className="symbol" />
+                    </a>
+                </Link>
+            </div>
+        </motion.div>
+    )
+}
 
 export default Navbar

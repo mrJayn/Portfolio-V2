@@ -1,35 +1,26 @@
 import { motion } from 'framer-motion'
-import { myVariants } from '@utils'
+import { burger_vars, unitSize, size } from '@variants'
 
-const [top, center, bottom] = [
-    myVariants.burger.top,
-    myVariants.burger.center,
-    myVariants.burger.bottom,
-]
+const Burger = ({ state, isMain, lineProps = null, ...props }) => {
+    const anim = isMain ? (state ? 'opened' : 'closed') : 'return'
+    // unitSize=8 , size=24 from fmVariants
 
-const Burger = ({
-    state,
-    size = 20,
-    lineProps = null,
-    transition = {
-        type: 'spring',
-        stiffness: 260,
-        damping: 25,
-    },
-    ...props
-}) => {
     lineProps = {
         strokeWidth: 3,
         vectorEffect: 'non-scaling-stroke',
-        initial: 'closed',
-        animate: state ? 'opened' : 'closed',
-        transition,
+        initial: 'init',
+        animate: anim,
+        transition: {
+            type: 'spring',
+            stiffness: 260,
+            damping: 25,
+        },
+        strokeLinecap: 'round',
         ...lineProps,
     }
-    const unitSize = 4
 
     return (
-        <motion.div className="burger">
+        <motion.div className="burger" data-returnLabel={!isMain}>
             <motion.svg
                 viewBox={`0 0 ${unitSize} ${unitSize}`}
                 overflow="visible"
@@ -43,23 +34,31 @@ const Burger = ({
                     x2={unitSize}
                     y1="0"
                     y2="0"
-                    variants={top}
+                    variants={burger_vars.top}
+                    {...lineProps}
+                />
+                <motion.line
+                    x1="0"
+                    x2={unitSize / 2}
+                    y1={unitSize / 2}
+                    y2={unitSize / 2}
+                    variants={burger_vars.center1}
+                    {...lineProps}
+                />
+                <motion.line
+                    x1={unitSize / 2}
+                    x2={unitSize}
+                    y1={unitSize / 2}
+                    y2={unitSize / 2}
+                    variants={burger_vars.center2}
                     {...lineProps}
                 />
                 <motion.line
                     x1="0"
                     x2={unitSize}
-                    y1="2"
-                    y2="2"
-                    variants={center}
-                    {...lineProps}
-                />
-                <motion.line
-                    x1="0"
-                    x2={unitSize}
-                    y1="4"
-                    y2="4"
-                    variants={bottom}
+                    y1={unitSize}
+                    y2={unitSize}
+                    variants={burger_vars.bottom}
                     {...lineProps}
                 />
             </motion.svg>

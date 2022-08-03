@@ -5,20 +5,14 @@
 @layer components {
     .intro-content {
         @apply flex-col-center h-full w-full;
-        @apply md:justify-start md:pt-[50px];
+        @apply md:justify-start md:pt-[100px];
         & * {
             @apply text-center md:text-left;
-        }
-        & > div:first-child {
-            @apply flex-center;
         }
         & p {
             &:last-of-type {
                 @apply max-w-[85%] py-4;
             }
-        }
-        & h2 {
-            @apply pb-2;
         }
         & > div:last-child {
             @apply p-3 md:mx-auto;

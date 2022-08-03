@@ -69,7 +69,6 @@ const Loader = ({ finishLoading }) => {
                 },
                 50
             )
-
             /** Out **/
             .add(
                 {
@@ -150,12 +149,12 @@ const Loader = ({ finishLoading }) => {
         animate()
         return () => clearTimeout(delay)
     }, [])
+
     return (
         <div
             id="loader"
-            className={
-                'loader-wrap ' + (isMounted ? 'opacity-100' : 'opacity-0')
-            }
+            className="loader-wrap"
+            style={{ opacity: `${isMounted ? 100 : 0}` }}
         >
             <div
                 className="loader"

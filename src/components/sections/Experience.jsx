@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { HiX } from 'react-icons/hi'
 
 import { Section, Cards } from '@components'
-import data from '@data'
 import { toggleScrolling } from '@utils'
+import data from '@data'
 
 const Experience = () => {
     const [readMore, setReadMore] = useState(false)

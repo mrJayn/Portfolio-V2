@@ -1,13 +1,16 @@
-import '../styles/global.css'
+import Head from 'next/head'
+import { DefaultSeo } from 'next-seo'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Footer, Navbar, Loader, Progress } from '@components'
-import { myVariants } from '@utils'
+import { Navbar, Footer, Loader, Progress } from '@components'
+
+import '../styles/global.css'
+
 function MyApp({ Component, pageProps }) {
     const router = useRouter()
-    const [path, isMain] = [router.pathname, router.pathname === '/']
-    const [loader, setLoader] = useState(isMain)
+    const isMain = router.pathname === '/'
+    const [isLoading, setIsLoading] = useState(isMain)
     const [isRouting, setIsRouting] = useState(false)
     const [isAnimating, setIsAnimating] = useState(false)
 
@@ -31,13 +34,32 @@ function MyApp({ Component, pageProps }) {
         }
     }, [router])
 
-    console.log('isRouting:', isRouting)
-    console.log('isAnim:', isAnimating)
+    const url = `https://mikejayne.com${router.pathname}`
 
     return (
         <>
-            {loader && isMain ? (
-                <Loader finishLoading={() => setLoader(false)} />
+            <Head>
+                <link
+                    rel="icon"
+                    type="image/x-icon"
+                    href="/assets/favicon.ico"
+                />
+            </Head>
+            <DefaultSeo
+                titleTemplate="%s - Michael Jayne"
+                openGraph={{
+                    type: 'website',
+                    locale: 'en_IE',
+                    url,
+                    description:
+                        'The personal portfolio for Michael Jayne, developer.',
+                    site_name: 'Mike Jayne | mikejayne.com',
+                    images: [],
+                }}
+                canonical={url}
+            />
+            {isLoading && isMain ? (
+                <Loader finishLoading={() => setIsLoading(false)} />
             ) : (
                 <>
                     <Progress
@@ -45,25 +67,13 @@ function MyApp({ Component, pageProps }) {
                         isAnimating={isAnimating}
                         setIsAnimating={setIsAnimating}
                     />
-                    <>
-                        <Navbar isLoading={loader} isMain={isMain} />
-                        <>
-                            <AnimatePresence exitBeforeEnter>
-                                {!isRouting && !isAnimating && (
-                                    <motion.main
-                                        variants={myVariants.entry}
-                                        initial={false}
-                                        animate="enter"
-                                        exit="exit"
-                                        transition={{ duration: 0.5 }}
-                                    >
-                                        <Component {...pageProps} />
-                                    </motion.main>
-                                )}
-                            </AnimatePresence>
-                        </>
-                        <Footer />
-                    </>
+                    <Navbar isLoading={isLoading} isMain={isMain} />
+                    <AnimatePresence exitBeforeEnter>
+                        {!isRouting && !isAnimating && (
+                            <Component {...pageProps} isLoading={isLoading} />
+                        )}
+                    </AnimatePresence>
+                    <Footer />
                 </>
             )}
         </>

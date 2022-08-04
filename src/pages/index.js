@@ -10,11 +10,12 @@ import {
 const title = "Hello, I'm Michael 👋"
 const description =
     "I'm an ChemEng graduate and a recent self-taught developer, aiming to break into tech ASAP!"
+
 export default function Home({ isLoading }) {
     return (
         <Layout
             isLoading={isLoading}
-            title="Home"
+            title="Michael Jayne"
             description={`${title}-${description}`}
         >
             <Intro />

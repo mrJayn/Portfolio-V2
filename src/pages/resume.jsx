@@ -24,7 +24,7 @@ const Resume = ({ isLoading }) => {
                 description={`${title}-${description}`}
             >
                 <div className="resumePage">
-                    <motion.div className="resumePage-img" ref={ref}>
+                    <motion.div className="resumePage-img">
                         <div>
                             <Image
                                 src={assets.misc.resume}

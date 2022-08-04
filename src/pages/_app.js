@@ -46,7 +46,7 @@ function MyApp({ Component, pageProps }) {
                 />
             </Head>
             <DefaultSeo
-                titleTemplate="%s - Michael Jayne"
+                titleTemplate="Michael Jayne"
                 openGraph={{
                     type: 'website',
                     locale: 'en_IE',

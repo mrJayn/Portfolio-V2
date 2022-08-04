@@ -6,7 +6,6 @@
 /* ================== BASE ================== */
 @layer base {
     html {
-        @apply snap-y snap-mandatory;
         @apply scroll-smooth md:snap-none;
     }
     body {

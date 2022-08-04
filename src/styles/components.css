@@ -48,27 +48,24 @@
     }
     .nav-btns {
         @apply flex-center;
-        @apply absolute right-3 top-0 z-10 h-full text-teal;
+        @apply absolute right-0 top-0 z-10 h-full px-4 text-teal;
         @apply md:relative md:right-0 md:text-white;
 
-        & .resume-btn-lg {
-            @apply md:flex-center hidden;
+        & .resumeBtn {
+            @apply md:flex-center cursor-pointer;
+            & * {
+                @apply duration-250 ease-in;
+            }
             & p {
-                @apply cursor-pointer text-lg font-semibold uppercase  duration-250 ease-in;
-                @apply hover:text-lightTeal;
+                @apply hidden text-lg font-semibold uppercase;
+                @apply hover:text-lightTeal md:block;
             }
-        }
-        & .resume-btn-sm {
-            @apply flex-center cursor-pointer text-[28px]  duration-250 ease-in;
-            @apply hover:text-neon;
-            @apply md:hidden;
-            &:after {
-                content: attr(data-label);
-                @apply pointer-events-none absolute right-0 top-4 -z-10 rounded font-robotoMono text-xs uppercase text-white opacity-0 duration-150 ease-in;
-                @apply md:hidden;
-            }
-            &:hover:after {
-                @apply pointer-events-none right-[125%] opacity-100 delay-700 duration-300 ease-out;
+            & div {
+                @apply hover:text-neon md:hidden;
+                &:after {
+                    content: 'resume';
+                    @apply pointer-events-none absolute -left-2 top-4 -z-10 -rotate-90 rounded font-robotoMono text-xs uppercase text-white opacity-100;
+                }
             }
         }
     }
@@ -77,7 +74,7 @@
 /* BURGER */
 @layer components {
     .burger {
-        @apply flex-center absolute left-0 top-0 z-50  aspect-square h-full cursor-pointer rounded bg-transparent px-4;
+        @apply flex-center absolute left-2 top-0 z-50  aspect-square h-full cursor-pointer rounded bg-transparent;
         @apply md:hidden;
         &:hover {
             & * {
@@ -119,7 +116,7 @@
         @apply invisible bg-transparent delay-700;
     }
     .menu-container {
-        @apply flex-center absolute top-0 left-0 h-screen w-screen bg-charcoal p-10 pt-24;
+        @apply flex-center absolute top-0 left-0 h-screen w-screen bg-charcoal p-10 pt-[15vh];
         &:after {
             content: '';
             @apply absolute top-0 right-0 left-0 bottom-0 -z-10 bg-gradient-to-b from-transparent via-grey/20 to-neon/20 duration-600 ease-in;
@@ -132,30 +129,31 @@
         }
     }
     .menu-content {
-        @apply flex-col-btw h-full w-full;
+        @apply flex-col-btw h-full w-full flex-wrap;
         @apply opacity-100;
-
-        & .menu-sections {
+        & ul {
             & > li {
                 @apply styled-li;
                 @apply my-1 py-4 text-lg uppercase;
             }
         }
-
-        & .menu-footer {
-            @apply flex-btw w-full flex-wrap text-center;
-
-            & .menu-resume {
-                @apply w-full py-4;
-                & p {
-                    @apply styled-element;
-                    @apply py-2;
-                }
-            }
-
+        & > div {
+            @apply flex-btw w-full text-center;
             & > a {
                 @apply styled-element;
-                @apply p-4;
+                @apply mx-2 my-4  p-3;
+            }
+        }
+    }
+    .menu-content[data-orientation='landscape-primary'] {
+        & ul {
+            @apply w-[50%];
+        }
+        & > div {
+            @apply grid h-full w-[50%] grid-cols-2 gap-6 py-4 pl-6 pr-0;
+            @apply border-l-2 border-l-white;
+            & > a {
+                @apply flex-center aspect-square w-[75%] text-[1.5rem];
             }
         }
     }

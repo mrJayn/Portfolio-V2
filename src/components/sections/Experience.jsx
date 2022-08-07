@@ -1,52 +1,46 @@
 import { useState } from 'react'
-import Image from 'next/image'
 
-import { motion, AnimatePresence } from 'framer-motion'
-import { HiX } from 'react-icons/hi'
+import { motion } from 'framer-motion'
 
-import { Section, Cards } from '@components'
-import { toggleScrolling } from '@utils'
+import { Section, Items } from '@components'
 import data from '@data'
 
-const Experience = () => {
+import { card_variants } from '@variants'
+import { toggleScrolling } from '@utils'
+
+const Experience = (infoProps = null, imgProps = null) => {
     const [readMore, setReadMore] = useState(false)
-    const toggleReadMore = () => {
+    const animate_card = readMore ? 'show' : 'hide'
+
+    const toggleCard = () => {
         toggleScrolling(readMore)
         setReadMore(!readMore)
     }
+
+    infoProps = {
+        toggleCard: toggleCard,
+        card: data.cards.experience,
+        ...infoProps,
+    }
+    imgProps = {
+        src: data.cards.experience.SRC,
+        alt: data.cards.experience.ALT,
+        ...imgProps,
+    }
     return (
-        <Section id="experience">
-            <div className="experience-card">
-                <Cards.InfoCard
-                    card={data.cards.experience}
-                    readMore={readMore}
-                    toggleReadMore={toggleReadMore}
-                />
-                <Cards.ImgCard
-                    SRC={data.cards.experience.SRC}
-                    ALT={data.cards.experience.ALT}
-                />
+        <Section id="experience" fullScreen={false}>
+            <div className="experience-cards">
+                <Items.ImgCard {...imgProps} />
+                <Items.InfoCard {...infoProps} />
             </div>
-            <AnimatePresence>
-                {readMore && (
-                    <motion.div
-                        className="experience card-expanded"
-                        id="exp"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                    >
-                        <motion.div
-                            className="exitBtn"
-                            onClick={toggleReadMore}
-                            whileHover={{ scale: 1.1 }}
-                            variants={Cards.child}
-                        >
-                            <HiX size={32} />
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            <Items.ExpandedCard state={readMore} toggleCard={toggleCard}>
+                <motion.div
+                    className="experience-content"
+                    initial="hide"
+                    animate={animate_card}
+                    variants={card_variants.parent}
+                ></motion.div>
+            </Items.ExpandedCard>
         </Section>
     )
 }

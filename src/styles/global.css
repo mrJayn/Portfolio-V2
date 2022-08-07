@@ -20,7 +20,7 @@
         @apply text-5xl font-semibold text-teal;
     }
     h3 {
-        @apply text-4xl font-medium text-teal;
+        @apply text-4xl font-medium;
     }
     h4 {
         @apply text-3xl font-medium text-teal;
@@ -139,7 +139,7 @@
 /* STYLED LINKS  */
 @layer utilities {
     .styled-link {
-        @apply relative cursor-pointer text-black;
+        @apply relative cursor-pointer;
 
         transition: transform 0.25s linear;
         &:after {
@@ -196,8 +196,14 @@
     .flex-top {
         @apply flex items-start justify-center;
     }
+    .flex-bottom {
+        @apply flex items-end justify-center;
+    }
     .flex-left {
         @apply flex items-center justify-start;
+    }
+    .flex-right {
+        @apply flex items-center justify-end;
     }
     .flex-btw {
         @apply flex items-center justify-between;
@@ -212,8 +218,14 @@
     .flex-col-top {
         @apply flex flex-col items-center justify-start;
     }
+    .flex-col-bottom {
+        @apply flex flex-col items-center justify-end;
+    }
     .flex-col-left {
         @apply flex flex-col items-start justify-center;
+    }
+    .flex-col-right {
+        @apply flex flex-col items-end justify-center;
     }
     .flex-col-btw {
         @apply flex flex-col items-center justify-between;

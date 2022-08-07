@@ -85,7 +85,7 @@
             @apply stroke-teal transition-colors duration-250 ease-in;
         }
     }
-    .burger[data-returnLabel='true'] {
+    .burger[data-returnlabel='true'] {
         @apply md:top-20  md:block;
         &:before {
             content: '';
@@ -203,16 +203,18 @@
         }
     }
     .card-expanded {
-        @apply absolute top-0 left-0 z-10 h-full w-full bg-black px-3 pt-16 text-white;
+        @apply fixed top-0 left-0 right-0 bottom-0 z-10  overflow-y-scroll bg-black px-3 pt-32 text-white;
+        @apply md:top-16 md:left-12 md:right-12 md:bottom-16 md:pt-14;
     }
     .exitBtn {
-        @apply absolute z-10 -mt-[2px] h-8 w-8 cursor-pointer text-red;
+        @apply fixed top-16 left-[3vw] z-10 h-12 w-12 cursor-pointer rounded-md bg-black/50 text-red;
+        @apply md:top-24 md:left-24;
         &:after {
             content: '';
             @apply absolute top-0 left-0 right-0 bottom-0;
         }
         &:hover {
-            @apply scale-110 after:border-2 after:border-red;
+            @apply scale-110 after:border-[1px] after:border-red;
         }
         &:active {
             &:after {

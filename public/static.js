@@ -123,7 +123,7 @@ const data = {
             category: 'none',
             tech: ['React', 'Javascript', 'FireBase', 'Tailwind'],
             description:
-                'This is a descritpion Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam obcaecati aliquid dignissimos vero. Doloremque repellendus eveniet, eius commodi assumenda ut voluptate nesciunt! Repudiandae tenetur molestiae saepe suscipit, distinctio ullam nulla.',
+                'An app built in puree CSS with the purpose of a simple yet beuatiful way to add, remove and define your contacts at a touch of a button.',
             src: assets.featured.property,
             github: 'https://github.com/bchiang7/spotify-profile',
             url: 'https://spotify-profile.herokuapp.com/',

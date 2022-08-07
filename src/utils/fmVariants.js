@@ -340,3 +340,62 @@ export const resumeVars = {
         },
     },
 }
+
+export const card_variants = {
+    parent: {
+        hide: {
+            opacity: 0,
+            height: 0,
+            transition: { staggerChildren: 0.05, delayChildren: 0.2 },
+        },
+        show: {
+            opacity: 1,
+            height: 'auto',
+            transition: {
+                staggerChildren: 0.07,
+                staggerDirection: -1,
+            },
+        },
+    },
+    child: {
+        hide: { y: '-10px', opacity: 0, transition: 'linear' },
+        show: { y: '0px', opacity: 1, transition: 'linear' },
+    },
+}
+
+export const slideshow_variants = {
+    enter: (direction) => ({
+        x: direction > 0 ? '100%' : '-100%',
+        opacity: 0,
+    }),
+    display: {
+        x: 0,
+        opacity: 1,
+        transition: { delay: 0.25, duration: 0.5, ease: 'easeOut' },
+    },
+    exit: (direction) => ({
+        x: direction < 0 ? '100%' : '-100%',
+        opacity: 0,
+        transition: { duration: 0.35, ease: 'easeIn' },
+    }),
+}
+
+export const project_variants = {
+    item: {
+        hidden: { opacity: 0 },
+        enter: (cust) => {
+            const dt = cust[0] * 0.08
+            return {
+                opacity: 1,
+                transition: { delay: dt },
+            }
+        },
+        exit: (cust) => {
+            const dt = (cust[1] - cust[0]) * 0.05
+            return {
+                opacity: 0,
+                transition: { delay: dt },
+            }
+        },
+    },
+}

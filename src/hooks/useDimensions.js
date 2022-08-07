@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 
-export function useDimensions() {
+const useDimensions = () => {
     const ref = useRef()
     const [dimensions, setDimensions] = useState({})
 
@@ -10,3 +10,5 @@ export function useDimensions() {
 
     return [ref, dimensions]
 }
+
+export default useDimensions

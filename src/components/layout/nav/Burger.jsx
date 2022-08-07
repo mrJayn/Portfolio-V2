@@ -20,11 +20,11 @@ const Burger = ({ state, isMain, lineProps = null, ...props }) => {
     }
 
     return (
-        <motion.div className="burger" data-returnLabel={!isMain}>
+        <motion.div className="burger" data-returnlabel={!isMain}>
             <motion.svg
                 viewBox={`0 0 ${unitSize} ${unitSize}`}
                 overflow="visible"
-                preserveAspectRatio="none"
+                preserveAspectRatio="xMidYMid meet"
                 width={size}
                 height={size}
                 {...props}

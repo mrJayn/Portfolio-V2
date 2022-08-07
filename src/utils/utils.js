@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 export const navDelay = 1000
 /*export const spring = "spring(1,20,20,5)";*/
 export const srConfig = {

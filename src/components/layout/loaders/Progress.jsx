@@ -1,9 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 const container = {
-    hide: {
-        opacity: 0,
-    },
-    show: {
+    hidden: { opacity: 0 },
+    enter: {
         opacity: [0, 1, 1, 0],
         transition: {
             type: 'linear',
@@ -13,9 +11,7 @@ const container = {
     },
 }
 const items = {
-    hide: {
-        x: 0,
-    },
+    hidden: { x: 0 },
     enter: (custom) => ({
         x: [0, custom % 2 == 0 ? 100 : -100, custom % 2 == 0 ? -100 : 100, 0],
         y: [0, custom % 2 == 0 ? -50 : 50, 0],
@@ -40,8 +36,8 @@ const Progress = ({ isAnimating, setIsAnimating }) => {
                     <motion.div
                         className="progress-container"
                         variants={container}
-                        initial={'hide'}
-                        animate="show"
+                        initial={'hidden'}
+                        animate="enter"
                         onAnimationComplete={() => setIsAnimating(false)}
                     >
                         {[...Array(squares).keys()].map((i) => (
@@ -51,7 +47,7 @@ const Progress = ({ isAnimating, setIsAnimating }) => {
                                     i % 3 == 0 ? 'bg-teal' : 'bg-neon'
                                 }`}
                                 variants={items}
-                                initial="hide"
+                                initial="hidden"
                                 animate="enter"
                                 custom={i}
                             />

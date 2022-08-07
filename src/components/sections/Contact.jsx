@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import data from '@data'
-import { motion } from 'framer-motion'
+import { AnimateSharedLayout, motion } from 'framer-motion'
 import { HiChevronDoubleRight } from 'react-icons/hi'
 import { Form, Section } from '@components'
 
@@ -34,28 +34,30 @@ const child = {
 const Contact = () => {
     return (
         <Section id="contact">
-            <div className="contact-content">
-                <h3>
+            <div className="contact-header">
+                <h2>
                     <span>Whats Next?</span>
-                </h3>
-                <h2>Get in Touch</h2>
-                <div className="ct useInView">
+                </h2>
+                <h3>Get in Touch</h3>
+            </div>
+            <div className="contact-content">
+                <div className="">
                     <h4>I&apos;d love to hear from you!</h4>
                     <motion.div className="ct-content">
-                        <div>
+                        <p>
                             Whether you&apos;d like to contact me about a full
-                            time position or project you might be interested in
-                            building, You can leave me a message below, or at
-                            my&nbsp;
+                            time position or a project you&apos;re interested in
+                            building, I&aposl;d love to hear from you!
+                            <br />
+                        </p>
+                        <p>
+                            or &nbsp;
                             <span>
-                                <Link href={`mailto:${data.personal.email}`}>
-                                    <div className="mailto">
-                                        <span>email me</span>
-                                        <HiChevronDoubleRight />
-                                    </div>
-                                </Link>
+                                <a href={`mailto:${data.personal.email}`}>
+                                    email me <span>&raquo;</span>
+                                </a>
                             </span>
-                        </div>
+                        </p>
                     </motion.div>
                     <Form />
                 </div>

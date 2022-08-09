@@ -3,21 +3,6 @@
 
 /* STYLED INTRO  */
 @layer components {
-    .intro-content {
-        @apply flex-col-center h-full w-full px-4 pt-16;
-        @apply md:justify-start md:px-0 md:pt-[100px];
-        & * {
-            @apply text-center md:text-left;
-        }
-        & p {
-            &:last-of-type {
-                @apply max-w-[85%] py-4;
-            }
-        }
-        & > div:last-child {
-            @apply p-3 md:mx-auto;
-        }
-    }
 }
 
 /* ABOUT  */
@@ -264,65 +249,8 @@
         }
     }
     .projects-content {
-        @apply h-auto w-full;
+        @apply m-2 h-auto w-full overflow-hidden;
         @apply md:mb-[25vh] md:h-auto;
-    }
-
-    .projects-sm {
-        @apply h-full  md:hidden;
-        & .project {
-            @apply relative z-10 mx-[5%]  aspect-square  h-full opacity-0;
-            & .project-content {
-                @apply absolute top-0 left-0 w-full;
-                @apply flex-col-left pointer-events-none relative rounded bg-eee py-5 px-1 text-white;
-                @apply md:cursor-pointer;
-                background: linear-gradient(
-                    to bottom left,
-                    rgba(69, 162, 158, 0.25),
-                    rgba(31, 40, 51, 0.85)
-                );
-                & .gh-link {
-                    @apply absolute bottom-2 right-3 rounded-md bg-eee p-1 text-black opacity-75;
-                }
-                & .gh-message {
-                    @apply absolute bottom-3 left-0 right-0 rounded-md bg-lightTeal/20 p-1 text-left indent-3 text-sm italic text-eee;
-                }
-                & .pr-wrap {
-                    @apply w-full;
-
-                    & h4 {
-                        @apply w-full whitespace-nowrap border-b-2 border-lightgrey/75  pl-2 text-white;
-                    }
-                    & > div {
-                        @apply w-full;
-                        & .pr-tech {
-                            @apply flex-btw mt-1  mb-4 w-full text-sm;
-                            & p {
-                                @apply w-full whitespace-nowrap border-r-[2px] border-dotted border-eee  text-center text-sm italic text-white;
-                                &:last-of-type {
-                                    @apply border-r-0;
-                                }
-                            }
-                        }
-                        & .pr-desc {
-                            @apply mb-8 h-16 px-1 text-left indent-5 text-base;
-
-                            & p {
-                                @apply tracking-normal;
-                                /* height = lineHeight(1.5em) x max lines(4) = 6em  */
-                            }
-                        }
-                    }
-                }
-                & img {
-                    @apply opacity-10;
-                }
-            }
-        }
-    }
-    .projects-md {
-        @apply hidden h-full w-full px-4;
-        @apply gap-4 md:grid md:grid-cols-2 lg:grid-cols-4;
     }
 }
 /* CONTACT  */

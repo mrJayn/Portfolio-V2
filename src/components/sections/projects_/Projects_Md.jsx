@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
 
-import { project_variants } from '@variants'
 import { Items } from '@components'
 import data from '@data'
+import { config } from '@config'
 
 const Md_Button = ({ expanded, setExpanded }) => {
     return (
@@ -60,8 +60,6 @@ const Project = ({ project, i = null, len = null, hide = false }) => {
             initial={{ opacity: hide ? 0 : 1 }}
             animate="enter"
             exit="exit"
-            variants={project_variants.item}
-            custom={cust}
         >
             <Items.GhLink className="bottom-4 left-4 bg-eee text-charcoal" />
             <a
@@ -122,7 +120,7 @@ const Project_Md = () => {
             ref={ref}
             initial={false}
             animate={expanded ? 'enter' : 'exit'}
-            variants={project_variants.stagger}
+            variants={config.variants.stagger}
         >
             <>
                 {shown.map((project, i) => {

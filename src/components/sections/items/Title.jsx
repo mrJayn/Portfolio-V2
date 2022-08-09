@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
-import { draw } from 'src/utils/fmVariants'
+import { config } from '@config'
+const draw = config.variants.draw
 
 const Title = ({ setTitleVis }) => {
     return (

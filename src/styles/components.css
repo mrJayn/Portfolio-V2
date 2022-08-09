@@ -35,7 +35,7 @@
         }
     }
     .nav-links {
-        @apply absolute left-0 bottom-3 hidden w-full;
+        @apply absolute left-0 bottom-3 hidden  w-full;
         @apply md:flex-center;
 
         & ul {
@@ -49,7 +49,7 @@
     .nav-btns {
         @apply flex-center;
         @apply absolute right-0 top-0 z-10 h-full px-4 text-teal;
-        @apply md:relative md:right-0 md:text-white;
+        @apply md:relative md:text-white;
 
         & .resumeBtn {
             @apply md:flex-center cursor-pointer;
@@ -112,7 +112,7 @@
         @apply fixed left-0 top-0 h-screen w-screen bg-charcoal/70 duration-600;
         @apply md:hidden;
     }
-    .menu[data-state='hide'] {
+    .menu[data-state='hidden'] {
         @apply invisible bg-transparent delay-700;
     }
     .menu-container {

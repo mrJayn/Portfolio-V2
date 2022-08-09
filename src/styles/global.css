@@ -188,8 +188,11 @@
     }
 }
 
-/* FLEX BOXES */
+/* containers */
 @layer utilities {
+    .full {
+        @apply h-full w-full;
+    }
     .flex-center {
         @apply flex items-center justify-center;
     }

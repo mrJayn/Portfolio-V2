@@ -2,50 +2,6 @@ import assets from '@assets'
 const skills = assets.skills
 const feaImgs = assets.featured
 const data = {
-    personal: {
-        email: 'm63jayne@gmail.com',
-        social: {
-            github: {
-                title: 'GitHub',
-                url: 'https://github.com/mrJayn',
-                icon: 'FaGitHub',
-            },
-            codepen: {
-                title: 'Codepen',
-                url: 'https://codepen.io/mrjayn',
-                icon: 'FaCodepen',
-            },
-            linkedin: {
-                title: 'Linkedin',
-                url: 'https://www.linkedin.com/in/',
-                icon: 'FaLinkedinIn',
-            },
-            gmail: {
-                title: 'Email',
-                url: 'mailTo',
-                icon: 'AiOutlineMail',
-            },
-        },
-    },
-
-    sectionLinks: [
-        {
-            title: 'about',
-            url: '/#about',
-        },
-        {
-            title: 'experience',
-            url: '/#experience',
-        },
-        {
-            title: 'projects',
-            url: '/#featured',
-        },
-        {
-            title: 'contact',
-            url: '/#contact',
-        },
-    ],
     cards: {
         about: {
             title: 'about',

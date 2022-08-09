@@ -5,7 +5,7 @@ import React, {
     useCallback,
     useLayoutEffect,
 } from 'react'
-import { motion } from 'framer-motion'
+import { LayoutGroup, motion } from 'framer-motion'
 import { theme } from 'tailwind.config'
 
 function useCallbackRef() {
@@ -122,29 +122,33 @@ const Tabs = () => {
                     className="relative block border-b-[1px] border-b-black/50"
                     ref={tabListRef}
                 >
-                    {tabs.map((tab, i) => (
-                        <motion.button
-                            className=" select-none overflow-hidden text-ellipsis whitespace-nowrap py-3 px-4 text-center shadow-none outline-none"
-                            key={tab}
-                            whileHover={{ backgroundColor: theme.colors.eee }}
-                            transition={{ duration: 0.25 }}
-                            whileTap={{ backgroundColor: theme.colors.teal }}
-                            ref={(el) => childRefs.current.set(i, el)}
-                            onClick={() => setValue(i)}
-                            style={{
-                                color:
-                                    i === value
-                                        ? theme.colors.darkblack
-                                        : '#666',
-                                backgroundColor:
-                                    i === value
-                                        ? theme.colors.lightTeal
-                                        : 'transparent',
-                            }}
-                        >
-                            {tab}
-                        </motion.button>
-                    ))}
+                    <LayoutGroup>
+                        <div className="flex-evenly w-full">
+                            {tabs.map((tab, i) => (
+                                <motion.button
+                                    className=" relative select-none  text-ellipsis whitespace-nowrap py-3 px-4 text-center "
+                                    key={tab}
+                                    whileHover={{
+                                        backgroundColor: '#eeeeee75',
+                                    }}
+                                    transition={{ duration: 0.25 }}
+                                    whileTap={{
+                                        backgroundColor: theme.colors.teal,
+                                    }}
+                                    ref={(el) => childRefs.current.set(i, el)}
+                                    onClick={() => setValue(i)}
+                                >
+                                    {tab}
+                                    {i === value && (
+                                        <motion.div
+                                            className="absolute top-0 left-0 right-0 bottom-0 z-10 bg-neon/50"
+                                            layoutId="highlight"
+                                        />
+                                    )}
+                                </motion.button>
+                            ))}
+                        </div>
+                    </LayoutGroup>
                     {slider.hasValue && (
                         <motion.div
                             positiontransition={{

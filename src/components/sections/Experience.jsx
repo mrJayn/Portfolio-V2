@@ -5,12 +5,12 @@ import { motion } from 'framer-motion'
 import { Section, Items } from '@components'
 import data from '@data'
 
-import { card_variants } from '@variants'
 import { toggleScrolling } from '@utils'
+import { config } from '@config'
 
 const Experience = (infoProps = null, imgProps = null) => {
     const [readMore, setReadMore] = useState(false)
-    const animate_card = readMore ? 'show' : 'hide'
+    const animate_card = readMore ? 'enter' : 'hidden'
 
     const toggleCard = () => {
         toggleScrolling(readMore)
@@ -38,7 +38,7 @@ const Experience = (infoProps = null, imgProps = null) => {
                     className="experience-content"
                     initial="hide"
                     animate={animate_card}
-                    variants={card_variants.parent}
+                    variants={config.variants.cards.stagger}
                 ></motion.div>
             </Items.ExpandedCard>
         </Section>

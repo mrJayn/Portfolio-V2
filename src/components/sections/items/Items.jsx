@@ -2,16 +2,17 @@ import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 import { FaGithub } from 'react-icons/fa'
 import { HiX } from 'react-icons/hi'
-import { card_variants } from 'src/utils/fmVariants'
 
-const ExitButton = ({ onClick, variants = null }) => {
+const ExitButton = ({ onClick }) => {
     return (
         <motion.div
             className="exitBtn"
             onClick={onClick}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            variants={variants}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { delay: 0.5 } }}
+            exit={{ opacity: 0 }}
         >
             <HiX size={48} />
         </motion.div>
@@ -72,10 +73,7 @@ const CardExpanded = ({ children, state, toggleCard }) => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                 >
-                    <ExitButton
-                        onClick={() => toggleCard()}
-                        variants={card_variants.child}
-                    />
+                    <ExitButton onClick={() => toggleCard()} />
                     {children}
                 </motion.div>
             )}

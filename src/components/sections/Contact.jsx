@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
-import Link from 'next/link'
+import React from 'react'
 import data from '@data'
-import { AnimateSharedLayout, motion } from 'framer-motion'
-import { HiChevronDoubleRight } from 'react-icons/hi'
+import { motion } from 'framer-motion'
 import { Form, Section } from '@components'
+import { config } from '@config'
 
 const parent = {
     dd_open: {
@@ -53,7 +52,7 @@ const Contact = () => {
                         <p>
                             or &nbsp;
                             <span>
-                                <a href={`mailto:${data.personal.email}`}>
+                                <a href={`mailto:${config.email}`}>
                                     email me <span>&raquo;</span>
                                 </a>
                             </span>

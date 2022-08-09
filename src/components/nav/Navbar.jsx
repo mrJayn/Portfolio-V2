@@ -1,19 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { AnimatePresence, motion } from 'framer-motion'
-import { BsFileEarmarkPerson } from 'react-icons/bs'
-
-import { toggleScrolling } from '@utils'
-import { nav_vars } from '@variants'
-import { Menu, Burger } from '@components'
-import data from '@data'
 import { useRouter } from 'next/router'
+
+import { AnimatePresence, motion } from 'framer-motion'
+
+import { Menu, Burger } from '@components'
+import { toggleScrolling } from '@utils'
+import { config } from '@config'
+const navVariants = config.variants.nav
+
+import { BsFileEarmarkPerson } from 'react-icons/bs'
 
 const NavLogo = ({ largeScreen }) => {
     return (
         <motion.div
             className="nav-logo"
-            variants={nav_vars.logo}
+            variants={navVariants.navLogo}
             custom={largeScreen}
         >
             <Link href="/#intro">
@@ -24,12 +26,12 @@ const NavLogo = ({ largeScreen }) => {
 }
 const NavLinks = () => {
     return (
-        <motion.div className="nav-links" variants={nav_vars.child}>
-            <motion.ul variants={nav_vars.links_ul}>
-                {data.sectionLinks.map((link) => (
+        <motion.div className="nav-links" variants={config.variants.fade}>
+            <motion.ul variants={navVariants.navLinks}>
+                {config.sectionLinks.map((link) => (
                     <motion.li
                         key={`nav-linkTo-${link.title}`}
-                        variants={nav_vars.links_li}
+                        variants={config.variants.fadeY}
                     >
                         <Link href={link.url} scroll={false}>
                             {link.title}
@@ -41,12 +43,12 @@ const NavLinks = () => {
     )
 }
 
-const ResumeBtn = ({ largeScreen }) => {
+const ResumeBtn = ({ isMd }) => {
     return (
         <motion.div
             className="nav-btns"
-            variants={nav_vars.child}
-            custom={largeScreen}
+            variants={config.variants.fade}
+            transition={{ delay: isMd ? 1.5 : 0 }}
         >
             <div className="resumeBtn">
                 <a
@@ -69,7 +71,7 @@ const Navbar = ({ isLoading, isMain }) => {
     const [navState, setNavState] = useState('hidden')
     const [menuState, setMenuState] = useState(false)
     const router = useRouter()
-    const [largeScreen, setLargeScreen] = useState()
+    const [isMd, setIsMd] = useState()
     const ref = useRef()
 
     // open/close Menu
@@ -98,48 +100,39 @@ const Navbar = ({ isLoading, isMain }) => {
     // initialize animations after Loader
     useEffect(() => {
         if (!isLoading) {
-            setLargeScreen(ref.current.clientWidth > 767)
-            setNavState('show')
+            setIsMd(ref.current.clientWidth > 767)
+            setNavState('enter')
         }
     }, [isLoading])
-
     return (
         <AnimatePresence exitBeforeEnter>
             {!isLoading && (
-                <motion.nav
-                    className="nav"
-                    id="nav"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    ref={ref}
-                >
+                <motion.nav className="nav" id="nav" ref={ref}>
                     {/** Menus **/}
                     <Menu state={menuState} handleClick={handleBurger} />
 
                     {/** NAV **/}
                     <motion.div
                         className="nav-content"
-                        initial={false}
+                        initial="hidden"
                         animate={navState}
-                        variants={nav_vars.parent}
-                        custom={largeScreen}
+                        variants={config.variants.fade}
                     >
                         {/** Hamburger **/}
                         <Burger
                             isMain={isMain}
                             state={menuState}
-                            variants={nav_vars.child}
                             onClick={isMain ? handleBurger : handleReturn}
                         />
 
                         {/** nav-Logo **/}
-                        <NavLogo largeScreen={largeScreen} />
+                        <NavLogo largeScreen={isMd} />
 
                         {/** Nav-Links **/}
                         <NavLinks />
 
                         {/** Resume Buttons **/}
-                        <ResumeBtn largeScreen={largeScreen} />
+                        <ResumeBtn isMd={isMd} />
                     </motion.div>
                 </motion.nav>
             )}

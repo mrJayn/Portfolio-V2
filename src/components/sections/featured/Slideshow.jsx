@@ -3,7 +3,8 @@ import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 import { wrap } from '@popmotion/popcorn'
 
 import { Featured_Items } from '@components'
-import { slideshow_variants as variants } from '@variants'
+import { config } from '@config'
+const variants = config.variants.slideshow
 
 const slides = [0, 1, 2]
 

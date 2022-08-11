@@ -6,15 +6,16 @@ import { Section, Title } from '@components'
 import { config } from '@config'
 const fade = config.variants.fade
 
-const SectionLink = () => (
-    <motion.div
+const SectionLink = (
+    <motion.a
         className="styled-element p-3"
         whileTap={{ scale: 0.95 }}
         variants={fade}
         transition={{ delay: 0.5 }}
+        href="#featured"
     >
-        <Link href="#featured">Check out my projects</Link>
-    </motion.div>
+        Check out my projects
+    </motion.a>
 )
 
 const Intro = () => {
@@ -34,7 +35,7 @@ const Intro = () => {
                 <motion.div className="flex-center w-full pb-2" variants={fade}>
                     <h2>Data Analyst</h2>
                 </motion.div>
-                <SectionLink />
+                {SectionLink}
             </motion.div>
         </Section>
     )

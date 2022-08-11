@@ -1,7 +1,10 @@
+import { theme } from 'tailwind.config'
+
+import assets from '@assets'
+import { default_spring } from '@utils'
+
 import { FaGithub, FaCodepen, FaLinkedinIn } from 'react-icons/fa'
 import { AiOutlineMail } from 'react-icons/ai'
-import { default_spring, BurgerUnitSize } from '@utils'
-import { theme } from 'tailwind.config'
 
 export const config = {
     email: 'm63jayne@gmail.com',
@@ -43,6 +46,98 @@ export const config = {
         {
             title: 'contact',
             url: '/#contact',
+        },
+    ],
+    cards: {
+        about: {
+            title: 'about',
+            content: `Nice to meet you,\nAllow me to introduce myself.`,
+            btnText: 'Read More',
+            SRC: assets.misc.myPicTransparent,
+            ALT: 'picture of myself',
+        },
+        skills: {
+            title: 'skills',
+            content: `Some tech I'm familiar with...`,
+            btnText: 'Read More',
+            SRC: assets.skills.cssImg,
+            ALT: 'image of skill',
+        },
+        experience: {
+            title: 'experience',
+            content: `Where I've worked`,
+            btnText: 'Read More',
+            SRC: assets.misc.resume,
+            ALT: '/',
+        },
+    },
+    skills: [
+        {
+            item: '1',
+            skill: 'HTML',
+            url: assets.skills.htmlImg,
+        },
+        {
+            item: '2',
+            skill: 'CSS',
+            url: assets.skills.cssImg,
+        },
+        {
+            item: '3',
+            skill: 'Javascript',
+            url: assets.skills.jsImg,
+        },
+        {
+            item: '4',
+            skill: 'React',
+            url: assets.skills.reactImg,
+        },
+        {
+            item: '5',
+            skill: 'Tailwind',
+            url: assets.skills.tailwindImg,
+        },
+        {
+            item: '6',
+            skill: 'Github',
+            url: assets.skills.githubImg,
+        },
+        {
+            item: '7',
+            skill: 'Node',
+            url: assets.skills.nodeImg,
+        },
+        {
+            item: '8',
+            skill: 'Python',
+            url: assets.skills.pyImg,
+        },
+        {
+            item: '9',
+            skill: 'TensorFlow',
+            url: assets.skills.tensorImg,
+        },
+    ],
+    formInputs: [
+        {
+            title: 'name',
+            placeholder: 'Who am I speaking with?',
+            type: 'text',
+        },
+        {
+            title: 'email',
+            placeholder: 'Where should I reach you?',
+            type: 'email',
+        },
+        {
+            title: 'subject',
+            placeholder: 'What is the topic of this message?',
+            type: 'text',
+        },
+        {
+            title: 'message',
+            placeholder: 'Type your message here.',
+            type: 'text',
         },
     ],
     variants: {
@@ -296,6 +391,14 @@ export const config = {
                 opacity: 0,
                 transition: { duration: 0.35, ease: 'easeIn' },
             }),
+        },
+    },
+    transitions: {
+        default_spring: {
+            type: 'spring',
+            stiffness: 150,
+            damping: 30,
+            velocity: 50,
         },
     },
 }

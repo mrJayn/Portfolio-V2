@@ -1,9 +1,42 @@
 ---
-title: 'About'
-date: '2020-01-01'
+section: 'About'
+skills:
+    [
+        Python,
+        TensorFlow,
+        HTML,
+        CSS,
+        Tailwind,
+        Javascript,
+        React.js,
+        D3.js,
+        Node.js,
+        Anaconda3,
+        GitHub,
+        VS Code,
+        Jupyter Notebooks,
+    ]
+skills_icons:
+    [
+        '/assets/skills/python.png',
+        '/assets/skills/tensor.png',
+        '/assets/skills/html.png',
+        '/assets/skills/css.png',
+        '/assets/skills/tailwind.png',
+        '/assets/skills/javascript.png',
+        '/assets/skills/react.png',
+        '/assets/skills/d3.png',
+        '/assets/skills/node.png',
+        '/assets/skills/anaconda.png',
+        '/assets/skills/github1.png',
+        '/assets/skills/vscode.png',
+        '/assets/skills/jupyter.png',
+    ]
 ---
 
-# Hello!
+## About Me.
+
+Hello!
 
 My name is Michael Jayne and I love
 developing tools to make tedious tasks, simple.

@@ -4,10 +4,34 @@ import { wrap } from '@popmotion/popcorn'
 
 import { Featured_Items } from '@components'
 import { config } from '@config'
-const variants = config.variants.slideshow
 
+const variants = config.variants.slideshow
 const slides = [0, 1, 2]
 
+const Indicators = ({ currentSlide, handleIndicator }) => {
+    return (
+        <LayoutGroup>
+            <div className=" flex-evenly w-full max-w-[768px]">
+                {slides.map((item) => (
+                    <div
+                        className="mt-5 cursor-pointer p-3"
+                        key={item}
+                        onClick={() => handleIndicator(item)}
+                    >
+                        <div className="relative aspect-square h-4 rounded bg-charcoal">
+                            {item === currentSlide && (
+                                <motion.div
+                                    className="absolute -top-1 -left-1 -z-10 aspect-square h-6 rounded-md bg-neon"
+                                    layoutId="highlight"
+                                />
+                            )}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </LayoutGroup>
+    )
+}
 const Slideshow = ({ contentProps = null }) => {
     const [[currentSlide, direction], setSlide] = useState([0, 0])
     const [reset, SetReset] = useState(false)
@@ -79,10 +103,10 @@ const Slideshow = ({ contentProps = null }) => {
 
     return (
         <>
-            <div className="slideshow">
+            <div className="relative h-[500px] w-full overflow-hidden md:h-[490px] lg:h-[500px]">
                 <AnimatePresence initial={false} custom={direction}>
                     <motion.div
-                        className="slide"
+                        className="full slide absolute top-0 left-0"
                         data-slide={currentSlide}
                         {...contentProps}
                     >
@@ -95,23 +119,6 @@ const Slideshow = ({ contentProps = null }) => {
                 handleIndicator={handleIndicator}
             />
         </>
-    )
-}
-const Indicators = ({ currentSlide, handleIndicator }) => {
-    return (
-        <LayoutGroup>
-            <div className="Indicators">
-                {slides.map((item) => (
-                    <div key={item} onClick={() => handleIndicator(item)}>
-                        <div>
-                            {item === currentSlide && (
-                                <motion.div layoutId="highlight" />
-                            )}
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </LayoutGroup>
     )
 }
 export default Slideshow

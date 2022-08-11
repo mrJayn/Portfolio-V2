@@ -17,7 +17,7 @@ export { default as SlideShow } from './sections/featured/Slideshow'
 export { default as Featured_Items } from './sections/featured/Featured_Items'
 
 export { default as Projects } from './sections/projects_/Projects'
-export { default as Tabs } from './sections/projects_/Tabs'
+export { default as ProjectTabs } from './sections/projects_/ProjectTabs'
 export { default as Projects_Md } from './sections/projects_/Projects_Md'
 
 export { default as Contact } from './sections/Contact'

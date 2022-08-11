@@ -1,5 +1,4 @@
 import React from 'react'
-import data from '@data'
 import { motion } from 'framer-motion'
 import { Form, Section } from '@components'
 import { config } from '@config'

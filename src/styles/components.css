@@ -164,54 +164,15 @@
     .card {
         @apply cursor-pointer rounded bg-gradient-to-t from-eee/50 to-eee/20;
         @apply h-[500px] md:h-[490px] lg:h-[580px];
+        & span img {
+            @apply h-full w-full rounded;
+        }
     }
-    .info-card {
-        @apply flex-col-center relative w-full whitespace-pre-line;
-        & h4 {
-            @apply text-4xl font-semibold uppercase tracking-tight text-darkblack md:text-3xl;
-        }
-        & p {
-            @apply relative z-10 mb-2 p-2 pt-0 text-center text-md font-medium text-black;
-            word-spacing: 1px;
-        }
-        & button {
-            @apply flex-center z-10 w-full cursor-default text-lg;
-            & span {
-                @apply styled-link -mt-1 cursor-pointer select-none font-normal text-teal underline underline-offset-4;
-            }
-        }
-        & .info-card-img {
-            @apply flex-center relative w-full;
-            & > div {
-                @apply relative m-3 aspect-[9/10] min-w-[320px];
-                @apply h-[200px] md:h-[190px] lg:h-[280px];
 
-                & span img {
-                    @apply h-full w-full rounded;
-                }
-            }
-        }
-    }
-    .image-card {
-        @apply md:flex-center relative hidden w-full;
-        & > div {
-            @apply relative m-3 aspect-[9/10] min-w-[320px];
-            @apply max-h-[476px] md:max-h-[466px] lg:max-h-[556px];
-            & span img {
-                @apply h-full w-full rounded;
-            }
-        }
-    }
-    .card-expanded {
-        @apply fixed top-0 left-0 right-0 bottom-0 z-10  overflow-y-scroll bg-black px-3 pt-32 text-white;
-        @apply md:top-16 md:left-12 md:right-12 md:bottom-16 md:pt-14;
-    }
-    .exitBtn {
-        @apply fixed top-16 left-[3vw] z-10 h-12 w-12 cursor-pointer rounded-md bg-black/50 text-red;
-        @apply md:top-24 md:left-24;
+    .exitButtonAfter {
         &:after {
             content: '';
-            @apply absolute top-0 left-0 right-0 bottom-0;
+            @apply absolute top-0 left-0 right-0 bottom-0 rounded-md;
         }
         &:hover {
             @apply scale-110 after:border-[1px] after:border-red;

@@ -14,49 +14,14 @@
     }
 
     .about-content {
-        @apply grid h-full w-full grid-cols-8;
-        @apply md:p-10;
-        & .left {
-            @apply col-span-6;
+        & > h2 {
+            @apply flex-top h-full border-b-2 border-b-lightTeal text-center;
+            grid-area: 1/1/1/-1;
         }
-        & .right {
-            @apply col-span-2;
-            & .skills {
-                @apply flex-col-center text-center;
-                & p:first-child {
-                    @apply font-robotoMono font-medium text-lightTeal;
-                }
-                & li {
-                    @apply text-xs;
-                    @apply flex-left my-2  rounded bg-eee/50 py-2 pl-1;
-                    & p {
-                        @apply pl-[5px] font-robotoMono text-xs font-normal italic text-neon;
-                    }
-                }
-            }
-        }
-    }
-}
-
-/* SKILLS */
-@layer components {
-    .skills-card {
-        @apply flex-col-center h-full w-full;
-    }
-    .skill {
-        @apply w-full;
-        & h3 {
-            @apply styled-heading-2 pb-0 text-base;
-        }
-        & ul {
-            @apply mx-auto grid h-full w-fit gap-x-4;
-            @apply grid-cols-2;
-            & li {
-                @apply my-[1px] h-[2em] px-5 text-xs;
-                @apply flex-left rounded bg-eee pl-2;
-                & p {
-                    @apply pl-2 font-robotoMono text-xs font-normal italic text-darkblack;
-                }
+        & > p {
+            @apply flex-center col-span-4 col-start-1 py-2 pr-2 indent-2;
+            &:first-of-type {
+                @apply w-full text-center indent-0 text-xl font-medium text-lightTeal;
             }
         }
     }
@@ -78,42 +43,25 @@
         @apply flex-col-bottom w-full  px-5 py-10;
         @apply md:hidden;
 
-        & .slideshow {
-            @apply relative w-full  overflow-hidden rounded;
-            @apply h-[500px] md:h-[490px] lg:h-[500px];
-            & .slide {
-                @apply absolute top-0 left-0 right-0 bottom-0 cursor-grab rounded active:cursor-grabbing;
-
-                &[data-slide='0'] {
-                    & h3 {
-                        @apply text-teal;
-                    }
-                }
-                &[data-slide='1'] {
-                    & h3 {
-                        @apply text-red;
-                    }
-                }
-                &[data-slide='2'] {
-                    & h3 {
-                        @apply text-tan;
-                    }
+        & .slide {
+            &[data-slide='0'] {
+                & h3 {
+                    @apply text-teal;
                 }
             }
-        }
-        & .Indicators {
-            @apply flex-evenly w-full max-w-[768px];
-            & > div {
-                @apply mt-5 cursor-pointer  p-3;
-                & > div {
-                    @apply relative aspect-square h-4 rounded bg-charcoal;
-                    & > div {
-                        @apply absolute -top-1 -left-1 -z-10 aspect-square h-6 rounded-md bg-neon;
-                    }
+            &[data-slide='1'] {
+                & h3 {
+                    @apply text-red;
+                }
+            }
+            &[data-slide='2'] {
+                & h3 {
+                    @apply text-tan;
                 }
             }
         }
     }
+
     .featured-sm .featured-project {
         @apply flex-col-top h-full overflow-hidden rounded bg-white/75  px-2;
         & .projectImg {
@@ -241,18 +189,6 @@
     }
 }
 
-/* PROJECTS  */
-@layer components {
-    .projects-heading {
-        & h3 {
-            @apply styled-heading-2;
-        }
-    }
-    .projects-content {
-        @apply m-2 h-auto w-full overflow-hidden;
-        @apply md:mb-[25vh] md:h-auto;
-    }
-}
 /* CONTACT  */
 @layer components {
     .contact-header {

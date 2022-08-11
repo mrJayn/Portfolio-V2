@@ -21,10 +21,10 @@ export default function Home({ isLoading, data }) {
             description={`${title}-${description}`}
         >
             <Intro />
-            <About props={data.text} />
-            <Experience props={data} />
-            <Featured props={data.featured} />
-            <Projects props={data.projects} />
+            <About {...data} />
+            <Experience {...data} />
+            <Featured featured={data.featured} />
+            <Projects projects={data.projects} />
             <Contact />
         </Layout>
     )

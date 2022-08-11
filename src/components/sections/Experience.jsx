@@ -1,43 +1,38 @@
 import { useState } from 'react'
-
 import { motion } from 'framer-motion'
 
 import { Section, Items } from '@components'
-import data from '@data'
-
-import { toggleScrolling } from '@utils'
 import { config } from '@config'
 
-const Experience = (infoProps = null, imgProps = null) => {
+const Experience = ({ ...data }) => {
+    const content = data.text.filter((obj) => {
+        return (obj.id = 'experience')
+    })[0]
     const [readMore, setReadMore] = useState(false)
-    const animate_card = readMore ? 'enter' : 'hidden'
-
-    const toggleCard = () => {
-        toggleScrolling(readMore)
-        setReadMore(!readMore)
-    }
-
-    infoProps = {
-        toggleCard: toggleCard,
-        card: data.cards.experience,
-        ...infoProps,
-    }
-    imgProps = {
-        src: data.cards.experience.SRC,
-        alt: data.cards.experience.ALT,
-        ...imgProps,
-    }
+    const [infoProps, imgProps] = [
+        {
+            toggleCard: () => setReadMore(!readMore),
+            card: config.cards.experience,
+        },
+        {
+            src: config.cards.experience.SRC,
+            alt: config.cards.experience.ALT,
+        },
+    ]
     return (
         <Section id="experience" fullScreen={false}>
             <div className="experience-cards">
                 <Items.ImgCard {...imgProps} />
                 <Items.InfoCard {...infoProps} />
             </div>
-            <Items.ExpandedCard state={readMore} toggleCard={toggleCard}>
+            <Items.ExpandedCard
+                state={readMore}
+                toggleCard={() => setReadMore(!readMore)}
+            >
                 <motion.div
                     className="experience-content"
                     initial="hide"
-                    animate={animate_card}
+                    animate={readMore ? 'enter' : 'hidden'}
                     variants={config.variants.cards.stagger}
                 ></motion.div>
             </Items.ExpandedCard>

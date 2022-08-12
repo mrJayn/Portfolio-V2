@@ -11,7 +11,6 @@ const ProjectTabs = ({ projects, categories, tab }) => {
         }
         groupedTabs.push(group)
     }
-    console.log(groupedTabs)
 
     return (
         <div className="grid h-auto w-full grid-cols-2 gap-[1px] py-2 px-[2px]">

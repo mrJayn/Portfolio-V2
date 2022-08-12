@@ -162,7 +162,7 @@
 /* CARDS */
 @layer components {
     .card {
-        @apply cursor-pointer rounded bg-gradient-to-t from-eee/50 to-eee/20;
+        @apply cursor-pointer rounded bg-gradient-to-t from-eee/75 to-eee/20;
         @apply h-[500px] md:h-[490px] lg:h-[580px];
         & span img {
             @apply h-full w-full rounded;

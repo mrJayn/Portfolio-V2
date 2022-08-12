@@ -20,10 +20,13 @@
         @apply text-5xl font-semibold text-teal;
     }
     h3 {
-        @apply text-4xl font-medium;
+        @apply text-4xl font-medium text-lightTeal;
     }
     h4 {
-        @apply text-3xl font-medium text-teal;
+        @apply text-3xl font-medium text-white;
+    }
+    h5 {
+        @apply text-2xl font-medium text-eee;
     }
     h1,
     h2,

@@ -48,29 +48,6 @@ export const config = {
             url: '/#contact',
         },
     ],
-    cards: {
-        about: {
-            title: 'about',
-            content: `Nice to meet you,\nAllow me to introduce myself.`,
-            btnText: 'Read More',
-            SRC: assets.misc.myPicTransparent,
-            ALT: 'picture of myself',
-        },
-        skills: {
-            title: 'skills',
-            content: `Some tech I'm familiar with...`,
-            btnText: 'Read More',
-            SRC: assets.skills.cssImg,
-            ALT: 'image of skill',
-        },
-        experience: {
-            title: 'experience',
-            content: `Where I've worked`,
-            btnText: 'Read More',
-            SRC: assets.misc.resume,
-            ALT: '/',
-        },
-    },
     skills: [
         {
             item: '1',

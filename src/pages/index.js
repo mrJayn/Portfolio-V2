@@ -7,7 +7,7 @@ import {
     Layout,
     Experience,
 } from '@components'
-import { getAllMarkdown, globContent } from 'src/lib/markdown'
+import { getAllMarkdown } from 'src/lib/markdown'
 
 const title = "Hello, I'm Michael 👋"
 const description =
@@ -16,15 +16,15 @@ const description =
 export default function Home({ isLoading, data }) {
     return (
         <Layout
-            isLoading
+            isLoading={isLoading}
             title="Michael Jayne"
             description={`${title}-${description}`}
         >
             <Intro />
             <About {...data} />
             <Experience {...data} />
-            <Featured featured={data.featured} />
-            <Projects projects={data.projects} />
+            <Featured {...data} />
+            <Projects {...data} />
             <Contact />
         </Layout>
     )

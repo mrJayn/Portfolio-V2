@@ -13,15 +13,11 @@
         @apply grid-cols-2 gap-3;
     }
 
-    .about-content {
-        & > h2 {
-            @apply flex-top h-full border-b-2 border-b-lightTeal text-center;
-            grid-area: 1/1/1/-1;
-        }
+    #about-innerHTML {
         & > p {
-            @apply flex-center col-span-4 col-start-1 py-2 pr-2 indent-2;
+            @apply flex-center pt-4 indent-2 md:pt-6 md:indent-4 md:text-base md:leading-7;
             &:first-of-type {
-                @apply w-full text-center indent-0 text-xl font-medium text-lightTeal;
+                @apply pt-0;
             }
         }
     }

@@ -1,5 +1,10 @@
 ---
-section: 'About'
+section: About
+title: About Me
+subtitle:
+brief: Nice to meet you,&#10;Allow me to introduce myself.
+src: '/assets/misc/mikeJayne.JPG'
+alt: A picture of me.
 skills:
     [
         Python,
@@ -33,10 +38,6 @@ skills_icons:
         '/assets/skills/jupyter.png',
     ]
 ---
-
-## About Me.
-
-Hello!
 
 My name is Michael Jayne and I love
 developing tools to make tedious tasks, simple.

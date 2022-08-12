@@ -1,36 +1,30 @@
 import { useState } from 'react'
-import * as ReactDOMServer from 'react-dom/server'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 import { Section, Items } from '@components'
-import { config } from '@config'
 
 const Skills = ({ readMore, ...content }) => {
     const [skills, icons] = [content.data.skills, content.data.skills_icons]
-    const skillVariant = {
-        animate: (i) => ({
-            opacity: 1,
-            y: 0,
-            transition: {
-                delay: 0.5 + i * 0.08,
-            },
-        }),
+    const motionProps = {
+        initial: { opacity: 0, y: 10 },
+        animate: readMore && { opacity: 1, y: 0 },
     }
     return (
-        <div className="flex-col-center absolute right-0 top-32 w-[35%] pr-6 text-center md:top-36 md:w-[30%] md:pr-10">
-            <p className="font-robotoMono font-medium text-lightTeal">
+        <div className="md:flex-col-center mt-4 border-t-2 border-t-eee/50 pt-4 md:mt-0 md:w-[30%] md:border-l-2 md:border-t-0 md:border-l-eee/50 md:pt-0 md:pl-10">
+            <Items.SplitText
+                className="text-sm font-medium text-lightTeal md:text-md"
+                {...motionProps}
+            >
                 Tech I&apos;ve worked with recently
-            </p>
-            <ul>
+            </Items.SplitText>
+            <ul className="grid grid-cols-3 gap-x-2 text-xs md:block md:text-md">
                 {skills.map((skill, i) => (
                     <motion.li
                         key={`skill-item-${i}`}
-                        className="flex-left my-2 rounded  bg-eee/50 py-2 pl-1 text-xs"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={readMore && 'animate'}
-                        variants={skillVariant}
-                        custom={i}
+                        className="flex-left my-2 rounded bg-grey p-2"
+                        transition={{ delay: 0.75 + i * 0.08 }}
+                        {...motionProps}
                     >
                         <div>
                             <Image
@@ -41,7 +35,7 @@ const Skills = ({ readMore, ...content }) => {
                                 width={15}
                             />
                         </div>
-                        <p className="pl-[5px] font-robotoMono text-xs font-normal italic text-neon">
+                        <p className="pl-[5px] font-robotoMono text-xs font-normal italic text-neon md:text-sm">
                             {skill}
                         </p>
                     </motion.li>
@@ -52,40 +46,35 @@ const Skills = ({ readMore, ...content }) => {
 }
 
 const About = ({ ...data }) => {
-    const content = data.text.filter((obj) => {
-        return (obj.id = 'about')
-    })[0]
-
+    const about = data.text.filter((obj) => obj.id == 'about')[0]
     const [readMore, setReadMore] = useState(false)
 
-    const [infoProps, imgProps] = [
-        {
-            toggleCard: () => setReadMore(!readMore),
-            card: config.cards.about,
-            ...infoProps,
-        },
-        {
-            src: config.cards.about.SRC,
-            alt: config.cards.about.ALT,
-            ...imgProps,
-        },
-    ]
+    const cardProps = {
+        toggleCard: () => setReadMore(true),
+        ...about,
+    }
+    const expandedProps = {
+        title: about.data.title,
+        subtitle: about.data.subtitle,
+        state: readMore,
+        toggleCard: () => setReadMore(false),
+    }
 
     return (
         <Section id="about" fullScreen={false} marginBottom={false}>
             <div className="about-cards">
-                <Items.InfoCard {...infoProps} />
-                <Items.ImgCard {...imgProps} />
+                <Items.InfoCard {...cardProps} />
+                <Items.ImgCard {...cardProps} />
             </div>
-            <Items.ExpandedCard
-                state={readMore}
-                toggleCard={() => setReadMore(!readMore)}
-            >
-                <div
-                    className="about-content grid h-auto w-full grid-cols-6 rounded-md bg-grey/25 p-2 pt-6 md:p-10"
-                    dangerouslySetInnerHTML={{ __html: content.content }}
-                />
-                <Skills readMore={readMore} {...content} />
+            <Items.ExpandedCard {...expandedProps}>
+                <div className="md:flex-top w-full p-5 md:p-10 ">
+                    <div
+                        id="about-innerHTML"
+                        className="text-white md:w-[70%] md:pr-10 "
+                        dangerouslySetInnerHTML={{ __html: about.content }}
+                    />
+                    <Skills readMore={readMore} {...about} />
+                </div>
             </Items.ExpandedCard>
         </Section>
     )

@@ -14,16 +14,14 @@ certs:
         Data Visualization with D3.js,
         Scientific Computing with Python,
         Data Analysis with Python,
-        Machine Learning with Python,
     ]
 certs_src:
     [
-        Responsive Web Design,
-        Javascript Algorithms and Data Structures,
-        Data Visualization with D3.js,
-        Scientific Computing with Python,
-        Data Analysis with Python,
-        Machine Learning with Python,
+        '/assets/certifications/responsive_web.png',
+        '/assets/certifications/js_algorithms.png',
+        '/assets/certifications/data_vis.png',
+        '/assets/certifications/py_computing.png',
+        '/assets/certifications/py_data_analysis.png',
     ]
 ---
 

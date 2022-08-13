@@ -1,12 +1,13 @@
 import { createRef, useRef } from 'react'
 import Image from 'next/image'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
 
 import { useOnClickOutside } from 'src/hooks/useOnClickOutside'
 import { toggleScrolling } from '@utils'
 
 import { FaGithub } from 'react-icons/fa'
 import { HiX } from 'react-icons/hi'
+import { useMediaQuery } from '@hooks'
 
 const imgProps = {
     quality: 100,
@@ -15,10 +16,11 @@ const imgProps = {
     objectPosition: 'top',
 }
 
-const InfoCard = ({ toggleCard, isMd, ...data }) => {
+const InfoCard = ({ toggleCard, ...data }) => {
+    const isMd = useMediaQuery()
     return (
         <div
-            className="card flex-col-center relative w-full whitespace-pre-line"
+            className="card flex-col-center relative w-full cursor-pointer whitespace-pre-line"
             onClick={() => {
                 toggleCard()
                 toggleScrolling(false)
@@ -32,7 +34,7 @@ const InfoCard = ({ toggleCard, isMd, ...data }) => {
                 dangerouslySetInnerHTML={{ __html: data.data.brief }}
             />
 
-            <div className="flex-center relative w-full">
+            <div className="flex-center relative w-full md:hidden">
                 <div className="relative m-3 aspect-[9/10] h-[200px] min-w-[320px] md:h-[190px] lg:h-[280px]">
                     <Image
                         src={data.data.src}
@@ -41,7 +43,7 @@ const InfoCard = ({ toggleCard, isMd, ...data }) => {
                     />
                 </div>
             </div>
-            <p className="">{isMd ? 'Click' : 'Tap'} to Read More</p>
+            <h5 className="">{isMd ? 'Click' : 'Tap'} to Read More</h5>
         </div>
     )
 }
@@ -145,6 +147,37 @@ const SplitText = ({ children, ...props }) => {
     )
 }
 
+const TabList = ({ currentTab, handleTab, tabNames }) => {
+    const tabNums = [...Array(tabNames.length).keys()]
+    return (
+        <LayoutGroup>
+            <div className="flex-evenly w-full">
+                {tabNums.map((tabNum) => (
+                    <motion.div
+                        key={tabNum}
+                        className="flex-center relative mb-1 h-12 w-full cursor-pointer whitespace-nowrap rounded-md p-2 text-center md:mx-5"
+                        onClick={() => handleTab(tabNum)}
+                        whileHover={{
+                            backgroundColor: '#eeeeee25',
+                        }}
+                        transition={{ duration: 0.1 }}
+                    >
+                        <span className="capitalize text-white">
+                            {tabNames[tabNum]}
+                        </span>
+                        {tabNum === currentTab ? (
+                            <motion.div
+                                className="absolute bottom-2 top-2 left-2 right-2 -z-10 rounded-md bg-neon/50 opacity-100"
+                                layoutId="underline"
+                            />
+                        ) : null}
+                    </motion.div>
+                ))}
+            </div>
+        </LayoutGroup>
+    )
+}
+
 const Items = {
     InfoCard: InfoCard,
     ImgCard: ImgCard,
@@ -152,6 +185,7 @@ const Items = {
     ExitButton: ExitButton,
     GhLink: GitHubLink,
     SplitText: SplitText,
+    TabList: TabList,
 }
 
 export default Items

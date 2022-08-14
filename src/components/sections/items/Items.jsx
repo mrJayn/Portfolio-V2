@@ -8,6 +8,7 @@ import { toggleScrolling } from '@utils'
 import { FaGithub } from 'react-icons/fa'
 import { HiX } from 'react-icons/hi'
 import { useMediaQuery } from '@hooks'
+import { config } from '@config'
 
 const imgProps = {
     quality: 100,
@@ -26,7 +27,7 @@ const InfoCard = ({ toggleCard, ...data }) => {
                 toggleScrolling(false)
             }}
         >
-            <h4 className="text-4xl font-semibold uppercase text-darkblack md:text-3xl">
+            <h4 className="md:flex-bottom text-4xl font-semibold uppercase text-darkblack md:text-3xl">
                 {data.data.section}
             </h4>
             <p
@@ -34,8 +35,8 @@ const InfoCard = ({ toggleCard, ...data }) => {
                 dangerouslySetInnerHTML={{ __html: data.data.brief }}
             />
 
-            <div className="flex-center relative w-full md:hidden">
-                <div className="relative m-3 aspect-[9/10] h-[200px] min-w-[320px] md:h-[190px] lg:h-[280px]">
+            <div className="flex-center shadow-xl shadow-grey/25 md:hidden">
+                <div className="relative m-3 aspect-[9/10] h-[200px]  min-w-[320px] md:h-[190px] lg:h-[280px]">
                     <Image
                         src={data.data.src}
                         alt={data.data.alt}
@@ -43,7 +44,12 @@ const InfoCard = ({ toggleCard, ...data }) => {
                     />
                 </div>
             </div>
-            <h5 className="">{isMd ? 'Click' : 'Tap'} to Read More</h5>
+            <h5
+                className="flex-center styled-link min-h-[100px] tracking-tighter text-black/50 after:bg-black hover:text-black md:mt-16 md:min-h-0"
+                style={{ transition: 'color 0.15s  linear' }}
+            >
+                {isMd ? 'Click' : 'Tap'} to Read More
+            </h5>
         </div>
     )
 }
@@ -78,17 +84,18 @@ const CardExpanded = ({ children, toggleCard, ...props }) => {
                         {...motionProps}
                     />
                     <motion.div
-                        className="fixed top-0 left-0 right-0 bottom-0 z-50 mx-auto max-w-[1240px] overflow-y-scroll rounded-lg bg-black md:top-20 md:bottom-12 md:left-12 md:right-12"
+                        className="fixed top-0 left-0 right-0 bottom-0 z-50 mx-auto max-w-[1024px] overflow-hidden rounded-lg bg-charcoal md:top-14 md:bottom-2 md:left-12 md:right-12"
                         ref={ref}
                         {...motionProps}
                     >
-                        <div className="relative w-full p-4">
+                        <div className="relative m-4 h-full">
                             <ExitButton toggleCard={toggleCard} />
-                            <div className="flex-col-center min-h-24 border-b-[1px] border-b-eee">
-                                <h3>{props.title}</h3>
-                                <h4>{props.subtitle}</h4>
+                            <h4 className="flex-bottom absolute top-0 left-0 h-32 w-full rounded-t-md border-b-2 border-b-neon/75 bg-black/75 pb-5 text-lightTeal md:h-20 md:pb-3">
+                                {props.title}
+                            </h4>
+                            <div className="absolute top-32 left-0 right-0 bottom-0 md:top-20">
+                                {children}
                             </div>
-                            {children}
                         </div>
                     </motion.div>
                 </>
@@ -100,7 +107,7 @@ const CardExpanded = ({ children, toggleCard, ...props }) => {
 const ExitButton = ({ toggleCard }) => {
     return (
         <motion.div
-            className="exitButtonAfter absolute top-5 right-5 z-10 aspect-square h-12 cursor-pointer rounded-md bg-grey text-[48px] text-red  md:left-5 md:h-14 md:text-[56px] lg:bg-black/25 "
+            className="exitButtonAfter absolute z-10 m-5 aspect-square h-12 cursor-pointer rounded-md text-[48px] text-red/75 md:m-2   md:h-14 md:text-[56px] "
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             initial={{ opacity: 0, y: -10 }}
@@ -151,18 +158,18 @@ const TabList = ({ currentTab, handleTab, tabNames }) => {
     const tabNums = [...Array(tabNames.length).keys()]
     return (
         <LayoutGroup>
-            <div className="flex-evenly w-full">
+            <div className="flex-evenly w-full border-b-[1px] border-lightTeal/75 bg-black/75 shadow-xl shadow-black/75">
                 {tabNums.map((tabNum) => (
                     <motion.div
                         key={tabNum}
-                        className="flex-center relative mb-1 h-12 w-full cursor-pointer whitespace-nowrap rounded-md p-2 text-center md:mx-5"
+                        className="flex-center relative mb-1 h-12 w-full cursor-pointer whitespace-nowrap rounded-md rounded-b-none p-2 text-center md:mx-5"
                         onClick={() => handleTab(tabNum)}
                         whileHover={{
                             backgroundColor: '#eeeeee25',
                         }}
                         transition={{ duration: 0.1 }}
                     >
-                        <span className="capitalize text-white">
+                        <span className="font-medium capitalize tracking-wide text-white">
                             {tabNames[tabNum]}
                         </span>
                         {tabNum === currentTab ? (
@@ -178,6 +185,62 @@ const TabList = ({ currentTab, handleTab, tabNames }) => {
     )
 }
 
+const TabWrap = ({ children, ...tabProps }) => {
+    tabProps = {
+        variants: config.variants.slideshow,
+        initial: 'enter',
+        animate: 'display',
+        exit: 'exit',
+        ...tabProps,
+    }
+    return (
+        <motion.div className=" md:flex-top full" {...tabProps}>
+            {children}
+        </motion.div>
+    )
+}
+
+const Skills = ({ readMore, ...content }) => {
+    const [skills, icons] = [content.data.skills, content.data.skills_icons]
+    const motionProps = {
+        initial: { opacity: 0, y: 10 },
+        animate: readMore && { opacity: 1, y: 0 },
+    }
+    return (
+        <div className="md:flex-col-center md:w-[30%] md:border-l-2 md:border-l-eee/50 md:pl-5">
+            <Items.SplitText
+                className="text-base font-medium text-lightTeal md:text-md"
+                {...motionProps}
+            >
+                Tech I&apos;ve worked with recently
+            </Items.SplitText>
+            <ul className="mt-3 grid grid-cols-3 gap-x-2 border-t-2 border-t-eee/50 pt-3 text-xs md:grid-cols-1 md:text-base lg:grid-cols-2 lg:text-md">
+                {skills.map((skill, i) => (
+                    <motion.li
+                        key={`skill-item-${i}`}
+                        className="flex-left my-2 rounded bg-grey p-2"
+                        transition={{ delay: 0.75 + i * 0.08 }}
+                        {...motionProps}
+                    >
+                        <div>
+                            <Image
+                                src={icons[i]}
+                                alt={`${skill}.png`}
+                                layout="intrinsic"
+                                height={15}
+                                width={15}
+                            />
+                        </div>
+                        <p className="pl-[5px] font-robotoMono text-xs font-normal italic text-neon md:text-sm">
+                            {skill}
+                        </p>
+                    </motion.li>
+                ))}
+            </ul>
+        </div>
+    )
+}
+
 const Items = {
     InfoCard: InfoCard,
     ImgCard: ImgCard,
@@ -186,6 +249,8 @@ const Items = {
     GhLink: GitHubLink,
     SplitText: SplitText,
     TabList: TabList,
+    TabWrap: TabWrap,
+    Skills: Skills,
 }
 
 export default Items

@@ -33,8 +33,10 @@
     h3,
     h4,
     h5,
-    p,
     button {
+        @apply select-none antialiased;
+    }
+    p {
         @apply antialiased;
     }
 }

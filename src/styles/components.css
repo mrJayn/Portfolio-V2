@@ -175,7 +175,7 @@
             @apply absolute top-0 left-0 right-0 bottom-0 rounded-md;
         }
         &:hover {
-            @apply scale-110 after:border-[1px] after:border-red;
+            @apply scale-110 text-red after:border-[1px] after:border-red;
         }
         &:active {
             &:after {

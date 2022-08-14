@@ -8,7 +8,7 @@ const fade = config.variants.fade
 
 const SectionLink = (
     <motion.a
-        className="styled-element p-3"
+        className="styled-element mt-32 p-3"
         whileTap={{ scale: 0.95 }}
         variants={fade}
         transition={{ delay: 0.5 }}
@@ -23,7 +23,7 @@ const Intro = () => {
     return (
         <Section id="intro">
             <motion.div
-                className="flex-col-center full px-4 pt-24 md:px-0"
+                className="flex-col-center full absolute top-0 left-0  px-4 md:px-0"
                 initial="hidden"
                 animate={titleVis && 'enter'}
             >

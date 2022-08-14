@@ -84,7 +84,7 @@ const CardExpanded = ({ children, toggleCard, ...props }) => {
                         {...motionProps}
                     />
                     <motion.div
-                        className="fixed top-0 left-0 right-0 bottom-0 z-50 mx-auto max-w-[1024px] overflow-hidden rounded-lg bg-charcoal md:top-14 md:bottom-2 md:left-12 md:right-12"
+                        className="fixed top-0 left-0 right-0 bottom-0 z-50 mx-auto max-w-[1024px] overflow-hidden rounded-lg bg-charcoal shadow-2xl shadow-black md:top-14 md:bottom-4 md:left-12 md:right-12"
                         ref={ref}
                         {...motionProps}
                     >

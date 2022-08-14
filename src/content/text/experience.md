@@ -1,7 +1,6 @@
 ---
 section: Experience
 title: My Experience
-subtitle: So Far...
 brief: Where I've worked.&#10;What I've accomplished.
 src: '/assets/misc/resume2022.jpg'
 alt: ' '

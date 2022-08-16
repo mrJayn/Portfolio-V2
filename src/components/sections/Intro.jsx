@@ -2,21 +2,8 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
-import { Section, Title } from '@components'
+import { Section, Intro_Items } from '@components'
 import { config } from '@config'
-const fade = config.variants.fade
-
-const SectionLink = (
-    <motion.a
-        className="styled-element mt-32 p-3"
-        whileTap={{ scale: 0.95 }}
-        variants={fade}
-        transition={{ delay: 0.5 }}
-        href="#featured"
-    >
-        Check out my projects
-    </motion.a>
-)
 
 const Intro = () => {
     const [titleVis, setTitleVis] = useState(false)
@@ -27,15 +14,20 @@ const Intro = () => {
                 initial="hidden"
                 animate={titleVis && 'enter'}
             >
-                <motion.p>Hello, my name is</motion.p>
+                <p className="text-md font-semibold tracking-wide">
+                    Hello, my name is
+                </p>
                 <motion.div className="flex-center relative h-20 overflow-hidden rounded md:h-24 lg:h-32">
-                    <Title setTitleVis={setTitleVis} />
+                    <Intro_Items.Title setTitleVis={setTitleVis} />
                 </motion.div>
 
-                <motion.div className="flex-center w-full pb-2" variants={fade}>
+                <motion.div
+                    className="flex-center w-full pb-2"
+                    variants={config.variants.fade}
+                >
                     <h2>Data Analyst</h2>
                 </motion.div>
-                {SectionLink}
+                <Intro_Items.LinkBtn />
             </motion.div>
         </Section>
     )

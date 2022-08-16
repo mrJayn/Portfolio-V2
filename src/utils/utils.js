@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 
 export const navDelay = 1000
 export const [burgerUnitSize, burgerSize] = [4, 24]
@@ -39,3 +40,20 @@ export const default_spring = {
     restSpeed: 0.01,
     restDelta: 0.01,    
 */
+export const SplitText = ({ children, ...props }) => {
+    let words = children.split(' ')
+    return (
+        <div className="flex-center w-full flex-wrap overflow-hidden ">
+            {words.map((word, i) => (
+                <motion.span
+                    key={`splitText-word${i}`}
+                    style={{ display: 'inline-block', willChange: 'transform' }}
+                    transition={{ delay: 0.15 + i * 0.08 }}
+                    {...props}
+                >
+                    {word + (i !== words.length - 1 ? '\u00A0' : '')}
+                </motion.span>
+            ))}
+        </div>
+    )
+}

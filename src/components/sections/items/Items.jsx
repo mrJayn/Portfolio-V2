@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
 
 import { useOnClickOutside } from 'src/hooks/useOnClickOutside'
-import { toggleScrolling } from '@utils'
+import { SplitText, toggleScrolling } from '@utils'
 
 import { FaGithub } from 'react-icons/fa'
 import { HiX } from 'react-icons/hi'
@@ -136,24 +136,6 @@ const GitHubLink = ({ className }) => {
     )
 }
 
-const SplitText = ({ children, ...props }) => {
-    let words = children.split(' ')
-    return (
-        <div className="flex-center w-full flex-wrap overflow-hidden ">
-            {words.map((word, i) => (
-                <motion.span
-                    key={`splitText-word${i}`}
-                    style={{ display: 'inline-block', willChange: 'transform' }}
-                    transition={{ delay: 0.15 + i * 0.08 }}
-                    {...props}
-                >
-                    {word + (i !== words.length - 1 ? '\u00A0' : '')}
-                </motion.span>
-            ))}
-        </div>
-    )
-}
-
 const TabList = ({ currentTab, handleTab, tabNames }) => {
     const tabNums = [...Array(tabNames.length).keys()]
     return (
@@ -208,12 +190,12 @@ const Skills = ({ readMore, ...content }) => {
     }
     return (
         <div className="md:flex-col-center md:w-[30%] md:border-l-2 md:border-l-eee/50 md:pl-5">
-            <Items.SplitText
+            <SplitText
                 className="text-base font-medium text-lightTeal md:text-md"
                 {...motionProps}
             >
                 Tech I&apos;ve worked with recently
-            </Items.SplitText>
+            </SplitText>
             <ul className="mt-3 grid grid-cols-3 gap-x-2 border-t-2 border-t-eee/50 pt-3 text-xs md:grid-cols-1 md:text-base lg:grid-cols-2 lg:text-md">
                 {skills.map((skill, i) => (
                     <motion.li
@@ -245,9 +227,7 @@ const Items = {
     InfoCard: InfoCard,
     ImgCard: ImgCard,
     ExpandedCard: CardExpanded,
-    ExitButton: ExitButton,
     GhLink: GitHubLink,
-    SplitText: SplitText,
     TabList: TabList,
     TabWrap: TabWrap,
     Skills: Skills,

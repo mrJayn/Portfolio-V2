@@ -41,6 +41,31 @@
     }
 }
 /* ================== UTILITIES ================== */
+
+@layer utilities {
+    .styled-el {
+        @apply select-none rounded bg-gradient-to-t from-eee/75 to-eee/20;
+    }
+}
+
+/* Intro Items */
+@layer components {
+    .IntroBtn-el {
+        &:first-child {
+            @apply rounded-tl-lg;
+        }
+        &:nth-child(20) {
+            @apply rounded-tr-lg;
+        }
+        &:nth-child(81) {
+            @apply rounded-bl-lg;
+        }
+        &:last-child {
+            @apply rounded-br-lg;
+        }
+    }
+}
+/** Check the Stuff below */
 /* STYLED HEADINGS */
 @layer utilities {
     .styled-heading {
@@ -128,19 +153,7 @@
         }
     }
 }
-/* STYLED IMAGE  */
-@layer utilities {
-    .styled-image {
-        @apply styled-element rounded;
-        &:after,
-        &:before {
-            @apply rounded;
-        }
-        & img {
-            @apply rounded;
-        }
-    }
-}
+
 /* STYLED LINKS  */
 @layer utilities {
     .styled-link {
@@ -184,12 +197,6 @@
         &:hover a:after {
             @apply origin-bottom-left scale-x-100;
         }
-    }
-}
-/* CLASSES */
-@layer utilities {
-    .count-section {
-        counter-increment: section 1;
     }
 }
 

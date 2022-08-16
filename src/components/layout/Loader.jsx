@@ -1,5 +1,5 @@
 import anime from 'animejs'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { theme } from 'tailwind.config'
 
 const Loader = ({ finishLoading }) => {
@@ -12,7 +12,7 @@ const Loader = ({ finishLoading }) => {
 
     const els = [...Array(el_size ** 2).keys()]
 
-    const animate = () => {
+    const animate = useCallback(() => {
         const spring = 'spring(1, 20, 10, 10)'
         const loader = anime.timeline({
             complete: () => {
@@ -142,13 +142,13 @@ const Loader = ({ finishLoading }) => {
                 },
                 2250
             )
-    }
+    }, [finishLoading])
 
     useEffect(() => {
         const delay = setTimeout(() => setIsMounted(true), 0)
         animate()
         return () => clearTimeout(delay)
-    }, [])
+    }, [animate])
 
     return (
         <div

@@ -97,7 +97,7 @@
                     @apply mx-auto mb-10  px-2 text-lg font-medium text-teal;
                 }
                 &:last-child {
-                    @apply styled-element mb-6 p-3;
+                    @apply mb-6 p-3;
                 }
             }
         }
@@ -159,7 +159,7 @@
                         @apply text-lg font-medium italic text-teal;
                     }
                     &:last-child {
-                        @apply styled-element p-3;
+                        @apply p-3;
                     }
                 }
             }
@@ -187,17 +187,15 @@
 
 /* CONTACT  */
 @layer components {
-    .contact-header {
-        @apply flex-col-center;
-        border: solid 1px black;
+    #contact {
         & h2 {
-            @apply styled-heading;
             @apply text-xl;
         }
         & h3 {
             @apply flex-center bg-gradient-to-br from-neon via-teal to-grey  bg-clip-text text-4xl font-bold tracking-wide text-transparent;
         }
     }
+
     .contact-content {
         @apply flex-col-center h-full w-full;
     }

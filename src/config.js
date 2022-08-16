@@ -40,8 +40,12 @@ export const config = {
             url: '/#experience',
         },
         {
-            title: 'projects',
+            title: 'featured',
             url: '/#featured',
+        },
+        {
+            title: 'projects',
+            url: '/#projects',
         },
         {
             title: 'contact',
@@ -147,15 +151,14 @@ export const config = {
                     opacity: 0,
                     transition: default_spring,
                 },
-                enter: (isMd = false) => ({
+                enter: (i) => ({
                     opacity: [
                         0, 0.5, 0.25, 0.75, 0.1, 0.75, 0, 0, 0, 0, 0.5, 0, 0, 0,
                         0, 0, 0, 0, 0, 0, 0.5, 0.25, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0.5, 0.25, 0.75, 1,
                     ],
                     transition: {
-                        when: 'afterChildren',
-                        delay: isMd ? 2 : 1.25,
+                        delay: i,
                         duration: 1.5,
                     },
                 }),
@@ -173,6 +176,7 @@ export const config = {
                     transition: {
                         staggerChildren: 0.1,
                         staggerDirection: 1,
+                        delayChildren: 1,
                     },
                 },
             },
@@ -275,7 +279,7 @@ export const config = {
                     transition: {
                         type: 'spring',
                         delay: 0.2,
-                        stiffness: 150,
+                        stiffness: 250,
                         damping: 35,
                         velocity: -50,
                     },
@@ -284,8 +288,8 @@ export const config = {
                     clipPath: `polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%)`,
                     transition: {
                         type: 'spring',
-                        stiffness: 150,
-                        damping: 30,
+                        stiffness: 250,
+                        damping: 40,
                         velocity: 50,
                         restDelta: 0.02,
                     },

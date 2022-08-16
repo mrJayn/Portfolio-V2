@@ -36,6 +36,11 @@ function MyApp({ Component, pageProps }) {
 
     const url = `https://mikejayne.com${router.pathname}`
 
+    const navProps = {
+        isLoading: isLoading,
+        isMain: isMain,
+    }
+
     return (
         <>
             <Head>
@@ -67,7 +72,7 @@ function MyApp({ Component, pageProps }) {
                         isAnimating={isAnimating}
                         setIsAnimating={setIsAnimating}
                     />
-                    <Navbar isLoading={isLoading} isMain={isMain} />
+                    <Navbar {...navProps} />
                     <AnimatePresence exitBeforeEnter>
                         {!isRouting && !isAnimating && (
                             <Component {...pageProps} isLoading={isLoading} />

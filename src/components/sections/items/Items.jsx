@@ -1,6 +1,8 @@
-import { createRef, useRef } from 'react'
+import { useState, useEffect, useRef, createRef } from 'react'
 import Image from 'next/image'
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
+import anime from 'animejs'
+import { theme } from 'tailwind.config'
 
 import { useOnClickOutside } from 'src/hooks/useOnClickOutside'
 import { SplitText, toggleScrolling } from '@utils'
@@ -16,12 +18,14 @@ const imgProps = {
     objectFit: 'cover',
     objectPosition: 'top',
 }
-
 const InfoCard = ({ toggleCard, ...data }) => {
     const isMd = useMediaQuery()
     return (
         <div
-            className="card flex-col-center relative w-full cursor-pointer whitespace-pre-line"
+            className="flex-col-center relative h-[500px] w-full cursor-pointer select-none whitespace-pre-line rounded-md md:h-[490px] lg:h-[580px]"
+            style={{
+                background: 'linear-gradient(to top,#eeeeeebf, #eeeeee33)',
+            }}
             onClick={() => {
                 toggleCard()
                 toggleScrolling(false)
@@ -40,6 +44,7 @@ const InfoCard = ({ toggleCard, ...data }) => {
                     <Image
                         src={data.data.src}
                         alt={data.data.alt}
+                        className="full rounded-md"
                         {...imgProps}
                     />
                 </div>
@@ -53,17 +58,25 @@ const InfoCard = ({ toggleCard, ...data }) => {
         </div>
     )
 }
-
 const ImgCard = ({ ...data }) => {
     return (
-        <div className="card md:flex-center relative hidden w-full">
+        <div
+            className="md:flex-center relative hidden h-[500px] w-full select-none md:h-[490px] lg:h-[580px]"
+            style={{
+                background: 'linear-gradient(to top,#eeeeeebf, #eeeeee33)',
+            }}
+        >
             <div className="relative m-3 aspect-[9/10] max-h-[476px] min-w-[320px] md:max-h-[466px] lg:max-h-[556px]">
-                <Image src={data.data.src} alt={data.data.alt} {...imgProps} />
+                <Image
+                    src={data.data.src}
+                    alt={data.data.alt}
+                    className="full rounded-md"
+                    {...imgProps}
+                />
             </div>
         </div>
     )
 }
-
 const CardExpanded = ({ children, toggleCard, ...props }) => {
     const ref = createRef()
     useOnClickOutside(ref, () => {
@@ -103,7 +116,6 @@ const CardExpanded = ({ children, toggleCard, ...props }) => {
         </AnimatePresence>
     )
 }
-
 const ExitButton = ({ toggleCard }) => {
     return (
         <motion.div
@@ -166,7 +178,6 @@ const TabList = ({ currentTab, handleTab, tabNames }) => {
         </LayoutGroup>
     )
 }
-
 const TabWrap = ({ children, ...tabProps }) => {
     tabProps = {
         variants: config.variants.slideshow,
@@ -223,6 +234,205 @@ const Skills = ({ readMore, ...content }) => {
     )
 }
 
+const Styled_Button = () => {
+    const [size, setSizes] = useState(0)
+    const ref = useRef()
+
+    useEffect(() => {
+        function getRefWidth() {
+            const w = ref.current.offsetWidth
+            setSizes(w / 20)
+        }
+        getRefWidth()
+        window.addEventListener('resize', getRefWidth)
+        return () => window.removeEventListener('resize', getRefWidth)
+    }, [size])
+
+    function animateButton(play = false) {
+        anime.remove('.el')
+        anime({
+            targets: '.IntroBtn-text',
+            scale: play ? 1.1 : 1,
+            easing: 'easeOutSine',
+        })
+        anime({
+            targets: '.IntroBtn-el',
+            opacity: play ? 1 : 0.5,
+            boxShadow: function (el, i) {
+                return play
+                    ? i < 20 || i > 80
+                        ? `0px 0px 20px 0px ${theme.colors.neon}`
+                        : 'none'
+                    : `0px 0px 0px 0px ${theme.colors.neon}`
+            },
+            backgroundColor: function (el, i) {
+                return play
+                    ? i % 20 == 19 || i % 20 == 0 || i < 20 || i > 80
+                        ? i % 2 == 0
+                            ? theme.colors.lightTeal
+                            : theme.colors.neon
+                        : '#eeeffe'
+                    : theme.colors.lightTeal
+            },
+            scale: function (el, i) {
+                return play
+                    ? i % 20 == 19 || i % 20 == 0
+                        ? 0
+                        : i < 20 || i > 80
+                        ? anime.random(0, 10) * 0.05
+                        : 0.25
+                    : 1
+            },
+            scaleX: function (el, i) {
+                return play ? (i > 40 && i < 60 ? 5 : 1) : 1
+            },
+            translateX: anime.stagger(play ? 10 : 0, {
+                grid: [20, 5],
+                from: 'center',
+                axis: 'x',
+            }),
+            translateY: function (el, i) {
+                return play
+                    ? i < 10
+                        ? anime.random(-50, -10) * i ** (1 / 2)
+                        : i < 20
+                        ? anime.random(-50, -10) * (19 - i) ** (1 / 2)
+                        : i > 89
+                        ? anime.random(10, 50) * (99 - i) ** (1 / 2)
+                        : i > 79
+                        ? anime.random(10, 50) * (i - 80) ** (1 / 2)
+                        : 0
+                    : 0
+            },
+
+            rotateZ: anime.stagger([0, play ? 0 : 0], {
+                grid: [20, 5],
+                from: 'center',
+                axis: 'x',
+            }),
+            delay: anime.stagger(50, { grid: [20, 5], from: 'center' }),
+            duration: 250,
+            easing: 'easeInOutSine',
+        })
+    }
+
+    return (
+        <motion.div
+            className="IntroBtn-wrap flex-center relative mt-24 aspect-[4/1] h-[50px] md:h-[100px]"
+            whileTap={{ scale: 0.95 }}
+            variants={config.variants.fade}
+            transition={{ delay: 0.5 }}
+            href="#featured"
+            ref={ref}
+            onHoverStart={() => animateButton(true)}
+            onHoverEnd={() => animateButton()}
+        >
+            <a
+                href="#featured"
+                className="IntroBtn-text flex-center full z-10 text-lg font-semibold text-darkblack"
+            >
+                Check out my projects
+            </a>
+            <div className="full absolute flex flex-wrap">
+                {[...Array(100).keys()].map((i) => {
+                    return (
+                        <div
+                            key={i}
+                            className="IntroBtn-el relative"
+                            style={{ height: size, width: size }}
+                        />
+                    )
+                })}
+            </div>
+        </motion.div>
+    )
+}
+const Styled_Submit = () => {
+    const [size, setSizes] = useState(0)
+    const ref = useRef()
+
+    useEffect(() => {
+        function getRefWidth() {
+            const h = ref.current.offsetHeight
+            setSizes(h / 2)
+        }
+        getRefWidth()
+        window.addEventListener('resize', getRefWidth)
+        return () => window.removeEventListener('resize', getRefWidth)
+    }, [size])
+
+    function animateButton(play = false) {
+        anime.remove('.el')
+        anime({
+            targets: '.submitBtn-text',
+            color: play ? '#000' : '#999',
+            scale: play ? 1.25 : 1,
+            easing: 'easeOutSine',
+        })
+        anime({
+            targets: '.submitBtn-el',
+            backgroundColor: function (el, i) {
+                return play
+                    ? i % 2 == 0
+                        ? theme.colors.neon
+                        : theme.colors.teal
+                    : '#eee'
+            },
+            scale: function (el, i) {
+                return play ? anime.random(0, 10) * 0.05 : 1
+            },
+            translateX: anime.stagger(play ? -10 : 0, {
+                grid: [10, 2],
+                from: 'center',
+                axis: 'x',
+            }),
+            translateY: anime.stagger(play ? -10 : 0, {
+                grid: [10, 2],
+                from: 'center',
+                axis: 'y',
+            }),
+
+            rotateZ: anime.stagger([0, play ? 35 : 0], {
+                grid: [10, 2],
+                from: 'center',
+                axis: 'x',
+            }),
+            delay: anime.stagger(50, { grid: [10, 2], from: 'center' }),
+            duration: 500,
+            easing: 'easeInOutSine',
+        })
+    }
+
+    return (
+        <motion.div
+            className="submitBtn-wrap flex-center relative aspect-[5/1] h-[40px] md:h-[80px]"
+            whileTap={{ scale: 0.95 }}
+            variants={config.variants.fade}
+            transition={{ delay: 0.5 }}
+            ref={ref}
+            onHoverStart={() => animateButton(true)}
+            onHoverEnd={() => animateButton()}
+        >
+            <button
+                type="submit"
+                className="submitBtn-text flex-center full z-10 text-lg font-semibold"
+            >
+                Send Message
+            </button>
+            <div className="full absolute flex flex-wrap">
+                {[...Array(20).keys()].map((i) => {
+                    return (
+                        <div
+                            key={i}
+                            className="submitBtn-el relative"
+                            style={{ height: size, width: size }}
+                        />
+                    )
+                })}
+            </div>
+        </motion.div>
+    )
+}
 const Items = {
     InfoCard: InfoCard,
     ImgCard: ImgCard,
@@ -231,6 +441,8 @@ const Items = {
     TabList: TabList,
     TabWrap: TabWrap,
     Skills: Skills,
+    Styled_Button: Styled_Button,
+    Styled_Submit: Styled_Submit,
 }
 
 export default Items

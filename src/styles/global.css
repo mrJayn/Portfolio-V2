@@ -46,10 +46,31 @@
     .styled-el {
         @apply select-none rounded bg-gradient-to-t from-eee/75 to-eee/20;
     }
+    .styled-heading {
+        @apply mx-auto mb-5 flex w-[90%] items-center whitespace-nowrap uppercase;
+        @apply text-xl font-semibold;
+        &:before {
+            @apply mx-[10px] block h-1 w-full rounded-full bg-gradient-to-l from-black via-teal to-transparent content-[""];
+        }
+        &:after {
+            @apply mx-[10px] block h-1 w-full rounded-full bg-gradient-to-r from-black via-teal to-transparent content-[""];
+        }
+    }
 }
-
-/* Intro Items */
+/* ================== COMPONENTS ================== */
 @layer components {
+    /* Navbar */
+    #nav_resumeBtn {
+        & * {
+            @apply duration-250 ease-linear;
+        }
+        & > div div:after {
+            content: 'resume';
+            @apply pointer-events-none absolute -left-2 top-4 -z-10 -rotate-90 rounded font-robotoMono text-xs uppercase text-white opacity-100;
+        }
+    }
+
+    /* Intro Items */
     .IntroBtn-el {
         &:first-child {
             @apply rounded-tl-lg;
@@ -66,93 +87,6 @@
     }
 }
 /** Check the Stuff below */
-/* STYLED HEADINGS */
-@layer utilities {
-    .styled-heading {
-        @apply flex w-full items-center whitespace-nowrap text-3xl font-semibold tracking-normal;
-        @apply pb-0 sm:pb-10 lg:pb-12;
-        &:before {
-            @apply mt-1 mr-[10px] text-2xl font-thin tracking-tight text-teal content-['0'counter(section)'.'];
-        }
-        &:after {
-            @apply mt-6 ml-5 block h-[1.5px] w-full rounded-full bg-gradient-to-l from-transparent to-teal content-[""];
-        }
-    }
-    .styled-heading-2 {
-        @apply flex w-full items-center whitespace-nowrap tracking-tight;
-        @apply pb-0 sm:pb-8;
-        @apply text-lg font-normal;
-        &:before {
-            @apply mx-[10px] block h-[1.5px] w-full rounded-full bg-gradient-to-l from-tan via-tan to-transparent content-[""];
-        }
-        &:after {
-            @apply mx-[10px] block h-[1.5px] w-full rounded-full bg-gradient-to-r from-tan via-tan to-transparent content-[""];
-        }
-        & > span {
-            @apply flex items-center whitespace-nowrap;
-            &:before {
-                @apply mr-[10px] font-thin tracking-tighter text-teal content-['0'counter(section)'.'];
-            }
-        }
-    }
-}
-
-/* STYLED ELEMENT */
-@layer utilities {
-    :root {
-        --fade: 5px;
-        --fade-after: 5px;
-        --shift-1: 0px;
-        --shift-1-after: 2px;
-        --stroke: 0px;
-        --transform-coef: 0rem;
-        --transition: 0.2s ease-in-out;
-        --transition-after: 0.2s ease-in-out;
-
-        --shift-2: calc(var(--shift-1) * -1);
-        --shift-2-after: calc(var(--shift-1-after) * -1);
-        --transform-coef-2: calc(var(--transform-coef) * -1);
-    }
-    .styled-element {
-        @apply hover:activ;
-        @apply relative cursor-pointer rounded bg-eee;
-        &:before {
-            content: '';
-            box-shadow: var(--shift-1) var(--shift-1) var(--fade) var(--stroke)
-                theme(colors.tan);
-            transition: var(--transition);
-
-            @apply absolute top-0 right-0 bottom-0 left-0 -z-10 rounded;
-        }
-        &:after {
-            content: '';
-            box-shadow: var(--shift-2) var(--shift-2) var(--fade) var(--stroke)
-                theme(colors.neon);
-            transition: var(--transition);
-
-            @apply absolute top-0 right-0 bottom-0 left-0 -z-10 rounded;
-        }
-    }
-
-    .activ {
-        @apply text-teal;
-        &:before {
-            box-shadow: var(--shift-1-after) var(--shift-1-after)
-                var(--fade-after) var(--stroke) theme(colors.tan);
-            transform: translate(var(--transform-coef), var(--transform-coef));
-            transition: var(--transition-after);
-        }
-        &:after {
-            box-shadow: var(--shift-2-after) var(--shift-2-after)
-                var(--fade-after) var(--stroke) theme(colors.neon);
-            transform: translate(
-                var(--transform-coef-2),
-                var(--transform-coef-2)
-            );
-            transition: var(--transition-after);
-        }
-    }
-}
 
 /* STYLED LINKS  */
 @layer utilities {

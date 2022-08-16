@@ -1,36 +1,51 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { Menu, Burger } from '@components'
-import { toggleScrolling } from '@utils'
 import { config } from '@config'
-const navVariants = config.variants.nav
+import { useMediaQuery } from '@hooks'
+import { toggleScrolling } from '@utils'
 
 import { BsFileEarmarkPerson } from 'react-icons/bs'
 
-const NavLogo = ({ largeScreen }) => {
+const NavLogo = ({ isMd }) => {
     return (
         <motion.div
-            className="nav-logo"
-            variants={navVariants.navLogo}
-            custom={largeScreen}
+            className="z-10"
+            initial="hidden"
+            animate="enter"
+            variants={config.variants.nav.logo}
+            custom={isMd ? 2 : 1.25}
         >
             <Link href="/#intro">
-                <p>MikeJayne</p>
+                <p
+                    className=" cursor-pointer text-2xl font-medium uppercase text-white hover:text-lightTeal md:text-lg"
+                    style={{ transition: '0.25s ease-in' }}
+                >
+                    MikeJayne
+                </p>
             </Link>
         </motion.div>
     )
 }
 const NavLinks = () => {
     return (
-        <motion.div className="nav-links" variants={config.variants.fade}>
-            <motion.ul variants={navVariants.navLinks}>
+        <motion.div
+            className="md:flex-center absolute left-0 bottom-3 hidden w-full"
+            variants={config.variants.fade}
+        >
+            <motion.ul
+                className="flex-btw"
+                variants={config.variants.nav.links}
+                custom={-100}
+            >
                 {config.sectionLinks.map((link) => (
                     <motion.li
                         key={`nav-linkTo-${link.title}`}
+                        className="styled-link mx-5 w-full text-base tracking-tight text-lightgrey hover:text-white"
+                        style={{ transition: 'color 0.25s linear' }}
                         variants={config.variants.fadeY}
                     >
                         <Link href={link.url} scroll={false}>
@@ -42,23 +57,25 @@ const NavLinks = () => {
         </motion.div>
     )
 }
-
 const ResumeBtn = ({ isMd }) => {
     return (
         <motion.div
-            className="nav-btns"
+            id="nav_resumeBtn"
+            className="flex-center  absolute right-0 top-0 z-10 h-full px-4 md:relative"
             variants={config.variants.fade}
-            transition={{ delay: isMd ? 1.5 : 0 }}
+            transition={{ delay: isMd ? 2 : 0 }}
         >
-            <div className="resumeBtn">
+            <div className="md:flex-center cursor-pointer">
                 <a
                     href="/assets/misc/resume2022.jpg"
                     alt="Resume of Michael Jayne"
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noreferrer"
                 >
-                    <p>Resume</p>
-                    <div>
+                    <p className="hidden text-lg font-semibold uppercase text-white hover:text-lightTeal md:block">
+                        Resume
+                    </p>
+                    <div className="text-teal hover:text-neon md:hidden">
                         <BsFileEarmarkPerson size={32} />
                     </div>
                 </a>
@@ -71,14 +88,15 @@ const Navbar = ({ isLoading, isMain }) => {
     const [navState, setNavState] = useState('hidden')
     const [menuState, setMenuState] = useState(false)
     const router = useRouter()
-    const [isMd, setIsMd] = useState()
+    const isMd = useMediaQuery()
     const ref = useRef()
 
     // open/close Menu
-    const handleBurger = () => {
+    const handleMenu = () => {
         setMenuState(!menuState)
         toggleScrolling(menuState)
     }
+    // Extra time for intermediate Page
     const handleReturn = (e) => {
         e.preventDefault()
         setTimeout(() => {
@@ -86,7 +104,7 @@ const Navbar = ({ isLoading, isMain }) => {
         }, 100)
     }
 
-    // setState/Hide Menu at Medium(768px) Breakpoint
+    // Close Menu if VP isMd
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth > 767 && menuState) {
@@ -97,41 +115,32 @@ const Navbar = ({ isLoading, isMain }) => {
         window.addEventListener('resize', handleResize)
         return () => window.removeEventListener('resize', handleResize)
     }, [menuState])
+
     // initialize animations after Loader
     useEffect(() => {
         if (!isLoading) {
-            setIsMd(ref.current.clientWidth > 767)
             setNavState('enter')
         }
     }, [isLoading])
+
     return (
         <AnimatePresence exitBeforeEnter>
             {!isLoading && (
-                <motion.nav className="nav" id="nav" ref={ref}>
-                    {/** Menus **/}
-                    <Menu state={menuState} handleClick={handleBurger} />
-
-                    {/** NAV **/}
+                <motion.nav className=" fixed z-40 w-full" id="nav" ref={ref}>
+                    <Menu isOpen={menuState} handleMenu={handleMenu} />
                     <motion.div
-                        className="nav-content"
+                        className="flex-center md:flex-btw h-12 w-full transform-none bg-charcoal md:px-4 lg:px-16"
                         initial="hidden"
                         animate={navState}
                         variants={config.variants.fade}
                     >
-                        {/** Hamburger **/}
                         <Burger
                             isMain={isMain}
                             state={menuState}
-                            onClick={isMain ? handleBurger : handleReturn}
+                            onClick={isMain ? handleMenu : handleReturn}
                         />
-
-                        {/** nav-Logo **/}
-                        <NavLogo largeScreen={isMd} />
-
-                        {/** Nav-Links **/}
+                        <NavLogo isMd={isMd} />
                         <NavLinks />
-
-                        {/** Resume Buttons **/}
                         <ResumeBtn isMd={isMd} />
                     </motion.div>
                 </motion.nav>

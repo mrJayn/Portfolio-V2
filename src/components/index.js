@@ -22,7 +22,6 @@ export { default as Projects_Md } from './sections/projects_/Projects_Md'
 
 export { default as Contact } from './sections/Contact'
 
-export { default as Title } from './sections/items/Intro_Items'
 export { default as Form } from './sections/items/Form'
 export { default as Items } from './sections/items/Items'
-export { default as Intro_Items } from './sections/items/Intro_Items'
+export { default as Title } from './sections/items/Title'

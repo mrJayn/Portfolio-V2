@@ -32,31 +32,29 @@ const child = {
 const Contact = () => {
     return (
         <Section id="contact">
-            <div className="contact-header">
-                <h2>
-                    <span>Whats Next?</span>
-                </h2>
-                <h3>Get in Touch</h3>
-            </div>
-            <div className="contact-content">
-                <div className="">
-                    <h4>I&apos;d love to hear from you!</h4>
-                    <motion.div className="ct-content">
+            <div className="flex-col-center h-full w-full">
+                <div className="flex-col-center">
+                    <h2>
+                        <span>Whats Next?</span>
+                    </h2>
+                    <h3>Get in Touch</h3>
+                </div>
+                <div className="flex-col-top px-2">
+                    <h4 className="mb-3 w-full border-b-2 border-teal pt-5 text-center text-black">
+                        I&apos;d love to hear from you!
+                    </h4>
+                    <div className="flex-center text-center text-lg md:text-lg">
                         <p>
                             Whether you&apos;d like to contact me about a full
                             time position or a project you&apos;re interested in
-                            building, I&aposl;d love to hear from you!
-                            <br />
-                        </p>
-                        <p>
-                            or &nbsp;
-                            <span>
+                            building, I&apos;d love to hear from you! or&nbsp;
+                            <span className="styled-link text-blue after:bg-blue">
                                 <a href={`mailto:${config.email}`}>
                                     email me <span>&raquo;</span>
                                 </a>
                             </span>
                         </p>
-                    </motion.div>
+                    </div>
                     <Form />
                 </div>
             </div>

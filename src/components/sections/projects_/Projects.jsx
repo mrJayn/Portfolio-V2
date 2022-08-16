@@ -59,7 +59,7 @@ const Projects = ({ projects, tabProps }) => {
     return (
         <Section id="projects" fullScreen={isMd ? false : true}>
             <div>
-                <h3 className="styled-heading-2">Other Projects</h3>
+                <h2 className="styled-heading text-black">my projects</h2>
             </div>
             <div className="h-auto w-full overflow-hidden p-2 md:mb-[25vh] md:h-auto">
                 <TabList

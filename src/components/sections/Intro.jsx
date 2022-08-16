@@ -1,12 +1,15 @@
 import { useState } from 'react'
-import Link from 'next/link'
 import { motion } from 'framer-motion'
 
-import { Section, Intro_Items } from '@components'
+import { Section, Title, Items } from '@components'
 import { config } from '@config'
 
 const Intro = () => {
     const [titleVis, setTitleVis] = useState(false)
+    const btnProps = {
+        btn_txt: 'Check out my projects',
+        href: '#featured',
+    }
     return (
         <Section id="intro">
             <motion.div
@@ -18,7 +21,7 @@ const Intro = () => {
                     Hello, my name is
                 </p>
                 <motion.div className="flex-center relative h-20 overflow-hidden rounded md:h-24 lg:h-32">
-                    <Intro_Items.Title setTitleVis={setTitleVis} />
+                    <Title setTitleVis={setTitleVis} />
                 </motion.div>
 
                 <motion.div
@@ -27,7 +30,7 @@ const Intro = () => {
                 >
                     <h2>Data Analyst</h2>
                 </motion.div>
-                <Intro_Items.LinkBtn />
+                <Items.Styled_Button {...btnProps} />
             </motion.div>
         </Section>
     )

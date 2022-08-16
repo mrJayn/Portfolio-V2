@@ -15,67 +15,9 @@
 }
 /* ================================================================ */
 
-/*  NAVBAR  */
-@layer components {
-    .nav {
-        @apply fixed z-40 w-full;
-    }
-    .nav-content {
-        @apply flex-center h-12 w-full transform-none bg-charcoal;
-        @apply md:flex-btw md:px-4 lg:px-16;
-    }
-
-    .nav-logo {
-        @apply z-10;
-        & p {
-            text-shadow: 0 0 3px theme(colors.neon);
-            @apply cursor-pointer text-2xl font-medium uppercase text-white duration-250 ease-in;
-            @apply hover:text-lightTeal;
-            @apply md:text-lg;
-        }
-    }
-    .nav-links {
-        @apply absolute left-0 bottom-3 hidden  w-full;
-        @apply md:flex-center;
-
-        & ul {
-            @apply flex-btw;
-            & li {
-                @apply styled-li;
-                @apply mx-5 w-full text-base tracking-tight text-lightgrey;
-            }
-        }
-    }
-    .nav-btns {
-        @apply flex-center;
-        @apply absolute right-0 top-0 z-10 h-full px-4 text-teal;
-        @apply md:relative md:text-white;
-
-        & .resumeBtn {
-            @apply md:flex-center cursor-pointer;
-            & * {
-                @apply duration-250 ease-in;
-            }
-            & p {
-                @apply hidden text-lg font-semibold uppercase;
-                @apply hover:text-lightTeal md:block;
-            }
-            & div {
-                @apply hover:text-neon md:hidden;
-                &:after {
-                    content: 'resume';
-                    @apply pointer-events-none absolute -left-2 top-4 -z-10 -rotate-90 rounded font-robotoMono text-xs uppercase text-white opacity-100;
-                }
-            }
-        }
-    }
-}
-
 /* BURGER */
 @layer components {
-    .burger {
-        @apply flex-center absolute left-2 top-0 z-50  aspect-square h-full cursor-pointer rounded bg-transparent;
-        @apply md:hidden;
+    #burger {
         &:hover {
             & * {
                 @apply stroke-neon;
@@ -85,7 +27,7 @@
             @apply stroke-teal transition-colors duration-250 ease-in;
         }
     }
-    .burger[data-returnlabel='true'] {
+    #burger[data-returnlabel='true'] {
         @apply md:top-20  md:block;
         &:before {
             content: '';
@@ -108,49 +50,31 @@
 
 /* MENU */
 @layer components {
-    .menu {
-        @apply fixed left-0 top-0 h-screen w-screen bg-charcoal/70 duration-600;
-        @apply md:hidden;
-    }
-    .menu[data-state='hidden'] {
-        @apply invisible bg-transparent delay-700;
-    }
-    .menu-container {
-        @apply flex-center absolute top-0 left-0 h-screen w-screen bg-charcoal p-10 pt-[15vh];
-        &:after {
+    #menu {
+        @apply duration-600;
+        & > div:after {
             content: '';
-            @apply absolute top-0 right-0 left-0 bottom-0 -z-10 bg-gradient-to-b from-transparent via-grey/20 to-neon/20 duration-600 ease-in;
+            @apply absolute top-0 right-0 left-0 bottom-0 -z-10 bg-gradient-to-b from-transparent via-grey/20 to-neon/10 duration-600 ease-in;
             @apply translate-y-[100%] opacity-0;
         }
     }
-    .menu[data-state='show'] .menu-container {
-        &:after {
-            @apply translate-y-0 opacity-100 delay-500 duration-600 ease-out;
-        }
+    #menu[data-isOpen='false'] {
+        @apply invisible bg-transparent;
     }
-    .menu-content {
-        @apply flex-col-btw h-full w-full flex-wrap;
-        @apply opacity-100;
+    #menu[data-isOpen='true'] > div:after {
+        @apply translate-y-0 opacity-100 delay-500 duration-600 ease-out;
+    }
+
+    #menu[data-orientation='landscape-primary'] #menu_content {
+        @apply flex-wrap pt-4;
         & ul {
-            & > li {
-                @apply styled-li;
-                @apply my-1 py-4 text-lg uppercase;
+            @apply flex-col-center h-full w-[50%];
+            & li {
+                @apply text-lg;
             }
         }
         & > div {
-            @apply flex-btw w-full text-center;
-            & > a {
-                @apply styled-element;
-                @apply mx-2 my-4  p-3;
-            }
-        }
-    }
-    .menu-content[data-orientation='landscape-primary'] {
-        & ul {
-            @apply w-[50%];
-        }
-        & > div {
-            @apply grid h-full w-[50%] grid-cols-2 gap-6 py-4 pl-6 pr-0;
+            @apply grid h-full w-[50%] grid-cols-2 gap-x-6 px-6;
             @apply border-l-2 border-l-white;
             & > a {
                 @apply flex-center aspect-square w-[75%] text-[1.5rem];
@@ -159,16 +83,8 @@
     }
 }
 
-/* CARDS */
+/* CARD ITEMS */
 @layer components {
-    .card {
-        @apply select-none rounded bg-gradient-to-t from-eee/75 to-eee/20;
-        @apply h-[500px] md:h-[490px] lg:h-[580px];
-        & span img {
-            @apply h-full w-full rounded;
-        }
-    }
-
     .exitButtonAfter {
         &:after {
             content: '';
@@ -187,15 +103,8 @@
 
 /* FORM */
 @layer components {
-    .ct-form {
-        @apply flex-center h-full w-full;
+    #form {
         & form {
-            @apply flex-col-center my-10 w-full;
-            @apply max-w-[1000px];
-            & div:first-child {
-                @apply relative w-full;
-                @apply lg:flex-center;
-            }
             & .form-item {
                 @apply w-full lg:mx-10;
                 &:first-child {
@@ -233,7 +142,7 @@
                 @apply resize-none bg-transparent;
             }
             & .ct-submit {
-                @apply styled-element mt-10 w-full p-4;
+                @apply mt-10 w-full p-4;
             }
         }
         & .err-item {

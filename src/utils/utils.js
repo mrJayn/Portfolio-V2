@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
 export const navDelay = 1000
-export const [burgerUnitSize, burgerSize] = [4, 24]
 
 /*export const spring = "spring(1,20,20,5)";*/
 export const srConfig = {

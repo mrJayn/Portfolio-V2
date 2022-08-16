@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { Items } from '@components'
 
 const variants = {
     hideErr: {
@@ -100,9 +101,12 @@ const Form = () => {
     }
 
     return (
-        <motion.div className="ct-form useInView">
-            <form onSubmit={onSubmit}>
-                <div>
+        <motion.div id="form" className="full relative max-w-[1024px]">
+            <form
+                className="flex-col-center relative mt-10 w-full border-2 pb-32"
+                onSubmit={onSubmit}
+            >
+                <div className="lg:flex-center relative w-full">
                     <motion.div className="form-item">
                         <label htmlFor="name">Name</label>
                         <input
@@ -190,14 +194,9 @@ const Form = () => {
                         Please write a message.
                     </motion.div>
                 </motion.div>
-                <motion.button
-                    className="ct-submit"
-                    type="submit"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                >
-                    Send Message
-                </motion.button>
+                <div className="flex-center w-full">
+                    <Items.Styled_Submit btn_txt="Send Message" type="submit" />
+                </div>
             </form>
         </motion.div>
     )

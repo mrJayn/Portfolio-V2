@@ -99,7 +99,12 @@ const Form = () => {
             }
         })
     }
-
+    const btnProps = {
+        text: 'Send Message',
+        type: 'submit',
+        height: 50,
+        width: 250,
+    }
     return (
         <motion.div id="form" className="full relative max-w-[1024px]">
             <form
@@ -195,7 +200,7 @@ const Form = () => {
                     </motion.div>
                 </motion.div>
                 <div className="flex-center w-full">
-                    <Items.Styled_Submit btn_txt="Send Message" type="submit" />
+                    <Items.Styled_Button {...btnProps} />
                 </div>
             </form>
         </motion.div>

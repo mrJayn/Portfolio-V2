@@ -357,6 +357,20 @@ export const config = {
                 }
             },
         },
+        drawRect: {
+            hidden: (i) => ({
+                pathLength: 0,
+                transition: { duration: 1 },
+            }),
+            visible: (i = 0) => ({
+                pathLength: i === 0 ? 0.5 : i,
+                transition: {
+                    delay: 0.5,
+                    duration: 0.5,
+                    ease: 'easeOut',
+                },
+            }),
+        },
         slideshow: {
             enter: (direction) => ({
                 x: direction > 0 ? '100%' : '-100%',

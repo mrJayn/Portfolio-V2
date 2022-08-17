@@ -7,8 +7,10 @@ import { config } from '@config'
 const Intro = () => {
     const [titleVis, setTitleVis] = useState(false)
     const btnProps = {
-        btn_txt: 'Check out my projects',
-        href: '#featured',
+        text: 'Send Message',
+        type: 'submit',
+        height: 50,
+        width: 250,
     }
     return (
         <Section id="intro">

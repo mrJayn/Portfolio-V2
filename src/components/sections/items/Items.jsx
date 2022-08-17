@@ -234,205 +234,110 @@ const Skills = ({ readMore, ...content }) => {
     )
 }
 
-const Styled_Button = () => {
-    const [size, setSizes] = useState(0)
-    const ref = useRef()
-
-    useEffect(() => {
-        function getRefWidth() {
-            const w = ref.current.offsetWidth
-            setSizes(w / 20)
-        }
-        getRefWidth()
-        window.addEventListener('resize', getRefWidth)
-        return () => window.removeEventListener('resize', getRefWidth)
-    }, [size])
-
+const Styled_Button = ({ text, href, type, height, width }) => {
+    const [anim, setAnim] = useState('hidden')
     function animateButton(play = false) {
-        anime.remove('.el')
-        anime({
-            targets: '.IntroBtn-text',
-            scale: play ? 1.1 : 1,
-            easing: 'easeOutSine',
-        })
-        anime({
-            targets: '.IntroBtn-el',
-            opacity: play ? 1 : 0.5,
-            boxShadow: function (el, i) {
-                return play
-                    ? i < 20 || i > 80
-                        ? `0px 0px 20px 0px ${theme.colors.neon}`
-                        : 'none'
-                    : `0px 0px 0px 0px ${theme.colors.neon}`
-            },
-            backgroundColor: function (el, i) {
-                return play
-                    ? i % 20 == 19 || i % 20 == 0 || i < 20 || i > 80
-                        ? i % 2 == 0
-                            ? theme.colors.lightTeal
-                            : theme.colors.neon
-                        : '#eeeffe'
-                    : theme.colors.lightTeal
-            },
-            scale: function (el, i) {
-                return play
-                    ? i % 20 == 19 || i % 20 == 0
-                        ? 0
-                        : i < 20 || i > 80
-                        ? anime.random(0, 10) * 0.05
-                        : 0.25
-                    : 1
-            },
-            scaleX: function (el, i) {
-                return play ? (i > 40 && i < 60 ? 5 : 1) : 1
-            },
-            translateX: anime.stagger(play ? 10 : 0, {
-                grid: [20, 5],
-                from: 'center',
-                axis: 'x',
-            }),
-            translateY: function (el, i) {
-                return play
-                    ? i < 10
-                        ? anime.random(-50, -10) * i ** (1 / 2)
-                        : i < 20
-                        ? anime.random(-50, -10) * (19 - i) ** (1 / 2)
-                        : i > 89
-                        ? anime.random(10, 50) * (99 - i) ** (1 / 2)
-                        : i > 79
-                        ? anime.random(10, 50) * (i - 80) ** (1 / 2)
-                        : 0
-                    : 0
-            },
+        setAnim(play ? 'visible' : 'hidden')
+    }
 
-            rotateZ: anime.stagger([0, play ? 0 : 0], {
-                grid: [20, 5],
-                from: 'center',
-                axis: 'x',
-            }),
-            delay: anime.stagger(50, { grid: [20, 5], from: 'center' }),
-            duration: 250,
-            easing: 'easeInOutSine',
-        })
+    const rectProps = {
+        fill: 'none',
+        strokeWidth: 4,
+        rx: 30,
+        vectorEffect: 'non-scaling-stroke',
+        variants: config.variants.drawRect,
+        initial: 'hidden',
+        animate: anim,
+    }
+    const rectProps1 = {
+        height: height,
+        width: width,
+        ...rectProps,
+    }
+    const rectProps2 = {
+        height: height,
+        width: width * 0.95,
+        ...rectProps,
+    }
+    const rectProps3 = {
+        height: height,
+        width: width * 0.9,
+        ...rectProps,
     }
 
     return (
         <motion.div
-            className="IntroBtn-wrap flex-center relative mt-24 aspect-[4/1] h-[50px] md:h-[100px]"
+            className="flex-center relative "
+            style={{
+                height: height,
+                width: width,
+                borderRadius: rectProps.rx,
+            }}
             whileTap={{ scale: 0.95 }}
             variants={config.variants.fade}
             transition={{ delay: 0.5 }}
-            href="#featured"
-            ref={ref}
             onHoverStart={() => animateButton(true)}
             onHoverEnd={() => animateButton()}
         >
-            <a
-                href="#featured"
-                className="IntroBtn-text flex-center full z-10 text-lg font-semibold text-darkblack"
+            {href ? (
+                <a
+                    href={href}
+                    className="flex-center full z-10 text-lg font-semibold text-darkblack"
+                >
+                    {text}
+                </a>
+            ) : (
+                <button
+                    type={type}
+                    className="flex-center full z-10 text-lg font-semibold text-darkblack"
+                >
+                    Check out my projects
+                </button>
+            )}
+            <svg
+                className="absolute left-0 -z-10 "
+                style={{
+                    top: -rectProps.strokeWidth / 2,
+                }}
+                viewBox={`
+                ${-rectProps.strokeWidth / 2} 
+                ${-rectProps.strokeWidth / 2} 
+                ${width + rectProps.strokeWidth} 
+                ${height + rectProps.strokeWidth}`}
             >
-                Check out my projects
-            </a>
-            <div className="full absolute flex flex-wrap">
-                {[...Array(100).keys()].map((i) => {
-                    return (
-                        <div
-                            key={i}
-                            className="IntroBtn-el relative"
-                            style={{ height: size, width: size }}
-                        />
-                    )
-                })}
-            </div>
+                <motion.rect stroke="#000" {...rectProps1} />
+                <motion.rect
+                    stroke="#eee"
+                    style={{ rotate: 180 }}
+                    {...rectProps1}
+                />
+                <motion.rect
+                    stroke={theme.colors.neon}
+                    style={{ rotate: 180, translateX: '5%' }}
+                    custom={0.4}
+                    {...rectProps2}
+                />
+                <motion.rect
+                    stroke={theme.colors.teal}
+                    custom={0.4}
+                    {...rectProps2}
+                />
+                <motion.rect
+                    stroke={theme.colors.neon}
+                    style={{ rotate: 180, translateX: '10%' }}
+                    custom={0.3}
+                    {...rectProps3}
+                />
+                <motion.rect
+                    stroke={theme.colors.teal}
+                    custom={0.3}
+                    {...rectProps3}
+                />
+            </svg>
         </motion.div>
     )
 }
-const Styled_Submit = () => {
-    const [size, setSizes] = useState(0)
-    const ref = useRef()
 
-    useEffect(() => {
-        function getRefWidth() {
-            const h = ref.current.offsetHeight
-            setSizes(h / 2)
-        }
-        getRefWidth()
-        window.addEventListener('resize', getRefWidth)
-        return () => window.removeEventListener('resize', getRefWidth)
-    }, [size])
-
-    function animateButton(play = false) {
-        anime.remove('.el')
-        anime({
-            targets: '.submitBtn-text',
-            color: play ? '#000' : '#999',
-            scale: play ? 1.25 : 1,
-            easing: 'easeOutSine',
-        })
-        anime({
-            targets: '.submitBtn-el',
-            backgroundColor: function (el, i) {
-                return play
-                    ? i % 2 == 0
-                        ? theme.colors.neon
-                        : theme.colors.teal
-                    : '#eee'
-            },
-            scale: function (el, i) {
-                return play ? anime.random(0, 10) * 0.05 : 1
-            },
-            translateX: anime.stagger(play ? -10 : 0, {
-                grid: [10, 2],
-                from: 'center',
-                axis: 'x',
-            }),
-            translateY: anime.stagger(play ? -10 : 0, {
-                grid: [10, 2],
-                from: 'center',
-                axis: 'y',
-            }),
-
-            rotateZ: anime.stagger([0, play ? 35 : 0], {
-                grid: [10, 2],
-                from: 'center',
-                axis: 'x',
-            }),
-            delay: anime.stagger(50, { grid: [10, 2], from: 'center' }),
-            duration: 500,
-            easing: 'easeInOutSine',
-        })
-    }
-
-    return (
-        <motion.div
-            className="submitBtn-wrap flex-center relative aspect-[5/1] h-[40px] md:h-[80px]"
-            whileTap={{ scale: 0.95 }}
-            variants={config.variants.fade}
-            transition={{ delay: 0.5 }}
-            ref={ref}
-            onHoverStart={() => animateButton(true)}
-            onHoverEnd={() => animateButton()}
-        >
-            <button
-                type="submit"
-                className="submitBtn-text flex-center full z-10 text-lg font-semibold"
-            >
-                Send Message
-            </button>
-            <div className="full absolute flex flex-wrap">
-                {[...Array(20).keys()].map((i) => {
-                    return (
-                        <div
-                            key={i}
-                            className="submitBtn-el relative"
-                            style={{ height: size, width: size }}
-                        />
-                    )
-                })}
-            </div>
-        </motion.div>
-    )
-}
 const Items = {
     InfoCard: InfoCard,
     ImgCard: ImgCard,
@@ -442,7 +347,6 @@ const Items = {
     TabWrap: TabWrap,
     Skills: Skills,
     Styled_Button: Styled_Button,
-    Styled_Submit: Styled_Submit,
 }
 
 export default Items

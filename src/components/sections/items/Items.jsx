@@ -256,12 +256,12 @@ const Styled_Button = ({ text, href, type, height, width }) => {
     }
     const rectProps2 = {
         height: height,
-        width: width * 0.95,
+        width: width * 0.97,
         ...rectProps,
     }
     const rectProps3 = {
         height: height,
-        width: width * 0.9,
+        width: width * 0.95,
         ...rectProps,
     }
 
@@ -313,24 +313,26 @@ const Styled_Button = ({ text, href, type, height, width }) => {
                 />
                 <motion.rect
                     stroke={theme.colors.neon}
-                    style={{ rotate: 180, translateX: '5%' }}
-                    custom={0.4}
+                    x={'-2.5%'}
+                    style={{ rotate: 180 }}
+                    custom={0.425}
                     {...rectProps2}
                 />
                 <motion.rect
                     stroke={theme.colors.teal}
-                    custom={0.4}
+                    custom={0.425}
                     {...rectProps2}
                 />
                 <motion.rect
-                    stroke={theme.colors.neon}
-                    style={{ rotate: 180, translateX: '10%' }}
-                    custom={0.3}
+                    x={'-5%'}
+                    stroke={theme.colors.green}
+                    style={{ rotate: 180 }}
+                    custom={0.4}
                     {...rectProps3}
                 />
                 <motion.rect
-                    stroke={theme.colors.teal}
-                    custom={0.3}
+                    stroke={theme.colors.blue}
+                    custom={0.4}
                     {...rectProps3}
                 />
             </svg>

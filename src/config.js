@@ -365,7 +365,6 @@ export const config = {
             visible: (i = 0) => ({
                 pathLength: i === 0 ? 0.5 : i,
                 transition: {
-                    delay: 0.5,
                     duration: 0.5,
                     ease: 'easeOut',
                 },

@@ -156,7 +156,8 @@ export const config = {
                 transition: {
                     when: 'beforeChildren',
                     staggerChildren: 0.1,
-                    staggerDirection: 1,
+                    staggerDirection: -1,
+                    delayChildren: 0.75,
                 },
             },
             exit: {
@@ -164,43 +165,7 @@ export const config = {
                 transition: {
                     when: 'afterChildren',
                     staggerChildren: 0.05,
-                    staggerDirection: -1,
-                },
-            },
-        },
-        nav: {
-            logo: {
-                hidden: {
-                    opacity: 0,
-                    transition: default_spring,
-                },
-                enter: (i) => ({
-                    opacity: [
-                        0, 0.5, 0.25, 0.75, 0.1, 0.75, 0, 0, 0, 0, 0.5, 0, 0, 0,
-                        0, 0, 0, 0, 0, 0, 0.5, 0.25, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        0.5, 0.25, 0.75, 1,
-                    ],
-                    transition: {
-                        delay: i,
-                        duration: 1.5,
-                    },
-                }),
-            },
-            links: {
-                hidden: {
-                    opacity: 0,
-                    transition: {
-                        exitTransition: default_spring,
-                        when: 'beforeChildren',
-                    },
-                },
-                enter: {
-                    opacity: 1,
-                    transition: {
-                        staggerChildren: 0.1,
-                        staggerDirection: 1,
-                        delayChildren: 1,
-                    },
+                    staggerDirection: 1,
                 },
             },
         },

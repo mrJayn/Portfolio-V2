@@ -32,7 +32,7 @@ const InfoCard = ({ toggleCard, infoLoc, ...data }) => {
     const InViewProps = {
         initial: {
             opacity: 0,
-            x: infoLoc == null ? 0 : infoLoc == 'left' ? 500 : -500,
+            x: infoLoc == null || isSm ? 0 : infoLoc == 'left' ? 500 : -500,
             backgroundColor: '#ffffffff',
         },
         whileInView: {
@@ -225,7 +225,7 @@ const Skills = ({ readMore, ...content }) => {
     return (
         <div className="md:flex-col-center md:w-[30%] md:border-l-2 md:border-l-eee/50 md:pl-5">
             <SplitText
-                className="text-base font-medium text-lightTeal md:text-md"
+                className="text-base font-medium tracking-normal text-lightTeal md:text-[18px] lg:text-[24px]"
                 {...motionProps}
             >
                 Tech I&apos;ve worked with recently
@@ -306,17 +306,11 @@ const ExitButton = ({ toggleCard }) => {
     )
 }
 
-const GitHubLink = ({ className }) => {
+const GitHubLink = ({ href = null }) => {
     return (
-        <a
-            className={`absolute z-10 cursor-pointer rounded-md ${className}`}
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            <div className="styled-element h-full w-full p-2">
-                <FaGithub size={28} />
-            </div>
-        </a>
+        <motion.a href={href} className="gh-Link p-3">
+            <FaGithub size={30} />
+        </motion.a>
     )
 }
 

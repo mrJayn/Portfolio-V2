@@ -72,7 +72,39 @@ const data = {
             url: assets.skills.tensorImg,
         },
     ],
-    featured: [
+    formInputs: [
+        {
+            item: '1',
+            title: 'name',
+            placeholder: 'Who am I speaking with?',
+            type: 'text',
+        },
+        {
+            item: '2',
+            title: 'email',
+            placeholder: 'Where should I reach you?',
+            type: 'email',
+        },
+        {
+            item: '3',
+            title: 'subject',
+            placeholder: 'What is the topic of this message?',
+            type: 'text',
+        },
+        {
+            item: '4',
+            title: 'message',
+            placeholder: 'Type your message here.',
+            type: 'text',
+        },
+    ],
+}
+
+export default data
+
+/**
+ * 
+ *     featured: [
         {
             item: 'fp1',
             title: 'Property Finder',
@@ -179,34 +211,5 @@ const data = {
             src: assets.projects. ,
             github: '/',
             url: '/',
-        },*/
-    ],
-    formInputs: [
-        {
-            item: '1',
-            title: 'name',
-            placeholder: 'Who am I speaking with?',
-            type: 'text',
         },
-        {
-            item: '2',
-            title: 'email',
-            placeholder: 'Where should I reach you?',
-            type: 'email',
-        },
-        {
-            item: '3',
-            title: 'subject',
-            placeholder: 'What is the topic of this message?',
-            type: 'text',
-        },
-        {
-            item: '4',
-            title: 'message',
-            placeholder: 'Type your message here.',
-            type: 'text',
-        },
-    ],
-}
-
-export default data
+*/

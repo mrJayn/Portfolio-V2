@@ -5,12 +5,15 @@ import { AnimatePresence, motion } from 'framer-motion'
 
 import { Menu, Burger } from '@components'
 import { config } from '@config'
-import { useMediaQuery } from '@hooks'
 import { toggleScrolling } from '@utils'
 
-import { BsFileEarmarkPerson } from 'react-icons/bs'
-
-const NavLogo = ({ isMd }) => {
+const NavLogo = ({ menuState }) => {
+    const [color, setColor] = useState('#fff')
+    const first = color === '#fff'
+    setTimeout(() => {
+        setColor('#1b1c20')
+        // theme.colors.charcoal
+    }, 1000)
     return (
         <Link href="/#intro">
             <p
@@ -18,15 +21,27 @@ const NavLogo = ({ isMd }) => {
                 style={{ transition: '0.25s ease-in' }}
             >
                 MikeJayne
-                <motion.div
-                    className="absolute top-0 left-0 bottom-0 right-0 z-10 border-l-4 bg-white"
-                    initial={{ scaleX: 1, originX: 1 }}
-                    animate={{
-                        scaleX: 0,
-                        originX: 1,
-                        transition: { duration: 0.5, delay: 0.5 },
-                    }}
-                />
+                <AnimatePresence>
+                    {!menuState && (
+                        <motion.div
+                            className="absolute top-0 left-0 bottom-0 right-0 z-10"
+                            style={{ backgroundColor: color }}
+                            initial={{
+                                opacity: 1,
+                                scaleX: 1,
+                                originX: 1,
+                            }}
+                            animate={{
+                                scaleX: 0,
+                                opacity: first ? 1 : 0,
+                                transition: {
+                                    duration: first ? 0.5 : 1.5,
+                                    delay: 0.5,
+                                },
+                            }}
+                        />
+                    )}
+                </AnimatePresence>
             </p>
         </Link>
     )
@@ -44,7 +59,7 @@ const NavLinks = () => {
                     scroll={false}
                 >
                     <motion.li
-                        className="flex-center styled-link group mx-3 cursor-pointer pt-2 pb-1 text-base tracking-tight text-lightgrey/75 hover:text-white"
+                        className="flex-center styled-link group mx-3 cursor-pointer pt-2 pb-1 text-base tracking-tight text-lightgrey hover:text-white"
                         style={{ transition: 'color 0.25s linear' }}
                         variants={config.variants.fadeY}
                     >
@@ -60,7 +75,6 @@ const Navbar = ({ isLoading, isMain }) => {
     const [navState, setNavState] = useState('hidden')
     const [menuState, setMenuState] = useState(false)
     const router = useRouter()
-    const isMd = useMediaQuery()
     const ref = useRef()
 
     // open/close Menu
@@ -99,7 +113,6 @@ const Navbar = ({ isLoading, isMain }) => {
         <AnimatePresence exitBeforeEnter>
             {!isLoading && (
                 <motion.nav className=" fixed z-40 w-full" id="nav" ref={ref}>
-                    <Menu isOpen={menuState} handleMenu={handleMenu} />
                     <motion.div
                         className="flex-center md:flex-btw h-12 w-full transform-none bg-charcoal md:h-16 md:px-4 lg:px-16"
                         initial="hidden"
@@ -111,9 +124,10 @@ const Navbar = ({ isLoading, isMain }) => {
                             state={menuState}
                             onClick={isMain ? handleMenu : handleReturn}
                         />
-                        <NavLogo isMd={isMd} />
+                        <NavLogo menuState={menuState} />
                         <NavLinks />
                     </motion.div>
+                    <Menu isOpen={menuState} handleMenu={handleMenu} />
                 </motion.nav>
             )}
         </AnimatePresence>

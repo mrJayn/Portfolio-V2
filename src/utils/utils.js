@@ -42,11 +42,15 @@ export const default_spring = {
 export const SplitText = ({ children, ...props }) => {
     let words = children.split(' ')
     return (
-        <div className="flex-center w-full flex-wrap overflow-hidden ">
+        <div className="flex-center flex-wrap">
             {words.map((word, i) => (
                 <motion.span
                     key={`splitText-word${i}`}
-                    style={{ display: 'inline-block', willChange: 'transform' }}
+                    style={{
+                        display: 'inline-block',
+                        willChange: 'transform',
+                        paddingInline: '1px',
+                    }}
                     transition={{ delay: 0.15 + i * 0.08 }}
                     {...props}
                 >

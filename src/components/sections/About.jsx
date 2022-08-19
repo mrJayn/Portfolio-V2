@@ -4,12 +4,6 @@ import { Section, Items } from '@components'
 
 const About = ({ ...data }) => {
     const about = data.text.filter((obj) => obj.id == 'about')[0]
-    const experience = data.text.filter((obj) => obj.id == 'experience')[0]
-
-    const [cardStates, setCardStates] = useState(new Map())
-    const handleCard = (k, v) => {
-        setCardStates(new Map(cardStates.set(k, v)))
-    }
 
     const [readMore, setReadMore] = useState(false)
     const [[currentTab, direction], setTab] = useState([0, 0])
@@ -33,21 +27,6 @@ const About = ({ ...data }) => {
         tabNames: ['About Me', 'My Skills'],
         currentTab: currentTab,
         handleTab: handleTab,
-    }
-    const tabProps = {
-        key: currentTab,
-        custom: direction,
-    }
-    const Text = () => {
-        return (
-            <div
-                id="about-innerHTML"
-                className="text-white md:w-[70%] md:pr-5"
-                dangerouslySetInnerHTML={{
-                    __html: about.content,
-                }}
-            />
-        )
     }
 
     return (
@@ -73,7 +52,13 @@ const About = ({ ...data }) => {
                                     custom={direction}
                                 >
                                     {currentTab == 0 ? (
-                                        <Text />
+                                        <div
+                                            id="about-innerHTML"
+                                            className="text-white md:w-[70%] md:pr-5"
+                                            dangerouslySetInnerHTML={{
+                                                __html: about.content,
+                                            }}
+                                        />
                                     ) : (
                                         <Items.Skills
                                             readMore={readMore}
@@ -88,7 +73,13 @@ const About = ({ ...data }) => {
 
                 {/** Md - Flex **/}
                 <div className="md:flex-top hidden h-full overflow-y-scroll p-5">
-                    <Text />
+                    <div
+                        id="about-innerHTML"
+                        className="text-white md:w-[70%] md:pr-5"
+                        dangerouslySetInnerHTML={{
+                            __html: about.content,
+                        }}
+                    />
                     <Items.Skills readMore={readMore} {...about} />
                 </div>
             </Items.ExpandedCard>

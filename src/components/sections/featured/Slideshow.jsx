@@ -32,7 +32,8 @@ const Indicators = ({ currentSlide, handleIndicator }) => {
         </LayoutGroup>
     )
 }
-const Slideshow = ({ contentProps = null }) => {
+const Slideshow = ({ ...featuredData }) => {
+    /*    const slides = [...Array(featuredData,length).keys()]*/
     const [[currentSlide, direction], setSlide] = useState([0, 0])
     const [reset, SetReset] = useState(false)
     const i = wrap(0, slides.length, currentSlide)
@@ -82,7 +83,7 @@ const Slideshow = ({ contentProps = null }) => {
         return () => clearInterval(interval)
     }, [currentSlide, setSlide, reset])
     // ========================
-    contentProps = {
+    const contentProps = {
         key: currentSlide,
         custom: direction,
         variants: variants,
@@ -110,7 +111,10 @@ const Slideshow = ({ contentProps = null }) => {
                         data-slide={currentSlide}
                         {...contentProps}
                     >
-                        <Featured_Items currentSlide={i} />
+                        <Featured_Items.Sm
+                            currentSlide={i}
+                            project={featuredData[currentSlide].data}
+                        />
                     </motion.div>
                 </AnimatePresence>
             </div>

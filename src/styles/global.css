@@ -44,7 +44,7 @@
 
 @layer utilities {
     .styled-el {
-        @apply select-none rounded bg-gradient-to-t from-eee/75 to-eee/20;
+        @apply select-none rounded-md bg-gradient-to-t from-eee/75 to-eee/20;
     }
     .styled-heading {
         @apply mx-auto mb-5 flex w-[90%] items-center whitespace-nowrap uppercase;
@@ -59,7 +59,65 @@
 }
 /* ================== COMPONENTS ================== */
 @layer components {
-    /* Navbar */
+    #about-innerHTML {
+        & > p {
+            @apply flex-center pt-4 indent-2 md:pt-6 md:indent-4 md:text-base md:leading-7;
+            &:first-of-type {
+                @apply pt-0;
+            }
+        }
+    }
+
+    #featured-md {
+        & > div:nth-of-type(even) {
+            & > :nth-child(1) {
+                grid-area: 1/1/-1/9 !important;
+            }
+            & > :nth-child(2) {
+                @apply flex-col-right;
+                grid-area: 1/1/1/-1 !important;
+                & > div {
+                    @apply flex-right;
+                }
+            }
+            & > :nth-child(3) {
+                justify-content: end;
+                grid-area: 2/7/4/-1 !important;
+            }
+            & > :nth-child(4) {
+                grid-area: 4/9/-1/-1 !important;
+            }
+        }
+    }
+
+    .gh-Link {
+        @apply relative select-none overflow-hidden rounded-md;
+        &:after {
+            content: '';
+            @apply absolute top-0 left-0 bottom-[-100%]  z-[-1] w-full  rounded-md;
+            background: linear-gradient(
+                to top,
+                #333 0%,
+                #333 49%,
+                #eee 50%,
+                #eeeeeebf 100%
+            );
+            transition: transform 0.5s;
+        }
+        &:hover {
+            &:after {
+                @apply translate-y-[-50%];
+                transition: transform 0.5s;
+            }
+        }
+
+        & > * {
+            background: inherit;
+            background-clip: text;
+            color: transparent;
+            filter: invert(1);
+        }
+    }
 }
 /** Check the Stuff below */
 

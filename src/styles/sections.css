@@ -1,22 +1,6 @@
 @import './global.css';
 @tailwind components;
 
-/* STYLED INTRO  */
-@layer components {
-}
-
-/* ABOUT  */
-@layer components {
-    #about-innerHTML {
-        & > p {
-            @apply flex-center pt-4 indent-2 md:pt-6 md:indent-4 md:text-base md:leading-7;
-            &:first-of-type {
-                @apply pt-0;
-            }
-        }
-    }
-}
-
 /* FEATURED */
 @layer components {
     .featured-content {
@@ -72,12 +56,10 @@
             }
         }
         & .description {
-            @apply absolute top-[40%] left-0 h-[25%];
-            @apply pointer-events-none  w-full rounded  p-3 text-center indent-6 text-sm tracking-normal text-darkblack;
+            @apply pointer-events-none absolute top-[40%] left-0  h-[25%]  w-full rounded  p-3 text-center indent-6 text-sm tracking-normal text-darkblack;
         }
         & .links {
-            @apply absolute top-[65%] left-0 h-[35%] w-full;
-            @apply flex-col-btw z-10 pb-2;
+            @apply flex-col-btw absolute top-[65%] left-0 z-10  h-[35%] w-full pb-2;
             & a {
                 @apply text-center;
                 &:first-child {
@@ -118,25 +100,12 @@
                 @apply flex-col-left;
                 grid-area: 1/1/1/-1;
                 & h3 {
-                    @apply font-semibold text-black;
                 }
                 & .tech {
                     @apply flex-left z-10;
-                    & p {
-                        @apply w-full whitespace-nowrap border-l-[2px] border-dotted border-teal px-6 text-center text-base italic text-teal;
-                        &:last-of-type {
-                            @apply border-r-[2px];
-                        }
-                    }
                 }
             }
-            & .tech {
-                @apply hidden;
-            }
-            & .description {
-                @apply flex-center w-full rounded  p-3 text-center indent-6 text-sm tracking-normal text-darkblack;
-                grid-area: 2/1/4/7;
-            }
+
             & .links {
                 @apply flex-col-top z-10;
                 grid-area: 4/1/-1/5;

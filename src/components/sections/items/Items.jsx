@@ -1,16 +1,14 @@
-import { useState, useEffect, useRef, createRef } from 'react'
+import { useState, useEffect, createRef } from 'react'
 import Image from 'next/image'
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
-import anime from 'animejs'
-import { theme } from 'tailwind.config'
 
 import { useOnClickOutside } from 'src/hooks/useOnClickOutside'
 import { SplitText, toggleScrolling } from '@utils'
 
 import { FaGithub } from 'react-icons/fa'
 import { HiX } from 'react-icons/hi'
-import { useMediaQuery } from '@hooks'
 import { config } from '@config'
+import { theme } from 'tailwind.config'
 
 const imgProps = {
     quality: 100,
@@ -18,62 +16,118 @@ const imgProps = {
     objectFit: 'cover',
     objectPosition: 'top',
 }
-const InfoCard = ({ toggleCard, ...data }) => {
-    const isMd = useMediaQuery()
+const IsSmall = () => {
+    const [isSm, setIsSm] = useState(false)
+    useEffect(() => {
+        function checkIfSm() {
+            setIsSm(window.innerWidth < 768)
+        }
+        window.addEventListener('resize', checkIfSm())
+        return () => window.removeEventListener('resize', checkIfSm())
+    }, [isSm])
+    return { isSm }
+}
+const InfoCard = ({ toggleCard, infoLoc, ...data }) => {
+    const isSm = IsSmall()
+    const InViewProps = {
+        initial: {
+            opacity: 0,
+            x: infoLoc == null ? 0 : infoLoc == 'left' ? 500 : -500,
+            backgroundColor: '#ffffffff',
+        },
+        whileInView: {
+            opacity: 1,
+            x: 0,
+            backgroundColor: '#ffffff00',
+            boxShadow: [
+                '0px 0px 0px 0px black',
+                `${infoLoc == 'left' ? '20px' : '-20px'} 0px 20px -20px black`,
+                `${infoLoc == 'left' ? '7px' : '-7px'} 0px 5px -10px black`,
+            ],
+            transition: {
+                default: { delay: 0.25, duration: 1, ease: 'easeOut' },
+                opacity: { delay: 0.25, duration: 0.5 },
+                backgroundColor: { delay: 2, duration: 1 },
+                boxShadow: { duration: 1.75, delay: 0.5 },
+            },
+        },
+    }
+
     return (
-        <div
-            className="flex-col-center relative h-[500px] w-full cursor-pointer select-none whitespace-pre-line rounded-md md:h-[490px] lg:h-[580px]"
-            style={{
-                background: 'linear-gradient(to top,#eeeeeebf, #eeeeee33)',
-            }}
+        <motion.div
+            className="h-[500px] w-full select-none whitespace-pre-line rounded-lg md:h-[450px] lg:h-[580px]"
             onClick={() => {
                 toggleCard()
                 toggleScrolling(false)
             }}
+            viewport={{ once: true }}
+            {...InViewProps}
         >
-            <h4 className="md:flex-bottom text-4xl font-semibold uppercase text-darkblack md:text-3xl">
-                {data.data.section}
-            </h4>
-            <p
-                className="my-2 text-center text-base font-medium text-black"
-                dangerouslySetInnerHTML={{ __html: data.data.brief }}
-            />
+            <div className="flex-col-center full relative rounded-lg  bg-gradient-to-t md:from-eee md:to-eee/25">
+                <h4 className="md:flex-bottom text-4xl font-bold uppercase tracking-wide text-darkblack md:text-3xl lg:text-4xl">
+                    {data.data.section}
+                </h4>
+                <p
+                    className="mt-4 text-center text-base font-medium text-black/75 lg:text-lg"
+                    dangerouslySetInnerHTML={{ __html: data.data.brief }}
+                />
 
-            <div className="flex-center shadow-xl shadow-grey/25 md:hidden">
-                <div className="relative m-3 aspect-[9/10] h-[200px]  min-w-[320px] md:h-[190px] lg:h-[280px]">
-                    <Image
-                        src={data.data.src}
-                        alt={data.data.alt}
-                        className="full rounded-md"
-                        {...imgProps}
-                    />
+                <div className="flex-center shadow-xl shadow-grey/25 md:hidden">
+                    <div className="relative m-3 aspect-[9/10] h-[200px]  min-w-[320px] md:h-[190px] lg:h-[280px]">
+                        <Image
+                            src={data.data.src}
+                            alt={data.data.alt}
+                            className="full rounded-md"
+                            {...imgProps}
+                        />
+                    </div>
                 </div>
+                <motion.p
+                    className="styled-link mt-8 text-4xl tracking-tighter text-black/75 after:bg-black hover:text-black md:mt-16 md:text-2xl md:font-medium md:text-black/50"
+                    style={{ transition: 'color 0.15s  linear' }}
+                    initial={{ opacity: 0, y: -10 }}
+                    whileInView={{
+                        opacity: 1,
+                        y: 0,
+                        transition: { delay: 1.5 },
+                    }}
+                    viewport={{ once: true }}
+                >
+                    {isSm == 1 ? 'Tap' : 'Click'} to Read More
+                </motion.p>
             </div>
-            <h5
-                className="flex-center styled-link min-h-[100px] tracking-tighter text-black/50 after:bg-black hover:text-black md:mt-16 md:min-h-0"
-                style={{ transition: 'color 0.15s  linear' }}
-            >
-                {isMd ? 'Click' : 'Tap'} to Read More
-            </h5>
-        </div>
+        </motion.div>
     )
 }
-const ImgCard = ({ ...data }) => {
+const ImgCard = ({ infoLoc, ...data }) => {
+    const InViewProps = {
+        initial: {
+            opacity: 0,
+            x: infoLoc == null ? 0 : infoLoc == 'left' ? '-100%' : '100%',
+        },
+        whileInView: {
+            opacity: 1,
+            x: 0,
+            transition: {
+                opacity: { delay: 0.75, duration: 1.25, ease: 'easeOut' },
+                x: { delay: 0.5, duration: 1.5, ease: 'easeOut' },
+            },
+        },
+    }
     return (
-        <div
-            className="md:flex-center relative hidden h-[500px] w-full select-none md:h-[490px] lg:h-[580px]"
-            style={{
-                background: 'linear-gradient(to top,#eeeeeebf, #eeeeee33)',
-            }}
-        >
-            <div className="relative m-3 aspect-[9/10] max-h-[476px] min-w-[320px] md:max-h-[466px] lg:max-h-[556px]">
+        <div className="md:flex-center relative -z-10 hidden h-[500px] w-full select-none  md:h-[450px] lg:h-[580px]">
+            <motion.div
+                className="relative my-10 h-[90%]  w-[90%]"
+                viewport={{ once: true }}
+                {...InViewProps}
+            >
                 <Image
                     src={data.data.src}
                     alt={data.data.alt}
-                    className="full rounded-md"
+                    className="full -z-50 rounded-md"
                     {...imgProps}
                 />
-            </div>
+            </motion.div>
         </div>
     )
 }
@@ -114,37 +168,6 @@ const CardExpanded = ({ children, toggleCard, ...props }) => {
                 </>
             )}
         </AnimatePresence>
-    )
-}
-const ExitButton = ({ toggleCard }) => {
-    return (
-        <motion.div
-            className="exitButtonAfter absolute z-10 m-5 aspect-square h-12 cursor-pointer rounded-md text-[48px] text-red/75 md:m-2   md:h-14 md:text-[56px] "
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0, transition: { delay: 0.15 } }}
-            onClick={() => {
-                toggleCard()
-                toggleScrolling(true)
-            }}
-        >
-            <HiX />
-        </motion.div>
-    )
-}
-
-const GitHubLink = ({ className }) => {
-    return (
-        <a
-            className={`absolute z-10 cursor-pointer rounded-md ${className}`}
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            <div className="styled-element h-full w-full p-2">
-                <FaGithub size={28} />
-            </div>
-        </a>
     )
 }
 
@@ -234,109 +257,66 @@ const Skills = ({ readMore, ...content }) => {
     )
 }
 
-const Styled_Button = ({ text, href, type, height, width }) => {
-    const [anim, setAnim] = useState('hidden')
-    function animateButton(play = false) {
-        setAnim(play ? 'visible' : 'hidden')
-    }
-
-    const rectProps = {
-        fill: 'none',
-        strokeWidth: 4,
-        rx: 30,
-        vectorEffect: 'non-scaling-stroke',
-        variants: config.variants.drawRect,
-        initial: 'hidden',
-        animate: anim,
-    }
-    const rectProps1 = {
-        height: height,
-        width: width,
-        ...rectProps,
-    }
-    const rectProps2 = {
-        height: height,
-        width: width * 0.97,
-        ...rectProps,
-    }
-    const rectProps3 = {
-        height: height,
-        width: width * 0.95,
-        ...rectProps,
-    }
-
+const Styled_Button = ({
+    text,
+    href = null,
+    action = null,
+    anim,
+    delay,
+    ...btnprops
+}) => {
     return (
-        <motion.div
-            className="flex-center relative "
+        <motion.a
+            href={href}
+            onClick={action}
+            className="bg-fff w-[250px] cursor-pointer select-none rounded-xl bg-eee/50 py-2 text-center text-md font-medium uppercase tracking-normal"
             style={{
-                height: height,
-                width: width,
-                borderRadius: rectProps.rx,
+                boxShadow: `0px 5px 10px -10px ${theme.colors.charcoal}`,
+            }}
+            initial={{ opacity: 0 }}
+            animate={anim}
+            whileHover={{
+                translateY: -2.5,
+                boxShadow: `0px 10px 15px -10px ${theme.colors.charcoal}`,
             }}
             whileTap={{ scale: 0.95 }}
-            variants={config.variants.fade}
-            transition={{ delay: 0.5 }}
-            onHoverStart={() => animateButton(true)}
-            onHoverEnd={() => animateButton()}
+            transition={{ opacity: { delay: delay * 0.5 } }}
+            {...btnprops}
         >
-            {href ? (
-                <a
-                    href={href}
-                    className="flex-center full z-10 text-lg font-semibold text-darkblack"
-                >
-                    {text}
-                </a>
-            ) : (
-                <button
-                    type={type}
-                    className="flex-center full z-10 text-lg font-semibold text-darkblack"
-                >
-                    Check out my projects
-                </button>
-            )}
-            <svg
-                className="absolute left-0 -z-10 "
-                style={{
-                    top: -rectProps.strokeWidth / 2,
-                }}
-                viewBox={`
-                ${-rectProps.strokeWidth / 2} 
-                ${-rectProps.strokeWidth / 2} 
-                ${width + rectProps.strokeWidth} 
-                ${height + rectProps.strokeWidth}`}
-            >
-                <motion.rect stroke="#000" {...rectProps1} />
-                <motion.rect
-                    stroke="#eee"
-                    style={{ rotate: 180 }}
-                    {...rectProps1}
-                />
-                <motion.rect
-                    stroke={theme.colors.neon}
-                    x={'-2.5%'}
-                    style={{ rotate: 180 }}
-                    custom={0.425}
-                    {...rectProps2}
-                />
-                <motion.rect
-                    stroke={theme.colors.teal}
-                    custom={0.425}
-                    {...rectProps2}
-                />
-                <motion.rect
-                    x={'-5%'}
-                    stroke={theme.colors.green}
-                    style={{ rotate: 180 }}
-                    custom={0.4}
-                    {...rectProps3}
-                />
-                <motion.rect
-                    stroke={theme.colors.blue}
-                    custom={0.4}
-                    {...rectProps3}
-                />
-            </svg>
+            {text}
+        </motion.a>
+    )
+}
+
+const ExitButton = ({ toggleCard }) => {
+    return (
+        <motion.div
+            className="exitButtonAfter absolute z-10 m-5 aspect-square h-12 cursor-pointer rounded-md text-[48px] text-red/75 md:m-2   md:h-14 md:text-[56px] "
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0, transition: { delay: 0.15 } }}
+            onClick={() => {
+                toggleCard()
+                toggleScrolling(true)
+            }}
+        >
+            <HiX />
         </motion.div>
+    )
+}
+
+const GitHubLink = ({ className }) => {
+    return (
+        <a
+            className={`absolute z-10 cursor-pointer rounded-md ${className}`}
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <div className="styled-element h-full w-full p-2">
+                <FaGithub size={28} />
+            </div>
+        </a>
     )
 }
 

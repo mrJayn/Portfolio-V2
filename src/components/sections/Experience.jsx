@@ -14,6 +14,7 @@ const Experience = ({ ...data }) => {
     }
     const cardProps = {
         toggleCard: () => setReadMore(true),
+        infoLoc: 'right',
         ...experience,
     }
     const expandedProps = {
@@ -26,10 +27,6 @@ const Experience = ({ ...data }) => {
         tabNames: ['Summary', 'Jobs', 'Certifications'],
         currentTab: currentTab,
         handleTab: handleTab,
-    }
-    const tabProps = {
-        key: currentTab,
-        custom: direction,
     }
     const Summary = (
         <div
@@ -125,10 +122,11 @@ const Experience = ({ ...data }) => {
 
     return (
         <Section id="experience" fullScreen={false}>
-            <div className="experience-cards">
+            <div className="full grid-cols-2 md:grid">
                 <Items.ImgCard {...cardProps} />
                 <Items.InfoCard {...cardProps} />
             </div>
+
             <Items.ExpandedCard {...expandedProps}>
                 <div className="full relative overflow-hidden">
                     {/** TAB LIST */}
@@ -142,7 +140,10 @@ const Experience = ({ ...data }) => {
                                 {[0, 1, 2].map(
                                     (i) =>
                                         currentTab == i && (
-                                            <Items.TabWrap {...tabProps}>
+                                            <Items.TabWrap
+                                                key={currentTab}
+                                                custom={direction}
+                                            >
                                                 {tabs[i]}
                                             </Items.TabWrap>
                                         )

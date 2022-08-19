@@ -1,33 +1,6 @@
 import React from 'react'
-import { motion } from 'framer-motion'
 import { Form, Section } from '@components'
 import { config } from '@config'
-
-const parent = {
-    dd_open: {
-        transition: { staggerChildren: 0.1, delayChildren: 0.1 },
-    },
-    dd_closed: {
-        transition: {
-            staggerChildren: 0.1,
-            staggerDirection: -1,
-        },
-    },
-}
-const child = {
-    dd_open: {
-        x: '0px',
-        opacity: 1,
-        zIndex: 1,
-        transition: { duration: 0.25 },
-    },
-    dd_closed: {
-        x: '-10px',
-        opacity: 0,
-        zIndex: 0,
-        transition: { duration: 0.25 },
-    },
-}
 
 const Contact = () => {
     return (

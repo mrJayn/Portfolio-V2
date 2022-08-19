@@ -51,6 +51,10 @@ export const config = {
             title: 'contact',
             url: '/#contact',
         },
+        {
+            title: 'my RESUME',
+            url: '/assets/misc/resume2022.jpg',
+        },
     ],
     skills: [
         {
@@ -143,6 +147,25 @@ export const config = {
             },
             exit: {
                 transition: { staggerChildren: 0.05, staggerDirection: -1 },
+            },
+        },
+        fade_stagger: {
+            hidden: { opacity: 0 },
+            enter: {
+                opacity: 1,
+                transition: {
+                    when: 'beforeChildren',
+                    staggerChildren: 0.1,
+                    staggerDirection: 1,
+                },
+            },
+            exit: {
+                opacity: 0,
+                transition: {
+                    when: 'afterChildren',
+                    staggerChildren: 0.05,
+                    staggerDirection: -1,
+                },
             },
         },
         nav: {
@@ -337,7 +360,7 @@ export const config = {
                 stroke: theme.colors.neon,
             },
             visible: (i) => {
-                const delay = i * 0.15
+                const delay = 1 + i * 0.15
                 return {
                     pathLength: 1,
                     opacity: 1,
@@ -356,19 +379,6 @@ export const config = {
                     },
                 }
             },
-        },
-        drawRect: {
-            hidden: (i) => ({
-                pathLength: 0,
-                transition: { duration: 1 },
-            }),
-            visible: (i = 0) => ({
-                pathLength: i === 0 ? 0.5 : i,
-                transition: {
-                    duration: 0.5,
-                    ease: 'easeOut',
-                },
-            }),
         },
         slideshow: {
             enter: (direction) => ({

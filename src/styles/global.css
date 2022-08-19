@@ -60,15 +60,6 @@
 /* ================== COMPONENTS ================== */
 @layer components {
     /* Navbar */
-    #nav_resumeBtn {
-        & * {
-            @apply duration-250 ease-linear;
-        }
-        & > div div:after {
-            content: 'resume';
-            @apply pointer-events-none absolute -left-2 top-4 -z-10 -rotate-90 rounded font-robotoMono text-xs uppercase text-white opacity-100;
-        }
-    }
 }
 /** Check the Stuff below */
 
@@ -81,7 +72,7 @@
         &:after {
             content: '';
             transition: transform 0.25s linear;
-            @apply absolute  bottom-0 left-0 h-[1.5px] w-full bg-neon;
+            @apply absolute  bottom-0 left-0 h-[1.5px] w-full bg-teal;
             @apply origin-bottom-right scale-x-0;
         }
         &:hover:after {

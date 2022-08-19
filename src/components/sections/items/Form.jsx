@@ -200,7 +200,9 @@ const Form = () => {
                     </motion.div>
                 </motion.div>
                 <div className="flex-center w-full">
-                    <Items.Styled_Button {...btnProps} />
+                    <motion.button className="rounded-xl border-[1px] border-teal bg-lightTeal">
+                        Send Message
+                    </motion.button>
                 </div>
             </form>
         </motion.div>

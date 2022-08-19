@@ -12,75 +12,47 @@ import { BsFileEarmarkPerson } from 'react-icons/bs'
 
 const NavLogo = ({ isMd }) => {
     return (
-        <motion.div
-            className="z-10"
-            initial="hidden"
-            animate="enter"
-            variants={config.variants.nav.logo}
-            custom={isMd ? 2 : 1.25}
-        >
-            <Link href="/#intro">
-                <p
-                    className=" cursor-pointer text-2xl font-medium uppercase text-white hover:text-lightTeal md:text-lg"
-                    style={{ transition: '0.25s ease-in' }}
-                >
-                    MikeJayne
-                </p>
-            </Link>
-        </motion.div>
+        <Link href="/#intro">
+            <p
+                className="cursor-pointer text-2xl font-medium uppercase text-white hover:text-lightTeal md:text-lg"
+                style={{ transition: '0.25s ease-in' }}
+            >
+                MikeJayne
+                <motion.div
+                    className="absolute top-0 left-0 bottom-0 right-0 z-10 border-l-4 bg-white"
+                    initial={{ scaleX: 1, originX: 1 }}
+                    animate={{
+                        scaleX: 0,
+                        originX: 1,
+                        transition: { duration: 0.5, delay: 0.5 },
+                    }}
+                />
+            </p>
+        </Link>
     )
 }
 const NavLinks = () => {
     return (
-        <motion.div
-            className="md:flex-center absolute left-0 bottom-3 hidden w-full"
-            variants={config.variants.fade}
+        <motion.ul
+            className="md:flex-right full hidden select-none"
+            variants={config.variants.fade_stagger}
         >
-            <motion.ul
-                className="flex-btw"
-                variants={config.variants.nav.links}
-                custom={-100}
-            >
-                {config.sectionLinks.map((link) => (
+            {config.sectionLinks.map((link) => (
+                <Link
+                    key={`nav-linkTo-${link.title}`}
+                    href={link.url}
+                    scroll={false}
+                >
                     <motion.li
-                        key={`nav-linkTo-${link.title}`}
-                        className="styled-link mx-5 w-full text-base tracking-tight text-lightgrey hover:text-white"
+                        className="flex-center styled-link group mx-3 cursor-pointer pt-2 pb-1 text-base tracking-tight text-lightgrey/75 hover:text-white"
                         style={{ transition: 'color 0.25s linear' }}
                         variants={config.variants.fadeY}
                     >
-                        <Link href={link.url} scroll={false}>
-                            {link.title}
-                        </Link>
+                        {link.title}
                     </motion.li>
-                ))}
-            </motion.ul>
-        </motion.div>
-    )
-}
-const ResumeBtn = ({ isMd }) => {
-    return (
-        <motion.div
-            id="nav_resumeBtn"
-            className="flex-center  absolute right-0 top-0 z-10 h-full px-4 md:relative"
-            variants={config.variants.fade}
-            transition={{ delay: isMd ? 2 : 0 }}
-        >
-            <div className="md:flex-center cursor-pointer">
-                <a
-                    href="/assets/misc/resume2022.jpg"
-                    alt="Resume of Michael Jayne"
-                    target="_blank"
-                    rel="noreferrer"
-                >
-                    <p className="hidden text-lg font-semibold uppercase text-white hover:text-lightTeal md:block">
-                        Resume
-                    </p>
-                    <div className="text-teal hover:text-neon md:hidden">
-                        <BsFileEarmarkPerson size={32} />
-                    </div>
-                </a>
-            </div>
-        </motion.div>
+                </Link>
+            ))}
+        </motion.ul>
     )
 }
 
@@ -129,7 +101,7 @@ const Navbar = ({ isLoading, isMain }) => {
                 <motion.nav className=" fixed z-40 w-full" id="nav" ref={ref}>
                     <Menu isOpen={menuState} handleMenu={handleMenu} />
                     <motion.div
-                        className="flex-center md:flex-btw h-12 w-full transform-none bg-charcoal md:px-4 lg:px-16"
+                        className="flex-center md:flex-btw h-12 w-full transform-none bg-charcoal md:h-16 md:px-4 lg:px-16"
                         initial="hidden"
                         animate={navState}
                         variants={config.variants.fade}
@@ -141,7 +113,6 @@ const Navbar = ({ isLoading, isMain }) => {
                         />
                         <NavLogo isMd={isMd} />
                         <NavLinks />
-                        <ResumeBtn isMd={isMd} />
                     </motion.div>
                 </motion.nav>
             )}

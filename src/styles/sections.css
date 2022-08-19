@@ -7,12 +7,6 @@
 
 /* ABOUT  */
 @layer components {
-    .about-cards {
-        @apply flex-col-center h-full w-full;
-        @apply md:grid;
-        @apply grid-cols-2 gap-3;
-    }
-
     #about-innerHTML {
         & > p {
             @apply flex-center pt-4 indent-2 md:pt-6 md:indent-4 md:text-base md:leading-7;
@@ -23,13 +17,6 @@
     }
 }
 
-/* EXPERIENCE */
-@layer components {
-    .experience-cards {
-        @apply flex-col-center h-full w-full;
-        @apply grid-cols-2 gap-3 md:grid;
-    }
-}
 /* FEATURED */
 @layer components {
     .featured-content {

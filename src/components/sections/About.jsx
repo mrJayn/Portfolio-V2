@@ -4,6 +4,13 @@ import { Section, Items } from '@components'
 
 const About = ({ ...data }) => {
     const about = data.text.filter((obj) => obj.id == 'about')[0]
+    const experience = data.text.filter((obj) => obj.id == 'experience')[0]
+
+    const [cardStates, setCardStates] = useState(new Map())
+    const handleCard = (k, v) => {
+        setCardStates(new Map(cardStates.set(k, v)))
+    }
+
     const [readMore, setReadMore] = useState(false)
     const [[currentTab, direction], setTab] = useState([0, 0])
 
@@ -11,9 +18,9 @@ const About = ({ ...data }) => {
         let newDirection = selectedTab - currentTab
         setTab([selectedTab, newDirection])
     }
-
     const cardProps = {
         toggleCard: () => setReadMore(true),
+        infoLoc: 'left',
         ...about,
     }
     const expandedProps = {
@@ -45,10 +52,11 @@ const About = ({ ...data }) => {
 
     return (
         <Section id="about" fullScreen={false}>
-            <div className="about-cards">
+            <div className="full grid-cols-2 md:grid">
                 <Items.InfoCard {...cardProps} />
                 <Items.ImgCard {...cardProps} />
             </div>
+
             <Items.ExpandedCard {...expandedProps}>
                 {/** SM- Tabs **/}
                 <div className="full relative overflow-hidden md:hidden">
@@ -60,7 +68,10 @@ const About = ({ ...data }) => {
                     <div className="absolute top-14 left-0 right-0 bottom-0 overflow-y-scroll">
                         <div className="mb-10 mt-5">
                             <AnimatePresence exitBeforeEnter custom={direction}>
-                                <Items.TabWrap {...tabProps}>
+                                <Items.TabWrap
+                                    key={currentTab}
+                                    custom={direction}
+                                >
                                     {currentTab == 0 ? (
                                         <Text />
                                     ) : (

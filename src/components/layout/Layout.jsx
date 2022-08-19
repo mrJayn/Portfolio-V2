@@ -18,7 +18,7 @@ const Layout = ({ children, title, description }) => {
                     animate="enter"
                     exit="exit"
                     transition={{ duration: 0.5 }}
-                    className="relative w-screen md:px-3"
+                    className="relative w-screen overflow-hidden md:px-3"
                 >
                     {children}
                 </motion.main>

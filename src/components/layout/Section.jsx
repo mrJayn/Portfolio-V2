@@ -1,26 +1,20 @@
-import { useEffect } from 'react'
 import { motion } from 'framer-motion'
-import srConfig from '@utils'
-
-const Section = ({
-    children,
-    id,
-    fullScreen = true,
-    marginBottom = true,
-    ...props
-}) => {
-    useEffect(() => {
-        async function animate() {
-            const sr = (await import('scrollreveal')).default
-            sr().reveal('.useInView', srConfig)
-        }
-        animate()
-    }, [])
-
+const srConfig = {
+    delay: 250,
+    duration: 500,
+    distance: '50px',
+    origin: 'bottom',
+    reset: false,
+    mobile: true,
+    viewFactor: 0.25,
+    useDelay: 'always',
+    easing: 'ease-out',
+}
+const Section = ({ children, id, fullScreen = true, marginBottom = true }) => {
     return (
         <motion.section
             layout
-            className={` relative mb-24 w-full max-w-[1240px]  lg:mx-auto ${
+            className={` relative mb-24 w-full max-w-[1440px]  lg:mx-auto ${
                 marginBottom ? 'md:mb-24' : 'md:mb-4'
             }`}
             style={{
@@ -35,3 +29,17 @@ const Section = ({
 }
 
 export default Section
+
+/**
+ * 
+ *     useEffect(() => {
+        async function animate() {
+            const sr = (await import('scrollreveal')).default
+            sr().reveal('.useInView', srConfig)
+        }
+        animate()
+    }, [])
+
+
+    
+ */

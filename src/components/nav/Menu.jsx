@@ -76,7 +76,7 @@ const Menu = ({ isOpen, handleMenu }) => {
         <motion.div
             id="menu"
             className="fixed left-0 top-0 h-screen w-screen bg-charcoal/70 md:hidden"
-            data-isOpen={isOpen}
+            data-isopen={isOpen}
             data-orientation={orientation}
             initial={false}
             animate={menuState}

@@ -1,26 +1,27 @@
 require('dotenv').config()
-const PASSWORD = process.env.PASSWORD
-const EMAIL = process.env.EMAIL
-export default function handler(req, res) {
-    console.log(PASSWORD)
-    console.log(EMAIL)
 
-    const body = req.body
+export default function handler(req, res) {
     const nodemailer = require('nodemailer')
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
             user: 'site.email.notification@gmail.com',
-            pass: PASSWORD,
+            pass: process.env.PASSWORD,
         },
         secure: true,
     })
     const mailData = {
-        from: 'site.email.notification@gmail.com',
+        from: process.env.EMAIL,
         to: 'm63jayne@gmail.com',
-        subject: `${body.subject}`,
-        text: body.message,
-        html: `<div> Name: <b>${body.name}</b><br>  ${body.message}</div>`,
+        subject: `${req.body.subject}`,
+        text: req.body.message,
+        html: `
+    <hr/>
+    <div><strong>Name:</strong> ${req.body.fullName}</div>
+    <div><strong>Email:</strong> ${req.body.email}</div>
+    <hr/>
+    <br/>
+    <div>${req.body.message}</div>`,
     }
 
     transporter.sendMail(mailData, function (err, info) {

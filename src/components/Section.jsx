@@ -1,15 +1,4 @@
 import { motion } from 'framer-motion'
-const srConfig = {
-    delay: 250,
-    duration: 500,
-    distance: '50px',
-    origin: 'bottom',
-    reset: false,
-    mobile: true,
-    viewFactor: 0.25,
-    useDelay: 'always',
-    easing: 'ease-out',
-}
 const Section = ({ children, id, fullScreen = true, marginBottom = true }) => {
     return (
         <motion.section
@@ -29,17 +18,3 @@ const Section = ({ children, id, fullScreen = true, marginBottom = true }) => {
 }
 
 export default Section
-
-/**
- * 
- *     useEffect(() => {
-        async function animate() {
-            const sr = (await import('scrollreveal')).default
-            sr().reveal('.useInView', srConfig)
-        }
-        animate()
-    }, [])
-
-
-    
- */

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { theme } from 'tailwind.config'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { Menu, Burger } from '@components'
@@ -11,8 +12,7 @@ const NavLogo = ({ menuState }) => {
     const [color, setColor] = useState('#fff')
     const first = color === '#fff'
     setTimeout(() => {
-        setColor('#1b1c20')
-        // theme.colors.charcoal
+        setColor(theme.colors.charcoal)
     }, 1000)
     return (
         <Link href="/#intro">

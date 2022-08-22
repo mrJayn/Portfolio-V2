@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { FaGithub } from 'react-icons/fa'
-import { Items } from '@components'
 
 const Featured_Sm = ({ currentSlide, project }) => {
     const Tech = ({ project }) => {
@@ -58,7 +57,9 @@ const Featured_Sm = ({ currentSlide, project }) => {
                     </span>
                 </Link>
                 {project.github !== '' && (
-                    <Items.GhLink href={project.github} />
+                    <a href={project.github} className="styled-github p-3">
+                        <FaGithub size={30} />
+                    </a>
                 )}
             </div>
         </div>
@@ -124,15 +125,17 @@ const Featured_Md = ({ obj }) => {
                     </span>
                 </Link>
                 {project.github !== '' && (
-                    <Items.GhLink href={project.github} />
+                    <a href={project.github} className="styled-github p-3">
+                        <FaGithub size={30} />
+                    </a>
                 )}
             </div>
         </div>
     )
 }
 
-const Featured_Items = {
+const Featured_Project = {
     Sm: Featured_Sm,
     Md: Featured_Md,
 }
-export default Featured_Items
+export default Featured_Project

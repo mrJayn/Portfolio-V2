@@ -1,22 +1,10 @@
 @import './global.css';
 @tailwind components;
 
-:root {
-    --nav-height: 48px;
-}
-/*  Progress Page  */
+/** ================== NAV ================== **/
 @layer components {
-    .progress-container {
-        @apply flex-center fixed top-0  left-0 z-10 h-screen  w-screen  bg-charcoal/50;
-    }
-    .progress-square {
-        @apply fixed top-[50%] left-[50%] z-10 h-3  w-3 translate-x-[-50%] translate-y-[-50%] rounded-sm md:h-6 md:w-6;
-    }
-}
-/* ================================================================ */
-
-/* BURGER */
-@layer components {
+    /* NAV */
+    /* BURGER */
     #burger {
         &:hover {
             & * {
@@ -46,10 +34,8 @@
             @apply pointer-events-none left-[85%] opacity-100 delay-700 duration-300 ease-out;
         }
     }
-}
 
-/* MENU */
-@layer components {
+    /* MENU */
     #menu {
         @apply duration-600;
         & > div:after {
@@ -58,13 +44,12 @@
             @apply translate-y-[100%] opacity-0;
         }
     }
-    #menu[data-isOpen='false'] {
+    #menu[data-isopen='false'] {
         @apply invisible bg-transparent;
     }
-    #menu[data-isOpen='true'] > div:after {
+    #menu[data-isopen='true'] > div:after {
         @apply translate-y-0 opacity-100 delay-500 duration-600 ease-out;
     }
-
     #menu[data-orientation='landscape-primary'] #menu_content {
         @apply flex-wrap pt-4;
         & ul {
@@ -83,8 +68,49 @@
     }
 }
 
-/* CARD ITEMS */
+/** ================ SECTIONS ================ **/
 @layer components {
+    /* INTRO */
+    /* ABOUT */
+    #about-innerHTML {
+        & > p {
+            @apply flex-center pt-4 indent-2 md:pt-6 md:indent-4 md:text-base md:leading-7;
+            &:first-of-type {
+                @apply pt-0;
+            }
+        }
+    }
+    /* EXPERIENCE */
+    /* FEATURED */
+    #featured-md {
+        & > div:nth-of-type(even) {
+            & > :nth-child(1) {
+                grid-area: 1/1/-1/9 !important;
+            }
+            & > :nth-child(2) {
+                @apply flex-col-right;
+                grid-area: 1/1/1/-1 !important;
+                & > div {
+                    @apply flex-right;
+                }
+            }
+            & > :nth-child(3) {
+                justify-content: end;
+                grid-area: 2/7/4/-1 !important;
+            }
+            & > :nth-child(4) {
+                grid-area: 4/9/-1/-1 !important;
+            }
+        }
+    }
+    /* PROJECTS */
+
+    /* CONTACT */
+}
+
+/** ============== SECTION-ITEMS ============== **/
+@layer components {
+    /* CARDS */
     .exitButtonAfter {
         &:after {
             content: '';
@@ -99,115 +125,54 @@
             }
         }
     }
+    /* SKILLS */
+    /* TABS */
+    /* TITLE */
 }
 
-/* FORM */
+/** =========== FOOTER / FORM / ETC... =========== **/
 @layer components {
     #form {
-        & form {
-            & .form-item {
-                @apply w-full lg:mx-10;
-                &:first-child {
-                    @apply lg:ml-0;
-                }
-                &:last-child {
-                    @apply lg:mr-0;
+        & > div {
+            @apply flex-col-center full mx-auto;
+            counter-increment: form-item 1;
+            & label {
+                @apply w-full text-sm font-medium uppercase md:text-base;
+                &:before {
+                    content: '0' counter(form-item) '.';
+                    @apply mr-1 text-[0.8em] tracking-wide text-neon;
                 }
             }
-            & > .form-item:nth-child(2) {
-                counter-increment: form-item 3;
-            }
-            & .form-item {
-                @apply flex-col-center mb-2;
-                counter-increment: form-item 1;
-                & * {
-                    @apply w-full;
-                }
-                & label {
-                    @apply text-sm font-semibold uppercase;
-                    &:before {
-                        content: '0' counter(form-item) '. ';
-                        @apply text-tan;
-                    }
-                }
-                & input,
-                & textarea {
-                    @apply mb-5 flex border-b-[1.5px] border-lightgrey bg-transparent p-3 text-xs outline-none;
-                    &::placeholder {
-                        @apply font-robotoMono opacity-75;
-                    }
+            & input,
+            & textarea {
+                @apply mb-4 flex w-full resize-none border-b-[1px] border-lightgrey/40 bg-transparent p-1 pt-2 text-sm outline-none;
+                &::placeholder {
+                    @apply font-robotoMono opacity-75;
                 }
             }
             & textarea {
-                @apply resize-none bg-transparent;
-            }
-            & .ct-submit {
-                @apply mt-10 w-full p-4;
+                @apply border-[1px];
             }
         }
-        & .err-item {
-            @apply mt-[-10px] mb-[10px] font-robotoMono text-xs font-thin italic text-red/75;
-            line-height: 0.25em;
+        & > div:nth-of-type(-n + 2) {
+            @apply md:w-[45%];
+        }
+        & > div:nth-of-type(n + 3) {
+            @apply md:mb-10 md:w-[95%];
+        }
+        & *:focus {
+            @apply border-white;
         }
     }
 }
 
-/* FOOTER */
+/** =============== OTHER PAGES =============== **/
 @layer components {
-    .footer {
-        @apply flex-col-center w-screen pt-4 pb-2 text-center text-sm font-medium uppercase text-grey/50;
-        & p:first-child span {
-            @apply styled-link font-robotoMono text-base;
-            @apply cursor-default  text-black;
-            text-transform: capitalize;
-            &:after {
-                @apply bg-black;
-            }
-        }
-    }
-}
-
-/* LOADER */
-@layer components {
-    .loader-wrap {
-        @apply flex-center relative z-[99] h-screen w-screen overflow-hidden bg-theme-background;
-
-        --neon: theme(colors.neon);
-        --neon-opa: rgba(102, 252, 241, 0.25);
-        --teal: theme(colors.teal);
-        --border: rgb(39, 132, 128);
-        --transparent: theme(colors.transparent);
-    }
-    .loader {
-        @apply flex-col-center relative m-auto;
-    }
-    .loader-components {
-        @apply m-0 flex h-full w-full flex-wrap items-start justify-start p-0;
-    }
-    .square {
-        @apply relative m-[0.5px] rounded bg-neon opacity-0;
-        &:nth-child(odd) {
-            @apply bg-teal;
-        }
-    }
-    .loader-bg {
-        @apply absolute -z-10 mx-auto translate-y-[-50%] scale-0  opacity-0;
-        background: radial-gradient(
-            var(--neon) 0%,
-            var(--teal) 0%,
-            var(--transparent) 20%,
-            var(--transparent) 100%
-        );
-    }
-}
-
-/* RESUME */
-@layer components {
+    /* RESUME-PAGE */
     .resumePage {
         @apply flex-col-top relative mx-auto h-auto min-h-[90vh] w-full  max-w-[1240px] p-3 pt-16;
         @apply md:flex-btw;
     }
-
     .toggle-btn {
         @apply flex-center  absolute z-10 cursor-pointer rounded bg-transparent duration-600 ease-out;
         @apply right-4 top-3;
@@ -231,7 +196,6 @@
             }
         }
     }
-
     .controls-wrap {
         @apply fixed left-0 right-0 top-12 bottom-0 z-10  rounded-md;
         & .controls-menu {
@@ -245,7 +209,6 @@
             }
         }
     }
-
     .resumePage-img {
         @apply relative  aspect-[8.5/11] h-full max-h-[80vh] w-full rounded-md bg-grey/50 p-1 duration-600 ease-in-out;
         & > div {
@@ -255,5 +218,42 @@
                 @apply rounded-md;
             }
         }
+    }
+}
+
+/** ============ LOADERS ============ **/
+@layer components {
+    /* LOADER */
+    .loader-wrap {
+        @apply flex-center relative z-[99] h-screen w-screen overflow-hidden bg-charcoal;
+    }
+    .loader {
+        @apply flex-col-center relative m-auto;
+    }
+    .loader-components {
+        @apply m-0 flex h-full w-full flex-wrap items-start justify-start p-0;
+    }
+    .square {
+        @apply relative m-[0.5px] rounded bg-neon opacity-0;
+        &:nth-child(odd) {
+            @apply bg-teal;
+        }
+    }
+    .loader-bg {
+        @apply absolute -z-10 mx-auto translate-y-[-50%] scale-0  opacity-0;
+        background: radial-gradient(
+            theme(colors.neon) 0%,
+            theme(colors.teal) 0%,
+            transparent 20%,
+            transparent 100%
+        );
+    }
+
+    /* PROGRESS */
+    .progress-container {
+        @apply flex-center fixed top-0  left-0 z-10 h-screen  w-screen  bg-charcoal/50;
+    }
+    .progress-square {
+        @apply fixed top-[50%] left-[50%] z-10 h-3  w-3 translate-x-[-50%] translate-y-[-50%] rounded-sm md:h-6 md:w-6;
     }
 }

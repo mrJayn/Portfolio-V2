@@ -1,6 +1,5 @@
 import anime from 'animejs'
 import { useState, useEffect, useCallback } from 'react'
-import { theme } from 'tailwind.config'
 
 const Loader = ({ finishLoading }) => {
     const el_size = 15

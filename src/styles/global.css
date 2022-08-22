@@ -1,12 +1,30 @@
 @import './components.css';
-@import './sections.css';
 @tailwind base;
 @tailwind utilities;
 
+/* ================== VARIABLES ================== */
+:root {
+    --nav-height: 48px;
+    --neon: theme(colors.neon);
+    --teal: theme(colors.teal);
+    --lightTeal: theme(colors.lightTeal);
+
+    --darkblack: theme(colors.darkblack);
+    --black: theme(colors.black);
+    --charcoal: theme(colors.charcoal);
+    --grey: theme(colors.grey);
+    --lightgrey: theme(colors.lightgrey);
+
+    --eee: theme(colors.eee);
+
+    --border: rgb(39, 132, 128);
+
+    --transparent: theme(colors.transparent);
+}
 /* ================== BASE ================== */
 @layer base {
     html {
-        @apply scroll-smooth md:snap-none;
+        @apply scroll-p-28 scroll-smooth;
     }
     body {
         @apply block leading-normal;
@@ -56,41 +74,12 @@
             @apply mx-[10px] block h-1 w-full rounded-full bg-gradient-to-r from-black via-teal to-transparent content-[""];
         }
     }
-}
-/* ================== COMPONENTS ================== */
-@layer components {
-    #about-innerHTML {
-        & > p {
-            @apply flex-center pt-4 indent-2 md:pt-6 md:indent-4 md:text-base md:leading-7;
-            &:first-of-type {
-                @apply pt-0;
-            }
-        }
+    .styled-button {
+        @apply w-[250px] cursor-pointer select-none rounded-xl bg-eee/50 py-4 text-center text-md font-medium tracking-normal md:w-[350px] md:text-lg;
+        box-shadow: 0 5px 10px -10px theme(colors.charcoal);
     }
 
-    #featured-md {
-        & > div:nth-of-type(even) {
-            & > :nth-child(1) {
-                grid-area: 1/1/-1/9 !important;
-            }
-            & > :nth-child(2) {
-                @apply flex-col-right;
-                grid-area: 1/1/1/-1 !important;
-                & > div {
-                    @apply flex-right;
-                }
-            }
-            & > :nth-child(3) {
-                justify-content: end;
-                grid-area: 2/7/4/-1 !important;
-            }
-            & > :nth-child(4) {
-                grid-area: 4/9/-1/-1 !important;
-            }
-        }
-    }
-
-    .gh-Link {
+    .styled-github {
         @apply relative select-none overflow-hidden rounded-md;
         &:after {
             content: '';
@@ -119,19 +108,21 @@
         }
     }
 }
+/* ================== COMMON ================== */
+@layer components {
+}
+
 /** Check the Stuff below */
 
 /* STYLED LINKS  */
 @layer utilities {
     .styled-link {
         @apply relative cursor-pointer;
-
         transition: transform 0.25s linear;
         &:after {
             content: '';
             transition: transform 0.25s linear;
-            @apply absolute  bottom-0 left-0 h-[1.5px] w-full bg-teal;
-            @apply origin-bottom-right scale-x-0;
+            @apply absolute  bottom-0 left-0 h-[1.5px] w-full origin-bottom-right scale-x-0 bg-black;
         }
         &:hover:after {
             @apply origin-bottom-left scale-x-100;

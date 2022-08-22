@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { AnimatePresence } from 'framer-motion'
 import { Navbar, Footer, Loader, Progress } from '@components'
-
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import '../styles/global.css'
 
 function MyApp({ Component, pageProps }) {
@@ -40,7 +41,6 @@ function MyApp({ Component, pageProps }) {
         isLoading: isLoading,
         isMain: isMain,
     }
-
     return (
         <>
             <Head>
@@ -79,6 +79,7 @@ function MyApp({ Component, pageProps }) {
                         )}
                     </AnimatePresence>
                     <Footer />
+                    <ToastContainer limit={1} />
                 </>
             )}
         </>

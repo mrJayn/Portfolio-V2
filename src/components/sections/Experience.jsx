@@ -1,17 +1,13 @@
 import { useState } from 'react'
-import { AnimatePresence } from 'framer-motion'
-import { Section, Items } from '@components'
 import Image from 'next/image'
+import { AnimatePresence } from 'framer-motion'
+import { Section, Cards, Tabs } from '@components'
 
 const Experience = ({ ...data }) => {
     const experience = data.text.filter((obj) => obj.id == 'experience')[0]
     const [readMore, setReadMore] = useState(false)
     const [[currentTab, direction], setTab] = useState([0, 0])
 
-    function handleTab(selectedTab) {
-        let newDirection = selectedTab - currentTab
-        setTab([selectedTab, newDirection])
-    }
     const cardProps = {
         toggleCard: () => setReadMore(true),
         infoLoc: 'right',
@@ -23,11 +19,12 @@ const Experience = ({ ...data }) => {
         state: readMore,
         toggleCard: () => setReadMore(false),
     }
-    const tabListProps = {
+    const tabProps = {
         tabNames: ['Summary', 'Jobs', 'Certifications'],
         currentTab: currentTab,
-        handleTab: handleTab,
+        setTab: setTab,
     }
+
     const Summary = (
         <div
             id="about-innerHTML"
@@ -123,36 +120,38 @@ const Experience = ({ ...data }) => {
     return (
         <Section id="experience" fullScreen={false}>
             <div className="full grid-cols-2 md:grid">
-                <Items.ImgCard {...cardProps} />
-                <Items.InfoCard {...cardProps} />
+                <Cards.Img {...cardProps} />
+                <Cards.Info {...cardProps} />
             </div>
 
-            <Items.ExpandedCard {...expandedProps}>
+            <Cards.Expanded {...expandedProps}>
                 <div className="full relative overflow-hidden">
                     {/** TAB LIST */}
                     <div className="absolute top-0 left-0 h-12 w-full">
-                        <Items.TabList {...tabListProps} />
+                        <Tabs.List {...tabProps} />
                     </div>
                     {/** TABS */}
                     <div className="absolute top-14 left-0 right-0 bottom-0 overflow-y-scroll">
                         <div className="mb-10 mt-5">
                             <AnimatePresence exitBeforeEnter custom={direction}>
-                                {[0, 1, 2].map(
+                                {[
+                                    ...Array(tabProps.tabNames.length).keys(),
+                                ].map(
                                     (i) =>
                                         currentTab == i && (
-                                            <Items.TabWrap
+                                            <Tabs.Item
                                                 key={currentTab}
                                                 custom={direction}
                                             >
                                                 {tabs[i]}
-                                            </Items.TabWrap>
+                                            </Tabs.Item>
                                         )
                                 )}
                             </AnimatePresence>
                         </div>
                     </div>
                 </div>
-            </Items.ExpandedCard>
+            </Cards.Expanded>
         </Section>
     )
 }

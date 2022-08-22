@@ -108,7 +108,6 @@ const Slideshow = ({ ...featuredData }) => {
                 <AnimatePresence initial={false} custom={direction}>
                     <motion.div
                         className="full slide absolute top-0 left-0"
-                        data-slide={currentSlide}
                         {...contentProps}
                     >
                         <Featured_Items.Sm

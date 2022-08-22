@@ -103,28 +103,6 @@ export const config = {
             url: assets.skills.tensorImg,
         },
     ],
-    formInputs: [
-        {
-            title: 'name',
-            placeholder: 'Who am I speaking with?',
-            type: 'text',
-        },
-        {
-            title: 'email',
-            placeholder: 'Where should I reach you?',
-            type: 'email',
-        },
-        {
-            title: 'subject',
-            placeholder: 'What is the topic of this message?',
-            type: 'text',
-        },
-        {
-            title: 'message',
-            placeholder: 'Type your message here.',
-            type: 'text',
-        },
-    ],
     variants: {
         fade: {
             hidden: { opacity: 0 },
@@ -360,6 +338,23 @@ export const config = {
                 opacity: 0,
                 transition: { duration: 0.35, ease: 'easeIn' },
             }),
+        },
+        featured_items: {
+            enter: {
+                opacity: 0,
+            },
+            display: {
+                opacity: 1,
+                transition: {
+                    duration: 0.1,
+                },
+            },
+            exit: {
+                opacity: 0,
+                transition: {
+                    duration: 0.25,
+                },
+            },
         },
     },
     transitions: {

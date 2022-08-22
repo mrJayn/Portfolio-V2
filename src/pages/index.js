@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { getAllMarkdown } from 'src/lib/markdown'
 import {
     Intro,
     About,
@@ -6,26 +8,42 @@ import {
     Contact,
     Layout,
     Experience,
+    Form,
 } from '@components'
-import { getAllMarkdown } from 'src/lib/markdown'
 
 const title = "Hello, I'm Michael 👋"
 const description =
     "I'm an ChemEng graduate and a recent self-taught developer, aiming to break into tech ASAP!"
 
 export default function Home({ isLoading, data }) {
+    const [formState, setFormState] = useState(false)
+    const [aboutState, setAboutState] = useState(false)
+    const [expState, setExpState] = useState(false)
+    data = {
+        states: {
+            about: aboutState,
+            setAbout: setAboutState,
+            expState: expState,
+            setExp: setExpState,
+            form: formState,
+            setForm: setFormState,
+        },
+        ...data,
+    }
+
     return (
         <Layout
             isLoading={isLoading}
             title="Michael Jayne"
             description={`${title}-${description}`}
         >
-            <Intro />
+            <Intro {...data} />
             <About {...data} />
             <Experience {...data} />
             <Featured {...data} />
             <Projects {...data} />
-            <Contact />
+            <Contact {...data} />
+            <Form {...data} />
         </Layout>
     )
 }

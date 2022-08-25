@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { theme } from 'tailwind.config'
 
 import { Section } from '@components'
 import { config } from '@config'
-import { toggleScrolling } from '@utils'
+import { styledBtn, toggleScrolling } from '@utils'
 
 const Contact = ({ ...data }) => {
     const setFormState = data.states.setForm
@@ -18,7 +16,7 @@ const Contact = ({ ...data }) => {
     return (
         <Section id="contact" fullScreen={false}>
             <motion.div
-                className="m-5 rounded-lg bg-gradient-to-t p-10 shadow-lg md:m-10 md:from-eee md:to-eee/25"
+                className="m-5 rounded-lg bg-gradient-to-t py-10 shadow-lg md:m-10 md:from-eee md:to-eee/25"
                 {...inViewProps}
             >
                 <div className="flex-col-center h-full w-full">
@@ -44,7 +42,7 @@ const Contact = ({ ...data }) => {
                                 full time position or a project you&apos;re
                                 interested in building, I&apos;d love to hear
                                 from you! or&nbsp;
-                                <span className="styled-link text-blue after:bg-blue">
+                                <span className="styled-link font-medium italic text-teal after:bg-teal">
                                     <a href={`mailto:${config.email}`}>
                                         email me <span>&raquo;</span>
                                     </a>
@@ -60,14 +58,9 @@ const Contact = ({ ...data }) => {
                         setFormState(true)
                         toggleScrolling(false)
                     }}
-                    className="styled-button"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    whileHover={{
-                        translateY: -2.5,
-                        boxShadow: `0px 10px 15px -10px ${theme.colors.charcoal}`,
-                    }}
-                    whileTap={{ scale: 0.95 }}
+                    {...styledBtn}
                 >
                     Send a Message!
                 </motion.a>

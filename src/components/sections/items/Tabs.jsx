@@ -1,5 +1,5 @@
+import { Variants } from '@config'
 import { LayoutGroup, motion } from 'framer-motion'
-import { config } from '@config'
 
 const TabList = ({ currentTab, setTab, tabNames }) => {
     const tabNums = [...Array(tabNames.length).keys()]
@@ -9,7 +9,7 @@ const TabList = ({ currentTab, setTab, tabNames }) => {
     }
     return (
         <LayoutGroup>
-            <div className="flex-evenly w-full border-b-[1px] border-lightTeal/75 bg-black/75 shadow-xl shadow-black/75">
+            <div className="flex-evenly w-full rounded-md border-b-[1px] border-lightTeal/75 bg-black/75 shadow-xl shadow-black/75">
                 {tabNums.map((tabNum) => (
                     <motion.div
                         key={tabNum}
@@ -32,11 +32,7 @@ const TabList = ({ currentTab, setTab, tabNames }) => {
         </LayoutGroup>
     )
 }
-const TabWrap = ({
-    children,
-    variants = config.variants.slideshow,
-    ...tabProps
-}) => {
+const TabWrap = ({ children, variants = Variants.sliders, ...tabProps }) => {
     tabProps = {
         variants: variants,
         initial: 'enter',

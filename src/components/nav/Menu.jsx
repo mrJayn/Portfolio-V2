@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
-import { config } from '@config'
+import { config, Variants } from '@config'
 import { useScreenOrientation } from '@hooks'
 
 const MenuContent = ({ menuState, handleClick }) => {
@@ -15,7 +15,7 @@ const MenuContent = ({ menuState, handleClick }) => {
             {/** LINKS **/}
             <motion.ul
                 className="flex-col-center h-[70%]"
-                variants={config.variants.menu.parent}
+                variants={Variants.menu.parent}
                 custom={true}
             >
                 {config.sectionLinks.map((link) => (
@@ -24,7 +24,7 @@ const MenuContent = ({ menuState, handleClick }) => {
                         className="styled-link my-auto text-2xl font-medium capitalize tracking-tight text-lightgrey hover:text-white"
                         style={{ transition: 'color 0.25s linear' }}
                         onClick={handleClick}
-                        variants={config.variants.fadeY}
+                        variants={Variants.fadeY}
                         custom={10}
                         whileTap={{ scale: 0.95 }}
                     >
@@ -35,7 +35,7 @@ const MenuContent = ({ menuState, handleClick }) => {
             {/** FOOTER  **/}
             <motion.div
                 className="flex-btw w-full text-center"
-                variants={config.variants.menu.parent}
+                variants={Variants.menu.parent}
                 custom={false}
             >
                 {/** FOOTER LINKS **/}
@@ -52,7 +52,7 @@ const MenuContent = ({ menuState, handleClick }) => {
                             href={linkHref}
                             target="_blank"
                             rel="noreferrer"
-                            variants={config.variants.fade}
+                            variants={Variants.fade}
                             transition={{
                                 type: 'spring',
                                 stiffness: 1000,
@@ -83,7 +83,7 @@ const Menu = ({ isOpen, handleMenu }) => {
         >
             <motion.div
                 className="flex-center absolute top-0 left-0 h-screen w-screen bg-charcoal px-3 pb-10 pt-[12.5vh]"
-                variants={config.variants.menu.backgroundClip}
+                variants={Variants.menu.backgroundClip}
             >
                 <MenuContent menuState={menuState} handleClick={handleMenu} />
             </motion.div>

@@ -1,7 +1,7 @@
 import { motion, useAnimation } from 'framer-motion'
 
 import { Section, Title } from '@components'
-import { toggleScrolling } from '@utils'
+import { styledBtn, toggleScrolling } from '@utils'
 import { theme } from 'tailwind.config'
 
 const Intro = ({ ...data }) => {
@@ -47,7 +47,7 @@ const Intro = ({ ...data }) => {
                 <p className="relative text-md font-semibold tracking-wide">
                     Hello, my name is
                     <motion.div
-                        className="absolute top-0 left-0 bottom-0 right-0 z-10 border-l-4 bg-white"
+                        className="absolute top-0 left-0 bottom-0 right-0 border-l-4 bg-white"
                         initial={{ scaleX: 1, originX: 1 }}
                         animate={{
                             scaleX: 0,
@@ -72,15 +72,10 @@ const Intro = ({ ...data }) => {
                             key={`introBtn-${i}`}
                             href={btn.href}
                             onClick={btn.action}
-                            className="styled-button"
                             initial={{ opacity: 0 }}
                             animate={btnControls}
-                            whileHover={{
-                                translateY: -2.5,
-                                boxShadow: `0px 10px 15px -10px ${theme.colors.charcoal}`,
-                            }}
-                            whileTap={{ scale: 0.95 }}
                             transition={{ opacity: { delay: i * 0.5 } }}
+                            {...styledBtn}
                         >
                             {btn.text}
                         </motion.a>

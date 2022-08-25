@@ -5,7 +5,7 @@ import { theme } from 'tailwind.config'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { Menu, Burger } from '@components'
-import { config } from '@config'
+import { config, Variants } from '@config'
 import { toggleScrolling } from '@utils'
 
 const NavLogo = ({ menuState }) => {
@@ -50,23 +50,27 @@ const NavLinks = () => {
     return (
         <motion.ul
             className="md:flex-right full hidden select-none"
-            variants={config.variants.fade_stagger}
+            variants={Variants.fade_stagger}
         >
-            {config.sectionLinks.map((link) => (
-                <Link
-                    key={`nav-linkTo-${link.title}`}
-                    href={link.url}
-                    scroll={false}
-                >
-                    <motion.li
-                        className="flex-center styled-link group mx-3 cursor-pointer pt-2 pb-1 text-base tracking-tight text-lightgrey hover:text-white"
-                        style={{ transition: 'color 0.25s linear' }}
-                        variants={config.variants.fadeY}
+            {config.sectionLinks.map((link, i) => {
+                const lastLink = i == config.sectionLinks.length - 1
+                return (
+                    <a
+                        key={`nav-linkTo-${link.title}`}
+                        href={link.url}
+                        target={lastLink ? '_blank' : null}
+                        rel="noreferrer"
                     >
-                        {link.title}
-                    </motion.li>
-                </Link>
-            ))}
+                        <motion.li
+                            className="flex-center styled-link group mx-3 cursor-pointer pt-2 pb-1 text-base tracking-tight text-lightgrey hover:text-white"
+                            style={{ transition: 'color 0.25s linear' }}
+                            variants={Variants.fadeY}
+                        >
+                            {link.title}
+                        </motion.li>
+                    </a>
+                )
+            })}
         </motion.ul>
     )
 }
@@ -117,7 +121,7 @@ const Navbar = ({ isLoading, isMain }) => {
                         className="flex-center md:flex-btw h-12 w-full transform-none bg-charcoal md:h-16 md:px-4 lg:px-16"
                         initial="hidden"
                         animate={navState}
-                        variants={config.variants.fade}
+                        variants={Variants.fade}
                     >
                         <Burger
                             isMain={isMain}

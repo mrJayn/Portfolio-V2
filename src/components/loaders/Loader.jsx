@@ -1,5 +1,6 @@
 import anime from 'animejs'
 import { useState, useEffect, useCallback } from 'react'
+import { theme } from 'tailwind.config'
 
 const Loader = ({ finishLoading }) => {
     const el_size = 15
@@ -23,7 +24,7 @@ const Loader = ({ finishLoading }) => {
         loader
             .add(
                 {
-                    targets: '.loader-wrap',
+                    targets: '#loader-wrap',
                     opacity: [1, 0],
                     duration: 750,
                     easing: 'easeInQuad',
@@ -32,7 +33,7 @@ const Loader = ({ finishLoading }) => {
             )
             .add(
                 {
-                    targets: '.loader',
+                    targets: '#loader',
                     scale: [{ value: 1, easing: spring, duration: 0 }],
                     rotateZ: [
                         {
@@ -46,7 +47,7 @@ const Loader = ({ finishLoading }) => {
             )
             .add(
                 {
-                    targets: '.loader-bg',
+                    targets: '#loader-bg',
                     opacity: {
                         value: 1,
                         easing: spring,
@@ -151,18 +152,22 @@ const Loader = ({ finishLoading }) => {
 
     return (
         <div
-            id="loader"
-            className="loader-wrap"
+            id="loader-wrap"
+            className="flex-center relative z-[99] h-screen w-screen overflow-hidden bg-charcoal"
             style={{ opacity: `${isMounted ? 100 : 0}` }}
         >
             <div
-                className="loader"
+                id="loader"
+                className="flex-col-center relative m-auto"
                 style={{ height: loaderSize, width: loaderSize }}
             >
-                <div className="loader-components" id="components">
+                <div
+                    id="loader-items"
+                    className="m-0 flex h-full w-full flex-wrap items-start justify-start p-0"
+                >
                     {els.map((el) => (
                         <div
-                            className="square"
+                            className="square relative m-[0.5px] rounded bg-neon opacity-0 odd:bg-teal"
                             style={{ height: elSize, width: elSize }}
                             key={el}
                         />
@@ -170,8 +175,13 @@ const Loader = ({ finishLoading }) => {
                 </div>
             </div>
             <div
-                className="loader-bg"
-                style={{ height: loaderSize, width: loaderSize }}
+                id="loader-bg"
+                className="absolute -z-10 mx-auto translate-y-[-50%] scale-0  opacity-0"
+                style={{
+                    height: loaderSize,
+                    width: loaderSize,
+                    background: `radial-gradient(${theme.colors.neon} 0%, ${theme.colors.teal} 0%, transparent 20%, transparent 100%)`,
+                }}
             />
         </div>
     )

@@ -7,7 +7,7 @@ tech:
     - MatplotLib
     - Pandas
 github: 'https://github.com/mrJayn/Cohort-Analysis'
-external: ''
+external: 'https://github.com/mrJayn/Cohort-Analysis'
 src: '/assets/featured/cohort_analysis.png'
 alt: Cohort Analysis Chart Image
 ---

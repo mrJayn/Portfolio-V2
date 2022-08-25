@@ -75,37 +75,8 @@
         }
     }
     .styled-button {
-        @apply w-[250px] cursor-pointer select-none rounded-xl bg-eee/50 py-4 text-center text-md font-medium tracking-normal md:w-[350px] md:text-lg;
+        @apply flex-center z-10 w-[250px] cursor-pointer select-none rounded-xl bg-lightTeal py-4 text-center text-md font-semibold tracking-normal text-black/50 md:w-[350px] md:text-lg;
         box-shadow: 0 5px 10px -10px theme(colors.charcoal);
-    }
-
-    .styled-github {
-        @apply relative select-none overflow-hidden rounded-md;
-        &:after {
-            content: '';
-            @apply absolute top-0 left-0 bottom-[-100%]  z-[-1] w-full  rounded-md;
-            background: linear-gradient(
-                to top,
-                #333 0%,
-                #333 49%,
-                #eee 50%,
-                #eeeeeebf 100%
-            );
-            transition: transform 0.5s;
-        }
-        &:hover {
-            &:after {
-                @apply translate-y-[-50%];
-                transition: transform 0.5s;
-            }
-        }
-
-        & > * {
-            background: inherit;
-            background-clip: text;
-            color: transparent;
-            filter: invert(1);
-        }
     }
 }
 /* ================== COMMON ================== */

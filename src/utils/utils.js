@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { theme } from 'tailwind.config'
+import { black } from 'tailwindcss/colors'
 
 export const navDelay = 1000
 
@@ -59,4 +61,14 @@ export const SplitText = ({ children, ...props }) => {
             ))}
         </div>
     )
+}
+
+export const styledBtn = {
+    className: 'styled-button',
+    whileHover: {
+        color: black,
+        translateY: -2.5,
+        boxShadow: `0px 10px 15px -10px ${theme.colors.charcoal}`,
+    },
+    whileTap: { scale: 0.95 },
 }

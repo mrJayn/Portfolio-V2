@@ -28,14 +28,14 @@ const Experience = ({ ...data }) => {
     const Summary = (
         <div
             id="about-innerHTML"
-            className="p-10 pt-5 text-white"
+            className="py-5 px-2 text-white md:p-10 md:pt-5"
             dangerouslySetInnerHTML={{
                 __html: experience.content,
             }}
         />
     )
     const Jobs = (
-        <div className="flex-col-top h-full w-full p-10 pt-5 text-white">
+        <div className="flex-col-top px-2md:p-10 h-full w-full py-5 text-white md:pt-5">
             {experience.data.jobs.map((job, i) => (
                 <div
                     key={`job-${i}`}
@@ -51,7 +51,7 @@ const Experience = ({ ...data }) => {
                             </p>
                         ))}
                     </div>
-                    <div className="flex-col-top full rounded-md bg-black/50 p-3 md:w-[75%] md:text-base">
+                    <div className="flex-col-top full md:text-basemd:p-10 rounded-md bg-black/50 p-3 md:w-[75%] md:pt-5">
                         {experience.data.jobs_desc[i].map((text, i) => (
                             <p key={`job-text-${i}`} className="pb-4 indent-4">
                                 {text}
@@ -63,7 +63,7 @@ const Experience = ({ ...data }) => {
         </div>
     )
     const Certifications = (
-        <ul className="w-full max-w-[767px] p-5  text-white">
+        <ul className="w-full max-w-[767px] py-5 px-2  text-white">
             {experience.data.certs.map((cert, i) => (
                 <li
                     className="flex-top mb-3 h-[100px] rounded-md bg-grey py-2 px-3 md:h-[200px]"
@@ -131,7 +131,7 @@ const Experience = ({ ...data }) => {
                         <Tabs.List {...tabProps} />
                     </div>
                     {/** TABS */}
-                    <div className="absolute top-14 left-0 right-0 bottom-0 overflow-y-scroll">
+                    <div className="absolute top-16 left-0 right-0 bottom-0 overflow-y-scroll">
                         <div className="mb-10 mt-5">
                             <AnimatePresence exitBeforeEnter custom={direction}>
                                 {[

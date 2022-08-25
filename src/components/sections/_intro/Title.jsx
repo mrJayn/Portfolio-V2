@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion'
-import { config } from '@config'
+import { Variants } from '@config'
 
 const Title = ({ onComplete, width }) => {
     const pathProps = {
         initial: 'hidden',
         animate: 'visible',
-        variants: config.variants.draw,
+        variants: Variants.title,
     }
     return (
         <div className="relative w-[320px] md:w-[390px] lg:w-[460px]">

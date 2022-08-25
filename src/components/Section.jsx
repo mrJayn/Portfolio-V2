@@ -3,7 +3,7 @@ const Section = ({ children, id, fullScreen = true, marginBottom = true }) => {
     return (
         <motion.section
             layout
-            className={` relative mb-24 w-full max-w-[1440px]  lg:mx-auto ${
+            className={` relative mb-24 w-full max-w-[1440px] px-3  lg:mx-auto ${
                 marginBottom ? 'md:mb-24' : 'md:mb-4'
             }`}
             style={{

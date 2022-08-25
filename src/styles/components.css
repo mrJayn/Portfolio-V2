@@ -71,6 +71,15 @@
 /** ================ SECTIONS ================ **/
 @layer components {
     /* INTRO */
+    #layout-bg {
+        background: linear-gradient(135deg, #ffffff55 25%, transparent 25%) -80px
+                0/ 160px 160px,
+            linear-gradient(225deg, #ffffff 25%, transparent 25%) -80px 0/ 160px
+                160px,
+            linear-gradient(315deg, #ffffff55 25%, transparent 25%) 0px 0/ 160px
+                160px,
+            linear-gradient(45deg, #ffffff 25%, #efefef 25%) 0px 0/ 160px 160px;
+    }
     /* ABOUT */
     #about-innerHTML {
         & > p {
@@ -82,8 +91,35 @@
     }
     /* EXPERIENCE */
     /* FEATURED */
+
     #featured-md {
-        & > div:nth-of-type(even) {
+        & .ct {
+            & > :nth-child(1) {
+                &:before {
+                    content: '';
+                    @apply absolute top-0 right-0 left-0 bottom-0 z-10;
+                    background: linear-gradient(
+                        to bottom,
+                        #fff 0%,
+                        #fff 25%,
+                        #ffffff25 55%,
+                        transparent 100%
+                    );
+                }
+                &:after {
+                    content: '';
+                    @apply absolute top-0 right-0 left-0 bottom-0 z-10;
+                    background: linear-gradient(
+                        to right,
+                        #fff 0%,
+                        #fff 5%,
+                        #ffffff25 35%,
+                        transparent 100%
+                    );
+                }
+            }
+        }
+        & .fp:nth-of-type(even) > .ct {
             & > :nth-child(1) {
                 grid-area: 1/1/-1/9 !important;
             }
@@ -94,12 +130,11 @@
                     @apply flex-right;
                 }
             }
-            & > :nth-child(3) {
-                justify-content: end;
-                grid-area: 2/7/4/-1 !important;
-            }
             & > :nth-child(4) {
-                grid-area: 4/9/-1/-1 !important;
+                grid-area: 2/7/5/-1 !important;
+            }
+            & > :nth-child(5) {
+                grid-area: 5/9/-1/-1 !important;
             }
         }
     }

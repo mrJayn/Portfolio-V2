@@ -1,17 +1,16 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 import { wrap } from '@popmotion/popcorn'
 
-import { Featured_Items } from '@components'
-import { config } from '@config'
+import { ReadMore, Featured_Project } from '@components'
+import { Variants } from '@config'
 
-const variants = config.variants.slideshow
 const slides = [0, 1, 2]
 
 const Indicators = ({ currentSlide, handleIndicator }) => {
     return (
         <LayoutGroup>
-            <div className=" flex-evenly w-full max-w-[768px]">
+            <div className="flex-evenly w-full max-w-[768px]">
                 {slides.map((item) => (
                     <div
                         className="mt-5 cursor-pointer p-3"
@@ -32,10 +31,9 @@ const Indicators = ({ currentSlide, handleIndicator }) => {
         </LayoutGroup>
     )
 }
-const Slideshow = ({ ...featuredData }) => {
-    /*    const slides = [...Array(featuredData,length).keys()]*/
+const Slideshow = ({ isMd, ...featuredData }) => {
+    const [smReadMore, setSmReadMore] = useState(false)
     const [[currentSlide, direction], setSlide] = useState([0, 0])
-    const [reset, SetReset] = useState(false)
     const i = wrap(0, slides.length, currentSlide)
     // ========================
     function detectGesture(e, { offset, velocity }) {
@@ -70,23 +68,12 @@ const Slideshow = ({ ...featuredData }) => {
         if (!newDirection) newDirection = selectedSlide - currentSlide
         setSlide([selectedSlide, newDirection])
     }
-    useEffect(() => {
-        if (reset) SetReset(false)
 
-        const interval = setInterval(() => {
-            if (currentSlide + 1 === slides.length) {
-                setSlide([0, 1])
-            } else {
-                setSlide([currentSlide + 1, 1])
-            }
-        }, 9000)
-        return () => clearInterval(interval)
-    }, [currentSlide, setSlide, reset])
     // ========================
     const contentProps = {
         key: currentSlide,
         custom: direction,
-        variants: variants,
+        variants: Variants.sliders,
         initial: 'enter',
         animate: 'display',
         exit: 'exit',
@@ -99,20 +86,26 @@ const Slideshow = ({ ...featuredData }) => {
         },
         dragElastic: 1,
         onDragEnd: detectGesture,
-        onDrag: () => SetReset(true),
     }
-
+    const smReadMoreProps = {
+        project: featuredData[currentSlide],
+        readMore: smReadMore,
+        setReadMore: setSmReadMore,
+        isMd: isMd,
+    }
     return (
         <>
-            <div className="relative h-[500px] w-full overflow-hidden md:h-[490px] lg:h-[500px]">
+            <div className="relative h-[450px] w-full">
                 <AnimatePresence initial={false} custom={direction}>
                     <motion.div
-                        className="full slide absolute top-0 left-0"
+                        className="absolute left-[5%] right-[5%] h-[400px]"
                         {...contentProps}
                     >
-                        <Featured_Items.Sm
+                        <Featured_Project
+                            key={`featured-${i}`}
                             currentSlide={i}
-                            project={featuredData[currentSlide].data}
+                            project={featuredData[currentSlide]}
+                            setSmReadMore={setSmReadMore}
                         />
                     </motion.div>
                 </AnimatePresence>
@@ -121,6 +114,7 @@ const Slideshow = ({ ...featuredData }) => {
                 currentSlide={currentSlide}
                 handleIndicator={handleIndicator}
             />
+            {!isMd && <ReadMore {...smReadMoreProps} />}
         </>
     )
 }

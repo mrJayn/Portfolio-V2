@@ -2,12 +2,11 @@ import { createRef } from 'react'
 import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
 
-import { config } from '@config'
 import { toggleScrolling } from '@utils'
 import { useOnClickOutside } from 'src/hooks/useOnClickOutside'
 import { useMediaQuery } from '@hooks'
-import { Items } from '@components'
 import { HiX } from 'react-icons/hi'
+import { Variants } from '@config'
 
 const imgProps = {
     quality: 100,
@@ -19,6 +18,7 @@ const CardWrap = ({ children, infoLoc, isMd, ...wrapProps }) => {
     return (
         <motion.div
             className="h-[500px] w-full select-none whitespace-pre-line rounded-lg md:h-[450px] lg:h-[580px]"
+            viewport={{ once: true }}
             {...wrapProps}
         >
             {children}
@@ -26,38 +26,16 @@ const CardWrap = ({ children, infoLoc, isMd, ...wrapProps }) => {
     )
 }
 const Info_Card = ({ toggleCard, infoLoc, ...data }) => {
-    const isMd = useMediaQuery()
     const wrapProps = {
         infoLoc: infoLoc,
-        isMd: isMd,
         onClick: () => {
             toggleCard()
             toggleScrolling(false)
         },
-        initial: {
-            opacity: 0,
-            x: infoLoc == null || !isMd ? 0 : infoLoc == 'left' ? 50 : -50,
-            backgroundColor: '#ffffffff',
-        },
-        whileInView: {
-            opacity: 1,
-            x: 0,
-            backgroundColor: '#ffffff00',
-            boxShadow: [
-                '0px 0px 0px 0px black',
-                `${infoLoc == 'left' ? '20px' : '-20px'} 0px 20px -20px black`,
-                `${infoLoc == 'left' ? '7px' : '-7px'} 0px 5px -10px black`,
-            ],
-            transition: {
-                default: { delay: 0.25, duration: 1, ease: 'easeOut' },
-                opacity: { delay: 0.25, duration: 0.5 },
-                backgroundColor: { delay: 2, duration: 1 },
-                boxShadow: { duration: 1.75, delay: 0.5 },
-            },
-        },
-        viewport: {
-            once: true,
-        },
+        variants: Variants.cards.infoCard,
+        initial: 'hidden',
+        whileInView: 'inView',
+        custom: infoLoc,
     }
     return (
         <CardWrap {...wrapProps}>
@@ -91,7 +69,7 @@ const Info_Card = ({ toggleCard, infoLoc, ...data }) => {
                     }}
                     viewport={{ once: true }}
                 >
-                    {isMd ? 'Click' : 'Tap'} to Read More
+                    Read More
                 </motion.p>
             </div>
         </CardWrap>
@@ -99,33 +77,24 @@ const Info_Card = ({ toggleCard, infoLoc, ...data }) => {
 }
 const Img_Card = ({ infoLoc, ...data }) => {
     const InViewProps = {
-        initial: {
-            opacity: 0,
-            x: infoLoc == null ? 0 : infoLoc == 'left' ? '-100%' : '100%',
-        },
-        whileInView: {
-            opacity: 1,
-            x: 0,
-            transition: {
-                opacity: { delay: 0.75, duration: 1.25, ease: 'easeOut' },
-                x: { delay: 0.5, duration: 1.5, ease: 'easeOut' },
-            },
-        },
+        variants: Variants.cards.imgCard,
+        initial: 'hidden',
+        whileInView: 'inView',
+        custom: infoLoc,
     }
     return (
-        <CardWrap className="md:flex-center relative -z-10 hidden">
-            <motion.div
-                className="relative my-10 h-[90%]  w-[90%]"
-                viewport={{ once: true }}
-                {...InViewProps}
-            >
+        <CardWrap
+            className="md:flex-center relative -z-10 hidden"
+            {...InViewProps}
+        >
+            <div className="relative my-10 h-[90%]  w-[90%]">
                 <Image
                     src={data.data.src}
                     alt={data.data.alt}
                     className="full -z-50 rounded-md"
                     {...imgProps}
                 />
-            </motion.div>
+            </div>
         </CardWrap>
     )
 }
@@ -135,23 +104,18 @@ const Expanded_Card = ({ toggleCard, children, ...props }) => {
         toggleCard()
         toggleScrolling(true)
     })
-    const motionProps = {
-        initial: { opacity: 0 },
-        animate: { opacity: 1 },
-        exit: { opacity: 0 },
-    }
     return (
         <AnimatePresence initial={false}>
             {props.state && (
                 <>
                     <motion.div
                         className="fixed top-0 left-0 right-0 bottom-0 z-[30] bg-black/50"
-                        {...motionProps}
+                        {...Variants.fade_props}
                     />
                     <motion.div
                         className="fixed top-0 left-0 right-0 bottom-0 z-50 mx-auto max-w-[1024px] overflow-hidden rounded-lg bg-charcoal shadow-2xl shadow-black md:top-20 md:bottom-4 md:left-12 md:right-12"
                         ref={ref}
-                        {...motionProps}
+                        {...Variants.fade_props}
                     >
                         <div className="relative m-2 h-full md:m-4">
                             <ExitButton toggleCard={toggleCard} />
@@ -172,14 +136,11 @@ const ExitButton = ({ toggleCard }) => {
     return (
         <motion.div
             className="exitButtonAfter absolute z-10 m-2 aspect-square h-12 cursor-pointer rounded-md text-[48px] text-red/75 md:m-2   md:h-14 md:text-[56px] "
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0, transition: { delay: 0.15 } }}
             onClick={() => {
                 toggleCard()
                 toggleScrolling(true)
             }}
+            {...Variants.cards.exitBtn_props}
         >
             <HiX />
         </motion.div>
@@ -189,5 +150,6 @@ const Cards = {
     Info: Info_Card,
     Img: Img_Card,
     Expanded: Expanded_Card,
+    ExitButton: ExitButton,
 }
 export default Cards

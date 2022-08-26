@@ -1,108 +1,13 @@
-import { theme } from 'tailwind.config'
-
-import assets from '@assets'
-import { default_spring } from '@utils'
-
-import { FaGithub, FaCodepen, FaLinkedinIn } from 'react-icons/fa'
-import { AiOutlineMail } from 'react-icons/ai'
-
 export const config = {
     email: 'm63jayne@gmail.com',
-    socials: [
-        {
-            title: 'GitHub',
-            url: 'https://github.com/mrJayn',
-            icon: FaGithub,
-        },
-        {
-            title: 'Codepen',
-            url: 'https://codepen.io/mrjayn',
-            icon: FaCodepen,
-        },
-        {
-            title: 'Linkedin',
-            url: 'https://www.linkedin.com/in/',
-            icon: FaLinkedinIn,
-        },
-        {
-            title: 'Email',
-            url: 'mailTo',
-            icon: AiOutlineMail,
-        },
-    ],
-    sectionLinks: [
-        {
-            title: 'about',
-            url: '/#about',
-        },
-        {
-            title: 'experience',
-            url: '/#experience',
-        },
-        {
-            title: 'featured',
-            url: '/#featured',
-        },
-        {
-            title: 'projects',
-            url: '/#projects',
-        },
-        {
-            title: 'contact',
-            url: '/#contact',
-        },
-        {
-            title: 'my RESUME',
-            url: '/assets/misc/resume2022.jpg',
-        },
-    ],
-    skills: [
-        {
-            item: '1',
-            skill: 'HTML',
-            url: assets.skills.htmlImg,
-        },
-        {
-            item: '2',
-            skill: 'CSS',
-            url: assets.skills.cssImg,
-        },
-        {
-            item: '3',
-            skill: 'Javascript',
-            url: assets.skills.jsImg,
-        },
-        {
-            item: '4',
-            skill: 'React',
-            url: assets.skills.reactImg,
-        },
-        {
-            item: '5',
-            skill: 'Tailwind',
-            url: assets.skills.tailwindImg,
-        },
-        {
-            item: '6',
-            skill: 'Github',
-            url: assets.skills.githubImg,
-        },
-        {
-            item: '7',
-            skill: 'Node',
-            url: assets.skills.nodeImg,
-        },
-        {
-            item: '8',
-            skill: 'Python',
-            url: assets.skills.pyImg,
-        },
-        {
-            item: '9',
-            skill: 'TensorFlow',
-            url: assets.skills.tensorImg,
-        },
-    ],
+
+    myColors: {
+        black: '#0B0C10',
+        charcoal: '#1B1C20',
+        teal: '#45A29E',
+        neon: '#66FCF1',
+    },
+
     transitions: {
         default_spring: {
             type: 'spring',
@@ -113,26 +18,26 @@ export const config = {
     },
 }
 
+/**
+ * Nav      -> fade_stagger, fadeY, fade,
+ * Burger -> fade, burger                           X
+ * Menu   -> menu, fadeY, fade
+ *
+ * Title -> draw
+ *
+ * Projects          -> featured_items
+ * Project_Items -> stagger
+ *
+ * SlideShow -> slideshow
+ *
+ * Tabs
+ *      List  -> ...
+ *      Item -> slideshow
+ *
+ *
+ *
+ **/
 export const Variants = {
-    /**
-     * Nav      -> fade_stagger, fadeY, fade,
-     * Burger -> fade, burger                           X
-     * Menu   -> menu, fadeY, fade
-     *
-     * Title -> draw
-     *
-     * Projects          -> featured_items
-     * Project_Items -> stagger
-     *
-     * SlideShow -> slideshow
-     *
-     * Tabs
-     *      List  -> ...
-     *      Item -> slideshow
-     *
-     *
-     *
-     **/
     fade_props: {
         initial: { opacity: 0 },
         animate: { opacity: 1 },
@@ -328,7 +233,11 @@ export const Variants = {
                         `${just * 7}px 0px 5px -10px black`,
                     ],
                     transition: {
-                        default: { delay: 0.25, duration: 1, ease: 'easeOut' },
+                        default: {
+                            delay: 0.25,
+                            duration: 1,
+                            ease: 'easeOut',
+                        },
                         opacity: { delay: 0.25, duration: 0.5 },
                         backgroundColor: { delay: 2, duration: 1 },
                         boxShadow: { duration: 1.75, delay: 0.5 },
@@ -345,7 +254,11 @@ export const Variants = {
                 opacity: 1,
                 x: 0,
                 transition: {
-                    opacity: { delay: 0.75, duration: 1.25, ease: 'easeOut' },
+                    opacity: {
+                        delay: 0.75,
+                        duration: 1.25,
+                        ease: 'easeOut',
+                    },
                     x: { delay: 0.5, duration: 1.5, ease: 'easeOut' },
                 },
             },
@@ -363,7 +276,7 @@ export const Variants = {
             pathLength: 0,
             opacity: 0,
             fill: '#00000000',
-            stroke: theme.colors.neon,
+            stroke: '#66FCF1' /** COLOR-NEON**/,
         },
         visible: (i) => {
             const delay = 1 + i * 0.15

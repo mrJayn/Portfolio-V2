@@ -36,30 +36,33 @@ const Projects = ({ projects }) => {
 
     return (
         <Section id="projects" fullScreen={false}>
+            {/** Title **/}
             <div>
                 <h2 className="styled-heading text-black">my projects</h2>
             </div>
-            {/** Sm **/}
+
+            {/** SM - FLEX **/}
             <div id="projects-sm" className="w-full md:hidden">
                 <Projects_Items.Sm projects={projects} />
             </div>
-            {/** Md **/}
+
+            {/** Md - TABS **/}
             <div
-                className="relative mb-[25vh] hidden overflow-hidden md:block"
+                className="relative mb-[25vh] hidden overflow-hidden bg-transparent md:block"
                 style={{ height: height }}
             >
                 <div
                     id="projects-md"
                     className="full absolute top-0 left-0 overflow-hidden rounded-md p-2"
                 >
-                    <Tabs.List {...tabProps} />
+                    <Tabs.Indicators {...tabProps} />
                     <AnimatePresence exitBeforeEnter>
-                        <Tabs.Item
+                        <Tabs.Wrap
                             key={currentTab}
                             variants={Variants.project_items}
                         >
                             <Projects_Items.Md {...tabProps} />
-                        </Tabs.Item>
+                        </Tabs.Wrap>
                     </AnimatePresence>
                 </div>
             </div>

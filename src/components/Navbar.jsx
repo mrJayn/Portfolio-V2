@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { theme } from 'tailwind.config'
 import { AnimatePresence, motion } from 'framer-motion'
 
-import { Menu, Burger } from '@components'
+import { Menu, Burger, SectionLinks } from '@components'
 import { config, Variants } from '@config'
 import { toggleScrolling } from '@utils'
 
@@ -14,11 +14,18 @@ const NavLogo = ({ menuState }) => {
     setTimeout(() => {
         setColor(theme.colors.charcoal)
     }, 1000)
+
+    const scrollTo = (e) => {
+        e.preventDefault()
+        document.querySelector('#intro').scrollIntoView({ behavior: 'smooth' })
+    }
+
     return (
-        <Link href="/#intro">
-            <p
+        <Link href="/#intro" passHref>
+            <a
                 className="cursor-pointer text-2xl font-medium uppercase text-white hover:text-lightTeal md:text-lg"
                 style={{ transition: '0.25s ease-in' }}
+                onClick={scrollTo}
             >
                 MikeJayne
                 <AnimatePresence>
@@ -42,36 +49,8 @@ const NavLogo = ({ menuState }) => {
                         />
                     )}
                 </AnimatePresence>
-            </p>
+            </a>
         </Link>
-    )
-}
-const NavLinks = () => {
-    return (
-        <motion.ul
-            className="md:flex-right full hidden select-none"
-            variants={Variants.fade_stagger}
-        >
-            {config.sectionLinks.map((link, i) => {
-                const lastLink = i == config.sectionLinks.length - 1
-                return (
-                    <a
-                        key={`nav-linkTo-${link.title}`}
-                        href={link.url}
-                        target={lastLink ? '_blank' : null}
-                        rel="noreferrer"
-                    >
-                        <motion.li
-                            className="flex-center styled-link group mx-3 cursor-pointer pt-2 pb-1 text-base tracking-tight text-lightgrey hover:text-white"
-                            style={{ transition: 'color 0.25s linear' }}
-                            variants={Variants.fadeY}
-                        >
-                            {link.title}
-                        </motion.li>
-                    </a>
-                )
-            })}
-        </motion.ul>
     )
 }
 
@@ -129,7 +108,7 @@ const Navbar = ({ isLoading, isMain }) => {
                             onClick={isMain ? handleMenu : handleReturn}
                         />
                         <NavLogo menuState={menuState} />
-                        <NavLinks />
+                        <SectionLinks variants={Variants.fade_stagger} />
                     </motion.div>
                     <Menu isOpen={menuState} handleMenu={handleMenu} />
                 </motion.nav>

@@ -121,7 +121,7 @@ const Form = ({ ...data }) => {
     }
 
     const expandedProps = {
-        title: 'Form',
+        title: "Let's Chat!",
         state: state,
         toggleCard: () => setState(false),
     }

@@ -72,13 +72,17 @@
 @layer components {
     /* INTRO */
     #layout-bg {
-        background: linear-gradient(135deg, #ffffff55 25%, transparent 25%) -80px
-                0/ 160px 160px,
-            linear-gradient(225deg, #ffffff 25%, transparent 25%) -80px 0/ 160px
-                160px,
-            linear-gradient(315deg, #ffffff55 25%, transparent 25%) 0px 0/ 160px
-                160px,
-            linear-gradient(45deg, #ffffff 25%, #efefef 25%) 0px 0/ 160px 160px;
+        --x1: -50px;
+        --x2: 100px;
+
+        background: linear-gradient(135deg, #ffffff55 25%, transparent 25%)
+                var(--x1) 0 / var(--x2) var(--x2),
+            linear-gradient(225deg, #ffffff 25%, transparent 25%) var(--x1) 0 /
+                var(--x2) var(--x2),
+            linear-gradient(315deg, #ffffff55 25%, transparent 25%) 0px 0 /
+                var(--x2) var(--x2),
+            linear-gradient(45deg, #ffffff 25%, #efefef 25%) 0px 0 / var(--x2)
+                var(--x2);
     }
     /* ABOUT */
     #about-innerHTML {
@@ -198,97 +202,5 @@
         & *:focus {
             @apply border-white;
         }
-    }
-}
-
-/** =============== OTHER PAGES =============== **/
-@layer components {
-    /* RESUME-PAGE */
-    .resumePage {
-        @apply flex-col-top relative mx-auto h-auto min-h-[90vh] w-full  max-w-[1240px] p-3 pt-16;
-        @apply md:flex-btw;
-    }
-    .toggle-btn {
-        @apply flex-center  absolute z-10 cursor-pointer rounded bg-transparent duration-600 ease-out;
-        @apply right-4 top-3;
-        & * {
-            @apply z-[100] origin-center stroke-teal transition-colors duration-250 ease-in;
-        }
-        &:hover {
-            & * {
-                @apply stroke-neon;
-            }
-        }
-    }
-    .toggle-btn.opened {
-        @apply origin-center scale-90 duration-600 ease-in-out;
-        & * {
-            @apply stroke-red/40;
-        }
-        &:hover {
-            & * {
-                @apply stroke-red;
-            }
-        }
-    }
-    .controls-wrap {
-        @apply fixed left-0 right-0 top-12 bottom-0 z-10  rounded-md;
-        & .controls-menu {
-            @apply h-full w-full rounded-md bg-charcoal/50;
-            & ul {
-                @apply flex-col-evenly h-full;
-                & li {
-                    @apply flex-center h-[60px] w-[60px]  rounded-md bg-eee text-center;
-                    @apply md:mx-0 md:my-6 md:h-[100px] md:w-[100px];
-                }
-            }
-        }
-    }
-    .resumePage-img {
-        @apply relative  aspect-[8.5/11] h-full max-h-[80vh] w-full rounded-md bg-grey/50 p-1 duration-600 ease-in-out;
-        & > div {
-            @apply relative mx-auto h-full rounded-md;
-            border: solid 2px #aaa;
-            & img {
-                @apply rounded-md;
-            }
-        }
-    }
-}
-
-/** ============ LOADERS ============ **/
-@layer components {
-    /* LOADER */
-    .loader-wrap {
-        @apply flex-center relative z-[99] h-screen w-screen overflow-hidden bg-charcoal;
-    }
-    .loader {
-        @apply flex-col-center relative m-auto;
-    }
-    .loader-components {
-        @apply m-0 flex h-full w-full flex-wrap items-start justify-start p-0;
-    }
-    .square {
-        @apply relative m-[0.5px] rounded bg-neon opacity-0;
-        &:nth-child(odd) {
-            @apply bg-teal;
-        }
-    }
-    .loader-bg {
-        @apply absolute -z-10 mx-auto translate-y-[-50%] scale-0  opacity-0;
-        background: radial-gradient(
-            theme(colors.neon) 0%,
-            theme(colors.teal) 0%,
-            transparent 20%,
-            transparent 100%
-        );
-    }
-
-    /* PROGRESS */
-    .progress-container {
-        @apply flex-center fixed top-0  left-0 z-10 h-screen  w-screen  bg-charcoal/50;
-    }
-    .progress-square {
-        @apply fixed top-[50%] left-[50%] z-10 h-3  w-3 translate-x-[-50%] translate-y-[-50%] rounded-sm md:h-6 md:w-6;
     }
 }

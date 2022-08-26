@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from 'framer-motion'
 
 import { toggleScrolling } from '@utils'
 import { useOnClickOutside } from 'src/hooks/useOnClickOutside'
-import { useMediaQuery } from '@hooks'
 import { HiX } from 'react-icons/hi'
 import { Variants } from '@config'
 
@@ -17,7 +16,7 @@ const imgProps = {
 const CardWrap = ({ children, infoLoc, isMd, ...wrapProps }) => {
     return (
         <motion.div
-            className="h-[500px] w-full select-none whitespace-pre-line rounded-lg md:h-[450px] lg:h-[580px]"
+            className="h-[500px] w-full select-none whitespace-pre-line rounded-lg md:h-[475px] lg:h-[450px] xl:h-[550px]"
             viewport={{ once: true }}
             {...wrapProps}
         >
@@ -40,16 +39,16 @@ const Info_Card = ({ toggleCard, infoLoc, ...data }) => {
     return (
         <CardWrap {...wrapProps}>
             <div className="flex-col-center full relative rounded-lg  bg-gradient-to-t md:from-eee md:to-eee/25">
-                <h4 className="md:flex-bottom text-4xl font-bold uppercase tracking-wide text-darkblack md:text-3xl lg:text-4xl">
+                <h4 className="md:flex-bottom text-4xl font-bold uppercase tracking-wide text-darkblack md:text-3xl">
                     {data.data.section}
                 </h4>
                 <p
-                    className="mt-4 text-center text-base font-medium text-black/75 lg:text-lg"
+                    className="mt-4 text-center text-base font-medium text-black/75 md:text-lg"
                     dangerouslySetInnerHTML={{ __html: data.data.brief }}
                 />
 
-                <div className="flex-center shadow-xl shadow-grey/25 md:hidden">
-                    <div className="relative m-3 aspect-[9/10] h-[200px]  min-w-[320px] md:h-[190px] lg:h-[280px]">
+                <div className="flex-center relative rounded-md shadow-xl shadow-grey/25 md:hidden">
+                    <div className="relative aspect-[4/3] w-[75vw] min-w-[300px] max-w-[450px] md:aspect-[10/9] md:h-[190px] lg:h-[280px]">
                         <Image
                             src={data.data.src}
                             alt={data.data.alt}

@@ -4,66 +4,60 @@ title: My Experience
 brief: Where I've worked.&#10;What I've accomplished.
 src: '/assets/misc/resume2022.jpg'
 alt: ' '
-jobs:
+job_data:
     [
         [
             Rochester Electronics,
             ChemEng Electro-Plating Internship,
             May 2019 -Sept. 2019,
+            [
+                'While employed at Rochester Electronics, I would conduct experiments, gather data, and present statistical models, in order to help construct/incorperate a new electroplating process. This process would be using a Nickel / Tin alloy solution, and was planned on being implemented into full production.',
+
+                'Some other duties I performed included precision measurements of hermatically promised components using an XRF to measure, thickness of the deposition.  I performed calibration for the baking-clips used on the silicon die to be etched, and also created multiple ease-of-use macros using VBA.',
+            ],
         ],
         [
             CVS Pharmacy,
             Pharmacy Technician / PCR Test Administrator,
             Aug. 2020 - Aug. 2021,
+            [
+                'At the pharmacy, besides the information on most, if not all, prescription medications on the shelves, not many techincal skills were learnt, however the inter-personal / customer service experience I gained was invaluable.',
+                'While employed, I managed patient prescriptions, PHI, and insurance information. I aslo was one of the first Covid-19 trained technicians who was able to adminster self-performed nasal-swap PCR tests.',
+            ],
         ],
     ]
-jobs_desc:
-    [
-        [
-            'While employed at Rochester Electronics, I would conduct experiments, gather data, and present statistical models, in order to help construct/incorperate a new electroplating process. This process would be using a Nickel / Tin alloy solution, and was planned on being implemented into full production.',
-
-            'Some other duties I performed included precision measurements of hermatically promised components using an XRF to measure, thickness of the deposition.  I performed calibration for the baking-clips used on the silicon die to be etched, and also created multiple ease-of-use macros using VBA.',
-        ],
-        [
-            'At the pharmacy, besides the information on most, if not all, prescription medications on the shelves, not many techincal skills were learnt, however the inter-personal / customer service experience I gained was invaluable.',
-            'While employed, I managed patient prescriptions, PHI, and insurance information. I aslo was one of the first Covid-19 trained technicians who was able to adminster self-performed nasal-swap PCR tests.',
-        ],
-    ]
-certs:
+certifications:
     [
         [
             Responsive Web Design,
             FreeCodeCamp.org,
             'https://www.freecodecamp.org/learn',
+            '/assets/certifications/responsive_web.png',
         ],
         [
             Javascript Algorithms and Data Structures,
             FreeCodeCamp.org,
             'https://www.freecodecamp.org/learn',
+            '/assets/certifications/js_algorithms.png',
         ],
         [
             Data Visualization with D3.js,
             FreeCodeCamp.org,
             'https://www.freecodecamp.org/learn',
+            '/assets/certifications/data_vis.png',
         ],
         [
             Scientific Computing with Python,
             FreeCodeCamp.org,
             'https://www.freecodecamp.org/learn',
+            '/assets/certifications/py_computing.png',
         ],
         [
             Data Analysis with Python,
             FreeCodeCamp.org,
             'https://www.freecodecamp.org/learn',
+            '/assets/certifications/py_data_analysis.png',
         ],
-    ]
-certs_imgs:
-    [
-        '/assets/certifications/responsive_web.png',
-        '/assets/certifications/js_algorithms.png',
-        '/assets/certifications/data_vis.png',
-        '/assets/certifications/py_computing.png',
-        '/assets/certifications/py_data_analysis.png',
     ]
 ---
 

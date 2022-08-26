@@ -1,4 +1,6 @@
 import { config } from '@config'
+import { Icon, Socials } from '@components'
+import { AiOutlineMail } from 'react-icons/ai'
 
 const Footer = () => {
     const currentYear = new Date().getFullYear()
@@ -8,25 +10,7 @@ const Footer = () => {
             className="w-screen bg-charcoal p-5 text-center text-lightgrey"
         >
             <div className="flex-center mx-auto mb-4 max-w-md">
-                {config.socials.map((item, i) => {
-                    const Icon = item.icon
-                    return (
-                        <a
-                            key={`social-${i}`}
-                            href={
-                                item.title == 'Email'
-                                    ? item.url
-                                    : `mailto:${config.email}`
-                            }
-                            target="_blank"
-                            rel="noreferrer"
-                            title={item.title}
-                            className="mx-auto p-1 hover:text-teal"
-                        >
-                            <Icon size={25} />
-                        </a>
-                    )
-                })}
+                <Socials className="mx-auto p-1 hover:text-teal" size={25} />
             </div>
             <hr className="mx-auto my-2 text-lightgrey/50 md:my-8" />
             <div className="uppercase md:mb-10">

@@ -8,7 +8,7 @@ const Title = ({ onComplete, width }) => {
         variants: Variants.title,
     }
     return (
-        <div className="relative w-[320px] md:w-[390px] lg:w-[460px]">
+        <div className="relative w-[70vw] sm:w-[412px]  xl:w-[425px] max:w-[500px]">
             <svg width="inherit" viewBox="0 -25 360 75">
                 <g
                     stroke="#010"

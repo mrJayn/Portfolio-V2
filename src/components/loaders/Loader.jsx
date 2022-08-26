@@ -1,5 +1,5 @@
-import anime from 'animejs'
 import { useState, useEffect, useCallback } from 'react'
+import anime from 'animejs'
 import { theme } from 'tailwind.config'
 
 const Loader = ({ finishLoading }) => {
@@ -180,7 +180,7 @@ const Loader = ({ finishLoading }) => {
                 style={{
                     height: loaderSize,
                     width: loaderSize,
-                    background: `radial-gradient(${theme.colors.neon} 0%, ${theme.colors.teal} 0%, transparent 20%, transparent 100%)`,
+                    background: `radial-gradient(${theme.colors.neon} 0%, ${theme.colors.teal.base} 0%, transparent 20%, transparent 100%)`,
                 }}
             />
         </div>

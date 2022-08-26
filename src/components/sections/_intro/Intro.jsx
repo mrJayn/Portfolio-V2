@@ -2,7 +2,6 @@ import { motion, useAnimation } from 'framer-motion'
 
 import { Section, Title } from '@components'
 import { styledBtn, toggleScrolling } from '@utils'
-import { theme } from 'tailwind.config'
 
 const Intro = ({ ...data }) => {
     const setForm = data.states.setForm
@@ -44,7 +43,7 @@ const Intro = ({ ...data }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
             >
-                <p className="relative text-md font-semibold tracking-wide">
+                <p className="relative text-md font-semibold tracking-wide md:text-[20px] xl:text-[20px] max:text-[24px]">
                     Hello, my name is
                     <motion.div
                         className="absolute top-0 left-0 bottom-0 right-0 border-l-4 bg-white"
@@ -59,14 +58,14 @@ const Intro = ({ ...data }) => {
                 <Title {...titleProps} />
                 {/** */}
                 <motion.h2
-                    className="pb-2"
+                    className="pb-2 md:text-[40px] xl:text-[44px] max:text-[50px]"
                     initial={{ opacity: 0 }}
                     animate={subtitleControls}
                 >
                     Data Analyst
                 </motion.h2>
                 {/** */}
-                <div className="flex-col-btw mt-20 h-40 lg:mt-32 lg:h-auto lg:w-[75%] lg:flex-row lg:justify-evenly">
+                <div className="flex-col-btw mt-20 h-32 md:mt-32 md:h-auto md:w-[75%] md:flex-row md:justify-evenly">
                     {introButtons.map((btn, i) => (
                         <motion.a
                             key={`introBtn-${i}`}
@@ -77,7 +76,9 @@ const Intro = ({ ...data }) => {
                             transition={{ opacity: { delay: i * 0.5 } }}
                             {...styledBtn}
                         >
-                            {btn.text}
+                            <span className="py-3 px-10 md:text-md xl:text-lg max:text-xl">
+                                {btn.text}
+                            </span>
                         </motion.a>
                     ))}
                 </div>

@@ -100,20 +100,22 @@ const Projects_Layout_Sm = ({ projects }) => {
         return () => window.removeEventListener('resize', getGridColumnsCount)
     }, [gridColumnsCount])
 
+    const split = 4
+
     // shown = projects.slice(0, 5)
-    const hidden = projects.slice(3, projects.length)
+    const hidden = projects.slice(split, projects.length)
 
     return (
         <motion.div
             layout
-            className="flex-col-top"
+            className="flex-col-top grid-cols-2 sm:grid"
             ref={ref}
             initial={false}
             animate={expanded ? 'enter' : 'exit'}
             variants={Variants.stagger}
         >
             <>
-                {projects.slice(0, 3).map((obj, i) => {
+                {projects.slice(0, split).map((obj, i) => {
                     return <Project_Card key={i} obj={obj} />
                 })}
                 <AnimatePresence>
@@ -126,7 +128,7 @@ const Projects_Layout_Sm = ({ projects }) => {
             {hidden.length > 0 && (
                 <motion.button
                     layout
-                    className="styled-button flex-center mx-auto"
+                    className="styled-button flex-center col-span-2 mx-auto"
                     style={{ width: '150px' }}
                     onClick={() => setExpanded(!expanded)}
                     whileTap={{ scale: 0.95 }}

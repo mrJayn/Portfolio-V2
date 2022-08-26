@@ -2,25 +2,6 @@
 @tailwind base;
 @tailwind utilities;
 
-/* ================== VARIABLES ================== */
-:root {
-    --nav-height: 48px;
-    --neon: theme(colors.neon);
-    --teal: theme(colors.teal);
-    --lightTeal: theme(colors.lightTeal);
-
-    --darkblack: theme(colors.darkblack);
-    --black: theme(colors.black);
-    --charcoal: theme(colors.charcoal);
-    --grey: theme(colors.grey);
-    --lightgrey: theme(colors.lightgrey);
-
-    --eee: theme(colors.eee);
-
-    --border: rgb(39, 132, 128);
-
-    --transparent: theme(colors.transparent);
-}
 /* ================== BASE ================== */
 @layer base {
     html {
@@ -75,7 +56,7 @@
         }
     }
     .styled-button {
-        @apply flex-center z-10 w-[250px] cursor-pointer select-none rounded-xl bg-lightTeal py-4 text-center text-md font-semibold tracking-normal text-black/50 md:w-[350px] md:text-lg;
+        @apply flex-center z-10 cursor-pointer select-none rounded-xl bg-teal-10 text-center text-md font-semibold tracking-wide text-black/50 md:text-lg;
         box-shadow: 0 5px 10px -10px theme(colors.charcoal);
     }
 }

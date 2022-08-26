@@ -78,7 +78,6 @@ function MyApp({ Component, pageProps }) {
                             <Component {...pageProps} isLoading={isLoading} />
                         )}
                     </AnimatePresence>
-                    <Footer />
                     <ToastContainer limit={1} />
                 </>
             )}

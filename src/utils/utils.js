@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { theme } from 'tailwind.config'
 import { black } from 'tailwindcss/colors'

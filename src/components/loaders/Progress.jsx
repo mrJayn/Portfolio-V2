@@ -34,7 +34,7 @@ const Progress = ({ isAnimating, setIsAnimating }) => {
             {isAnimating && (
                 <>
                     <motion.div
-                        className="progress-container"
+                        className="flex-center fixed top-0  left-0 z-10 h-screen  w-screen  bg-charcoal/50"
                         variants={container}
                         initial={'hidden'}
                         animate="enter"
@@ -43,7 +43,7 @@ const Progress = ({ isAnimating, setIsAnimating }) => {
                         {[...Array(squares).keys()].map((i) => (
                             <motion.div
                                 key={`square-${i}`}
-                                className={`progress-square ${
+                                className={`fixed top-[50%] left-[50%] z-10 h-3  w-3 translate-x-[-50%] translate-y-[-50%] rounded-sm md:h-6 md:w-6 ${
                                     i % 3 == 0 ? 'bg-teal' : 'bg-neon'
                                 }`}
                                 variants={items}

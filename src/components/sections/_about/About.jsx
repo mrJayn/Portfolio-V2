@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { Section, Tabs, Cards, Skills } from '@components'
 
@@ -7,21 +7,41 @@ const About = ({ ...data }) => {
 
     const [readMore, setReadMore] = useState(false)
     const [[currentTab, direction], setTab] = useState([0, 0])
+    const scrollRef = useRef()
+
     const cardProps = {
         toggleCard: () => setReadMore(true),
         infoLoc: 'left',
         ...about,
     }
-    const expandedProps = {
+    const expCardProps = {
         title: about.data.title,
         subtitle: about.data.subtitle,
         state: readMore,
         toggleCard: () => setReadMore(false),
     }
-    const tabProps = {
+    const indicatorProps = {
         tabNames: ['About Me', 'My Skills'],
         currentTab: currentTab,
         setTab: setTab,
+        scrollRef: scrollRef,
+    }
+    const tabProps = {
+        key: currentTab,
+        custom: direction,
+    }
+
+    const tabs = {
+        0: (
+            <div
+                id="about-innerHTML"
+                className="px-2 text-white md:w-[70%] md:pr-5"
+                dangerouslySetInnerHTML={{
+                    __html: about.content,
+                }}
+            />
+        ),
+        1: <Skills {...about} />,
     }
 
     return (
@@ -31,39 +51,30 @@ const About = ({ ...data }) => {
                 <Cards.Img {...cardProps} />
             </div>
 
-            <Cards.Expanded {...expandedProps}>
-                {/** SM- Tabs **/}
+            <Cards.Expanded {...expCardProps}>
+                {/** SM- TABS **/}
                 <div className="full relative overflow-hidden md:hidden">
-                    {/** TAB LIST */}
+                    {/** Indicators */}
                     <div className="absolute top-0 left-0 h-12 w-full">
-                        <Tabs.List {...tabProps} />
+                        <Tabs.Indicators {...indicatorProps} />
                     </div>
-                    {/** TABS */}
-                    <div className="absolute top-14 left-0 right-0 bottom-0 overflow-y-scroll">
+
+                    {/** Tabs */}
+                    <div
+                        className="absolute top-14 left-0 right-0 bottom-0 overflow-y-scroll"
+                        ref={scrollRef}
+                    >
                         <div className="mb-10 mt-5">
                             <AnimatePresence exitBeforeEnter custom={direction}>
-                                <Tabs.Item key={currentTab} custom={direction}>
-                                    {currentTab == 0 ? (
-                                        <div
-                                            id="about-innerHTML"
-                                            className="text-white md:w-[70%] md:pr-5"
-                                            dangerouslySetInnerHTML={{
-                                                __html: about.content,
-                                            }}
-                                        />
-                                    ) : (
-                                        <Skills
-                                            readMore={readMore}
-                                            {...about}
-                                        />
-                                    )}
-                                </Tabs.Item>
+                                <Tabs.Wrap {...tabProps}>
+                                    {tabs[currentTab]}
+                                </Tabs.Wrap>
                             </AnimatePresence>
                         </div>
                     </div>
                 </div>
 
-                {/** Md - Flex **/}
+                {/** MD - FLEX **/}
                 <div className="md:flex-top hidden h-full overflow-y-scroll p-5">
                     <div
                         id="about-innerHTML"

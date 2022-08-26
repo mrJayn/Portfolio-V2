@@ -10,42 +10,52 @@ module.exports = {
     ],
     theme: {
         screens: {
-            sm: '410px',
+            min: '320px',
+            sm: '600px',
             md: '768px',
             lg: '1024px',
+            xl: '1280px',
+            max: '1440px',
         },
         colors: {
+            transparent: 'transparent',
+            current: 'currentColor',
+
             darkblack: '#000',
             black: '#0b0c10',
             charcoal: '#1b1c20',
+
             grey: '#1f2833',
-            lightgrey: '#c5c6c7',
-            white: '#fff',
             eee: '#eeeeee',
-            teal: '#45a29e',
+            lightgrey: '#c5c6c7',
+
+            white: '#fff',
+
+            teal: {
+                10: '#daecec',
+                20: '#b5dad8',
+                30: '#8fc7c5',
+                40: '#6ab5b1',
+                DEFAULT: '#45a29e',
+                base: '#45a29e',
+                60: '#37827e',
+                70: '#29615f',
+                80: '#1c413f',
+                90: '#0e2020',
+            },
             lightTeal: '#c1e8e6',
+
             neon: '#66fcf1',
+
             tan: '#deb992',
             red: '#dd0000',
+
             green: '#23DC3D',
             lightgreen: '#76e392',
+
             blue: '#0000dd',
+
             indigo: colors.indigo,
-            transparent: 'transparent',
-            background: '#1b1c20',
-            theme: {
-                title: '#fff',
-                background: '#1b1c20',
-                grey: '#1f2833',
-                text: '#c5c6c7',
-                primary: '#45a29e',
-                primary_B: '#1ba098',
-                secondary: '#deb992',
-                neon: '#66fcf1',
-                subtitle: '#deb992',
-                transparent: '#00000000',
-            },
-            edit: '#110000',
         },
         fontFamily: {
             montserrat: ['Montserrat', 'sans-serif'],

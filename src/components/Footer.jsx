@@ -7,7 +7,7 @@ const Footer = () => {
     return (
         <footer
             id="footer"
-            className="w-screen bg-charcoal p-5 text-center text-lightgrey"
+            className="w-screen bg-charcoal p-5 text-center text-lightgrey dark:bg-lightblack"
         >
             <div className="flex-center mx-auto mb-4 max-w-md">
                 <Socials className="mx-auto p-1 hover:text-teal" size={25} />

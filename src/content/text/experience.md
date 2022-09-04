@@ -3,7 +3,10 @@ section: Experience
 title: My Experience
 brief: Where I've worked.&#10;What I've accomplished.
 src: '/assets/misc/resume2022.jpg'
-alt: ' '
+alt: /
+layout: rtl
+responsive: False
+tabNames: [Summary, Jobs, Certifications]
 job_data:
     [
         [

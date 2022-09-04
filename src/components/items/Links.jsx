@@ -8,11 +8,12 @@ const Links = ({ isMd = false, project }) => {
             {[
                 [project.data.github, FaGithub],
                 [project.data.external, FaLink],
-            ].map((item) => {
+            ].map((item, i) => {
                 const Icon = item[1]
                 return (
                     item[0] !== '' && (
                         <motion.a
+                            key={i}
                             href={item[0]}
                             target="_blank"
                             rel="noreferrer"

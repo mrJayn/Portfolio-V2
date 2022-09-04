@@ -1,20 +1,20 @@
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Cards, Links } from '@components'
+import { ExitButton, Links } from '@components'
 import { Variants } from '@config'
 const ReadMore = ({ project, isOpen, setReadMore, isMd, even }) => {
     const data = project.data
-    console.log(isOpen)
+
     return (
-        <AnimatePresence exitBeforeEnter>
+        <AnimatePresence mode="wait">
             {isOpen && (
                 <motion.div
                     className={
                         isMd
-                            ? `absolute top-14 w-[60%] rounded-md bg-eee p-5 dark:bg-charcoal/95 md:h-[475px] lg:h-[525px] lg:rounded-lg ${
+                            ? `absolute top-14 w-[60%] rounded-md bg-charcoal/95  p-5 md:h-[475px] lg:h-[525px] lg:rounded-lg ${
                                   even ? 'right-0' : 'left-0'
                               }`
-                            : 'fixed top-0 bottom-0 left-0 right-0 z-50 bg-eee p-5 dark:bg-charcoal'
+                            : 'fixed top-0 bottom-0 left-0 right-0 z-50  bg-charcoal  p-5'
                     }
                     initial="hidden"
                     animate="enter"
@@ -25,7 +25,7 @@ const ReadMore = ({ project, isOpen, setReadMore, isMd, even }) => {
                     custom={even}
                 >
                     {/** ========= **/}
-                    <Cards.ExitButton toggleCard={() => setReadMore(false)} />
+                    <ExitButton toggleCard={() => setReadMore(false)} />
                     {/** ========= **/}
                     <div className=" flex-col-center absolute top-7 right-7 md:hidden">
                         <Links project={project} />
@@ -49,7 +49,7 @@ const ReadMore = ({ project, isOpen, setReadMore, isMd, even }) => {
                             dangerouslySetInnerHTML={{
                                 __html: project.content,
                             }}
-                            className="mb-10 text-md leading-7 dark:text-eee"
+                            className="mb-10 text-md leading-7  text-eee"
                         />
                     </div>
                     {/** ========= **/}

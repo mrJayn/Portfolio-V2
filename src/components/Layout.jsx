@@ -1,69 +1,57 @@
 import { useEffect, useRef, useState } from 'react'
+import { NextSeo } from 'next-seo'
 import {
     motion,
     LayoutGroup,
     useScroll,
-    motionValue,
     useTransform,
+    useSpring,
 } from 'framer-motion'
-import { NextSeo } from 'next-seo'
-import { Footer } from '@components'
 
-const Layout = ({ children, title, description }) => {
-    const [layoutHeight, setLayoutHeight] = useState(0)
-    const mainRef = useRef(null)
-    const { scrollYProgress } = useScroll({ container: mainRef })
-    const transform = useTransform(
-        scrollYProgress,
-        [0, 1],
-        [0, -layoutHeight * 0.5]
-    )
+import { layoutVariants } from '@config'
+import { Background } from '@components'
 
-    // Layout always loads to START
-    useEffect(() => {
-        mainRef.current.scrollTo(0, 0)
-    }, [])
-
-    // Set Background Parallax Container to same size as Layout
-    useEffect(() => {
-        const getLayoutHeight = () => {
-            setLayoutHeight(mainRef.current.scrollHeight)
-        }
-        getLayoutHeight()
-        window.addEventListener('resize', getLayoutHeight)
-        return () => window.removeEventListener('resize', getLayoutHeight)
-    }, [layoutHeight])
+const Layout = ({ title, description, isHome, darkMode, children }) => {
+    const { scrollYProgress } = useScroll()
+    const transform = useTransform(scrollYProgress, [0, 1], [0, -2500])
+    const spring = useSpring(transform, {
+        stiffness: 1000,
+        damping: 250,
+    })
 
     return (
-        <>
+        <div>
             <NextSeo
                 title={title}
                 description={description}
                 openGraph={{ title, description }}
             />
-            <LayoutGroup>
-                <motion.main
-                    id="layout"
-                    className="relative h-screen w-screen scroll-pt-16 overflow-x-hidden overflow-y-scroll scroll-smooth md:scroll-pt-20"
-                    ref={mainRef}
-                >
-                    {children}
-                    <Footer />
-                </motion.main>
-            </LayoutGroup>
-            <div className="fixed top-0 left-0 bottom-0 right-0 -z-50 overflow-hidden">
-                <motion.div
-                    id="layout-bg"
-                    className="absolute top-0 left-0 w-full origin-top opacity-100"
-                    style={{ height: layoutHeight, y: transform }}
-                    initial={{ opacity: 0 }}
-                    animate={{
-                        opacity: 0.5,
-                        transition: { duration: 3.5, ease: 'easeOut' },
-                    }}
-                />
-            </div>
-        </>
+            <motion.main
+                id="layout"
+                className="relative w-screen overflow-hidden"
+                initial="hidden"
+                animate="enter"
+                exit="exit"
+                transition={{ duration: 0.6, ease: 'linear' }}
+                variants={layoutVariants}
+                custom={isHome}
+            >
+                {children}
+                {/**<div className="fixed top-0 left-0 bottom-0 right-0 -z-50 overflow-hidden">
+                    <motion.div
+                        id="layout-bg"
+                        className="absolute top-0 left-0 h-[135%] w-full origin-top opacity-100"
+                        data-darkmode={darkMode}
+                        style={{ y: spring }}
+                        initial={{ opacity: 0 }}
+                        animate={{
+                            opacity: 1,
+                            transition: { duration: 3.5, ease: 'easeOut' },
+                        }}
+                    />
+                </div>*/}
+            </motion.main>
+        </div>
     )
 }
 

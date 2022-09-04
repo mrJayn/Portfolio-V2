@@ -1,39 +1,50 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { SplitText } from '@utils'
 
-const Skills = ({ ...about }) => {
-    const motionProps = {
-        initial: { opacity: 0, y: 10 },
-        animate: { opacity: 1, y: 0 },
-    }
+const Skills = ({ skills }) => {
+    const skillsText = ['Tech', 'Ive', 'worked', 'with', 'recently']
+
     return (
-        <div className="md:flex-col-center flex-wrap md:w-[30%] md:border-l-2 md:border-l-eee/50 md:pl-5">
-            <SplitText
-                className="text-base font-medium tracking-normal text-lightTeal md:text-[18px] lg:text-[24px]"
-                {...motionProps}
+        <div className="md:flex-col-top mx-auto h-full sm:mt-10 sm:w-full md:mt-0 md:w-[30%] md:pl-5 lg:w-[41%]">
+            <div className="flex-center flex-wrap font-medium text-lightTeal">
+                {skillsText.map((word, i) => {
+                    const lastword = skillsText.at(-1)
+                    return (
+                        <motion.span
+                            key={i}
+                            className=" inline-block px-[1px] text-[16px] will-change-transform sm:text-[18px] lg:text-[24px]"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.15 + i * 0.08 }}
+                        >
+                            {word}
+                            {word !== lastword ? '\u00A0' : ''}
+                        </motion.span>
+                    )
+                })}
+            </div>
+            <ul
+                className="m-3 mb-0 grid grid-cols-2 gap-3 pt-3  sm:mx-0 sm:w-full sm:grid-cols-3 md:grid-cols-1 lg:grid-cols-2"
+                style={{ borderTop: 'solid 2px #eeeeee75' }}
             >
-                Tech I&apos;ve worked with recently
-            </SplitText>
-            <ul className="mt-3 grid grid-cols-3 gap-x-2 border-t-2 border-t-eee/50 pt-3 text-xs md:grid-cols-1 md:text-base lg:grid-cols-2 lg:text-md">
-                {about.data.skills.map((item, i) => {
+                {skills.map((item, i) => {
                     return (
                         <motion.li
-                            key={`${item[0]}`}
-                            className="flex-left my-2 rounded bg-grey p-2"
+                            key={item[0]}
+                            className="flex-center relative rounded bg-grey p-1 sm:justify-start"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.75 + i * 0.08 }}
-                            {...motionProps}
                         >
-                            <div>
+                            <div className="relative ml-[10%] aspect-square h-full">
                                 <Image
                                     src={item[1]}
-                                    alt={`${item[0]} image`}
-                                    layout="intrinsic"
-                                    height={15}
-                                    width={15}
+                                    alt={item[0] + ' Image'}
+                                    layout="fill"
+                                    objectFit="cover"
                                 />
                             </div>
-                            <p className="pl-[5px] font-robotoMono text-xs font-normal italic text-neon md:text-sm">
+                            <p className=" mr-[10%] ml-[10px] w-full  font-robotoMono italic tracking-tighter text-neon">
                                 {item[0]}
                             </p>
                         </motion.li>

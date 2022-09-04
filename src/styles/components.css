@@ -1,22 +1,51 @@
 @import './global.css';
 @tailwind components;
 
+/** ================= LAYOUT ================ **/
+@layer components {
+    #layout-bg[data-darkmode='false'] {
+        --c1: #ffffff55;
+        --c2: transparent;
+        --c3: #fff;
+        --c4: #efefef;
+    }
+    #layout-bg[data-darkmode='true'] {
+        --c1: #00000055;
+        --c2: transparent;
+        --c3: #222;
+        --c4: #101010;
+    }
+    #layout-bg {
+        --x1: -50px;
+        --x2: 100px;
+
+        background: linear-gradient(135deg, var(--c1) 25%, var(--c2) 25%)
+                var(--x1) 0 / var(--x2) var(--x2),
+            linear-gradient(225deg, var(--c3) 25%, var(--c2) 25%) var(--x1) 0 /
+                var(--x2) var(--x2),
+            linear-gradient(315deg, var(--c1) 25%, var(--c2) 25%) 0px 0 /
+                var(--x2) var(--x2),
+            linear-gradient(45deg, var(--c3) 25%, var(--c4) 25%) 0px 0 /
+                var(--x2) var(--x2);
+    }
+}
+
 /** ================== NAV ================== **/
 @layer components {
     /* NAV */
     /* BURGER */
-    #burger {
+    #surger {
         &:hover {
             & * {
-                @apply stroke-neon;
+                @apply stroke-teal-neon;
             }
         }
         & * {
             @apply stroke-teal transition-colors duration-250 ease-in;
         }
     }
-    #burger[data-returnlabel='true'] {
-        @apply md:top-20  md:block;
+
+    #surger[data-returnlabel='true'] {
         &:before {
             content: '';
             @apply absolute -top-2 left-3 -z-10 hidden aspect-square h-10 rounded-full bg-charcoal/50 duration-250 ease-in;
@@ -40,7 +69,7 @@
         @apply duration-600;
         & > div:after {
             content: '';
-            @apply absolute top-0 right-0 left-0 bottom-0 -z-10 bg-gradient-to-b from-transparent via-grey/20 to-neon/10 duration-600 ease-in;
+            @apply to-teal-neon/10 absolute top-0 right-0 left-0 bottom-0 -z-10 bg-gradient-to-b from-transparent via-grey/20 duration-600 ease-in;
             @apply translate-y-[100%] opacity-0;
         }
     }
@@ -71,25 +100,13 @@
 /** ================ SECTIONS ================ **/
 @layer components {
     /* INTRO */
-    #layout-bg {
-        --x1: -50px;
-        --x2: 100px;
 
-        background: linear-gradient(135deg, #ffffff55 25%, transparent 25%)
-                var(--x1) 0 / var(--x2) var(--x2),
-            linear-gradient(225deg, #ffffff 25%, transparent 25%) var(--x1) 0 /
-                var(--x2) var(--x2),
-            linear-gradient(315deg, #ffffff55 25%, transparent 25%) 0px 0 /
-                var(--x2) var(--x2),
-            linear-gradient(45deg, #ffffff 25%, #efefef 25%) 0px 0 / var(--x2)
-                var(--x2);
-    }
     /* ABOUT */
     #about-innerHTML {
         & > p {
-            @apply flex-center pt-4 indent-2 md:pt-6 md:indent-4 md:text-base md:leading-7;
-            &:first-of-type {
-                @apply pt-0;
+            @apply flex-center indent-2 md:indent-2 md:leading-7;
+            &:not(:last-of-type) {
+                @apply pb-2 md:pb-6;
             }
         }
     }
@@ -172,35 +189,54 @@
 /** =========== FOOTER / FORM / ETC... =========== **/
 @layer components {
     #form {
+        @apply flex-top flex-wrap text-charcoal;
         & > div {
-            @apply flex-col-center full mx-auto;
+            @apply sm:flex-col-center full mx-auto mb-5 grid grid-cols-3 border-b-2 border-dashed border-lightgrey/40 py-1;
             counter-increment: form-item 1;
+            transition: 0.15s ease-in;
+
             & label {
-                @apply w-full text-sm font-medium uppercase md:text-base;
+                @apply full ml-[12.5px] text-left text-sm font-medium uppercase sm:text-base;
                 &:before {
-                    content: '0' counter(form-item) '.';
-                    @apply mr-1 text-[0.8em] tracking-wide text-neon;
+                    content: '0' counter(form-item) '. ';
+                    @apply absolute left-[-5px] inline-block text-teal sm:relative;
                 }
             }
-            & input,
+
+            & input {
+                @apply col-span-2;
+                @apply full z-10 bg-transparent text-sm outline-none;
+            }
+
             & textarea {
-                @apply mb-4 flex w-full resize-none border-b-[1px] border-lightgrey/40 bg-transparent p-1 pt-2 text-sm outline-none;
-                &::placeholder {
-                    @apply font-robotoMono opacity-75;
+                @apply col-span-3 col-start-1;
+                @apply z-10 mt-2 mb-4 flex w-full resize-none border-2 border-lightgrey/75 bg-transparent p-1 pt-2 outline-none;
+                &:focus {
+                    transition: 0.25s ease-in;
+                    @apply border-teal-neon;
                 }
             }
-            & textarea {
-                @apply border-[1px];
+
+            &*::placeholder {
+                @apply font-robotoMono text-sm opacity-75;
             }
         }
+        /* parent div activates when input is focused */
+        & > div:focus-within {
+            transition: 0.25s ease-in;
+            @apply border-teal-neon;
+        }
+        /* Inputs (01. + 02.) */
         & > div:nth-of-type(-n + 2) {
-            @apply md:w-[45%];
+            @apply sm:w-[45%];
         }
+        /* Input (03.Subject) and down */
         & > div:nth-of-type(n + 3) {
-            @apply md:mb-10 md:w-[95%];
+            @apply sm:mb-10 sm:w-[95%];
         }
-        & *:focus {
-            @apply border-white;
+        /* Input (04.Message) and down */
+        & > div:nth-of-type(n + 4) {
+            @apply border-b-0;
         }
     }
 }

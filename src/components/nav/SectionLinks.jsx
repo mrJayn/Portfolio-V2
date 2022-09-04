@@ -13,15 +13,6 @@ const sections = [
 const resumeDir = '/assets/misc/resume2022.jpg'
 
 const SectionLinks = ({ handleClick, isMenu = false, ...props }) => {
-    const scrollNow = (e, scrollTarget) => {
-        e.preventDefault()
-        document
-            .querySelector(e.target.getAttribute('href').substring(1))
-            .scrollIntoView({
-                behavior: 'smooth',
-                block: scrollTarget,
-            })
-    }
     const ul_props = {
         variants: isMenu ? Variants.menu.parent : Variants.fade_stagger,
         custom: true,
@@ -65,10 +56,8 @@ const SectionLinks = ({ handleClick, isMenu = false, ...props }) => {
                                 {item[0]}
                             </a>
                         ) : (
-                            <Link href={`#${item[0]}`} passHref>
-                                <a onClick={(e) => scrollNow(e, item[1])}>
-                                    {item[0]}
-                                </a>
+                            <Link href={`/#${item[0]}`} passHref>
+                                <a>{item[0]}</a>
                             </Link>
                         )}
                     </motion.li>

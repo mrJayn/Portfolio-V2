@@ -1,8 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import anime from 'animejs'
-import { theme } from 'tailwind.config'
 
-const Loader = ({ finishLoading }) => {
+const Loader = ({ setIsLoading }) => {
     const el_size = 15
     const loader_size = el_size ** 2 + el_size + 3
 
@@ -16,9 +15,7 @@ const Loader = ({ finishLoading }) => {
         const spring = 'spring(1, 20, 10, 10)'
         const loader = anime.timeline({
             complete: () => {
-                setTimeout(() => {
-                    finishLoading()
-                }, 500)
+                setIsLoading(false)
             },
         })
         loader
@@ -142,7 +139,7 @@ const Loader = ({ finishLoading }) => {
                 },
                 2250
             )
-    }, [finishLoading])
+    }, [setIsLoading])
 
     useEffect(() => {
         const delay = setTimeout(() => setIsMounted(true), 0)
@@ -180,7 +177,7 @@ const Loader = ({ finishLoading }) => {
                 style={{
                     height: loaderSize,
                     width: loaderSize,
-                    background: `radial-gradient(${theme.colors.neon} 0%, ${theme.colors.teal.base} 0%, transparent 20%, transparent 100%)`,
+                    background: `radial-gradient( rgb(102,252,241) 0%, rgb(69,162,158) 0%, transparent 20%, transparent 100%)`,
                 }}
             />
         </div>

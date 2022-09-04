@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getAllMarkdown } from 'src/lib/markdown'
+import { getMarkdown } from 'src/lib/markdown'
 import {
     Intro,
     About,
@@ -9,54 +9,53 @@ import {
     Layout,
     Experience,
     Form,
+    Footer,
 } from '@components'
+import { useMediaQuery } from '@hooks'
 
-const title = "Hello, I'm Michael 👋"
-const description =
-    "I'm an ChemEng graduate and a recent self-taught developer, aiming to break into tech ASAP!"
-
-export default function Home({ isLoading, data }) {
-    const [formState, setFormState] = useState(false)
-    const [aboutState, setAboutState] = useState(false)
-    const [expState, setExpState] = useState(false)
+export default function Home({ isHome, isFirst, setIsFirst, data, darkMode }) {
+    /**
+ *     const [
+        [formState, setFormState],
+        [aboutState, setAboutState],
+        [expState, setExpState],
+    ] = [useState(false), useState(false), useState(false)]
+ */
     data = {
         states: {
-            about: aboutState,
-            setAbout: setAboutState,
-            expState: expState,
-            setExp: setExpState,
-            form: formState,
-            setForm: setFormState,
+            isFirst: isFirst,
+            setIsFirst: setIsFirst,
         },
+        isMd: useMediaQuery(),
+        darkMode: darkMode,
         ...data,
     }
 
+    const homeProps = {
+        title: 'Portfolio',
+        description:
+            "Hello, I'm Michael👋 - I'm an ChemEng graduate and a recent self-taught developer, aiming to break into tech ASAP!",
+        isHome: isHome,
+        darkMode: darkMode,
+    }
+
     return (
-        <Layout
-            isLoading={isLoading}
-            title="Michael Jayne"
-            description={`${title}-${description}`}
-        >
+        <Layout {...homeProps}>
             <Intro {...data} />
             <About {...data} />
             <Experience {...data} />
             <Featured {...data} />
             <Projects {...data} />
             <Contact {...data} />
-            <Form {...data} />
+            <Footer />
         </Layout>
     )
 }
-
 export async function getStaticProps() {
-    const data = await getAllMarkdown()
+    const data = await getMarkdown()
     return {
         props: {
-            data: {
-                text: data.text,
-                featured: data.featured,
-                projects: data.projects,
-            },
+            data,
         },
     }
 }

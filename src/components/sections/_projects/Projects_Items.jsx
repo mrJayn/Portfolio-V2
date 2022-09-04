@@ -12,7 +12,7 @@ const Project_Card = ({ obj, hide = false, delay = 0 }) => {
     return (
         <motion.div
             layout
-            key={obj.id}
+            key={obj.title}
             className="relative w-full overflow-hidden rounded-lg px-5 md:h-[300px] md:px-0 md:shadow-lg"
             initial={{ opacity: hide ? 0 : 1 }}
             animate={{ opacity: 1, transition: { delay: 0.25 + delay * 0.1 } }}
@@ -55,11 +55,12 @@ const Project_Card = ({ obj, hide = false, delay = 0 }) => {
                     {[
                         [obj.data.github, FaGithub],
                         [obj.data.external, FaLink],
-                    ].map((item) => {
+                    ].map((item, i) => {
                         const Icon = item[1]
                         return (
                             item[0] !== '' && (
                                 <motion.a
+                                    key={i}
                                     href={item[0]}
                                     target="_blank"
                                     rel="noreferrer"
@@ -81,7 +82,7 @@ const Project_Card = ({ obj, hide = false, delay = 0 }) => {
     )
 }
 
-const Projects_Layout_Sm = ({ projects }) => {
+const Projects_Sm = ({ projects }) => {
     const [gridColumnsCount, setGridColumnsCount] = useState(0)
     const [expanded, setExpanded] = useState(false)
     const ref = useRef()
@@ -118,7 +119,7 @@ const Projects_Layout_Sm = ({ projects }) => {
                 {projects.slice(0, split).map((obj, i) => {
                     return <Project_Card key={i} obj={obj} />
                 })}
-                <AnimatePresence>
+                <AnimatePresence mode="popLayout">
                     {expanded &&
                         hidden.map((obj, i) => (
                             <Project_Card key={i} obj={obj} hide={true} />
@@ -145,7 +146,7 @@ const Projects_Layout_Sm = ({ projects }) => {
     )
 }
 
-const Projects_Layout_Md = ({ projects, currentTab, tabNames }) => {
+const Projects_Md = ({ projects, currentTab, tabNames }) => {
     const projectsByCat = projects.map((project) => project.data.category)
 
     const groupedTabs = []
@@ -169,8 +170,4 @@ const Projects_Layout_Md = ({ projects, currentTab, tabNames }) => {
     )
 }
 
-const Project_Items = {
-    Sm: Projects_Layout_Sm,
-    Md: Projects_Layout_Md,
-}
-export default Project_Items
+export { Projects_Sm, Projects_Md }

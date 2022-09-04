@@ -5,46 +5,50 @@
 /* ================== BASE ================== */
 @layer base {
     html {
-        @apply scroll-p-28 scroll-smooth;
+        @apply scroll-pt-16 scroll-smooth md:scroll-pt-[25%];
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+        & ::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
+        }
+        & *::selection {
+            @apply bg-teal-neon/25 text-black-dark;
+        }
     }
     body {
-        @apply block leading-normal;
-        @apply m-0 h-screen w-screen min-w-[320px] p-0;
-        @apply font-montserrat text-base font-normal tracking-tight text-grey;
+        @apply m-0 block h-screen w-screen min-w-[320px] p-0 leading-normal;
+        @apply font-montserrat text-base font-normal tracking-tight;
+        @apply overflow-x-hidden overflow-y-scroll;
+        @apply text-charcoal antialiased dark:text-eee/90;
     }
+    /* TAGS */
     h1 {
-        @apply text-6xl font-bold text-darkblack;
+        @apply text-6xl font-bold;
     }
     h2 {
-        @apply text-5xl font-semibold text-teal;
+        @apply relative bg-gradientLoop bg-clip-text font-bold text-transparent contrast-125 drop-shadow-md filter dark:filter-none;
+        background-size: 300%;
+        @apply animate-[gradientKFs_20s_linear_infinite] motion-reduce:animate-[];
     }
     h3 {
-        @apply text-4xl font-medium text-lightTeal;
+        @apply text-4xl font-semibold text-black dark:text-white;
     }
-    h4 {
-        @apply text-3xl font-medium text-white;
-    }
-    h5 {
-        @apply text-2xl font-medium text-eee;
+    p,
+    span,
+    button {
+        @apply text-charcoal dark:text-lightgrey;
     }
     h1,
     h2,
     h3,
-    h4,
-    h5,
+    p,
     button {
-        @apply select-none antialiased;
-    }
-    p {
         @apply antialiased;
     }
 }
 /* ================== UTILITIES ================== */
 
 @layer utilities {
-    .styled-el {
-        @apply select-none rounded-md bg-gradient-to-t from-eee/75 to-eee/20;
-    }
     .styled-heading {
         @apply mx-auto mb-5 flex w-[90%] items-center whitespace-nowrap uppercase;
         @apply text-xl font-semibold;
@@ -55,22 +59,13 @@
             @apply mx-[10px] block h-1 w-full rounded-full bg-gradient-to-r from-black via-teal to-transparent content-[""];
         }
     }
-    .styled-button {
-        @apply flex-center z-10 cursor-pointer select-none rounded-xl bg-teal-10 text-center text-md font-semibold tracking-wide text-black/50 md:text-lg;
-        box-shadow: 0 5px 10px -10px theme(colors.charcoal);
-    }
 }
-/* ================== COMMON ================== */
-@layer components {
-}
-
-/** Check the Stuff below */
 
 /* STYLED LINKS  */
 @layer utilities {
     .styled-link {
-        @apply relative cursor-pointer;
-        transition: transform 0.25s linear;
+        @apply relative;
+        transition: transform 0.25s linear, color 0.25s linear;
         &:after {
             content: '';
             transition: transform 0.25s linear;
@@ -93,14 +88,14 @@
             @apply mr-[5px] text-[80%] italic tracking-normal text-white;
         }
         &:hover:before {
-            @apply text-neon;
+            @apply text-teal-neon;
         }
         & a {
             @apply relative w-full pb-1;
             &:after {
                 content: '';
                 transition: transform 0.25s 0.1s linear;
-                @apply absolute bottom-0 left-0 h-[1.5px] w-full bg-neon;
+                @apply absolute bottom-0 left-0 h-[1.5px] w-full bg-teal-neon;
                 @apply origin-bottom-right scale-x-0;
             }
         }
@@ -114,6 +109,9 @@
 @layer utilities {
     .full {
         @apply h-full w-full;
+    }
+    .screen {
+        @apply h-screen w-screen;
     }
     .flex-center {
         @apply flex items-center justify-center;

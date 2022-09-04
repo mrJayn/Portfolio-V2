@@ -1,10 +1,12 @@
 ---
 section: About
-title: About Me
-subtitle:
+title: Michael Jayne
 brief: Nice to meet you,&#10;Allow me to introduce myself.
 src: '/assets/misc/mikeJayne.JPG'
 alt: A picture of me
+layout: ltr
+responsive: True
+tabNames: [About Me, My Skills]
 skills:
     [
         [Python, '/assets/skills/python.png'],
@@ -19,7 +21,7 @@ skills:
         [Anaconda3, '/assets/skills/anaconda.png'],
         [GitHub, '/assets/skills/github1.png'],
         [VS Code, '/assets/skills/vscode.png'],
-        [Jupyter Notebooks, '/assets/skills/jupyter.png'],
+        [Jupyter, '/assets/skills/jupyter.png'],
     ]
 ---
 

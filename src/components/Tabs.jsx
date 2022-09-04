@@ -1,7 +1,7 @@
 import { Variants } from '@config'
 import { LayoutGroup, motion } from 'framer-motion'
 
-const Tab_Indicators = ({
+const Tabs_List = ({
     currentTab,
     setTab,
     tabNames = null,
@@ -62,7 +62,7 @@ const Tab_Indicators = ({
         </LayoutGroup>
     )
 }
-const Tab_Wrap = ({
+const Tabs = ({
     children,
     drag = null,
     currentTab = null,
@@ -122,8 +122,4 @@ const Tab_Wrap = ({
     )
 }
 
-const Tabs = {
-    Indicators: Tab_Indicators,
-    Wrap: Tab_Wrap,
-}
-export default Tabs
+export { Tabs_List, Tabs }

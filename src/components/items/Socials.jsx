@@ -30,7 +30,7 @@ const Socials = ({ size, ...props }) => {
         return (
             <motion.a
                 key={i}
-                className="styled-el mx-auto my-4 p-3 "
+                className="mx-auto my-4 select-none rounded-md bg-gradient-to-t from-eee/75 to-eee/20 p-3 dark:from-black-light/75 dark:to-black-light/20 "
                 href={item.href}
                 target="_blank"
                 rel="noreferrer"

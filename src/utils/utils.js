@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { theme } from 'tailwind.config'
 import { black } from 'tailwindcss/colors'
 
 export const navDelay = 1000
@@ -17,6 +16,17 @@ export const srConfig = {
     easing: 'ease-out',
 }
 
+export const scrollNow = (e, scrollTarget) => {
+    e.preventDefault()
+    document.querySelector(e.target.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth',
+        block: scrollTarget,
+    })
+}
+export const scrollToTop = (e) => {
+    e.preventDefault()
+    document.querySelector('#layout').scrollTo(0, 0)
+}
 export function toggleScrolling(state) {
     if (typeof window !== undefined) {
         document.querySelector('body').style.overflow =
@@ -30,44 +40,13 @@ export const default_spring = {
     damping: 30,
     velocity: 50,
 }
-/* SPRING DEFAULTS 
-    type: 'spring',
-    bounce: 0.25,
-    damping: 10,
-    mass: 1,
-    stiffness: 100,
-    velocity: 2,
-    restSpeed: 0.01,
-    restDelta: 0.01,    
-*/
-export const SplitText = ({ children, ...props }) => {
-    let words = children.split(' ')
-    return (
-        <div className="flex-center flex-wrap">
-            {words.map((word, i) => (
-                <motion.span
-                    key={`splitText-word${i}`}
-                    style={{
-                        display: 'inline-block',
-                        willChange: 'transform',
-                        paddingInline: '1px',
-                    }}
-                    transition={{ delay: 0.15 + i * 0.08 }}
-                    {...props}
-                >
-                    {word + (i !== words.length - 1 ? '\u00A0' : '')}
-                </motion.span>
-            ))}
-        </div>
-    )
-}
 
 export const styledBtn = {
     className: 'styled-button',
     whileHover: {
         color: black,
         translateY: -2.5,
-        boxShadow: `0px 10px 15px -10px ${theme.colors.charcoal}`,
+        boxShadow: `0px 10px 15px -10px #333`,
     },
     whileTap: { scale: 0.95 },
 }

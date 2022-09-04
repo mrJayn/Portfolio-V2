@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 
-import { Section, Projects_Items, Tabs } from '@components'
+import { Section, Tabs, Tabs_List, Projects_Sm, Projects_Md } from '@components'
 import { Variants } from '@config'
 
 const Projects = ({ projects }) => {
@@ -43,27 +43,31 @@ const Projects = ({ projects }) => {
 
             {/** SM - FLEX **/}
             <div id="projects-sm" className="w-full md:hidden">
-                <Projects_Items.Sm projects={projects} />
+                <Projects_Sm projects={projects} />
             </div>
 
             {/** Md - TABS **/}
             <div
-                className="relative mb-[25vh] hidden overflow-hidden bg-transparent md:block"
+                className="relative hidden overflow-hidden bg-transparent md:block"
                 style={{ height: height }}
             >
                 <div
                     id="projects-md"
                     className="full absolute top-0 left-0 overflow-hidden rounded-md p-2"
                 >
-                    <Tabs.Indicators {...tabProps} />
-                    <AnimatePresence exitBeforeEnter>
-                        <Tabs.Wrap
-                            key={currentTab}
-                            variants={Variants.project_items}
-                        >
-                            <Projects_Items.Md {...tabProps} />
-                        </Tabs.Wrap>
-                    </AnimatePresence>
+                    <div className="absolute top-0 left-0 w-full">
+                        <Tabs_List {...tabProps} />
+                    </div>
+                    <div className="full absolute top-16 left-0 bottom-0">
+                        <AnimatePresence mode="wait">
+                            <Tabs
+                                key={currentTab}
+                                variants={Variants.project_items}
+                            >
+                                <Projects_Md {...tabProps} />
+                            </Tabs>
+                        </AnimatePresence>
+                    </div>
                 </div>
             </div>
         </Section>

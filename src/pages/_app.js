@@ -1,45 +1,46 @@
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
-import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { AnimatePresence } from 'framer-motion'
-import { Navbar, Footer, Loader, Progress } from '@components'
 import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+
+import Navbar from '../components/nav/Navbar'
+import Loader from '../components/Loader'
+
 import '../styles/global.css'
+import 'react-toastify/dist/ReactToastify.css'
+import { AnimatePresence } from 'framer-motion'
+import { Background } from '@components'
 
 function MyApp({ Component, pageProps }) {
     const router = useRouter()
-    const isMain = router.pathname === '/'
-    const [isLoading, setIsLoading] = useState(isMain)
-    const [isRouting, setIsRouting] = useState(false)
-    const [isAnimating, setIsAnimating] = useState(false)
+    const isHome = router.pathname === '/'
+    const [isLoading, setIsLoading] = useState(isHome)
 
-    useEffect(() => {
-        const changing = () => {
-            setIsRouting(true)
-            setIsAnimating(true)
-        }
-        const done = () => {
-            setTimeout(() => {
-                setIsRouting(false)
-            }, 1000)
-        }
-        router.events.on('routeChangeStart', changing)
-        router.events.on('routeChangeComplete', done)
-        router.events.on('routeChangeError', done)
-        return () => {
-            router.events.off('routeChangeStart', changing)
-            router.events.off('routeChangeComplete', done)
-            router.events.off('routeChangeError', done)
-        }
-    }, [router])
-
+    // page key
     const url = `https://mikejayne.com${router.pathname}`
 
-    const navProps = {
+    // Prevent Replays
+    const [isFirst, setIsFirst] = useState(true)
+
+    // DarkMode
+    const [darkMode, setDarkMode] = useState('')
+    useEffect(() => {
+        const theme = window.matchMedia('(prefers-color-scheme: dark)')
+        setDarkMode(theme.matches)
+        theme.addEventListener('change', (e) => setDarkMode(e.matches))
+        return () =>
+            theme.removeEventListener('change', (e) => setDarkMode(e.matches))
+    }, [darkMode])
+
+    // created states + pageData
+    pageProps = {
+        isHome: isHome,
         isLoading: isLoading,
-        isMain: isMain,
+        isFirst: isFirst,
+        setIsFirst: setIsFirst,
+        darkMode: darkMode,
+        ...pageProps,
     }
     return (
         <>
@@ -51,35 +52,29 @@ function MyApp({ Component, pageProps }) {
                 />
             </Head>
             <DefaultSeo
-                titleTemplate="Michael Jayne"
+                titleTemplate="Mike Jayne | %s"
                 openGraph={{
                     type: 'website',
                     locale: 'en_IE',
                     url,
                     description:
-                        'The personal portfolio for Michael Jayne, developer.',
+                        'The personal portfolio for Michael Jayne, data analyst | software developer.',
                     site_name: 'Mike Jayne | mikejayne.com',
                     images: [],
                 }}
                 canonical={url}
             />
-            {isLoading && isMain ? (
-                <Loader finishLoading={() => setIsLoading(false)} />
+            {isLoading && isHome ? (
+                <Loader setIsLoading={setIsLoading} />
             ) : (
-                <>
-                    <Progress
-                        isRouting={isRouting}
-                        isAnimating={isAnimating}
-                        setIsAnimating={setIsAnimating}
-                    />
-                    <Navbar {...navProps} />
-                    <AnimatePresence exitBeforeEnter>
-                        {!isRouting && !isAnimating && (
-                            <Component {...pageProps} isLoading={isLoading} />
-                        )}
+                <div className="full relative">
+                    <Navbar {...pageProps} />
+                    <AnimatePresence mode="wait">
+                        <Component {...pageProps} key={url} />
                     </AnimatePresence>
-                    <ToastContainer limit={1} />
-                </>
+                    <div className="absolute top-0 left-0 right-0 -z-50 h-full bg-pattern bg-repeat opacity-10" />
+                    <ToastContainer />
+                </div>
             )}
         </>
     )

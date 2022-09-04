@@ -1,9 +1,9 @@
-import fs from 'fs'
-import path from 'path'
 import matter from 'gray-matter'
 import { remark } from 'remark'
 import html from 'remark-html'
 import { readdir } from 'fs/promises'
+const fs = require('fs')
+const path = require('path')
 
 const contentDirectory = path.join(process.cwd(), 'src/content')
 export function getDirectories(dirname) {
@@ -14,9 +14,9 @@ export function getDirectories(dirname) {
 }
 // =================================================
 
-export async function getAllMarkdown() {
+export async function getMarkdown() {
     const test = getDirectories(contentDirectory)
-    let res = []
+    let res = {}
     let table = []
     for (const folder of test) {
         const subfolder = path.join(contentDirectory, folder)
@@ -39,7 +39,12 @@ export async function getAllMarkdown() {
             })
         }
     }
-    res['text'] = table.filter((x) => x.folder == 'text')
+    res['about'] = table
+        .filter((x) => x.folder == 'text')
+        .filter((y) => y.id == 'about')[0]
+    res['experience'] = table
+        .filter((x) => x.folder == 'text')
+        .filter((y) => y.id == 'experience')[0]
     res['featured'] = table.filter((x) => x.folder == 'featured')
     res['projects'] = table.filter((x) => x.folder == 'projects')
 

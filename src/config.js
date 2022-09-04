@@ -1,7 +1,7 @@
 export const config = {
     email: 'm63jayne@gmail.com',
 
-    myColors: {
+    colors: {
         black: '#0B0C10',
         charcoal: '#1B1C20',
         teal: '#45A29E',
@@ -45,7 +45,7 @@ export const Variants = {
     },
     fade: {
         hidden: { opacity: 0 },
-        enter: { opacity: 1 },
+        enter: { opacity: 1, x: [0, 0] },
         exit: { opacity: 0 },
     },
     fadeY: {
@@ -79,97 +79,6 @@ export const Variants = {
                 staggerChildren: 0.05,
                 staggerDirection: 1,
             },
-        },
-    },
-    burger: {
-        top: {
-            init: {
-                rotate: 0,
-                translateY: 0,
-            },
-            closed: {
-                rotate: [null, 0],
-                translateY: [null, 0],
-            },
-            opened: (i) => ({
-                rotate: [0, 0, 45],
-                translateY: [0, i / 2, i / 2],
-            }),
-            return: (i) => ({
-                rotate: [null, -30],
-                translateY: [null, i / 4],
-            }),
-        },
-        center1: {
-            init: {
-                pathLength: -1,
-                opacity: 1,
-            },
-            closed: {
-                pathLength: [null, 0, -1],
-                opacity: [null, 0, 1],
-                rotate: 0,
-                translateY: 0,
-                translateX: [null, 0],
-            },
-            opened: {
-                pathLength: [null, -1, 0],
-                opacity: 0,
-                translateY: 0,
-                translateX: -2,
-            },
-            return: (i) => ({
-                pathLength: [null, 0, -1],
-                opacity: [null, 0, 1],
-                rotateZ: [null, 0, -30],
-                translateY: [null, 0, -i / 4],
-                translateX: [null, 0, 0.5 + i / 2],
-                originX: 1,
-            }),
-        },
-        center2: {
-            init: {
-                pathLength: -1,
-                opacity: 1,
-            },
-            closed: {
-                pathLength: [null, 0, -1],
-                opacity: [null, 0, 1],
-                translateY: 0,
-                translateX: [null, 0],
-            },
-            opened: {
-                pathLength: [null, -1, 0],
-                opacity: 0,
-                translateY: 0,
-                translateX: 2,
-            },
-            return: (i) => ({
-                pathLength: [null, 0, -1],
-                opacity: [null, 0, 1],
-                rotateZ: [null, 0, 30],
-                translateY: [null, 0, i / 4],
-                translateX: [null, 0, 0.5],
-                originX: 1,
-            }),
-        },
-        bottom: {
-            init: {
-                rotate: 0,
-                translateY: 0,
-            },
-            closed: {
-                rotate: [null, 0],
-                translateY: [null, 0],
-            },
-            opened: (i) => ({
-                rotate: [0, 0, -45],
-                translateY: [-0, -i / 2, -i / 2],
-            }),
-            return: (i) => ({
-                rotate: [null, 30],
-                translateY: [null, -i / 4],
-            }),
         },
     },
     menu: {
@@ -210,93 +119,6 @@ export const Variants = {
                     delayChildren: custom ? 0 : 0.5,
                 },
             }),
-        },
-    },
-    cards: {
-        infoCard: {
-            hidden: (infoLoc) => {
-                return {
-                    opacity: 0,
-                    x: infoLoc == 'left' ? 25 : -25,
-                    backgroundColor: '#ffffffff',
-                }
-            },
-            inView: (infoLoc) => {
-                const just = infoLoc === 'left' ? 1 : -1
-                return {
-                    opacity: 1,
-                    x: 0,
-                    backgroundColor: '#ffffff00',
-                    boxShadow: [
-                        '0px 0px 0px 0px black',
-                        `${just * 20}px 0px 20px -20px black`,
-                        `${just * 7}px 0px 5px -10px black`,
-                    ],
-                    transition: {
-                        default: {
-                            delay: 0.25,
-                            duration: 1,
-                            ease: 'easeOut',
-                        },
-                        opacity: { delay: 0.25, duration: 0.5 },
-                        backgroundColor: { delay: 2, duration: 1 },
-                        boxShadow: { duration: 1.75, delay: 0.5 },
-                    },
-                }
-            },
-        },
-        imgCard: {
-            hidden: (infoLoc) => ({
-                opacity: 0,
-                x: infoLoc == 'left' ? '-100%' : '100%',
-            }),
-            inView: {
-                opacity: 1,
-                x: 0,
-                transition: {
-                    opacity: {
-                        delay: 0.75,
-                        duration: 1.25,
-                        ease: 'easeOut',
-                    },
-                    x: { delay: 0.5, duration: 1.5, ease: 'easeOut' },
-                },
-            },
-        },
-        expanded_props: {},
-        exitBtn_props: {
-            initial: { opacity: 0, y: -10 },
-            animate: { opacity: 1, y: 0, transition: { delay: 0.15 } },
-            whileHover: { scale: 1.1 },
-            whileTap: { scale: 0.95 },
-        },
-    },
-    title: {
-        hidden: {
-            pathLength: 0,
-            opacity: 0,
-            fill: '#00000000',
-            stroke: '#66FCF1' /** COLOR-NEON**/,
-        },
-        visible: (i) => {
-            const delay = 1 + i * 0.15
-            return {
-                pathLength: 1,
-                opacity: 1,
-                fill: '#000',
-                stroke: '#000',
-                transition: {
-                    pathLength: {
-                        delay,
-                        type: 'spring',
-                        duration: 1,
-                        bounce: 0,
-                    },
-                    opacity: { delay, duration: 0.01 },
-                    fill: { delay: delay + 0.65, duration: 0.5 },
-                    stroke: { delay: delay + 0.05, duration: 0.5 },
-                },
-            }
         },
     },
     sliders: {
@@ -350,6 +172,176 @@ export const Variants = {
             opacity: 0,
             transition: {
                 duration: 0.25,
+            },
+        },
+    },
+}
+export const titleVariants = {
+    hidden: {
+        pathLength: 0,
+        opacity: 0,
+        fill: '#00000000',
+        stroke: '#66FCF1' /** COLOR-NEON**/,
+    },
+    visible: (i) => {
+        const delay = 1 + i * 0.15
+        return {
+            pathLength: 1,
+            opacity: 1,
+            fill: '#000',
+            stroke: '#000',
+            transition: {
+                pathLength: {
+                    delay,
+                    type: 'spring',
+                    duration: 1,
+                    bounce: 0,
+                },
+                opacity: { delay, duration: 0.01 },
+                fill: { delay: delay + 0.65, duration: 0.5 },
+                stroke: { delay: delay + 0.05, duration: 0.5 },
+            },
+        }
+    },
+}
+export const layoutVariants = {
+    hidden: (isHome) => {
+        return {
+            opacity: 0,
+            x: isHome ? -200 : 200,
+        }
+    },
+    enter: {
+        opacity: 1,
+        x: 0,
+        transition: { duration: 1, type: 'spring' },
+    },
+    exit: (isHome) => ({
+        opacity: 0,
+        x: isHome ? -200 : 200,
+        transition: { duration: 1, type: 'spring' },
+    }),
+}
+export const burgerVariants = {
+    top: {
+        closed: {
+            rotate: 0,
+            translateY: 0,
+        },
+        opened: (i) => ({
+            rotate: 45,
+            translateY: i / 2,
+        }),
+        return: (i) => ({
+            rotate: -30,
+            translateY: i / 4,
+        }),
+    },
+    center1: {
+        closed: {
+            pathLength: -1,
+            opacity: 1,
+            rotate: 0,
+            translateY: 0,
+            translateX: 0,
+        },
+        opened: {
+            pathLength: 0,
+            opacity: 0,
+            translateY: 0,
+            translateX: -2,
+        },
+        return: (i) => ({
+            pathLength: -1,
+            opacity: 1,
+            rotateZ: -30,
+            translateY: -i / 4,
+            translateX: 0.5 + i / 2,
+            originX: 1,
+        }),
+    },
+    center2: {
+        closed: {
+            pathLength: -1,
+            opacity: 1,
+            translateY: 0,
+            translateX: 0,
+        },
+        opened: {
+            pathLength: 0,
+            opacity: 0,
+            translateY: 0,
+            translateX: 2,
+        },
+        return: (i) => ({
+            pathLength: -1,
+            opacity: 1,
+            rotateZ: 30,
+            translateY: i / 4,
+            translateX: 0.5,
+            originX: 1,
+        }),
+    },
+    bottom: {
+        closed: {
+            rotate: 0,
+            translateY: 0,
+        },
+        opened: (i) => ({
+            rotate: -45,
+            translateY: -i / 2,
+        }),
+        return: (i) => ({
+            rotate: 30,
+            translateY: -i / 4,
+        }),
+    },
+}
+export const cardVariants = {
+    infoCard: {
+        hidden: (isLtr) => {
+            return {
+                opacity: 0,
+                x: isLtr ? 25 : -25,
+            }
+        },
+        enter: (isLtr) => {
+            return {
+                opacity: 1,
+                x: 0,
+                boxShadow: [
+                    '0px 0px 0px 0px black',
+                    `${isLtr ? 20 : -20}px 0px 20px -20px black`,
+                    `${isLtr ? 7 : -7}px 0px 5px -10px black`,
+                ],
+                transition: {
+                    default: {
+                        delay: 0.25,
+                        duration: 1,
+                        ease: 'easeOut',
+                    },
+                    opacity: { delay: 0.25, duration: 0.5 },
+                    backgroundColor: { delay: 2, duration: 1 },
+                    boxShadow: { duration: 1.75, delay: 0.5 },
+                },
+            }
+        },
+    },
+    imgCard: {
+        hidden: (isLtr) => ({
+            opacity: 0,
+            x: isLtr ? '-100%' : '100%',
+        }),
+        enter: {
+            opacity: 1,
+            x: 0,
+            transition: {
+                opacity: {
+                    delay: 0.75,
+                    duration: 1.25,
+                    ease: 'easeOut',
+                },
+                x: { delay: 0.35, duration: 1.5, ease: 'easeOut' },
             },
         },
     },

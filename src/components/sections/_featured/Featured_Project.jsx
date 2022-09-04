@@ -10,7 +10,7 @@ const Tech = ({ project }) => {
         return (
             <p
                 key={item}
-                className="relative w-full whitespace-nowrap border-l-[2px] border-dotted border-teal px-3 italic text-teal last-of-type:border-r-[2px] sm:px-6"
+                className="relative w-full whitespace-nowrap border-l-[2px] border-dotted border-teal px-3 capitalize italic text-teal last-of-type:border-r-[2px] sm:px-6 md:tracking-wide"
             >
                 {item}
             </p>
@@ -46,11 +46,11 @@ const Featured_Project = ({
     }
 
     return (
-        <div className="fp full flex-center relative rounded-lg">
+        <div className="fp full flex-center relative mb-48 rounded-lg last-of-type:mb-0">
             <div
                 className={`ct ${
                     isMd
-                        ? 'my-[5vh] grid h-[500px] w-full grid-cols-12  grid-rows-5 md:h-[450px] lg:h-[500px]'
+                        ? 'grid h-[500px] w-full grid-cols-12  grid-rows-5 md:h-[450px] lg:h-[500px]'
                         : 'flex-col-top h-full overflow-hidden rounded-md'
                 } px-2`}
             >
@@ -92,7 +92,7 @@ const Featured_Project = ({
                     <h3
                         className={
                             isMd
-                                ? 'whitespace-nowrap font-semibold tracking-tight text-black'
+                                ? 'whitespace-nowrap'
                                 : 'flex-center w-full text-center font-bold text-lightTeal'
                         }
                     >

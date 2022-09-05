@@ -1,41 +1,10 @@
 import { motion } from 'framer-motion'
 
-import { Variants } from '@config'
+import { menuVariants, Variants } from '@config'
 import { useScreenOrientation } from '@hooks'
-import { SectionLinks, Socials } from '@components'
+import { NavLinks, Socials } from '@components'
 
-const MenuContent = ({ menuState, handleClick }) => {
-    return (
-        <motion.div
-            id="menu_content"
-            className="flex-col-btw h-full w-full opacity-100"
-            initial={false}
-            animate={menuState}
-        >
-            <SectionLinks handleClick={handleClick} isMenu={true} />
-            {/** FOOTER  **/}
-            <motion.div
-                className="flex-btw w-full text-center"
-                variants={Variants.menu.parent}
-                custom={false}
-            >
-                {/** FOOTER LINKS **/}
-                <Socials
-                    className="mx-auto my-4 p-3 text-lightgrey"
-                    variants={Variants.fade}
-                    transition={{
-                        type: 'spring',
-                        stiffness: 1000,
-                        velocity: -100,
-                    }}
-                    size={30}
-                />
-            </motion.div>
-        </motion.div>
-    )
-}
-
-const Menu = ({ isOpen, handleMenu }) => {
+const Menu = ({ menuControls, isOpen, handleMenu }) => {
     const menuState = isOpen ? 'enter' : 'hidden'
     const orientation = useScreenOrientation()
 
@@ -50,9 +19,28 @@ const Menu = ({ isOpen, handleMenu }) => {
         >
             <motion.div
                 className="flex-center absolute top-0 left-0 h-screen w-screen bg-charcoal px-3 pb-10 pt-[12.5vh]"
-                variants={Variants.menu.backgroundClip}
+                variants={menuVariants.backgroundClip}
             >
-                <MenuContent menuState={menuState} handleClick={handleMenu} />
+                <motion.div
+                    id="menu_content"
+                    className="flex-col-btw h-full w-full opacity-100"
+                    initial={false}
+                    animate={menuState}
+                >
+                    <NavLinks handleClick={handleMenu} isMenu={true} />
+                    {/** FOOTER  **/}
+
+                    {/** FOOTER LINKS **/}
+                    <Socials
+                        variants={Variants.fade}
+                        transition={{
+                            type: 'spring',
+                            stiffness: 1000,
+                            velocity: -100,
+                        }}
+                        size={30}
+                    />
+                </motion.div>
             </motion.div>
         </motion.div>
     )

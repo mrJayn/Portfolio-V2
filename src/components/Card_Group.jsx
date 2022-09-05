@@ -39,6 +39,7 @@ const Card_Group = ({ tabs, isMd, ...data }) => {
     return (
         <>
             <Card_Base {...cardProps} />
+            {/** ---------------------------- **/}
             <Card_Expanded {...expandedProps}>
                 {/** MIN: TABS **/}
                 <div

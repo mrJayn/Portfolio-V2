@@ -10,7 +10,7 @@ export { default as Loader } from './Loader'
 export { default as Navbar } from './nav/Navbar'
 export { default as Menu } from './nav/Menu'
 export { default as Burger } from './nav/Burger'
-export { default as SectionLinks } from './nav/SectionLinks'
+export { default as NavLinks } from './nav/NavLinks'
 export { default as Logo } from './nav/Logo'
 
 // --SECTIONS--

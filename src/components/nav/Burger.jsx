@@ -21,7 +21,7 @@ const Burger = ({ menuState, isHome, handleBurger }) => {
 
     return (
         <motion.div
-            className="flex-center absolute left-2 top-0 z-50 h-12 w-12 cursor-pointer rounded bg-transparent stroke-teal duration-250 ease-in hover:stroke-neon md:hidden"
+            className="flex-center hover:stroke-neon absolute left-2 top-0 z-50 h-12 w-12 cursor-pointer rounded bg-transparent stroke-teal duration-250 ease-in md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -30,7 +30,7 @@ const Burger = ({ menuState, isHome, handleBurger }) => {
             <motion.svg
                 viewBox={`0 0 ${unitSize} ${unitSize}`}
                 overflow="visible"
-                preserveAspectRatio="xMidYMid meet"
+                vectorEffect="non-scaling-stroke"
                 width={size}
                 height={size}
             >

@@ -1,6 +1,5 @@
-import { motion, useAnimation } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { config } from '@config'
-import { useEffect } from 'react'
 
 const Title = ({ darkMode, titleControls }) => {
     const color = darkMode ? '#fff' : '#000'
@@ -34,8 +33,8 @@ const Title = ({ darkMode, titleControls }) => {
     }
 
     return (
-        <div className="relative w-[70vw] sm:w-[412px]  xl:w-[425px] max:w-[500px]">
-            <svg width="inherit" viewBox="0 -25 360 75">
+        <div className="relative w-[300px] sm:w-[412px]  xl:w-[425px] max:w-[500px]">
+            <svg width="100%" viewBox="0 -25 360 75">
                 <g
                     stroke="#010"
                     strokeWidth={2}

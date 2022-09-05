@@ -37,19 +37,6 @@ const Layout = ({ title, description, isHome, darkMode, children }) => {
                 custom={isHome}
             >
                 {children}
-                {/**<div className="fixed top-0 left-0 bottom-0 right-0 -z-50 overflow-hidden">
-                    <motion.div
-                        id="layout-bg"
-                        className="absolute top-0 left-0 h-[135%] w-full origin-top opacity-100"
-                        data-darkmode={darkMode}
-                        style={{ y: spring }}
-                        initial={{ opacity: 0 }}
-                        animate={{
-                            opacity: 1,
-                            transition: { duration: 3.5, ease: 'easeOut' },
-                        }}
-                    />
-                </div>*/}
             </motion.main>
         </div>
     )

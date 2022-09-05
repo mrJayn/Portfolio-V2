@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 
-import { Burger, Logo, Menu, SectionLinks } from '@components'
-import { Variants } from '@config'
+import { Burger, Logo, Menu, NavLinks } from '@components'
 import { toggleScrolling } from '@utils'
+import { Variants } from '@config'
 
-const Navbar = ({ isLoading, isHome }) => {
+const Navbar = ({ isHome }) => {
     const [menuState, setMenuState] = useState(false)
     const router = useRouter()
 
@@ -37,9 +37,9 @@ const Navbar = ({ isLoading, isHome }) => {
     }, [menuState])
 
     return (
-        <motion.nav className="fixed left-0 right-0 z-40" id="nav">
+        <nav className="fixed left-0 right-0 z-40" id="nav">
             <motion.div
-                className="flex-center md:flex-btw h-12 w-full transform-none bg-charcoal dark:bg-lightblack md:h-16 md:px-4 lg:px-16"
+                className="flex-center md:flex-btw dark:bg-lightblack h-12 w-full transform-none bg-charcoal md:h-16 md:px-4 lg:px-16"
                 initial="hidden"
                 animate="enter"
                 variants={Variants.fade}
@@ -50,10 +50,10 @@ const Navbar = ({ isLoading, isHome }) => {
                     handleBurger={handleBurger}
                 />
                 <Logo isHome={isHome} menuState={menuState} router={router} />
-                <SectionLinks variants={Variants.fade_stagger} />
+                <NavLinks variants={Variants.fade_stagger} />
             </motion.div>
             <Menu isOpen={menuState} handleMenu={toggleMenu} />
-        </motion.nav>
+        </nav>
     )
 }
 

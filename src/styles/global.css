@@ -26,6 +26,8 @@
         @apply text-6xl font-bold;
     }
     h2 {
+        @apply text-[32px] sm:text-[44px] max:text-[50px];
+        /* ANIMATED BACKGROUND GRADIENT */
         @apply relative bg-gradientLoop bg-clip-text font-bold text-transparent contrast-125 drop-shadow-md filter dark:filter-none;
         background-size: 300%;
         @apply animate-[gradientKFs_20s_linear_infinite] motion-reduce:animate-[];
@@ -64,7 +66,7 @@
 /* STYLED LINKS  */
 @layer utilities {
     .styled-link {
-        @apply relative;
+        @apply relative cursor-pointer;
         transition: transform 0.25s linear, color 0.25s linear;
         &:after {
             content: '';

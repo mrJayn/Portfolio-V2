@@ -3,31 +3,6 @@
 
 /** ================= LAYOUT ================ **/
 @layer components {
-    #layout-bg[data-darkmode='false'] {
-        --c1: #ffffff55;
-        --c2: transparent;
-        --c3: #fff;
-        --c4: #efefef;
-    }
-    #layout-bg[data-darkmode='true'] {
-        --c1: #00000055;
-        --c2: transparent;
-        --c3: #222;
-        --c4: #101010;
-    }
-    #layout-bg {
-        --x1: -50px;
-        --x2: 100px;
-
-        background: linear-gradient(135deg, var(--c1) 25%, var(--c2) 25%)
-                var(--x1) 0 / var(--x2) var(--x2),
-            linear-gradient(225deg, var(--c3) 25%, var(--c2) 25%) var(--x1) 0 /
-                var(--x2) var(--x2),
-            linear-gradient(315deg, var(--c1) 25%, var(--c2) 25%) 0px 0 /
-                var(--x2) var(--x2),
-            linear-gradient(45deg, var(--c3) 25%, var(--c4) 25%) 0px 0 /
-                var(--x2) var(--x2);
-    }
 }
 
 /** ================== NAV ================== **/
@@ -69,7 +44,7 @@
         @apply duration-600;
         & > div:after {
             content: '';
-            @apply to-teal-neon/10 absolute top-0 right-0 left-0 bottom-0 -z-10 bg-gradient-to-b from-transparent via-grey/20 duration-600 ease-in;
+            @apply absolute top-0 right-0 left-0 bottom-0 -z-10 bg-gradient-to-b from-transparent via-grey/20 to-teal-neon/10 duration-600 ease-in;
             @apply translate-y-[100%] opacity-0;
         }
     }

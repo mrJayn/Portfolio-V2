@@ -81,46 +81,6 @@ export const Variants = {
             },
         },
     },
-    menu: {
-        backgroundClip: {
-            hidden: {
-                clipPath: `polygon(0% 0%, 0% 0%, 100% 0%, 100% 0%)`,
-                transition: {
-                    type: 'spring',
-                    delay: 0.2,
-                    stiffness: 250,
-                    damping: 35,
-                    velocity: -50,
-                },
-            },
-            enter: {
-                clipPath: `polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%)`,
-                transition: {
-                    type: 'spring',
-                    stiffness: 250,
-                    damping: 40,
-                    velocity: 50,
-                    restDelta: 0.02,
-                },
-            },
-        },
-        parent: {
-            hidden: (custom = true) => ({
-                transition: {
-                    staggerChildren: custom ? 0.05 : 0,
-                    delayChildren: custom ? 0.15 : 0.5,
-                    staggerDirection: custom ? -1 : 1,
-                },
-            }),
-            enter: (custom = true) => ({
-                transition: {
-                    when: 'beforeChildren',
-                    staggerChildren: 0.05,
-                    delayChildren: custom ? 0 : 0.5,
-                },
-            }),
-        },
-    },
     sliders: {
         enter: (direction) => ({
             x: direction > 0 ? '100%' : '-100%',
@@ -176,51 +136,77 @@ export const Variants = {
         },
     },
 }
-export const titleVariants = {
-    hidden: {
-        pathLength: 0,
-        opacity: 0,
-        fill: '#00000000',
-        stroke: '#66FCF1' /** COLOR-NEON**/,
-    },
-    visible: (i) => {
-        const delay = 1 + i * 0.15
-        return {
-            pathLength: 1,
-            opacity: 1,
-            fill: '#000',
-            stroke: '#000',
+export const linksVariants = {
+    navLinks: {
+        hidden: {
             transition: {
-                pathLength: {
-                    delay,
-                    type: 'spring',
-                    duration: 1,
-                    bounce: 0,
-                },
-                opacity: { delay, duration: 0.01 },
-                fill: { delay: delay + 0.65, duration: 0.5 },
-                stroke: { delay: delay + 0.05, duration: 0.5 },
+                staggerChildren: 0.05,
+                delayChildren: 0.15,
+                staggerDirection: -1,
             },
-        }
+        },
+        enter: {
+            transition: {
+                when: 'beforeChildren',
+                staggerChildren: 0.05,
+                delayChildren: 0,
+            },
+        },
+    },
+    socials: {
+        hidden: {
+            transition: {
+                delayChildren: 0.5,
+            },
+        },
+        enter: {
+            transition: {
+                when: 'beforeChildren',
+                staggerChildren: 0.05,
+                delayChildren: 0.5,
+            },
+        },
     },
 }
-export const layoutVariants = {
-    hidden: (isHome) => {
-        return {
-            opacity: 0,
-            x: isHome ? -200 : 200,
-        }
+export const menuVariants = {
+    backgroundClip: {
+        hidden: {
+            clipPath: `polygon(0% 0%, 0% 0%, 100% 0%, 100% 0%)`,
+            transition: {
+                type: 'spring',
+                delay: 0.2,
+                stiffness: 250,
+                damping: 35,
+                velocity: -50,
+            },
+        },
+        enter: {
+            clipPath: `polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%)`,
+            transition: {
+                type: 'spring',
+                stiffness: 250,
+                damping: 40,
+                velocity: 50,
+                restDelta: 0.02,
+            },
+        },
     },
-    enter: {
-        opacity: 1,
-        x: 0,
-        transition: { duration: 1, type: 'spring' },
+    parent: {
+        hidden: (custom = true) => ({
+            transition: {
+                staggerChildren: custom ? 0.05 : 0,
+                delayChildren: custom ? 0.15 : 0.5,
+                staggerDirection: custom ? -1 : 1,
+            },
+        }),
+        enter: (custom = true) => ({
+            transition: {
+                when: 'beforeChildren',
+                staggerChildren: 0.05,
+                delayChildren: custom ? 0 : 0.5,
+            },
+        }),
     },
-    exit: (isHome) => ({
-        opacity: 0,
-        x: isHome ? -200 : 200,
-        transition: { duration: 1, type: 'spring' },
-    }),
 }
 export const burgerVariants = {
     top: {
@@ -296,6 +282,52 @@ export const burgerVariants = {
             translateY: -i / 4,
         }),
     },
+}
+export const titleVariants = {
+    hidden: {
+        pathLength: 0,
+        opacity: 0,
+        fill: '#00000000',
+        stroke: '#66FCF1' /** COLOR-NEON**/,
+    },
+    visible: (i) => {
+        const delay = 1 + i * 0.15
+        return {
+            pathLength: 1,
+            opacity: 1,
+            fill: '#000',
+            stroke: '#000',
+            transition: {
+                pathLength: {
+                    delay,
+                    type: 'spring',
+                    duration: 1,
+                    bounce: 0,
+                },
+                opacity: { delay, duration: 0.01 },
+                fill: { delay: delay + 0.65, duration: 0.5 },
+                stroke: { delay: delay + 0.05, duration: 0.5 },
+            },
+        }
+    },
+}
+export const layoutVariants = {
+    hidden: (isHome) => {
+        return {
+            opacity: 0,
+            x: isHome ? -200 : 200,
+        }
+    },
+    enter: {
+        opacity: 1,
+        x: 0,
+        transition: { duration: 1, type: 'spring' },
+    },
+    exit: (isHome) => ({
+        opacity: 0,
+        x: isHome ? -200 : 200,
+        transition: { duration: 1, type: 'spring' },
+    }),
 }
 export const cardVariants = {
     infoCard: {

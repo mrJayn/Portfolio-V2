@@ -39,34 +39,15 @@
         }
     }
 
-    /* MENU */
-    #menu {
-        @apply duration-600;
-        & > div:after {
-            content: '';
-            @apply absolute top-0 right-0 left-0 bottom-0 -z-10 bg-gradient-to-b from-transparent via-grey/20 to-teal-neon/10 duration-600 ease-in;
-            @apply translate-y-[100%] opacity-0;
-        }
-    }
-    #menu[data-isopen='false'] {
-        @apply invisible bg-transparent;
-    }
-    #menu[data-isopen='true'] > div:after {
-        @apply translate-y-0 opacity-100 delay-500 duration-600 ease-out;
-    }
-    #menu[data-orientation='landscape-primary'] #menu_content {
-        @apply flex-wrap pt-4;
-        & ul {
-            @apply flex-col-center h-full w-[50%];
-            & li {
-                @apply text-lg;
-            }
-        }
-        & > div {
-            @apply grid h-full w-[50%] grid-cols-2 gap-x-6 px-6;
-            @apply border-l-2 border-l-white;
-            & > a {
-                @apply flex-center aspect-square w-[75%] text-[1.5rem];
+    /* MENU CONTENT */
+
+    #nav[data-orientation='landscape-primary'] {
+        & #menu-content {
+            & > div {
+                @apply full;
+                & > a {
+                    @apply m-auto;
+                }
             }
         }
     }

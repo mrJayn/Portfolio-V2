@@ -25,7 +25,7 @@ const Intro = ({ states, darkMode }) => {
     return (
         <Section id="intro">
             <motion.div
-                className="flex-col-center full absolute top-0 left-0 select-none  px-4 md:px-0"
+                className="flex-col-center full absolute top-0 left-0 select-none px-4 md:px-0 landscape:top-14 md:landscape:top-0"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
             >
@@ -56,7 +56,7 @@ const Intro = ({ states, darkMode }) => {
                 </motion.h2>
 
                 {/** PROJECTS / CONTACT BTNS **/}
-                <div className="flex-col-btw mt-20 h-32 md:mt-32 md:h-auto  md:w-9/12 md:flex-row md:justify-evenly">
+                <div className="flex-col-btw mt-20 h-32 md:mt-32 md:h-auto md:w-9/12  md:flex-row md:justify-evenly landscape:mt-10 md:landscape:mt-32">
                     <Styled_Button
                         classNames="md:text-md xl:text-lg py-3 px-7 md:py-4"
                         initial={{ opacity: isFirst ? 0 : 1 }}

@@ -16,7 +16,7 @@ export { default as Logo } from './nav/Logo'
 // --SECTIONS--
 // INTRO
 export { default as Intro } from './sections/_intro/Intro'
-export { default as Title } from './sections/_intro/Title'
+export { default as Title } from './icons/Title'
 // ABOUT
 export { default as About } from './sections/_about/About'
 export { default as Skills } from './sections/_about/Skills'
@@ -41,3 +41,5 @@ export { default as Links } from './items/Links'
 export { default as Socials } from './items/Socials'
 export { default as Styled_Button } from './items/StyledButton'
 export { default as ContactReturnBtn } from './items/ContactReturnBtn'
+
+export { default as DefGradient } from './icons/gradient'

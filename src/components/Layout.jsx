@@ -1,24 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
 import { NextSeo } from 'next-seo'
-import {
-    motion,
-    LayoutGroup,
-    useScroll,
-    useTransform,
-    useSpring,
-} from 'framer-motion'
+import { motion } from 'framer-motion'
 
 import { layoutVariants } from '@config'
-import { Background } from '@components'
 
-const Layout = ({ title, description, isHome, darkMode, children }) => {
-    const { scrollYProgress } = useScroll()
-    const transform = useTransform(scrollYProgress, [0, 1], [0, -2500])
-    const spring = useSpring(transform, {
-        stiffness: 1000,
-        damping: 250,
-    })
-
+const Layout = ({ title, description, isHome, children }) => {
     return (
         <div>
             <NextSeo

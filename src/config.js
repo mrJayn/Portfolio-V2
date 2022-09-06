@@ -61,26 +61,6 @@ export const Variants = {
             transition: { staggerChildren: 0.05, staggerDirection: -1 },
         },
     },
-    fade_stagger: {
-        hidden: { opacity: 0 },
-        enter: {
-            opacity: 1,
-            transition: {
-                when: 'beforeChildren',
-                staggerChildren: 0.1,
-                staggerDirection: -1,
-                delayChildren: 0.75,
-            },
-        },
-        exit: {
-            opacity: 0,
-            transition: {
-                when: 'afterChildren',
-                staggerChildren: 0.05,
-                staggerDirection: 1,
-            },
-        },
-    },
     sliders: {
         enter: (direction) => ({
             x: direction > 0 ? '100%' : '-100%',
@@ -136,38 +116,6 @@ export const Variants = {
         },
     },
 }
-export const linksVariants = {
-    navLinks: {
-        hidden: {
-            transition: {
-                staggerChildren: 0.05,
-                delayChildren: 0.15,
-                staggerDirection: -1,
-            },
-        },
-        enter: {
-            transition: {
-                when: 'beforeChildren',
-                staggerChildren: 0.05,
-                delayChildren: 0,
-            },
-        },
-    },
-    socials: {
-        hidden: {
-            transition: {
-                delayChildren: 0.5,
-            },
-        },
-        enter: {
-            transition: {
-                when: 'beforeChildren',
-                staggerChildren: 0.05,
-                delayChildren: 0.5,
-            },
-        },
-    },
-}
 export const menuVariants = {
     backgroundClip: {
         hidden: {
@@ -191,21 +139,62 @@ export const menuVariants = {
             },
         },
     },
-    parent: {
-        hidden: (custom = true) => ({
-            transition: {
-                staggerChildren: custom ? 0.05 : 0,
-                delayChildren: custom ? 0.15 : 0.5,
-                staggerDirection: custom ? -1 : 1,
-            },
-        }),
-        enter: (custom = true) => ({
+    navLinks: {
+        hidden: { opacity: 0 },
+        enter: {
+            opacity: 1,
             transition: {
                 when: 'beforeChildren',
-                staggerChildren: 0.05,
-                delayChildren: custom ? 0 : 0.5,
+                staggerChildren: 0.1,
+                staggerDirection: -1,
+                delayChildren: 0.75,
             },
-        }),
+        },
+        exit: {
+            opacity: 0,
+            transition: {
+                when: 'afterChildren',
+                staggerChildren: 0.05,
+                staggerDirection: 1,
+            },
+        },
+    },
+    menuLinks: {
+        hidden: {
+            transition: {
+                staggerChildren: 0.05,
+                staggerDirection: -1,
+            },
+        },
+        enter: {
+            transition: {
+                staggerChildren: 0.08,
+                staggerDirection: 1,
+                delayChildren: 0.25,
+            },
+        },
+    },
+    socials: {
+        hidden: {
+            y: -100,
+            opacity: 0,
+            transition: {
+                duration: 0.35,
+                delayChildren: 0.5,
+            },
+        },
+        enter: {
+            y: 0,
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.5,
+            },
+        },
+    },
+    children: {
+        hidden: (i = 0) => ({ opacity: 0, y: -i }),
+        enter: { opacity: 1, y: 0 },
     },
 }
 export const burgerVariants = {

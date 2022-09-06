@@ -60,14 +60,6 @@ module.exports = {
             robotoMono: ['Roboto Mono', 'monospace'],
         },
         fontSize: themeConfig.fontSize,
-        extend: {
-            backgroundImage: {
-                pattern: "url('/assets/misc/cardboard.png')",
-                gradient: 'linear-gradient(45deg, #8360c3, #45A29E)',
-                gradientLoop:
-                    'linear-gradient(45deg, #cc22aa, #8360c3, #45A29E, #55dcd1,#45A29E,#8360c3,#cc22aa)',
-            },
-        },
         keyframes: {
             gradientKFs: {
                 '0%': {
@@ -78,6 +70,21 @@ module.exports = {
                     backgroundPosition: '300% 50%',
                 },
             },
+            glowKFs: {
+                '0%': {
+                    opacity: 0.85,
+                },
+                '50%': {
+                    opacity: 1,
+                },
+                '100%': {
+                    opacity: 0.85,
+                },
+            },
+        },
+        animation: {
+            none: '',
+            glowing: 'glowKFs 3.5s linear infinite',
         },
 
         transitionDuration: {
@@ -87,6 +94,14 @@ module.exports = {
             300: '300ms',
             350: '350ms',
             600: '600ms',
+        },
+        extend: {
+            backgroundImage: {
+                pattern: "url('/assets/misc/cardboard.png')",
+                gradient: 'linear-gradient(45deg, #8360c3, #45A29E)',
+                gradientLoop:
+                    'linear-gradient(45deg, #cc22aa, #8360c3, #45A29E, #55dcd1,#45A29E,#8360c3,#cc22aa)',
+            },
         },
     },
 }

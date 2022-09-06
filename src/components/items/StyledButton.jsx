@@ -31,7 +31,7 @@ const Styled_button = ({
                     behavior: 'smooth',
                     block: 'start',
                 })
-            }, 250)
+            }, 50)
         } else if (action !== null) {
             action()
             toggleScrolling(allowScroll)

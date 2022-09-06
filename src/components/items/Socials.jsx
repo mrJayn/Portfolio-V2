@@ -1,57 +1,40 @@
 import { motion } from 'framer-motion'
-import { FaGithub, FaCodepen, FaLinkedinIn, FaMailBulk } from 'react-icons/fa'
-import { AiOutlineMail } from 'react-icons/ai'
-import { linksVariants } from '@config'
+import DefGradient from '../icons/gradient'
 import Icon from '../icons/Icon'
+
 const socials = [
-    {
-        title: 'GitHub',
-        href: 'https://github.com/mrJayn',
-        icon: FaGithub,
-    },
-    {
-        title: 'Codepen',
-        href: 'https://codepen.io/mrjayn',
-        icon: FaCodepen,
-    },
-    {
-        title: 'Linkedin',
-        href: 'https://www.linkedin.com/in/',
-        icon: FaLinkedinIn,
-    },
-    {
-        title: 'Email',
-        href: 'mailto:m63jayne@gmail.com',
-        icon: AiOutlineMail,
-    },
+    ['GitHub', 'https://github.com/mrJayn'],
+    ['Codepen', 'https://codepen.io/mrjayn'],
+    ['Linkedin', 'https://www.linkedin.com/in/'],
+    ['Email', 'mailto:m63jayne@gmail.com'],
 ]
 
-const Socials = ({ size, wrapStyle, ...props }) => {
+const Socials = ({ size = 30, defId, ...motionProps }) => {
     return (
-        <motion.div
-            className={`flex-btw w-full text-center ${wrapStyle} `}
-            variants={linksVariants.socials}
-        >
-            {socials.map((item, i) => {
+        <>
+            {socials.map(([title, href], i) => {
                 return (
                     <motion.a
-                        key={i}
-                        href={item.href}
-                        title={item.href}
-                        className="flex-center relative mx-auto my-4 select-none "
+                        key={`social-${i}`}
+                        href={href}
+                        title={href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="landscape:m-auto"
                         style={{
                             height: size + 12,
                             width: size + 12,
                         }}
-                        target="_blank"
-                        rel="noreferrer"
-                        {...props}
+                        {...motionProps}
                     >
-                        <Icon name={item.title} size={30} />
+                        <Icon name={title} size={size} defId={defId} />
                     </motion.a>
                 )
             })}
-        </motion.div>
+            <svg className="pointer-events-none invisible absolute select-none">
+                <DefGradient defId={defId} />
+            </svg>
+        </>
     )
 }
 export default Socials

@@ -23,49 +23,37 @@ const Cases = ({ name }) => {
             return <IconExternal />
     }
 }
-const Icon = ({ name, size = 24 }) => {
-    const isEmail = name == 'Email'
-    const boxSize = isEmail ? 1024 : 24
-    const fillColor = isEmail ? '#fff' : ''
+const Icon = ({ name, size = 30, defId = null }) => {
+    // Two Seperate SVG Tags to achieve correct blur Effect :/
+
+    const svgProps = {
+        xmlns: 'http://www.w3.org/2000/svg',
+        viewBox: '0 0 24 24',
+        hieght: size,
+        width: size,
+        fill: 'none',
+        strokeWidth: '1',
+        strokeLinecap: 'round',
+        strokeLinejoin: 'round',
+    }
 
     return (
-        <>
+        <div className="flex-center full group">
             <svg
-                className="absolute"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox={`0 0 ${boxSize} ${boxSize}`}
-                height={size}
-                width={size}
-                fill="none"
+                className="absolute opacity-75 group-hover:opacity-100"
                 stroke="#fff"
-                strokeWidth="1"
+                {...svgProps}
             >
                 <Cases name={name} />
             </svg>
             <svg
-                className="absolute opacity-75 blur-0  duration-300 hover:blur-[3px] hover:brightness-150 hover:contrast-200"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox={`0 0 ${boxSize} ${boxSize}`}
-                height={size}
-                width={size}
-                stroke="#ffffff50"
-                strokeWidth="1"
+                className="absolute opacity-75 blur-0 duration-300 group-hover:blur-[4px] group-hover:brightness-150 group-hover:contrast-200"
+                stroke={`url(#${defId})`}
+                {...svgProps}
             >
-                <defs>
-                    <linearGradient id="gradient" x1={0} x2={0.5} y1={1} y2={0}>
-                        <stop offset="0%" stopColor="#8360c3" />
-                        <stop offset="100%" stopColor="#45A29E" />
-                    </linearGradient>
-                </defs>
-                <g
-                    style={{
-                        fill: 'url(#gradient)',
-                    }}
-                >
-                    <Cases name={name} />
-                </g>
+                <Cases name={name} />
             </svg>
-        </>
+        </div>
     )
 }
 

@@ -8,7 +8,7 @@ const Section = ({ children, id, fullScreen = true }) => {
                 height: 'auto',
             }}
         >
-            <div className="full">{children}</div>
+            {children}
         </section>
     )
 }

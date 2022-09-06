@@ -6,7 +6,7 @@ import { Burger, Logo, Menu, NavLinks } from '@components'
 import { toggleScrolling } from '@utils'
 import { Variants } from '@config'
 
-const Navbar = ({ isHome }) => {
+const Navbar = ({ isHome, orientation }) => {
     const [menuState, setMenuState] = useState(false)
     const router = useRouter()
 
@@ -37,9 +37,13 @@ const Navbar = ({ isHome }) => {
     }, [menuState])
 
     return (
-        <nav className="fixed left-0 right-0 z-40" id="nav">
+        <nav
+            className="fixed left-0 right-0 z-40"
+            id="nav"
+            data-orientation={orientation}
+        >
             <motion.div
-                className="flex-center md:flex-btw dark:bg-lightblack h-12 w-full transform-none bg-charcoal md:h-16 md:px-4 lg:px-16"
+                className="flex-center md:flex-btw dark:bg-lightblack max-px-16 h-12 w-full transform-none bg-charcoal md:h-16 md:px-4 lg:px-8 xl:px-12"
                 initial="hidden"
                 animate="enter"
                 variants={Variants.fade}
@@ -49,10 +53,14 @@ const Navbar = ({ isHome }) => {
                     menuState={menuState}
                     handleBurger={handleBurger}
                 />
-                <Logo isHome={isHome} menuState={menuState} router={router} />
-                <NavLinks variants={Variants.fade_stagger} />
+                <Logo
+                    menuState={menuState}
+                    toggleMenu={toggleMenu}
+                    router={router}
+                />
+                <NavLinks />
             </motion.div>
-            <Menu isOpen={menuState} handleMenu={toggleMenu} />
+            <Menu isOpen={menuState} toggleMenu={toggleMenu} />
         </nav>
     )
 }

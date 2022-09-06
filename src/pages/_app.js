@@ -10,13 +10,11 @@ import Loader from '../components/Loader'
 import '../styles/global.css'
 import 'react-toastify/dist/ReactToastify.css'
 import { AnimatePresence } from 'framer-motion'
-import { Background } from '@components'
 
 function MyApp({ Component, pageProps }) {
     const router = useRouter()
     const isHome = router.pathname === '/'
     const [isLoading, setIsLoading] = useState(isHome)
-
     // page key
     const url = `https://mikejayne.com${router.pathname}`
 

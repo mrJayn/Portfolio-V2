@@ -1,63 +1,62 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { menuVariants, Variants } from '@config'
+import { menuVariants } from '@config'
 
+// [ id , block scroll target ]
 const sections = [
     ['about', 'center'],
     ['experience', 'center'],
     ['featured', 'start'],
     ['projects', 'start'],
     ['contact', 'end'],
-    ['my Resume', ''],
+    ['my Resume', '/assets/misc/resume2022.jpg'],
 ]
-const resumeDir = '/assets/misc/resume2022.jpg'
 
-const NavLinks = ({ handleClick, isMenu = false, ...props }) => {
+const NavLinks = ({ toggleMenu, forMenu = false }) => {
     const ul_props = {
-        variants: isMenu ? menuVariants.linksParent : Variants.fade_stagger,
+        variants: forMenu ? menuVariants.menuLinks : menuVariants.navLinks,
         custom: true,
-        ...props,
     }
 
     const li_props = {
-        variants: Variants.fadeY,
-        custom: isMenu ? 10 : 50,
-        whileTap: { scale: isMenu ? 0.95 : 1 },
-        onClick: handleClick,
+        variants: menuVariants.children,
+        custom: forMenu ? 10 : 50,
+        whileTap: { scale: forMenu ? 0.95 : 1 },
+        onClick: toggleMenu,
     }
     return (
         <motion.ul
             className={
-                isMenu
-                    ? 'flex-col-center h-[70%]'
-                    : 'md:flex-right full hidden select-none'
+                forMenu
+                    ? 'flex-col-center landscape:full h-[70%] grid-flow-col grid-cols-3 grid-rows-2 landscape:grid'
+                    : 'md:flex-right md:full hidden select-none'
             }
             {...ul_props}
         >
-            {sections.map((item, i) => {
+            {sections.map(([name, target], i) => {
                 const isResumeLink = i == sections.length - 1
                 return (
                     <motion.li
                         key={i}
-                        className={`cursor-pointer font-medium tracking-tight text-lightgrey hover:text-white ${
-                            isMenu
-                                ? 'my-auto text-2xl capitalize'
-                                : 'styled-link flex-center group mx-3 pt-2 pb-1 text-base'
+                        className={`cursor-pointer font-medium tracking-tight text-black dark:text-lightgrey md:text-lightgrey md:hover:text-white ${
+                            forMenu
+                                ? 'landscape:flex-center my-auto text-2xl capitalize landscape:my-8 landscape:text-xl'
+                                : 'flex-center mx-4 pt-2 pb-1 text-[16px] lg:text-[18px]'
                         }`}
                         style={{ transition: 'color 0.25s linear' }}
                         {...li_props}
                     >
                         {isResumeLink ? (
                             <a
-                                href={resumeDir}
+                                href={target}
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                {item[0]}
+                                {name}
                             </a>
                         ) : (
-                            <Link href={`/#${item[0]}`} passHref>
-                                <a>{item[0]}</a>
+                            <Link href={`/#${name}`} passHref>
+                                <a>{name}</a>
                             </Link>
                         )}
                     </motion.li>

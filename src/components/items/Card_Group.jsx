@@ -6,22 +6,24 @@ import Card_Expanded from './Card_Expanded'
 
 const Card_Group = ({ tabs, isMd, ...data }) => {
     const Data = data.data
-
-    const [readMore, setReadMore] = useState(false)
+    const [expanded, setExpanded] = useState(false)
     const [[currentTab, direction], setTab] = useState([0, 0])
     const scrollRef = useRef()
 
     /** CARD **/
     const cardProps = {
-        toggleCard: () => setReadMore(true),
-        isMd,
+        toggleCard: () => setExpanded(true),
+        isMd: isMd,
         data: Data,
     }
     /** EXPANDED **/
     const expandedProps = {
         title: Data.title,
-        state: readMore,
-        toggleCard: () => setReadMore(false),
+        expanded: expanded,
+        responsive: Data.responsive,
+        isMd: isMd,
+        toggleCard: () => setExpanded(false),
+        resetTabs: () => setTab([0, 0]),
     }
     /** TAB LIST **/
     const indicatorProps = {
@@ -67,10 +69,12 @@ const Card_Group = ({ tabs, isMd, ...data }) => {
 
                 {/** SM: FLEX-ROW  \\  MD: FLEX-COL **/}
                 {Data.responsive && (
-                    <div className="sm:flex-col-top hidden h-full overflow-y-scroll p-5 md:flex-row md:items-start">
-                        {[...Array(Data.tabNames.length).keys()].map(
-                            (i) => tabs[i]
-                        )}
+                    <div className="full overflow-y-scroll md:overflow-hidden">
+                        <div className="md:full hidden flex-row p-5 pt-10 pb-20 sm:block md:flex md:items-start md:pb-5">
+                            {[...Array(Data.tabNames.length).keys()].map(
+                                (i) => tabs[i]
+                            )}
+                        </div>
                     </div>
                 )}
             </Card_Expanded>

@@ -59,7 +59,7 @@ const Featured_Project = ({
                     className={
                         isMd
                             ? 'full relative -z-10 m-1'
-                            : 'absolute top-0 left-0 right-0 bottom-0 h-[30%]  bg-charcoal/50'
+                            : 'absolute top-0 left-0 right-0 bottom-0 h-[30%]  bg-grey-darker/50'
                     }
                     style={{ gridArea: '1/5/-1/-1' }}
                     initial={false}
@@ -93,7 +93,7 @@ const Featured_Project = ({
                         className={
                             isMd
                                 ? 'whitespace-nowrap'
-                                : 'flex-center w-full text-center font-bold text-lightTeal'
+                                : 'flex-center text-lightTeal w-full text-center font-bold'
                         }
                     >
                         {data.title}
@@ -112,7 +112,7 @@ const Featured_Project = ({
                         ${
                             isMd
                                 ? 'flex-col-evenly my-5 rounded-md bg-eee/75 p-2'
-                                : 'flex-col-btw absolute top-[40%] left-0 h-[35%] select-none p-3 text-center indent-6 text-md tracking-normal text-darkblack'
+                                : 'flex-col-btw text-darkblack absolute top-[40%] left-0 h-[35%] select-none p-3 text-center indent-6 text-md tracking-normal'
                         }`}
                     style={{ gridArea: '2/1/5/7' }}
                     initial={false}
@@ -128,7 +128,7 @@ const Featured_Project = ({
                     <p
                         className={
                             isMd
-                                ? 'indent-6 text-lg tracking-normal text-darkblack'
+                                ? 'text-darkblack indent-6 text-lg tracking-normal'
                                 : ''
                         }
                     >

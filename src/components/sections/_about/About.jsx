@@ -6,16 +6,20 @@ const About = ({ about, isMd }) => {
             0: (
                 <div
                     key="0"
-                    id="about-innerHTML"
-                    className="mt-6 text-white md:w-[70%] md:border-r-2 md:border-r-eee/50 md:pr-5 md:text-base lg:w-[59%] lg:text-base"
-                    dangerouslySetInnerHTML={{
-                        __html: about.content,
-                    }}
-                />
+                    className="relative mx-auto h-full w-[95%] md:w-[70%] md:overflow-y-scroll md:border-r-2 md:border-r-eee/50 md:pb-20 md:pr-5 lg:w-[59%]"
+                >
+                    <div
+                        id="about-innerHTML"
+                        className="w-full"
+                        dangerouslySetInnerHTML={{
+                            __html: about.content,
+                        }}
+                    />
+                </div>
             ),
             1: <Skills key="1" skills={about.data.skills} />,
         },
-        isMd,
+        isMd: isMd,
         ...about,
     }
 

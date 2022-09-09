@@ -2,12 +2,11 @@ import { useRef } from 'react'
 import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 
-import { toggleScrolling } from '@utils'
 import { cardVariants, Variants } from '@config'
 import { Styled_Button } from '@components'
 
 /** CARD WRAP **/
-const Card_Wrap = ({ children, toggleCard = null, ...props }) => {
+const Card_Wrap = ({ children, ...props }) => {
     const ref = useRef(null)
     const inView = useInView(ref, { once: true, amount: 0.5 })
 
@@ -15,15 +14,11 @@ const Card_Wrap = ({ children, toggleCard = null, ...props }) => {
         ref: ref,
         initial: 'hidden',
         animate: inView && 'enter',
-        onClick: () => {
-            toggleCard()
-            toggleScrolling(false)
-        },
         ...props,
     }
     return (
         <motion.div
-            className="h-[500px] w-full whitespace-pre-line rounded-lg bg-white md:h-[475px] lg:h-[450px] xl:h-[550px]"
+            className="h-[500px] w-full whitespace-pre-line rounded-lg bg-white dark:bg-black-light md:h-[475px] lg:h-[450px] xl:h-[550px]"
             {...wrapProps}
         >
             {children}
@@ -53,11 +48,10 @@ const Img_Card = ({ ...props }) => {
 /** BASE - CARD **/
 const Card_Base = ({ toggleCard, isMd, data }) => {
     const isLtr = data.layout == 'ltr'
-    const infoVariants = isMd ? cardVariants.infoCard : Variants.fade
+
     const [infoCardProps, imgCardProps] = [
         {
-            toggleCard: toggleCard,
-            variants: infoVariants,
+            variants: isMd ? cardVariants.infoCard : Variants.fade,
             custom: isLtr,
         },
         {
@@ -71,12 +65,10 @@ const Card_Base = ({ toggleCard, isMd, data }) => {
         <motion.div className="full grid-cols-2 md:grid">
             {!isLtr && <Img_Card {...imgCardProps} />}
             <Card_Wrap {...infoCardProps}>
-                <div className="flex-col-center full relative rounded-lg  bg-gradient-to-t md:from-eee md:to-eee/25">
-                    <h4 className="md:flex-bottom text-darkblack text-4xl font-bold uppercase tracking-wide md:text-3xl">
-                        {data.section}
-                    </h4>
+                <div className="flex-col-center full relative rounded-lg  bg-gradient-to-t md:from-grey-light md:to-grey-light/25 dark:md:from-grey-darker dark:md:to-grey-darker/25">
+                    <h3 className="md:flex-bottom">{data.section}</h3>
                     <p
-                        className="mt-4 text-center text-base font-medium text-black/75 md:text-lg"
+                        className="mb-4 mt-2 text-center text-md font-medium text-grey-darker dark:text-grey-light md:text-lg"
                         dangerouslySetInnerHTML={{ __html: data.brief }}
                     />
 
@@ -93,21 +85,15 @@ const Card_Base = ({ toggleCard, isMd, data }) => {
                             />
                         </div>
                     </div>
-                    {isMd ? (
-                        <motion.p
-                            className="styled-link mt-16 border-b-[1px] border-b-black/50 text-xl font-semibold text-black/50 hover:text-black"
-                            style={{ transition: 'color 0.15s  linear' }}
-                        >
-                            Read More
-                        </motion.p>
-                    ) : (
-                        <Styled_Button
-                            classNames="py-3 px-7"
-                            action={toggleCard}
-                        >
-                            Read More
-                        </Styled_Button>
-                    )}
+                    <Styled_Button
+                        btnStyle="py-3 px-7 md:hidden"
+                        textStyle="mt-16"
+                        action={toggleCard}
+                        scroll={false}
+                        toTextMd={true}
+                    >
+                        Read More
+                    </Styled_Button>
                 </div>
             </Card_Wrap>
             {isLtr && <Img_Card {...imgCardProps} />}

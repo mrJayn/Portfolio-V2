@@ -2,20 +2,22 @@ const Jobs = ({ ...exp_data }) => {
     /** [ title, position, date, description ] **/
     /** [   0,        1,          2,          3           ] **/
     return (
-        <div className="flex-col-top h-full w-full px-2 py-5 text-white md:p-10 md:pt-5">
+        <div className="flex-col-top h-full w-full py-4 text-white md:px-2">
             {exp_data.job_data.map((job, i) => (
                 <div
                     key={`job-${i}`}
-                    className="flex-col-top mb-4 h-auto w-full rounded-md bg-grey p-3 md:mb-8 md:flex-row"
+                    className="flex-col-top my-8 h-auto w-full rounded-md first-of-type:mt-0 md:flex-row md:items-start"
                 >
-                    <div className="flex-col-top full pt-3 font-thin md:w-[25%]">
-                        <p className="text-md font-semibold md:mb-4">
-                            {job[0]}
+                    <div className="flex-col-center h-full w-[95%] rounded-md bg-grey/25 py-2 text-center font-thin sm:py-4 md:w-[30%] md:items-start md:text-left">
+                        <h5 className="md:mb-4">{job[0]}</h5>
+                        <p className="italic text-black dark:text-white md:mb-4">
+                            {job[1]}
                         </p>
-                        <p className="italic md:mb-4">{job[1]}</p>
-                        <p className="mb-4 italic md:mb-4">{job[2]}</p>
+                        <p className="italic text-black dark:text-white md:mb-4">
+                            {job[2]}
+                        </p>
                     </div>
-                    <div className="flex-col-top full md:text-basemd:p-10 rounded-md bg-black/50 p-3 md:w-[75%] md:pt-5">
+                    <div className="flex-col-top full px-2 py-4 md:w-[75%] md:p-10 md:px-1 md:text-base">
                         {job[3].map((text, i) => (
                             <p key={`job-text-${i}`} className="pb-4 indent-4">
                                 {text}

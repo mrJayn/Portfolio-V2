@@ -6,11 +6,8 @@
 @layer base {
     html {
         @apply scroll-pt-16 scroll-smooth md:scroll-pt-[25%];
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none; /* IE and Edge */
-        & ::-webkit-scrollbar {
-            display: none; /* Chrome, Safari and Opera */
-        }
+        @apply bg-white dark:bg-black-light;
+
         & *::selection {
             @apply bg-teal-neon/25 text-black-dark;
         }
@@ -19,7 +16,7 @@
         @apply m-0 block h-screen w-screen min-w-[320px] p-0 leading-normal;
         @apply font-montserrat text-base font-normal tracking-tight;
         @apply overflow-x-hidden overflow-y-scroll;
-        @apply text-charcoal antialiased dark:text-eee/90;
+        @apply text-grey-darker antialiased dark:text-grey-light;
     }
     /* TAGS */
     h1 {
@@ -33,12 +30,18 @@
         @apply animate-[gradientKFs_20s_linear_infinite] motion-reduce:animate-[];
     }
     h3 {
-        @apply text-4xl font-semibold text-black dark:text-white;
+        @apply text-4xl font-bold uppercase tracking-wide text-black-dark dark:text-white;
+    }
+    h4 {
+        @apply text-[20px] font-semibold tracking-normal text-grey-light dark:text-teal-10 sm:text-[24px] md:text-[28px];
+    }
+    h5 {
+        @apply text-[18px] font-semibold tracking-normal text-black dark:text-white sm:text-[20px] md:text-[24px];
     }
     p,
     span,
     button {
-        @apply text-charcoal dark:text-lightgrey;
+        @apply text-grey-darker dark:text-grey-light;
     }
     h1,
     h2,
@@ -47,10 +50,15 @@
     button {
         @apply antialiased;
     }
+    p {
+        @apply text-[16px] tracking-tight sm:text-[18px] lg:text-[20px];
+        word-spacing: 1px;
+    }
 }
 /* ================== UTILITIES ================== */
 
 @layer utilities {
+    /* HEADINGS  */
     .styled-heading {
         @apply mx-auto mb-5 flex w-[90%] items-center whitespace-nowrap uppercase;
         @apply text-xl font-semibold;
@@ -61,27 +69,46 @@
             @apply mx-[10px] block h-1 w-full rounded-full bg-gradient-to-r from-black via-teal to-transparent content-[""];
         }
     }
-}
 
-/* STYLED LINKS  */
-@layer utilities {
+    /* LINKS  */
     .styled-link {
-        @apply relative cursor-pointer;
-        transition: transform 0.25s linear, color 0.25s linear;
+        --time: 0.3s;
+        @apply relative cursor-pointer px-1 text-xl font-semibold text-grey-dark dark:text-grey;
+        @apply hover:text-black-dark dark:hover:text-white;
+        transition: all 0.35s linear;
+
+        &:before,
         &:after {
             content: '';
-            transition: transform 0.25s linear;
-            @apply absolute  bottom-0 left-0 h-[1.5px] w-full origin-bottom-right scale-x-0 bg-black;
+            transition: opacity var(--time) ease-in,
+                transform var(--time) linear;
+            @apply absolute bottom-[-4px] left-0 right-[-1px] h-[4px] origin-bottom-right scale-x-0 rounded-full bg-gradient motion-reduce:scale-x-100;
         }
-        &:hover:after {
-            @apply origin-bottom-left scale-x-100;
+        &:before {
+            @apply opacity-0;
+        }
+        &:after {
+            @apply left-[1px] right-0 bottom-[-9px] -z-10 opacity-0 blur-[5px] brightness-150 saturate-150;
+            transition: opacity var(--time) ease-in,
+                transform var(--time) linear;
+        }
+        &:hover {
+            &:before,
+            &:after {
+                transition: opacity var(--time) ease-in,
+                    transform var(--time) linear;
+                @apply origin-bottom-left scale-x-100 opacity-100;
+            }
+            &:after {
+                transition: opacity var(--time) 0.15s ease-in,
+                    transform var(--time) linear;
+            }
         }
     }
-}
-/* STYLED LI  */
-@layer utilities {
+
+    /* STYLED LI  */
     .styled-li {
-        @apply text-lightgrey hover:text-white;
+        @apply text-grey-light hover:text-white;
         transition: 0.25s linear;
         counter-increment: item 1;
         &:before {
@@ -158,4 +185,9 @@
     .flex-col-evenly {
         @apply flex flex-col items-center justify-evenly;
     }
+}
+
+/* ================ VARIABLES ================ */
+:root {
+    --teal: theme(colors.teal.DEFAULT);
 }

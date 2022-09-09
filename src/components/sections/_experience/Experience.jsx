@@ -4,7 +4,7 @@ const Experience = ({ experience, isMd }) => {
         tabs: {
             0: (
                 <div
-                    id="about-innerHTML"
+                    id="experience-innerHTML"
                     className="py-5 px-2 text-white md:p-10 md:pt-5"
                     dangerouslySetInnerHTML={{
                         __html: experience.content,
@@ -14,7 +14,7 @@ const Experience = ({ experience, isMd }) => {
             1: <Jobs {...experience.data} />,
             2: <Certifications {...experience.data} />,
         },
-        isMd,
+        isMd: isMd,
         ...experience,
     }
     return (

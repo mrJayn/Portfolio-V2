@@ -2,25 +2,25 @@ import { useEffect } from 'react'
 import { motion, useAnimation } from 'framer-motion'
 import { Section, Styled_Button, Title } from '@components'
 
-const Intro = ({ states, darkMode }) => {
-    const [isFirst, setIsFirst] = [states.isFirst, states.setIsFirst]
+const Intro = ({ useFirst, darkMode }) => {
+    const [isFirst, setIsFirst] = useFirst
     const [titleControls, subTitleControls, btnControls] = [
         useAnimation(),
         useAnimation(),
         useAnimation(),
     ]
-
     // Animation Sequence
     useEffect(() => {
         const sequence = async () => {
-            titleControls.start('')
+            titleControls.mount
             titleControls.set('hidden')
             await titleControls.start('enter')
             await subTitleControls.start({ opacity: 1 })
-            btnControls.start({ opacity: 1 })
+            await btnControls.start({ opacity: 1 })
+            setIsFirst(false)
         }
         sequence()
-    }, [titleControls, subTitleControls, btnControls, darkMode])
+    }, [titleControls, subTitleControls, btnControls, darkMode, setIsFirst])
 
     return (
         <Section id="intro">
@@ -58,13 +58,12 @@ const Intro = ({ states, darkMode }) => {
                 {/** PROJECTS / CONTACT BTNS **/}
                 <div className="flex-col-btw mt-20 h-32 md:mt-32 md:h-auto md:w-9/12  md:flex-row md:justify-evenly landscape:mt-10 md:landscape:mt-32">
                     <Styled_Button
-                        classNames="md:text-md xl:text-lg py-3 px-7 md:py-4"
+                        href="#featured"
+                        btnStyle="md:text-md xl:text-lg py-3 px-7 md:py-4"
                         initial={{ opacity: isFirst ? 0 : 1 }}
                         animate={btnControls}
-                        href="#featured"
-                        onAnimationComplete={() => setIsFirst(false)}
                     >
-                        <a>VIEW MY PROJECTS</a>
+                        VIEW MY PROJECTS
                     </Styled_Button>
                 </div>
                 {/** */}

@@ -2,8 +2,8 @@
 export { default as Layout } from './Layout'
 export { default as Section } from './Section'
 export { default as Footer } from './Footer'
-export { default as Card_Group } from './Card_Group'
-export { Tabs, Tabs_List } from './Tabs'
+export { default as Card_Group } from './items/Card_Group'
+export { Tabs, Tabs_List } from './items/Tabs'
 export { default as Loader } from './Loader'
 
 // --NAV--

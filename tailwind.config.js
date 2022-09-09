@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 
-const colors = require('tailwindcss/colors')
 const { themeConfig } = require('./twTheme')
 
 module.exports = {
@@ -22,17 +21,22 @@ module.exports = {
             current: 'currentColor',
 
             white: '#fff',
+
             black: {
                 dark: '#000',
                 DEFAULT: '#0B0C10',
                 light: '#101010',
             },
 
-            grey: '#1f2833',
-            eee: '#eeeeee',
-            lightgrey: '#c5c6c7',
+            grey: {
+                darker: '#1b1b20',
 
-            charcoal: '#1b1c20',
+                dark: '#5f6063',
+                DEFAULT: '#858688',
+                light: '#d5d5d5',
+            },
+
+            eee: '#eee',
 
             teal: {
                 10: '#daecec',
@@ -60,6 +64,14 @@ module.exports = {
             robotoMono: ['Roboto Mono', 'monospace'],
         },
         fontSize: themeConfig.fontSize,
+        zIndex: {
+            0: '0',
+            10: '1',
+            20: '2',
+            30: '3',
+            40: '4',
+            50: '5',
+        },
         keyframes: {
             gradientKFs: {
                 '0%': {

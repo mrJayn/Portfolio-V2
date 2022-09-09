@@ -11,10 +11,10 @@ const ReadMore = ({ project, isOpen, setReadMore, isMd, even }) => {
                 <motion.div
                     className={
                         isMd
-                            ? `absolute top-14 w-[60%] rounded-md bg-charcoal/95  p-5 md:h-[475px] lg:h-[525px] lg:rounded-lg ${
+                            ? `absolute top-14 w-[60%] rounded-md bg-grey-darker/95  p-5 md:h-[475px] lg:h-[525px] lg:rounded-lg ${
                                   even ? 'right-0' : 'left-0'
                               }`
-                            : 'fixed top-0 bottom-0 left-0 right-0 z-50  bg-charcoal  p-5'
+                            : 'fixed top-0 bottom-0 left-0 right-0 z-50  bg-grey-darker  p-5'
                     }
                     initial="hidden"
                     animate="enter"

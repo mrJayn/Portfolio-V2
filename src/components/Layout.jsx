@@ -5,7 +5,7 @@ import { layoutVariants } from '@config'
 
 const Layout = ({ title, description, isHome, children }) => {
     return (
-        <div>
+        <>
             <NextSeo
                 title={title}
                 description={description}
@@ -13,7 +13,8 @@ const Layout = ({ title, description, isHome, children }) => {
             />
             <motion.main
                 id="layout"
-                className="relative w-screen overflow-hidden"
+                className="absolute top-0 left-0 w-screen overflow-hidden"
+                style={{ backgroundOpacity: 0.1 }}
                 initial="hidden"
                 animate="enter"
                 exit="exit"
@@ -23,7 +24,7 @@ const Layout = ({ title, description, isHome, children }) => {
             >
                 {children}
             </motion.main>
-        </div>
+        </>
     )
 }
 

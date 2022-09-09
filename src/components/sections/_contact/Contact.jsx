@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 
 import { Section, Styled_Button } from '@components'
-import { btnInView, config } from '@config'
+import { config } from '@config'
 import Link from 'next/link'
 
 const text = [
@@ -11,8 +11,7 @@ const text = [
     "I'd love to hear from you!",
 ]
 
-const Contact = ({ ...data }) => {
-    const setFormState = data.states.setForm
+const Contact = () => {
     const inViewProps = {
         initial: { opacity: 0, y: 10 },
         whileInView: { opacity: 1, y: 0, transition: { delay: 0.5 } },
@@ -30,7 +29,7 @@ const Contact = ({ ...data }) => {
                     <h2>Whats Next?</h2>
                     <h3>Get in Touch</h3>
 
-                    <h5 className="my-4 text-charcoal">
+                    <h5 className="my-4 text-grey-darker">
                         I&apos;d love to hear from you!
                     </h5>
                     <div className="text-md">

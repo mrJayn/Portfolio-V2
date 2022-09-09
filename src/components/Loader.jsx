@@ -150,7 +150,7 @@ const Loader = ({ setIsLoading }) => {
     return (
         <div
             id="loader-wrap"
-            className="flex-center relative z-[99] h-screen w-screen overflow-hidden bg-charcoal"
+            className="flex-center relative z-[99] h-screen w-screen overflow-hidden bg-grey-darker"
             style={{ opacity: `${isMounted ? 100 : 0}` }}
         >
             <div
@@ -164,7 +164,7 @@ const Loader = ({ setIsLoading }) => {
                 >
                     {els.map((el) => (
                         <div
-                            className="square relative m-[0.5px] rounded bg-neon opacity-0 odd:bg-teal"
+                            className="square bg-neon relative m-[0.5px] rounded opacity-0 odd:bg-teal"
                             style={{ height: elSize, width: elSize }}
                             key={el}
                         />

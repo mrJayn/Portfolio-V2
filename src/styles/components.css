@@ -1,54 +1,16 @@
 @import './global.css';
 @tailwind components;
 
-/** ================= LAYOUT ================ **/
-@layer components {
-}
-
 /** ================== NAV ================== **/
 @layer components {
-    /* NAV */
-    /* BURGER */
-    #surger {
-        &:hover {
-            & * {
-                @apply stroke-teal-neon;
-            }
+    #logo {
+        & .bgEffects {
+            @apply flex-center  absolute top-0 left-0 right-0 bottom-[-0.05em] bg-gradient bg-clip-text text-[1.1em] font-semibold tracking-tighter text-transparent opacity-50;
+            @apply brightness-125 contrast-200 filter;
+            @apply motion-reduce:animate-none md:animate-glowing;
         }
-        & * {
-            @apply stroke-teal transition-colors duration-250 ease-in;
-        }
-    }
-
-    #surger[data-returnlabel='true'] {
-        &:before {
-            content: '';
-            @apply absolute -top-2 left-3 -z-10 hidden aspect-square h-10 rounded-full bg-charcoal/50 duration-250 ease-in;
-            @apply md:block;
-        }
-        &:hover:before {
-            @apply bg-grey/50;
-        }
-        &:after {
-            content: 'BACK';
-            @apply pointer-events-none absolute left-0 top-4 -z-10 rounded font-robotoMono text-xs uppercase text-white opacity-0 duration-150 ease-in;
-            @apply md:hidden;
-        }
-        &:hover:after {
-            @apply pointer-events-none left-[85%] opacity-100 delay-700 duration-300 ease-out;
-        }
-    }
-
-    /* MENU CONTENT */
-
-    #nav[data-orientation='landscape-primary'] {
-        & #menu-content {
-            & > div {
-                @apply full;
-                & > a {
-                    @apply m-auto;
-                }
-            }
+        &:hover .bgEffects {
+            @apply md:scale-y-125 md:scale-x-105;
         }
     }
 }
@@ -60,7 +22,18 @@
     /* ABOUT */
     #about-innerHTML {
         & > p {
-            @apply flex-center indent-2 md:indent-2 md:leading-7;
+            @apply flex-center indent-2 md:leading-7;
+            &:first-of-type {
+                @apply mb-4 text-center indent-4 text-[20px] leading-8 sm:text-[24px] sm:leading-9;
+            }
+            &:not(:last-of-type) {
+                @apply pb-2 md:pb-6;
+            }
+        }
+    }
+    #experience-innerHTML {
+        & > p {
+            @apply flex-center indent-2 md:leading-7;
             &:not(:last-of-type) {
                 @apply pb-2 md:pb-6;
             }
@@ -115,39 +88,13 @@
             }
         }
     }
-    /* PROJECTS */
-
-    /* CONTACT */
 }
-
-/** ============== SECTION-ITEMS ============== **/
-@layer components {
-    /* CARDS */
-    .exitButtonAfter {
-        &:after {
-            content: '';
-            @apply absolute top-0 left-0 right-0 bottom-0 rounded-md;
-        }
-        &:hover {
-            @apply scale-110 text-red after:border-[1px] after:border-red;
-        }
-        &:active {
-            &:after {
-                @apply scale-95;
-            }
-        }
-    }
-    /* SKILLS */
-    /* TABS */
-    /* TITLE */
-}
-
 /** =========== FOOTER / FORM / ETC... =========== **/
 @layer components {
     #form {
-        @apply flex-top flex-wrap text-charcoal;
+        @apply flex-top flex-wrap;
         & > div {
-            @apply sm:flex-col-center full mx-auto mb-5 grid grid-cols-3 border-b-2 border-dashed border-lightgrey/40 py-1;
+            @apply flex-col-center full mx-auto mb-5 grid grid-cols-3 border-b-2 border-dashed border-grey-light/40 py-1;
             counter-increment: form-item 1;
             transition: 0.15s ease-in;
 
@@ -166,7 +113,7 @@
 
             & textarea {
                 @apply col-span-3 col-start-1;
-                @apply z-10 mt-2 mb-4 flex w-full resize-none border-2 border-lightgrey/75 bg-transparent p-1 pt-2 outline-none;
+                @apply z-10 mt-2 mb-4 flex w-full resize-none border-2 border-grey-light/75 bg-transparent p-1 pt-2 outline-none;
                 &:focus {
                     transition: 0.25s ease-in;
                     @apply border-teal-neon;

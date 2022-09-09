@@ -61,22 +61,6 @@ export const Variants = {
             transition: { staggerChildren: 0.05, staggerDirection: -1 },
         },
     },
-    sliders: {
-        enter: (direction) => ({
-            x: direction > 0 ? '100%' : '-100%',
-            opacity: 0,
-        }),
-        display: {
-            x: 0,
-            opacity: 1,
-            transition: { delay: 0.25, duration: 0.5, ease: 'easeOut' },
-        },
-        exit: (direction) => ({
-            x: direction < 0 ? '100%' : '-100%',
-            opacity: 0,
-            transition: { duration: 0.35, ease: 'easeIn' },
-        }),
-    },
     featured_items: {
         more: {
             hidden: (even) => ({ opacity: 0, x: even ? 100 : -100 }),
@@ -119,17 +103,22 @@ export const Variants = {
 export const menuVariants = {
     backgroundClip: {
         hidden: {
-            clipPath: `polygon(0% 0%, 0% 0%, 100% 0%, 100% 0%)`,
+            clipPath: `polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)`,
             transition: {
-                type: 'spring',
-                delay: 0.2,
-                stiffness: 250,
-                damping: 35,
-                velocity: -50,
+                clipPath: {
+                    type: 'spring',
+                    delay: 0.2,
+                    stiffness: 250,
+                    damping: 35,
+                    velocity: -50,
+                },
+                opacity: {
+                    duration: 0.7,
+                },
             },
         },
         enter: {
-            clipPath: `polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%)`,
+            clipPath: `polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)`,
             transition: {
                 type: 'spring',
                 stiffness: 250,
@@ -198,77 +187,44 @@ export const menuVariants = {
     },
 }
 export const burgerVariants = {
-    top: {
+    buns: {
         closed: {
-            rotate: 0,
+            rotate: 0.01,
             translateY: 0,
         },
-        opened: (i) => ({
-            rotate: 45,
+        opened: (i = 1) => ({
+            rotate: i * 45,
+            translateY: i,
+        }),
+        return: (i = 1) => ({
+            rotate: i * -30,
             translateY: i / 2,
         }),
-        return: (i) => ({
-            rotate: -30,
-            translateY: i / 4,
-        }),
     },
-    center1: {
+    meat: {
         closed: {
             pathLength: -1,
             opacity: 1,
-            rotate: 0,
-            translateY: 0,
-            translateX: 0,
+            rotate: 0.01,
+            scale: 1,
+            y: 0,
+            x: 0,
         },
-        opened: {
+        opened: (i = -1) => ({
             pathLength: 0,
             opacity: 0,
-            translateY: 0,
-            translateX: -2,
-        },
-        return: (i) => ({
-            pathLength: -1,
-            opacity: 1,
-            rotateZ: -30,
-            translateY: -i / 4,
-            translateX: 0.5 + i / 2,
+            scale: 1,
+            y: 0,
+            x: i,
+        }),
+        return: (i = -1) => ({
             originX: 1,
-        }),
-    },
-    center2: {
-        closed: {
             pathLength: -1,
             opacity: 1,
-            translateY: 0,
-            translateX: 0,
-        },
-        opened: {
-            pathLength: 0,
-            opacity: 0,
-            translateY: 0,
-            translateX: 2,
-        },
-        return: (i) => ({
-            pathLength: -1,
-            opacity: 1,
-            rotateZ: 30,
-            translateY: i / 4,
-            translateX: 0.5,
-            originX: 1,
-        }),
-    },
-    bottom: {
-        closed: {
-            rotate: 0,
-            translateY: 0,
-        },
-        opened: (i) => ({
-            rotate: -45,
-            translateY: -i / 2,
-        }),
-        return: (i) => ({
-            rotate: 30,
-            translateY: -i / 4,
+            rotate: i * 30,
+            scale: 1.75,
+            y: i * 0.9,
+            x: -i / 2 + 1.1,
         }),
     },
 }
@@ -366,4 +322,46 @@ export const cardVariants = {
             },
         },
     },
+    expPropsSm: {
+        initial: { opacity: 0, y: -100 },
+        animate: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.75, ease: 'easeOut' },
+        },
+        exit: {
+            opacity: 0,
+            y: -50,
+            transition: { duration: 0.5, ease: 'easeIn' },
+        },
+    },
+    expPropsMd: {
+        initial: { opacity: 0, x: -200 },
+        animate: {
+            opacity: 1,
+            x: 0,
+            transition: { duration: 0.75, ease: 'backOut' },
+        },
+        exit: {
+            opacity: 0,
+            x: 100,
+            transition: { duration: 0.5, ease: 'backIn' },
+        },
+    },
+}
+export const tabVariants = {
+    enter: (direction) => ({
+        x: direction > 0 ? '100%' : '-100%',
+        opacity: 0,
+    }),
+    display: {
+        x: 0,
+        opacity: 1,
+        transition: { delay: 0.25, duration: 0.5, ease: 'easeOut' },
+    },
+    exit: (direction) => ({
+        x: direction < 0 ? '100%' : '-100%',
+        opacity: 0,
+        transition: { duration: 0.35, ease: 'easeIn' },
+    }),
 }

@@ -6,27 +6,19 @@ const Menu = ({ isOpen, toggleMenu }) => {
     return (
         <motion.div
             id="menu"
-            className={`fixed left-0 top-0 h-screen w-screen duration-600 ${
-                isOpen ? 'bg-white dark:bg-charcoal' : 'bg-transparent'
-            }`}
-            style={{
-                visibility: isOpen ? 'visible' : 'hidden',
-                transitionDelay: isOpen ? '0s' : '0.3s',
-            }}
+            className="fixed left-0 top-12 bottom-0 w-screen bg-grey-light dark:bg-grey-darker"
             initial={false}
             animate={isOpen ? 'enter' : 'hidden'}
+            variants={menuVariants.backgroundClip}
         >
-            <motion.div
-                className="flex-center absolute top-0 left-0 h-screen w-screen px-3 pb-10 pt-[12.5vh]"
-                variants={menuVariants.backgroundClip}
-            >
-                <div className="flex-col-btw h-full w-full opacity-100 landscape:pt-8">
+            <div className="absolute top-0 left-0 bottom-0 right-0 overflow-hidden px-3 py-10 landscape:pt-0">
+                <div className="flex-col-btw full grid-cols-8 grid-rows-4 landscape:grid">
                     <NavLinks toggleMenu={toggleMenu} forMenu={true} />
 
                     <motion.div
-                        className="flex-evenly landscape:full my-4 w-full select-none overflow-scroll text-center"
+                        className="flex-evenly landscape:full col-start-6 col-end-[8] row-start-3 row-end-[-1] my-4 w-full select-none grid-cols-2 text-center
+                        landscape:grid landscape:w-[75%]"
                         variants={menuVariants.socials}
-                        custom={true}
                     >
                         <Socials
                             size={35}
@@ -41,12 +33,13 @@ const Menu = ({ isOpen, toggleMenu }) => {
                         />
                     </motion.div>
                 </div>
-                <motion.div
+                <div
                     id="bgEffect"
-                    className="absolute top-0 right-0 left-0 bottom-0 -z-10 origin-top bg-gradient opacity-25"
-                    variants={menuVariants.backgroundClip}
-                />
-            </motion.div>
+                    className="absolute top-0 right-0 left-0 -z-10 h-full origin-top bg-gradient opacity-75 duration-600 dark:opacity-30"
+                >
+                    <span className="absolute top-0 left-0 right-0 bottom-0 z-10 bg-gradient-to-t from-white via-white/50 to-transparent dark:hidden" />
+                </div>
+            </div>
         </motion.div>
     )
 }

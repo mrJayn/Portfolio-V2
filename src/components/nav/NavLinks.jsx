@@ -12,7 +12,16 @@ const sections = [
     ['my Resume', '/assets/misc/resume2022.jpg'],
 ]
 
-const NavLinks = ({ toggleMenu, forMenu = false }) => {
+const NavLinks = ({ toggleMenu = null, forMenu = false }) => {
+    const handleNavLink = (e, target) => {
+        e.preventDefault()
+        document
+            .querySelector(e.target.getAttribute('href').substring(1))
+            .scrollIntoView({
+                behavior: 'smooth',
+                block: target,
+            })
+    }
     const ul_props = {
         variants: forMenu ? menuVariants.menuLinks : menuVariants.navLinks,
         custom: true,
@@ -28,7 +37,7 @@ const NavLinks = ({ toggleMenu, forMenu = false }) => {
         <motion.ul
             className={
                 forMenu
-                    ? 'flex-col-center landscape:full h-[70%] grid-flow-col grid-cols-3 grid-rows-2 landscape:grid'
+                    ? 'flex-col-center landscape:full col-start-1 col-end-[-1] row-start-1 row-end-[-1] h-[70%] grid-flow-col grid-cols-2 grid-rows-4 landscape:grid'
                     : 'md:flex-right md:full hidden select-none'
             }
             {...ul_props}
@@ -38,9 +47,9 @@ const NavLinks = ({ toggleMenu, forMenu = false }) => {
                 return (
                     <motion.li
                         key={i}
-                        className={`cursor-pointer font-medium tracking-tight text-black dark:text-lightgrey md:text-lightgrey md:hover:text-white ${
+                        className={`cursor-pointer font-medium tracking-tight text-black dark:text-grey-light md:text-grey-light md:hover:text-white ${
                             forMenu
-                                ? 'landscape:flex-center my-auto text-2xl capitalize landscape:my-8 landscape:text-xl'
+                                ? 'landscape:flex-center my-auto text-2xl capitalize landscape:text-xl'
                                 : 'flex-center mx-4 pt-2 pb-1 text-[16px] lg:text-[18px]'
                         }`}
                         style={{ transition: 'color 0.25s linear' }}
@@ -56,7 +65,9 @@ const NavLinks = ({ toggleMenu, forMenu = false }) => {
                             </a>
                         ) : (
                             <Link href={`/#${name}`} passHref>
-                                <a>{name}</a>
+                                <a onClick={(e) => handleNavLink(e, target)}>
+                                    {name}
+                                </a>
                             </Link>
                         )}
                     </motion.li>

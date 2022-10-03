@@ -1,78 +1,66 @@
-import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { menuVariants } from '@config'
+import { menuVariants, navVariants } from '@motion'
 
-// [ id , block scroll target ]
 const sections = [
     ['about', 'center'],
     ['experience', 'center'],
     ['featured', 'start'],
     ['projects', 'start'],
-    ['contact', 'end'],
-    ['my Resume', '/assets/misc/resume2022.jpg'],
+    ['contact', 'start'],
+    ['RESUME', '_'],
 ]
+const NavLinks = ({ toggleMenu = null, isMd = false }) => {
+    const handleNavLink = (goTo, target) => {
+        document.querySelector(goTo).scrollIntoView({
+            behavior: 'smooth',
+            block: target,
+        })
+    }
+    const text_style = `full text-grey-light/90 hover:text-white duration-250 ease-in md:pt-2 md:pb-1 ${
+        isMd
+            ? 'font-medium tracking-tight text-[16px] lg:text-[18px]'
+            : 'font-semibold tracking-wide text-2xl capitalize landscape:text-xl sm:text-3xl'
+    }`
 
-const NavLinks = ({ toggleMenu = null, forMenu = false }) => {
-    const handleNavLink = (e, target) => {
-        e.preventDefault()
-        document
-            .querySelector(e.target.getAttribute('href').substring(1))
-            .scrollIntoView({
-                behavior: 'smooth',
-                block: target,
-            })
-    }
-    const ul_props = {
-        variants: forMenu ? menuVariants.menuLinks : menuVariants.navLinks,
-        custom: true,
-    }
-
-    const li_props = {
-        variants: menuVariants.children,
-        custom: forMenu ? 10 : 50,
-        whileTap: { scale: forMenu ? 0.95 : 1 },
-        onClick: toggleMenu,
-    }
     return (
         <motion.ul
-            className={
-                forMenu
-                    ? 'flex-col-center landscape:full col-start-1 col-end-[-1] row-start-1 row-end-[-1] h-[70%] grid-flow-col grid-cols-2 grid-rows-4 landscape:grid'
-                    : 'md:flex-right md:full hidden select-none'
-            }
-            {...ul_props}
+            className="md:full flex-col-center landscape:full col-start-1 col-end-[-1] row-start-1 row-end-[-1] h-[70%] grid-flow-col grid-cols-2 grid-rows-4 md:flex-row md:justify-end landscape:grid"
+            initial="hidden"
+            animate="enter"
+            exit="exit"
+            variants={isMd ? navVariants.LinksWrap : menuVariants.LinksWrap}
         >
-            {sections.map(([name, target], i) => {
-                const isResumeLink = i == sections.length - 1
-                return (
-                    <motion.li
-                        key={i}
-                        className={`cursor-pointer font-medium tracking-tight text-black dark:text-grey-light md:text-grey-light md:hover:text-white ${
-                            forMenu
-                                ? 'landscape:flex-center my-auto text-2xl capitalize landscape:text-xl'
-                                : 'flex-center mx-4 pt-2 pb-1 text-[16px] lg:text-[18px]'
-                        }`}
-                        style={{ transition: 'color 0.25s linear' }}
-                        {...li_props}
-                    >
-                        {isResumeLink ? (
-                            <a
-                                href={target}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                {name}
-                            </a>
-                        ) : (
-                            <Link href={`/#${name}`} passHref>
-                                <a onClick={(e) => handleNavLink(e, target)}>
-                                    {name}
-                                </a>
-                            </Link>
-                        )}
-                    </motion.li>
-                )
-            })}
+            {sections.map(([name, scrollTarget], i) => (
+                <motion.li
+                    key={i}
+                    className="landscape:flex-center my-auto cursor-pointer md:mx-4"
+                    variants={isMd ? navVariants.Links : menuVariants.children}
+                    custom={isMd ? 10 : i * 5}
+                    whileTap={{ scale: isMd ? 0.95 : 1 }}
+                    onClick={() => {
+                        if (toggleMenu !== null) toggleMenu()
+                    }}
+                >
+                    {name !== 'RESUME' ? (
+                        <span
+                            className={text_style}
+                            onClick={() =>
+                                handleNavLink(`#${name}`, scrollTarget)
+                            }
+                        >
+                            {name}
+                        </span>
+                    ) : (
+                        <a
+                            href="/assets/misc/resume2022.jpg"
+                            target="_blank"
+                            className={text_style}
+                        >
+                            my Resume
+                        </a>
+                    )}
+                </motion.li>
+            ))}
         </motion.ul>
     )
 }

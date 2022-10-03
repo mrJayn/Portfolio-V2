@@ -1,92 +1,69 @@
-import { tabVariants } from '@config'
-import { LayoutGroup, motion } from 'framer-motion'
+import { useMediaQuery } from '@hooks'
+import { tabsMotion } from '@motion'
+import {
+    motion,
+    useDragControls,
+    useMotionValue,
+    useReducedMotion,
+    useTransform,
+} from 'framer-motion'
 
-const Tabs_List = ({
-    currentTab,
-    setTab,
-    tabNames = null,
-    tabCount = null,
-    scrollRef = null,
-}) => {
-    function handleTab(clickedTab) {
-        let newDirection = clickedTab - currentTab
-        setTab([clickedTab, newDirection])
-        setTimeout(() => {
-            if (!scrollRef) return
-            scrollRef.current.scrollTo(0, 0)
-        }, 250)
+function Cases(section) {
+    switch (section) {
+        case 'About':
+            return [true, false]
+        case 'Experience':
+            return [true, false]
+        case 'Featured':
+            return [true, true]
+        default:
+            return [false, false]
     }
-    return tabNames ? (
-        <LayoutGroup>
-            <div className="flex-evenly w-full rounded-b-lg bg-black-light shadow-[0px_5px_15px_-7.5px] shadow-black dark:shadow-teal-neon">
-                {[...Array(tabNames.length).keys()].map((idx) => (
-                    <motion.div
-                        key={idx}
-                        className="flex-center group relative h-12 w-full cursor-pointer whitespace-nowrap p-2 text-center sm:my-1 md:mx-5"
-                        onClick={() => handleTab(idx)}
-                        transition={{ duration: 0.1 }}
-                    >
-                        <span
-                            className="full flex-center z-10 rounded-md font-medium capitalize tracking-wide group-hover:bg-[#eeeeee25]"
-                            style={{
-                                color: idx === currentTab ? '#fff' : '#d5d5d5',
-                                transition:
-                                    'backgroundColor 0.1s, color 0.25s 0.15s ease-in',
-                            }}
-                        >
-                            {tabNames[idx]}
-                        </span>
-                        {idx === currentTab ? (
-                            <motion.div
-                                className="absolute bottom-2 top-2 left-2 right-2 rounded-md bg-teal-neon/40"
-                                layoutId="underline"
-                                transition={{ type: 'tween' }}
-                            />
-                        ) : null}
-                    </motion.div>
-                ))}
-            </div>
-        </LayoutGroup>
-    ) : (
-        <LayoutGroup>
-            <div className="flex-evenly w-full max-w-screen-md">
-                {[...Array(tabCount).keys()].map((idx) => (
-                    <div
-                        key={idx}
-                        className="mt-5 cursor-pointer p-3"
-                        onClick={() => handleTab(idx)}
-                    >
-                        <div className="relative aspect-square h-4 rounded bg-grey-dark dark:bg-grey-darker">
-                            {idx === currentTab && (
-                                <motion.div
-                                    className="absolute -top-1 -left-1 -z-10 aspect-square h-6 rounded-md bg-teal-neon/75"
-                                    layoutId="highlight"
-                                    transition={{ type: 'tween' }}
-                                />
-                            )}
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </LayoutGroup>
-    )
 }
+
 const Tabs = ({
     children,
-    drag = null,
+    section,
     currentTab = null,
     setTab = null,
-    tabCount = null,
-    variants = tabVariants,
+    span = null,
     ...tabProps
 }) => {
+    const pRM = useReducedMotion()
+    const [dragEnabled, dragShadow] = Cases(section)
+    const variants = tabsMotion.Tabs
+    // Shadow Opacity dependent on drag position
+    const controls = useDragControls()
+    const x = useMotionValue(0)
+    const d = useTransform(x, [-150, 0, 150], [0, 1, 0])
+
+    const dragControlProps =
+        dragShadow & !pRM
+            ? {
+                  onMouseDown: (e) => controls.start(e),
+                  dragControls: controls,
+                  style: { x },
+              }
+            : null
+
+    // drag enabled or disabled for slide-able tabs
+    const dragProps =
+        dragEnabled & !pRM
+            ? {
+                  drag: 'x',
+                  dragConstraints: { left: 0, right: 0, top: 0, bottom: 0 },
+                  dragElastic: 0.75,
+                  onDragEnd: detectGesture,
+              }
+            : null
+
     tabProps = {
-        variants: variants,
+        variants: pRM ? tabsMotion.Reduced : variants,
         initial: 'enter',
-        animate: 'display',
+        animate: 'show',
         exit: 'exit',
-        drag: drag,
-        onDragEnd: drag !== null && detectGesture,
+        ...dragControlProps,
+        ...dragProps,
         ...tabProps,
     }
 
@@ -102,32 +79,34 @@ const Tabs = ({
 
     const paginate = (newDirection) => {
         if (
-            currentTab + newDirection < tabCount &&
+            currentTab + newDirection < span &&
             currentTab + newDirection >= 0
         ) {
             // moving , normal
             setTab([currentTab + newDirection, newDirection])
-        } else if (currentTab + newDirection === tabCount) {
+        } else if (currentTab + newDirection === span && span > 2) {
             // last slide >> first slide
             setTab([0, newDirection])
-        } else if (currentTab + newDirection === -1) {
+        } else if (currentTab + newDirection === -1 && span > 2) {
             // first slide >> last slide
-            setTab([tabCount - 1, newDirection])
+            setTab([span - 1, newDirection])
         }
     }
 
     return (
         <motion.div
-            className={
-                drag == null
-                    ? 'md:flex-top full'
-                    : 'absolute left-[5%] right-[5%] h-[400px]'
-            }
+            className={`md:flex-top full relative z-0 rounded-lg opacity-100`}
             {...tabProps}
         >
             {children}
+            {dragShadow ? (
+                <motion.div
+                    className="absolute top-0 bottom-0 right-0 left-0 -z-10 rounded-xl shadow"
+                    style={{ opacity: d, zIndex: -20 }}
+                />
+            ) : null}
         </motion.div>
     )
 }
 
-export { Tabs_List, Tabs }
+export default Tabs

@@ -1,11 +1,11 @@
 import { Section, Jobs, Certifications, Card_Group } from '@components'
-const Experience = ({ experience, isMd }) => {
+const Experience = ({ experience, globalControls }) => {
     const cardGroupProps = {
         tabs: {
             0: (
                 <div
                     id="experience-innerHTML"
-                    className="py-5 px-2 text-white md:p-10 md:pt-5"
+                    className="px-2 text-white md:p-10 md:pt-5"
                     dangerouslySetInnerHTML={{
                         __html: experience.content,
                     }}
@@ -14,7 +14,7 @@ const Experience = ({ experience, isMd }) => {
             1: <Jobs {...experience.data} />,
             2: <Certifications {...experience.data} />,
         },
-        isMd: isMd,
+        globalControls: globalControls,
         ...experience,
     }
     return (

@@ -1,67 +1,73 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { motion } from 'framer-motion'
-
+import { AnimatePresence, motion } from 'framer-motion'
 import { Burger, Logo, Menu, NavLinks } from '@components'
 import { toggleScrolling } from '@utils'
-import { Variants } from '@config'
 
-const Navbar = ({ isHome, isMd, orientation }) => {
-    const [menuState, setMenuState] = useState(false)
+const Navbar = ({ isHome, isMd, globalControls }) => {
     const router = useRouter()
+    const [globOpen, setGlobOpen] = globalControls
+    const globalOpen = globOpen !== null
+    const [menuOpen, setMenuOpen] = useState(false)
 
-    // toggle Menu OR return Home
-    const handleBurger = (e) => {
-        if (isHome) {
-            toggleMenu()
-        } else {
-            e.preventDefault()
-            router.push('/')
-        }
-    }
     // open/close Menu
     const toggleMenu = () => {
-        setMenuState(!menuState)
-        toggleScrolling(menuState)
+        setMenuOpen(!menuOpen)
+        toggleScrolling(menuOpen)
     }
-    // Close Menu if VP isMd
-    useEffect(() => {
-        if (isMd) {
-            setMenuState(false)
-            toggleScrolling(true)
+
+    // Burger conditional function
+    const handleBurger = (e) => {
+        if (isHome) {
+            if (globOpen !== null) {
+                setGlobOpen(null)
+            } else {
+                toggleMenu()
+            }
+        } else {
+            e.preventDefault()
+            router.back()
         }
-    }, [isMd, menuState])
+    }
+
+    // Close Menu if [ @media >=768px ]
+    useEffect(() => {
+        if (isMd & menuOpen) setMenuOpen(false)
+    }, [isMd, menuOpen])
 
     return (
-        <div
-            id="nav"
-            className="fixed left-0 right-0 z-40"
-            data-orientation={orientation}
-        >
+        <div id="nav" className="fixed left-0 z-40 w-screen">
             <motion.nav
-                className="flex-center md:flex-btw dark:bg-lightblack max-px-16 h-12 w-full transform-none bg-grey-darker md:h-16 md:px-4 lg:px-8 xl:px-12"
-                initial="hidden"
-                animate="enter"
-                variants={Variants.fade}
+                className="flex-center md:flex-btw dark:bg-lightblack h-12 w-full transform-none bg-grey-darker md:h-16 md:px-4 lg:px-8 xl:px-12 max:px-16"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
             >
                 {!isMd && (
                     <Burger
-                        isHome={isHome}
-                        menuState={menuState}
+                        display={
+                            !isHome
+                                ? 'return'
+                                : menuOpen || globalOpen
+                                ? 'opened'
+                                : 'closed'
+                        }
                         handleBurger={handleBurger}
                     />
                 )}
 
                 <Logo
-                    menuState={menuState}
-                    toggleMenu={toggleMenu}
+                    closeMenu={menuOpen ? toggleMenu : null}
+                    globOpen={globalOpen}
+                    isHome={isHome}
                     router={router}
                 />
 
-                <NavLinks isHome={isHome} router={router} />
+                <AnimatePresence mode="wait">
+                    {isMd & isHome ? <NavLinks isMd={isMd} /> : null}
+                </AnimatePresence>
             </motion.nav>
 
-            <Menu isOpen={menuState} toggleMenu={toggleMenu} />
+            {!isMd ? <Menu isOpen={menuOpen} toggleMenu={toggleMenu} /> : null}
         </div>
     )
 }

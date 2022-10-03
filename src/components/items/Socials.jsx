@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
-import DefGradient from '../icons/gradient'
-import Icon from '../icons/Icon'
+import { Styled_Icons } from '@components'
 
 const socials = [
     ['GitHub', 'https://github.com/mrJayn'],
@@ -9,32 +8,23 @@ const socials = [
     ['Email', 'mailto:m63jayne@gmail.com'],
 ]
 
-const Socials = ({ size = 30, defId, ...motionProps }) => {
-    return (
-        <>
-            {socials.map(([title, href], i) => {
-                return (
-                    <motion.a
-                        key={`social-${i}`}
-                        href={href}
-                        title={href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="landscape:m-auto"
-                        style={{
-                            height: size + 12,
-                            width: size + 12,
-                        }}
-                        {...motionProps}
-                    >
-                        <Icon name={title} size={size} defId={defId} />
-                    </motion.a>
-                )
-            })}
-            <svg className="pointer-events-none invisible absolute select-none">
-                <DefGradient defId={defId} />
-            </svg>
-        </>
-    )
+const Socials = ({ size = 30, invert = false, ...motionProps }) => {
+    return socials.map(([title, href], i) => {
+        return (
+            <Styled_Icons
+                key={`social-${i}`}
+                name={title}
+                href={href}
+                size={size}
+                invert={invert}
+                className="landscape:m-auto"
+                style={{
+                    height: size + 12,
+                    width: size + 12,
+                }}
+                {...motionProps}
+            />
+        )
+    })
 }
 export default Socials

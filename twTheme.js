@@ -1,37 +1,37 @@
 /*
 screen Rems to px Conversion [[  rem * 16 = px  ]]
 currentMin: 20
-currentMax: 96
+currentMax: 1240px 
 */
 
-const fontSizeMin = 0.9
-const fontSizeMax = 1.25
-const msFactorMin = 1.125
-const msFactorMax = 1.2
-const screenMin = 20 // REM
-const screenMax = 96 // REM
+const fontSizeMin = 1 // 1rem = 16px
+const fontSizeMax = 1.12 //
+
+const factorMin = 1.185 //
+const factorMax = 1.225 //
+
+const screenMin = 20 // 320px
+const screenMax = 77.5 // 1240px
 
 const clamp = (scale = 0) => {
-    const fsMin = fontSizeMin * Math.pow(msFactorMin, scale)
-    const fsMax = fontSizeMax * Math.pow(msFactorMax, scale)
+    const fsMin = fontSizeMin * Math.pow(factorMin, scale)
+    const fsMax = fontSizeMax * Math.pow(factorMax, scale)
+
     return `clamp(${fsMin}rem, calc(${fsMin}rem + (${fsMax} - ${fsMin}) * ((100vw - ${screenMin}rem) / (${screenMax} - ${screenMin}))), ${fsMax}rem)`
 }
 
 const fontSizes = {
-    xs: clamp(-3),
-    sm: clamp(-2),
-    base: clamp(-1),
-    md: clamp(0),
-    lg: clamp(1),
-    xl: clamp(2),
-    '2xl': clamp(3),
-    '3xl': clamp(4),
-    '4xl': clamp(5),
-    '5xl': clamp(6),
-    '6xl': clamp(7),
-    '7xl': clamp(8),
-    '8xl': clamp(9),
-    '9xl': clamp(10),
+    xs: clamp(-1),
+    sm: clamp(-0.5),
+    base: clamp(0),
+    md: clamp(0.25),
+    lg: clamp(0.5),
+    xl: clamp(1),
+    '2xl': clamp(2),
+    '3xl': clamp(3),
+    '4xl': clamp(4),
+    '5xl': clamp(5),
+    '6xl': clamp(6.5),
 }
 
 module.exports = {

@@ -6,8 +6,8 @@ const ExitButton = ({ toggleCard }) => {
     const controls = useAnimation()
 
     // exit Anim
-    async function exitNow() {
-        await controls.start({
+    function exitNow() {
+        controls.start({
             scaleX: 0,
             rotate: 0,
             transition: {
@@ -15,23 +15,26 @@ const ExitButton = ({ toggleCard }) => {
                 scaleX: { duration: 0.25, delay: 0.25 },
             },
         })
-        toggleCard()
-        toggleScrolling(true)
+        setTimeout(() => {
+            toggleCard()
+            toggleScrolling(true)
+        }, 350)
     }
     // enter Anim
+
     useEffect(() => {
         controls.start((i) => ({
             scaleX: 1,
             rotate: i * 45,
             transition: {
-                scaleX: { duration: 0.25, delay: 0.25 },
-                rotate: { duration: 0.25, delay: 0.5 },
+                scaleX: { duration: 0.5, delay: 0.25 },
+                rotate: { duration: 0.35, delay: 0.75 },
             },
         }))
     })
     return (
         <motion.div
-            className="flex-center group absolute z-10 ml-1 aspect-square h-12 cursor-pointer text-[36px] sm:m-2 md:h-14 md:text-[56px] lg:m-3"
+            className="flex-center group absolute z-10 ml-1 aspect-square h-12 cursor-pointer text-[36px] sm:m-2 md:h-14 md:text-[56px]"
             whileTap={{ scale: 0.95 }}
             onClick={() => exitNow()}
         >

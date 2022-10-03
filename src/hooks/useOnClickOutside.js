@@ -1,26 +1,23 @@
-/** CREDIT
- *  https://usehooks.com/useOnClickOutside/
- **/
+/** https://usehooks.com/useOnClickOutside/ **/
 
+import { toggleScrolling } from '@utils'
 import { useEffect } from 'react'
 
-export default function useOnClickOutside(ref, handler) {
+export default function useOnClickOutside(ref, action, mediaMdOnly = false) {
     useEffect(() => {
-        const listener = (event) => {
-            // Do nothing if clicking ref's element or descendent elements
-            if (!ref.current || ref.current.contains(event.target)) {
-                return
-            }
+        if (mediaMdOnly & (window.innerWidth <= 768)) return
+        const listener = (e) => {
+            if (!ref.current || ref.current.contains(e.target)) return
 
-            handler(event)
+            action()
+            toggleScrolling(true)
         }
 
         document.addEventListener('mousedown', listener)
         document.addEventListener('touchstart', listener)
-
         return () => {
             document.removeEventListener('mousedown', listener)
             document.removeEventListener('touchstart', listener)
         }
-    }, [ref, handler])
+    }, [ref, action, mediaMdOnly])
 }

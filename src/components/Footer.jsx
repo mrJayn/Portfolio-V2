@@ -8,7 +8,7 @@ const Footer = () => {
             className="dark:bg-lightblack w-screen bg-black-light p-4 text-center"
         >
             <div className="flex-evenly my-4 mx-auto w-full max-w-md select-none overflow-scroll text-center">
-                <Socials size={30} defId="footerDefs" />
+                <Socials size={30} />
             </div>
             <hr className="mx-auto my-2 text-grey-light/50 md:my-8" />
             <div className="uppercase md:mb-4">

@@ -16,7 +16,7 @@ const ContactReturnBtn = () => {
             x: -150,
             transition: { duration: 0.5, ease: 'backIn' },
         })
-        await router.push('/')
+        await router.push('/', '', { scroll: false })
     }
 
     useEffect(() => {

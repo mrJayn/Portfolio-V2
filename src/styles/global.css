@@ -1,193 +1,85 @@
+@import './utilities.css';
 @import './components.css';
 @tailwind base;
-@tailwind utilities;
 
+/* ================== ***** ================== */
+* {
+    & ::selection {
+        @apply bg-teal-neon/50 text-black-dark dark:bg-teal/75 dark:text-white;
+    }
+    -webkit-tap-highlight-color: transparent;
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+    display: none;
+}
+/* ================ VARIABLES ================ */
+:root {
+    --teal: theme(colors.teal.DEFAULT);
+    --active: theme(colors.teal.DEFAULT);
+    --bg-light: #ffffffff; /* ( -white )*/
+    --bg-dark: ##101014ff; /* ( -black-light )*/
+    --shadow-color: #0b0b1080; /* ( -black/50 )*/
+    --shadow-sm-color: #0b0b10; /* ( -black )*/
+}
+@media (prefers-color-scheme: light) {
+    :root {
+        --shadow-color: #0b0b1080; /* ( -black/50) */
+        --shadow-sm-color: #0b0b10; /* ( -black )*/
+    }
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --tw-shadow-colored: 0 0 #0000;
+        --shadow-sm-color: #45a29ebf; /* ( -teal/75 ) */
+    }
+}
 /* ================== BASE ================== */
 @layer base {
     html {
-        @apply scroll-pt-16 scroll-smooth md:scroll-pt-[25%];
-        @apply bg-white dark:bg-black-light;
+        @apply scroll-smooth;
+        @apply bg-white dark:bg-grey-darkest;
+        @apply font-montserrat text-base font-normal antialiased;
+        word-spacing: 1px;
+    }
 
-        & *::selection {
-            @apply bg-teal-neon/25 text-black-dark;
-        }
-    }
     body {
-        @apply m-0 block h-screen w-screen min-w-[320px] p-0 leading-normal;
-        @apply font-montserrat text-base font-normal tracking-tight;
-        @apply overflow-x-hidden overflow-y-scroll;
-        @apply text-grey-darker antialiased dark:text-grey-light;
+        @apply m-0 block h-screen w-screen min-w-[320px] p-0;
+        @apply overflow-y-scroll;
     }
-    /* TAGS */
     h1 {
-        @apply text-6xl font-bold;
+        @apply text-5xl font-bold;
     }
     h2 {
-        @apply text-[32px] sm:text-[44px] max:text-[50px];
+        @apply text-5xl;
         /* ANIMATED BACKGROUND GRADIENT */
         @apply relative bg-gradientLoop bg-clip-text font-bold text-transparent contrast-125 drop-shadow-md filter dark:filter-none;
         background-size: 300%;
         @apply animate-[gradientKFs_20s_linear_infinite] motion-reduce:animate-[];
     }
     h3 {
-        @apply text-4xl font-bold uppercase tracking-wide text-black-dark dark:text-white;
+        @apply text-4xl text-black-dark dark:text-white;
+        font-weight: 700;
+        letter-spacing: 0.025em;
+        text-transform: uppercase;
     }
     h4 {
-        @apply text-[20px] font-semibold tracking-normal text-grey-light dark:text-teal-10 sm:text-[24px] md:text-[28px];
+        @apply text-3xl text-teal dark:text-teal-light;
+        font-weight: 600;
     }
     h5 {
-        @apply text-[18px] font-semibold tracking-normal text-black dark:text-white sm:text-[20px] md:text-[24px];
+        @apply text-2xl text-grey-darker dark:text-grey-light;
+        font-weight: 600;
     }
-    p,
-    span,
-    button {
-        @apply text-grey-darker dark:text-grey-light;
-    }
-    h1,
-    h2,
-    h3,
-    p,
-    button {
-        @apply antialiased;
+    h6 {
+        @apply text-xl text-teal-dark dark:text-teal-light;
+        font-weight: 600;
     }
     p {
-        @apply text-[16px] tracking-tight sm:text-[18px] lg:text-[20px];
-        word-spacing: 1px;
+        @apply text-base text-grey-darker dark:text-grey-light;
+        letter-spacing: -0.25px;
     }
-}
-/* ================== UTILITIES ================== */
-
-@layer utilities {
-    /* HEADINGS  */
-    .styled-heading {
-        @apply mx-auto mb-5 flex w-[90%] items-center whitespace-nowrap uppercase;
-        @apply text-xl font-semibold;
-        &:before {
-            @apply mx-[10px] block h-1 w-full rounded-full bg-gradient-to-l from-black via-teal to-transparent content-[""];
-        }
-        &:after {
-            @apply mx-[10px] block h-1 w-full rounded-full bg-gradient-to-r from-black via-teal to-transparent content-[""];
-        }
-    }
-
-    /* LINKS  */
-    .styled-link {
-        --time: 0.3s;
-        @apply relative cursor-pointer px-1 text-xl font-semibold text-grey-dark dark:text-grey;
-        @apply hover:text-black-dark dark:hover:text-white;
-        transition: all 0.35s linear;
-
-        &:before,
-        &:after {
-            content: '';
-            transition: opacity var(--time) ease-in,
-                transform var(--time) linear;
-            @apply absolute bottom-[-4px] left-0 right-[-1px] h-[4px] origin-bottom-right scale-x-0 rounded-full bg-gradient motion-reduce:scale-x-100;
-        }
-        &:before {
-            @apply opacity-0;
-        }
-        &:after {
-            @apply left-[1px] right-0 bottom-[-9px] -z-10 opacity-0 blur-[5px] brightness-150 saturate-150;
-            transition: opacity var(--time) ease-in,
-                transform var(--time) linear;
-        }
-        &:hover {
-            &:before,
-            &:after {
-                transition: opacity var(--time) ease-in,
-                    transform var(--time) linear;
-                @apply origin-bottom-left scale-x-100 opacity-100;
-            }
-            &:after {
-                transition: opacity var(--time) 0.15s ease-in,
-                    transform var(--time) linear;
-            }
-        }
-    }
-
-    /* STYLED LI  */
-    .styled-li {
-        @apply text-grey-light hover:text-white;
-        transition: 0.25s linear;
-        counter-increment: item 1;
-        &:before {
-            content: '0' counter(item) '.';
-            transition: 0.25s linear;
-            @apply mr-[5px] text-[80%] italic tracking-normal text-white;
-        }
-        &:hover:before {
-            @apply text-teal-neon;
-        }
-        & a {
-            @apply relative w-full pb-1;
-            &:after {
-                content: '';
-                transition: transform 0.25s 0.1s linear;
-                @apply absolute bottom-0 left-0 h-[1.5px] w-full bg-teal-neon;
-                @apply origin-bottom-right scale-x-0;
-            }
-        }
-        &:hover a:after {
-            @apply origin-bottom-left scale-x-100;
-        }
-    }
-}
-
-/* containers */
-@layer utilities {
-    .full {
-        @apply h-full w-full;
-    }
-    .screen {
-        @apply h-screen w-screen;
-    }
-    .flex-center {
-        @apply flex items-center justify-center;
-    }
-    .flex-top {
-        @apply flex items-start justify-center;
-    }
-    .flex-bottom {
-        @apply flex items-end justify-center;
-    }
-    .flex-left {
-        @apply flex items-center justify-start;
-    }
-    .flex-right {
-        @apply flex items-center justify-end;
-    }
-    .flex-btw {
-        @apply flex items-center justify-between;
-    }
-    .flex-evenly {
-        @apply flex items-start justify-evenly;
-    }
-
-    .flex-col-center {
-        @apply flex flex-col items-center justify-center;
-    }
-    .flex-col-top {
-        @apply flex flex-col items-center justify-start;
-    }
-    .flex-col-bottom {
-        @apply flex flex-col items-center justify-end;
-    }
-    .flex-col-left {
-        @apply flex flex-col items-start justify-center;
-    }
-    .flex-col-right {
-        @apply flex flex-col items-end justify-center;
-    }
-    .flex-col-btw {
-        @apply flex flex-col items-center justify-between;
-    }
-    .flex-col-evenly {
-        @apply flex flex-col items-center justify-evenly;
-    }
-}
-
-/* ================ VARIABLES ================ */
-:root {
-    --teal: theme(colors.teal.DEFAULT);
 }

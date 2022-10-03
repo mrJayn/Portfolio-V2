@@ -54,50 +54,8 @@ export const Variants = {
         exit: (i = 50) => ({ opacity: 0, y: -i }),
     },
     stagger: {
-        enter: {
-            transition: { staggerChildren: 0.1, staggerDirection: 1 },
-        },
-        exit: {
-            transition: { staggerChildren: 0.05, staggerDirection: -1 },
-        },
-    },
-    featured_items: {
-        more: {
-            hidden: (even) => ({ opacity: 0, x: even ? 100 : -100 }),
-            enter: {
-                opacity: 1,
-                x: 0,
-                transition: {
-                    opacity: { delay: 0.35, duration: 0.4 },
-                    x: { delay: 0.25, duration: 0.5 },
-                },
-            },
-            exit: (even) => ({
-                opacity: 0,
-                x: even ? 100 : -100,
-                transition: {
-                    opacity: { duration: 0.4 },
-                    x: { duration: 0.5 },
-                },
-            }),
-        },
-    },
-    project_items: {
-        enter: {
-            opacity: 0,
-        },
-        display: (i) => ({
-            opacity: 1,
-            transition: {
-                duration: 0.1,
-            },
-        }),
-        exit: {
-            opacity: 0,
-            transition: {
-                duration: 0.25,
-            },
-        },
+        enter: { transition: { staggerChildren: 0.1, staggerDirection: 1 } },
+        exit: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
     },
 }
 export const menuVariants = {
@@ -256,24 +214,6 @@ export const titleVariants = {
         }
     },
 }
-export const layoutVariants = {
-    hidden: (isHome) => {
-        return {
-            opacity: 0,
-            x: isHome ? -200 : 200,
-        }
-    },
-    enter: {
-        opacity: 1,
-        x: 0,
-        transition: { duration: 1, type: 'spring' },
-    },
-    exit: (isHome) => ({
-        opacity: 0,
-        x: isHome ? -200 : 200,
-        transition: { duration: 1, type: 'spring' },
-    }),
-}
 export const cardVariants = {
     infoCard: {
         hidden: (isLtr) => {
@@ -322,30 +262,17 @@ export const cardVariants = {
             },
         },
     },
-    expPropsSm: {
-        initial: { opacity: 0, y: -100 },
+    expand: {
+        initial: { opacity: 0, y: 10 },
         animate: {
             opacity: 1,
             y: 0,
-            transition: { duration: 0.75, ease: 'easeOut' },
+            transition: { duration: 0.5, ease: 'easeOut' },
         },
         exit: {
             opacity: 0,
-            y: -50,
+            y: 10,
             transition: { duration: 0.5, ease: 'easeIn' },
-        },
-    },
-    expPropsMd: {
-        initial: { opacity: 0, x: -200 },
-        animate: {
-            opacity: 1,
-            x: 0,
-            transition: { duration: 0.75, ease: 'backOut' },
-        },
-        exit: {
-            opacity: 0,
-            x: 100,
-            transition: { duration: 0.5, ease: 'backIn' },
         },
     },
 }
@@ -357,11 +284,11 @@ export const tabVariants = {
     display: {
         x: 0,
         opacity: 1,
-        transition: { delay: 0.25, duration: 0.5, ease: 'easeOut' },
+        transition: { duration: 0.5, ease: 'easeOut' },
     },
     exit: (direction) => ({
         x: direction < 0 ? '100%' : '-100%',
         opacity: 0,
-        transition: { duration: 0.35, ease: 'easeIn' },
+        transition: { duration: 0.25, ease: 'easeIn' },
     }),
 }

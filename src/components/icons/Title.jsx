@@ -1,36 +1,52 @@
 import { motion } from 'framer-motion'
-import { config } from '@config'
 
-const Title = ({ darkMode, titleControls }) => {
-    const color = darkMode ? '#fff' : '#000'
-    const variants = {
+const Title = ({ titleControls, color, isFirst, pRM }) => {
+    const neonTeal = '#66fcf1'
+    const pRM_variants = {
         hidden: {
-            pathLength: 0,
             opacity: 0,
-            fill: '#00000000',
-            stroke: config.colors.neon,
+            pathLength: -1,
+            fill: color,
+            stroke: color,
         },
-        enter: (i) => {
-            const delay = 1 + i * 0.15
-            return {
-                pathLength: 1,
-                opacity: 1,
-                fill: color,
-                stroke: color,
-                transition: {
-                    pathLength: {
-                        delay,
-                        type: 'spring',
-                        duration: 1,
-                        bounce: 0,
-                    },
-                    opacity: { delay, duration: 0.01 },
-                    fill: { delay: delay + 0.55, duration: 0.5 },
-                    stroke: { delay: delay + 0.25, duration: 0.25 },
-                },
-            }
+        enter: {
+            opacity: 1,
+            transition: { delay: 1, duration: 0.5 },
         },
     }
+    const variants = pRM
+        ? pRM_variants
+        : {
+              hidden: {
+                  pathLength: 0,
+                  opacity: 0,
+                  fill: isFirst ? '#00000000' : color,
+                  stroke: isFirst ? neonTeal : color,
+              },
+              enter: (i) => {
+                  const [timeA, timeB, timeC] = isFirst
+                      ? [2, 0.125, 0.01]
+                      : [1, 0.025, 0.25]
+                  const wait = timeA + i * timeB
+                  return {
+                      pathLength: 1,
+                      opacity: 1,
+                      fill: color,
+                      stroke: color,
+                      transition: {
+                          pathLength: {
+                              delay: wait,
+                              type: 'spring',
+                              duration: timeA,
+                              bounce: 0,
+                          },
+                          opacity: { delay: wait, duration: timeC },
+                          fill: { delay: wait + 0.55, duration: 0.4 },
+                          stroke: { delay: wait + 0.25, duration: 0.25 },
+                      },
+                  }
+              },
+          }
 
     return (
         <div className="relative w-[300px] sm:w-[412px]  xl:w-[425px] max:w-[500px]">
@@ -45,7 +61,7 @@ const Title = ({ darkMode, titleControls }) => {
                             key={`letter-${i}`}
                             custom={i}
                             d={letterPath}
-                            initial={'hidden'}
+                            initial="hidden"
                             animate={titleControls}
                             variants={variants}
                         />

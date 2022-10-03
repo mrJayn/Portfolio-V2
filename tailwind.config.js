@@ -23,31 +23,28 @@ module.exports = {
             white: '#fff',
 
             black: {
-                dark: '#000',
-                DEFAULT: '#0B0C10',
-                light: '#101010',
+                dark: '#000004',
+                DEFAULT: '#0b0b10',
+                light: '#101014',
             },
 
             grey: {
+                darkest: '#151519',
                 darker: '#1b1b20',
-
-                dark: '#5f6063',
-                DEFAULT: '#858688',
-                light: '#d5d5d5',
+                dark: '#606064',
+                DEFAULT: '#858589',
+                light: '#d5d5d9',
+                lighter: '#e6e6f0',
+                lightest: '#ededf2',
             },
 
             eee: '#eee',
 
             teal: {
-                10: '#daecec',
-                20: '#b5dad8',
-                30: '#8fc7c5',
-                40: '#6ab5b1',
+                lightest: '#daecec',
+                light: '#8fc7c5',
                 DEFAULT: '#45a29e',
-                60: '#37827e',
-                70: '#29615f',
-                80: '#1c413f',
-                90: '#0e2020',
+                dark: '#29615f',
                 neon: '#66fcf1',
             },
             purple: {
@@ -71,6 +68,7 @@ module.exports = {
             30: '3',
             40: '4',
             50: '5',
+            auto: 'auto',
         },
         keyframes: {
             gradientKFs: {
@@ -98,7 +96,6 @@ module.exports = {
             none: '',
             glowing: 'glowKFs 3.5s linear infinite',
         },
-
         transitionDuration: {
             100: '100ms',
             150: '150ms',
@@ -107,12 +104,22 @@ module.exports = {
             350: '350ms',
             600: '600ms',
         },
+        boxShadow: {
+            DEFAULT:
+                '0 20px 25px -5px var(--shadow-color), 0 8px 10px -6px var(--shadow-color)',
+            md: '0 17.5px 22.5px -10px var(--shadow-color), 0 6px 8px -4px var(--shadow-color)',
+            sm: '0px 15px 15px -15px var(--shadow-sm-color)',
+            xs: '0px 7.5px 10px -10px var(--shadow-sm-color)',
+            none: 'none',
+        },
         extend: {
             backgroundImage: {
                 pattern: "url('/assets/misc/cardboard.png')",
                 gradient: 'linear-gradient(45deg, #8360c3, #45A29E)',
+                gradientDimmed: 'linear-gradient(45deg, #8360c3aa, #45A29Eaa)',
                 gradientLoop:
                     'linear-gradient(45deg, #cc22aa, #8360c3, #45A29E, #55dcd1,#45A29E,#8360c3,#cc22aa)',
+                none: 'linear-gradient(45deg, #8360c300, #45A29E00)',
             },
         },
     },

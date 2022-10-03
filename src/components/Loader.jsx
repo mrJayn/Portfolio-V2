@@ -15,7 +15,7 @@ const Loader = ({ setIsLoading }) => {
         const spring = 'spring(1, 20, 10, 10)'
         const loader = anime.timeline({
             complete: () => {
-                setIsLoading(false)
+                setIsLoading([false, true])
             },
         })
         loader

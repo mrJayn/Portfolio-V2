@@ -1,9 +1,26 @@
 import { NextSeo } from 'next-seo'
 import { motion } from 'framer-motion'
-
-import { layoutVariants } from '@config'
+import { DefGradient } from '@components'
+import { useEffect } from 'react'
+import { layoutVariants } from '@motion'
 
 const Layout = ({ title, description, isHome, children }) => {
+    const handleExternalLinks = () => {
+        const allLinks = Array.from(document.querySelectorAll('a'))
+        if (allLinks.length > 0) {
+            allLinks.forEach((link) => {
+                if (link.host !== window.location.host) {
+                    link.setAttribute('rel', 'noopener noreferrer')
+                    link.setAttribute('target', '_blank')
+                }
+            })
+        }
+    }
+
+    useEffect(() => {
+        handleExternalLinks()
+    })
+
     return (
         <>
             <NextSeo
@@ -13,16 +30,15 @@ const Layout = ({ title, description, isHome, children }) => {
             />
             <motion.main
                 id="layout"
-                className="absolute top-0 left-0 w-screen overflow-hidden"
-                style={{ backgroundOpacity: 0.1 }}
+                className="flex-col-top absolute top-0 left-0 right-0 overflow-hidden"
                 initial="hidden"
                 animate="enter"
                 exit="exit"
-                transition={{ duration: 0.6, ease: 'linear' }}
                 variants={layoutVariants}
                 custom={isHome}
             >
                 {children}
+                <DefGradient />
             </motion.main>
         </>
     )

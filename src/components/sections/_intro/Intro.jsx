@@ -1,56 +1,88 @@
-import { useEffect } from 'react'
-import { motion, useAnimation } from 'framer-motion'
-import { Section, Styled_Button, Title } from '@components'
+import { useEffect, useState } from 'react'
+import { motion, useAnimation, useReducedMotion } from 'framer-motion'
 
-const Intro = ({ useFirst, darkMode }) => {
-    const [isFirst, setIsFirst] = useFirst
-    const [titleControls, subTitleControls, btnControls] = [
-        useAnimation(),
-        useAnimation(),
-        useAnimation(),
-    ]
+import { Section, Styled_Button, Title } from '@components'
+import { introVariants } from '@motion'
+
+const Intro = ({ firstLoad }) => {
+    const pRM = useReducedMotion()
+    const [isFirst, setLoading] = firstLoad
+    const [titleControls, contentControls] = [useAnimation(), useAnimation()]
+
+    // Handle "View Projects" Button Click
+    const handleViewProjectsBtn = (e) => {
+        e.preventDefault()
+        setTimeout(() => {
+            document
+                .querySelector('#featured')
+                .scrollIntoView({ block: 'start' })
+        }, 50)
+    }
+
+    // DarkMode Change Listener
+    const [color, setColor] = useState()
+    useEffect(() => {
+        const theme = window.matchMedia('(prefers-color-scheme: dark)')
+        setColor(theme.matches ? '#fff' : '#000')
+        theme.addEventListener('change', (e) =>
+            setColor(e.matches ? '#fff' : '#000')
+        )
+        return () =>
+            theme.removeEventListener('change', (e) =>
+                setColor(e.matches ? '#fff' : '#000')
+            )
+    }, [color])
+
     // Animation Sequence
     useEffect(() => {
-        const sequence = async () => {
+        async function sequence() {
             titleControls.mount
             titleControls.set('hidden')
             await titleControls.start('enter')
-            await subTitleControls.start({ opacity: 1 })
-            await btnControls.start({ opacity: 1 })
-            setIsFirst(false)
+            await contentControls.start('contentEnter')
+            setLoading([false, false])
         }
-        sequence()
-    }, [titleControls, subTitleControls, btnControls, darkMode, setIsFirst])
+        if (isFirst) {
+            sequence()
+        } else {
+            titleControls.set('hidden')
+            titleControls.start('enter')
+            contentControls.start('contentEnter')
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [titleControls, contentControls, color, setLoading])
 
     return (
         <Section id="intro">
-            <motion.div
-                className="flex-col-center full absolute top-0 left-0 select-none px-4 md:px-0 landscape:top-14 md:landscape:top-0"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-            >
+            <div className="flex-col-center absolute top-0 left-0 h-screen w-full select-none landscape:top-14 md:landscape:top-0">
                 {/** TOP TEXT **/}
                 <motion.p
-                    className="flex-center relative top-0 right-0 left-0 bottom-0 mx-auto h-[1.5em] w-[10em] text-md font-semibold tracking-wide md:text-[20px] xl:text-[20px] max:text-[24px]"
-                    initial={{
-                        clipPath: `polygon(0% 0%, 0% 100%, 0% 100%, 0% 0%)`,
-                    }}
-                    animate={{
-                        clipPath: `polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%)`,
-                    }}
-                    transition={{ duration: 0.5, delay: 0.5 }}
+                    className="flex-center relative mx-auto h-[1.5em] w-[10em] text-md font-semibold tracking-wide md:text-[20px] xl:text-[20px] max:text-[24px]"
+                    initial="hidden"
+                    animate="show"
+                    variants={
+                        pRM
+                            ? introVariants.TopTextReduced
+                            : introVariants.TopText
+                    }
+                    custom={isFirst}
                 >
                     Hello, my name is
                 </motion.p>
 
                 {/** TITLE **/}
-                <Title darkMode={darkMode} titleControls={titleControls} />
+                <Title
+                    titleControls={titleControls}
+                    color={color}
+                    isFirst={isFirst}
+                    pRM={pRM}
+                />
 
                 {/** SUBTITLE **/}
                 <motion.h2
-                    className="pb-2"
-                    initial={{ opacity: 0 }}
-                    animate={subTitleControls}
+                    initial={isFirst ? 'hidden' : 'show'}
+                    animate={contentControls}
+                    variants={introVariants.Content}
                 >
                     Data Analyst
                 </motion.h2>
@@ -58,16 +90,18 @@ const Intro = ({ useFirst, darkMode }) => {
                 {/** PROJECTS / CONTACT BTNS **/}
                 <div className="flex-col-btw mt-20 h-32 md:mt-32 md:h-auto md:w-9/12  md:flex-row md:justify-evenly landscape:mt-10 md:landscape:mt-32">
                     <Styled_Button
-                        href="#featured"
-                        btnStyle="md:text-md xl:text-lg py-3 px-7 md:py-4"
-                        initial={{ opacity: isFirst ? 0 : 1 }}
-                        animate={btnControls}
+                        action={handleViewProjectsBtn}
+                        btnStyle={`md:text-md xl:text-lg py-3 px-7 md:py-4 ${
+                            isFirst && 'pointer-events-none'
+                        }`}
+                        animateOn={!isFirst}
                     >
                         VIEW MY PROJECTS
                     </Styled_Button>
                 </div>
+
                 {/** */}
-            </motion.div>
+            </div>
         </Section>
     )
 }

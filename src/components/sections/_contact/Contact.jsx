@@ -1,8 +1,9 @@
+import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 
 import { Section, Styled_Button } from '@components'
+import { contactMotion } from '@motion'
 import { config } from '@config'
-import Link from 'next/link'
 
 const text = [
     "Whether you'd like to contact me about a full time position,",
@@ -12,45 +13,59 @@ const text = [
 ]
 
 const Contact = () => {
-    const inViewProps = {
-        initial: { opacity: 0, y: 10 },
-        whileInView: { opacity: 1, y: 0, transition: { delay: 0.5 } },
-        viewport: {
-            once: true,
-        },
-    }
-    return (
-        <Section id="contact" fullScreen={false}>
-            <motion.div
-                className="m-2 rounded-lg bg-gradient-to-t py-10 md:m-10"
-                {...inViewProps}
-            >
-                <div className="flex-col-center text-center sm:px-20">
-                    <h2>Whats Next?</h2>
-                    <h3>Get in Touch</h3>
+    const router = useRouter()
 
-                    <h5 className="my-4 text-grey-darker">
-                        I&apos;d love to hear from you!
-                    </h5>
-                    <div className="text-md">
-                        {text.map((text, i) => (
-                            <p key={i}>{text}</p>
-                        ))}
-                    </div>
+    const goToForm = () =>
+        router.push('/contactpage', 'message_me', { scroll: false })
+    const sendEmail = () => (window.location.href = 'mailto:' + config.email)
+
+    const items = [
+        <h3 key="cth3">Whats Next?</h3>,
+        <h4 key="cth4">Get in Touch</h4>,
+        <h5 key="cth5">I&apos;d love to hear from you!</h5>,
+        <>
+            {text.map((line, j) => (
+                <p key={j} className="text-lg tracking-normal" style={{}}>
+                    {line}
+                </p>
+            ))}
+        </>,
+    ]
+
+    return (
+        <Section id="contact" fullScreen={true} scrollOffset={100}>
+            <motion.div className="mb-10" {...contactMotion.Text}>
+                <div className="flex-col-center text-center">
+                    {items.map((item, i) => (
+                        <div
+                            key={`contact-element-${i}`}
+                            style={{ marginBottom: `${i}rem` }}
+                        >
+                            {item}
+                        </div>
+                    ))}
                 </div>
             </motion.div>
-            <div className="flex-col-center py-10">
-                <Styled_Button useInView={true}>
-                    <Link href="/contactpage" scroll={false} passHref>
-                        <a className="py-3 px-10 text-lg md:text-md">
-                            Send a Message!
-                        </a>
-                    </Link>
+            <div className="flex-col-center">
+                <Styled_Button
+                    action={goToForm}
+                    btnStyle="py-3 px-10 text-lg md:text-md"
+                    custom={0.5}
+                    {...contactMotion.Button}
+                >
+                    Send a Message!
                 </Styled_Button>
-                or&nbsp;
-                <span className="styled-link font-medium italic text-teal underline underline-offset-[6px] after:bg-teal md:text-md">
-                    <a href={`mailto:${config.email}`}>email me &raquo;</a>
-                </span>
+                <motion.p className="my-4" custom={1} {...contactMotion.Button}>
+                    or&nbsp;
+                </motion.p>
+                <Styled_Button
+                    action={sendEmail}
+                    toTextAt="min"
+                    custom={1.5}
+                    {...contactMotion.Button}
+                >
+                    email me &raquo;
+                </Styled_Button>
             </div>
         </Section>
     )

@@ -1,8 +1,9 @@
 import { motion, useAnimation } from 'framer-motion'
+import { useEffect } from 'react'
 
 const TEXT = 'JYN'
 
-const Logo = ({ menuState, toggleMenu, router }) => {
+const Logo = ({ closeMenu, globOpen, isHome, router }) => {
     const [controls, bgControls] = [useAnimation(), useAnimation()]
 
     const layers = ['blur-[2px]', 'blur-[4px]', 'blur-[8px]']
@@ -20,7 +21,33 @@ const Logo = ({ menuState, toggleMenu, router }) => {
             transition: { duration: 0.5, delay: 0.1 },
         })
     }
+    function handleClick() {
+        if (isHome) {
+            if (closeMenu == null) {
+                window.scrollTo(0, 0)
+            } else {
+                setTimeout(() => {
+                    window.scrollTo(0, 0)
+                }, 500)
+            }
+        } else {
+            router.push('/')
+        }
+    }
 
+    useEffect(() => {
+        if (globOpen) {
+            controls.start({
+                y: -50,
+                transition: { duration: 0.25, ease: 'circIn' },
+            })
+        } else {
+            controls.start({
+                y: 0,
+                transition: { duration: 0.5, delay: 0.5, ease: 'circOut' },
+            })
+        }
+    }, [globOpen, controls])
     return (
         <motion.a
             id="logo"
@@ -29,8 +56,8 @@ const Logo = ({ menuState, toggleMenu, router }) => {
             onClick={(e) => {
                 e.preventDefault()
                 onClickEffects()
-                router.push('/', scroll(0, 0))
-                if (menuState) toggleMenu()
+                if (closeMenu !== null) closeMenu()
+                handleClick()
             }}
         >
             {TEXT}

@@ -1,8 +1,22 @@
 @import './global.css';
 @tailwind components;
 
-/** ================== NAV ================== **/
 @layer components {
+    /** ============== CUSTOM CLASS ============== **/
+    .tabListEffects {
+        &[data-index='0'] {
+            @apply hue-rotate-0;
+        }
+        &[data-index='1'] {
+            @apply hue-rotate-30;
+        }
+        &[data-index='2'] {
+            @apply hue-rotate-60;
+        }
+    }
+
+    /** =============== COMPONENTS ============== **/
+    /* NAVBAR */
     #logo {
         & .bgEffects {
             @apply flex-center  absolute top-0 left-0 right-0 bottom-[-0.05em] bg-gradient bg-clip-text text-[1.1em] font-semibold tracking-tighter text-transparent opacity-50;
@@ -13,10 +27,7 @@
             @apply md:scale-y-125 md:scale-x-105;
         }
     }
-}
 
-/** ================ SECTIONS ================ **/
-@layer components {
     /* INTRO */
 
     /* ABOUT */
@@ -39,58 +50,33 @@
             }
         }
     }
-    /* EXPERIENCE */
-    /* FEATURED */
 
-    #featured-md {
-        & .ct {
-            & > :nth-child(1) {
-                &:before {
-                    content: '';
-                    @apply absolute top-0 right-0 left-0 bottom-0 z-10;
-                    background: linear-gradient(
-                        to bottom,
-                        #fff 0%,
-                        #fff 25%,
-                        #ffffff25 55%,
-                        transparent 100%
-                    );
-                }
-                &:after {
-                    content: '';
-                    @apply absolute top-0 right-0 left-0 bottom-0 z-10;
-                    background: linear-gradient(
-                        to right,
-                        #fff 0%,
-                        #fff 5%,
-                        #ffffff25 35%,
-                        transparent 100%
-                    );
-                }
-            }
-        }
-        & .fp:nth-of-type(even) > .ct {
-            & > :nth-child(1) {
-                grid-area: 1/1/-1/9 !important;
-            }
-            & > :nth-child(2) {
-                @apply flex-col-right;
-                grid-area: 1/1/1/-1 !important;
-                & > div {
-                    @apply flex-right;
-                }
-            }
-            & > :nth-child(4) {
-                grid-area: 2/7/5/-1 !important;
-            }
-            & > :nth-child(5) {
-                grid-area: 5/9/-1/-1 !important;
-            }
-        }
+    /* EXPERIENCE */
+
+    /* FEATURED */
+    .shadow-GI,
+    .shadow-TI {
+        position: 'absolute';
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
     }
-}
-/** =========== FOOTER / FORM / ETC... =========== **/
-@layer components {
+    .shadow-GI {
+        @apply shadow-[inset_0rem_-0.25rem_1.25rem_0.5rem] shadow-white dark:shadow-grey-darkest;
+    }
+    .shadow-TI {
+        @apply shadow-[inset_0rem_0rem_1rem_0.25rem] shadow-white dark:shadow-grey-darkest;
+    }
+    .cardImgShadow {
+        @apply shadow-[inset_0rem_0rem_1rem_0.75rem] shadow-white dark:shadow-grey-darkest;
+    }
+    /* FEATURED */
+    .bg-projectCard {
+        @apply bg-gradient-to-tr from-teal/20 via-teal/10 to-teal-light/30 dark:from-teal-dark/20 dark:via-teal/20 dark:to-teal-neon/20;
+    }
+
+    /** ================= FORM  ================== **/
     #form {
         @apply flex-top flex-wrap;
         & > div {

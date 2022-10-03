@@ -1,11 +1,11 @@
 import { Section, Card_Group, Skills } from '@components'
 
-const About = ({ about, isMd }) => {
+const About = ({ about, globalControls }) => {
     const cardGroupProps = {
         tabs: {
             0: (
                 <div
-                    key="0"
+                    key="about"
                     className="relative mx-auto h-full w-[95%] md:w-[70%] md:overflow-y-scroll md:border-r-2 md:border-r-eee/50 md:pb-20 md:pr-5 lg:w-[59%]"
                 >
                     <div
@@ -17,9 +17,9 @@ const About = ({ about, isMd }) => {
                     />
                 </div>
             ),
-            1: <Skills key="1" skills={about.data.skills} />,
+            1: <Skills key="skills" skills={about.data.skills} />,
         },
-        isMd: isMd,
+        globalControls: globalControls,
         ...about,
     }
 

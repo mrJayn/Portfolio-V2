@@ -15,13 +15,13 @@ export default function Home({ data, ...pageProps }) {
         ...pageProps,
         ...data,
     }
+
     const homeProps = {
         title: 'Portfolio',
         description:
             "Hello, I'm Michael👋 - I'm an ChemEng graduate and a recent self-taught developer, aiming to break into tech ASAP!",
         isHome: pageProps.isHome,
     }
-
     return (
         <Layout {...homeProps}>
             <Intro {...data} />

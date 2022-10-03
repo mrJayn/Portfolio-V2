@@ -1,77 +1,83 @@
-import { useRef, useState } from 'react'
+import { useState, useRef } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import { Tabs, Tabs_List } from '@components'
-import Card_Base from './Card_Base'
-import Card_Expanded from './Card_Expanded'
 
-const Card_Group = ({ tabs, isMd, ...data }) => {
-    const Data = data.data
+import { Tabs, Tabs_List, Card_Base, Card_Expanded } from '@components'
+import { useGlobalControls, useMediaQuery } from '@hooks'
+
+const Card_Group = ({ tabs, globalControls, ...data }) => {
+    const [isSm, isMd] = [useMediaQuery(600), useMediaQuery(768)]
     const [expanded, setExpanded] = useState(false)
     const [[currentTab, direction], setTab] = useState([0, 0])
     const scrollRef = useRef()
 
-    /** CARD **/
+    const cardData = data.data
+    const isAbout = cardData.section == 'About'
+
     const cardProps = {
-        toggleCard: () => setExpanded(true),
-        isMd: isMd,
-        data: Data,
-    }
-    /** EXPANDED **/
-    const expandedProps = {
-        title: Data.title,
+        data: cardData,
+        ltr: isAbout,
         expanded: expanded,
-        responsive: Data.responsive,
+        setExpanded: setExpanded,
         isMd: isMd,
-        toggleCard: () => setExpanded(false),
-        resetTabs: () => setTab([0, 0]),
     }
-    /** TAB LIST **/
-    const indicatorProps = {
-        tabNames: Data.tabNames,
+    const tabListProps = {
         currentTab: currentTab,
         setTab: setTab,
-        scrollRef: scrollRef,
+        tabNames: cardData.tabNames,
     }
-    /** TABS **/
     const tabProps = {
-        key: currentTab,
+        section: isAbout ? 'About' : 'Experience',
+        currentTab: currentTab,
+        setTab: setTab,
+        span: cardData.tabNames.length,
         custom: direction,
     }
+
+    // useGlobalControls for dynamic NAV (@media<768px)
+    useGlobalControls(globalControls, [expanded, setExpanded], ['card', isMd])
 
     return (
         <>
             <Card_Base {...cardProps} />
             {/** ---------------------------- **/}
-            <Card_Expanded {...expandedProps}>
-                {/** MIN: TABS **/}
-                <div
-                    className={`full relative overflow-hidden ${
-                        Data.responsive && 'sm:hidden'
-                    }`}
-                >
-                    {/** MIN: TABS **/}
-                    {/** 1 **/}
-                    <div className="absolute top-0 left-0 z-10 h-12 w-full">
-                        <Tabs_List {...indicatorProps} />
-                    </div>
-                    {/** 2 **/}
-                    <div
-                        className="absolute top-14 left-0 right-0 bottom-0 overflow-y-scroll"
-                        ref={scrollRef}
-                    >
-                        <div className="mb-10 mt-5">
-                            <AnimatePresence mode="wait" custom={direction}>
-                                <Tabs {...tabProps}>{tabs[currentTab]}</Tabs>
-                            </AnimatePresence>
+            <Card_Expanded resetTabs={() => setTab([0, 0])} {...cardProps}>
+                {/** [  TABS  ] **/}
+                {isAbout & isSm ? null : (
+                    <div className="full relative overflow-hidden">
+                        {/** ABOUT ( < 600px )  &  EXPERIENCE ( All Media ) **/}
+                        {/** 1 **/}
+                        <div className="fixed top-12 left-0 right-0 z-10 h-12 md:absolute md:top-0">
+                            {/** tabListProps: [  currentTab, setTab, tabNames ]  **/}
+                            <Tabs_List {...tabListProps} />
+                        </div>
+                        {/** 2 **/}
+                        <div
+                            className="absolute top-14 left-0 right-0 bottom-0 overflow-y-scroll"
+                            ref={scrollRef}
+                        >
+                            <div className="mb-10 overflow-hidden sm:mt-5">
+                                <AnimatePresence
+                                    mode="wait"
+                                    custom={direction}
+                                    onExitComplete={() =>
+                                        scrollRef.current.scrollTo(0, 0)
+                                    }
+                                >
+                                    {/** tabProps: [  currentTab, setTab, span  ]  **/}
+                                    <Tabs key={currentTab} {...tabProps}>
+                                        {tabs[currentTab]}
+                                    </Tabs>
+                                </AnimatePresence>
+                            </div>
                         </div>
                     </div>
-                </div>
+                )}
 
                 {/** SM: FLEX-ROW  \\  MD: FLEX-COL **/}
-                {Data.responsive && (
+                {isAbout & isSm && (
                     <div className="full overflow-y-scroll md:overflow-hidden">
-                        <div className="md:full hidden flex-row p-5 pt-10 pb-20 sm:block md:flex md:items-start md:pb-5">
-                            {[...Array(Data.tabNames.length).keys()].map(
+                        <div className="md:full flex-row p-5 pb-20 md:flex md:items-start md:pb-5">
+                            {[...Array(tabProps.span).keys()].map(
                                 (i) => tabs[i]
                             )}
                         </div>

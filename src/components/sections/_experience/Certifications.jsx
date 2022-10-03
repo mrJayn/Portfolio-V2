@@ -1,57 +1,156 @@
+import { useState } from 'react'
 import Image from 'next/image'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+
+import { useMediaQuery } from '@hooks'
+import { experienceMotion } from '@motion'
+
 const Certifications = ({ ...exp_data }) => {
-    /** [ title, site, href, src ] **/
-    /** [   0,     1,     2,     3   ] **/
+    const isSm = useMediaQuery(600)
+    const pRM = useReducedMotion()
+    const [active, setActive] = useState(isSm ? 0 : 100)
+    const certs = exp_data.certifications
+    const variants = experienceMotion.Certs
+
+    const motionProps = {
+        initial: 'hidden',
+        animate: 'show',
+        exit: 'exit',
+        custom: pRM,
+    }
+
+    const Styled_A = ({ text, href, className, ...props }) => (
+        <motion.a
+            href={href}
+            target="_blank"
+            rel="noreferrer nopenner"
+            className={`flex-center whitespace-nowrap rounded-lg bg-grey/50 p-2 text-center font-robotoMono duration-150 hover:-translate-y-[2.5px] sm:w-min sm:scale-y-90 sm:rounded-none sm:bg-transparent sm:text-teal sm:underline-offset-4 sm:hover:underline sm:dark:text-teal-neon ${className}`}
+            {...props}
+        >
+            {text}
+        </motion.a>
+    )
+    const Styled_Image = () => (
+        <motion.a
+            href={certs[active][0]}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="relative mx-auto flex aspect-[22.05/17] w-[75%] overflow-hidden rounded-md shadow-md"
+            variants={variants.image}
+            {...motionProps}
+        >
+            <Image
+                src={certs[active][4]}
+                alt={`certification image for cert-${active}`}
+                layout="fill"
+                objectFit="cover"
+                placeholder="blur"
+                blurDataURL="/assets/certifications/blurDataCertificate.png"
+                className="opacity-75 duration-250 ease-in hover:opacity-100"
+            />
+        </motion.a>
+    )
+
     return (
-        <ul className="w-full max-w-[767px] py-5 px-2  text-white">
-            {exp_data.certifications.map((cert_data, i) => (
-                <li
-                    className="flex-top mb-3 h-[100px] rounded-md bg-grey py-2 px-3 md:h-[200px]"
-                    key={`job-${i}`}
+        <>
+            <ul className="w-full overflow-hidden sm:pr-5">
+                {certs.map(
+                    ([title, description, sitename, sitelink, pdf], i) => {
+                        const ACTIVE = active === i
+                        return (
+                            <motion.li
+                                layout
+                                key={`certification-${i}`}
+                                className={`mb-2 overflow-hidden rounded-lg bg-grey-lightest dark:bg-grey-darkest ${
+                                    !ACTIVE &&
+                                    'duration-150 hover:brightness-95'
+                                }`}
+                                variants={variants.items}
+                                transition={{
+                                    delay: pRM ? 0 : 0.25 + i * 0.1,
+                                }}
+                                {...motionProps}
+                            >
+                                {/** [  CLICKABLE LIST  ] **/}
+
+                                <p
+                                    className={`cursor-pointer rounded-t-lg p-2 duration-250 ease-in sm:py-1 sm:text-base ${
+                                        ACTIVE &&
+                                        'bg-teal/75 pl-4 text-white dark:bg-teal'
+                                    }`}
+                                    onClick={() => {
+                                        if (!ACTIVE) setActive(i)
+                                    }}
+                                >
+                                    {title}
+                                </p>
+
+                                {/** [  EXPANDED INFO  ] **/}
+                                <AnimatePresence mode="wait">
+                                    {ACTIVE ? (
+                                        <motion.div
+                                            key={`cert-content-${i}`}
+                                            className="flex-col-top"
+                                            variants={variants.active}
+                                            {...motionProps}
+                                        >
+                                            <p className="mt-1 px-4 text-xs sm:py-4 sm:text-sm">
+                                                {description}
+                                            </p>
+
+                                            {/** [  MOBILE LAYOUT  ] **/}
+
+                                            {!isSm && (
+                                                <div className="flex-evenly my-2 h-10 w-full">
+                                                    {[sitelink, pdf].map(
+                                                        (href, i) => (
+                                                            <Styled_A
+                                                                key={`cert-link-${i}`}
+                                                                href={href}
+                                                                text={
+                                                                    href == pdf
+                                                                        ? 'View Certificate'
+                                                                        : sitename
+                                                                }
+                                                                className="text-xs"
+                                                            />
+                                                        )
+                                                    )}
+                                                </div>
+                                            )}
+                                        </motion.div>
+                                    ) : null}
+                                </AnimatePresence>
+                            </motion.li>
+                        )
+                    }
+                )}
+            </ul>
+
+            {/** [  MD LAYOUT  ] **/}
+            {isSm & (active !== 100) ? (
+                <div
+                    className="flex-col-center sticky top-5 -mb-[100vh] w-full overflow-hidden rounded-3xl py-2"
+                    style={{ position: '-webkit-sticky' }}
                 >
-                    <div className="flex-left mr-[5%] h-full w-[60%] select-none md:before:p-5 md:before:text-2xl md:before:text-neon md:before:content-['\2605']">
-                        <div className="flex-col-left">
-                            <p className="text-base font-semibold md:text-lg">
-                                {cert_data[0]}
-                            </p>
-                            <a
-                                href={cert_data[2]}
-                                rel="noreferrer"
-                                target="_blank"
-                                className="styled-link py-2 text-neon/75 hover:text-neon md:pt-4 md:pb-0"
-                                style={{ transition: 'color 0.25s linear' }}
-                            >
-                                My Certificate
-                            </a>
-                            <a
-                                href={cert_data[2]}
-                                rel="noreferrer"
-                                target="_blank"
-                                className="styled-link text-neon/75 hover:text-neon"
-                                style={{ transition: 'color 0.25s linear' }}
-                            >
-                                {cert_data[1]}
-                            </a>
+                    <AnimatePresence mode="wait" initial={false}>
+                        <div
+                            key={`certInfo-${active}`}
+                            className="full flex-col-center"
+                        >
+                            <Styled_Image />
+                            <Styled_A
+                                href={certs[active][3]}
+                                text={certs[active][2]}
+                                className="mt-5 rounded-lg bg-grey-lightest p-2 dark:bg-grey-darkest"
+                                variants={variants.mdLink}
+                                {...motionProps}
+                            />
                         </div>
-                    </div>
-                    <a
-                        href={cert_data[3]}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="relative h-full w-[35%] opacity-50 duration-250 ease-in hover:opacity-100"
-                    >
-                        <Image
-                            src={cert_data[3]}
-                            alt={`${cert_data[0]} certification image`}
-                            layout="fill"
-                            objectFit="contain"
-                            blurDataURL="/assets/certifications/blurDataCertificate.png"
-                            placeholder="blur"
-                        />
-                    </a>
-                </li>
-            ))}
-        </ul>
+                    </AnimatePresence>
+                </div>
+            ) : null}
+        </>
     )
 }
 export default Certifications

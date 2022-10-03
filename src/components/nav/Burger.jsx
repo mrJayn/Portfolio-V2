@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { burgerVariants } from '@config'
 
-const Burger = ({ menuState, isHome, handleBurger }) => {
+const Burger = ({ display, handleBurger }) => {
     const size = 20
 
     const lineProps = {
@@ -11,7 +11,7 @@ const Burger = ({ menuState, isHome, handleBurger }) => {
         strokeLinecap: 'round',
         vectorEffect: 'non-scaling-stroke',
         initial: false,
-        animate: !isHome ? 'return' : menuState ? 'opened' : 'closed',
+        animate: display,
         transition: {
             type: 'spring',
             stiffness: 260,

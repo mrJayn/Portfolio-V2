@@ -1,0 +1,223 @@
+@import './global.css';
+@tailwind utilities;
+
+@layer utilities {
+    /** ================= SIZING ================= **/
+    .full {
+        height: 100%;
+        width: 100%;
+    }
+    .screen {
+        height: 100vh;
+        width: 100vw;
+    }
+
+    /** =========== ABSOLUTE CONTAINERS ========== **/
+    .absoluteFull {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .absoluteFull-1 {
+        position: absolute;
+        top: 1;
+        left: 1;
+        right: 1;
+        bottom: 1;
+    }
+    .absoluteFull-2 {
+        position: absolute;
+        top: 2;
+        left: 2;
+        right: 2;
+        bottom: 2;
+    }
+
+    /** ============= RE-USABLE STYLES ============ **/
+    .styled-link {
+        --time: 0.3s;
+        position: relative;
+        padding: 0 0.25rem;
+        color: theme(colors.grey.dark);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.35s linear;
+        @apply text-xl hover:text-black-dark dark:text-grey dark:hover:text-white;
+
+        &:before,
+        &:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: -1px;
+            bottom: -4px;
+            height: 4px;
+            border-radius: 35%;
+            transform: scale(0);
+            transform-origin: bottom right;
+            transition: opacity var(--time) ease-in,
+                transform var(--time) linear;
+            @apply bg-gradient motion-reduce:scale-x-100;
+        }
+        &:before {
+            opacity: 0;
+        }
+        &:after {
+            left: 1px;
+            right: 0;
+            bottom: -9px;
+            opacity: 0;
+            filter: blur(5px) brightness(1.5) saturate(1.5);
+            z-index: -1;
+            transition: opacity var(--time) ease-in,
+                transform var(--time) linear;
+        }
+        &:hover {
+            &:before,
+            &:after {
+                opacity: 1;
+                transform: scale(1);
+                transform-origin: bottom left;
+                transition: opacity var(--time) ease-in,
+                    transform var(--time) linear;
+            }
+            &:after {
+                transition: opacity var(--time) 0.15s ease-in,
+                    transform var(--time) linear;
+            }
+        }
+    }
+
+    .styled-li {
+        color: theme(colors.grey.light);
+        transition: 0.25s linear;
+        counter-increment: item 1;
+        /*@apply text-grey-light hover:text-white;*/
+        &:before {
+            content: '0' counter(item) '.';
+            margin-right: 5px;
+            color: #fff;
+            font-size: 80%;
+            letter-spacing: 0em;
+            font-style: italic;
+            transition: 0.25s linear;
+            /*@apply mr-[5px] text-[80%] italic tracking-normal text-white;*/
+        }
+        &:hover {
+            color: #fff;
+            &:before {
+                color: theme(colors.teal.neon);
+                /*@apply text-teal-neon;*/
+            }
+        }
+        & a {
+            @apply relative w-full pb-1;
+            &:after {
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                height: 1.5px;
+                width: 100%;
+                background-color: theme(colors.teal.neon);
+                transform: scale(0);
+                transform-origin: bottom-right;
+                transition: transform 0.25s 0.1s linear;
+                /*@apply absolute bottom-0 left-0 h-[1.5px] w-full bg-teal-neon;
+                @apply origin-bottom-right scale-x-0;*/
+            }
+        }
+        &:hover a:after {
+            transform: scale(1);
+            transform-origin: bottom left;
+            /*@apply origin-bottom-left scale-x-100;*/
+        }
+    }
+
+    .shadow-theme {
+        @apply shadow-black/50 dark:shadow-teal/50;
+    }
+    .shadow-glow {
+        @apply shadow-black/50 dark:shadow-teal/25;
+    }
+
+    /** =============== FLEX BOXES =============== **/
+    .flex-center,
+    .flex-top,
+    .flex-bottom,
+    .flex-left,
+    .flex-right,
+    .flex-btw,
+    .flex-evenly {
+        display: flex;
+    }
+    .flex-col-center,
+    .flex-col-top,
+    .flex-col-bottom,
+    .flex-col-left,
+    .flex-col-right,
+    .flex-col-btw,
+    .flex-col-evenly {
+        display: flex;
+        flex-flow: column;
+    }
+
+    .flex-center {
+        justify-content: center;
+        align-items: center;
+    }
+    .flex-top {
+        justify-content: center;
+        align-items: flex-start;
+    }
+    .flex-bottom {
+        justify-content: center;
+        align-items: flex-end;
+    }
+    .flex-left {
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .flex-right {
+        justify-content: flex-end;
+        align-items: center;
+    }
+    .flex-btw {
+        justify-content: space-between;
+        align-items: center;
+    }
+    .flex-evenly {
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    .flex-col-center {
+        justify-content: center;
+        align-items: center;
+    }
+    .flex-col-top {
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .flex-col-bottom {
+        justify-content: flex-end;
+        align-items: center;
+    }
+    .flex-col-left {
+        justify-content: center;
+        align-items: flex-start;
+    }
+    .flex-col-right {
+        justify-content: center;
+        align-items: flex-end;
+    }
+    .flex-col-btw {
+        justify-content: space-between;
+        align-items: center;
+    }
+    .flex-col-evenly {
+        justify-content: space-evenly;
+        align-items: center;
+    }
+}

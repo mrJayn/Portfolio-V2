@@ -4,8 +4,6 @@ title: Michael Jayne
 brief: Nice to meet you,&#10;Allow me to introduce myself.
 src: '/assets/misc/mikeJayne.JPG'
 alt: A picture of me
-layout: ltr
-responsive: True
 tabNames: [About Me, My Skills]
 skills:
     [

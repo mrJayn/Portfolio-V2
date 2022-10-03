@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
 import { useRouter } from 'next/router'
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence, MotionConfig, useReducedMotion } from 'framer-motion'
 import { ToastContainer } from 'react-toastify'
 
-import { useMediaQuery } from '@hooks'
 import { Navbar, Loader } from '@components'
+import { useMediaQuery } from '@hooks'
 
 import '../styles/global.css'
 import 'react-toastify/dist/ReactToastify.css'
@@ -14,28 +14,17 @@ import 'react-toastify/dist/ReactToastify.css'
 function MyApp({ Component, pageProps }) {
     const router = useRouter()
     const isHome = router.pathname === '/'
-    const [isLoading, setIsLoading] = useState(isHome)
-    const [isFirst, setIsFirst] = useState(true)
-    // page key
     const url = `https://mikejayne.com${router.pathname}`
+    const [[isLoading, isFirst], setIsLoading] = useState([isHome, true])
+    const [globOpen, setGlobOpen] = useState(null)
 
-    // DarkMode
-    const [darkMode, setDarkMode] = useState('')
-    useEffect(() => {
-        const theme = window.matchMedia('(prefers-color-scheme: dark)')
-        setDarkMode(theme.matches)
-        theme.addEventListener('change', (e) => setDarkMode(e.matches))
-        return () =>
-            theme.removeEventListener('change', (e) => setDarkMode(e.matches))
-    }, [darkMode])
-
-    // created states + pageData
+    // Page Properties
     pageProps = {
         isHome: isHome,
-        isLoading: isLoading,
-        darkMode: darkMode,
-        isMd: useMediaQuery(),
-        useFirst: [isFirst, setIsFirst],
+        firstLoad: [isFirst, setIsLoading],
+        globalControls: [globOpen, setGlobOpen],
+        isMd: useMediaQuery(768),
+        pRM: useReducedMotion(),
         ...pageProps,
     }
     return (
@@ -64,16 +53,18 @@ function MyApp({ Component, pageProps }) {
                 <Loader setIsLoading={setIsLoading} />
             ) : (
                 <>
-                    <Navbar {...pageProps} />
-                    <>
-                        <AnimatePresence
-                            onExitComplete={() => window.scrollTo(0, 0)}
-                            mode="wait"
-                        >
-                            <Component {...pageProps} key={url} />
-                        </AnimatePresence>
-                    </>
-                    <ToastContainer />
+                    <MotionConfig reducedMotion="user">
+                        <Navbar {...pageProps} />
+                        <>
+                            <AnimatePresence
+                                onExitComplete={() => window.scrollTo(0, 0)}
+                                mode="wait"
+                            >
+                                <Component {...pageProps} key={url} />
+                            </AnimatePresence>
+                        </>
+                        <ToastContainer />
+                    </MotionConfig>
                 </>
             )}
         </>

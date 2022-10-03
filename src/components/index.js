@@ -2,8 +2,6 @@
 export { default as Layout } from './Layout'
 export { default as Section } from './Section'
 export { default as Footer } from './Footer'
-export { default as Card_Group } from './items/Card_Group'
-export { Tabs, Tabs_List } from './items/Tabs'
 export { default as Loader } from './Loader'
 
 // --NAV--
@@ -26,20 +24,29 @@ export { default as Jobs } from './sections/_experience/Jobs'
 export { default as Certifications } from './sections/_experience/Certifications'
 // FEATURED
 export { default as Featured } from './sections/_featured/Featured'
-export { default as Featured_Project } from './sections/_featured/Featured_Project'
-export { default as ReadMore } from './sections/_featured/ReadMore'
+export { default as Ftd_Project } from './sections/_featured/Ftd_Project'
+export { default as Ftd_Expanded } from './sections/_featured/Ftd_Expanded'
 // PROJECTS
 export { default as Projects } from './sections/_projects/Projects'
-export { Projects_Sm, Projects_Md } from './sections/_projects/Projects_Items'
+export { default as Project_Card } from './sections/_projects/Project_Cards'
 // CONTACT
 export { default as Contact } from './sections/_contact/Contact'
 export { default as Form } from './Form'
 
 // --ITEMS--
+export { default as Card_Group } from './items/Card_Group'
+export { default as Card_Base } from './items/Card_Base'
+export { default as Card_Expanded } from './items/Card_Expanded'
+
+export { default as Tabs } from './items/Tabs'
+export { default as Tabs_List } from './items/Tabs_List'
+
 export { default as ExitButton } from './items/ExitButton'
-export { default as Links } from './items/Links'
 export { default as Socials } from './items/Socials'
 export { default as Styled_Button } from './items/StyledButton'
 export { default as ContactReturnBtn } from './items/ContactReturnBtn'
+export { default as Tech } from './items/Tech'
 
-export { default as DefGradient } from './icons/gradient'
+export { default as DefGradient } from './icons/DefGradient'
+export { default as Styled_Icons } from './icons/Styled_Icons'
+export { default as Icon } from './icons/Icon'

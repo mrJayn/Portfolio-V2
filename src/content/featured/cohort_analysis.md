@@ -10,6 +10,7 @@ github: 'https://github.com/mrJayn/Cohort-Analysis'
 external: ''
 src: '/assets/featured/cohort_analysis.png'
 alt: Cohort Analysis Chart Image
+defId: cohoAnaDefs
 ---
 
 A cohort analysis describes behaviors of various groups of customers/users OVER TIME.

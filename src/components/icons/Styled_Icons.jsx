@@ -21,7 +21,7 @@ const Icon = ({
         strokeLinejoin: 'round',
     }
     return (
-        <div className="flex-center full group">
+        <div className="flex-center full group cursor-pointer">
             <svg {...svgProps}>
                 <g
                     className={`absolute opacity-75  group-hover:opacity-100 ${

@@ -47,6 +47,5 @@ export { default as Styled_Button } from './items/StyledButton'
 export { default as ContactReturnBtn } from './items/ContactReturnBtn'
 export { default as Tech } from './items/Tech'
 
-export { default as DefGradient } from './icons/DefGradient'
 export { default as Styled_Icons } from './icons/Styled_Icons'
 export { default as Icon } from './icons/Icon'

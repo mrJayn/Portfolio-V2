@@ -1,8 +1,16 @@
 import { NextSeo } from 'next-seo'
 import { motion } from 'framer-motion'
-import { DefGradient } from '@components'
 import { useEffect } from 'react'
 import { layoutVariants } from '@motion'
+
+const PageGradient = () => (
+    <svg className="pointer-events-none invisible absolute select-none">
+        <linearGradient id="svgDefsGradient" x1="0%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stopColor="#8360c3" />
+            <stop offset="100%" stopColor="#45A29E" />
+        </linearGradient>
+    </svg>
+)
 
 const Layout = ({ title, description, isHome, children }) => {
     const handleExternalLinks = () => {
@@ -38,7 +46,7 @@ const Layout = ({ title, description, isHome, children }) => {
                 custom={isHome}
             >
                 {children}
-                <DefGradient />
+                <PageGradient />
             </motion.main>
         </>
     )

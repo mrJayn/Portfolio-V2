@@ -1,4 +1,3 @@
-import { useMediaQuery } from '@hooks'
 import { tabsMotion } from '@motion'
 import {
     motion,

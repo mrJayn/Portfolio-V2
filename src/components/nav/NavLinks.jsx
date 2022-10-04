@@ -24,7 +24,11 @@ const NavLinks = ({ toggleMenu = null, isMd = false }) => {
 
     return (
         <motion.ul
-            className="md:full flex-col-center landscape:full col-start-1 col-end-[-1] row-start-1 row-end-[-1] h-[70%] grid-flow-col grid-cols-2 grid-rows-4 md:flex-row md:justify-end landscape:grid"
+            className={
+                isMd
+                    ? 'full flex-center'
+                    : 'flex-col-center landscape:full col-start-1 col-end-[-1] row-start-1 row-end-[-1] h-[70%] grid-flow-col grid-cols-2 grid-rows-4 landscape:grid'
+            }
             initial="hidden"
             animate="enter"
             exit="exit"

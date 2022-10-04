@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-
 export const Variants = {
     fade_props: {
         initial: { opacity: 0 },
@@ -158,7 +156,6 @@ export const menuVariants = {
         }),
     },
 }
-
 export const burgerVariants = {
     buns: {
         closed: {
@@ -202,35 +199,6 @@ export const burgerVariants = {
     },
 }
 
-export const titleVariants = {
-    hidden: {
-        pathLength: 0,
-        opacity: 0,
-        fill: '#00000000',
-        stroke: '#66FCF1' /** COLOR-NEON**/,
-    },
-    visible: (i) => {
-        const delay = 1 + i * 0.15
-        return {
-            pathLength: 1,
-            opacity: 1,
-            fill: '#000',
-            stroke: '#000',
-            transition: {
-                pathLength: {
-                    delay,
-                    type: 'spring',
-                    duration: 1,
-                    bounce: 0,
-                },
-                opacity: { delay, duration: 0.01 },
-                fill: { delay: delay + 0.65, duration: 0.5 },
-                stroke: { delay: delay + 0.05, duration: 0.5 },
-            },
-        }
-    },
-}
-
 export const cardVariants = [
     /**wrap_vars**/ {
         hidden: { opacity: 0 },
@@ -239,7 +207,7 @@ export const cardVariants = [
     },
     /**clip_vars**/ {
         hidden: {
-            opacity: 0,
+            opacity: 1,
             clipPath: `polygon(
                 0% 0%, 
                 100% 0%, 
@@ -306,7 +274,6 @@ export const cardVariants = [
         expanded: (isMd) => ({ opacity: isMd ? 0 : 1 }),
     },
 ]
-
 export const tabsMotion = {
     Tabs: {
         enter: (direction) => ({
@@ -378,6 +345,49 @@ export const introVariants = {
             opacity: 1,
             scale: 1,
             transition: { duration: 0.5, delay: 0.25, ease: 'easeOut' },
+        },
+    },
+}
+export const titleVariants = {
+    hidden: ([i, isFirst, color]) => ({
+        pathLength: 0,
+        opacity: 0,
+        fill: '#00000000',
+        stroke: '#66FCF1' /** COLOR-NEON**/,
+    }),
+    visible: ([color, i, isFirst]) => {
+        const [timeA, timeB, timeC] = isFirst
+            ? [2, 0.125, 0.01]
+            : [1, 0.025, 0.25]
+        const wait = timeA + i * timeB
+        return {
+            pathLength: 1,
+            opacity: 1,
+            fill: '#000',
+            stroke: '#000',
+            transition: {
+                pathLength: {
+                    delay,
+                    type: 'spring',
+                    duration: timeA,
+                    bounce: 0,
+                },
+                opacity: { delay: wait, duration: timeC },
+                fill: { delay: wait + 0.55, duration: 0.4 },
+                stroke: { delay: wait + 0.25, duration: 0.25 },
+            },
+        }
+    },
+    pRM: {
+        hidden: ([color, isFirst]) => ({
+            opacity: 0,
+            pathLength: -1,
+            fill: color,
+            stroke: color,
+        }),
+        enter: {
+            opacity: 1,
+            transition: { delay: 1, duration: 0.5 },
         },
     },
 }

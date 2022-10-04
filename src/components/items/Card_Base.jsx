@@ -42,7 +42,12 @@ const Card_Base = ({ data, ltr, isMd, expanded, setExpanded }) => {
                     {...motionProps}
                 >
                     <div className="full relative my-10">
-                        <Image src={data.src} alt={data.alt} {...imgProps} />
+                        <Image
+                            src={data.src}
+                            alt={data.alt}
+                            blurDataURL
+                            {...imgProps}
+                        />
                     </div>
                 </motion.div>
             )}
@@ -52,7 +57,7 @@ const Card_Base = ({ data, ltr, isMd, expanded, setExpanded }) => {
                 ref={ref}
                 className={`full relative overflow-hidden ${
                     isMd
-                        ? 'rounded-[3rem] bg-gradient-to-t from-grey-light to-grey-lightest dark:bg-none'
+                        ? 'rounded-[3rem] bg-gradient-to-t from-grey-light to-grey-lightest dark:from-grey-darker dark:to-grey-darkest'
                         : 'rounded-3xl py-10'
                 }`}
                 style={

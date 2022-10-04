@@ -108,8 +108,8 @@ module.exports = {
             DEFAULT:
                 '0 20px 25px -5px var(--shadow-color), 0 8px 10px -6px var(--shadow-color)',
             md: '0 17.5px 22.5px -10px var(--shadow-color), 0 6px 8px -4px var(--shadow-color)',
-            sm: '0px 15px 15px -15px var(--shadow-sm-color)',
-            xs: '0px 7.5px 10px -10px var(--shadow-sm-color)',
+            sm: '0px 15px 15px -15px var(--shadow-color)',
+            xs: '0px 7.5px 10px -10px var(--shadow-color)',
             none: 'none',
         },
         extend: {

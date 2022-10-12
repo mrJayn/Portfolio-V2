@@ -1,7 +1,7 @@
 import { useAnimation, motion } from 'framer-motion'
 import { toggleScrolling } from '@utils'
 
-const Styled_button = ({
+const Styled_Button = ({
     children,
     action = null,
     toTextAt = false,
@@ -68,20 +68,21 @@ const Styled_button = ({
             {/** BUTTON DISLAY **/}
             {!toTextAt && (
                 <motion.button
-                    className={`flex-center relative z-10  select-none rounded-3xl bg-gradient text-center text-md font-semibold tracking-wide text-grey-darker/60 brightness-150 hover:text-black-dark dark:text-grey-light/60 dark:brightness-125 dark:contrast-125 dark:hover:text-white md:text-lg ${btnStyle}`}
-                    style={{ transition: 'all 0.25s ease-in, transform 0.1s' }}
+                    className={`flex-center group relative z-10  select-none rounded-3xl bg-gradient brightness-150 dark:brightness-125 dark:contrast-125 md:text-lg ${btnStyle}`}
                     onHoverStart={mouseover}
                     onHoverEnd={mouseout}
                     whileTap={{ scale: 0.95, originY: 0.5 }}
                     {...props}
                 >
                     <motion.span
-                        className="full absolute top-0 left-0 z-[-1] rounded-3xl bg-gradient blur-md filter"
+                        className="absoluteFull z-[-1] rounded-3xl bg-gradient blur-md filter"
                         initial={{ opacity: 0 }}
                         animate={controls}
                         transition={{ opacity: { type: 'spring' } }}
                     />
-                    {children}
+                    <span className="text-md font-semibold tracking-wide text-grey-70 duration-250 ease-in group-hover:text-white">
+                        {children}
+                    </span>
                 </motion.button>
             )}
             {/** TEXT DISPLAY **/}
@@ -97,4 +98,4 @@ const Styled_button = ({
         </>
     )
 }
-export default Styled_button
+export default Styled_Button

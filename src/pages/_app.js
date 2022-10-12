@@ -27,6 +27,7 @@ function MyApp({ Component, pageProps }) {
         pRM: useReducedMotion(),
         ...pageProps,
     }
+
     return (
         <>
             <Head>

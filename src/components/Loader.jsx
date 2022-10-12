@@ -150,7 +150,7 @@ const Loader = ({ setIsLoading }) => {
     return (
         <div
             id="loader-wrap"
-            className="flex-center relative z-[99] h-screen w-screen overflow-hidden bg-grey-darker"
+            className="flex-center relative z-[99] h-screen w-screen overflow-hidden bg-grey-80"
             style={{ opacity: `${isMounted ? 100 : 0}` }}
         >
             <div

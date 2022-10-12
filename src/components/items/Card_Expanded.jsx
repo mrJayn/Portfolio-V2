@@ -1,5 +1,6 @@
-import { motion, AnimatePresence } from 'framer-motion'
-import { ExitButton } from '@components'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+
+import Styled_ExitButton from './Styled_ExitButton'
 import { expandedVariants } from '@motion'
 
 const Card_Expanded = ({
@@ -7,11 +8,10 @@ const Card_Expanded = ({
     data,
     expanded,
     setExpanded,
-    ltr,
     isMd,
     resetTabs,
-    pRM,
 }) => {
+    const pRM = useReducedMotion()
     const wrapProps = {
         initial: 'hidden',
         animate: 'show',
@@ -25,10 +25,25 @@ const Card_Expanded = ({
         <AnimatePresence mode="wait" onExitComplete={resetTabs}>
             {expanded && (
                 <>
-                    {/** MOBILE **/}
-                    {!isMd && (
+                    {/** TITLE **/}
+                    {isMd ? (
+                        <>
+                            <div className="left-10 -top-12 absolute z-20">
+                                <Styled_ExitButton
+                                    toggleCard={() => setExpanded(false)}
+                                />
+                            </div>
+
+                            <motion.h4
+                                className="absolute left-[50%] -z-10 translate-x-[-50%]"
+                                {...expandedVariants.Card.TitleProps}
+                            >
+                                {data.title}
+                            </motion.h4>
+                        </>
+                    ) : (
                         <motion.div
-                            className="flex-center fixed top-0 left-[50%] z-50 h-12 translate-x-[-50%]"
+                            className="flex-center top-0 h-12 fixed left-[50%] z-50 translate-x-[-50%]"
                             initial="hidden"
                             animate="show"
                             exit="hidden"
@@ -38,30 +53,25 @@ const Card_Expanded = ({
                             <h4 className="whitespace-nowrap">{data.title}</h4>
                         </motion.div>
                     )}
+                    {/** CONTENT **/}
                     <motion.div
-                        className="fixed top-12 left-0 right-0 bottom-0 z-30 overflow-hidden bg-white dark:bg-black-light md:absolute md:-top-12 md:left-3 md:right-3 md:bottom-3 md:z-10 md:rounded-[3rem] md:bg-transparent"
+                        className="top-12 left-3 right-3 bottom-0 md:top-3 fixed z-30 overflow-hidden bg-light dark:bg-dark md:absolute md:z-10 md:bg-transparent"
                         {...wrapProps}
                     >
-                        <div className="relative mx-1 h-full sm:mx-2 lg:m-3">
-                            {/** MD **/}
-                            {isMd && (
-                                <>
-                                    <ExitButton
-                                        toggleCard={() => setExpanded(false)}
-                                    />
-                                    <div
-                                        className={`flex-center absolute top-0 left-0 h-16 w-full rounded-t-xl bg-grey dark:bg-black ${
-                                            ltr && 'rounded-b-xl shadow-sm'
-                                        }`}
-                                    >
-                                        <h4>{data.title}</h4>
-                                    </div>
-                                </>
-                            )}
-
-                            {/** [  CHILDREN  ] **/}
-                            <div className="absolute top-0 left-0 right-0 bottom-0 select-none overflow-hidden md:top-16">
-                                {children}
+                        <div className="full relative">
+                            {/***/}
+                            <div className="absoluteFull overflow-hidden md:rounded-[3rem] md:bg-card_grad md:dark:bg-card_grad_DARK">
+                                <motion.div
+                                    className="full "
+                                    initial={{ opacity: 0 }}
+                                    animate={{
+                                        opacity: 1,
+                                        transition: { delay: 2 },
+                                    }}
+                                    exit={{ opacity: 0 }}
+                                >
+                                    {children}
+                                </motion.div>
                             </div>
                         </div>
                     </motion.div>

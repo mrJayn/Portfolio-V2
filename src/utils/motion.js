@@ -19,82 +19,161 @@ export const Variants = {
         exit: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
     },
 }
-export const layoutVariants = {
-    hidden: (isHome) => {
-        return {
-            opacity: 0,
-            x: isHome ? '-100%' : '100%',
-        }
-    },
-    enter: {
-        opacity: 1,
-        x: 0,
-        transition: {
-            opacity: { duration: 0.9 },
-            x: { duration: 1, type: 'spring' },
-        },
-    },
-    exit: (isHome) => ({
-        opacity: 0,
-        x: isHome ? '-100%' : '100%',
-        transition: {
-            opacity: { duration: 0.9 },
-            x: { duration: 1, type: 'spring' },
-        },
-    }),
-}
+
+const navItem_Enter = { y: { duration: 0.5, ease: 'circOut' } }
+const navItem_Exit = { duration: 0.5 }
+
 export const navVariants = {
-    LinksWrap: {
-        hidden: { opacity: 0 },
-        enter: {
-            opacity: 1,
-            transition: {
-                when: 'beforeChildren',
-                staggerChildren: 0.08,
-                staggerDirection: -1,
-                delayChildren: 0.25,
+    Logo: {
+        Wrap: {
+            hidden: { opacity: 0, y: -50 },
+            show: {
+                opacity: 1,
+                y: 0,
+                transition: navItem_Enter,
+            },
+            exit: {
+                opacity: 0,
+                y: -50,
+                transition: navItem_Exit,
             },
         },
+        Letter: {
+            hidden: { color: '#00000000' },
+            show: {
+                color: '#d5d5d7',
+                transition: { color: { delay: 0.25 } },
+            },
+        },
+        Blur: {
+            hidden: {
+                backgroundImage: 'linear-gradient(45deg, #00000000, #00000000)',
+                filter: 'blur(0px) saturate(0)  contrast(1)',
+            },
+            show: {
+                backgroundImage: 'linear-gradient(45deg, #8360c3, #45A29E)',
+                filter: 'blur(1.5px) saturate(2) contrast(2)',
+                transition: {
+                    duration: 1,
+                    delay: 1,
+                    type: 'spring',
+                    stiffness: 500,
+                },
+            },
+        },
+    },
+    NavLinks: {
+        Wrap: {
+            hidden: {},
+            enter: {
+                transition: {
+                    staggerChildren: 0.075,
+                    staggerDirection: -1,
+                },
+            },
+            exit: {
+                transition: { staggerChildren: 0.075 },
+            },
+        },
+        Items: {
+            hidden: { opacity: 0, y: -15 },
+            enter: {
+                opacity: 1,
+                y: 0,
+                transition: navItem_Enter,
+            },
+            exit: {
+                opacity: 0,
+                y: -25,
+                transition: navItem_Exit,
+            },
+        },
+    },
+    Burger: {
+        Wrap: {
+            initial: { opacity: 0 },
+            animate: { opacity: 1 },
+            exit: { opacity: 0 },
+        },
+        Buns: {
+            closed: {
+                rotate: 0.01,
+                y: 0,
+                transition: {
+                    y: { duration: 0.3, delay: 0.3 },
+                    rotate: { duration: 0.3 },
+                },
+            },
+            opened: (i = 1) => ({
+                rotate: i * 45,
+                y: i,
+                transition: {
+                    y: { duration: 0.3 },
+                    rotate: { duration: 0.3, delay: 0.3 },
+                },
+            }),
+            return: (i = 1) => ({
+                rotate: i * -30,
+                y: i / 2,
+                transition: {
+                    y: { duration: 0.3, delay: 0.3 },
+                    rotate: { duration: 0.3 },
+                },
+            }),
+        },
+        Meat: {
+            closed: {
+                opacity: 1,
+                rotate: 0.01,
+                scale: 1,
+                y: 0,
+                x: 0,
+            },
+            opened: (i = -1) => ({
+                opacity: 0,
+                scale: 1,
+                y: 0,
+                x: -i,
+            }),
+            return: (i = -1) => ({
+                originX: 1,
+                opacity: 1,
+                rotate: i * 30,
+                scale: 1.75,
+                y: i * 0.9,
+                x: -i / 2 + 1.1,
+                transition: {
+                    x: { duration: 0.3, delay: 0.3 },
+                    y: { duration: 0.3, delay: 0.6 },
+                    rotate: { duration: 0.3, delay: 0.6 },
+                },
+            }),
+        },
+    },
+    MessageBtn: {
+        hidden: { opacity: 0 },
+        show: { opacity: 1 },
         exit: {
             opacity: 0,
+            x: '100%',
             transition: {
-                when: 'afterChildren',
-                staggerDirection: 1,
-                staggerChildren: 0.05,
+                default: { ease: 'backIn' },
+                opacity: { duration: 1.25 },
             },
         },
     },
-    Links: {
-        hidden: (i = 0) => ({
-            opacity: 0,
-            y: -i - 15,
-            transition: {
-                opacity: { duration: 0.25 },
-                y: { duration: 0.35 },
-            },
-        }),
-        enter: { opacity: 1, y: 0 },
-        exit: (i = 0) => ({
-            opacity: 0,
-            y: -i - 15,
-            transition: {
-                opacity: { duration: 0.25 },
-                y: { duration: 0.35 },
-            },
-        }),
-    },
 }
+
 export const menuVariants = {
     backgroundClip: {
         hidden: {
             clipPath: `polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)`,
             transition: {
                 clipPath: {
+                    delay: 0.25,
                     type: 'spring',
-                    delay: 0.2,
-                    stiffness: 250,
-                    damping: 35,
-                    velocity: -50,
+                    bounce: 0,
+                    stiffness: 45,
                 },
                 opacity: {
                     duration: 0.7,
@@ -105,100 +184,54 @@ export const menuVariants = {
             clipPath: `polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)`,
             transition: {
                 type: 'spring',
-                stiffness: 250,
-                damping: 40,
-                velocity: 50,
+                bounce: 0,
+                stiffness: 50,
                 restDelta: 0.02,
             },
         },
     },
-    LinksWrap: {
-        hidden: {},
-        enter: {
-            transition: { staggerChildren: 0.08, delayChildren: 0.15 },
-        },
-        exit: {
-            transition: { staggerChildren: 0.05, staggerDirection: -1 },
-        },
-    },
-    socials: {
+    LinkWrap: {
         hidden: {
-            y: -100,
             opacity: 0,
-            transition: {
-                duration: 0.35,
-                delayChildren: 0.5,
-            },
+            transition: { when: 'afterChildren', staggerChildren: 0.04 },
+        },
+        enter: { opacity: 1, transition: { staggerChildren: 0.04 } },
+    },
+    IconWrap: {
+        hidden: {
+            opacity: 0,
+            transition: { staggerChildren: 0.04 },
         },
         enter: {
-            y: 0,
             opacity: 1,
-            transition: { staggerChildren: 0.1, delayChildren: 2 },
+            transition: { staggerChildren: 0.05, delayChildren: 0.5 },
         },
     },
-    children: {
+    Icons: {
+        hidden: { opacity: 0, transition: { ease: 'circOut' } },
+        enter: { opacity: 1, transition: { duration: 2, ease: 'circOut' } },
+    },
+    Links: {
         hidden: (i = 0) => ({
             opacity: 0,
-            y: -i - 15,
+            y: `${i * -3}em`,
             transition: {
-                opacity: { duration: 0.25 },
-                y: { duration: 0.35 },
+                y: { type: 'spring', bounce: 0 },
+                opacity: { ease: 'circOut' },
             },
         }),
-        enter: { opacity: 1, y: 0 },
-        exit: (i = 0) => ({
-            opacity: 0,
-            y: -i - 15,
+        enter: {
+            opacity: 1,
+            y: 0,
             transition: {
-                opacity: { duration: 0.25 },
-                y: { duration: 0.35 },
+                y: { type: 'spring', bounce: 0 },
+                opacity: { ease: 'circIn' },
             },
-        }),
-    },
-}
-export const burgerVariants = {
-    buns: {
-        closed: {
-            rotate: 0.01,
-            translateY: 0,
         },
-        opened: (i = 1) => ({
-            rotate: i * 45,
-            translateY: i,
-        }),
-        return: (i = 1) => ({
-            rotate: i * -30,
-            translateY: i / 2,
-        }),
-    },
-    meat: {
-        closed: {
-            pathLength: -1,
-            opacity: 1,
-            rotate: 0.01,
-            scale: 1,
-            y: 0,
-            x: 0,
-        },
-        opened: (i = -1) => ({
-            pathLength: 0,
-            opacity: 0,
-            scale: 1,
-            y: 0,
-            x: i,
-        }),
-        return: (i = -1) => ({
-            originX: 1,
-            pathLength: -1,
-            opacity: 1,
-            rotate: i * 30,
-            scale: 1.75,
-            y: i * 0.9,
-            x: -i / 2 + 1.1,
-        }),
     },
 }
 
+/** ~ CARDS & TABS ~  **/
 export const cardVariants = [
     /**wrap_vars**/ {
         hidden: { opacity: 0 },
@@ -221,7 +254,7 @@ export const cardVariants = [
                 x: 0,
                 clipPath: `polygon(${x1} 0%,  ${x2} 0%,  ${x2} 100%,${x1} 100%)`,
                 transition: {
-                    default: { delay: 0.25, duration: 1 },
+                    default: { delay: 0.5, duration: 1 },
                     opacity: { delay: 0.125, duration: 1 },
                 },
             }
@@ -274,6 +307,115 @@ export const cardVariants = [
         expanded: (isMd) => ({ opacity: isMd ? 0 : 1 }),
     },
 ]
+export const expandedVariants = {
+    Title: {
+        hidden: () => ({
+            opacity: 0,
+            y: '-100%',
+            x: '-50%',
+        }),
+        show: {
+            opacity: 1,
+            y: '0%',
+            x: '-50%',
+            transition: {
+                duration: 0.5,
+                delay: 0.5,
+                ease: 'circOut',
+            },
+        },
+        exit: {
+            opacity: 0,
+            y: '-100%',
+            x: '-50%',
+            transition: {
+                duration: 0.25,
+                ease: 'circIn',
+            },
+        },
+    },
+    Card: {
+        hidden: {
+            opacity: 0,
+            bottom: 0,
+            transition: {
+                opacity: { duration: 0.5, ease: 'circIn' },
+                bottom: { type: 'spring', stiffness: 40 },
+            },
+        },
+        show: {
+            opacity: 1,
+            bottom: -100,
+            transition: {
+                opacity: { duration: 1, delay: 0.75 },
+                bottom: { delay: 1, type: 'spring', stiffness: 30 },
+            },
+        },
+        TitleProps: {
+            initial: 'hidden',
+            animate: 'show',
+            exit: 'hidden',
+            variants: {
+                hidden: { opacity: 0, top: 0 },
+                show: {
+                    opacity: 1,
+                    top: '-7.5%',
+                    transition: { delay: 1, type: 'spring', stiffness: 30 },
+                },
+            },
+        },
+        pRM: {
+            hidden: (isMd) => ({
+                opacity: 0,
+                transition: isMd
+                    ? { duration: 0.5 }
+                    : { duration: 0.35, ease: 'easeIn' },
+            }),
+            show: (isMd = true) => ({
+                opacity: 1,
+                transition: isMd
+                    ? { duration: 0.5, delay: 1 }
+                    : { duration: 0.5, delay: 0.25 },
+            }),
+        },
+    },
+    Featured: {
+        GridWrap: {
+            hidden: (i) => ({
+                opacity: 0,
+                x: i * 100,
+                transition: {
+                    opacity: { duration: 0.4 },
+                    x: { duration: 0.5 },
+                },
+            }),
+            show: {
+                opacity: 1,
+                x: 0,
+                transition: {
+                    opacity: { duration: 0.4, delay: 0.35 },
+                    x: { duration: 0.5, delay: 0.25 },
+                },
+            },
+        },
+        TabsExpWrap: {
+            hidden: { opacity: 0, y: 15 },
+            show: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.5, delay: 0.25, ease: 'easeOut' },
+            },
+            exit: {
+                opacity: 0,
+                transition: { duration: 0.25 },
+            },
+        },
+        pRM: {
+            hidden: { opacity: 0, transition: { duration: 0.4 } },
+            show: { opacity: 1, transition: { duration: 0.4, delay: 0.35 } },
+        },
+    },
+}
 export const tabsMotion = {
     Tabs: {
         enter: (direction) => ({
@@ -300,7 +442,7 @@ export const tabsMotion = {
         active: {
             color: '#fff',
             paddingInline: '7.5px',
-            transition: { scale: { delay: 0.15, type: 'tween' } },
+            transition: { delay: 0.15, type: 'tween' },
         },
         reduced: {
             color: '#fff',
@@ -314,84 +456,141 @@ export const tabsMotion = {
     },
 }
 
+/** ~ SECTIONS ~  **/
 export const introVariants = {
     TopText: {
-        hidden: (isFirst) => ({
-            opacity: isFirst ? 0 : 1,
-            clipPath: isFirst
-                ? `polygon(0% 0%, 0% 100%, 0% 100%, 0% 0%)`
-                : `polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%)`,
-        }),
-        show: (isFirst) => ({
+        hidden: {
+            opacity: 0,
+            clipPath: `polygon(0% 0%, 0% 100%, 0% 100%, 0% 0%)`,
+        },
+        show: {
             opacity: 1,
             clipPath: `polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%)`,
-            transition: { duration: 0.5, delay: isFirst ? 1.5 : 0.5 },
-        }),
+            transition: { duration: 0.5, delay: 1.5 },
+        },
+        noClip: {
+            hidden: {
+                opacity: 0,
+            },
+            show: {
+                opacity: 1,
+                transition: { duration: 0.5, delay: 1.5 },
+            },
+        },
     },
-    TopTextReduced: {
-        hidden: { opacity: 0 },
-        show: (isFirst) => ({
-            opacity: 1,
-            transition: { duration: 0.5, delay: isFirst ? 1.5 : 0.5 },
+    Title: {
+        hide: (titleColor) => ({
+            pathLength: 0,
+            stroke: '#66fcf1',
+            strokeOpacity: 1,
+            fill: titleColor,
+            fillOpacity: 0,
+        }),
+        pRM_hide: (titleColor) => ({
+            pathLength: 0.5,
+            stroke: '#66fcf1',
+            strokeOpacity: 0,
+            fill: titleColor,
+            fillOpacity: 0,
+        }),
+        enter: (titleColor) => ({
+            pathLength: 1,
+            stroke: titleColor,
+            strokeOpacity: 1,
+            fill: titleColor,
+            fillOpacity: 1,
         }),
     },
     Content: {
         hidden: { opacity: 0 },
-        contentEnter: { opacity: 1, transition: { duration: 0.5 } },
+        contentEnter: (pRM) => ({
+            opacity: 1,
+            transition: { delay: pRM ? 0.5 : 0 },
+        }),
     },
     Button: {
         initial: { opacity: 0, scale: 0.65 },
-        animate: {
-            opacity: 1,
-            scale: 1,
-            transition: { duration: 0.5, delay: 0.25, ease: 'easeOut' },
-        },
+        animate: { opacity: 1, scale: 1, transition: { delay: 0.25 } },
     },
 }
-export const titleVariants = {
-    hidden: ([i, isFirst, color]) => ({
-        pathLength: 0,
-        opacity: 0,
-        fill: '#00000000',
-        stroke: '#66FCF1' /** COLOR-NEON**/,
-    }),
-    visible: ([color, i, isFirst]) => {
-        const [timeA, timeB, timeC] = isFirst
-            ? [2, 0.125, 0.01]
-            : [1, 0.025, 0.25]
-        const wait = timeA + i * timeB
-        return {
-            pathLength: 1,
-            opacity: 1,
-            fill: '#000',
-            stroke: '#000',
-            transition: {
-                pathLength: {
-                    delay,
+export const aboutMotion = {
+    Skills_Sm: {
+        Item: {
+            hidden: { opacity: 0, y: 10, rotateX: 90 },
+            show: (i) => ({
+                opacity: 1,
+                y: 0,
+                rotateX: 0,
+                transition: { delay: 0.25 + i * 0.04 },
+            }),
+        },
+    },
+    Skills_Md: {
+        Wrap: {
+            closed: {
+                width: '115px',
+                transition: {
                     type: 'spring',
-                    duration: timeA,
-                    bounce: 0,
+                    stiffness: 100,
+                    damping: 20,
                 },
-                opacity: { delay: wait, duration: timeC },
-                fill: { delay: wait + 0.55, duration: 0.4 },
-                stroke: { delay: wait + 0.25, duration: 0.25 },
             },
-        }
-    },
-    pRM: {
-        hidden: ([color, isFirst]) => ({
-            opacity: 0,
-            pathLength: -1,
-            fill: color,
-            stroke: color,
-        }),
-        enter: {
-            opacity: 1,
-            transition: { delay: 1, duration: 0.5 },
+            opened: {
+                width: '60%',
+                transition: { type: 'spring', bounce: 0 },
+            },
+        },
+        Item: {
+            hidden: (i) => ({
+                opacity: 0,
+                x: 0,
+                y: 0,
+            }),
+            closed: (i) => ({
+                opacity: 1,
+                x: i % 2 == 0 ? '15%' : '-15%',
+                y: i % 2 == 0 ? '-25%' : '25%',
+                marginRight: '0px',
+                marginLeft: '0px',
+                transition: {
+                    default: {
+                        type: 'spring',
+                        stiffness: 100,
+                        damping: 20,
+                    },
+                    y: {
+                        type: 'spring',
+                        stiffness: 25,
+                    },
+                },
+            }),
+            opened: (i) => ({
+                opacity: 1,
+                x: 0,
+                y: 0,
+                marginRight: '10px',
+                marginLeft: '10px',
+                transition: { type: 'spring', bounce: 0 },
+            }),
+        },
+        Text: {
+            closed: { opacity: 0, transition: { duration: 0.25 } },
+            opened: { opacity: 1 },
+        },
+        Img: {
+            closed: {
+                width: '70%',
+                marginRight: '15%',
+                marginLeft: 0,
+            },
+            opened: {
+                width: '100%',
+                marginRight: 0,
+                marginLeft: '5%',
+            },
         },
     },
 }
-
 export const experienceMotion = {
     Certs: {
         items: {
@@ -501,113 +700,9 @@ export const projectVariants = {
         show: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
         exit: { opacity: 0, scale: 0.95, transition: { duration: 0.25 } },
     },
-}
-export const projectCardVariants = {
-    Brief_md: {
-        hidden: {
-            clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
-            transition: { duration: 0.5, ease: 'anticipate' },
-        },
-        show: {
-            clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-            transition: { duration: 0.5, ease: 'anticipate' },
-        },
-    },
-    contentView: {
+    Content: {
         hidden: { opacity: 0, pointerEvents: 'none' },
         show: { opacity: 1, pointerEvents: 'auto' },
-    },
-}
-
-export const expandedVariants = {
-    Title: {
-        hidden: () => ({
-            opacity: 0,
-            y: '-100%',
-            x: '-50%',
-        }),
-        show: {
-            opacity: 1,
-            y: '0%',
-            x: '-50%',
-            transition: {
-                duration: 0.5,
-                delay: 0.5,
-                ease: 'circOut',
-            },
-        },
-        exit: {
-            opacity: 0,
-            y: '-100%',
-            x: '-50%',
-            transition: {
-                duration: 0.25,
-                ease: 'circIn',
-            },
-        },
-    },
-    Card: {
-        hidden: {
-            opacity: 0,
-            y: -10,
-            transition: { duration: 0.5, ease: 'circIn' },
-        },
-        show: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 1, delay: 0.75, ease: 'circOut' },
-        },
-
-        pRM: {
-            hidden: (isMd) => ({
-                opacity: 0,
-                transition: isMd
-                    ? { duration: 0.5 }
-                    : { duration: 0.35, ease: 'easeIn' },
-            }),
-            show: (isMd = true) => ({
-                opacity: 1,
-                transition: isMd
-                    ? { duration: 0.5, delay: 1 }
-                    : { duration: 0.5, delay: 0.25 },
-            }),
-        },
-    },
-    Featured: {
-        GridWrap: {
-            hidden: (i) => ({
-                opacity: 0,
-                x: i * 100,
-                transition: {
-                    opacity: { duration: 0.4 },
-                    x: { duration: 0.5 },
-                },
-            }),
-            show: {
-                opacity: 1,
-                x: 0,
-                transition: {
-                    opacity: { duration: 0.4, delay: 0.35 },
-                    x: { duration: 0.5, delay: 0.25 },
-                },
-            },
-        },
-        TabsExpWrap: {
-            hidden: { opacity: 0, y: 15 },
-            show: {
-                opacity: 1,
-                y: 0,
-                transition: { duration: 0.5, delay: 0.25, ease: 'easeOut' },
-            },
-            exit: {
-                opacity: 0,
-                transition: { duration: 0.25 },
-            },
-        },
-        pRM: {
-            hidden: { opacity: 0, transition: { duration: 0.4 } },
-            show: { opacity: 1, transition: { duration: 0.4, delay: 0.35 } },
-        },
     },
 }
 

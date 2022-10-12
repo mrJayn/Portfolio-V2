@@ -1,26 +1,16 @@
-import { tabsMotion } from '@motion'
 import {
     motion,
-    useDragControls,
-    useMotionValue,
     useReducedMotion,
+    AnimatePresence,
+    LayoutGroup,
+    useMotionValue,
+    useDragControls,
     useTransform,
 } from 'framer-motion'
+import { paginate } from '@utils'
+import { tabsMotion } from '@motion'
 
-function Cases(section) {
-    switch (section) {
-        case 'About':
-            return [true, false]
-        case 'Experience':
-            return [true, false]
-        case 'Featured':
-            return [true, true]
-        default:
-            return [false, false]
-    }
-}
-
-const Tabs = ({
+const Tabs_Wrap = ({
     children,
     section,
     currentTab = null,
@@ -29,83 +19,134 @@ const Tabs = ({
     ...tabProps
 }) => {
     const pRM = useReducedMotion()
-    const [dragEnabled, dragShadow] = Cases(section)
-    const variants = tabsMotion.Tabs
-    // Shadow Opacity dependent on drag position
     const controls = useDragControls()
     const x = useMotionValue(0)
-    const d = useTransform(x, [-150, 0, 150], [0, 1, 0])
+    const shadowOpacity = useTransform(x, [-200, 0, 200], [0, 1, 0])
 
-    const dragControlProps =
-        dragShadow & !pRM
-            ? {
-                  onMouseDown: (e) => controls.start(e),
-                  dragControls: controls,
-                  style: { x },
-              }
-            : null
-
-    // drag enabled or disabled for slide-able tabs
-    const dragProps =
-        dragEnabled & !pRM
-            ? {
-                  drag: 'x',
-                  dragConstraints: { left: 0, right: 0, top: 0, bottom: 0 },
-                  dragElastic: 0.75,
-                  onDragEnd: detectGesture,
-              }
-            : null
-
+    // ~ Props ~
+    const dragShadowProps = (section == 'Featured') & !pRM && {
+        onMouseDown: (e) => controls.start(e),
+        dragControls: controls,
+        style: { x },
+    }
     tabProps = {
-        variants: pRM ? tabsMotion.Reduced : variants,
-        initial: 'enter',
-        animate: 'show',
-        exit: 'exit',
-        ...dragControlProps,
-        ...dragProps,
+        ...dragShadowProps,
         ...tabProps,
     }
-
-    function detectGesture(e, { offset, velocity }) {
+    //
+    function handleSwipe(e, { offset, velocity }) {
         const swipe = Math.abs(offset.x) * velocity.x
-        const threshold = 100
-        if (swipe < -threshold) {
-            paginate(1)
-        } else if (swipe > threshold) {
-            paginate(-1)
+        if (swipe < -150) {
+            paginate(1, currentTab, span, setTab)
+        } else if (swipe > 150) {
+            paginate(-1, currentTab, span, setTab)
         }
     }
-
-    const paginate = (newDirection) => {
-        if (
-            currentTab + newDirection < span &&
-            currentTab + newDirection >= 0
-        ) {
-            // moving , normal
-            setTab([currentTab + newDirection, newDirection])
-        } else if (currentTab + newDirection === span && span > 2) {
-            // last slide >> first slide
-            setTab([0, newDirection])
-        } else if (currentTab + newDirection === -1 && span > 2) {
-            // first slide >> last slide
-            setTab([span - 1, newDirection])
-        }
-    }
-
     return (
         <motion.div
             className={`md:flex-top full relative z-0 rounded-lg opacity-100`}
+            variants={pRM ? tabsMotion.Reduced : tabsMotion.Tabs}
+            initial="enter"
+            animate="show"
+            exit="exit"
+            drag={!pRM && 'x'}
+            dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+            dragElastic={0.75}
+            onDragEnd={handleSwipe}
             {...tabProps}
         >
             {children}
-            {dragShadow ? (
+            {section == 'Featured' ? (
                 <motion.div
-                    className="absolute top-0 bottom-0 right-0 left-0 -z-10 rounded-xl shadow"
-                    style={{ opacity: d, zIndex: -20 }}
+                    className="absoluteFull -z-10 rounded-xl shadow"
+                    style={{ opacity: shadowOpacity, zIndex: -20 }}
                 />
             ) : null}
         </motion.div>
     )
+}
+
+const Tabs_List = ({ currentTab, setTab, tabNames, altStyle = false }) => {
+    const isLabeled = isNaN(tabNames)
+
+    function handleTab(clickedTab) {
+        if (clickedTab == currentTab) return
+        let newDirection = clickedTab - currentTab
+        setTab([clickedTab, newDirection])
+    }
+    return (
+        <LayoutGroup>
+            <div
+                className={`flex-evenly w-full overflow-hidden  ${
+                    isLabeled ? 'h-12 sm:h-14 lg:h-16' : 'max-w-screen-md'
+                } ${altStyle && 'rounded-xl'}`}
+            >
+                {[...Array(isLabeled ? tabNames.length : tabNames).keys()].map(
+                    (i) => {
+                        const ACTIVE = i == currentTab
+                        return isLabeled ? (
+                            <div
+                                key={`tabList-Item-${i}`}
+                                className="flex-center full group relative cursor-pointer whitespace-nowrap p-1 sm:p-2 lg:p-3"
+                                onClick={() => handleTab(i)}
+                            >
+                                <div className="full flex-center relative z-10 rounded-lg bg-white/10 font-medium capitalize tracking-wide text-grey duration-100 group-hover:bg-[#eeeeee50]">
+                                    <span
+                                        className={`z-10 select-none text-xs font-semibold tracking-normal text-white/50 duration-250 ${
+                                            ACTIVE && 'text-white/100'
+                                        }`}
+                                    >
+                                        {tabNames[i]}
+                                    </span>
+                                    <AnimatePresence mode="wait">
+                                        {ACTIVE ? (
+                                            <motion.div
+                                                className=" absoluteFull tabListEffects rounded-lg bg-teal-light/75 saturate-150 dark:bg-gradient"
+                                                style={{
+                                                    filter: `hue-rotate(${
+                                                        (i / tabNames.length) *
+                                                        135
+                                                    }deg)`,
+                                                }}
+                                                layoutId="highlight"
+                                            />
+                                        ) : null}
+                                    </AnimatePresence>
+                                </div>
+                            </div>
+                        ) : (
+                            <div
+                                key={`tabList-Item-${i}`}
+                                className="mt-5 cursor-pointer p-4"
+                                onClick={() => handleTab(i)}
+                            >
+                                <div className="relative aspect-square h-5 rounded-lg bg-grey-40/75 duration-250 dark:bg-white/50">
+                                    <AnimatePresence mode="wait">
+                                        {ACTIVE ? (
+                                            <motion.div
+                                                className="absolute -top-1 -left-1 -z-10 aspect-square h-7 rounded-lg bg-teal/75 dark:bg-gradient"
+                                                style={{
+                                                    filter: `hue-rotate(${
+                                                        (i / tabNames) * 135
+                                                    }deg) saturate(2) brightness(1.26) blur(4px)`,
+                                                }}
+                                                layoutId="highlight"
+                                            />
+                                        ) : null}
+                                    </AnimatePresence>
+                                </div>
+                            </div>
+                        )
+                    }
+                )}
+            </div>
+        </LayoutGroup>
+    )
+}
+
+const Tabs = {
+    Wrap: Tabs_Wrap,
+    List: Tabs_List,
 }
 
 export default Tabs

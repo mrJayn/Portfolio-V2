@@ -30,7 +30,7 @@ export default function Home({ data, ...pageProps }) {
             <Featured {...data} />
             <Projects {...data} />
             <Contact {...data} />
-            <Footer />
+            <Footer isMd={data.isMd} />
         </Layout>
     )
 }

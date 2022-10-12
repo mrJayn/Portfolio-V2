@@ -119,7 +119,7 @@ const Form = () => {
 
     // FORM ITEMS MOTION
     const FormChild = ({ i, children }) => {
-        const isMd = useMediaQuery()
+        const isMd = useMediaQuery(768)
         return (
             <motion.div
                 initial={{ opacity: 0, x: isMd ? 0 : 50 }}
@@ -192,10 +192,7 @@ const Form = () => {
             </FormChild>
 
             <FormChild i={4}>
-                <Styled_Button
-                    type="submit"
-                    classNames="col-span-3 rounded-xl py-2 px-10 text-darkblack md:py-5"
-                >
+                <Styled_Button animateOn={true} btnStyle="p-4" type="submit">
                     Send a Message
                 </Styled_Button>
             </FormChild>

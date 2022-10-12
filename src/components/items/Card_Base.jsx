@@ -1,12 +1,13 @@
 import { useRef } from 'react'
 import Image from 'next/image'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
+
+import Styled_Button from './StyledButton'
 import { cardVariants } from '@motion'
-import { Styled_Button } from '@components'
 
 const [wrap_vars, clip_vars, img_vars, content_vars] = cardVariants
 const imgProps = {
-    className: 'rounded-3xl md:rounded-none ',
+    className: 'rounded-3xl -z-10 md:rounded-none ',
     quality: 100,
     layout: 'fill',
     objectFit: 'cover',
@@ -17,7 +18,7 @@ const imgProps = {
 const Card_Base = ({ data, ltr, isMd, expanded, setExpanded }) => {
     const pRM = useReducedMotion()
     const ref = useRef()
-    const inView = useInView(ref, { once: true, amount: 0.25 })
+    const inView = useInView(ref, { once: true, amount: 0.1 })
     const motionProps = {
         initial: 'hidden',
         animate: !inView ? 'hidden' : expanded ? 'expanded' : 'show',
@@ -42,12 +43,7 @@ const Card_Base = ({ data, ltr, isMd, expanded, setExpanded }) => {
                     {...motionProps}
                 >
                     <div className="full relative my-10">
-                        <Image
-                            src={data.src}
-                            alt={data.alt}
-                            blurDataURL
-                            {...imgProps}
-                        />
+                        <Image src={data.src} alt={data.alt} {...imgProps} />
                     </div>
                 </motion.div>
             )}
@@ -57,8 +53,8 @@ const Card_Base = ({ data, ltr, isMd, expanded, setExpanded }) => {
                 ref={ref}
                 className={`full relative overflow-hidden ${
                     isMd
-                        ? 'rounded-[3rem] bg-gradient-to-t from-grey-light to-grey-lightest dark:from-grey-darker dark:to-grey-darkest'
-                        : 'rounded-3xl py-10'
+                        ? 'rounded-[3rem] bg-card_grad dark:bg-card_grad_DARK'
+                        : 'rounded-3xl py-10 dark:bg-white/10'
                 }`}
                 style={
                     pRM & isMd
@@ -87,14 +83,13 @@ const Card_Base = ({ data, ltr, isMd, expanded, setExpanded }) => {
                     {/** [  TITLE  ] + [  BRIEF  ] **/}
                     <h3 className="md:flex-bottom">{data.section}</h3>
                     <p
-                        className="text-center text-md font-medium text-grey-darker dark:text-grey-light md:text-lg"
+                        className="text-center text-md font-medium text-grey-80 dark:text-grey-60 md:text-lg"
                         dangerouslySetInnerHTML={{ __html: data.brief }}
                     />
 
                     {/** [  IMAGE  ] (mobile only)) **/}
                     {!isMd && (
-                        <div className="flex-center relative aspect-[4/3] w-[75vw] min-w-[320px] max-w-[450px] rounded-3xl">
-                            <span className="full cardImgShadow absolute top-0 left-0 z-10 rounded-3xl" />
+                        <div className="relative aspect-[4/3] w-[75vw] min-w-[275px] max-w-[450px] overflow-hidden rounded-3xl">
                             <Image
                                 src={data.src}
                                 alt={data.alt}
@@ -105,7 +100,7 @@ const Card_Base = ({ data, ltr, isMd, expanded, setExpanded }) => {
 
                     {/** [  READ MORE BUTTON  ] **/}
                     <Styled_Button
-                        action={() => setExpanded(!expanded)}
+                        action={() => setExpanded(true)}
                         toTextAt={isMd}
                         allowScroll={isMd ? true : false}
                         btnStyle="py-3 px-7 md:hidden"

@@ -6,8 +6,7 @@ const About = ({ about, isMd, globalControls }) => {
             0: (
                 <div
                     key="about"
-                    className=" relative mx-auto h-full md:ml-0"
-                    style={{ width: isMd ? 'calc(100% - 115px)' : '95%' }}
+                    className=" relative mx-auto h-full w-[95%] md:ml-[2.5%] md:w-[80%]"
                 >
                     <div
                         id="about-innerHTML"

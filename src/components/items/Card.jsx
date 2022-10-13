@@ -17,7 +17,7 @@ const Card_Group = ({ tabs, globalControls, ...data }) => {
 
     const cardProps = {
         data: cardData,
-        ltr: isAbout,
+        isAbout: isAbout,
         expanded: expanded,
         setExpanded: setExpanded,
         isMd: isMd,
@@ -48,13 +48,11 @@ const Card_Group = ({ tabs, globalControls, ...data }) => {
     return (
         <>
             <Card_Base {...cardProps} />
-            {/** ---------------------------- **/}
-
+            {/**************************************/}
             <Card_Expanded {...card_expanded_props}>
                 {isSm & isAbout ? (
                     <>
-                        {/** SM: FLEX-ROW  \\  MD: FLEX-COL **/}
-                        {/**  About( >=768px ) **/}
+                        {/**  About Section @ isSm **/}
                         <div className="full overflow-y-scroll md:overflow-hidden">
                             <div className="md:full flex-row p-4 pb-16 md:flex md:items-start md:pb-4">
                                 {[...Array(tabProps.span).keys()].map(
@@ -65,8 +63,8 @@ const Card_Group = ({ tabs, globalControls, ...data }) => {
                     </>
                 ) : (
                     <>
-                        {/** [  TABS  ] **/}
-                        {/** Experience(All Widths) and About(<600px) **/}
+                        {/** Experience Section **/}
+                        {/** About Section @ min->sm. **/}
                         <div className="full relative overflow-hidden">
                             {/***/}
                             <div className="fixed top-12 left-0 right-0 z-10 h-12 md:absolute md:left-6 md:right-6 md:top-0">

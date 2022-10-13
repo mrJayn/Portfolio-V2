@@ -232,13 +232,13 @@ export const menuVariants = {
 }
 
 /** ~ CARDS & TABS ~  **/
-export const cardVariants = [
-    /**wrap_vars**/ {
+export const cardVariants = {
+    Wrap: {
         hidden: { opacity: 0 },
         show: { opacity: 1, transition: { duration: 0.5, delay: 0.25 } },
         expanded: { opacity: 0, transition: { duration: 0.25 } },
     },
-    /**clip_vars**/ {
+    BgClip: {
         hidden: {
             opacity: 1,
             clipPath: `polygon(
@@ -247,8 +247,8 @@ export const cardVariants = [
                 100% 100%, 
                 0% 100%)`,
         },
-        show: (ltr) => {
-            const [x1, x2] = [ltr ? '0%' : '50%', ltr ? '50%' : '100%']
+        show: (isAbout) => {
+            const [x1, x2] = [isAbout ? '0%' : '50%', isAbout ? '50%' : '100%']
             return {
                 opacity: 1,
                 x: 0,
@@ -270,10 +270,10 @@ export const cardVariants = [
             expanded: (isMd) => ({ opacity: isMd ? 0 : 0 }),
         },
     },
-    /**img_vars**/ {
-        hidden: (isLtr) => ({
+    Img: {
+        hidden: (isAbout) => ({
             opacity: 0,
-            x: isLtr ? '-100%' : '100%',
+            x: isAbout ? '-10%' : '10%',
             filter: 'blur(4px)  brightness(0.75)',
         }),
         show: {
@@ -286,19 +286,19 @@ export const cardVariants = [
                 filter: { delay: 1, duration: 1, ease: 'anticipate' },
             },
         },
-        expanded: {
+        expanded: (isAbout) => ({
             opacity: 0,
-            x: 0,
+            x: isAbout ? '-10%' : '10%',
             filter: 'blur(4px)  brightness(0.75)',
             transition: { duration: 1 },
-        },
+        }),
         pRM: {
             hidden: { opacity: 0 },
             show: { opacity: 1, transition: { duration: 1, delay: 0.25 } },
             expanded: (isMd) => ({ opacity: isMd ? 0 : 1 }),
         },
     },
-    /**content_vars**/ {
+    Content: {
         hidden: { opacity: 0 },
         show: {
             opacity: 1,
@@ -306,7 +306,7 @@ export const cardVariants = [
         },
         expanded: (isMd) => ({ opacity: isMd ? 0 : 1 }),
     },
-]
+}
 export const expandedVariants = {
     Title: {
         hidden: () => ({
@@ -514,8 +514,40 @@ export const introVariants = {
     },
 }
 export const aboutMotion = {
-    Skills_Sm: {
-        Item: {
+    Skills: {
+        Wrap: {
+            closed: {
+                filter: 'saturate(0.15) brightness(0.75)',
+                boxShadow: '-1px 0px 5px 0px #aaa',
+                transition: { type: 'spring', bounce: 0, delay: 0.25 },
+            },
+            opened: {
+                filter: 'saturate(1.25) brightness(1)',
+                boxShadow: '-5px 0px 10px -5px #fff',
+                transition: { type: 'spring', bounce: 0 },
+            },
+        },
+        ItemMd: {
+            closed: (i) => ({
+                opacity: 1,
+                x: i % 2 == 0 ? '25%' : '-25%',
+                y: i % 2 == 0 ? '0%' : '50%',
+                width: '48px',
+                transition: {
+                    type: 'tween',
+                    duration: 0.5,
+                    delay: 0.25,
+                },
+            }),
+            opened: {
+                opacity: 1,
+                x: 0,
+                y: 0,
+                width: 'auto',
+                transition: { duration: 0.5, type: 'tween' },
+            },
+        },
+        ItemSm: {
             hidden: { opacity: 0, y: 10, rotateX: 90 },
             show: (i) => ({
                 opacity: 1,
@@ -524,69 +556,22 @@ export const aboutMotion = {
                 transition: { delay: 0.25 + i * 0.04 },
             }),
         },
-    },
-    Skills_Md: {
-        Wrap: {
+        Text: {
             closed: {
-                width: '115px',
-                transition: {
-                    type: 'spring',
-                    stiffness: 100,
-                    damping: 20,
-                },
+                opacity: 0,
+                transition: { duration: 0.25 },
             },
             opened: {
-                width: '60%',
-                transition: { type: 'spring', bounce: 0 },
+                opacity: 1,
+                transition: { delay: 0.35 },
             },
-        },
-        Item: {
-            hidden: (i) => ({
-                opacity: 0,
-                x: 0,
-                y: 0,
-            }),
-            closed: (i) => ({
-                opacity: 1,
-                x: i % 2 == 0 ? '15%' : '-15%',
-                y: i % 2 == 0 ? '-25%' : '25%',
-                marginRight: '0px',
-                marginLeft: '0px',
-                transition: {
-                    default: {
-                        type: 'spring',
-                        stiffness: 100,
-                        damping: 20,
-                    },
-                    y: {
-                        type: 'spring',
-                        stiffness: 25,
-                    },
-                },
-            }),
-            opened: (i) => ({
-                opacity: 1,
-                x: 0,
-                y: 0,
-                marginRight: '10px',
-                marginLeft: '10px',
-                transition: { type: 'spring', bounce: 0 },
-            }),
-        },
-        Text: {
-            closed: { opacity: 0, transition: { duration: 0.25 } },
-            opened: { opacity: 1 },
         },
         Img: {
             closed: {
-                width: '70%',
-                marginRight: '15%',
-                marginLeft: 0,
+                transition: { type: 'tween', duration: 0.5, delay: 0.25 },
             },
             opened: {
-                width: '100%',
-                marginRight: 0,
-                marginLeft: '5%',
+                transition: { type: 'tween', duration: 0.5 },
             },
         },
     },
@@ -636,7 +621,6 @@ export const experienceMotion = {
         },
     },
 }
-
 export const featuredVariants = [
     /**img**/ {
         initial: {
@@ -677,7 +661,6 @@ export const featuredVariants = [
         expanded: { opacity: 0 },
     },
 ]
-
 export const projectVariants = {
     Wrap: {
         hidden: { opacity: 0 },

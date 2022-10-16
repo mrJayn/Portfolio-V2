@@ -1,83 +1,146 @@
+import { useRef } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 
+import Tabs from './Tabs'
 import Styled_ExitButton from './Styled_ExitButton'
-import { expandedVariants } from '@motion'
+import { expandedMotion } from '@motion'
+import { useMediaQuery } from '@hooks'
+
+const cardExpVars = expandedMotion.Card
 
 const Card_Expanded = ({
-    children,
-    data,
-    expanded,
+    cardData,
+    tabs,
+    isAbout,
+    currentTab,
+    direction,
+    setTab,
     setExpanded,
     isMd,
-    resetTabs,
 }) => {
+    const scrollRef = useRef()
     const pRM = useReducedMotion()
-    const wrapProps = {
-        initial: 'hidden',
-        animate: 'show',
-        exit: 'hidden',
-        variants:
-            isMd & !pRM ? expandedVariants.Card : expandedVariants.Card.pRM,
-        custom: !isMd & pRM && isMd,
+    const isSm = useMediaQuery(600)
+
+    const tabListProps = {
+        currentTab: currentTab,
+        setTab: setTab,
+        tabNames: cardData.tabNames,
+    }
+    const tabProps = {
+        section: isAbout ? 'About' : 'Experience',
+        currentTab: currentTab,
+        setTab: setTab,
+        span: cardData.tabNames.length,
+        custom: direction,
     }
 
     return (
-        <AnimatePresence mode="wait" onExitComplete={resetTabs}>
-            {expanded && (
-                <>
-                    {/** TITLE **/}
-                    {isMd ? (
-                        <>
-                            <div className="left-10 -top-12 absolute z-20">
-                                <Styled_ExitButton
-                                    toggleCard={() => setExpanded(false)}
-                                />
-                            </div>
-
-                            <motion.h4
-                                className="absolute left-[50%] -z-10 translate-x-[-50%]"
-                                {...expandedVariants.Card.TitleProps}
-                            >
-                                {data.title}
-                            </motion.h4>
-                        </>
-                    ) : (
-                        <motion.div
-                            className="flex-center top-0 h-12 fixed left-[50%] z-50 translate-x-[-50%]"
-                            initial="hidden"
-                            animate="show"
-                            exit="hidden"
-                            variants={expandedVariants.Title}
-                            custom={pRM}
+        <motion.div initial="hidden" animate="show" exit="hidden">
+            {/** Md - [  Title  |  Styled_ExitButton  ]  **/}
+            <>
+                {isMd ? (
+                    <>
+                        <motion.h4
+                            className="absolute -top-12 -z-10 h-12 w-full text-center"
+                            variants={cardExpVars.Title}
                         >
-                            <h4 className="whitespace-nowrap">{data.title}</h4>
-                        </motion.div>
-                    )}
-                    {/** CONTENT **/}
-                    <motion.div
-                        className="top-12 left-3 right-3 bottom-0 md:top-3 fixed z-30 overflow-hidden bg-light dark:bg-dark md:absolute md:z-10 md:bg-transparent"
-                        {...wrapProps}
-                    >
-                        <div className="full relative">
-                            {/***/}
-                            <div className="absoluteFull overflow-hidden md:rounded-[3rem] md:bg-card_grad md:dark:bg-card_grad_DARK">
-                                <motion.div
-                                    className="full "
-                                    initial={{ opacity: 0 }}
-                                    animate={{
-                                        opacity: 1,
-                                        transition: { delay: 2 },
-                                    }}
-                                    exit={{ opacity: 0 }}
-                                >
-                                    {children}
-                                </motion.div>
-                            </div>
+                            {cardData.title}
+                        </motion.h4>
+                        <div className="absolute left-0 -top-14">
+                            <Styled_ExitButton
+                                toggleCard={() => setExpanded(false)}
+                            />
                         </div>
+                    </>
+                ) : (
+                    <motion.div
+                        className="flex-center fixed top-0 left-[50%] z-50 h-12 translate-x-[-50%]"
+                        initial="hidden"
+                        animate="show"
+                        exit="hidden"
+                        variants={expandedMotion.Title}
+                        custom={pRM}
+                    >
+                        <h4 className="whitespace-nowrap">{cardData.title}</h4>
                     </motion.div>
-                </>
-            )}
-        </AnimatePresence>
+                )}
+            </>
+
+            {/** CONTENT **/}
+            <motion.div
+                className="fixed left-3 right-3 top-12 bottom-0 z-30 bg-light dark:bg-dark md:absolute md:top-0 md:left-0 md:right-0 md:bottom-[5%] md:z-10 md:bg-transparent"
+                variants={isMd & !pRM ? cardExpVars.Wrap : cardExpVars.Wrap.pRM}
+                custom={!isMd & pRM && isMd}
+                transition={!isMd || (pRM && {})}
+            >
+                <div className="full relative">
+                    <motion.div
+                        className="absoluteFull overflow-hidden md:rounded-[5rem]"
+                        initial={{ opacity: 0 }}
+                        animate={{
+                            opacity: 1,
+                            transition: { delay: 2 },
+                        }}
+                        exit={{ opacity: 0 }}
+                    >
+                        {/** ================================================== **/}
+                        {isSm & isAbout ? (
+                            <>
+                                {/**  About Section @ isSm **/}
+                                <div className="full overflow-y-scroll md:overflow-hidden">
+                                    <div className="md:full flex-row p-4 pb-16 md:flex md:items-start md:pb-4">
+                                        {[...Array(tabProps.span).keys()].map(
+                                            (i) => tabs[i]
+                                        )}
+                                    </div>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                {/** Experience Section **/}
+                                {/** About Section @ min->sm. **/}
+                                <div className="full relative overflow-hidden">
+                                    <div
+                                        className="absoluteFull scollbar-visible overflow-y-scroll"
+                                        ref={scrollRef}
+                                    >
+                                        <div className="mb-10 overflow-hidden sm:m-0 sm:p-10">
+                                            <AnimatePresence
+                                                mode="wait"
+                                                custom={direction}
+                                                onExitComplete={() =>
+                                                    scrollRef.current.scrollTo(
+                                                        0,
+                                                        0
+                                                    )
+                                                }
+                                            >
+                                                <Tabs.Wrap
+                                                    key={currentTab}
+                                                    {...tabProps}
+                                                >
+                                                    {tabs[currentTab]}
+                                                </Tabs.Wrap>
+                                            </AnimatePresence>
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        )}
+                        {/** ================================================== **/}
+                    </motion.div>
+                    {/***/}
+                    {isSm &
+                        !isAbout(
+                            <div className="fixed bottom-0 left-0 right-0 z-10 h-14 bg-red md:absolute md:left-6 md:right-6 md:-bottom-20 md:h-14">
+                                <Tabs.List {...tabListProps} />
+                            </div>
+                        )}
+                    {/***/}
+                </div>
+            </motion.div>
+        </motion.div>
     )
 }
 

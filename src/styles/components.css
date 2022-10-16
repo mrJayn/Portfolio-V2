@@ -14,6 +14,40 @@
             @apply hue-rotate-60;
         }
     }
+    /** ================== CARDS ================= **/
+    .BORDER {
+        @apply border-[1px] border-dashed border-teal-neon/50;
+    }
+    #cardBase[data-ismd='true'] {
+        --rounded-Lg: 5rem;
+        --rounded-Sm: 3rem;
+
+        &[data-expanded='false'] {
+            &[data-section='About'] #infoCard_BG {
+                border-top-left-radius: var(--rounded-Lg);
+                border-bottom-left-radius: var(--rounded-Lg);
+                transition: border-radius 1s;
+            }
+            &[data-section='Experience'] #infoCard_BG {
+                border-top-right-radius: var(--rounded-Lg);
+                border-bottom-right-radius: var(--rounded-Lg);
+                transition: border-radius 1s;
+            }
+        }
+
+        &[data-expanded='true'] {
+            &[data-section='About'] #infoCard_BG {
+                border-radius: 5rem;
+                transition: border-radius 1s 1s;
+            }
+            &[data-section='Experience'] #infoCard_BG {
+                border-radius: 5rem;
+                transition: border-radius 1s 1s;
+            }
+        }
+    }
+    #cardBase[data-ismd='false'] {
+    }
 
     /** =============== COMPONENTS ============== **/
     /* NAVBAR */

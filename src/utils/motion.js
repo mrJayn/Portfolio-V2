@@ -233,70 +233,93 @@ export const menuVariants = {
 
 /** ~ CARDS & TABS ~  **/
 export const cardVariants = {
-    Wrap: {
+    CardSm: {
         hidden: { opacity: 0 },
         show: { opacity: 1, transition: { duration: 0.5, delay: 0.25 } },
         expanded: { opacity: 0, transition: { duration: 0.25 } },
     },
-    BgClip: {
-        hidden: {
-            opacity: 1,
-            clipPath: `polygon(
-                0% 0%, 
-                100% 0%, 
-                100% 100%, 
-                0% 100%)`,
+    Info: {
+        BG_grow: {
+            hidden: {
+                scaleX: 0.5,
+                scaleY: 0.5,
+            },
+            show: {
+                scaleX: 0.5,
+                scaleY: 0.5,
+                transition: {
+                    scaleX: { delay: 0.5, duration: 1 },
+                    scaleY: { type: 'spring', stiffness: 40 },
+                },
+            },
+            expanded: (isAbout) => ({
+                scaleX: isAbout ? 1 : 1,
+                scaleY: 0.95,
+                transition: {
+                    scaleX: { duration: 1 },
+                    scaleY: { type: 'spring', stiffness: 30, delay: 1 },
+                },
+            }),
         },
-        show: (isAbout) => {
-            const [x1, x2] = [isAbout ? '0%' : '50%', isAbout ? '50%' : '100%']
+        BG_fade: {
+            hidden: { opacity: 0 },
+            show: { opacity: 1, transition: { duration: 1, delay: 0.25 } },
+            expanded: { opacity: 1 },
+        },
+        /**
+         * Clip:
+            hidden: {
+                height: '100%',
+                clipPath: `polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)`,
+            },
+            show: (isAbout) => {
+                height: '100%',
+                clipPath: `polygon(${x1} 0%,  ${x2} 0%,  ${x2} 100%,${x1} 100%)`,
+            },
+            expanded: {
+                height: 'calc(100% + 100px)',
+                clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',  
+            }
+        noClip: {
+            hidden: { opacity: 0 },
+            show: { opacity: 1 },
+            expanded: { opacity: 1 },
+        }
+         */
+    },
+    Img: {
+        hidden: (i = 0) => ({
+            opacity: 0,
+            x: i,
+            filter: 'blur(4px)  brightness(0.75)',
+        }),
+        show: (i = 0) => {
+            const full = i !== 0
             return {
                 opacity: 1,
                 x: 0,
-                clipPath: `polygon(${x1} 0%,  ${x2} 0%,  ${x2} 100%,${x1} 100%)`,
+                filter: 'blur(0px) brightness(1)',
                 transition: {
-                    default: { delay: 0.5, duration: 1 },
-                    opacity: { delay: 0.125, duration: 1 },
+                    type: 'tween',
+                    default: {
+                        duration: full ? 2 : 1,
+                        delay: !full && 0.25,
+                        ease: full && 'anticipate',
+                    },
+                    filter: {
+                        duration: 1,
+                        delay: full ? 1 : 0.25,
+                        ease: full && 'anticipate',
+                    },
                 },
             }
         },
-        expanded: {
-            opacity: 1,
-            clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-            transition: { duration: 1 },
-        },
-        pRM: {
-            hidden: { opacity: 0 },
-            show: { opacity: 1, transition: { duration: 1, delay: 0.25 } },
-            expanded: (isMd) => ({ opacity: isMd ? 0 : 0 }),
-        },
-    },
-    Img: {
-        hidden: (isAbout) => ({
+        expanded: (i = 0) => ({
             opacity: 0,
-            x: isAbout ? '-10%' : '10%',
+            x: i,
             filter: 'blur(4px)  brightness(0.75)',
+            transition: { duration: i !== 0 ? 1 : 0.5 },
         }),
-        show: {
-            opacity: 1,
-            x: 0,
-            filter: 'blur(0px) brightness(1)',
-            transition: {
-                type: 'tween',
-                default: { duration: 2, ease: 'anticipate' },
-                filter: { delay: 1, duration: 1, ease: 'anticipate' },
-            },
-        },
-        expanded: (isAbout) => ({
-            opacity: 0,
-            x: isAbout ? '-10%' : '10%',
-            filter: 'blur(4px)  brightness(0.75)',
-            transition: { duration: 1 },
-        }),
-        pRM: {
-            hidden: { opacity: 0 },
-            show: { opacity: 1, transition: { duration: 1, delay: 0.25 } },
-            expanded: (isMd) => ({ opacity: isMd ? 0 : 1 }),
-        },
     },
     Content: {
         hidden: { opacity: 0 },
@@ -307,7 +330,7 @@ export const cardVariants = {
         expanded: (isMd) => ({ opacity: isMd ? 0 : 1 }),
     },
 }
-export const expandedVariants = {
+export const expandedMotion = {
     Title: {
         hidden: () => ({
             opacity: 0,
@@ -335,48 +358,36 @@ export const expandedVariants = {
         },
     },
     Card: {
-        hidden: {
-            opacity: 0,
-            bottom: 0,
-            transition: {
-                opacity: { duration: 0.5, ease: 'circIn' },
-                bottom: { type: 'spring', stiffness: 40 },
-            },
-        },
-        show: {
-            opacity: 1,
-            bottom: -100,
-            transition: {
-                opacity: { duration: 1, delay: 0.75 },
-                bottom: { delay: 1, type: 'spring', stiffness: 30 },
-            },
-        },
-        TitleProps: {
-            initial: 'hidden',
-            animate: 'show',
-            exit: 'hidden',
-            variants: {
-                hidden: { opacity: 0, top: 0 },
-                show: {
+        Wrap: {
+            hidden: { opacity: 0 },
+            show: { opacity: 1, transition: { duration: 1, delay: 2 } },
+            pRM: {
+                hidden: (isMd) => ({
+                    opacity: 0,
+                    transition: isMd
+                        ? { duration: 0.5 }
+                        : { duration: 0.35, ease: 'easeIn' },
+                }),
+                show: (isMd = true) => ({
                     opacity: 1,
-                    top: '-7.5%',
-                    transition: { delay: 1, type: 'spring', stiffness: 30 },
-                },
+                    transition: isMd
+                        ? { duration: 0.5, delay: 1 }
+                        : { duration: 0.5, delay: 0.25 },
+                }),
             },
         },
-        pRM: {
-            hidden: (isMd) => ({
+
+        Title: {
+            hidden: {
                 opacity: 0,
-                transition: isMd
-                    ? { duration: 0.5 }
-                    : { duration: 0.35, ease: 'easeIn' },
-            }),
-            show: (isMd = true) => ({
+                y: '50%',
+                transition: { type: 'spring', stiffness: 40 },
+            },
+            show: {
                 opacity: 1,
-                transition: isMd
-                    ? { duration: 0.5, delay: 1 }
-                    : { duration: 0.5, delay: 0.25 },
-            }),
+                y: 0,
+                transition: { delay: 1, type: 'spring', stiffness: 40 },
+            },
         },
     },
     Featured: {
@@ -517,13 +528,13 @@ export const aboutMotion = {
     Skills: {
         Wrap: {
             closed: {
-                filter: 'saturate(0.15) brightness(0.75)',
-                boxShadow: '-1px 0px 5px 0px #aaa',
+                filter: 'brightness(0.85)',
+                boxShadow: '0px 0px 0px -1px',
                 transition: { type: 'spring', bounce: 0, delay: 0.25 },
             },
             opened: {
-                filter: 'saturate(1.25) brightness(1)',
-                boxShadow: '-5px 0px 10px -5px #fff',
+                filter: 'brightness(1)',
+                boxShadow: '0px 0px 25px -1px',
                 transition: { type: 'spring', bounce: 0 },
             },
         },
@@ -533,6 +544,7 @@ export const aboutMotion = {
                 x: i % 2 == 0 ? '25%' : '-25%',
                 y: i % 2 == 0 ? '0%' : '50%',
                 width: '48px',
+                filter: 'saturate(0)',
                 transition: {
                     type: 'tween',
                     duration: 0.5,
@@ -544,6 +556,7 @@ export const aboutMotion = {
                 x: 0,
                 y: 0,
                 width: 'auto',
+                filter: 'saturate(1.25)',
                 transition: { duration: 0.5, type: 'tween' },
             },
         },

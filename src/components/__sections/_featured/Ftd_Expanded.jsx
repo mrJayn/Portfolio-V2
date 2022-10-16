@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import { Styled_ExitButton, Styled_Icon } from '@components'
-import { expandedVariants } from '@motion'
+import { expandedMotion } from '@motion'
 
 const Ftd_Expanded = ({
     project,
@@ -13,7 +13,7 @@ const Ftd_Expanded = ({
     pRM,
 }) => {
     const data = project.data
-    const variants = expandedVariants.Featured
+    const variants = expandedMotion.Featured
 
     const Featured_Content = () => (
         <div className="flex-col-top flex-col-top relative mb-10 px-5 sm:top-14">
@@ -77,7 +77,7 @@ const Ftd_Expanded = ({
                         {/** ~ NAV BAR TITLE ~ **/}
                         <motion.div
                             className="flex-center fixed top-0 left-1/2 h-12"
-                            variants={expandedVariants.Title}
+                            variants={expandedMotion.Title}
                         >
                             <h4 className=" whitespace-nowrap text-2xl">
                                 {data.title}

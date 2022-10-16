@@ -75,7 +75,7 @@
         font-weight: 600;
     }
     h6 {
-        @apply text-xl text-teal-dark dark:text-teal-light;
+        @apply text-xl text-teal dark:text-teal-lighter;
         font-weight: 600;
     }
     p {

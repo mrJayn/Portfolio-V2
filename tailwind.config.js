@@ -45,6 +45,7 @@ module.exports = {
 
             teal: {
                 lightest: '#daecec',
+                lighter: '#bff7f5',
                 light: '#8fc7c5',
                 DEFAULT: '#45a29e',
                 dark: '#29615f',
@@ -73,14 +74,7 @@ module.exports = {
             60: '6',
             auto: 'auto',
         },
-        transitionDuration: {
-            100: '100ms',
-            150: '150ms',
-            250: '250ms',
-            300: '300ms',
-            350: '350ms',
-            600: '600ms',
-        },
+
         boxShadow: {
             DEFAULT:
                 '0 20px 25px -5px var(--shadow-color), 0 8px 10px -6px var(--shadow-color)',
@@ -99,6 +93,16 @@ module.exports = {
                 card_grad: 'linear-gradient(to top, #eee, #f3f3f3)',
                 card_grad_DARK: 'linear-gradient(to top, #2a2a2a, #454545)',
                 none: 'linear-gradient(45deg, #8360c300, #45A29E00)',
+            },
+            transitionDuration: {
+                0: '0ms',
+                250: '250ms',
+                350: '350ms',
+                400: '400ms',
+                600: '600ms',
+            },
+            transitionDelay: {
+                0: '0ms',
             },
         },
     },

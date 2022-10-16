@@ -24,19 +24,19 @@
         right: 0;
         bottom: 0;
     }
-    .absoluteFull-1 {
+    .absoluteFull-m1 {
         position: absolute;
         top: 1;
         left: 1;
         right: 1;
         bottom: 1;
     }
-    .absoluteFull-2 {
+    .absoluteFull-3 {
         position: absolute;
-        top: 2;
-        left: 2;
-        right: 2;
-        bottom: 2;
+        top: 3;
+        left: 3;
+        right: 3;
+        bottom: 3;
     }
 
     /** ============= RE-USABLE STYLES ============ **/
@@ -148,10 +148,22 @@
     }
 
     .scollbar-visible {
+        scroll-behaivor: smooth;
         -webkit-tap-highlight-color: #fff !important;
         /* Hide scrollbar for IE, Edge and Firefox */
         -ms-overflow-style: unset !important; /* IE and Edge */
         scrollbar-width: thin !important; /* Firefox */
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        &::-webkit-scrollbar {
+            display: block;
+            width: 7.5px !important;
+        }
+        &::-webkit-scrollbar-thumb {
+            @apply bg-grey;
+        }
+        &::-webkit-scrollbar-track {
+            @apply bg-gradientDimmed;
+        }
     }
 
     /** =============== FLEX BOXES =============== **/

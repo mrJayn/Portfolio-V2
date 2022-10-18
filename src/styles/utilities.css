@@ -162,7 +162,7 @@
             @apply bg-grey;
         }
         &::-webkit-scrollbar-track {
-            @apply bg-gradientDimmed;
+            @apply bg-grey-90 dark:bg-grey-10;
         }
     }
 

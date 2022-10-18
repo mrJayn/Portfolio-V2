@@ -36,7 +36,7 @@ const Projects = ({ projects, isMd, pRM }) => {
             'all',
             ...new Set(projects.map(({ data: { category } }) => category)),
         ],
-        altStyle: true,
+        altStyle: 'rounded-xl',
     }
 
     return (

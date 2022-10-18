@@ -4,10 +4,7 @@ const About = ({ about, isMd, globalControls }) => {
     const cardGroupProps = {
         tabs: {
             0: (
-                <div
-                    key="about"
-                    className=" relative mx-auto h-full w-[95%] md:ml-[2.5%] md:w-[80%]"
-                >
+                <div key="about" className="px-4 md:w-[80%]">
                     <div
                         id="about-innerHTML"
                         className="w-full"

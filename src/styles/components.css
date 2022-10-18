@@ -15,40 +15,63 @@
         }
     }
     /** ================== CARDS ================= **/
-    .BORDER {
-        @apply border-[1px] border-dashed border-teal-neon/50;
-    }
-    #cardBase[data-ismd='true'] {
-        --rounded-Lg: 5rem;
-        --rounded-Sm: 3rem;
+
+    #cardBase-Bg {
+        font-size: 70px;
+        --x0: 0px;
+        --transDur: 0.5s;
+        --timing: cubic-bezier(0.6, 0, 0.4, 1);
+        &[data-section='About'] {
+            --x-closed: -1em;
+        }
+        &[data-section='Experience'] {
+            --x-closed: 1em;
+        }
 
         &[data-expanded='false'] {
-            &[data-section='About'] #infoCard_BG {
-                border-top-left-radius: var(--rounded-Lg);
-                border-bottom-left-radius: var(--rounded-Lg);
-                transition: border-radius 1s;
-            }
-            &[data-section='Experience'] #infoCard_BG {
-                border-top-right-radius: var(--rounded-Lg);
-                border-bottom-right-radius: var(--rounded-Lg);
-                transition: border-radius 1s;
-            }
+            @apply animate-card_close;
+            transition: border-radius 1.5s var(--timing);
+            --x-active: var(--x-closed);
         }
-
         &[data-expanded='true'] {
-            &[data-section='About'] #infoCard_BG {
-                border-radius: 5rem;
-                transition: border-radius 1s 1s;
-            }
-            &[data-section='Experience'] #infoCard_BG {
-                border-radius: 5rem;
-                transition: border-radius 1s 1s;
-            }
+            @apply animate-card_expand;
+            border-radius: 5rem;
+            transition: border-radius 1s 0s var(--timing);
+            --x-active: var(--x0);
+        }
+
+        box-shadow: var(--x-active) 0.05em 0.1em #00000007 inset,
+            var(--x-active) -0.25em 0.25em #0001 inset,
+            var(--x-active) -0.5em 0em #0001 inset;
+    }
+    /*
+    @keyframes reduceCard {
+        from {
+            box-shadow: var(--x0) 4px 8px #00000007 inset,
+                var(--x0) -20px 20px #0001 inset, var(--x0) -40px 0 #0001 inset;
+        }
+        55% {
+            box-shadow: var(--x0) 4px 8px #00000007 inset,
+                var(--x0) -20px 20px #0001 inset, var(--x0) -40px 0 #0001 inset;
+        }
+        to {
+            box-shadow: var(--x-closed) 4px 8px #00000007 inset,
+                var(--x-closed) -20px 20px #0001 inset,
+                var(--x-closed) -40px 0 #0001 inset;
         }
     }
-    #cardBase[data-ismd='false'] {
+    @keyframes expandCard {
+        from {
+            box-shadow: var(--x-closed) 4px 8px #00000007 inset,
+                var(--x-closed) -20px 20px #0001 inset,
+                var(--x-closed) -40px 0 #0001 inset;
+        }
+        to {
+            box-shadow: var(--x0) 4px 8px #00000007 inset,
+                var(--x0) -20px 20px #0001 inset, var(--x0) -40px 0 #0001 inset;
+        }
     }
-
+    */
     /** =============== COMPONENTS ============== **/
     /* NAVBAR */
     /* INTRO */

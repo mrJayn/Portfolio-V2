@@ -4,20 +4,20 @@ currentMin: 20
 currentMax: 1240px 
 */
 
-const fontSizeMin = 1 // 1rem = 16px
-const fontSizeMax = 1.12 //
+const fontSizeMin = 18 // 16px == 1rem
+const fontSizeMax = 20 //
 
 const factorMin = 1.185 //
 const factorMax = 1.225 //
 
-const screenMin = 20 // 320px
-const screenMax = 77.5 // 1240px
+const screenMin = 320 // 320px == 20rem
+const screenMax = 1240 // 1240px == 77.5rem
 
 const clamp = (scale = 0) => {
     const fsMin = fontSizeMin * Math.pow(factorMin, scale)
     const fsMax = fontSizeMax * Math.pow(factorMax, scale)
 
-    return `clamp(${fsMin}rem, calc(${fsMin}rem + (${fsMax} - ${fsMin}) * ((100vw - ${screenMin}rem) / (${screenMax} - ${screenMin}))), ${fsMax}rem)`
+    return `clamp(${fsMin}px, calc(${fsMin}px + (${fsMax} - ${fsMin}) * ((100vw - ${screenMin}px) / (${screenMax} - ${screenMin}))), ${fsMax}px)`
 }
 
 const fontSizes = {

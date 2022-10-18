@@ -87,6 +87,8 @@ module.exports = {
             backgroundImage: {
                 pattern: "url('/assets/misc/cardboard.png')",
                 gradient: 'linear-gradient(45deg, #8360c3, #45A29E)',
+                gradientRadial:
+                    'radial-gradient(transparent 0%, #45A29Ebb 2.5%, transparent 20%, transparent 100%)',
                 gradientDimmed: 'linear-gradient(45deg, #8360c3aa, #45A29Eaa)',
                 gradientLoop:
                     'linear-gradient(45deg, #cc22aa, #8360c3, #45A29E, #55dcd1,#45A29E,#8360c3,#cc22aa)',
@@ -103,6 +105,36 @@ module.exports = {
             },
             transitionDelay: {
                 0: '0ms',
+            },
+            keyframes: {
+                cardOn: {
+                    '0%': {
+                        boxShadow:
+                            'var(--x-closed) 0.05em 0.1em #00000007 inset, var(--x-closed) -0.25em 0.25em #0001 inset, var(--x-closed) -0.5em 0em #0001 inset',
+                    },
+                    '100%': {
+                        boxShadow:
+                            'var(--x0) 0.05em 0.1em #00000007 inset, var(--x0) -0.25em 0.25em #0001 inset, var(--x0) -0.5em 0em #0001 inset',
+                    },
+                },
+                cardOff: {
+                    '0%': {
+                        boxShadow:
+                            'var(--x0) 0.05em 0.1em #00000007 inset, var(--x0) -0.25em 0.25em #0001 inset, var(--x0) -0.5em 0em #0001 inset',
+                    },
+                    '50%': {
+                        boxShadow:
+                            'var(--x0) 0.05em 0.1em #00000007 inset, var(--x0) -0.25em 0.25em #0001 inset, var(--x0) -0.5em 0em #0001 inset',
+                    },
+                    '100%': {
+                        boxShadow:
+                            'var(--x-closed) 0.05em 0.1em #00000007 inset, var(--x-closed) -0.25em 0.25em #0001 inset, var(--x-closed) -0.5em 0em #0001 inset',
+                    },
+                },
+            },
+            animation: {
+                card_close: 'cardOff 1.55s cubic-bezier(0.6, 0, 0.4, 1)',
+                card_expand: 'cardOn 1s cubic-bezier(0.6, 0, 0.4, 1)',
             },
         },
     },

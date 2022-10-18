@@ -33,12 +33,14 @@ const Tabs_Wrap = ({
         ...dragShadowProps,
         ...tabProps,
     }
-    //
+    // Basic Gesture Detection
     function handleSwipe(e, { offset, velocity }) {
         const swipe = Math.abs(offset.x) * velocity.x
-        if (swipe < -150) {
+        const threshold = 5000
+
+        if (swipe < -threshold) {
             paginate(1, currentTab, span, setTab)
-        } else if (swipe > 150) {
+        } else if (swipe > threshold) {
             paginate(-1, currentTab, span, setTab)
         }
     }
@@ -51,7 +53,7 @@ const Tabs_Wrap = ({
             exit="exit"
             drag={!pRM && 'x'}
             dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-            dragElastic={0.75}
+            dragElastic={0.5}
             onDragEnd={handleSwipe}
             {...tabProps}
         >
@@ -66,7 +68,7 @@ const Tabs_Wrap = ({
     )
 }
 
-const Tabs_List = ({ currentTab, setTab, tabNames, altStyle = false }) => {
+const Tabs_List = ({ currentTab, setTab, tabNames, altStyle = '' }) => {
     const isLabeled = isNaN(tabNames)
 
     function handleTab(clickedTab) {
@@ -79,7 +81,7 @@ const Tabs_List = ({ currentTab, setTab, tabNames, altStyle = false }) => {
             <div
                 className={`flex-evenly w-full overflow-hidden  ${
                     isLabeled ? 'h-12 sm:h-14 lg:h-16' : 'max-w-screen-md'
-                } ${altStyle && 'rounded-xl'}`}
+                } ${altStyle}`}
             >
                 {[...Array(isLabeled ? tabNames.length : tabNames).keys()].map(
                     (i) => {

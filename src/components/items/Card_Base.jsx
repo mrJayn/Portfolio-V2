@@ -3,30 +3,19 @@ import Image from 'next/image'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
 
 import Styled_Button from './StyledButton'
-import { cardVariants } from '@motion'
+import { cardVariants as variants } from '@motion'
 
 // Motion Variants
-const smCardVars = cardVariants.CardSm
-const infoVars = cardVariants.Info
-const imgVars = cardVariants.Img
-const contentVars = cardVariants.Content
+const smCardVars = variants.CardSm
+const imgVars = variants.Img
+const contentVars = variants.Content
 
-const Card_Base = ({ data, isAbout, isMd, expanded, setExpanded }) => {
-    const ref = useRef()
-    const inView = useInView(ref, { once: true, amount: 0.1 })
-    const pRM = useReducedMotion()
-    // Animation Trigger
-    const cardAnim = !inView ? 'hidden' : expanded ? 'expanded' : 'show'
-
-    // Next Image w/Props
-    const Styled_Image = ({ src, alt }) => (
+// Next Image w/Props
+const Styled_Image = ({ src, alt, isAbout, isMd, pRM }) => {
+    const Styled_Img = () => (
         <div
-            className={`relative overflow-hidden ${
-                isMd
-                    ? `mx-auto mt-2 h-[calc(100%-16px)] w-[calc(100%-16px)] rounded-[2.5rem] ${
-                          isAbout ? 'rounded-l-none' : 'rounded-r-none'
-                      }`
-                    : 'aspect-[4/3] w-[90vw] min-w-[270px] max-w-[400px] rounded-xl shadow-md'
+            className={`relative aspect-[4/3] w-10/12 overflow-hidden rounded-xl shadow-md md:mx-auto md:mt-2 md:aspect-auto md:h-[calc(100%-16px)] md:w-[calc(100%-16px)] md:rounded-[2.5rem] md:shadow-none ${
+                isAbout ? 'md:rounded-l-none' : 'md:rounded-r-none'
             }`}
         >
             <Image
@@ -39,45 +28,74 @@ const Card_Base = ({ data, isAbout, isMd, expanded, setExpanded }) => {
             />
         </div>
     )
+    return isMd ? (
+        <motion.div
+            id="imgCard"
+            className="relative -z-10 h-full w-1/2 overflow-hidden motion-reduce:z-10 motion-reduce:rounded-[3rem]"
+            style={{ order: isAbout ? 2 : 1 }}
+            variants={imgVars}
+            custom={pRM ? 0 : isAbout ? '-10%' : '10%'}
+        >
+            <Styled_Img />
+        </motion.div>
+    ) : (
+        <Styled_Img />
+    )
+}
+
+const Md_Bg = ({ expanded, isAbout, anim, pRM }) => {
+    return (
+        <motion.div
+            id="cardBase-Bg"
+            data-section={isAbout ? 'About' : 'Experience'}
+            data-expanded={expanded || pRM}
+            className={`absoluteFull bg-card_grad will-change-transform dark:bg-card_grad_DARK
+            ${isAbout ? 'rounded-l-[5rem]' : 'rounded-r-[5rem]'}
+            `}
+            style={{ originX: isAbout ? 0 : 1 }}
+            initial="hidden"
+            animate={anim}
+            variants={variants.Md_Bg}
+            custom={pRM}
+        />
+    )
+}
+
+const Card_Base = ({ data, isAbout, isMd, expanded, setExpanded }) => {
+    const ref = useRef()
+    const inView = useInView(ref, { once: true, amount: 0.1 })
+    const pRM = useReducedMotion()
+
+    // Animation Trigger
+    const anim = !inView ? 'hidden' : expanded ? 'expanded' : 'show'
+
+    // Props
+    const styledImageProps = {
+        src: data.src,
+        alt: data.alt,
+        isAbout: isAbout,
+        isMd: isMd,
+        pRM: pRM,
+    }
 
     return (
         <motion.div
             id="cardBase"
             className="full relative md:flex"
-            data-ismd={isMd}
-            data-section={isAbout ? 'About' : 'Experience'}
-            data-expanded={expanded}
             initial={false}
-            animate={cardAnim}
+            animate={anim}
             variants={!isMd && smCardVars}
             ref={ref}
         >
             {/** [  Styled-Image  |  Background-Animation ] **/}
             {isMd && (
                 <>
-                    <motion.div
-                        id="imgCard"
-                        className={`relative h-1/2 w-1/2 ${
-                            isAbout ? 'order-2' : 'order-1'
-                        }`}
-                        style={{
-                            zIndex: pRM ? 1 : -1,
-                            borderRadius: pRM && '3rem',
-                        }}
-                        variants={imgVars}
-                        custom={pRM ? 0 : isAbout ? '-10%' : '10%'}
-                    >
-                        <Styled_Image src={data.src} alt={data.alt} />
-                    </motion.div>
-                    {/***/}
-                    <motion.div
-                        id="infoCard_BG"
-                        className={`absoluteFull bg-card_grad shadow-[0px_10px_25px_-10px] will-change-transform dark:bg-card_grad_DARK dark:shadow-teal-lighter`}
-                        style={{ originX: isAbout ? 0 : 1, originY: 0 }}
-                        initial="hidden"
-                        animate={cardAnim}
-                        variants={pRM ? infoVars.BG_fade : infoVars.BG_grow}
-                        custom={!pRM && isAbout}
+                    <Styled_Image {...styledImageProps} />
+                    <Md_Bg
+                        expanded={expanded}
+                        isAbout={isAbout}
+                        anim={anim}
+                        pRM={pRM}
                     />
                 </>
             )}
@@ -87,7 +105,7 @@ const Card_Base = ({ data, isAbout, isMd, expanded, setExpanded }) => {
                 id="infoCard"
                 className={`relative overflow-hidden   ${
                     isMd
-                        ? 'h-1/2 w-1/2'
+                        ? 'h-3/4 w-1/2'
                         : 'full rounded-[3rem] bg-card_grad py-10 dark:bg-card_grad_DARK'
                 }`}
                 style={{ order: isAbout ? 1 : 2 }}
@@ -107,7 +125,7 @@ const Card_Base = ({ data, isAbout, isMd, expanded, setExpanded }) => {
                     />
 
                     {/** [  IMAGE  ] (mobile only)) **/}
-                    {!isMd && <Styled_Image src={data.src} alt={data.alt} />}
+                    {!isMd && <Styled_Image {...styledImageProps} />}
 
                     {/** [  READ MORE BUTTON  ] **/}
                     <Styled_Button

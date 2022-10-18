@@ -39,7 +39,7 @@ const Card_Group = ({ tabs, globalControls, ...data }) => {
         <div className="relative mx-auto h-full w-full max-w-[500px] md:h-[500px] md:max-w-none lg:h-[450px] xl:h-[550px]">
             <Card_Base {...cardProps} />
             {/**************************************/}
-            <AnimatePresence mode="wait" onExitComplete={() => setTab([0, 0])}>
+            <AnimatePresence onExitComplete={() => setTab([0, 0])}>
                 {expanded && <Card_Expanded {...card_expanded_props} />}
             </AnimatePresence>
         </div>

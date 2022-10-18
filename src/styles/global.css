@@ -21,20 +21,17 @@
     --teal: theme(colors.teal.DEFAULT);
     --active: theme(colors.teal.DEFAULT);
     --bg-light: #ffffffff; /* ( -white )*/
-    --bg-dark: ##101014ff; /* ( -black-light )*/
+    --bg-dark: #101014ff; /* ( -black-light )*/
     --shadow-color: #0b0b1080; /* ( -black/50 )*/
-    --shadow-sm-color: #0b0b10; /* ( -black )*/
 }
 @media (prefers-color-scheme: light) {
     :root {
         --shadow-color: #0b0b1080; /* ( -black/50) */
-        --shadow-sm-color: #0b0b10; /* ( -black )*/
     }
 }
 @media (prefers-color-scheme: dark) {
     :root {
-        --tw-shadow-colored: 0 0 #0000;
-        --shadow-sm-color: #45a29ebf; /* ( -teal/75 ) */
+        --shadow-color: #000;
     }
 }
 /* ================== BASE ================== */

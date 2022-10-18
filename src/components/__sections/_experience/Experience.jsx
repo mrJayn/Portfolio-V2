@@ -5,7 +5,7 @@ const Experience = ({ experience, globalControls }) => {
             0: (
                 <div
                     id="experience-innerHTML"
-                    className="px-2 text-white md:p-10 md:pt-5"
+                    className="px-2 md:p-10 md:pt-5"
                     dangerouslySetInnerHTML={{
                         __html: experience.content,
                     }}

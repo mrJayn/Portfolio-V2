@@ -106,36 +106,6 @@ module.exports = {
             transitionDelay: {
                 0: '0ms',
             },
-            keyframes: {
-                cardOn: {
-                    '0%': {
-                        boxShadow:
-                            'var(--x-closed) 0.05em 0.1em #00000007 inset, var(--x-closed) -0.25em 0.25em #0001 inset, var(--x-closed) -0.5em 0em #0001 inset',
-                    },
-                    '100%': {
-                        boxShadow:
-                            'var(--x0) 0.05em 0.1em #00000007 inset, var(--x0) -0.25em 0.25em #0001 inset, var(--x0) -0.5em 0em #0001 inset',
-                    },
-                },
-                cardOff: {
-                    '0%': {
-                        boxShadow:
-                            'var(--x0) 0.05em 0.1em #00000007 inset, var(--x0) -0.25em 0.25em #0001 inset, var(--x0) -0.5em 0em #0001 inset',
-                    },
-                    '50%': {
-                        boxShadow:
-                            'var(--x0) 0.05em 0.1em #00000007 inset, var(--x0) -0.25em 0.25em #0001 inset, var(--x0) -0.5em 0em #0001 inset',
-                    },
-                    '100%': {
-                        boxShadow:
-                            'var(--x-closed) 0.05em 0.1em #00000007 inset, var(--x-closed) -0.25em 0.25em #0001 inset, var(--x-closed) -0.5em 0em #0001 inset',
-                    },
-                },
-            },
-            animation: {
-                card_close: 'cardOff 1.55s cubic-bezier(0.6, 0, 0.4, 1)',
-                card_expand: 'cardOn 1s cubic-bezier(0.6, 0, 0.4, 1)',
-            },
         },
     },
 }

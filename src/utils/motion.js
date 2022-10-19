@@ -242,27 +242,6 @@ export const cardVariants = {
         show: { opacity: 1, transition: { duration: 0.5, delay: 0.25 } },
         expanded: { opacity: 0, transition: { duration: 0.25 } },
     },
-    Md_Bg: {
-        hidden: (pRM = false) => ({
-            opacity: pRM ? 0 : 1,
-            scaleX: 1,
-            boxShadow: pRM ? boxShadowOpened : boxShadowClosed,
-        }),
-        show: (pRM = false) => ({
-            opacity: 1,
-            scaleX: pRM ? 1 : 0.5,
-            boxShadow: boxShadowOpened,
-            transition: pRM
-                ? { duration: 1, delay: 0.25 }
-                : { duration: 1, delay: 0.55, ease: [0.6, 0, 0.4, 1] },
-        }),
-        expanded: (pRM) => ({
-            opacity: 1,
-            scaleX: 1,
-            boxShadow: pRM ? boxShadowOpened : boxShadowClosed,
-            transition: !pRM && { duration: 1, ease: [0.6, 0, 0.4, 1] },
-        }),
-    },
     Img: {
         hidden: (i = 0) => ({
             opacity: 0,

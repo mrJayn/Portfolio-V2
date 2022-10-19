@@ -15,63 +15,17 @@
         }
     }
     /** ================== CARDS ================= **/
-
     #cardBase-Bg {
-        font-size: 70px;
-        --x0: 0px;
-        --transDur: 0.5s;
-        --timing: cubic-bezier(0.6, 0, 0.4, 1);
-        &[data-section='About'] {
-            --x-closed: -1em;
-        }
-        &[data-section='Experience'] {
-            --x-closed: 1em;
-        }
-
-        &[data-expanded='false'] {
-            @apply animate-card_close;
-            transition: border-radius 1.5s var(--timing);
-            --x-active: var(--x-closed);
-        }
-        &[data-expanded='true'] {
-            @apply animate-card_expand;
-            border-radius: 5rem;
-            transition: border-radius 1s 0s var(--timing);
-            --x-active: var(--x0);
-        }
-
-        box-shadow: var(--x-active) 0.05em 0.1em #00000007 inset,
-            var(--x-active) -0.25em 0.25em #0001 inset,
-            var(--x-active) -0.5em 0em #0001 inset;
+        font-size: 60px;
+        box-shadow: 0em 0.025em 0.05em #0002 inset,
+            0em -0.25em 0.25em #0002 inset, 0em -0.5em 0em #88888805 inset,
+            0em 0.1em 0.1em #0005;
     }
+
     /*
-    @keyframes reduceCard {
-        from {
-            box-shadow: var(--x0) 4px 8px #00000007 inset,
-                var(--x0) -20px 20px #0001 inset, var(--x0) -40px 0 #0001 inset;
-        }
-        55% {
-            box-shadow: var(--x0) 4px 8px #00000007 inset,
-                var(--x0) -20px 20px #0001 inset, var(--x0) -40px 0 #0001 inset;
-        }
-        to {
-            box-shadow: var(--x-closed) 4px 8px #00000007 inset,
-                var(--x-closed) -20px 20px #0001 inset,
-                var(--x-closed) -40px 0 #0001 inset;
-        }
-    }
-    @keyframes expandCard {
-        from {
-            box-shadow: var(--x-closed) 4px 8px #00000007 inset,
-                var(--x-closed) -20px 20px #0001 inset,
-                var(--x-closed) -40px 0 #0001 inset;
-        }
-        to {
-            box-shadow: var(--x0) 4px 8px #00000007 inset,
-                var(--x0) -20px 20px #0001 inset, var(--x0) -40px 0 #0001 inset;
-        }
-    }
-    */
+        box-shadow: var(--x-active) 20px 25px -5px var(--shadow-color), var(--x-active) 8px 10px -6px var(--shadow-color);
+        */
+
     /** =============== COMPONENTS ============== **/
     /* NAVBAR */
     /* INTRO */

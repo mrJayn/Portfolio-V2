@@ -14,7 +14,7 @@ const contentVars = variants.Content
 const Styled_Image = ({ src, alt, isAbout, isMd, pRM }) => {
     const Styled_Img = () => (
         <div
-            className={`relative aspect-[4/3] w-10/12 overflow-hidden rounded-xl shadow-md md:mx-auto md:mt-2 md:aspect-auto md:h-[calc(100%-16px)] md:w-[calc(100%-16px)] md:rounded-[2.5rem] md:shadow-none ${
+            className={`relative aspect-[4/3] w-10/12 overflow-hidden rounded-xl shadow-md md:mx-auto md:mt-6 md:aspect-auto md:h-[calc(100%-48px)] md:w-[calc(100%-16px)] md:rounded-[3rem] md:shadow-none ${
                 isAbout ? 'md:rounded-l-none' : 'md:rounded-r-none'
             }`}
         >
@@ -43,20 +43,28 @@ const Styled_Image = ({ src, alt, isAbout, isMd, pRM }) => {
     )
 }
 
-const Md_Bg = ({ expanded, isAbout, anim, pRM }) => {
+const Md_Bg = ({ expanded, isAbout, pRM }) => {
+    const [x1, x2] = isAbout ? [0, 50] : [50, 100]
     return (
         <motion.div
             id="cardBase-Bg"
-            data-section={isAbout ? 'About' : 'Experience'}
-            data-expanded={expanded || pRM}
-            className={`absoluteFull bg-card_grad will-change-transform dark:bg-card_grad_DARK
-            ${isAbout ? 'rounded-l-[5rem]' : 'rounded-r-[5rem]'}
+            data-expanded={expanded}
+            className={`absoluteFull rounded-[3rem] bg-grey-90 will-change-transform  dark:bg-grey-20/90
             `}
-            style={{ originX: isAbout ? 0 : 1 }}
-            initial="hidden"
-            animate={anim}
-            variants={variants.Md_Bg}
-            custom={pRM}
+            initial={{
+                clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+            }}
+            animate={
+                !pRM && {
+                    clipPath: `polygon(
+                ${expanded ? 0 : x1}% 0%, 
+                ${expanded ? 100 : x2}% 0%, 
+                ${expanded ? 100 : x2}% 110%, 
+                ${expanded ? 0 : x1}% 110%
+            )`,
+                }
+            }
+            transition={{ duration: 1, ease: [0.25, 1, 0.65, 1] }}
         />
     )
 }
@@ -105,7 +113,7 @@ const Card_Base = ({ data, isAbout, isMd, expanded, setExpanded }) => {
                 id="infoCard"
                 className={`relative overflow-hidden   ${
                     isMd
-                        ? 'h-3/4 w-1/2'
+                        ? 'h-full w-1/2'
                         : 'full rounded-[3rem] bg-card_grad py-10 dark:bg-card_grad_DARK'
                 }`}
                 style={{ order: isAbout ? 1 : 2 }}
@@ -118,7 +126,7 @@ const Card_Base = ({ data, isAbout, isMd, expanded, setExpanded }) => {
                     custom={isMd}
                 >
                     {/** [  TITLE  ] + [  BRIEF  ] **/}
-                    <h3 className="md:flex-bottom">{data.section}</h3>
+                    <h3>{data.section}</h3>
                     <p
                         className="text-center text-xl font-medium text-grey-40 dark:text-grey-60 md:text-lg"
                         dangerouslySetInnerHTML={{ __html: data.brief }}
@@ -133,7 +141,7 @@ const Card_Base = ({ data, isAbout, isMd, expanded, setExpanded }) => {
                         toTextAt={isMd}
                         allowScroll={isMd ? true : false}
                         btnStyle="py-4 w-3/4 md:hidden"
-                        textStyle="mt-16"
+                        textStyle="mt-20"
                     >
                         Read More
                     </Styled_Button>

@@ -231,28 +231,50 @@ export const menuVariants = {
 }
 
 /** ~ CARDS & TABS ~  **/
-const boxShadowOpened =
-    '0px 4px 8px #00000007 inset, 0px -20px 20px #0001 inset, 0px-40px 0 #0001 inset, 0px 8px 8px #0001'
-const boxShadowClosed =
-    '-80px 4px 8px #00000007 inset, -80px -20px 20px #0001 inset, -80px-40px 0 #0001 inset, -80px 8px 8px #0001'
-
 export const cardVariants = {
     CardSm: {
         hidden: { opacity: 0 },
         show: { opacity: 1, transition: { duration: 0.5, delay: 0.25 } },
         expanded: { opacity: 0, transition: { duration: 0.25 } },
     },
+    MdBg: {
+        hidden: {
+            opacity: 1,
+            scaleX: 1,
+            scaleY: 0.98,
+        },
+        show: {
+            opacity: 0,
+            scaleX: 0.5,
+            scaleY: 0.95,
+            filter: 'brightness(0.6)',
+            transition: {
+                opacity: { duration: 0.5, delay: 1 },
+                scaleX: { duration: 1, delay: 0.5, ease: [0.25, 1, 0.65, 1] },
+                default: { duration: 0.5 },
+            },
+        },
+        expanded: {
+            opacity: 1,
+            scaleX: 1,
+            scaleY: 1,
+            filter: 'brightness(1)',
+            transition: {
+                opacity: { duration: 0 },
+                scaleX: { duration: 1, ease: [0.25, 1, 0.65, 1] },
+                default: { duration: 0.5, delay: 1, ease: 'easeOut' },
+            },
+        },
+    },
     Img: {
         hidden: (i = 0) => ({
             opacity: 0,
-            x: i,
             filter: 'blur(4px)  brightness(0.75)',
         }),
         show: (i = 0) => {
             const full = i !== 0
             return {
                 opacity: 1,
-                x: 0,
                 filter: 'blur(0px) brightness(1)',
                 transition: {
                     type: 'tween',
@@ -271,7 +293,6 @@ export const cardVariants = {
         },
         expanded: (i = 0) => ({
             opacity: 0,
-            x: i,
             filter: 'blur(4px)  brightness(0.75)',
             transition: { duration: i !== 0 ? 1 : 0.5 },
         }),

@@ -67,7 +67,7 @@ const Card_Expanded = ({
             )}
 
             {/** CONTENT **/}
-            <div className="full relative bg-light dark:bg-dark md:bg-transparent">
+            <div className="full relative bg-background md:bg-transparent">
                 {isSm & isAbout ? (
                     <div className="absoluteFull overflow-hidden   md:rounded-[5rem]">
                         <div className="full overflow-y-scroll md:overflow-hidden">

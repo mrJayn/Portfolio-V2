@@ -148,7 +148,7 @@ const Loader = ({ setIsLoading }) => {
     return (
         <div
             id="loader-wrap"
-            className="flex-center relative z-[99] h-screen w-screen overflow-hidden bg-light dark:bg-dark"
+            className="flex-center relative z-[99] h-screen w-screen overflow-hidden bg-background"
             style={{ opacity: `${isMounted ? 100 : 0}` }}
         >
             <div
@@ -162,7 +162,7 @@ const Loader = ({ setIsLoading }) => {
                 >
                     {[...Array(el_size ** 2).keys()].map((i) => (
                         <div
-                            className="square relative m-[0.5px] rounded bg-white opacity-0 odd:bg-teal dark:bg-teal-light dark:odd:bg-teal"
+                            className="square relative m-[0.5px] rounded bg-white opacity-0 odd:bg-teal dark:bg-teal-40 dark:odd:bg-teal"
                             style={{
                                 height: elSize,
                                 width: elSize,
@@ -178,7 +178,7 @@ const Loader = ({ setIsLoading }) => {
             </div>
             <div
                 id="loader-bg"
-                className="absolute -z-10 mx-auto translate-y-[-50%] scale-0 bg-gradientRadial  opacity-0 dark:z-10"
+                className="bg-gradient_radial absolute -z-10 mx-auto translate-y-[-50%] scale-0  opacity-0 dark:z-10"
                 style={{
                     height: loaderSize,
                     width: loaderSize,

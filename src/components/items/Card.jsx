@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { AnimatePresence } from 'framer-motion'
 
 import Card_Base from './Card_Base'
@@ -34,6 +34,15 @@ const Card_Group = ({ tabs, globalControls, ...data }) => {
 
     // useGlobalControls for dynamic NAV (@media<768px)
     useGlobalControls(globalControls, [expanded, setExpanded], ['card', isMd])
+
+    // Odd or Even Card Styling
+    useEffect(() => {
+        if (!isMd) return
+        document.querySelectorAll('div[data-cardbase]').forEach((card, i) => {
+            var cssClass = i % 2 == 0 ? 'oddCard' : 'evenCard'
+            card.classList.add(cssClass)
+        })
+    }, [isMd])
 
     return (
         <div className="relative mx-auto h-full w-full max-w-[500px] md:h-[500px] md:max-w-none lg:h-[450px] xl:h-[550px]">

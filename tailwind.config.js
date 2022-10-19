@@ -21,13 +21,11 @@ module.exports = {
         colors: {
             transparent: 'transparent',
             current: 'currentColor',
-
-            light: '#fbfbfb',
-            dark: '#1d1d1d',
-            nav: '#333',
-
             white: '#fff',
             black: '#000',
+
+            background: 'var(--background)',
+            nav: '#333',
 
             grey: {
                 10: '#151515',
@@ -40,15 +38,13 @@ module.exports = {
                 80: '#d5d5d5',
                 90: '#eee',
             },
-
-            eee: '#eee',
-
             teal: {
-                lightest: '#daecec',
-                lighter: '#bff7f5',
-                light: '#8fc7c5',
+                10: '#daecec',
+                30: '#bff7f5',
+                40: '#8fc7c5',
                 DEFAULT: '#45a29e',
-                dark: '#29615f',
+                90: '#29615f',
+                99: '#40606f',
                 neon: '#66fcf1',
             },
             purple: {
@@ -86,15 +82,14 @@ module.exports = {
         extend: {
             backgroundImage: {
                 pattern: "url('/assets/misc/cardboard.png')",
-                gradient: 'linear-gradient(45deg, #8360c3, #45A29E)',
-                gradientRadial:
-                    'radial-gradient(transparent 0%, #45A29Ebb 2.5%, transparent 20%, transparent 100%)',
-                gradientDimmed: 'linear-gradient(45deg, #8360c3aa, #45A29Eaa)',
-                gradientLoop:
+                gradient:
+                    'linear-gradient(45deg, var(--theme-purple), var(--theme-teal))',
+                gradient_radial:
+                    'radial-gradient(transparent 0%, var(--theme-teal) 2.5%, transparent 20%, transparent 100%)',
+                gradient_title:
                     'linear-gradient(45deg, #cc22aa, #8360c3, #45A29E, #55dcd1,#45A29E,#8360c3,#cc22aa)',
-                card_grad: 'linear-gradient(to top, #eee, #f3f3f3)',
-                card_grad_DARK: 'linear-gradient(to top, #2a2a2a, #454545)',
-                none: 'linear-gradient(45deg, #8360c300, #45A29E00)',
+                gradient_card:
+                    'linear-gradient(to top, var(--card-bg-from), var(--card-bg-to))',
             },
             transitionDuration: {
                 0: '0ms',

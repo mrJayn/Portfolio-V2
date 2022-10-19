@@ -23,7 +23,7 @@ const Skills = ({ skills, isMd }) => {
         <motion.div
             className={
                 isMd
-                    ? ' flex-col-top group absolute top-0 right-0 z-10 h-full w-auto cursor-pointer overflow-hidden rounded-[3rem] bg-card_grad px-4 text-dark saturate-0 duration-200 ease-in hover:saturate-100 dark:bg-card_grad_DARK dark:text-grey'
+                    ? ' flex-col-top group absolute top-0 right-0 z-10 h-full w-auto cursor-pointer overflow-hidden rounded-[3rem] bg-gradient_card px-4 text-grey-10 saturate-0 duration-200 ease-in hover:saturate-100 dark:text-grey'
                     : 'flex-col-top full'
             }
             initial="hidden"
@@ -46,14 +46,14 @@ const Skills = ({ skills, isMd }) => {
                             key={`about-skills-${i}`}
                             className={
                                 isMd
-                                    ? 'flex-right relative mr-auto h-12 rounded-lg bg-light shadow-[-5px_2.5px_5px_-2.5px_#111] odd:flex-row-reverse even:z-10 dark:bg-grey-40'
+                                    ? 'flex-right relative mr-auto h-12 rounded-lg bg-background shadow-[-5px_2.5px_5px_-2.5px_#111] odd:flex-row-reverse even:z-10'
                                     : 'flex h-12 overflow-hidden rounded-lg bg-grey-60/25 pr-2'
                             }
                             variants={li_vars}
                             custom={i}
                         >
                             <motion.p
-                                className="whitespace-nowrap italic tracking-tighter text-grey-40 dark:text-teal-lightest  sm:tracking-tight md:mx-[10px] md:rounded-lg"
+                                className="whitespace-nowrap italic tracking-tighter text-grey-40 dark:text-teal-10  sm:tracking-tight md:mx-[10px] md:rounded-lg"
                                 style={{ order: isMd ? 0 : 1 }}
                                 variants={variants.Text}
                             >

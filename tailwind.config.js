@@ -8,6 +8,8 @@ module.exports = {
         './src/components/**/*.{js,ts,jsx,tsx}',
     ],
     theme: {
+        fontSize: themeConfig.fontSize,
+        spacing: themeConfig.spacing,
         screens: {
             min: '320px',
             sm: '600px',
@@ -20,28 +22,30 @@ module.exports = {
             transparent: 'transparent',
             current: 'currentColor',
 
-            white: '#fff',
+            light: '#fbfbfb',
+            dark: '#1d1d1d',
+            nav: '#333',
 
-            black: {
-                dark: '#000004',
-                DEFAULT: '#0b0b10',
-                light: '#101014',
-            },
+            white: '#fff',
+            black: '#000',
 
             grey: {
-                darkest: '#151519',
-                darker: '#1b1b20',
-                dark: '#606064',
-                DEFAULT: '#858589',
-                light: '#d5d5d9',
-                lighter: '#e6e6f0',
-                lightest: '#ededf2',
+                10: '#151515',
+                20: '#333',
+                30: '#454545',
+                40: '#666',
+                DEFAULT: '#999',
+                60: '#a5a5a5',
+                70: '#ccc',
+                80: '#d5d5d5',
+                90: '#eee',
             },
 
             eee: '#eee',
 
             teal: {
                 lightest: '#daecec',
+                lighter: '#bff7f5',
                 light: '#8fc7c5',
                 DEFAULT: '#45a29e',
                 dark: '#29615f',
@@ -60,7 +64,6 @@ module.exports = {
             montserrat: ['Montserrat', 'sans-serif'],
             robotoMono: ['Roboto Mono', 'monospace'],
         },
-        fontSize: themeConfig.fontSize,
         zIndex: {
             0: '0',
             10: '1',
@@ -68,42 +71,10 @@ module.exports = {
             30: '3',
             40: '4',
             50: '5',
+            60: '6',
             auto: 'auto',
         },
-        keyframes: {
-            gradientKFs: {
-                '0%': {
-                    backgroundPosition: '0% 50%',
-                },
 
-                '100%': {
-                    backgroundPosition: '300% 50%',
-                },
-            },
-            glowKFs: {
-                '0%': {
-                    opacity: 0.85,
-                },
-                '50%': {
-                    opacity: 1,
-                },
-                '100%': {
-                    opacity: 0.85,
-                },
-            },
-        },
-        animation: {
-            none: '',
-            glowing: 'glowKFs 3.5s linear infinite',
-        },
-        transitionDuration: {
-            100: '100ms',
-            150: '150ms',
-            250: '250ms',
-            300: '300ms',
-            350: '350ms',
-            600: '600ms',
-        },
         boxShadow: {
             DEFAULT:
                 '0 20px 25px -5px var(--shadow-color), 0 8px 10px -6px var(--shadow-color)',
@@ -116,10 +87,24 @@ module.exports = {
             backgroundImage: {
                 pattern: "url('/assets/misc/cardboard.png')",
                 gradient: 'linear-gradient(45deg, #8360c3, #45A29E)',
+                gradientRadial:
+                    'radial-gradient(transparent 0%, #45A29Ebb 2.5%, transparent 20%, transparent 100%)',
                 gradientDimmed: 'linear-gradient(45deg, #8360c3aa, #45A29Eaa)',
                 gradientLoop:
                     'linear-gradient(45deg, #cc22aa, #8360c3, #45A29E, #55dcd1,#45A29E,#8360c3,#cc22aa)',
+                card_grad: 'linear-gradient(to top, #eee, #f3f3f3)',
+                card_grad_DARK: 'linear-gradient(to top, #2a2a2a, #454545)',
                 none: 'linear-gradient(45deg, #8360c300, #45A29E00)',
+            },
+            transitionDuration: {
+                0: '0ms',
+                250: '250ms',
+                350: '350ms',
+                400: '400ms',
+                600: '600ms',
+            },
+            transitionDelay: {
+                0: '0ms',
             },
         },
     },

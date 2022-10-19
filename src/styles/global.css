@@ -5,7 +5,7 @@
 /* ================== ***** ================== */
 * {
     & ::selection {
-        @apply bg-teal-neon/50 text-black-dark dark:bg-teal/75 dark:text-white;
+        @apply bg-teal-neon/50 text-black dark:bg-teal/75 dark:text-white;
     }
     -webkit-tap-highlight-color: transparent;
     /* Hide scrollbar for IE, Edge and Firefox */
@@ -21,27 +21,23 @@
     --teal: theme(colors.teal.DEFAULT);
     --active: theme(colors.teal.DEFAULT);
     --bg-light: #ffffffff; /* ( -white )*/
-    --bg-dark: ##101014ff; /* ( -black-light )*/
+    --bg-dark: #101014ff; /* ( -black-light )*/
     --shadow-color: #0b0b1080; /* ( -black/50 )*/
-    --shadow-sm-color: #0b0b10; /* ( -black )*/
 }
 @media (prefers-color-scheme: light) {
     :root {
         --shadow-color: #0b0b1080; /* ( -black/50) */
-        --shadow-sm-color: #0b0b10; /* ( -black )*/
     }
 }
 @media (prefers-color-scheme: dark) {
     :root {
-        --tw-shadow-colored: 0 0 #0000;
-        --shadow-sm-color: #45a29ebf; /* ( -teal/75 ) */
+        --shadow-color: #000;
     }
 }
 /* ================== BASE ================== */
 @layer base {
     html {
         @apply scroll-smooth;
-        @apply bg-white dark:bg-grey-darkest;
         @apply font-montserrat text-base font-normal antialiased;
         word-spacing: 1px;
     }
@@ -49,6 +45,7 @@
     body {
         @apply m-0 block h-screen w-screen min-w-[320px] p-0;
         @apply overflow-y-scroll;
+        @apply bg-light dark:bg-dark;
     }
     h1 {
         @apply text-5xl font-bold;
@@ -61,25 +58,25 @@
         @apply animate-[gradientKFs_20s_linear_infinite] motion-reduce:animate-[];
     }
     h3 {
-        @apply text-4xl text-black-dark dark:text-white;
+        @apply text-4xl text-black dark:text-white;
         font-weight: 700;
         letter-spacing: 0.025em;
         text-transform: uppercase;
     }
     h4 {
-        @apply text-3xl text-teal dark:text-teal-light;
+        @apply text-3xl text-teal dark:text-grey-90;
         font-weight: 600;
     }
     h5 {
-        @apply text-2xl text-grey-darker dark:text-grey-light;
+        @apply text-2xl text-grey-80 dark:text-grey-60;
         font-weight: 600;
     }
     h6 {
-        @apply text-xl text-teal-dark dark:text-teal-light;
+        @apply text-xl text-teal dark:text-teal-lighter;
         font-weight: 600;
     }
     p {
-        @apply text-base text-grey-darker dark:text-grey-light;
+        @apply text-base text-grey-40 dark:text-grey-80;
         letter-spacing: -0.25px;
     }
 }

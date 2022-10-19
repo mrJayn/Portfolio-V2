@@ -14,20 +14,20 @@
             @apply hue-rotate-60;
         }
     }
+    /** ================== CARDS ================= **/
+    #cardBase-Bg {
+        font-size: 60px;
+        box-shadow: 0em 0.025em 0.05em #0002 inset,
+            0em -0.25em 0.25em #0002 inset, 0em -0.5em 0em #88888805 inset,
+            0em 0.1em 0.1em #0005;
+    }
+
+    /*
+        box-shadow: var(--x-active) 20px 25px -5px var(--shadow-color), var(--x-active) 8px 10px -6px var(--shadow-color);
+        */
 
     /** =============== COMPONENTS ============== **/
     /* NAVBAR */
-    #logo {
-        & .bgEffects {
-            @apply flex-center  absolute top-0 left-0 right-0 bottom-[-0.05em] bg-gradient bg-clip-text text-[1.1em] font-semibold tracking-tighter text-transparent opacity-50;
-            @apply brightness-125 contrast-200 filter;
-            @apply motion-reduce:animate-none md:animate-glowing;
-        }
-        &:hover .bgEffects {
-            @apply md:scale-y-125 md:scale-x-105;
-        }
-    }
-
     /* INTRO */
 
     /* ABOUT */
@@ -42,6 +42,8 @@
             }
         }
     }
+
+    /* EXPERIENCE */
     #experience-innerHTML {
         & > p {
             @apply flex-center indent-2 md:leading-7;
@@ -51,27 +53,16 @@
         }
     }
 
-    /* EXPERIENCE */
-
     /* FEATURED */
-    .shadow-GI,
     .shadow-TI {
         position: 'absolute';
         top: 0;
         left: 0;
-        height: 100%;
         width: 100%;
+        height: 100%;
+        border-radius: 1rem;
+        @apply shadow-[inset_0rem_0rem_1.25rem_0.75rem] shadow-light dark:shadow-dark;
     }
-    .shadow-GI {
-        @apply shadow-[inset_0rem_-0.25rem_1.25rem_0.5rem] shadow-white dark:shadow-grey-darkest;
-    }
-    .shadow-TI {
-        @apply shadow-[inset_0rem_0rem_1rem_0.25rem] shadow-white dark:shadow-grey-darkest;
-    }
-    .cardImgShadow {
-        @apply shadow-[inset_0rem_0rem_1rem_0.75rem] shadow-white dark:shadow-grey-darkest;
-    }
-    /* FEATURED */
     .bg-projectCard {
         @apply bg-gradient-to-tr from-teal/20 via-teal/10 to-teal-light/30 dark:from-teal-dark/20 dark:via-teal/20 dark:to-teal-neon/20;
     }
@@ -80,7 +71,7 @@
     #form {
         @apply flex-top flex-wrap;
         & > div {
-            @apply flex-col-center full mx-auto mb-5 grid grid-cols-3 border-b-2 border-dashed border-grey-light/40 py-1;
+            @apply flex-col-center full mx-auto mb-5 grid grid-cols-3 border-b-2 border-dashed border-grey-60/40 py-1;
             counter-increment: form-item 1;
             transition: 0.15s ease-in;
 
@@ -99,7 +90,7 @@
 
             & textarea {
                 @apply col-span-3 col-start-1;
-                @apply z-10 mt-2 mb-4 flex w-full resize-none border-2 border-grey-light/75 bg-transparent p-1 pt-2 outline-none;
+                @apply z-10 mt-2 mb-4 flex w-full resize-none border-2 border-grey-60/75 bg-transparent p-1 pt-2 outline-none;
                 &:focus {
                     transition: 0.25s ease-in;
                     @apply border-teal-neon;

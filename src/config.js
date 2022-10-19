@@ -17,6 +17,20 @@ export const config = {
         },
     },
 }
+export const socials = [
+    ['GitHub', 'https://github.com/mrJayn'],
+    ['Codepen', 'https://codepen.io/mrjayn'],
+    ['Linkedin', 'https://www.linkedin.com/in/'],
+    ['Email', 'mailto:m63jayne@gmail.com'],
+]
+export const sections = [
+    ['about', 'center'],
+    ['experience', 'center'],
+    ['featured', 'start'],
+    ['projects', 'start'],
+    ['contact', 'start'],
+    ['my resume', '/assets/misc/resume2022.jpg'],
+]
 
 /**
  * Nav      -> fade_stagger, fadeY, fade,

@@ -1,25 +1,22 @@
-import { Socials } from '@components'
+import { Social_Icons } from '@components'
 
-const Footer = () => {
+const Footer = ({ isMd }) => {
     const currentYear = new Date().getFullYear()
     return (
-        <footer
-            id="footer"
-            className="dark:bg-lightblack w-screen bg-black-light p-4 text-center"
-        >
-            <div className="flex-evenly my-4 mx-auto w-full max-w-md select-none overflow-scroll text-center">
-                <Socials size={30} />
-            </div>
-            <hr className="mx-auto my-2 text-grey-light/50 md:my-8" />
-            <div className="uppercase md:mb-4">
-                <p className="text-xs text-grey-light md:mb-2">
+        <footer id="footer" className="w-full bg-nav">
+            <div className="flex-col-center m-4">
+                <div className="flex-evenly w-full max-w-[600px]">
+                    <Social_Icons size={isMd ? 40 : 30} />
+                </div>
+                <hr className="my-4 w-full text-grey" />
+                <p className="text-[12px] uppercase text-grey-60">
                     Designed & Built by &nbsp;
-                    <span className="font-robotoMono text-base capitalize tracking-tighter text-white">
+                    <span className="font-robotoMono text-[15px] capitalize tracking-tighter text-white">
                         Michael Jayne
                     </span>
                 </p>
-                <p className="text-xs text-grey-light">
-                    &#169; Copyright {currentYear}.{' '}
+                <p className="text-[12px] uppercase text-grey-60">
+                    &#169; Copyright {currentYear}.
                 </p>
             </div>
         </footer>

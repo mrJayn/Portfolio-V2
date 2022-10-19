@@ -1,15 +1,13 @@
 import { useState, useEffect, useCallback } from 'react'
 import anime from 'animejs'
+import { theme } from 'tailwind.config'
 
 const Loader = ({ setIsLoading }) => {
     const el_size = 15
     const loader_size = el_size ** 2 + el_size + 3
-
     const [elSize] = useState(el_size + 'px')
     const [loaderSize] = useState(loader_size + 'px')
     const [isMounted, setIsMounted] = useState(false)
-
-    const els = [...Array(el_size ** 2).keys()]
 
     const animate = useCallback(() => {
         const spring = 'spring(1, 20, 10, 10)'
@@ -58,8 +56,8 @@ const Loader = ({ setIsLoading }) => {
                             delay: 400,
                         },
                         {
-                            value: [3.5, 0],
-                            easing: spring,
+                            value: [4, 0],
+                            easing: 'easeInBack',
                             delay: 1700,
                         },
                     ],
@@ -150,7 +148,7 @@ const Loader = ({ setIsLoading }) => {
     return (
         <div
             id="loader-wrap"
-            className="flex-center relative z-[99] h-screen w-screen overflow-hidden bg-grey-darker"
+            className="flex-center relative z-[99] h-screen w-screen overflow-hidden bg-light dark:bg-dark"
             style={{ opacity: `${isMounted ? 100 : 0}` }}
         >
             <div
@@ -162,22 +160,28 @@ const Loader = ({ setIsLoading }) => {
                     id="loader-items"
                     className="m-0 flex h-full w-full flex-wrap items-start justify-start p-0"
                 >
-                    {els.map((el) => (
+                    {[...Array(el_size ** 2).keys()].map((i) => (
                         <div
-                            className="square bg-neon relative m-[0.5px] rounded opacity-0 odd:bg-teal"
-                            style={{ height: elSize, width: elSize }}
-                            key={el}
+                            className="square relative m-[0.5px] rounded bg-white opacity-0 odd:bg-teal dark:bg-teal-light dark:odd:bg-teal"
+                            style={{
+                                height: elSize,
+                                width: elSize,
+                                backgroundColor:
+                                    i % 4 == 0 || i % 6 == 0
+                                        ? theme.colors.teal.neon
+                                        : null,
+                            }}
+                            key={i}
                         />
                     ))}
                 </div>
             </div>
             <div
                 id="loader-bg"
-                className="absolute -z-10 mx-auto translate-y-[-50%] scale-0  opacity-0"
+                className="absolute -z-10 mx-auto translate-y-[-50%] scale-0 bg-gradientRadial  opacity-0 dark:z-10"
                 style={{
                     height: loaderSize,
                     width: loaderSize,
-                    background: `radial-gradient( rgb(102,252,241) 0%, rgb(69,162,158) 0%, transparent 20%, transparent 100%)`,
                 }}
             />
         </div>

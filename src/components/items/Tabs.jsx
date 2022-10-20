@@ -103,7 +103,7 @@ const Tabs_List = ({ currentTab, setTab, tabNames, altStyle = '' }) => {
                                     <AnimatePresence mode="wait">
                                         {ACTIVE ? (
                                             <motion.div
-                                                className=" absoluteFull tabListEffects rounded-lg bg-teal-light/75 saturate-150 dark:bg-gradient"
+                                                className=" absoluteFull tabListEffects rounded-lg bg-teal-40/75 saturate-150 dark:bg-gradient"
                                                 style={{
                                                     filter: `hue-rotate(${
                                                         (i / tabNames.length) *

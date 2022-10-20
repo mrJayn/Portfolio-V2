@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import Image from 'next/image'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
 
@@ -13,11 +13,7 @@ const contentVars = variants.Content
 // Next Image w/Props
 const Styled_Image = ({ src, alt, isAbout, isMd, pRM }) => {
     const Styled_Img = () => (
-        <div
-            className={`relative aspect-[4/3] w-10/12 overflow-hidden rounded-xl shadow-md md:mx-auto md:mt-6 md:aspect-auto md:h-[calc(100%-48px)] md:w-[calc(100%-16px)] md:rounded-[3rem] md:shadow-none ${
-                isAbout ? 'md:rounded-l-none' : 'md:rounded-r-none'
-            }`}
-        >
+        <div className="relative aspect-[4/3] w-10/12 overflow-hidden rounded-xl shadow-md md:mx-auto md:mt-6 md:aspect-auto md:h-[90%] md:w-[calc(100%-24px)]">
             <Image
                 src={src}
                 alt={alt}
@@ -30,9 +26,8 @@ const Styled_Image = ({ src, alt, isAbout, isMd, pRM }) => {
     )
     return isMd ? (
         <motion.div
-            id="imgCard"
+            data-mdimg
             className="relative -z-10 h-full w-1/2 overflow-hidden motion-reduce:z-10 motion-reduce:rounded-[3rem]"
-            style={{ order: isAbout ? 2 : 1 }}
             variants={imgVars}
             custom={pRM ? 0 : isAbout ? '-10%' : '10%'}
         >
@@ -43,29 +38,19 @@ const Styled_Image = ({ src, alt, isAbout, isMd, pRM }) => {
     )
 }
 
-const Md_Bg = ({ expanded, isAbout, pRM }) => {
-    const [x1, x2] = isAbout ? [0, 50] : [50, 100]
+// Background clipPath @Media >= 768px
+const Md_Bg = ({ anim }) => {
     return (
-        <motion.div
-            id="cardBase-Bg"
-            data-expanded={expanded}
-            className={`absoluteFull rounded-[3rem] bg-grey-90 will-change-transform  dark:bg-grey-20/90
-            `}
-            initial={{
-                clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-            }}
-            animate={
-                !pRM && {
-                    clipPath: `polygon(
-                ${expanded ? 0 : x1}% 0%, 
-                ${expanded ? 100 : x2}% 0%, 
-                ${expanded ? 100 : x2}% 110%, 
-                ${expanded ? 0 : x1}% 110%
-            )`,
-                }
-            }
-            transition={{ duration: 1, ease: [0.25, 1, 0.65, 1] }}
-        />
+        <>
+            <motion.div
+                data-mdbg
+                className="absoluteFull rounded-[3rem] bg-grey-90 will-change-transform dark:bg-teal-99"
+                initial={false}
+                animate={anim}
+                variants={variants.MdBg}
+            />
+            <div className="absolute top-0 h-full bg-grey-90 dark:bg-grey-30" />
+        </>
     )
 }
 
@@ -88,7 +73,8 @@ const Card_Base = ({ data, isAbout, isMd, expanded, setExpanded }) => {
 
     return (
         <motion.div
-            id="cardBase"
+            data-cardbase
+            data-expanded={expanded}
             className="full relative md:flex"
             initial={false}
             animate={anim}
@@ -99,22 +85,16 @@ const Card_Base = ({ data, isAbout, isMd, expanded, setExpanded }) => {
             {isMd && (
                 <>
                     <Styled_Image {...styledImageProps} />
-                    <Md_Bg
-                        expanded={expanded}
-                        isAbout={isAbout}
-                        anim={anim}
-                        pRM={pRM}
-                    />
+                    <Md_Bg anim={anim} />
                 </>
             )}
 
             {/** [  Styled-Info  ] **/}
             <motion.div
-                id="infoCard"
                 className={`relative overflow-hidden   ${
                     isMd
-                        ? 'h-full w-1/2'
-                        : 'full rounded-[3rem] bg-card_grad py-10 dark:bg-card_grad_DARK'
+                        ? 'h-full w-1/2    '
+                        : 'full rounded-[3rem] bg-gradient_card py-10'
                 }`}
                 style={{ order: isAbout ? 1 : 2 }}
             >

@@ -15,16 +15,78 @@
         }
     }
     /** ================== CARDS ================= **/
-    #cardBase-Bg {
-        font-size: 60px;
-        box-shadow: 0em 0.025em 0.05em #0002 inset,
-            0em -0.25em 0.25em #0002 inset, 0em -0.5em 0em #88888805 inset,
-            0em 0.1em 0.1em #0005;
+    div[data-cardbase] {
+        &.oddCard {
+            --card-dir: 1;
+
+            & div[data-mdbg] {
+                transform-origin: left;
+                border-top-left-radius: 3rem;
+                border-bottom-left-radius: 3rem;
+                & + div {
+                    left: 0;
+                    width: 50%;
+                    border-top-left-radius: 3rem;
+                    border-bottom-left-radius: 3rem;
+                }
+            }
+            & div[data-mdimg] {
+                order: 2;
+                & > div {
+                    border-radius: 3rem;
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+                }
+            }
+        }
+
+        &.evenCard {
+            --card-dir: -1;
+
+            & div[data-mdbg] {
+                transform-origin: right;
+                & + div {
+                    right: 0;
+                    width: 50%;
+                    border-top-right-radius: 3rem;
+                    border-bottom-right-radius: 3rem;
+                }
+            }
+            & div[data-mdimg] {
+                order: 1;
+                & > div {
+                    border-radius: 3rem;
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
+            }
+        }
     }
 
-    /*
-        box-shadow: var(--x-active) 20px 25px -5px var(--shadow-color), var(--x-active) 8px 10px -6px var(--shadow-color);
-        */
+    /***********************/
+    /*            shadows           */
+    div[data-cardbase] {
+        --x1: calc(var(--card-dir) * 0.025em);
+        --x2: calc(var(--card-dir) * 0.5em);
+    }
+    div[data-mdbg] {
+        font-size: 60px;
+        box-shadow: 0em 0.025em 0.025em #0002 inset,
+            0em -0.25em 0.5em #0002 inset, 0em -0.5em 0.5em #0005 inset,
+            0em 0.05em 0.025em #0008;
+
+        & + div {
+            font-size: 60px;
+            box-shadow: var(--x1) 0.025em 0.025em #0002 inset,
+                var(--x2) -0.25em 0.5em #0002 inset,
+                var(--x2) -0.5em 0.5em #0005 inset;
+        }
+    }
+    /***********************/
+    div[data-mdimg] > div {
+        font-size: 60px;
+        box-shadow: 0em 0.25em 0.25em #000;
+    }
 
     /** =============== COMPONENTS ============== **/
     /* NAVBAR */
@@ -55,16 +117,22 @@
 
     /* FEATURED */
     .shadow-TI {
-        position: 'absolute';
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        @apply text-background;
+
+        position: absolute;
+        top: -1px;
+        right: -1px;
+        bottom: -1px;
+        left: -1px;
         border-radius: 1rem;
-        @apply shadow-[inset_0rem_0rem_1.25rem_0.75rem] shadow-light dark:shadow-dark;
+        z-index: 1;
+        font-size: 60px;
+        box-shadow: 0em 0.025em 0.05em #0002 inset,
+            0em -0.25em 0.25em #0008 inset, 0em -0.5em 0.25em #0003 inset,
+            0em 0.1em 0.1em #0005;
     }
     .bg-projectCard {
-        @apply bg-gradient-to-tr from-teal/20 via-teal/10 to-teal-light/30 dark:from-teal-dark/20 dark:via-teal/20 dark:to-teal-neon/20;
+        @apply bg-gradient-to-tr from-teal/20 via-teal/10 to-teal-40/30 dark:from-teal-90/20 dark:via-teal/20 dark:to-teal-neon/20;
     }
 
     /** ================= FORM  ================== **/

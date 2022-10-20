@@ -56,7 +56,7 @@ const Ftd_Project = ({
         staggerEffect: true,
         even: isSm && even,
         className:
-            'border-l-[2px] border-dotted border-teal-light px-1 text-teal-light last-of-type:border-r-[2px] dark:border-teal-lightest dark:text-teal-lightest sm:px-6',
+            'border-l-[2px] border-dotted border-teal-40 px-1 text-teal-40 last-of-type:border-r-[2px] dark:border-teal-10 dark:text-teal-10 sm:px-6',
     }
 
     return (
@@ -72,7 +72,7 @@ const Ftd_Project = ({
                 <motion.div
                     className={
                         isSm
-                            ? 'relative -z-10 my-auto h-[90%] w-full transform-gpu rounded-xl'
+                            ? 'relative -z-10 my-auto h-[90%] w-full rounded-xl'
                             : 'absolute top-0 left-0 right-0 h-[30%]'
                     }
                     style={{ gridArea: even ? '2/3/-1/-1' : '2/1/-1/11' }}
@@ -90,11 +90,7 @@ const Ftd_Project = ({
                             objectPosition="top"
                         />
                     </div>
-                    <span
-                        className={`absoluteFull ${
-                            isSm ? 'shadow-GI' : 'shadow-TI'
-                        }`}
-                    />
+                    <div className="shadow-TI" />
                 </motion.div>
 
                 {/** gridLayout :  [  desc  ] + [  TITLE  ] + [  TECH  ] **/}
@@ -105,7 +101,7 @@ const Ftd_Project = ({
                         variants={!pRM && title_vars}
                         {...gridMotion}
                     >
-                        <p className="px-2 font-robotoMono text-base font-medium italic tracking-wide text-teal underline dark:text-teal-light">
+                        <p className="px-2 font-robotoMono text-base font-medium italic tracking-wide text-teal underline dark:text-teal-40">
                             Featured Project
                         </p>
                         <h3 className="sm:whitespace-nowrap">{data.title}</h3>

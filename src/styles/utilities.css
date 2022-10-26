@@ -40,6 +40,9 @@
     }
 
     /** ============= RE-USABLE STYLES ============ **/
+    .styled_card {
+        background-color: rgb(var(--card-color));
+    }
     .styled-link {
         --time: 0.3s;
         position: relative;

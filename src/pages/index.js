@@ -1,41 +1,48 @@
-import { getMarkdown } from 'src/lib/markdown'
+import { getAllMarkdown } from 'src/lib/markdown'
 import {
     Intro,
     About,
-    Featured,
     Projects,
     Contact,
     Layout,
     Experience,
     Footer,
+    Section,
 } from '@components'
 
+const title = 'Portfolio'
+const description =
+    "Hello, I'm Michael👋 - I'm an ChemEng graduate and a recent self-taught developer, aiming to break into tech ASAP!"
+
 export default function Home({ data, ...pageProps }) {
-    data = {
-        ...pageProps,
-        ...data,
+    data = { ...pageProps, ...data }
+
+    const sections = {
+        about: data.about,
+        experience: data.experience,
+        projects: data.projects,
     }
 
-    const homeProps = {
-        title: 'Portfolio',
-        description:
-            "Hello, I'm Michael👋 - I'm an ChemEng graduate and a recent self-taught developer, aiming to break into tech ASAP!",
-        isHome: pageProps.isHome,
-    }
     return (
-        <Layout {...homeProps}>
+        <Layout
+            title={title}
+            description={description}
+            isHome={pageProps.isHome}
+            isMd={data.isMd}
+        >
             <Intro {...data} />
-            <About {...data} />
-            <Experience {...data} />
-            <Featured {...data} />
-            <Projects {...data} />
+            {Object.keys(sections).map((id, i) => {
+                return <Section key={id} id={id} i={i} {...sections[id]} />
+            })}
+
             <Contact {...data} />
             <Footer isMd={data.isMd} />
         </Layout>
     )
 }
+
 export async function getStaticProps() {
-    const data = await getMarkdown()
+    const data = await getAllMarkdown()
     return {
         props: {
             data,

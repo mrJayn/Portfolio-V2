@@ -73,25 +73,24 @@ const Navbar = ({ isHome, isMd, globalControls }) => {
     }
 
     // ~ Nav Components ~ @Media max-width: 767px
-    const mobile_items = {
+    const nav_items = {
         0: <Burger display={burgerDisplay} handleBurger={handleBurger} />,
         2: <MessageBtn isHome={isHome} router={router} />,
         ...constLogo,
     }
     // Active Components + Contant Components
-    const active_items = isMd ? desktop_items : mobile_items
+    const active_items = isMd ? desktop_items : nav_items
     // Close Menu if [ @media >=768px ]
     useEffect(() => {
         if (isMd & menuOpen || !isHome & menuOpen) setMenuOpen(false)
     }, [isMd, isHome, menuOpen])
 
     return (
-        <nav
-            id="nav"
-            className="fixed top-0 left-0 z-30 h-[48px] w-full min-w-[320px] overflow-hidden"
-        >
-            <motion.div
-                className="full bg-nav"
+        <>
+            <motion.nav
+                id="nav"
+                data-menuopen={menuOpen}
+                className="fixed top-0 left-0 z-30 h-[48px] w-full min-w-[320px] overflow-hidden"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
             >
@@ -110,9 +109,10 @@ const Navbar = ({ isHome, isMd, globalControls }) => {
                         })}
                     </>
                 </ul>
-            </motion.div>
+            </motion.nav>
+
             {!isMd ? <Menu isOpen={menuOpen} toggleMenu={toggleMenu} /> : null}
-        </nav>
+        </>
     )
 }
 

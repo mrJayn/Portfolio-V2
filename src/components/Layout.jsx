@@ -1,6 +1,7 @@
+import { useEffect } from 'react'
+
 import { NextSeo } from 'next-seo'
 import { motion } from 'framer-motion'
-import { useEffect } from 'react'
 
 const PageGradient = () => (
     <svg className="pointer-events-none invisible absolute -z-50 select-none">
@@ -11,7 +12,7 @@ const PageGradient = () => (
     </svg>
 )
 
-const Layout = ({ title, description, isHome, children }) => {
+const Layout = ({ title, description, isHome, isMd, children }) => {
     const handleExternalLinks = () => {
         const allLinks = Array.from(document.querySelectorAll('a'))
         if (allLinks.length > 0) {
@@ -27,7 +28,8 @@ const Layout = ({ title, description, isHome, children }) => {
     useEffect(() => {
         handleExternalLinks()
     })
-
+    // Odd or Even Card Styling
+    useEffect(() => {}, [isMd])
     return (
         <>
             <NextSeo
@@ -37,7 +39,7 @@ const Layout = ({ title, description, isHome, children }) => {
             />
             <motion.main
                 id="layout"
-                className="flex-col-top absolute top-0 left-0 right-0 overflow-hidden"
+                className="flex-col-top full absolute left-0 top-12"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -45,10 +47,13 @@ const Layout = ({ title, description, isHome, children }) => {
                 custom={isHome}
             >
                 {children}
-                <PageGradient />
             </motion.main>
+            <PageGradient />
         </>
     )
 }
 
 export default Layout
+/**
+flex-col-top absolute top-12 left-0 right-0 bottom-0 snap-y snap-mandatory snap-always overflow-x-hidden overflow-y-scroll
+ */

@@ -58,8 +58,8 @@ function MyApp({ Component, pageProps }) {
                         <Navbar {...pageProps} />
                         <>
                             <AnimatePresence
-                                onExitComplete={() => window.scrollTo(0, 0)}
                                 mode="wait"
+                                onExitComplete={() => window.scrollTo(0, 0)}
                             >
                                 <Component {...pageProps} key={url} />
                             </AnimatePresence>

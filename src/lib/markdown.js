@@ -14,7 +14,7 @@ export function getDirectories(dirname) {
 }
 // =================================================
 
-export async function getMarkdown() {
+export async function getAllMarkdown() {
     const test = getDirectories(contentDirectory)
     let res = {}
     let table = []
@@ -45,8 +45,27 @@ export async function getMarkdown() {
     res['experience'] = table
         .filter((x) => x.folder == 'text')
         .filter((y) => y.id == 'experience')[0]
-    res['featured'] = table.filter((x) => x.folder == 'featured')
-    res['projects'] = table.filter((x) => x.folder == 'projects')
+    res['projects'] = table
+        .filter((x) => x.folder == 'text')
+        .filter((y) => y.id == 'projects')[0]
+    res['featured_data'] = table.filter((x) => x.folder == 'featured_data')
+    res['projects_data'] = table.filter((x) => x.folder == 'projects_data')
 
     return res
+}
+
+//=================================================
+export async function getSectionMarkdown(slug) {
+    const file = slug + '.md'
+    const sectionPath = path.join(contentDirectory, 'text', file)
+    const sectionContent = fs.readFileSync(sectionPath, 'utf-8')
+    const { data, content } = matter(sectionContent)
+
+    const contentHTML = (await remark().use(html).process(content)).toString()
+
+    return {
+        id: slug,
+        sectionData: data,
+        content: contentHTML,
+    }
 }

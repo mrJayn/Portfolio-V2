@@ -26,9 +26,8 @@ export const socials = [
 export const sections = [
     ['about', 'center'],
     ['experience', 'center'],
-    ['featured', 'start'],
-    ['projects', 'start'],
-    ['contact', 'start'],
+    ['projects', 'center'],
+    ['contact', 'center'],
     ['my resume', '/assets/misc/resume2022.jpg'],
 ]
 

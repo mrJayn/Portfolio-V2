@@ -18,7 +18,7 @@ const Menu = ({ isOpen, toggleMenu }) => {
         toggleMenu()
     }
     const StyledText = ({ txt }) => (
-        <span className="full text-[16px] capitalize tracking-wide text-grey-60/90 duration-250 ease-in hover:text-white">
+        <span className="text-base capitalize tracking-wide text-grey-60/90 duration-250 ease-in hover:text-white">
             {txt}
         </span>
     )
@@ -26,24 +26,24 @@ const Menu = ({ isOpen, toggleMenu }) => {
     return (
         <AnimatePresence mode="wait">
             {isOpen ? (
-                <motion.div
+                <motion.menu
                     id="menu"
-                    className="fixed left-0 top-12 bottom-0 w-screen bg-grey-60 dark:bg-black"
+                    className="fixed left-0 top-12 bottom-0 z-30 w-screen bg-grey-10"
                     initial="hidden"
                     animate="enter"
                     exit="hidden"
                     variants={menuVariants.backgroundClip}
                 >
-                    <div className="absoluteFull flex-col-btw overflow-hidden px-6 py-3 landscape:flex-row">
+                    <div className="absoluteFull flex-col-btw overflow-hidden px-6 py-3 landscape:flex-row landscape:pt-0">
                         <motion.ul
-                            className="full relative"
+                            className="full relative landscape:grid"
                             variants={menuVariants.LinkWrap}
                         >
                             {sections.map(([section, target], i) => {
                                 return (
                                     <motion.li
                                         key={`menu-links-${i}`}
-                                        className="my-[8px] h-[26px] cursor-pointer border-[1px] border-b-grey-60/25"
+                                        className="my-3 cursor-pointer border-[1px] border-b-grey-60/25 px-1 py-[1vh] landscape:my-1"
                                         variants={menuVariants.Links}
                                         custom={i + 1}
                                         onClick={() =>
@@ -56,7 +56,7 @@ const Menu = ({ isOpen, toggleMenu }) => {
                             })}
                         </motion.ul>
                         <motion.div
-                            className="full grid grid-cols-4 px-2 landscape:grid-cols-1"
+                            className="grid w-full grid-cols-4 py-10 landscape:h-full landscape:grid-cols-1 landscape:py-0"
                             variants={menuVariants.IconWrap}
                         >
                             <Social_Icons
@@ -65,7 +65,7 @@ const Menu = ({ isOpen, toggleMenu }) => {
                             />
                         </motion.div>
                     </div>
-                </motion.div>
+                </motion.menu>
             ) : null}
         </AnimatePresence>
     )

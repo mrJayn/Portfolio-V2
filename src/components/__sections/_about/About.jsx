@@ -4,15 +4,14 @@ const About = ({ about, isMd, globalControls }) => {
     const cardGroupProps = {
         tabs: {
             0: (
-                <div key="about" className="px-4 md:w-[80%]">
-                    <div
-                        id="about-innerHTML"
-                        className="w-full"
-                        dangerouslySetInnerHTML={{
-                            __html: about.content,
-                        }}
-                    />
-                </div>
+                <div
+                    key="about"
+                    id="about-innerHTML"
+                    className="w-full"
+                    dangerouslySetInnerHTML={{
+                        __html: about.content,
+                    }}
+                />
             ),
             1: <Skills key="skills" skills={about.data.skills} isMd={isMd} />,
         },
@@ -20,11 +19,7 @@ const About = ({ about, isMd, globalControls }) => {
         ...about,
     }
 
-    return (
-        <Section id="about" fullScreen={false}>
-            <Card {...cardGroupProps} />
-        </Section>
-    )
+    return <Section id="about" sectionCard {...about} />
 }
 
 export default About

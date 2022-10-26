@@ -37,7 +37,7 @@ const Intro = ({ firstLoad, pRM }) => {
     }, [titleControls, contentControls, titleColor, setLoading])
 
     return (
-        <Section id="intro">
+        <Section id="intro" sectionCard={false}>
             <div className="flex-col-center full absolute top-0 left-0 select-none landscape:pt-14">
                 {/** TOP TEXT **/}
                 <motion.p
@@ -76,7 +76,7 @@ const Intro = ({ firstLoad, pRM }) => {
                         action={(e) => {
                             e.preventDefault()
                             document
-                                .querySelector('#featured')
+                                .querySelector('#projects')
                                 .scrollIntoView({ block: 'start' })
                         }}
                         btnStyle={`md:text-md xl:text-lg py-3 px-7 md:py-4 ${

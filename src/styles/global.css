@@ -18,25 +18,36 @@
 }
 /* ================ VARIABLES ================ */
 :root {
+    --nav-bg: 20 20 20;
     --theme-teal: theme(colors.teal.DEFAULT);
     --theme-purple: theme(colors.purple.DEFAULT);
 }
 @media (prefers-color-scheme: light) {
     :root {
-        --background: #f6f6f6;
-        --background-rgb: 246, 246, 246;
+        --background: 245 245 250; /*#f6f6f6*/
+        --text-color: #111;
         --shadow-color: #0b0b1080; /* ( -black/50) */
-        --card-bg-from: #eee;
-        --card-bg-to: #f3f3f3;
+
+        --card-bg: 245 245 250;
+        --card-inset-color-1: #00000005;
+        --card-inset-color-2: #00000007;
+        --card-inset-color-3: #0001;
+        --card-inset-color-4: #0001;
+        --card-outset-color: #0005;
     }
 }
 @media (prefers-color-scheme: dark) {
     :root {
-        --background: #1d1d1d;
-        --background-rgb: 29, 29, 29;
+        --background: 30 30 30; /*#1d1d1d*/
+        --text-color: #eee;
         --shadow-color: #000;
-        --card-bg-from: #2a2a2a;
-        --card-bg-to: #454545; /* theme(colors.grey.30) */
+
+        --card-bg: 60 60 60;
+        --card-inset-color-1: #0008;
+        --card-inset-color-2: #2225;
+        --card-inset-color-3: #1115;
+        --card-inset-color-4: #0005;
+        --card-outset-color: #000;
     }
 }
 /* ================== BASE ================== */
@@ -45,19 +56,20 @@
         @apply text-base;
         font-family: Montserrat, sans-serif;
         word-spacing: 1px;
+        scroll-behavior: smooth;
+        scroll-snap-type: y mandatory;
+        scroll-snap-stop: always;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        scroll-behavior: smooth;
     }
 
     body {
         display: block;
         height: 100vh;
-        min-height: 320px;
         width: 100vw;
         margin: 0;
         padding: 0;
-        background-color: var(--background);
+        background-color: rgb(var(--background));
         overflow-y: scroll;
         overflow-x: hidden;
     }
@@ -68,7 +80,7 @@
     h2 {
         @apply text-5xl;
         /* ANIMATED BACKGROUND GRADIENT */
-        @apply bg-gradient_title relative bg-clip-text font-bold text-transparent contrast-125 drop-shadow-md filter dark:filter-none;
+        @apply relative bg-gradient_title bg-clip-text font-bold text-transparent contrast-125 drop-shadow-md filter dark:filter-none;
         background-size: 300%;
         @apply animate-[gradientKFs_20s_linear_infinite] motion-reduce:animate-[];
     }

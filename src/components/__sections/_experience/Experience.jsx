@@ -17,10 +17,6 @@ const Experience = ({ experience, globalControls }) => {
         globalControls: globalControls,
         ...experience,
     }
-    return (
-        <Section id="experience" fullScreen={false}>
-            <Card {...cardGroupProps} />
-        </Section>
-    )
+    return <Section id="experience" sectionCard {...experience} />
 }
 export default Experience

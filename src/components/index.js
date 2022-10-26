@@ -17,13 +17,14 @@ export { default as Skills } from './__sections/_about/Skills'
 export { default as Experience } from './__sections/_experience/Experience'
 export { default as Jobs } from './__sections/_experience/Jobs'
 export { default as Certifications } from './__sections/_experience/Certifications'
-// Featured
-export { default as Featured } from './__sections/_featured/Featured'
-export { default as Ftd_Project } from './__sections/_featured/Ftd_Project'
-export { default as Ftd_Expanded } from './__sections/_featured/Ftd_Expanded'
 // Projects
 export { default as Projects } from './__sections/_projects/Projects'
+export { default as All_Projects } from './__sections/_projects/All_Projects'
 export { default as Project_Card } from './__sections/_projects/Project_Cards'
+// Featured
+export { default as Featured } from './__sections/_projects/_featured/Featured'
+export { default as Ftd_Project } from './__sections/_projects/_featured/Ftd_Project'
+export { default as Ftd_Expanded } from './__sections/_projects/_featured/Ftd_Expanded'
 // Contact
 export { default as Contact } from './__sections/_contact/Contact'
 

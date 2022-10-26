@@ -16,80 +16,123 @@
     }
     /** ================== CARDS ================= **/
     div[data-cardbase] {
-        &.oddCard {
-            --card-dir: 1;
+        --offset-1: calc(var(--card-dir) * 0.025em);
+        --offset-2: calc(var(--card-dir) * 0.45em);
+        --offset-3: calc(var(--card-dir) * 0.1em);
+        --offset-4: calc(var(--card-dir) * 0.75rem);
 
-            & div[data-mdbg] {
+        & span[data-cardbase-bg] {
+            font-size: 60px;
+            box-shadow: 0 0.05em 0.025em -0.025em var(--card-inset-color-1) inset,
+                calc(-1 * var(--offset-2)) -0.2em 0.4em var(
+                        --card-inset-color-2
+                    ) inset,
+                calc(-1 * var(--offset-3)) -1em 0.5em -0.5em
+                    var(--card-inset-color-3) inset,
+                0 0.075em 0.025em -0.025em var(--card-inset-color-4);
+
+            & + span {
+                font-size: 60px;
+                &[data-shadow-hide='false'] {
+                    box-shadow: var(--offset-1) 0.05em 0.025em -0.025em var(
+                                --card-inset-color-1
+                            ) inset,
+                        var(--offset-2) -0.2em 0.4em var(--card-inset-color-2) inset,
+                        var(--offset-3) -1em 0.5em -0.5em
+                            var(--card-inset-color-3) inset,
+                        0 0.075em 0.025em -0.025em var(--card-inset-color-4),
+                        var(--offset-4) 0rem 1rem -0.75rem var(--card-outset-color);
+
+                    transition: 0.2s;
+                }
+                &[data-shadow-hide='true'] {
+                    box-shadow: var(--offset-1) 0.05em 0.025em -0.025em var(
+                                --card-inset-color-1
+                            ) inset,
+                        var(--offset-2) -0.2em 0.4em var(--card-inset-color-2) inset,
+                        var(--offset-3) -1em 0.5em -0.5em
+                            var(--card-inset-color-3) inset;
+                    transition: 0.25s 0.5s ease-in;
+                }
+            }
+        }
+        &.even {
+            & span[data-cardbase-bg] {
                 transform-origin: left;
-                border-top-left-radius: 3rem;
-                border-bottom-left-radius: 3rem;
-                & + div {
+
+                & + span {
                     left: 0;
                     width: 50%;
-                    border-top-left-radius: 3rem;
-                    border-bottom-left-radius: 3rem;
-                }
-            }
-            & div[data-mdimg] {
-                order: 2;
-                & > div {
-                    border-radius: 3rem;
-                    border-top-left-radius: 0;
-                    border-bottom-left-radius: 0;
+                    border-radius: 3rem 0 0 3rem;
                 }
             }
         }
-
-        &.evenCard {
-            --card-dir: -1;
-
-            & div[data-mdbg] {
+        &.odd {
+            & span[data-cardbase-bg] {
                 transform-origin: right;
-                & + div {
+                & + span {
                     right: 0;
                     width: 50%;
-                    border-top-right-radius: 3rem;
-                    border-bottom-right-radius: 3rem;
-                }
-            }
-            & div[data-mdimg] {
-                order: 1;
-                & > div {
-                    border-radius: 3rem;
-                    border-top-right-radius: 0;
-                    border-bottom-right-radius: 0;
+                    border-radius: 0 3rem 3rem 0;
                 }
             }
         }
-    }
-
-    /***********************/
-    /*            shadows           */
-    div[data-cardbase] {
-        --x1: calc(var(--card-dir) * 0.025em);
-        --x2: calc(var(--card-dir) * 0.5em);
-    }
-    div[data-mdbg] {
-        font-size: 60px;
-        box-shadow: 0em 0.025em 0.025em #0002 inset,
-            0em -0.25em 0.5em #0002 inset, 0em -0.5em 0.5em #0005 inset,
-            0em 0.05em 0.025em #0008;
-
-        & + div {
-            font-size: 60px;
-            box-shadow: var(--x1) 0.025em 0.025em #0002 inset,
-                var(--x2) -0.25em 0.5em #0002 inset,
-                var(--x2) -0.5em 0.5em #0005 inset;
-        }
-    }
-    /***********************/
-    div[data-mdimg] > div {
-        font-size: 60px;
-        box-shadow: 0em 0.25em 0.25em #000;
     }
 
     /** =============== COMPONENTS ============== **/
     /* NAVBAR */
+    #nav {
+        --nav-ease: cubic-bezier(0.5, 1, 0.5, 1);
+        &[data-menuopen='false'] {
+            --nav-bg-color: rgb(var(--nav-bg) / 0.8);
+            --nav-after-opacity: 1;
+            --nav-bg-transition: background-color 0.5s 0.75s var(--nav-ease),
+                opacity 0.55s 0.65s var(--nav-ease);
+        }
+        &[data-menuopen='true'] {
+            --nav-bg-color: rgb(21 21 21 / 1);
+            --nav-after-opacity: 0;
+            --nav-bg-transition: all 0.5s var(--nav-ease);
+        }
+
+        background-color: var(--nav-bg-color);
+        transition-property: background-color;
+        transition: var(--nav-bg-transition);
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            pointer-events: none;
+            background: linear-gradient(
+                to bottom,
+                rgb(var(--nav-bg) / 0.8) 0%,
+                rgb(var(--nav-bg) / 0.79) 8.1%,
+                rgb(var(--nav-bg) / 0.761) 15.5%,
+                rgb(var(--nav-bg) / 0.717) 22.5%,
+                rgb(var(--nav-bg) / 0.66) 29%,
+                rgb(var(--nav-bg) / 0.593) 35.3%,
+                rgb(var(--nav-bg) / 0.518) 41.2%,
+                rgb(var(--nav-bg) / 0.44) 47.1%,
+                rgb(var(--nav-bg) / 0.36) 52.9%,
+                rgb(var(--nav-bg) / 0.282) 58.8%,
+                rgb(var(--nav-bg) / 0.207) 64.7%,
+                rgb(var(--nav-bg) / 0.14) 71%,
+                rgb(var(--nav-bg) / 0.083) 77.5%,
+                rgb(var(--nav-bg) / 0.039) 84.5%,
+                rgb(var(--nav-bg) / 0.01) 91.9%,
+                transparent 100%
+            );
+            backdrop-filter: blur(4px);
+
+            opacity: var(--nav-after-opacity);
+            transition: var(--nav-bg-transition);
+        }
+    }
+
     /* INTRO */
 
     /* ABOUT */
@@ -102,6 +145,36 @@
             &:not(:last-of-type) {
                 @apply pb-2 md:pb-6;
             }
+        }
+    }
+
+    #about-skills {
+        & li:after {
+            display: none;
+            content: attr(data-title);
+            position: absolute;
+            left: 50%;
+            bottom: -1.85em;
+            padding: 0px 10px;
+            border-radius: 1rem/ 2rem;
+            background-color: rgb(var(--background) / 0.5);
+            color: var(--text-color);
+            font-size: 16px;
+            line-height: 1.6em;
+            white-space: nowrap;
+            z-index: 1;
+            transform: translate(-50%, 0%);
+            opacity: 0;
+            transition: 0.15s;
+        }
+        & li:hover:after,
+        &li:active:after {
+            opacity: 1;
+        }
+    }
+    @media (min-width: 768px) {
+        #about-skills li:after {
+            display: block;
         }
     }
 

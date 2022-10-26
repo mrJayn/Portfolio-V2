@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-const { themeConfig } = require('./twTheme')
+const { themeConfig } = require('./twThemeFS')
 
 module.exports = {
     content: [
@@ -8,24 +8,15 @@ module.exports = {
         './src/components/**/*.{js,ts,jsx,tsx}',
     ],
     theme: {
-        fontSize: themeConfig.fontSize,
-        spacing: themeConfig.spacing,
-        screens: {
-            min: '320px',
-            sm: '600px',
-            md: '768px',
-            lg: '1024px',
-            xl: '1280px',
-            max: '1440px',
-        },
         colors: {
             transparent: 'transparent',
             current: 'currentColor',
             white: '#fff',
             black: '#000',
 
-            background: 'var(--background)',
-            nav: '#333',
+            background: 'rgb(var(--background) / <alpha-value>)',
+            nav: 'rgb(var(--nav-bg) / <alpha-value>)',
+            card: 'rgb(var(--card-bg) / <alpha-value>)',
 
             grey: {
                 10: '#151515',
@@ -56,6 +47,52 @@ module.exports = {
 
             red: '#dd0000',
         },
+        screens: {
+            min: '320px',
+            sm: '600px',
+            md: '768px',
+            lg: '1024px',
+            xl: '1280px',
+            max: '1440px',
+        },
+        spacing: {
+            px: '1px',
+            0: '0',
+            0.5: '2px',
+            1: '4px',
+            1.5: '6px',
+            2: '8px',
+            2.5: '10px',
+            3: '12px',
+            3.5: '14px',
+            4: '16px',
+            5: '20px',
+            6: '24px',
+            7: '28px',
+            8: '32px',
+            9: '36px',
+            10: '40px',
+            11: '44px',
+            12: '48px',
+            14: '56px',
+            16: '64px',
+            20: '80px',
+            24: '96px',
+            28: '112px',
+            32: '128px',
+            36: '144px',
+            40: '160px',
+            44: '176px',
+            48: '192px',
+            52: '208px',
+            56: '224px',
+            60: '240px',
+            64: '256px',
+            72: '288px',
+            80: '320px',
+            96: '384px',
+        },
+        fontSize: themeConfig.fontSize,
         fontFamily: {
             montserrat: ['Montserrat', 'sans-serif'],
             robotoMono: ['Roboto Mono', 'monospace'],
@@ -88,8 +125,6 @@ module.exports = {
                     'radial-gradient(transparent 0%, var(--theme-teal) 2.5%, transparent 20%, transparent 100%)',
                 gradient_title:
                     'linear-gradient(45deg, #cc22aa, #8360c3, #45A29E, #55dcd1,#45A29E,#8360c3,#cc22aa)',
-                gradient_card:
-                    'linear-gradient(to top, var(--card-bg-from), var(--card-bg-to))',
             },
             transitionDuration: {
                 0: '0ms',

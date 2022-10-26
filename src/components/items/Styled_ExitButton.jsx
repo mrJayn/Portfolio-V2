@@ -2,7 +2,7 @@ import { motion, useAnimation } from 'framer-motion'
 import { toggleScrolling } from '@utils'
 import { useEffect } from 'react'
 
-const ExitButton = ({ toggleCard, useExitAnim = false }) => {
+const ExitButton = ({ action, useExitAnim = false, className = '' }) => {
     const controls = useAnimation()
 
     // exit Anim
@@ -17,7 +17,7 @@ const ExitButton = ({ toggleCard, useExitAnim = false }) => {
     function exitNow() {
         controls.start(exit)
         setTimeout(() => {
-            toggleCard()
+            action()
             toggleScrolling(true)
         }, 350)
     }
@@ -35,7 +35,7 @@ const ExitButton = ({ toggleCard, useExitAnim = false }) => {
     })
     return (
         <motion.div
-            className="flex-center group absolute z-10 ml-1 aspect-square h-12 cursor-pointer text-[36px] sm:m-2 md:h-14 md:text-[56px]"
+            className={`flex-center className group absolute z-10 aspect-square max-h-[76px] min-h-[48px] cursor-pointer ${className}`}
             whileTap={{ scale: 0.95 }}
             onClick={() => exitNow()}
         >

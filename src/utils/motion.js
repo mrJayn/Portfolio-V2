@@ -19,7 +19,58 @@ export const Variants = {
         exit: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
     },
 }
+export const sectionVariants = {
+    Mobile: {
+        hidden: { opacity: 0 },
+        show: { opacity: 1, transition: { duration: 0.5, delay: 0.25 } },
+        expanded: { opacity: 0, transition: { duration: 0.25 } },
+    },
+    InfoCard: {
+        hidden: { transition: { delayChildren: 1 } },
+        show: (isMd) => ({
+            transition: {
+                staggerChildren: isMd ? 0.2 : 0,
+                delayChildren: 0.75,
+            },
+        }),
+        expanded: (isMd) => ({ opacity: isMd ? 0 : 1 }),
+    },
+    Info_Item: {
+        hidden: (offset) => ({ opacity: 0, x: -offset + '0%' }),
+        show: { opacity: 1, x: 0 },
+    },
+    Img: {
+        hidden: (isAbout = null) => ({
+            transition: { delay: 0.5 },
+        }),
+        show: (isAbout = null) => ({
+            opacity: 1,
+            transition: {
+                delay: isAbout == null && 0.5,
+                type: 'spring',
+                bounce: 0,
+            },
+        }),
+        expanded: (isAbout = null) => ({
+            opacity: 0.8,
+            x: isAbout == null ? 0 : isAbout ? '100%' : '-100%',
 
+            transition: { duration: isAbout == null ? 0.5 : 0.5 },
+        }),
+    },
+    ImgWrap: {
+        hidden: (offset) => ({
+            x: offset + '0%',
+            scale: 0.9,
+            transition: { duration: 0, delay: 1 },
+        }),
+        show: {
+            x: 0,
+            scale: 1,
+            transition: { duration: 1.5, ease: 'easeOut' },
+        },
+    },
+}
 export const navVariants = {
     Logo: {
         Wrap: {
@@ -168,20 +219,16 @@ export const menuVariants = {
         hidden: {
             clipPath: `polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)`,
             transition: {
-                clipPath: {
-                    delay: 0.25,
-                    type: 'spring',
-                    bounce: 0,
-                    stiffness: 45,
-                },
-                opacity: {
-                    duration: 0.7,
-                },
+                delay: 0.25,
+                type: 'spring',
+                bounce: 0,
+                stiffness: 45,
             },
         },
         enter: {
             clipPath: `polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)`,
             transition: {
+                delay: 0.25,
                 type: 'spring',
                 bounce: 0,
                 stiffness: 50,
@@ -238,67 +285,50 @@ export const cardVariants = {
         expanded: { opacity: 0, transition: { duration: 0.25 } },
     },
     MdBg: {
-        hidden: {
-            opacity: 1,
-            scaleX: 1,
-            scaleY: 0.98,
-        },
         show: {
-            opacity: 0,
             scaleX: 0.5,
             scaleY: 0.95,
-            filter: 'brightness(0.6)',
+            filter: 'brightness(1)',
             transition: {
-                opacity: { duration: 0.5, delay: 1 },
-                scaleX: { duration: 1, delay: 0.5, ease: [0.25, 1, 0.65, 1] },
-                default: { duration: 0.5 },
+                scaleX: {
+                    duration: 0.5,
+                    delay: 0.7,
+                    ease: [0.25, 0.5, 0.25, 1],
+                },
+                default: { duration: 0.2, delay: 0.25 },
             },
         },
         expanded: {
-            opacity: 1,
             scaleX: 1,
             scaleY: 1,
             filter: 'brightness(1)',
             transition: {
-                opacity: { duration: 0 },
-                scaleX: { duration: 1, ease: [0.25, 1, 0.65, 1] },
-                default: { duration: 0.5, delay: 1, ease: 'easeOut' },
+                scaleX: { duration: 0.5, ease: [0.25, 1, 0.65, 1] },
+                default: { duration: 0.25, delay: 0.5, ease: 'easeOut' },
             },
         },
     },
     Img: {
-        hidden: (i = 0) => ({
-            opacity: 0,
-            filter: 'blur(4px)  brightness(0.75)',
+        hidden: (isAbout = null) => ({
+            transition: { delay: 0.5 },
         }),
-        show: (i = 0) => {
-            const full = i !== 0
-            return {
-                opacity: 1,
-                filter: 'blur(0px) brightness(1)',
-                transition: {
-                    type: 'tween',
-                    default: {
-                        duration: full ? 2 : 1,
-                        delay: !full && 0.25,
-                        ease: full && 'anticipate',
-                    },
-                    filter: {
-                        duration: 1,
-                        delay: full ? 1 : 0.25,
-                        ease: full && 'anticipate',
-                    },
-                },
-            }
-        },
-        expanded: (i = 0) => ({
-            opacity: 0,
-            filter: 'blur(4px)  brightness(0.75)',
-            transition: { duration: i !== 0 ? 1 : 0.5 },
+        show: (isAbout = null) => ({
+            opacity: 1,
+            transition: {
+                delay: isAbout == null && 0.5,
+                type: 'spring',
+                bounce: 0,
+            },
+        }),
+        expanded: (isAbout = null) => ({
+            opacity: 0.8,
+            x: isAbout == null ? 0 : isAbout ? '100%' : '-100%',
+
+            transition: { duration: isAbout == null ? 0.5 : 0.5 },
         }),
     },
     Content: {
-        hidden: { opacity: 0 },
+        hidden: { opacity: 1, transition: { delay: 0.5 } },
         show: {
             opacity: 1,
             transition: { duration: 1, delay: 0.5 },
@@ -308,12 +338,14 @@ export const cardVariants = {
 }
 export const cardExpanded_Variants = {
     Wrap: {
-        hidden: { opacity: 0 },
+        hidden: {
+            opacity: 0,
+        },
         show: (isMd) => ({
             opacity: 1,
-            transition: isMd
-                ? { duration: 0.75, ease: [1, 0, 0.5, 0.5], delay: 1.5 }
-                : { delay: 0 },
+            transition: isMd && {
+                delay: 0.75,
+            },
         }),
     },
     NavTitle: {
@@ -339,8 +371,8 @@ export const cardExpanded_Variants = {
     },
     Title: {
         hidden: {
-            opacity: 0,
-            y: '50%',
+            opacity: 1,
+            y: '75%',
             transition: { type: 'spring', stiffness: 40 },
         },
         show: {
@@ -670,22 +702,16 @@ export const projectVariants = {
     },
 }
 
-export const contactMotion = {
-    Text: {
-        initial: { opacity: 0, y: 10 },
-        whileInView: {
+export const contactVariants = {
+    Item: {
+        hidden: { opacity: 0, y: 15 },
+        show: (i) => ({
             opacity: 1,
             y: 0,
-            transition: { duration: 0.5, delay: 0.25 },
-        },
-        viewport: { once: true },
-    },
-    Button: {
-        initial: { opacity: 0 },
-        whileInView: (i = 0) => ({
-            opacity: 1,
-            transition: { duration: 0.5, delay: i, ease: 'circOut' },
+            transition: {
+                delay: 0.25 + 0.1 * i,
+                y: { type: 'spring', bounce: 0 },
+            },
         }),
-        viewport: { once: true },
     },
 }

@@ -60,7 +60,7 @@ const Ftd_Expanded = ({
                                 }`}
                             >
                                 <Styled_ExitButton
-                                    toggleCard={() => setExpanded(false)}
+                                    action={() => setExpanded(false)}
                                 />
                             </div>
 

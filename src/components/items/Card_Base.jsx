@@ -5,58 +5,45 @@ import { motion, useInView, useReducedMotion } from 'framer-motion'
 import Styled_Button from './StyledButton'
 import { cardVariants as variants } from '@motion'
 
-// Motion Variants
-const smCardVars = variants.CardSm
-const imgVars = variants.Img
-const contentVars = variants.Content
-
 // Next Image w/Props
-const Styled_Image = ({ src, alt, isAbout, isMd, pRM }) => {
-    const Styled_Img = () => (
-        <div className="relative aspect-[4/3] w-10/12 overflow-hidden rounded-xl shadow-md md:mx-auto md:mt-6 md:aspect-auto md:h-[90%] md:w-[calc(100%-24px)]">
-            <Image
-                src={src}
-                alt={alt}
-                layout="fill"
-                objectFit="cover"
-                objectPosition="top"
-                quality={100}
-            />
-        </div>
-    )
-    return isMd ? (
-        <motion.div
-            data-mdimg
-            className="relative -z-10 h-full w-1/2 overflow-hidden motion-reduce:z-10 motion-reduce:rounded-[3rem]"
-            variants={imgVars}
-            custom={pRM ? 0 : isAbout ? '-10%' : '10%'}
-        >
-            <Styled_Img />
-        </motion.div>
-    ) : (
-        <Styled_Img />
-    )
-}
+const Styled_Image = ({ src, alt }) => (
+    <div className="relative aspect-[4/3] w-10/12 overflow-hidden rounded-lg shadow-sm md:aspect-auto md:h-4/5 md:w-4/5">
+        <Image
+            src={src}
+            alt={alt}
+            layout="fill"
+            objectPosition="top"
+            objectFit="cover"
+            quality={100}
+        />
+    </div>
+)
 
 // Background clipPath @Media >= 768px
 const Md_Bg = ({ anim }) => {
     return (
         <>
-            <motion.div
-                data-mdbg
-                className="absoluteFull rounded-[3rem] bg-grey-90 will-change-transform dark:bg-teal-99"
+            <motion.span
+                data-cardbase-bg
+                className="absoluteFull rounded-[3rem]  bg-card will-change-transform"
                 initial={false}
                 animate={anim}
                 variants={variants.MdBg}
             />
-            <div className="absolute top-0 h-full bg-grey-90 dark:bg-grey-30" />
+            <span
+                data-shadow-hide={anim == 'expanded' ? true : false}
+                className="absolute top-0 h-full bg-card"
+            />
         </>
     )
 }
 
 const Card_Base = ({ data, isAbout, isMd, expanded, setExpanded }) => {
-    const ref = useRef()
-    const inView = useInView(ref, { once: true, amount: 0.1 })
+    const ref = useRef(null)
+    const inView = useInView(ref, {
+        amount: 0.75,
+        once: isMd ? false : true,
+    })
     const pRM = useReducedMotion()
 
     // Animation Trigger
@@ -78,31 +65,26 @@ const Card_Base = ({ data, isAbout, isMd, expanded, setExpanded }) => {
             className="full relative md:flex"
             initial={false}
             animate={anim}
-            variants={!isMd && smCardVars}
+            variants={!isMd && variants.CardSm}
             ref={ref}
         >
             {/** [  Styled-Image  |  Background-Animation ] **/}
             {isMd && (
-                <>
+                <div data-imgcard className="flex-center full">
                     <Styled_Image {...styledImageProps} />
-                    <Md_Bg anim={anim} />
-                </>
+                </div>
             )}
 
             {/** [  Styled-Info  ] **/}
-            <motion.div
-                className={`relative overflow-hidden   ${
-                    isMd
-                        ? 'h-full w-1/2    '
-                        : 'full rounded-[3rem] bg-gradient_card py-10'
-                }`}
-                style={{ order: isAbout ? 1 : 2 }}
+            <div
+                data-infocard
+                className="full bg-gradient_card relative overflow-hidden rounded-[3rem] py-10 md:rounded-none md:bg-none md:py-0"
             >
                 <motion.div
                     className={`flex-col-center whitespace-pre-line ${
                         isMd ? `absoluteFull` : ' space-y-4'
                     }`}
-                    variants={contentVars}
+                    variants={variants.Content}
                     custom={isMd}
                 >
                     {/** [  TITLE  ] + [  BRIEF  ] **/}
@@ -119,14 +101,14 @@ const Card_Base = ({ data, isAbout, isMd, expanded, setExpanded }) => {
                     <Styled_Button
                         action={() => setExpanded(true)}
                         toTextAt={isMd}
-                        allowScroll={isMd ? true : false}
+                        allowScroll={false}
                         btnStyle="py-4 w-3/4 md:hidden"
                         textStyle="mt-20"
                     >
                         Read More
                     </Styled_Button>
                 </motion.div>
-            </motion.div>
+            </div>
         </motion.div>
     )
 }

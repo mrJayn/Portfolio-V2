@@ -6,6 +6,31 @@ import Styled_ExitButton from './Styled_ExitButton'
 import { cardExpanded_Variants as variants } from '@motion'
 import { useMediaQuery } from '@hooks'
 
+const Expanded_Title = ({ title, setExpanded, isMd }) =>
+    isMd ? (
+        <div className="flex-center absolute top-0 -z-10 h-12 w-full">
+            <motion.h4 variants={variants.Title}>{title}</motion.h4>
+            <Styled_ExitButton
+                action={() => setExpanded(false)}
+                className="left-0 top-0 h-full"
+            />
+        </div>
+    ) : (
+        <motion.h5
+            className="flex-center absolute -top-12 left-[50%] z-50 h-12 translate-x-[-50%] whitespace-nowrap tracking-wide text-white"
+            variants={variants.NavTitle}
+        >
+            {title}
+        </motion.h5>
+    )
+const Expanded_TabList = ({ ...tabListProps }) => (
+    <motion.div
+        className="md:flex-center fixed bottom-0 left-0 right-0 z-10 h-14 bg-nav py-1 md:rounded-xl"
+        variants={variants.TabListContainer}
+    >
+        <Tabs.List {...tabListProps} />
+    </motion.div>
+)
 const Card_Expanded = ({
     cardData,
     tabs,
@@ -35,7 +60,7 @@ const Card_Expanded = ({
     return (
         <motion.div
             id={`${tabProps.section}-expanded`}
-            className="fixed left-0 right-0 top-12 bottom-0 z-30 md:absolute md:top-0 md:bottom-10 md:z-10 md:bg-transparent"
+            className="fixed left-0 right-0 top-12 bottom-0 z-30 md:top-0 md:pt-12"
             initial="hidden"
             animate="show"
             exit="hidden"
@@ -43,45 +68,26 @@ const Card_Expanded = ({
             custom={isMd}
         >
             {/** HEADER **/}
-            {isMd ? (
-                <>
-                    <motion.h4
-                        className="absolute -top-12 -z-10 h-12 w-full text-center"
-                        variants={variants.Title}
-                    >
-                        {cardData.title}
-                    </motion.h4>
-                    <div className="absolute left-0 -top-14">
-                        <Styled_ExitButton
-                            toggleCard={() => setExpanded(false)}
-                        />
-                    </div>
-                </>
-            ) : (
-                <motion.h5
-                    className="flex-center absolute -top-12 left-[50%] z-50 h-12 translate-x-[-50%] whitespace-nowrap tracking-wide text-white"
-                    variants={variants.NavTitle}
-                >
-                    {cardData.title}
-                </motion.h5>
-            )}
+            <Expanded_Title
+                isMd={isMd}
+                title={cardData.title}
+                setExpanded={setExpanded}
+            />
 
             {/** CONTENT **/}
-            <div className="full relative bg-background md:bg-transparent">
+            <motion.div className="full relative overflow-hidden bg-background md:overflow-visible md:rounded-[3rem] md:bg-transparent">
                 {isSm & isAbout ? (
-                    <div className="absoluteFull overflow-hidden   md:rounded-[5rem]">
-                        <div className="full overflow-y-scroll md:overflow-hidden">
-                            <div className="md:full flex-row p-4 pb-16 md:flex md:items-start md:pb-4">
-                                {[...Array(tabProps.span).keys()].map(
-                                    (i) => tabs[i]
-                                )}
-                            </div>
+                    <div className="absoluteFull overflow-y-scroll md:overflow-visible">
+                        <div className="p-4 pb-16 md:pb-4">
+                            {[...Array(tabProps.span).keys()].map(
+                                (i) => tabs[i]
+                            )}
                         </div>
                     </div>
                 ) : (
-                    <div className="absolute top-0 left-0 right-0 bottom-14 overflow-hidden md:rounded-[5rem]">
+                    <div className="absolute top-0 left-0 right-0 bottom-14 md:bottom-0">
                         <motion.div
-                            className="absoluteFull scollbar-visible overflow-x-hidden overflow-y-scroll p-2"
+                            className="absoluteFull overflow-hidden p-2 md:mt-[5px]"
                             variants={variants.Content}
                             custom={isMd}
                             ref={scrollRef}
@@ -99,15 +105,11 @@ const Card_Expanded = ({
                             </AnimatePresence>
                         </motion.div>
                         {/***/}
-                        <motion.div
-                            className="fixed bottom-0 left-0 right-0 z-10 h-14 bg-nav py-1 md:absolute md:left-6 md:right-6 md:-bottom-20 md:h-14"
-                            variants={variants.TabListContainer}
-                        >
-                            <Tabs.List {...tabListProps} />
-                        </motion.div>
+                        {!isMd ? <Expanded_TabList {...tabListProps} /> : null}
                     </div>
                 )}
-            </div>
+            </motion.div>
+            {isMd & !isAbout ? <Expanded_TabList {...tabListProps} /> : null}
         </motion.div>
     )
 }

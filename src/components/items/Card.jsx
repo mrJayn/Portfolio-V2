@@ -1,9 +1,43 @@
 import { useState, useRef, useEffect } from 'react'
-import { AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
+import { motion, AnimatePresence } from 'framer-motion'
 
 import Card_Base from './Card_Base'
 import Card_Expanded from './Card_Expanded'
+import Styled_Button from './StyledButton'
 import { useGlobalControls, useMediaQuery } from '@hooks'
+import { cardVariants as variants } from '@motion'
+
+// Next Image w/Props
+const Styled_Image = ({ src, alt, isAbout, isMd, pRM }) => {
+    const Styled_Img = () => (
+        <div className="relative aspect-[4/3] w-10/12 overflow-hidden rounded-xl shadow-md md:mx-auto md:mt-6 md:aspect-auto md:h-[90%] md:w-[calc(100%-24px)] md:shadow-sm">
+            <Image
+                src={src}
+                alt={alt}
+                layout="fill"
+                objectFit="cover"
+                objectPosition="top"
+                quality={100}
+            />
+        </div>
+    )
+    return isMd ? (
+        <motion.div
+            data-imgcard
+            className="relative -z-10 h-full w-1/2 overflow-hidden motion-reduce:z-10 motion-reduce:rounded-[3rem]"
+            style={{
+                borderRadius: isAbout ? '' : '0 3rem 3rem 0',
+            }}
+            variants={variants.Img}
+            custom={!pRM && isAbout}
+        >
+            <Styled_Img />
+        </motion.div>
+    ) : (
+        <Styled_Img />
+    )
+}
 
 const Card_Group = ({ tabs, globalControls, ...data }) => {
     const isMd = useMediaQuery(768)
@@ -35,23 +69,14 @@ const Card_Group = ({ tabs, globalControls, ...data }) => {
     // useGlobalControls for dynamic NAV (@media<768px)
     useGlobalControls(globalControls, [expanded, setExpanded], ['card', isMd])
 
-    // Odd or Even Card Styling
-    useEffect(() => {
-        if (!isMd) return
-        document.querySelectorAll('div[data-cardbase]').forEach((card, i) => {
-            var cssClass = i % 2 == 0 ? 'oddCard' : 'evenCard'
-            card.classList.add(cssClass)
-        })
-    }, [isMd])
-
     return (
-        <div className="relative mx-auto h-full w-full max-w-[500px] md:h-[500px] md:max-w-none lg:h-[450px] xl:h-[550px]">
+        <>
             <Card_Base {...cardProps} />
             {/**************************************/}
             <AnimatePresence onExitComplete={() => setTab([0, 0])}>
                 {expanded && <Card_Expanded {...card_expanded_props} />}
             </AnimatePresence>
-        </div>
+        </>
     )
 }
 export default Card_Group

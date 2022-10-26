@@ -3,7 +3,7 @@ import { Social_Icons } from '@components'
 const Footer = ({ isMd }) => {
     const currentYear = new Date().getFullYear()
     return (
-        <footer id="footer" className="w-full bg-nav">
+        <footer id="footer" className="w-full snap-end bg-nav">
             <div className="flex-col-center m-4">
                 <div className="flex-evenly w-full max-w-[600px]">
                     <Social_Icons size={isMd ? 40 : 30} />

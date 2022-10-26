@@ -72,6 +72,7 @@ certifications:
             '/assets/certifications/py_data_analysis.png',
         ],
     ]
+slug: experience
 ---
 
 As for real-world jobs...well... I've never had a real one... that is in regards to software, coding or development. BUT ! I did work an internship at Rochester Electronics, the worlds single largest conitnuous provider of semiconductors.

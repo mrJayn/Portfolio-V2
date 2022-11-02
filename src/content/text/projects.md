@@ -1,10 +1,11 @@
 ---
-section: Projects
+section: projects
 title: Projects
+description: All code and projects I've worked on so far.
 brief: Check out what I've been up to this past year.
+custom: true
 src: '/assets/featured/choropleth_map.png'
 alt: featured project 1
-tabNames: [Featured, My Other Projects]
 skills:
     [
         [Python, '/assets/skills/python.png'],

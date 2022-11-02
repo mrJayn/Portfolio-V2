@@ -1,42 +1,87 @@
+import { isValidElement, useEffect, useState } from 'react'
 import { getAllMarkdown } from 'src/lib/markdown'
-import {
-    Intro,
-    About,
-    Projects,
-    Contact,
-    Layout,
-    Experience,
-    Footer,
-    Section,
-} from '@components'
+import { Contact, Intro, Layout, Section } from '@components'
+import { index2id } from '@config'
 
 const title = 'Portfolio'
 const description =
     "Hello, I'm Michael👋 - I'm an ChemEng graduate and a recent self-taught developer, aiming to break into tech ASAP!"
 
-export default function Home({ data, ...pageProps }) {
-    data = { ...pageProps, ...data }
+export default function Home({
+    activeSection,
+    setSection,
+    isRouting,
+    isMd,
+    data,
+    ...pageProps
+}) {
+    const [initialVariant, setInitialVariant] = useState('')
+    const [allowUpdates, setAllowUpdates] = useState(false)
 
-    const sections = {
-        about: data.about,
-        experience: data.experience,
-        projects: data.projects,
+    // Restrict initial page interactability  &  Set FramerMotion "initial" value
+    useEffect(() => {
+        const delayResetProps = () => {
+            let timeout = setTimeout(() => {
+                setAllowUpdates(true)
+                setInitialVariant('hidden')
+            }, 1500)
+            return () => clearTimeout(timeout)
+        }
+
+        if (activeSection !== 0) {
+            setSection(activeSection)
+            setInitialVariant(isRouting ? 'expand' : 'hidden')
+            // Align active-section  &  active-area
+            document
+                .getElementById(index2id(activeSection) + '-area')
+                .scrollIntoView({ behavior: 'smooth' })
+            delayResetProps()
+        } else {
+            delayResetProps()
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isMd])
+
+    // Required States + Markdown + Global States
+    data = {
+        activeSection: activeSection,
+        setSection: setSection,
+        allowUpdates: allowUpdates,
+        initialVariant: initialVariant,
+        ...pageProps,
+        ...data,
     }
 
-    return (
-        <Layout
-            title={title}
-            description={description}
-            isHome={pageProps.isHome}
-            isMd={data.isMd}
-        >
-            <Intro {...data} />
-            {Object.keys(sections).map((id, i) => {
-                return <Section key={id} id={id} i={i} {...sections[id]} />
-            })}
+    // Section Components
+    const sectionComponents = [
+        ['intro', <Intro key="intro" {...data} />],
+        ['about', data.about],
+        ['experience', data.experience],
+        ['projects', data.projects],
+        ['contact', <Contact key="contact" {...data} />],
+    ]
 
-            <Contact {...data} />
-            <Footer isMd={data.isMd} />
+    return (
+        <Layout title={title} description={description} isHome={data.isHome}>
+            {sectionComponents.map(([id, data], i) => {
+                const isValidJSX = isValidElement(data)
+                const props = {
+                    id: id,
+                    index: i,
+                    activeSection: activeSection,
+                    setSection: setSection,
+                    allowUpdates: allowUpdates,
+                    initialVariant: initialVariant,
+                    ...(isValidJSX ? { useChildren: true } : data),
+                }
+                return isValidJSX ? (
+                    <Section key={id} {...props}>
+                        {data}
+                    </Section>
+                ) : (
+                    <Section key={id} {...props} />
+                )
+            })}
         </Layout>
     )
 }

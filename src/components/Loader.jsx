@@ -13,7 +13,7 @@ const Loader = ({ setIsLoading }) => {
         const spring = 'spring(1, 20, 10, 10)'
         const loader = anime.timeline({
             complete: () => {
-                setIsLoading([false, true])
+                setIsLoading(false)
             },
         })
         loader
@@ -178,7 +178,7 @@ const Loader = ({ setIsLoading }) => {
             </div>
             <div
                 id="loader-bg"
-                className="bg-gradient_radial absolute -z-10 mx-auto translate-y-[-50%] scale-0  opacity-0 dark:z-10"
+                className="absolute -z-10 mx-auto translate-y-[-50%] scale-0 bg-gradient_radial  opacity-0 dark:z-10"
                 style={{
                     height: loaderSize,
                     width: loaderSize,

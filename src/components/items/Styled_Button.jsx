@@ -9,6 +9,7 @@ const Styled_Button = ({
     btnStyle = '',
     textStyle = '',
     animateOn = null,
+    variants,
     ...props
 }) => {
     const controls = useAnimation()
@@ -34,33 +35,20 @@ const Styled_Button = ({
         })
     }
 
-    // whileInView ANIM PROPS
-    const motionProps =
-        animateOn == 'inView'
-            ? {
-                  initial: 'hidden',
-                  whileInView: 'show',
-                  viewport: { once: true },
-              }
-            : animateOn !== null
-            ? {
-                  initial: false,
-                  animate: animateOn ? 'show' : 'hidden',
-              }
-            : null
-
     // Final Props
     props = {
         onClick: (e) => handleOnClick(e),
-        variants: {
-            hidden: { opacity: 0, scale: 0.75 },
-            show: {
-                opacity: 1,
-                scale: 1,
-                transition: { duration: 0.35, type: 'spring' },
-            },
-        },
-        ...motionProps,
+        variants:
+            variants == null
+                ? {
+                      hidden: { opacity: 0, scale: 0.75 },
+                      show: {
+                          opacity: 1,
+                          scale: 1,
+                          transition: { duration: 0.35, type: 'spring' },
+                      },
+                  }
+                : variants,
         ...props,
     }
     return (

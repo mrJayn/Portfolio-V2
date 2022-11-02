@@ -14,69 +14,13 @@
             @apply hue-rotate-60;
         }
     }
-    /** ================== CARDS ================= **/
-    div[data-cardbase] {
-        --offset-1: calc(var(--card-dir) * 0.025em);
-        --offset-2: calc(var(--card-dir) * 0.45em);
-        --offset-3: calc(var(--card-dir) * 0.1em);
-        --offset-4: calc(var(--card-dir) * 0.75rem);
-
-        & span[data-cardbase-bg] {
-            font-size: 60px;
-            box-shadow: 0 0.05em 0.025em -0.025em var(--card-inset-color-1) inset,
-                calc(-1 * var(--offset-2)) -0.2em 0.4em var(
-                        --card-inset-color-2
-                    ) inset,
-                calc(-1 * var(--offset-3)) -1em 0.5em -0.5em
-                    var(--card-inset-color-3) inset,
-                0 0.075em 0.025em -0.025em var(--card-inset-color-4);
-
-            & + span {
-                font-size: 60px;
-                &[data-shadow-hide='false'] {
-                    box-shadow: var(--offset-1) 0.05em 0.025em -0.025em var(
-                                --card-inset-color-1
-                            ) inset,
-                        var(--offset-2) -0.2em 0.4em var(--card-inset-color-2) inset,
-                        var(--offset-3) -1em 0.5em -0.5em
-                            var(--card-inset-color-3) inset,
-                        0 0.075em 0.025em -0.025em var(--card-inset-color-4),
-                        var(--offset-4) 0rem 1rem -0.75rem var(--card-outset-color);
-
-                    transition: 0.2s;
-                }
-                &[data-shadow-hide='true'] {
-                    box-shadow: var(--offset-1) 0.05em 0.025em -0.025em var(
-                                --card-inset-color-1
-                            ) inset,
-                        var(--offset-2) -0.2em 0.4em var(--card-inset-color-2) inset,
-                        var(--offset-3) -1em 0.5em -0.5em
-                            var(--card-inset-color-3) inset;
-                    transition: 0.25s 0.5s ease-in;
-                }
-            }
-        }
-        &.even {
-            & span[data-cardbase-bg] {
-                transform-origin: left;
-
-                & + span {
-                    left: 0;
-                    width: 50%;
-                    border-radius: 3rem 0 0 3rem;
-                }
-            }
-        }
-        &.odd {
-            & span[data-cardbase-bg] {
-                transform-origin: right;
-                & + span {
-                    right: 0;
-                    width: 50%;
-                    border-radius: 0 3rem 3rem 0;
-                }
-            }
-        }
+    /** ================== Layout ================= **/
+    .section-area {
+        height: calc(100vh - 48px);
+        width: 100%;
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+        scroll-margin-top: 48px;
     }
 
     /** =============== COMPONENTS ============== **/

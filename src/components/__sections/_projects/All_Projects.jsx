@@ -4,43 +4,39 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Section, Project_Card, Tabs } from '@components'
 import { projectVariants } from '@motion'
 
-const All_Projects = ({ projects, isMd, pRM }) => {
+const All_Projects = ({ isMd, pRM, ...sectionData }) => {
     const [[currentTab, _], setTab] = useState([0, 0])
     const [activeProject, setActiveProject] = useState(-1)
 
-    const tabNames = [
-        'all',
-        ...new Set(projects.map(({ data: { category } }) => category)),
-    ]
+    const projects = Object.values(sectionData)
+    const projectCategories = projects.map((project) => project.data.category)
+    const tabNames = ['all', ...new Set(projectCategories)]
 
-    const projectsByCat = projects.map((project) => project.data.category)
     const groupedTabs = []
     for (let i = 0; i < tabNames.length; i++) {
         let group = []
         if (i == 0) {
             group = projects
         } else {
-            for (let j = 0; j < projectsByCat.length; j++) {
-                if (tabNames[i] == projectsByCat[j]) group.push(projects[j])
+            for (let j = 0; j < projectCategories.length; j++) {
+                if (tabNames[i] == projectCategories[j]) group.push(projects[j])
             }
         }
         groupedTabs.push(group)
     }
+
     const DisplayCards = groupedTabs[currentTab]
     const Blanks = projects.length - DisplayCards.length
 
     const tabListProps = {
         currentTab: currentTab,
         setTab: setTab,
-        tabNames: [
-            'all',
-            ...new Set(projects.map(({ data: { category } }) => category)),
-        ],
+        tabNames: tabNames,
         altStyle: 'rounded-xl',
     }
 
     return (
-        <Section id="projects">
+        <div className="full" id="all-projects">
             {/** Title **/}
             <div className="w-full text-center">
                 <motion.h3
@@ -101,7 +97,7 @@ const All_Projects = ({ projects, isMd, pRM }) => {
                     </AnimatePresence>
                 </div>
             </div>
-        </Section>
+        </div>
     )
 }
 

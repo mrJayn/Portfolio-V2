@@ -1,7 +1,9 @@
 // --LAYOUT--
 export { default as Layout } from './Layout'
+export { default as SectionsMap } from './SectionsMap'
 export { default as Section } from './Section'
-export { default as Footer } from './Footer'
+export { default as Section_Card } from './Section_Card'
+export { default as Section_Hero } from './Section_HeroI'
 export { default as Loader } from './Loader'
 
 // Navbar
@@ -12,7 +14,6 @@ export { default as Intro } from './__sections/_intro/Intro'
 export { default as Title } from './__sections/_intro/Title'
 // About
 export { default as About } from './__sections/_about/About'
-export { default as Skills } from './__sections/_about/Skills'
 // Experience
 export { default as Experience } from './__sections/_experience/Experience'
 export { default as Jobs } from './__sections/_experience/Jobs'
@@ -29,12 +30,13 @@ export { default as Ftd_Expanded } from './__sections/_projects/_featured/Ftd_Ex
 export { default as Contact } from './__sections/_contact/Contact'
 
 // Form
-export { default as Form } from './Form'
+export { default as Form } from './__sections/_contact/Form'
 
 // Items
+export { default as Styled_Image } from './items/Styled_Img'
 export { default as Card } from './items/Card'
 export { default as Tabs } from './items/Tabs'
-export { default as Styled_Button } from './items/StyledButton'
+export { default as Styled_Button } from './items/Styled_Button'
 export { default as Styled_ExitButton } from './items/Styled_ExitButton'
 export { default as Styled_Icon } from './items/Styled_Icon'
 export { default as Social_Icons } from './items/Social_Icons'

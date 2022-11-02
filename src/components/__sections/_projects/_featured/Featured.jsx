@@ -4,10 +4,10 @@ import { wrap } from '@popmotion/popcorn'
 import { Section, Ftd_Project, Ftd_Expanded, Tabs } from '@components'
 import { useGlobalControls, useMediaQuery } from '@hooks'
 
-const Featured = ({ featured, globalControls }) => {
+const Featured = ({ globalControls, ...data }) => {
     const [expandedTabs, setExpandedTabs] = useState(false)
     const [[currentTab, direction], setTab] = useState([0, 0])
-    const n = wrap(0, Object.keys(featured).length, currentTab)
+    const n = wrap(0, Object.keys(data).length, currentTab)
 
     const tabListProps = {
         currentTab: currentTab,
@@ -29,7 +29,6 @@ const Featured = ({ featured, globalControls }) => {
         isSm: isSm,
         pRM: useReducedMotion(),
     }
-
     // useGlobalControls for dynamic NAV (@media<768px)
     useGlobalControls(
         globalControls,
@@ -38,19 +37,15 @@ const Featured = ({ featured, globalControls }) => {
     )
 
     return (
-        <Section
-            id="featured"
-            fullScreen={isSm ? false : true}
-            scrollOffset={isSm ? 150 : 48}
-        >
+        <div id="featured-projects" className="full">
             {isSm && (
                 /** GRID **/
                 <div id="featured-md" className="flex-col-top">
-                    {featured.map((project, i) => {
+                    {Object.keys(data).map((idx, i) => {
                         return (
                             <Ftd_Project
                                 key={`ftd-project-${i}`}
-                                project={project}
+                                project={data[idx]}
                                 even={i % 2 == 0}
                                 {...config}
                             />
@@ -65,7 +60,7 @@ const Featured = ({ featured, globalControls }) => {
                     style={{ height: `calc(100vh - 68px)` }}
                 >
                     <Ftd_Expanded
-                        project={featured[n]}
+                        project={data[n]}
                         expanded={expandedTabs}
                         setExpanded={setExpandedTabs}
                         {...config}
@@ -76,7 +71,7 @@ const Featured = ({ featured, globalControls }) => {
                                 <Tabs.Wrap id="Ftd-Tabs" {...tabProps}>
                                     <Ftd_Project
                                         key={`ftd-project-${n}`}
-                                        project={featured[n]}
+                                        project={data[n]}
                                         setExpandedTabs={setExpandedTabs}
                                         {...config}
                                     />
@@ -87,7 +82,7 @@ const Featured = ({ featured, globalControls }) => {
                     <Tabs.List {...tabListProps} />
                 </div>
             )}
-        </Section>
+        </div>
     )
 }
 

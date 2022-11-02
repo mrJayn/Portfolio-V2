@@ -39,6 +39,7 @@ export async function getAllMarkdown() {
             })
         }
     }
+    const textFolder = table.filter((x) => x.folder == 'text')
     res['about'] = table
         .filter((x) => x.folder == 'text')
         .filter((y) => y.id == 'about')[0]
@@ -56,16 +57,28 @@ export async function getAllMarkdown() {
 
 //=================================================
 export async function getSectionMarkdown(slug) {
-    const file = slug + '.md'
-    const sectionPath = path.join(contentDirectory, 'text', file)
-    const sectionContent = fs.readFileSync(sectionPath, 'utf-8')
-    const { data, content } = matter(sectionContent)
-
-    const contentHTML = (await remark().use(html).process(content)).toString()
-
-    return {
-        id: slug,
-        sectionData: data,
-        content: contentHTML,
+    if (slug !== 'projects') {
+        const sectionPath = path.join(contentDirectory, 'text', slug + '.md')
+        const sectionContent = fs.readFileSync(sectionPath, 'utf-8')
+        const { data, content } = matter(sectionContent)
+        const contentHTML = (
+            await remark().use(html).process(content)
+        ).toString()
+        return {
+            id: slug,
+            data: data,
+            content: contentHTML,
+        }
+    } else {
+        const data = await getAllMarkdown()
+        return {
+            id: slug,
+            description: data.projects.data.description,
+            projects: data.projects,
+            featuredData: data.featured_data,
+            projectsData: data.projects_data,
+        }
     }
 }
+
+//=================================================

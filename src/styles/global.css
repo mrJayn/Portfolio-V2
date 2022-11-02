@@ -56,21 +56,17 @@
         @apply text-base;
         font-family: Montserrat, sans-serif;
         word-spacing: 1px;
-        scroll-behavior: smooth;
         scroll-snap-type: y mandatory;
-        scroll-snap-stop: always;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
 
     body {
-        display: block;
         height: 100vh;
         width: 100vw;
         margin: 0;
         padding: 0;
         background-color: rgb(var(--background));
-        overflow-y: scroll;
         overflow-x: hidden;
     }
     h1 {

@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import Image from 'next/image'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
 
-import Styled_Button from './StyledButton'
+import Styled_Button from './Styled_Button'
 import { cardVariants as variants } from '@motion'
 
 // Next Image w/Props

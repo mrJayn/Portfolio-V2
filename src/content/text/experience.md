@@ -1,7 +1,9 @@
 ---
 section: Experience
 title: My Experience
+description: My past professional statement, job history, and education.
 brief: Where I've worked.&#10;What I've accomplished.
+custom: false
 src: '/assets/misc/resume2022.jpg'
 alt: /
 tabNames: [Summary, Jobs, Certifications]

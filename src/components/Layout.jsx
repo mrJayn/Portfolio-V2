@@ -12,8 +12,14 @@ const PageGradient = () => (
     </svg>
 )
 
-const Layout = ({ title, description, isHome, isMd, children }) => {
-    const handleExternalLinks = () => {
+const Layout = ({ title, description, isHome, children, scrollRef = null }) => {
+    const variants = {
+        hidden: { opacity: 1 },
+        show: { opacity: 1, transition: { duration: 1 } },
+        exit: { opacity: 1, transition: { duration: 0.5 } },
+    }
+    // Handle External Links
+    useEffect(() => {
         const allLinks = Array.from(document.querySelectorAll('a'))
         if (allLinks.length > 0) {
             allLinks.forEach((link) => {
@@ -23,13 +29,14 @@ const Layout = ({ title, description, isHome, isMd, children }) => {
                 }
             })
         }
-    }
+    }, [isHome])
 
-    useEffect(() => {
-        handleExternalLinks()
-    })
-    // Odd or Even Card Styling
-    useEffect(() => {}, [isMd])
+    // !isHome ScrollRef Props
+    const scrollRefProps = isHome
+        ? null
+        : {
+              ref: scrollRef,
+          }
     return (
         <>
             <NextSeo
@@ -39,14 +46,26 @@ const Layout = ({ title, description, isHome, isMd, children }) => {
             />
             <motion.main
                 id="layout"
-                className="flex-col-top full absolute left-0 top-12"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5, ease: 'circIn' }}
-                custom={isHome}
+                className="flex-col-top overscroll-y-scroll left-0 top-12 w-full"
+                style={{
+                    position: isHome ? 'absolute' : 'fixed',
+                    bottom: !isHome && 0,
+                }}
+                initial="hidden"
+                animate="show"
+                exit="exit"
+                variants={variants}
             >
-                {children}
+                {isHome ? (
+                    children
+                ) : (
+                    <div
+                        className="z-10 h-auto w-full overflow-x-hidden overflow-y-scroll bg-background"
+                        ref={scrollRef}
+                    >
+                        {children}
+                    </div>
+                )}
             </motion.main>
             <PageGradient />
         </>

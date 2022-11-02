@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { motion } from 'framer-motion'
+import { motion, useScroll } from 'framer-motion'
 
 import Burger from './Burger'
 import Logo from './Logo'
@@ -9,7 +9,7 @@ import MessageBtn from './MessageBtn'
 import NavLinks from './NavLinks'
 import { toggleScrolling } from '@utils'
 
-const Navbar = ({ isHome, isMd, globalControls }) => {
+const Navbar = ({ isHome, isMd, scrollY, globalControls }) => {
     const router = useRouter()
     const [globOpen, setGlobOpen] = globalControls
     const globalOpen = globOpen !== null
@@ -21,6 +21,14 @@ const Navbar = ({ isHome, isMd, globalControls }) => {
         toggleScrolling(menuOpen)
     }
 
+    // Return from SectionPage
+    const returnHome = () => {
+        document
+            .querySelector('main > div')
+            .scrollTo({ top: 0, behavior: 'smooth' })
+        setTimeout(() => router.back(), 500)
+    }
+
     // Burger Function
     const handleBurger = () => {
         if (isHome) {
@@ -30,7 +38,7 @@ const Navbar = ({ isHome, isMd, globalControls }) => {
                 toggleMenu()
             }
         } else {
-            router.push('/', '', { scroll: false })
+            returnHome()
         }
     }
 
@@ -46,7 +54,7 @@ const Navbar = ({ isHome, isMd, globalControls }) => {
                 window.scrollTo(0, 0)
             }
         } else {
-            router.push('/', '', { scroll: false })
+            returnHome()
         }
     }
 
@@ -90,7 +98,7 @@ const Navbar = ({ isHome, isMd, globalControls }) => {
             <motion.nav
                 id="nav"
                 data-menuopen={menuOpen}
-                className="fixed top-0 left-0 z-30 h-[48px] w-full min-w-[320px] overflow-hidden"
+                className="fixed top-0 left-0 z-30 h-12 w-full min-w-[320px] overflow-hidden"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
             >

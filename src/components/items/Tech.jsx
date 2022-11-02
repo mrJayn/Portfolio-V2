@@ -19,7 +19,6 @@ const Tech = ({
                           ? stagBackwards * 0.1
                           : 0.25 + stagFoward * 0.1,
                   },
-                  ...motionProps,
               }
             : { ...props }
         return (

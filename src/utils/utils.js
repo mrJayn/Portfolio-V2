@@ -5,6 +5,7 @@ export function toggleScrolling(state) {
     }
 }
 
+// Gesture Recognition for Tab Swiping
 export const paginate = (newDirection, currentTab, span, setTab) => {
     if (currentTab + newDirection < span && currentTab + newDirection >= 0) {
         // moving , normal

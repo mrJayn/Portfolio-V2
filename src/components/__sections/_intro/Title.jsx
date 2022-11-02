@@ -1,7 +1,20 @@
 import { motion } from 'framer-motion'
 import { introVariants } from '@motion'
 
-const Title = ({ titleControls, titleColor, delay = 2, stagger = 0.1 }) => {
+const Title = ({
+    titleControls,
+    titleColor,
+    contentControls,
+    isFirstLoad,
+    pRM,
+}) => {
+    const stagger = !pRM & isFirstLoad.current ? 0.1 : 0
+    const timeout = isFirstLoad.current ? 0.5 : 0.25
+
+    const onAnimComplete = () => {
+        contentControls.start('show')
+    }
+
     return (
         <div className="relative w-[300px] sm:w-[412px]  xl:w-[425px] max:w-[500px]">
             <svg
@@ -15,12 +28,13 @@ const Title = ({ titleControls, titleColor, delay = 2, stagger = 0.1 }) => {
                     vectorEffect="non-scaling-stroke"
                 >
                     {paths.map((letterPath, i) => {
-                        const DELAY = delay + i * stagger
+                        const DELAY = timeout + i * stagger
                         return (
                             <motion.path
                                 key={`title-letter-${i}`}
                                 custom={titleColor}
                                 d={letterPath}
+                                initial={pRM ? 'pRM_hide' : 'hide'}
                                 animate={titleControls}
                                 variants={introVariants.Title}
                                 transition={{
@@ -43,6 +57,9 @@ const Title = ({ titleControls, titleColor, delay = 2, stagger = 0.1 }) => {
                                         delay: DELAY + 0.25,
                                     },
                                 }}
+                                onAnimationComplete={
+                                    i == paths.length - 1 && onAnimComplete
+                                }
                             />
                         )
                     })}

@@ -19,58 +19,127 @@ export const Variants = {
         exit: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
     },
 }
+// ~ Section.js ~
 export const sectionVariants = {
-    Mobile: {
-        hidden: { opacity: 0 },
-        show: { opacity: 1, transition: { duration: 0.5, delay: 0.25 } },
-        expanded: { opacity: 0, transition: { duration: 0.25 } },
+    hidden: (i) => ({
+        opacity: 0,
+        y: i * 100 + '%',
+        transition: {
+            when: 'beforeChildren',
+            duration: 1,
+            ease: [0.5, 0, 0.5, 1],
+        },
+    }),
+    show: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 1,
+            delay: 0.25,
+            ease: [0.25, 1, 0.5, 1],
+        },
     },
-    InfoCard: {
-        hidden: { transition: { delayChildren: 1 } },
+    expand: (i) => ({ y: 0, opacity: i == 1 || i == -1 ? 1 : 0 }),
+}
+// ~ Section_Card.js ~
+export const sectionCardVariants = {
+    StaggerParent: {
         show: (isMd) => ({
             transition: {
-                staggerChildren: isMd ? 0.2 : 0,
-                delayChildren: 0.75,
+                staggerChildren: isMd ? 0 : 0.1,
+                delayChildren: isMd ? 0.75 : 0,
             },
         }),
-        expanded: (isMd) => ({ opacity: isMd ? 0 : 1 }),
+        expand: (isMd) => ({ transition: { staggerChildren: isMd ? 0 : 0.1 } }),
     },
-    Info_Item: {
-        hidden: (offset) => ({ opacity: 0, x: -offset + '0%' }),
-        show: { opacity: 1, x: 0 },
-    },
-    Img: {
-        hidden: (isAbout = null) => ({
-            transition: { delay: 0.5 },
-        }),
-        show: (isAbout = null) => ({
-            opacity: 1,
+    Item: {
+        hidden: (k) => ({
+            opacity: 0,
+            x: isNaN(k) ? (k ? '-15%' : '15%') : 0,
             transition: {
-                delay: isAbout == null && 0.5,
-                type: 'spring',
-                bounce: 0,
+                duration: isNaN(k) ? 0 : 1,
+                delay: isNaN(k) ? 1 : 0,
+                ease: 'easeIn',
             },
-        }),
-        expanded: (isAbout = null) => ({
-            opacity: 0.8,
-            x: isAbout == null ? 0 : isAbout ? '100%' : '-100%',
-
-            transition: { duration: isAbout == null ? 0.5 : 0.5 },
-        }),
-    },
-    ImgWrap: {
-        hidden: (offset) => ({
-            x: offset + '0%',
-            scale: 0.9,
-            transition: { duration: 0, delay: 1 },
         }),
         show: {
+            opacity: 1,
+            x: 0,
+            transition: {
+                opacity: { duration: 1, ease: 'easeIn' },
+                x: { duration: 1, ease: 'easeOut' },
+            },
+        },
+        expand: (k) => ({ opacity: 1, x: isNaN(k) ? (k ? '-15%' : '15%') : 0 }),
+    },
+    ImgSm: {
+        hidden: {
+            opacity: 0.5,
+            scale: 0.8,
+            transition: { duration: 1, ease: 'easeIn' },
+        },
+        show: {
+            opacity: 1,
+            scale: 0.9,
+            transition: {
+                scale: {
+                    duration: 1.5,
+                    type: 'spring',
+                    bounce: 0,
+                },
+                opacity: { duration: 1, delay: 0.5 },
+            },
+        },
+        expand: {
+            opacity: 0.5,
+            scale: 1,
+            transition: { duration: 0.5 },
+        },
+    },
+    ImgMd: {
+        hidden: (k) => ({
+            opacity: 0,
+            x: k ? '-15%' : '15%',
+            scale: 0.7,
+            transition: {
+                duration: 0,
+                delay: 1,
+                ease: 'easeIn',
+            },
+        }),
+        show: (k) => {
+            return {
+                opacity: 1,
+                x: 0,
+                scale: 0.8,
+                transition: {
+                    default: {
+                        duration: 1.5,
+                        delay: 0.25,
+                        type: 'spring',
+                        bounce: 0,
+                    },
+                    opacity: { duration: 0 },
+                },
+            }
+        },
+        expand: {
+            opacity: 1,
             x: 0,
             scale: 1,
-            transition: { duration: 1.5, ease: 'easeOut' },
+            transition: {
+                default: {
+                    duration: 1,
+                    type: 'spring',
+                    bounce: 0,
+                },
+                opacity: { duration: 0, delay: 1 },
+            },
         },
     },
 }
+// ~ Section_Hero.js ~
+export const sectionContentVariants = {}
 export const navVariants = {
     Logo: {
         Wrap: {
@@ -338,66 +407,20 @@ export const cardVariants = {
 }
 export const cardExpanded_Variants = {
     Wrap: {
-        hidden: {
-            opacity: 0,
-        },
-        show: (isMd) => ({
-            opacity: 1,
-            transition: isMd && {
-                delay: 0.75,
-            },
-        }),
-    },
-    NavTitle: {
-        hidden: {
-            opacity: 0,
-            y: '-100%',
-            x: '-50%',
-            transition: {
-                duration: 0.25,
-                ease: 'circIn',
-            },
-        },
-        show: {
-            opacity: 1,
-            y: '0%',
-            x: '-50%',
-            transition: {
-                duration: 0.5,
-                delay: 0.5,
-                ease: 'circOut',
-            },
-        },
-    },
-    Title: {
-        hidden: {
-            opacity: 1,
-            y: '75%',
-            transition: { type: 'spring', stiffness: 40 },
-        },
-        show: {
-            opacity: 1,
-            y: 0,
-            transition: { delay: 1, type: 'spring', stiffness: 40 },
-        },
+        hidden: { opacity: 0, transition: { duration: 0.5 } },
+        show: { opacity: 1, transition: { duration: 0.5, delay: 0.5 } },
     },
     Content: {
-        hidden: { opacity: 0 },
-        show: (isMd) => ({
-            opacity: 1,
-            transition: {
-                default: { duration: 1 },
-                opacity: { duration: 1, delay: 0.5 },
-            },
-        }),
+        hidden: { opacity: 1, transition: { duration: 1 } },
+        show: { opacity: 1, transition: { duration: 1, delay: 0.5 } },
     },
     TabListContainer: {
         hidden: {
             opacity: 0,
             y: '100%',
             transition: {
-                duration: 0.25,
-                ease: 'circIn',
+                duration: 1,
+                ease: 'backIn',
             },
         },
         show: {
@@ -406,7 +429,7 @@ export const cardExpanded_Variants = {
             transition: {
                 duration: 0.5,
                 delay: 0.5,
-                ease: 'circOut',
+                ease: 'backOut',
             },
         },
     },
@@ -493,23 +516,21 @@ export const tabsMotion = {
 /** ~ SECTIONS ~  **/
 export const introVariants = {
     TopText: {
-        hidden: {
-            opacity: 0,
-            clipPath: `polygon(0% 0%, 0% 100%, 0% 100%, 0% 0%)`,
-        },
-        show: {
-            opacity: 1,
-            clipPath: `polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%)`,
-            transition: { duration: 0.5, delay: 1.5 },
-        },
-        noClip: {
-            hidden: {
-                opacity: 0,
-            },
-            show: {
+        hidden: { opacity: 0, y: 10 },
+        show: (i) => {
+            const [is1st, is2nd, pause] = [i == 0, i == 1, 1.25]
+            const stagger = is1st
+                ? 0
+                : is2nd
+                ? pause
+                : i == -1
+                ? -0.5
+                : pause + i * 0.05
+            return {
                 opacity: 1,
-                transition: { duration: 0.5, delay: 1.5 },
-            },
+                y: 0,
+                transition: { duration: 0.5, delay: 1 + stagger },
+            }
         },
     },
     Title: {
@@ -536,15 +557,27 @@ export const introVariants = {
         }),
     },
     Content: {
-        hidden: { opacity: 0 },
-        contentEnter: (pRM) => ({
+        hidden: { opacity: 0, y: 10 },
+        show: {
             opacity: 1,
-            transition: { delay: pRM ? 0.5 : 0 },
-        }),
+            y: 0,
+            transition: {
+                opacity: { duration: 0.75 },
+                y: { duration: 0.75, ease: 'circOut' },
+            },
+        },
     },
-    Button: {
-        initial: { opacity: 0, scale: 0.65 },
-        animate: { opacity: 1, scale: 1, transition: { delay: 0.25 } },
+    StyledButton: {
+        hidden: { opacity: 0, scale: 0.8 },
+        show: {
+            opacity: 1,
+            scale: 1,
+            transition: {
+                delay: 0.35,
+                opacity: { duration: 1 },
+                scale: { duration: 1.5, ease: 'circOut' },
+            },
+        },
     },
 }
 export const aboutMotion = {
@@ -704,7 +737,7 @@ export const projectVariants = {
 
 export const contactVariants = {
     Item: {
-        hidden: { opacity: 0, y: 15 },
+        hidden: { opacity: 0, y: 15, transition: { duration: 0, delay: 1 } },
         show: (i) => ({
             opacity: 1,
             y: 0,
@@ -713,5 +746,23 @@ export const contactVariants = {
                 y: { type: 'spring', bounce: 0 },
             },
         }),
+    },
+    Socials: {
+        hidden: { opacity: 0, y: '200%', transition: { duration: 0 } },
+        show: (i) => ({
+            opacity: 1,
+            y: 0,
+            transition: { type: 'spring', delay: 1.25 + i * 0.1 },
+        }),
+    },
+    Credits: {
+        hidden: {
+            y: '100%',
+            transition: { delay: 1 },
+        },
+        show: {
+            y: 0,
+            transition: { duration: 1.5, delay: 0.5, ease: 'anticipate' },
+        },
     },
 }

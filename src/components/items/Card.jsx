@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 import Card_Base from './Card_Base'
 import Card_Expanded from './Card_Expanded'
-import Styled_Button from './StyledButton'
+import Styled_Button from './Styled_Button'
 import { useGlobalControls, useMediaQuery } from '@hooks'
 import { cardVariants as variants } from '@motion'
 

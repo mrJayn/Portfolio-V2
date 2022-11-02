@@ -32,6 +32,21 @@ export const sections = [
 ]
 
 /**
+ * ActiveSection --> id
+ * @param idx - index of active section
+ */
+export const index2id = (idx) => {
+    const sectionsIDXs = {
+        0: 'intro',
+        1: 'about',
+        2: 'experience',
+        3: 'projects',
+        4: 'contact',
+    }
+    return sectionsIDXs[idx]
+}
+
+/**
  * Nav      -> fade_stagger, fadeY, fade,
  * Burger -> fade, burger                           X
  * Menu   -> menu, fadeY, fade

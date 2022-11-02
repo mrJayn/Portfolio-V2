@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import { motion, useAnimation } from 'framer-motion'
-
 import { Section, Styled_Button, Title } from '@components'
-import { introVariants } from '@motion'
+import { introVariants as variants } from '@motion'
 
-const Intro = ({ firstLoad, pRM }) => {
-    const [isFirst, setLoading] = firstLoad
+const topText = ['Hello,', 'my', 'name', 'is', '.', '.', '.']
+
+const Intro = ({ isFirstLoad, pRM }) => {
     const [titleControls, contentControls] = [useAnimation(), useAnimation()]
     const [titleColor, setTitleColor] = useState('#66fcf1')
+    const anim = titleColor == '#66fcf1' ? 'hidden' : 'show'
 
     // Title SVG Color
     useEffect(() => {
@@ -20,52 +21,45 @@ const Intro = ({ firstLoad, pRM }) => {
             theme.removeEventListener('change', (e) => setColor(e.matches))
     }, [setTitleColor])
 
-    // First or Default Animation Sequence
-    useEffect(() => {
-        async function sequence() {
-            if (isFirst) {
-                titleControls.set(pRM ? 'pRM_hide' : 'hide')
-                await titleControls.start('enter')
-                await contentControls.start('contentEnter')
-                return setLoading([false, false])
-            } else {
-                titleControls.set('enter')
-            }
-        }
-        sequence()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [titleControls, contentControls, titleColor, setLoading])
-
     return (
-        <Section id="intro" sectionCard={false}>
+        <>
             <div className="flex-col-center full absolute top-0 left-0 select-none landscape:pt-14">
                 {/** TOP TEXT **/}
-                <motion.p
-                    className="flex-center relative whitespace-nowrap text-lg font-semibold tracking-wide"
-                    initial={isFirst ? 'hidden' : 'show'}
-                    animate={'show'}
-                    variants={
-                        pRM
-                            ? introVariants.TopText.noClip
-                            : introVariants.TopText
-                    }
-                >
-                    Hello, my name is
-                </motion.p>
+                <div className="flex space-x-2">
+                    {topText.map((word, i) => {
+                        return (
+                            <motion.p
+                                key={`intro-topTxt-word-${i}`}
+                                className="relative text-lg font-semibold tracking-wider"
+                                initial="hidden"
+                                animate={anim}
+                                variants={variants.TopText}
+                                custom={isFirstLoad.current ? i : -1}
+                                onAnimationComplete={() =>
+                                    i == topText.length - 1 &&
+                                    titleControls.start('enter')
+                                }
+                            >
+                                {word}
+                            </motion.p>
+                        )
+                    })}
+                </div>
 
                 {/** TITLE **/}
                 <Title
                     titleControls={titleControls}
                     titleColor={titleColor}
-                    delay={isFirst ? 2 : 0.5}
-                    stagger={isFirst & !pRM ? 0.1 : 0}
+                    contentControls={contentControls}
+                    isFirstLoad={isFirstLoad}
+                    pRM={pRM}
                 />
 
                 {/** SUBTITLE **/}
                 <motion.h2
-                    initial={isFirst ? 'hidden' : 'show'}
+                    initial="hidden"
                     animate={contentControls}
-                    variants={introVariants.Content}
+                    variants={variants.Content}
                 >
                     Data Analyst
                 </motion.h2>
@@ -80,9 +74,16 @@ const Intro = ({ firstLoad, pRM }) => {
                                 .scrollIntoView({ block: 'start' })
                         }}
                         btnStyle={`md:text-md xl:text-lg py-3 px-7 md:py-4 ${
-                            isFirst && 'pointer-events-none'
+                            isFirstLoad.current
+                                ? 'pointer-events-none'
+                                : 'pointer-events-auto'
                         }`}
-                        animateOn={!isFirst}
+                        initial="hidden"
+                        animate={contentControls}
+                        variants={variants.StyledButton}
+                        onAnimationComplete={() =>
+                            (isFirstLoad.current = false)
+                        }
                     >
                         VIEW MY PROJECTS
                     </Styled_Button>
@@ -90,7 +91,7 @@ const Intro = ({ firstLoad, pRM }) => {
 
                 {/** */}
             </div>
-        </Section>
+        </>
     )
 }
 export default Intro

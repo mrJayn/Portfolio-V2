@@ -1,45 +1,60 @@
 import { getAllMarkdown, getSectionMarkdown } from 'src/lib/markdown'
-import { useRouter } from 'next/router'
-import {
-    Intro,
-    About,
-    Projects,
-    Contact,
-    Layout,
-    Experience,
-    Footer,
-    Section,
-} from '@components'
+import { About, Projects, Layout, Experience, Form } from '@components'
+import { useEffect } from 'react'
 
-export default function SectionPage({ sectionData, ...pageProps }) {
+const SlugToContent = ({ ...data }) => {
+    switch (data.id) {
+        case 'about':
+            return <About {...data} />
+        case 'experience':
+            return <Experience {...data} />
+        case 'projects':
+            return <Projects {...data} />
+        case 'contact':
+            return <Form {...data} />
+        default:
+            return null
+    }
+}
+export default function SectionPage({
+    isMd,
+    Data,
+    sectionScrollRef,
+    ...pageProps
+}) {
+    Data = {
+        isMd: isMd,
+        ...pageProps,
+        ...Data,
+    }
+
+    useEffect(() => window.scrollTo(0, 0))
+
     return (
-        <Layout title="" description="" isHome={false} isMd={pageProps.isMd}>
-            <div className="flex-center h-auto w-full border-2 border-white p-10 text-white">
-                <div
-                    id={sectionData.id}
-                    className="full"
-                    dangerouslySetInnerHTML={{ __html: sectionData.content }}
-                />
-            </div>
+        <Layout
+            title={Data.id}
+            description={Data.description}
+            isHome={false}
+            isMd={pageProps.isMd}
+            scrollRef={sectionScrollRef}
+        >
+            <SlugToContent {...Data} />
         </Layout>
     )
 }
+
 export const getStaticPaths = async () => {
     const data = await getAllMarkdown()
     const paths = [data.about, data.experience, data.projects].map((obj) => {
         const slug = obj.data.slug
         return { params: { slug } }
     })
-    return {
-        paths,
-        fallback: false,
-    }
+    return { paths, fallback: false }
 }
+
 export async function getStaticProps({ params }) {
-    const sectionData = await getSectionMarkdown(params.slug)
+    const Data = await getSectionMarkdown(params.slug)
     return {
-        props: {
-            sectionData,
-        },
+        props: { Data },
     }
 }

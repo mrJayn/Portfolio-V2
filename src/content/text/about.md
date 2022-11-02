@@ -1,7 +1,9 @@
 ---
-section: About
+section: about
 title: Michael Jayne
+description: A little bit about me and what I can do.
 brief: Nice to meet you,&#10;Allow me to introduce myself.
+
 src: '/assets/misc/mikeJayne.JPG'
 alt: A picture of me
 tabNames: [About Me, My Skills]

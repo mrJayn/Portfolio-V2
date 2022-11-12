@@ -18,7 +18,7 @@
 }
 /* ================ VARIABLES ================ */
 :root {
-    --nav-bg: 20 20 20;
+    --nav-bg: 21 21 21;
     --theme-teal: theme(colors.teal.DEFAULT);
     --theme-purple: theme(colors.purple.DEFAULT);
 }
@@ -70,18 +70,20 @@
         overflow-x: hidden;
     }
     h1 {
-        @apply text-5xl;
+        @apply text-6xl;
         font-weight: 700;
     }
     h2 {
-        @apply text-5xl;
-        /* ANIMATED BACKGROUND GRADIENT */
-        @apply relative bg-gradient_title bg-clip-text font-bold text-transparent contrast-125 drop-shadow-md filter dark:filter-none;
+        @apply animate-[h2Effects_10s_linear_infinite] bg-gradient_title text-5xl sm:text-6xl;
+        color: transparent;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background-clip: text;
         background-size: 300%;
-        @apply animate-[gradientKFs_20s_linear_infinite] motion-reduce:animate-[];
     }
     h3 {
-        @apply text-4xl text-black dark:text-white;
+        @apply text-4xl text-black dark:text-white sm:text-5xl;
         font-weight: 700;
         letter-spacing: 0.025em;
         text-transform: uppercase;
@@ -96,6 +98,10 @@
     }
     h6 {
         @apply text-xl text-teal dark:text-teal-30;
+        font-weight: 600;
+    }
+    h7 {
+        @apply text-lg text-grey-80;
         font-weight: 600;
     }
     p {

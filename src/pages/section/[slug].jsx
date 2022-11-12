@@ -1,5 +1,12 @@
 import { getAllMarkdown, getSectionMarkdown } from 'src/lib/markdown'
-import { About, Projects, Layout, Experience, Form } from '@components'
+import {
+    About,
+    Projects,
+    Layout,
+    Experience,
+    Form,
+    Section_Hero,
+} from '@components'
 import { useEffect } from 'react'
 
 const SlugToContent = ({ ...data }) => {
@@ -27,7 +34,6 @@ export default function SectionPage({
         ...pageProps,
         ...Data,
     }
-
     useEffect(() => window.scrollTo(0, 0))
 
     return (
@@ -38,6 +44,12 @@ export default function SectionPage({
             isMd={pageProps.isMd}
             scrollRef={sectionScrollRef}
         >
+            <Section_Hero
+                key={`${Data.id}-hero`}
+                even={Data.activeSection % 2 == 0}
+                isMd={Data.isMd}
+                {...Data.data}
+            />
             <SlugToContent {...Data} />
         </Layout>
     )

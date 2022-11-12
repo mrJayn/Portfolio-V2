@@ -8,9 +8,6 @@ const Section_Card = ({ idx, INITIAL, ANIM, EXIT, yDir, isMd, data }) => {
     const even = idx % 2 == 0
     const ID = data.id
 
-    // Next-Link slug query
-    const linkHref = { pathname: '/section/[slug]', query: { slug: data.slug } }
-
     // Title Decoration
     const Title_Decoration = (
         <motion.span
@@ -77,7 +74,14 @@ const Section_Card = ({ idx, INITIAL, ANIM, EXIT, yDir, isMd, data }) => {
                     variants={variants.Btn}
                 >
                     <Styled_Button even={even}>
-                        <Link href={linkHref} scroll={false}>
+                        <Link
+                            href={{
+                                pathname: '/section/[slug]',
+                                query: { slug: data.slug },
+                            }}
+                            as={process.env.BACKEND_URL + '/' + data.slug}
+                            scroll={false}
+                        >
                             Read More
                         </Link>
                     </Styled_Button>

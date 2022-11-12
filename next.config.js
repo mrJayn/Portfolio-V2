@@ -2,7 +2,6 @@
 
 module.exports = {
     images: {
-        unoptimized: true,
         loader: 'akamai',
         path: '/Portfolio/_next',
     },

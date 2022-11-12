@@ -145,8 +145,6 @@ const Ftd_Project = ({
                         action={handleReadMore}
                         toTextAt={isSm}
                         allowScroll={isSm ? true : false}
-                        btnStyle="py-2 px-7"
-                        textStyle="text-lg italic"
                     >
                         {!even && <>&laquo; </>}Read More{even && <> &raquo;</>}
                     </Styled_Button>

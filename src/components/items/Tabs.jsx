@@ -94,8 +94,10 @@ const Tabs_List = ({ currentTab, setTab, tabNames, altStyle = '' }) => {
                             >
                                 <div className="full flex-center relative z-10 rounded-lg bg-white/10 font-medium capitalize tracking-wide text-grey duration-100 group-hover:bg-[#eeeeee50]">
                                     <span
-                                        className={`z-10 select-none text-xs font-semibold tracking-normal text-white/50 duration-250 ${
-                                            ACTIVE && 'text-white/100'
+                                        className={`z-10 select-none text-xs font-semibold tracking-normal duration-250 ${
+                                            ACTIVE
+                                                ? 'text-white/100'
+                                                : 'text-white/50'
                                         }`}
                                     >
                                         {tabNames[i]}

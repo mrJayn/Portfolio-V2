@@ -142,7 +142,7 @@ const Certifications = ({ ...exp_data }) => {
                             <Styled_A
                                 href={certs[active][3]}
                                 text={certs[active][2]}
-                                className="mt-5 bg-grey-90 p-2 dark:bg-grey-90"
+                                className="mt-5 bg-grey-90 dark:bg-grey-90"
                                 variants={variants.mdLink}
                                 {...motionProps}
                             />

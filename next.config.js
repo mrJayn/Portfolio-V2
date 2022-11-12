@@ -3,7 +3,7 @@
 module.exports = {
     reactStrictMode: true,
     images: {
-        loader: 'akamai',
+        loader: 'imgix',
         path: '',
     },
     webpack5: true,

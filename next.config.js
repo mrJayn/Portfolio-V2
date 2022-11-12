@@ -6,7 +6,7 @@ module.exports = {
         path: '',
     },
     basePath: '/Portfolio',
-    assetPrefix: '/Portfolio/',
+    assetPrefix: '/Portfolio',
     webpack5: true,
     webpack: (config) => {
         config.resolve.fallback = { fs: false }

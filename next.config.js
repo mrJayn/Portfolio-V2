@@ -1,15 +1,19 @@
 /** @type {import('next').NextConfig} */
 
-module.exports = {
+const ghPages = process.env.DEPLOY_TARGET === 'gh-pages'
+
+const withNextOptimizedImages = require('next-optimized-images')
+
+module.exports = withNextOptimizedImages({
     images: {
         loader: 'akamai',
-        path: '/Portfolio/_next',
+        path: '',
     },
-    basePath: '/Portfolio',
-    assetPrefix: '/Portfolio/',
+    basePath: ghPages ? '/Portfolio/' : '',
+    assetPrefix: ghPages ? '/Portfolio/' : '',
     webpack5: true,
     webpack: (config) => {
         config.resolve.fallback = { fs: false }
         return config
     },
-}
+})

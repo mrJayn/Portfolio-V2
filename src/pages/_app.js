@@ -58,7 +58,7 @@ function MyApp({ Component, pageProps }) {
                 <link
                     rel="icon"
                     type="image/x-icon"
-                    href="/assets/favicon.ico"
+                    href={`${process.env.FAVICON}/assets/favicon.ico`}
                 />
             </Head>
             <DefaultSeo

@@ -82,12 +82,13 @@ const Ftd_Project = ({
                 >
                     <div className="full relative">
                         <Image
-                            className="rounded-2xl opacity-40 sm:opacity-100"
+                            key={`${data.alt}-img`}
                             src={data.src}
                             alt={data.alt}
                             layout="fill"
                             objectFit="cover"
                             objectPosition="top"
+                            className="rounded-2xl opacity-40 sm:opacity-100"
                         />
                     </div>
                     <div className="shadow-TI" />

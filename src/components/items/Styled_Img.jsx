@@ -11,6 +11,7 @@ const Styled_Img = ({ src, alt, ...props }) => {
             <div className="md:full full relative overflow-hidden rounded-3xl shadow sm:aspect-[0.9/1] sm:h-auto sm:rounded-4xl md:aspect-auto md:max-w-[50vw] md:opacity-100">
                 <span className="absoluteFull z-10 shadow-inset contrast-150" />
                 <Image
+                    key={`${alt}-img`}
                     src={src}
                     alt={alt}
                     layout="fill"

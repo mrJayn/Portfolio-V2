@@ -9,6 +9,7 @@ import { cardVariants as variants } from '@motion'
 const Styled_Image = ({ src, alt }) => (
     <div className="relative aspect-[4/3] w-10/12 overflow-hidden rounded-lg shadow-sm md:aspect-auto md:h-4/5 md:w-4/5">
         <Image
+            key={alt}
             src={src}
             alt={alt}
             layout="fill"

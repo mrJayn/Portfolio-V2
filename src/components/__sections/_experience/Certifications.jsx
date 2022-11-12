@@ -40,6 +40,7 @@ const Certifications = ({ ...exp_data }) => {
             {...motionProps}
         >
             <Image
+                key={`certImg-${active}`}
                 src={certs[active][4]}
                 alt={`certification image for cert-${active}`}
                 layout="fill"

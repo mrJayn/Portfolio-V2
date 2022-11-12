@@ -92,6 +92,7 @@ const Ftd_Expanded = ({
                             {/** [  IMAGE  ] **/}
                             <div className="relative mx-auto h-[45vh] w-full">
                                 <Image
+                                    key={`${data.alt}-img`}
                                     src={data.src}
                                     alt={data.alt}
                                     layout="fill"

@@ -64,6 +64,7 @@ const IsMdCard = ({ title, brief, src, tech, href_github, href_site, idx }) => {
             }}
         >
             <Image
+                key={`projectImg-${title}`}
                 src={src}
                 alt={`${title} Project Image`}
                 layout="fill"

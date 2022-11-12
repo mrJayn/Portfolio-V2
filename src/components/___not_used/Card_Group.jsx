@@ -1,43 +1,10 @@
-import { useState, useRef, useEffect } from 'react'
-import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
 
 import Card_Base from './Card_Base'
 import Card_Expanded from '../items/Card_Expanded'
 
 import { useGlobalControls, useMediaQuery } from '@hooks'
-import { cardVariants as variants } from '@motion'
-
-// Next Image w/Props
-const Styled_Image = ({ src, alt, isAbout, isMd, pRM }) => {
-    const Styled_Img = () => (
-        <div className="relative aspect-[4/3] w-10/12 overflow-hidden rounded-xl shadow-md md:mx-auto md:mt-6 md:aspect-auto md:h-[90%] md:w-[calc(100%-24px)] md:shadow-sm">
-            <Image
-                src={src}
-                alt={alt}
-                layout="fill"
-                objectFit="cover"
-                objectPosition="top"
-                quality={100}
-            />
-        </div>
-    )
-    return isMd ? (
-        <motion.div
-            data-imgcard
-            className="relative -z-10 h-full w-1/2 overflow-hidden motion-reduce:z-10 motion-reduce:rounded-4xl"
-            style={{
-                borderRadius: isAbout ? '' : '0 3rem 3rem 0',
-            }}
-            variants={variants.Img}
-            custom={!pRM && isAbout}
-        >
-            <Styled_Img />
-        </motion.div>
-    ) : (
-        <Styled_Img />
-    )
-}
 
 const Card_Group = ({ tabs, globalControls, ...data }) => {
     const isMd = useMediaQuery(768)

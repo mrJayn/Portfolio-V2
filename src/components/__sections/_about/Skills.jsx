@@ -43,6 +43,7 @@ const Skills = ({ skills, isMd }) => (
                         <div className="relative h-full min-w-[48px]">
                             <div className="full relative z-0">
                                 <Image
+                                    key={`${title}-img`}
                                     src={src}
                                     alt={`about-skills-${title}-image`}
                                     layout="fill"

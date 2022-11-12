@@ -8,6 +8,9 @@ const Section_Card = ({ idx, INITIAL, ANIM, EXIT, yDir, isMd, data }) => {
     const even = idx % 2 == 0
     const ID = data.id
 
+    // Section name from slug for Link "as"
+    const pathAs = data.slug.charAt(0).toUpperCase() + data.slug.slice(1)
+
     // Title Decoration
     const Title_Decoration = (
         <motion.span
@@ -79,7 +82,7 @@ const Section_Card = ({ idx, INITIAL, ANIM, EXIT, yDir, isMd, data }) => {
                                 pathname: '/section/[slug]',
                                 query: { slug: data.slug },
                             }}
-                            as={process.env.BACKEND_URL + '/' + data.slug}
+                            as={'/' + pathAs}
                             scroll={false}
                         >
                             Read More

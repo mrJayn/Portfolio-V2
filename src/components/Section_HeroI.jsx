@@ -1,25 +1,59 @@
 import { motion } from 'framer-motion'
 import Styled_Img from './items/Styled_Img'
+import { sectionContentVariants as variants } from '@motion'
 
-const Section_Hero = ({ idx, isMd, ...data }) => {
-    const even = idx % 2 == 0
+const Section_Hero = ({ even, isMd, ...data }) => {
     const sectionImgProps = {
         src: data.src,
         alt: data.alt,
-        style: { order: even ? 2 : 1 },
+        style: { order: even ? 2 : 1, zIndex: 1 },
+    }
+    const itemProps = {
+        variants: variants.Items,
+        custom: isMd ? (even ? -1 : 1) : 0,
     }
     return (
-        <div className="relative h-auto w-full py-3 md:mb-10 md:flex md:h-[calc(100vh-48px)] md:py-0">
-            {isMd ? <Styled_Img {...sectionImgProps} /> : null}
+        <>
+            {isMd ? <span className="relative h-screen w-full" /> : null}
             <div
-                className="flex-col-center full space-y-4 px-4 text-center md:max-w-[50%]"
-                style={{ order: even ? 1 : 2 }}
+                id={`${data.sectionName}Page-hero`}
+                className="relative mb-6 h-auto w-full py-3 md:mb-24 md:flex md:h-[calc(100vh-48px)] md:py-0"
             >
-                <h2 className="text-4xl sm:text-5xl"> {data.title}</h2>
-                <p className="text-2xl leading-7">{data.description}</p>
-                <hr className="w-full text-grey" />
+                {isMd ? <Styled_Img {...sectionImgProps} /> : null}
+
+                <motion.div
+                    className="flex-col-center full px-4 text-center md:max-w-[50%] md:px-10"
+                    style={{ order: even ? 1 : 2 }}
+                    initial="hidden"
+                    animate="show"
+                    exit="back"
+                    variants={variants.Container}
+                >
+                    <motion.h2
+                        className="mb-10 text-4xl sm:text-5xl"
+                        {...itemProps}
+                    >
+                        {data.title}
+                        <motion.span
+                            className={`section-title-underline slugHero origin-center ${
+                                even ? 'left-0' : 'right-0'
+                            }`}
+                            variants={variants.Decoration}
+                        />
+                    </motion.h2>
+
+                    <motion.p className="text-2xl leading-7" {...itemProps}>
+                        {data.description}
+                    </motion.p>
+
+                    <motion.hr
+                        className="my-10 w-full text-grey"
+                        variants={variants.Decoration}
+                        custom={even}
+                    />
+                </motion.div>
             </div>
-        </div>
+        </>
     )
 }
 export default Section_Hero

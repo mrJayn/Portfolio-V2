@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }) {
     const navProps = {
         isHome: isHome,
         isMd: isMd,
-        scrollY: useScroll({ container: scrollRef }),
+        scrollRef: scrollRef,
         globalControls: [globOpen, setGlobOpen],
     }
 
@@ -81,7 +81,7 @@ function MyApp({ Component, pageProps }) {
                     <MotionConfig reducedMotion="user">
                         <Navbar {...navProps} />
                         <>
-                            <AnimatePresence>
+                            <AnimatePresence mode="wait">
                                 <Component {...pageProps} key={url} />
                             </AnimatePresence>
                         </>

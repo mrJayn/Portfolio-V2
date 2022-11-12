@@ -3,8 +3,8 @@ import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import Card_Base from './Card_Base'
-import Card_Expanded from './Card_Expanded'
-import Styled_Button from './Styled_Button'
+import Card_Expanded from '../items/Card_Expanded'
+
 import { useGlobalControls, useMediaQuery } from '@hooks'
 import { cardVariants as variants } from '@motion'
 
@@ -25,7 +25,7 @@ const Styled_Image = ({ src, alt, isAbout, isMd, pRM }) => {
     return isMd ? (
         <motion.div
             data-imgcard
-            className="relative -z-10 h-full w-1/2 overflow-hidden motion-reduce:z-10 motion-reduce:rounded-[3rem]"
+            className="relative -z-10 h-full w-1/2 overflow-hidden motion-reduce:z-10 motion-reduce:rounded-4xl"
             style={{
                 borderRadius: isAbout ? '' : '0 3rem 3rem 0',
             }}

@@ -3,25 +3,20 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 import { Social_Icons } from '@components'
 import { menuVariants } from '@motion'
-import { sections } from '@config'
+import { scrollToID } from '@utils'
+
+const SectionIds = ['about', 'experience', 'projects', 'contact', 'my Resume']
 
 const Menu = ({ isOpen, toggleMenu }) => {
-    const handleLink = (section, target) => {
+    // Handle Section Clicked
+    const handleClick = (section) => {
         if (section == 'my resume') {
-            window.open(target, '_blank')
+            window.open('/assets/misc/resume2022.jpg', '_blank')
         } else {
-            document.querySelector(`#${section}`).scrollIntoView({
-                behavior: 'smooth',
-                block: target,
-            })
+            scrollToID(`#${section}`, 'smooth')
         }
         toggleMenu()
     }
-    const StyledText = ({ txt }) => (
-        <span className="text-base capitalize tracking-wide text-grey-60/90 duration-250 ease-in hover:text-white">
-            {txt}
-        </span>
-    )
 
     return (
         <AnimatePresence mode="wait">
@@ -30,33 +25,34 @@ const Menu = ({ isOpen, toggleMenu }) => {
                     id="menu"
                     className="fixed left-0 top-12 bottom-0 z-30 w-screen bg-grey-10"
                     initial="hidden"
-                    animate="enter"
+                    animate="show"
                     exit="hidden"
                     variants={menuVariants.backgroundClip}
                 >
-                    <div className="absoluteFull flex-col-btw overflow-hidden px-6 py-3 landscape:flex-row landscape:pt-0">
+                    <div className="absoluteFull flex-col-btw overflow-hidden p-4 landscape:flex-row landscape:pt-4">
                         <motion.ul
-                            className="full relative landscape:grid"
-                            variants={menuVariants.LinkWrap}
+                            className="full relative flex flex-col space-y-3 landscape:grid"
+                            variants={menuVariants.Links.Wrap}
                         >
-                            {sections.map(([section, target], i) => {
+                            {SectionIds.map((section, i) => {
                                 return (
                                     <motion.li
                                         key={`menu-links-${i}`}
-                                        className="my-3 cursor-pointer border-[1px] border-b-grey-60/25 px-1 py-[1vh] landscape:my-1"
-                                        variants={menuVariants.Links}
+                                        className={`menu-links relative cursor-pointer py-[2vh] px-3 sm:px-5 landscape:h-auto`}
+                                        variants={menuVariants.Links.Items}
                                         custom={i + 1}
-                                        onClick={() =>
-                                            handleLink(section, target)
-                                        }
+                                        onClick={() => handleClick(section)}
                                     >
-                                        <StyledText txt={section} />
+                                        <span className="text-base capitalize tracking-widest text-grey-60/90 sm:text-lg">
+                                            {section}
+                                        </span>
                                     </motion.li>
                                 )
                             })}
                         </motion.ul>
+
                         <motion.div
-                            className="grid w-full grid-cols-4 py-10 landscape:h-full landscape:grid-cols-1 landscape:py-0"
+                            className="grid w-full grid-cols-4 py-5 landscape:h-full landscape:w-1/2 landscape:grid-cols-1 landscape:py-0"
                             variants={menuVariants.IconWrap}
                         >
                             <Social_Icons

@@ -23,13 +23,6 @@ export const socials = [
     ['Linkedin', 'https://www.linkedin.com/in/'],
     ['Email', 'mailto:m63jayne@gmail.com'],
 ]
-export const sections = [
-    ['about', 'center'],
-    ['experience', 'center'],
-    ['projects', 'center'],
-    ['contact', 'center'],
-    ['my resume', '/assets/misc/resume2022.jpg'],
-]
 
 /**
  * ActiveSection --> id

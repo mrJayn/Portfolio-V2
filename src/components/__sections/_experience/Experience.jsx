@@ -1,17 +1,14 @@
-import { Section, Jobs, Certifications, Card, Section_Hero } from '@components'
 import { useState } from 'react'
 import Card_Expanded from 'src/components/items/Card_Expanded'
-const Experience = ({ ...data }) => {
+import Jobs from './Jobs'
+import Certifications from './Certifications'
+import { Section_Hero } from '@components'
+
+const Experience = ({ isMd, ...data }) => {
     const globalControls = data.globalControls
     const [[currentTab, direction], setTab] = useState([0, 0])
 
     const components = [
-        <Section_Hero
-            key="experience-hero"
-            idx={data.activeSection}
-            isMd={data.isMd}
-            {...data.data}
-        />,
         <div
             key="experience-content"
             id="experience-innerHTML"
@@ -52,8 +49,10 @@ const Experience = ({ ...data }) => {
         setTab: setTab,
         isMd: data.isMd,
     }
-    return data.isMd ? (
-        components.map((component) => component)
+    return isMd ? (
+        <div className="flex-col-center mt-24 h-auto w-full space-y-24">
+            {components.map((component, i) => component)}
+        </div>
     ) : (
         <Card_Expanded {...tabsLayoutProps} />
     )

@@ -21,7 +21,7 @@ const fontSizes = {
     '3xl': clamp(3),
     '4xl': clamp(4),
     '5xl': clamp(5),
-    '6xl': clamp(6.5),
+    '6xl': clamp(6),
 }
 
 // FONT-SIZE CONVERSION

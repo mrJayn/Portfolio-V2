@@ -18,3 +18,11 @@ export const paginate = (newDirection, currentTab, span, setTab) => {
         setTab([span - 1, newDirection])
     }
 }
+
+export function scrollToID(id, behaivor = null) {
+    const scrollType = behaivor !== null ? behaivor : isMd ? 'auto' : 'smooth'
+    const isMd = window.innerWidth >= 768
+    document.querySelector(id).scrollIntoView({
+        behavior: scrollType,
+    })
+}

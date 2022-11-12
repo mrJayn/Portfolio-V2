@@ -8,7 +8,7 @@ const MessageBtn = ({ isHome, router }) => (
         {isHome ? (
             <motion.button
                 key="send-message-btn"
-                className="full group"
+                className="group"
                 initial="hidden"
                 animate="show"
                 exit="exit"
@@ -27,7 +27,7 @@ const MessageBtn = ({ isHome, router }) => (
         ) : (
             <motion.button
                 key="send-email-btn"
-                className="full group"
+                className="group"
                 initial="hidden"
                 animate="show"
                 exit="exit"

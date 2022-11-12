@@ -2,18 +2,18 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { motion, useScroll } from 'framer-motion'
 
-import Burger from './Burger'
-import Logo from './Logo'
-import Menu from './Menu'
-import MessageBtn from './MessageBtn'
-import NavLinks from './NavLinks'
+import { BackBtn, Burger, Logo, Menu, MsgBtn, NavLinks } from '@navItems'
+import { useIsRouting } from '@hooks'
 import { toggleScrolling } from '@utils'
+import { navVariants } from '@motion'
 
-const Navbar = ({ isHome, isMd, scrollY, globalControls }) => {
+const Navbar = ({ isHome, isMd, scrollRef, globalControls }) => {
     const router = useRouter()
+    const isRouting = useIsRouting(true)
     const [globOpen, setGlobOpen] = globalControls
     const globalOpen = globOpen !== null
     const [menuOpen, setMenuOpen] = useState(false)
+    const { scrollY } = useScroll({ container: scrollRef })
 
     // Menu Toggle Function
     const toggleMenu = () => {
@@ -26,70 +26,57 @@ const Navbar = ({ isHome, isMd, scrollY, globalControls }) => {
         document
             .querySelector('main > div')
             .scrollTo({ top: 0, behavior: 'smooth' })
-        setTimeout(() => router.back(), 500)
-    }
 
-    // Burger Function
-    const handleBurger = () => {
-        if (isHome) {
-            if (globOpen !== null) {
-                setGlobOpen(null)
-            } else {
-                toggleMenu()
+        var position = null
+        const checkIfScrollIsStatic = setInterval(() => {
+            if (position == scrollY.get()) {
+                clearInterval(checkIfScrollIsStatic)
+                router.back()
             }
-        } else {
-            returnHome()
-        }
+            position = scrollY.get()
+        }, 50)
     }
 
-    // Logo Function
+    const handleBurger = () => (isHome ? toggleMenu() : returnHome())
     const handleLogo = () => {
         if (isHome) {
-            if (menuOpen) {
-                toggleMenu()
-                setTimeout(() => {
-                    window.scrollTo(0, 0)
-                }, 500)
-            } else {
-                window.scrollTo(0, 0)
-            }
+            if (menuOpen) toggleMenu()
+            window.scrollTo({ top: 0, behavior: isMd ? 'auto' : 'smooth' })
         } else {
             returnHome()
         }
     }
 
-    // Burger Display Mode
-    const burgerDisplay = !isHome
-        ? 'return'
-        : menuOpen || globalOpen
-        ? 'opened'
-        : 'closed'
-
-    const constLogo = {
-        1: (
-            <Logo
-                logoState={!isMd || isHome}
-                logoDisplay={(globOpen !== null) & !isMd ? 'exit' : 'show'}
-                handleLogo={handleLogo}
+    // ~ Components ~ @Media max-width: 767px
+    const Components = {
+        0: (
+            <Burger
+                ANIM={
+                    !isHome
+                        ? 'return'
+                        : menuOpen || globalOpen
+                        ? 'opened'
+                        : 'closed'
+                }
+                handleBurger={handleBurger}
+            />
+        ),
+        1: <Logo handleLogo={handleLogo} />,
+        2: <MsgBtn isHome={isHome} router={router} />,
+        3: (
+            <NavLinks
+                state={isHome & !isRouting}
+                variants={navVariants.NavLinks}
             />
         ),
     }
-    // ~ Nav Components ~ @Media min-width: 768px
-    const desktop_items = {
-        2: <NavLinks isHome={isHome} />,
-        ...constLogo,
-    }
 
-    // ~ Nav Components ~ @Media max-width: 767px
-    const nav_items = {
-        0: <Burger display={burgerDisplay} handleBurger={handleBurger} />,
-        2: <MessageBtn isHome={isHome} router={router} />,
-        ...constLogo,
-    }
-    // Active Components + Contant Components
-    const active_items = isMd ? desktop_items : nav_items
-    // Close Menu if [ @media >=768px ]
+    // Select Keys to display
+    const ActiveKeys = isMd ? [1, 3] : [0, 1, 2]
+
+    // Close Menu if isRouting || @media > 768px
     useEffect(() => {
+        // if (isMd & menuOpen || !isHome & menuOpen) setMenuOpen(false)
         if (isMd & menuOpen || !isHome & menuOpen) setMenuOpen(false)
     }, [isMd, isHome, menuOpen])
 
@@ -98,28 +85,30 @@ const Navbar = ({ isHome, isMd, scrollY, globalControls }) => {
             <motion.nav
                 id="nav"
                 data-menuopen={menuOpen}
-                className="fixed top-0 left-0 z-30 h-12 w-full min-w-[320px] overflow-hidden"
+                className="fixed top-0 left-0 z-30 h-12 w-full"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
             >
-                <ul className="flex-btw full list-none items-center">
+                <ul className="flex-btw full md:pl-[calc(5vw-30px)] md:pr-[calc(2.5vw-20px)]">
                     <>
-                        {Object.keys(active_items).map((i) => {
+                        {ActiveKeys.map((key) => {
                             return (
                                 <li
-                                    key={`nav-item-${i}`}
-                                    className="flex-evenly relative z-10 h-[48px] min-w-[48px] md:min-w-[5rem]"
-                                    style={{ order: i }}
+                                    key={`nav-item-${key}`}
+                                    className="flex-center relative z-10 h-[48px] min-w-[48px]"
+                                    style={{ order: key }}
                                 >
-                                    {active_items[i]}
+                                    {Components[key]}
                                 </li>
                             )
                         })}
                     </>
                 </ul>
             </motion.nav>
-
-            {!isMd ? <Menu isOpen={menuOpen} toggleMenu={toggleMenu} /> : null}
+            {/** Menu **/}
+            {isMd ? <BackBtn isHome={isHome} returnHome={returnHome} /> : null}
+            {/** Menu **/}
+            {isMd ? null : <Menu isOpen={menuOpen} toggleMenu={toggleMenu} />}
         </>
     )
 }

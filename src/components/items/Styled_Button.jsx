@@ -1,12 +1,13 @@
 import { useAnimation, motion } from 'framer-motion'
 import { toggleScrolling } from '@utils'
+import { useEffect, useState } from 'react'
 
 const Styled_Button = ({
     children,
     action = null,
     toTextAt = false,
     allowScroll = true,
-    btnStyle = '',
+    even = null,
     textStyle = '',
     animateOn = null,
     variants,
@@ -16,28 +17,18 @@ const Styled_Button = ({
 
     // onClick Func()
     const handleOnClick = (e) => {
+        const btn = e.currentTarget
+        btn.classList.toggle('clicked')
         if (action === null) return
         action(e)
         toggleScrolling(allowScroll)
-    }
-
-    // whileHover ANIM Variants
-    const mouseover = () => {
-        controls.start({
-            opacity: 1,
-            transition: { duration: 0.45, ease: 'easeOut' },
-        })
-    }
-    const mouseout = () => {
-        controls.start({
-            opacity: 0,
-            transition: { duration: 0.45, ease: 'easeIn' },
-        })
+        setTimeout(() => {
+            btn.classList.toggle('clicked')
+        }, 1000)
     }
 
     // Final Props
     props = {
-        onClick: (e) => handleOnClick(e),
         variants:
             variants == null
                 ? {
@@ -51,39 +42,72 @@ const Styled_Button = ({
                 : variants,
         ...props,
     }
+    /**
+     * large
+     *      width: 300px
+     * small
+     *      width: 150px
+     */
     return (
         <>
             {/** BUTTON DISLAY **/}
             {!toTextAt && (
-                <motion.button
-                    className={`flex-center group relative z-10  select-none rounded-3xl bg-gradient brightness-150 dark:brightness-125 dark:contrast-125 md:text-lg ${btnStyle}`}
-                    onHoverStart={mouseover}
-                    onHoverEnd={mouseout}
-                    whileTap={{ scale: 0.95, originY: 0.5 }}
-                    {...props}
-                >
-                    <motion.span
-                        className="absoluteFull z-[-1] rounded-3xl bg-gradient blur-md filter"
-                        initial={{ opacity: 0 }}
-                        animate={controls}
-                        transition={{ opacity: { type: 'spring' } }}
-                    />
-                    <span className="text-md font-semibold tracking-wide text-grey-70 duration-250 ease-in group-hover:text-white">
-                        {children}
-                    </span>
-                </motion.button>
+                <>
+                    <motion.div
+                        className={`flex-center relative z-10 w-[75vw] min-w-[150px] max-w-[300px] cursor-pointer select-none rounded-3xl bg-gradient_title py-1 leading-10 shadow-inset contrast-150 sm:px-6 sm:py-2 md:w-min md:whitespace-nowrap md:px-10 lg:px-16`}
+                        style={{
+                            color: '#ccc',
+                            backgroundSize: '300%',
+                            backgroundPosition: '75%',
+                        }}
+                        whileHover={{
+                            color: '#fff',
+                            backgroundPosition: '25%',
+                        }}
+                        transition={{ type: 'spring', bounce: 0 }}
+                        onClick={handleOnClick}
+                        {...props}
+                    >
+                        <span className="bg-background bg-clip-text text-md font-semibold tracking-wide md:text-lg">
+                            {children}
+                        </span>
+                    </motion.div>
+                </>
             )}
             {/** TEXT DISPLAY **/}
             {toTextAt && (
-                <motion.p
-                    className={`styled-link ${textStyle}`}
-                    whileHover={{ y: -2, transition: { delay: 0.15 } }}
+                <p
+                    className={`styled_button-text relative cursor-pointer px-1 text-xl font-semibold ${textStyle}`}
+                    onClick={handleOnClick}
                     {...props}
                 >
                     {children}
-                </motion.p>
+                </p>
             )}
         </>
     )
 }
 export default Styled_Button
+
+/**
+ *      OLD STYLE
+ * <>
+                    <motion.button
+                        className={`styledBtn-btnStyle flex-center text-md font-semibold tracking-wide md:text-lg ${btnStyle}`}
+                        onClick={handleOnClick}
+                        style={{ color: '#fff4' }}
+                        whileHover={{
+                            y: -2.5,
+                            color: '#ffff',
+                        }}
+                        transition={{
+                            duration: 0.45,
+                            type: 'spring',
+                            bounce: 0,
+                        }}
+                        {...props}
+                    >
+                        {children}
+                    </motion.button>
+                </>
+ */

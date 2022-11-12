@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import Image from 'next/image'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
 
-import Styled_Button from './Styled_Button'
+import Styled_Button from '../items/Styled_Button'
 import { cardVariants as variants } from '@motion'
 
 // Next Image w/Props
@@ -25,7 +25,7 @@ const Md_Bg = ({ anim }) => {
         <>
             <motion.span
                 data-cardbase-bg
-                className="absoluteFull rounded-[3rem]  bg-card will-change-transform"
+                className="absoluteFull rounded-4xl  bg-card will-change-transform"
                 initial={false}
                 animate={anim}
                 variants={variants.MdBg}
@@ -78,7 +78,7 @@ const Card_Base = ({ data, isAbout, isMd, expanded, setExpanded }) => {
             {/** [  Styled-Info  ] **/}
             <div
                 data-infocard
-                className="full bg-gradient_card relative overflow-hidden rounded-[3rem] py-10 md:rounded-none md:bg-none md:py-0"
+                className="full bg-gradient_card relative overflow-hidden rounded-4xl py-10 md:rounded-none md:bg-none md:py-0"
             >
                 <motion.div
                     className={`flex-col-center whitespace-pre-line ${

@@ -1,11 +1,14 @@
 ---
-section: Experience
+sectionName: Experience
 title: My Experience
+subtitle: Where I've worked.<br/>What I've accomplished.
 description: My past professional statement, job history, and education.
-brief: Where I've worked.&#10;What I've accomplished.
-custom: false
+
 src: '/assets/misc/resume2022.jpg'
 alt: /
+
+slug: experience
+
 tabNames: [Summary, Jobs, Certifications]
 job_data:
     [
@@ -74,7 +77,6 @@ certifications:
             '/assets/certifications/py_data_analysis.png',
         ],
     ]
-slug: experience
 ---
 
 As for real-world jobs...well... I've never had a real one... that is in regards to software, coding or development. BUT ! I did work an internship at Rochester Electronics, the worlds single largest conitnuous provider of semiconductors.

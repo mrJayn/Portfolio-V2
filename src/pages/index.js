@@ -1,4 +1,4 @@
-import { isValidElement, useEffect, useState } from 'react'
+import { isValidElement, useEffect, useRef, useState } from 'react'
 import { getAllMarkdown } from 'src/lib/markdown'
 import { Contact, Intro, Layout, Section } from '@components'
 import { index2id } from '@config'
@@ -15,6 +15,7 @@ export default function Home({
     data,
     ...pageProps
 }) {
+    const scrollRef = useRef(null)
     const [initialVariant, setInitialVariant] = useState('')
     const [allowUpdates, setAllowUpdates] = useState(false)
 
@@ -30,11 +31,14 @@ export default function Home({
 
         if (activeSection !== 0) {
             setSection(activeSection)
-            setInitialVariant(isRouting ? 'expand' : 'hidden')
+            setInitialVariant(isRouting ? 'exit' : 'hidden')
             // Align active-section  &  active-area
             document
                 .getElementById(index2id(activeSection) + '-area')
-                .scrollIntoView({ behavior: 'smooth' })
+                .scrollIntoView({
+                    behavior: 'auto',
+                    block: isMd ? 'center' : 'end',
+                })
             delayResetProps()
         } else {
             delayResetProps()
@@ -62,7 +66,13 @@ export default function Home({
     ]
 
     return (
-        <Layout title={title} description={description} isHome={data.isHome}>
+        <Layout
+            scrollRef={scrollRef}
+            title={title}
+            description={description}
+            isHome={data.isHome}
+            isMd={isMd}
+        >
             {sectionComponents.map(([id, data], i) => {
                 const isValidJSX = isValidElement(data)
                 const props = {
@@ -71,7 +81,8 @@ export default function Home({
                     activeSection: activeSection,
                     setSection: setSection,
                     allowUpdates: allowUpdates,
-                    initialVariant: initialVariant,
+                    INITIAL: initialVariant,
+                    scrollRef: scrollRef,
                     ...(isValidJSX ? { useChildren: true } : data),
                 }
                 return isValidJSX ? (

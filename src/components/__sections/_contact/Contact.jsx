@@ -1,118 +1,124 @@
 import { useRouter } from 'next/router'
-import { motion, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 
+import Signature from 'src/components/__sections/_contact/Signature'
 import { Social_Icons, Styled_Button } from '@components'
+import { useMediaQuery } from '@hooks'
 import { contactVariants as variants } from '@motion'
 import { config } from '@config'
-import { useRef } from 'react'
 
-const Contact = ({ isMd }) => {
+const ptext = [
+    `If you'd like to contact me about`,
+    'a full time position,',
+    'a new project,',
+    'or even just to chat...',
+
+    ` I'd love to hear from you!`,
+]
+
+const Contact = () => {
+    const isXs = useMediaQuery(360)
+    const isMd = useMediaQuery(768)
     const router = useRouter()
-    const ref = useRef(null)
-    const inView = useInView(ref, {
-        amount: isMd ? 0.75 : 0.25,
-        once: isMd ? false : true,
-    })
-    const currentYear = new Date().getFullYear()
 
-    const goToForm = () =>
-        router.push('/contactpage', 'Contact', { scroll: false })
-
-    const sendEmail = () => (window.location.href = 'mailto:' + config.email)
-
-    const allText = [
-        <h3 key="ct-h3">{`Whats Next?`}</h3>,
-        <h4 key="ct-h4">{`Get in Touch`}</h4>,
-        <p
-            key="ct-p"
-            className="sm:text-lg sm:leading-8 sm:tracking-normal md:text-xl"
+    const Ct_Header = ({ span = false }) => (
+        <div
+            className={`w-full bg-grey/25 text-center ${
+                !span && 'md:landscape:hidden'
+            }`}
         >
-            {`Whether you'd like to contact me about a full time position, a
-            project you'd be interested in building, or even just to chat and
-            get to know me...`}
-        </p>,
-        <>
-            {isMd ? <h6 key="ct-h5">{`I'd love to hear from you!`}</h6> : null}
-        </>,
-    ]
-    const buttons = [
-        <Styled_Button
-            key="ct-btn1"
-            action={goToForm}
-            btnStyle="py-3 px-10 text-lg md:text-md"
+            {isXs ? (
+                <motion.h3
+                    className={` ${span && 'hidden md:landscape:block'}`}
+                    variants={variants.Item}
+                >
+                    Whats Next?
+                </motion.h3>
+            ) : null}
+            <motion.h4
+                className={` ${span && 'hidden md:landscape:block'}`}
+                variants={variants.Item}
+            >
+                Get in Touch!
+            </motion.h4>
+        </div>
+    )
+
+    const Ct_Text = () => (
+        <motion.div
+            className="flex-col-center mt-4 w-full md:mt-10 md:landscape:w-auto"
+            variants={variants.Container}
         >
-            Send a Message!
-        </Styled_Button>,
-        <motion.p key="ct-p-2" className="sm:my-1">
-            or&nbsp;
-        </motion.p>,
-        <Styled_Button key="ct-btn2" action={sendEmail} toTextAt="min">
-            email me &raquo;
-        </Styled_Button>,
-    ]
+            {ptext.map((item, i) => (
+                <motion.p
+                    key={`pText-${i}`}
+                    className="text-xs xs:text-base xs:leading-7 sm:text-lg sm:tracking-normal md:text-2xl"
+                    variants={variants.Item}
+                    custom={isMd ? 1 : 0}
+                >
+                    {item}
+                </motion.p>
+            ))}
+        </motion.div>
+    )
+
+    const Ct_Links = () => {
+        const btnProps = { variants: variants.Item, custom: isMd ? -1 : 0 }
+        return (
+            <motion.div
+                className="flex-col-center w-full gap-1 md:my-10 md:gap-3 md:landscape:w-auto"
+                variants={variants.Container}
+            >
+                <Styled_Button
+                    action={() =>
+                        router.push('/contactpage', 'Contact', {
+                            scroll: false,
+                        })
+                    }
+                    {...btnProps}
+                >
+                    Send a Message!
+                </Styled_Button>
+                <motion.p {...btnProps}>or</motion.p>
+                <motion.button {...btnProps}>
+                    <a
+                        href={'mailto:' + config.email}
+                        className="styled_button-text cursor-pointer text-grey-70 hover:text-white md:text-xl"
+                    >
+                        m63jayne@gmail.com
+                    </a>
+                </motion.button>
+            </motion.div>
+        )
+    }
 
     return (
         <>
             <motion.div
-                className="sm:justify-bewteen flex-col-center full"
-                initial={false}
-                animate={inView ? 'show' : 'hidden'}
-                ref={ref}
+                className="flex-col-btw full"
+                initial={isMd ? 'hidden' : 'show'}
+                animate="show"
             >
-                {/***/}
-                <div className="flex-col-center full text-center md:flex-row">
-                    <div className="md:flex-col-center md:full sm:space-y-2">
-                        {allText.map((item, i) => (
-                            <motion.div
-                                key={`contact-el-${i}`}
-                                variants={variants.Item}
-                                custom={i}
-                            >
-                                {item}
-                            </motion.div>
-                        ))}
-                    </div>
-                    <div className="md:flex-col-center py-1 md:w-full">
-                        {buttons.map((item, i) => (
-                            <motion.div
-                                key={`contact-el-${i}`}
-                                className="md:mt-2"
-                                variants={variants.Item}
-                                custom={i + 4}
-                            >
-                                {item}
-                            </motion.div>
-                        ))}
+                {/** Text  |  Btns*/}
+                <div className="full flex-col-center">
+                    {isMd ? <Ct_Header span /> : null}
+                    <div className="flex-col-evenly w-full gap-1 text-center sm:gap-10 md:h-1/2 md:justify-center md:landscape:flex-row md:landscape:items-start md:landscape:gap-x-20">
+                        <Ct_Header />
+                        <Ct_Text />
+                        <Ct_Links />
                     </div>
                 </div>
-                {/***/}
-                <div className="flex-evenly w-screen max-w-[1280px]">
+                {/** Socials */}
+                <div className="flex w-screen max-w-[1280px] justify-around sm:justify-evenly">
                     <Social_Icons
-                        size={isMd ? 45 : 30}
-                        initial={false}
-                        animate={inView ? 'show' : 'hidden'}
+                        size={isMd ? 40 : isXs ? 35 : 30}
+                        initial="hidden"
+                        animate="show"
                         variants={variants.Socials}
                     />
                 </div>
-                {/***/}
-                <motion.div
-                    className="z-10 w-screen bg-background"
-                    initial={false}
-                    animate={inView ? 'show' : 'hidden'}
-                    variants={variants.Credits}
-                >
-                    <div className="flex-col-center my-4 border-t-2 border-t-grey py-4">
-                        <p className="text-[12px] uppercase text-grey-60">
-                            Designed & Built by &nbsp;
-                            <span className="font-robotoMono text-[15px] capitalize tracking-tighter text-white">
-                                Michael Jayne
-                            </span>
-                        </p>
-                        <p className="text-[12px] uppercase text-grey-60">
-                            &#169; Copyright {currentYear}.
-                        </p>
-                    </div>
-                </motion.div>
+                {/** Author  |  CopyRight */}
+                <Signature />
             </motion.div>
         </>
     )

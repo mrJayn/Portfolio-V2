@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-
 import { NextSeo } from 'next-seo'
 import { motion } from 'framer-motion'
 
@@ -12,9 +11,16 @@ const PageGradient = () => (
     </svg>
 )
 
-const Layout = ({ title, description, isHome, children, scrollRef = null }) => {
+const Layout = ({
+    title,
+    description,
+    isHome,
+    isMd,
+    children,
+    scrollRef = null,
+}) => {
     const variants = {
-        hidden: { opacity: 1 },
+        hidden: { opacity: isMd ? 1 : 0 },
         show: { opacity: 1, transition: { duration: 1 } },
         exit: { opacity: 1, transition: { duration: 0.5 } },
     }
@@ -31,12 +37,6 @@ const Layout = ({ title, description, isHome, children, scrollRef = null }) => {
         }
     }, [isHome])
 
-    // !isHome ScrollRef Props
-    const scrollRefProps = isHome
-        ? null
-        : {
-              ref: scrollRef,
-          }
     return (
         <>
             <NextSeo
@@ -55,16 +55,17 @@ const Layout = ({ title, description, isHome, children, scrollRef = null }) => {
                 animate="show"
                 exit="exit"
                 variants={variants}
+                ref={scrollRef}
             >
                 {isHome ? (
                     children
                 ) : (
-                    <div
-                        className="z-10 h-auto w-full overflow-x-hidden overflow-y-scroll bg-background"
-                        ref={scrollRef}
-                    >
-                        {children}
-                    </div>
+                    <>
+                        <a id="slugTop" />
+                        <div className="z-10 h-auto w-full overflow-x-hidden overflow-y-scroll bg-background">
+                            {children}
+                        </div>
+                    </>
                 )}
             </motion.main>
             <PageGradient />

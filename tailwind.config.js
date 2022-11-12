@@ -49,6 +49,7 @@ module.exports = {
         },
         screens: {
             min: '320px',
+            xs: '360px',
             sm: '600px',
             md: '768px',
             lg: '1024px',
@@ -114,9 +115,20 @@ module.exports = {
             md: '0 17.5px 22.5px -10px var(--shadow-color), 0 6px 8px -4px var(--shadow-color)',
             sm: '0px 15px 15px -15px var(--shadow-color)',
             xs: '0px 7.5px 10px -10px var(--shadow-color)',
+            inset: 'inset 0 0.1rem 0.1rem #0008, inset 0 -0.25rem 0.25rem #0005, inset 0 -0.5rem 0.5rem #0005, 0 0.1rem 0.1rem #0008',
             none: 'none',
         },
+        keyframes: {
+            h2Effects: {
+                '0%': { backgroundPosition: '0% 0%' },
+                '50%': { backgroundPosition: '75% 0%' },
+                '100%': { backgroundPosition: '150% 0%' },
+            },
+        },
         extend: {
+            borderRadius: {
+                '4xl': '3rem',
+            },
             backgroundImage: {
                 pattern: "url('/assets/misc/cardboard.png')",
                 gradient:
@@ -124,7 +136,26 @@ module.exports = {
                 gradient_radial:
                     'radial-gradient(transparent 0%, var(--theme-teal) 2.5%, transparent 20%, transparent 100%)',
                 gradient_title:
-                    'linear-gradient(45deg, #cc22aa, #8360c3, #45A29E, #55dcd1,#45A29E,#8360c3,#cc22aa)',
+                    'linear-gradient(45deg, var(--theme-purple), var(--theme-teal),var(--theme-purple) )',
+                gradient_tempered: `linear-gradient(
+                to bottom,
+                rgb(var(--nav-bg) / 0.8) 0%,
+                rgb(var(--nav-bg) / 0.79) 8.1%,
+                rgb(var(--nav-bg) / 0.761) 15.5%,
+                rgb(var(--nav-bg) / 0.717) 22.5%,
+                rgb(var(--nav-bg) / 0.66) 29%,
+                rgb(var(--nav-bg) / 0.593) 35.3%,
+                rgb(var(--nav-bg) / 0.518) 41.2%,
+                rgb(var(--nav-bg) / 0.44) 47.1%,
+                rgb(var(--nav-bg) / 0.36) 52.9%,
+                rgb(var(--nav-bg) / 0.282) 58.8%,
+                rgb(var(--nav-bg) / 0.207) 64.7%,
+                rgb(var(--nav-bg) / 0.14) 71%,
+                rgb(var(--nav-bg) / 0.083) 77.5%,
+                rgb(var(--nav-bg) / 0.039) 84.5%,
+                rgb(var(--nav-bg) / 0.01) 91.9%,
+                transparent 100%
+            )`,
             },
             transitionDuration: {
                 0: '0ms',
@@ -136,6 +167,7 @@ module.exports = {
             transitionDelay: {
                 0: '0ms',
             },
+            animations: {},
         },
     },
 }

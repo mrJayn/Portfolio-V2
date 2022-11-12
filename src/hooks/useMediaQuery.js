@@ -1,4 +1,9 @@
 import { useState, useEffect } from 'react'
+/**
+ * React Hook
+ * @param {number} mediaWidth
+ * @returns {boolean} Boolean value or if screen matches provided media query.
+ */
 const useMediaQuery = (mediaWidth) => {
     const [matches, setMatches] = useState(true)
     useEffect(() => {

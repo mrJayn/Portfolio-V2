@@ -1,74 +1,88 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Styled_Button, Styled_Image } from '@components'
-import { sectionCardVariants as variants } from '@motion'
 
-const Section_Card = ({ idx, anim, initialVariant, isMd, data }) => {
+import { Styled_Button, Styled_Image } from '@components'
+import { sectionContentVariants as variants } from '@motion'
+
+const Section_Card = ({ idx, INITIAL, ANIM, EXIT, yDir, isMd, data }) => {
     const even = idx % 2 == 0
+    const ID = data.id
+
+    // Next-Link slug query
+    const linkHref = { pathname: '/section/[slug]', query: { slug: data.slug } }
+
+    // Title Decoration
+    const Title_Decoration = (
+        <motion.span
+            className="section-title-underline"
+            style={{
+                originX: isMd ? (even ? 0.85 : 0.15) : 0.5,
+                right: isMd & even ? 0 : 'auto',
+                left: isMd & even ? 'auto' : 0,
+            }}
+            variants={variants.Decoration}
+        />
+    )
+    // Props
+    const motionProps = { initial: INITIAL, animate: ANIM, exit: EXIT }
+    const itemProps = {
+        variants: isMd ? variants.Items_X : variants.Items_Y,
+        custom: isMd ? (even ? -1 : 1) : yDir,
+    }
     const sectionImgProps = {
         src: data.src,
         alt: data.alt,
-        style: isMd ? { order: even ? 2 : 1 } : {},
-        initial: initialVariant,
-        animate: anim,
-        exit: 'hidden',
-        custom: isMd ? even : 0,
+        id: `image-${ID}`,
+        ...motionProps,
     }
-    const itemProps = {
-        variants: variants.Item,
-        custom: isMd ? even : 0,
-    }
+
     return (
-        <div className="full relative md:flex">
+        <div id={`card-${ID}`} className="full relative md:flex">
             {isMd ? (
-                <Styled_Image variants={variants.ImgMd} {...sectionImgProps} />
+                <Styled_Image
+                    style={{ order: even ? 2 : 1, userSelect: 'none' }}
+                    variants={variants.ImgMd}
+                    custom={even ? 1 : -1}
+                    {...sectionImgProps}
+                />
             ) : null}
-            <div
-                className="full bg-gradient_card relative overflow-hidden  md:bg-none"
-                style={{ order: even ? 1 : 2 }}
+
+            <motion.div
+                id={`content-${ID}`}
+                data-animation={ANIM}
+                className={`full flex-col-evenly relative whitespace-pre-line text-center md:justify-center  ${
+                    even
+                        ? 'order-1 md:items-end md:text-end'
+                        : 'order-2 md:items-start md:text-start'
+                }`}
+                variants={variants.Container}
+                {...motionProps}
             >
-                <motion.div
-                    className={`flex-col-center full whitespace-pre-line ${
-                        isMd ? `absoluteFull` : 'space-y-3'
-                    }`}
-                    initial={false}
-                    animate={anim}
-                    variants={variants.StaggerParent}
-                    custom={isMd}
+                <motion.h3 className="relative sm:w-[75%] md:w-full md:px-4">
+                    {data.sectionName}
+                    {Title_Decoration}
+                </motion.h3>
+
+                <motion.p
+                    className="mt-2 px-8 text-lg font-medium leading-7 xs:text-xl sm:text-2xl md:mb-20 md:mt-10 md:whitespace-pre  md:rounded-4xl md:px-0 md:text-xl lg:text-2xl lg:leading-8"
+                    {...itemProps}
                 >
-                    <motion.h3 {...itemProps}>{data.section}</motion.h3>
+                    {data.subtitle.replace('<br/>', `\n`)}
+                </motion.p>
 
-                    <motion.p
-                        className="text-center text-lg font-medium text-grey-40 dark:text-grey-60 md:text-xl"
-                        dangerouslySetInnerHTML={{ __html: data.brief }}
-                        {...itemProps}
-                    />
+                {!isMd ? <Styled_Image {...sectionImgProps} /> : null}
 
-                    {!isMd ? (
-                        <Styled_Image
-                            variants={variants.ImgSm}
-                            {...sectionImgProps}
-                        />
-                    ) : null}
-
-                    <Styled_Button
-                        toTextAt={isMd}
-                        btnStyle="py-4 w-3/4 top-[1.5vh] md:hidden"
-                        textStyle="mt-20"
-                        {...itemProps}
-                    >
-                        <Link
-                            href={{
-                                pathname: '/section/[slug]',
-                                query: { slug: data.slug },
-                            }}
-                            scroll={false}
-                        >
+                <motion.div
+                    className="relative md:mx-10"
+                    variants={variants.Btn}
+                >
+                    <Styled_Button even={even}>
+                        <Link href={linkHref} scroll={false}>
                             Read More
                         </Link>
                     </Styled_Button>
                 </motion.div>
-            </div>
+            </motion.div>
         </div>
     )
 }

@@ -1,50 +1,39 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { navVariants } from '@motion'
-import { sections } from '@config'
+import { scrollToID } from '@utils'
 
-const NavLinks = ({ isHome }) => {
+const SectionIds = ['about', 'experience', 'projects', 'contact', 'my Resume']
+
+const NavLinks = ({ state, variants }) => {
+    // Handle Section Clicked
+    const handleClick = (section) => {
+        if (section == 'my Resume') {
+            window.open('/assets/misc/resume2022.jpg', '_blank')
+        } else {
+            scrollToID(`#${section}-area`, 'auto')
+        }
+    }
     return (
         <AnimatePresence mode="wait">
-            {isHome ? (
+            {state ? (
                 <motion.ul
                     className="full flex-center"
                     initial="hidden"
-                    animate="enter"
-                    exit="exit"
-                    variants={navVariants.NavLinks.Wrap}
+                    animate="show"
+                    exit="hidden"
+                    variants={variants.Wrap}
                 >
-                    {sections.map(([SectionName, ScrollTarget], i) => {
-                        const StyledText = () => (
-                            <span className="full text-[16px] font-medium tracking-tight text-grey-60/90 duration-250 ease-in hover:text-white md:pt-2 md:pb-1 lg:text-[18px]">
-                                {SectionName}
-                            </span>
-                        )
+                    {SectionIds.map((section, i) => {
                         return (
                             <motion.li
                                 key={i}
                                 className="my-auto mx-4 cursor-pointer"
-                                variants={navVariants.NavLinks.Items}
-                                custom={10}
+                                variants={variants.Items}
                                 whileTap={{ scale: 0.95 }}
-                                onClick={() => {
-                                    document
-                                        .querySelector(`#${SectionName}`)
-                                        .scrollIntoView({
-                                            behavior: 'smooth',
-                                            block: ScrollTarget,
-                                        })
-                                }}
+                                onClick={() => handleClick(section)}
                             >
-                                {SectionName !== 'my resume' ? (
-                                    <StyledText />
-                                ) : (
-                                    <a
-                                        href="/assets/misc/resume2022.jpg"
-                                        target="_blank"
-                                    >
-                                        <StyledText />
-                                    </a>
-                                )}
+                                <span className="full text-[16px] font-medium tracking-tight text-grey-60/90 duration-250 ease-in hover:text-white md:pt-2 md:pb-1 lg:text-[18px]">
+                                    {section}
+                                </span>
                             </motion.li>
                         )
                     })}

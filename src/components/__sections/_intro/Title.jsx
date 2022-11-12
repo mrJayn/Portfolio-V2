@@ -1,19 +1,12 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { introVariants } from '@motion'
 
-const Title = ({
-    titleControls,
-    titleColor,
-    contentControls,
-    isFirstLoad,
-    pRM,
-}) => {
+const Title = ({ titleControls, contentControls, isFirstLoad }) => {
+    const pRM = useReducedMotion()
     const stagger = !pRM & isFirstLoad.current ? 0.1 : 0
     const timeout = isFirstLoad.current ? 0.5 : 0.25
 
-    const onAnimComplete = () => {
-        contentControls.start('show')
-    }
+    const onAnimComplete = () => contentControls.start('show')
 
     return (
         <div className="relative w-[300px] sm:w-[412px]  xl:w-[425px] max:w-[500px]">
@@ -27,14 +20,14 @@ const Title = ({
                     strokeWidth={2}
                     vectorEffect="non-scaling-stroke"
                 >
-                    {paths.map((letterPath, i) => {
+                    {paths.map((path, i) => {
                         const DELAY = timeout + i * stagger
+                        const isLast = i == paths.length - 1
                         return (
                             <motion.path
                                 key={`title-letter-${i}`}
-                                custom={titleColor}
-                                d={letterPath}
-                                initial={pRM ? 'pRM_hide' : 'hide'}
+                                d={path}
+                                initial={pRM ? 'pRM_hidden' : 'hidden'}
                                 animate={titleControls}
                                 variants={introVariants.Title}
                                 transition={{
@@ -57,9 +50,8 @@ const Title = ({
                                         delay: DELAY + 0.25,
                                     },
                                 }}
-                                onAnimationComplete={
-                                    i == paths.length - 1 && onAnimComplete
-                                }
+                                custom="#fff"
+                                onAnimationComplete={isLast && onAnimComplete}
                             />
                         )
                     })}
@@ -68,9 +60,8 @@ const Title = ({
         </div>
     )
 }
-// CREDIT for Paths
+
 // https://danmarshall.github.io/google-font-to-svg-path/
-// Each 'd' or path value represents a letter in "Michael Jayne"
 const paths = [
     'M 6.2 38.6 L 0 38.6 L 0 3.6 L 5.35 3.6 L 20.65 29.15 L 17.85 29.15 L 32.9 3.6 L 38.25 3.6 L 38.3 38.6 L 32.15 38.6 L 32.1 13.25 L 33.4 13.25 L 20.6 34.6 L 17.7 34.6 L 4.7 13.25 L 6.2 13.25 L 6.2 38.6 Z',
     'M 53.4 38.6 L 47.15 38.6 L 47.15 11.9 L 53.4 11.9 L 53.4 38.6 Z M 48.935 7.304 A 3.716 3.716 0 0 1 47.425 6.4 A 3.671 3.671 0 0 1 46.5 4.978 A 3.7 3.7 0 0 1 46.3 3.75 A 3.736 3.736 0 0 1 46.599 2.24 A 3.591 3.591 0 0 1 47.425 1.075 A 3.84 3.84 0 0 1 49.71 0.033 A 5.21 5.21 0 0 1 50.3 0 A 4.903 4.903 0 0 1 51.619 0.169 A 3.783 3.783 0 0 1 53.175 1.025 A 3.317 3.317 0 0 1 54.297 3.432 A 4.157 4.157 0 0 1 54.3 3.6 Q 54.3 5.25 53.2 6.375 A 3.683 3.683 0 0 1 51.002 7.454 A 5.142 5.142 0 0 1 50.3 7.5 A 4.561 4.561 0 0 1 48.935 7.304 Z',

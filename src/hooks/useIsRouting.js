@@ -9,19 +9,19 @@ const useIsRouting = (disableStateAfter = false) => {
         const enableRouting = () => setIsRouting(true)
 
         const disableRouting = () => {
-            if (disableStateAfter) return
+            if (!disableStateAfter) return
             let timeout = setTimeout(() => setIsRouting(false), 1500)
             return () => clearTimeout(timeout)
         }
 
         router.events.on('routeChangeStart', enableRouting)
         router.events.on('routeChangeError', enableRouting)
-        /* router.events.on('routeChangeComplete', disableRouting)*/
+        router.events.on('routeChangeComplete', disableRouting)
 
         return () => {
             router.events.off('routeChangeStart', enableRouting)
             router.events.off('routeChangeError', enableRouting)
-            /*router.events.off('routeChangeComplete', disableRouting)*/
+            router.events.off('routeChangeComplete', disableRouting)
         }
     }, [router.events, disableStateAfter])
     return isRouting

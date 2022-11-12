@@ -1,5 +1,11 @@
-import { useEffect, useRef } from 'react'
-import { motion, useScroll, useInView, AnimatePresence } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import {
+    motion,
+    useScroll,
+    useInView,
+    AnimatePresence,
+    useTransform,
+} from 'framer-motion'
 
 import { Section_Card } from '@components'
 import { useIsRouting, useMediaQuery } from '@hooks'
@@ -12,65 +18,106 @@ const Section = ({
     activeSection,
     setSection,
     allowUpdates,
-    initialVariant,
+    INITIAL,
+    scrollRef,
     children,
     ...data
 }) => {
     const ref = useRef(null)
-    const isRouting = useIsRouting()
+    // REMEMBER TO CHANGE THIS ROUTING TO FALSE --- TRUE FOR EDTING PURPOSES
+    const isRouting = useIsRouting(true)
     const isMd = useMediaQuery(768)
-    // When "section-space" is inView animatePrescence of actual content
-    // Reduces amount of content initially loaded?
-    const inView = useInView(ref, { amount: 0.75 })
+    const [topOffset, setTopOffset] = useState(0)
+    const inView = useInView(ref, { amount: isMd ? 0.75 : 0.5 })
     const { scrollYProgress } = useScroll({
         target: ref,
         offset: ['end end', 'start start'],
     })
-    const y_Md = scrollYProgress.get() > 0.5 ? -1 : 1
-    const y_Sm = y_Md / 2
-
-    // Animate fn
-    const anim = isRouting ? 'expand' : 'show'
+    const { scrollY } = useScroll({ container: scrollRef })
+    // Desktop EXIT directions
+    const yDir = scrollYProgress.get() > 0.5 ? -1 : 1
+    // Mobile y
+    const y = useTransform(scrollY, (n) => -n - 48)
+    // Motion
+    const ANIM = isRouting ? 'exit' : 'show'
+    const EXIT = isRouting ? 'exit' : 'hidden'
 
     // Set current Section
     useEffect(() => {
         if (inView & allowUpdates & !isRouting) setSection(index)
     }, [isMd, inView, allowUpdates, index, setSection, isRouting])
 
+    // Set Section offsets while using mobile view (<768px)
+    useEffect(() => {
+        if (isMd) return
+        const getScrollY = () => {
+            const areaScrollY = document
+                .getElementById(`${id}-area`)
+                .getBoundingClientRect().top
+            setTopOffset(areaScrollY + window.pageYOffset)
+        }
+        getScrollY()
+        window.addEventListener('resize', getScrollY)
+        return () => window.removeEventListener('resize', getScrollY)
+    }, [isMd, setTopOffset, id])
+
+    const cardProps = {
+        idx: index,
+        INITIAL: INITIAL,
+        ANIM: ANIM,
+        EXIT: EXIT,
+        yDir: yDir,
+        isMd: isMd,
+        ...data,
+    }
     return (
         <>
-            <span id={`${id}-area`} className="section-area" ref={ref} />
+            <span
+                id={`${id}-area`}
+                className="section-area min-h-[100vw] md:min-h-0"
+                ref={ref}
+            />
 
-            <AnimatePresence mode="sync" initial={false} custom={y_Md}>
-                {(activeSection === index) & inView ? (
-                    <section
-                        key={id}
-                        id={id}
-                        className="flex-center fixed top-12 left-0 h-[calc(100vh-48px)] w-full"
-                    >
-                        <motion.div
-                            className="absoluteFull overflow-hidden"
-                            initial={initialVariant}
-                            animate={anim}
-                            exit={isRouting ? 'expand' : 'hidden'}
-                            variants={variants}
-                            custom={isMd ? y_Md : y_Sm}
+            {isMd ? (
+                <AnimatePresence mode="sync" initial={false} custom={yDir}>
+                    {(activeSection === index) & inView ? (
+                        <section
+                            key={id}
+                            id={id}
+                            className="flex-center fixed left-0 top-12 h-[calc(100vh-48px)]  w-full"
                         >
-                            {useChildren ? (
-                                children
-                            ) : (
-                                <Section_Card
-                                    idx={index}
-                                    initialVariant={initialVariant}
-                                    anim={anim}
-                                    isMd={isMd}
-                                    {...data}
-                                />
-                            )}
-                        </motion.div>
-                    </section>
-                ) : null}
-            </AnimatePresence>
+                            <motion.div
+                                className="absoluteFull overflow-hidden"
+                                initial={INITIAL}
+                                animate={ANIM}
+                                exit={EXIT}
+                                variants={variants}
+                                custom={yDir}
+                            >
+                                {useChildren ? (
+                                    children
+                                ) : (
+                                    <Section_Card {...cardProps} />
+                                )}
+                            </motion.div>
+                        </section>
+                    ) : null}
+                </AnimatePresence>
+            ) : (
+                <motion.section
+                    id={id}
+                    className="flex-center absolute left-0 h-[calc(100vh-48px)] min-h-[100vw] w-full"
+                    style={{ y, top: topOffset }}
+                >
+                    <div className="absoluteFull overflow-hidden">
+                        {useChildren ? (
+                            children
+                        ) : (
+                            <Section_Card {...cardProps} />
+                        )}
+                    </div>
+                </motion.section>
+            )}
         </>
     )
 }

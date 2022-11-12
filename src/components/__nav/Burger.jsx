@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion'
 import { navVariants } from '@motion'
 
-const Burger = ({ display, handleBurger }) => {
+const Burger = ({ ANIM, handleBurger }) => {
     // ~Props~
     const lineProps = {
         strokeLinecap: 'round',
         vectorEffect: 'non-scaling-stroke',
         initial: false,
-        animate: display,
+        animate: ANIM,
         transition: {
             type: 'spring',
             stiffness: 250,

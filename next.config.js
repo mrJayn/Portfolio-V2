@@ -21,7 +21,7 @@ module.exports = {
     },
     images: {
         loader: 'akamai',
-        path: '',
+        path: '/Portfolio',
     },
     basePath: prod ? basePath : '',
     assetPrefix: prod ? assetPrefix : '',

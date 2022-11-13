@@ -6,6 +6,7 @@ import { Social_Icons, Styled_Button } from '@components'
 import { useMediaQuery } from '@hooks'
 import { contactVariants as variants } from '@motion'
 import { config } from '@config'
+import Link from 'next/link'
 
 const ptext = [
     `If you'd like to contact me about`,
@@ -69,15 +70,10 @@ const Contact = () => {
                 className="flex-col-center w-full gap-1 md:my-10 md:gap-3 md:landscape:w-auto"
                 variants={variants.Container}
             >
-                <Styled_Button
-                    action={() =>
-                        router.push('/contactpage', 'Contact', {
-                            scroll: false,
-                        })
-                    }
-                    {...btnProps}
-                >
-                    Send a Message!
+                <Styled_Button {...btnProps}>
+                    <Link href="/contactpage" as="/Contact" scroll={false}>
+                        Read More
+                    </Link>
                 </Styled_Button>
                 <motion.p {...btnProps}>or</motion.p>
                 <motion.button {...btnProps}>

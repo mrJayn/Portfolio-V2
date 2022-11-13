@@ -34,11 +34,15 @@ export default function SectionPage({
         ...pageProps,
         ...Data,
     }
+
+    // Section name from slug for Link "as"
+    const title = Data.id.charAt(0).toUpperCase() + Data.id.slice(1)
+
     useEffect(() => window.scrollTo(0, 0))
 
     return (
         <Layout
-            title={Data.id}
+            title={title}
             description={Data.description}
             isHome={false}
             isMd={pageProps.isMd}

@@ -51,7 +51,7 @@ export default function SectionPage({
             <Section_Hero
                 key={`${Data.id}-hero`}
                 even={Data.activeSection % 2 == 0}
-                isMd={Data.isMd}
+                isMd={isMd}
                 {...Data.data}
             />
             <SlugToContent {...Data} />

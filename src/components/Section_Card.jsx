@@ -1,12 +1,11 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
-import { Styled_Button, Styled_Image } from '@components'
+import { Styled_Button, SectionImage } from '@components'
 import { sectionContentVariants as variants } from '@motion'
 
-const Section_Card = ({ idx, INITIAL, ANIM, EXIT, yDir, isMd, data }) => {
+const Section_Card = ({ id, idx, INITIAL, ANIM, EXIT, yDir, isMd, data }) => {
     const even = idx % 2 == 0
-    const ID = data.id
 
     // Section name from slug for Link "as"
     const pathAs = data.slug.charAt(0).toUpperCase() + data.slug.slice(1)
@@ -32,14 +31,14 @@ const Section_Card = ({ idx, INITIAL, ANIM, EXIT, yDir, isMd, data }) => {
     const sectionImgProps = {
         src: data.src,
         alt: data.alt,
-        id: `image-${ID}`,
+        id: `image-${id}`,
         ...motionProps,
     }
 
     return (
-        <div id={`card-${ID}`} className="full relative md:flex">
+        <div id={`${id}-content`} className="full relative md:flex">
             {isMd ? (
-                <Styled_Image
+                <SectionImage
                     style={{ order: even ? 2 : 1, userSelect: 'none' }}
                     variants={variants.ImgMd}
                     custom={even ? 1 : -1}
@@ -48,9 +47,9 @@ const Section_Card = ({ idx, INITIAL, ANIM, EXIT, yDir, isMd, data }) => {
             ) : null}
 
             <motion.div
-                id={`content-${ID}`}
+                id={`content-${id}`}
                 data-animation={ANIM}
-                className={`full flex-col-evenly relative whitespace-pre-line text-center md:justify-center  ${
+                className={`full flex-col-btw relative whitespace-pre-line p-8 text-center sm:px-20 sm:py-32 md:justify-center md:space-y-10 md:p-0 landscape:justify-center landscape:py-0  ${
                     even
                         ? 'order-1 md:items-end md:text-end'
                         : 'order-2 md:items-start md:text-start'
@@ -63,14 +62,16 @@ const Section_Card = ({ idx, INITIAL, ANIM, EXIT, yDir, isMd, data }) => {
                     {Title_Decoration}
                 </motion.h3>
 
-                <motion.p
-                    className="mt-2 px-8 text-lg font-medium leading-7 xs:text-xl sm:text-2xl md:mb-20 md:mt-10 md:whitespace-pre  md:rounded-4xl md:px-0 md:text-xl lg:text-2xl lg:leading-8"
+                <motion.div
+                    className="my-8 w-full rounded-3xl bg-white/10 px-4 py-[10vh] backdrop-blur-sm md:w-[92.5%] md:bg-grey/10 md:py-10 landscape:my-2 landscape:py-2 md:landscape:my-0 md:landscape:py-10"
                     {...itemProps}
                 >
-                    {data.subtitle.replace('<br/>', `\n`)}
-                </motion.p>
+                    <p className="text-xl font-medium leading-7 sm:text-2xl md:text-xl lg:text-[1.35em]">
+                        {data.subtitle.replace('<br/>', `\n`)}
+                    </p>
+                </motion.div>
 
-                {!isMd ? <Styled_Image {...sectionImgProps} /> : null}
+                {!isMd ? <SectionImage {...sectionImgProps} /> : null}
 
                 <motion.div
                     className="relative md:mx-10"

@@ -31,7 +31,7 @@ export { default as Contact } from './__sections/_contact/Contact'
 export { default as Form } from './Form'
 
 // Items
-export { default as Styled_Image } from './items/Styled_Img'
+export { default as SectionImage } from './items/SectionImage'
 export { default as Tabs } from './items/Tabs'
 export { default as Styled_Button } from './items/Styled_Button'
 export { default as Styled_ExitButton } from './items/Styled_ExitButton'

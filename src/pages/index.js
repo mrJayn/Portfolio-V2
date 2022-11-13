@@ -21,7 +21,7 @@ export default function Home({
 
     // Restrict initial page interactability  &  Set FramerMotion "initial" value
     useEffect(() => {
-        const delayResetProps = () => {
+        const resetProps = () => {
             let timeout = setTimeout(() => {
                 setAllowUpdates(true)
                 setInitialVariant('hidden')
@@ -39,9 +39,9 @@ export default function Home({
                     behavior: 'auto',
                     block: isMd ? 'center' : 'end',
                 })
-            delayResetProps()
+            resetProps()
         } else {
-            delayResetProps()
+            resetProps()
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isMd])

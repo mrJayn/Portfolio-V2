@@ -657,27 +657,27 @@ export const introVariants = {
         },
     },
     Title: {
-        hidden: (titleColor) => ({
+        hidden: {
             pathLength: 0,
             stroke: '#66fcf1',
             strokeOpacity: 1,
-            fill: titleColor,
+            fill: '#ffffff',
             fillOpacity: 0,
-        }),
-        pRM_hidden: (titleColor) => ({
+        },
+        pRM_hidden: {
             pathLength: 0.5,
             stroke: '#66fcf1',
             strokeOpacity: 0,
-            fill: titleColor,
+            fill: '#ffffff',
             fillOpacity: 0,
-        }),
-        show: (titleColor) => ({
+        },
+        show: {
             pathLength: 1,
-            stroke: titleColor,
+            stroke: '#ffffff',
             strokeOpacity: 1,
-            fill: titleColor,
+            fill: '#ffffff',
             fillOpacity: 1,
-        }),
+        },
     },
     Content: {
         hidden: { opacity: 0, y: 10 },

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import Styled_Img from './items/Styled_Img'
+import { SectionImage } from '@components'
 import { sectionContentVariants as variants } from '@motion'
 
 const Section_Hero = ({ even, isMd, ...data }) => {
@@ -9,9 +9,10 @@ const Section_Hero = ({ even, isMd, ...data }) => {
         style: { order: even ? 2 : 1, zIndex: 1 },
     }
     const itemProps = {
-        variants: variants.Items,
+        variants: isMd ? variants.Items_X : variants.Items_Y,
         custom: isMd ? (even ? -1 : 1) : 0,
     }
+
     return (
         <>
             {isMd ? <span className="relative h-screen w-full" /> : null}
@@ -19,7 +20,7 @@ const Section_Hero = ({ even, isMd, ...data }) => {
                 id={`${data.sectionName}Page-hero`}
                 className="relative mb-6 h-auto w-full py-3 md:mb-24 md:flex md:h-[calc(100vh-48px)] md:py-0"
             >
-                {isMd ? <Styled_Img {...sectionImgProps} /> : null}
+                {isMd ? <SectionImage {...sectionImgProps} /> : null}
 
                 <motion.div
                     className="flex-col-center full px-4 text-center md:max-w-[50%] md:px-10"

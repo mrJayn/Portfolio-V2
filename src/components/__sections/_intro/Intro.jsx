@@ -21,7 +21,7 @@ const Intro = ({ isFirstLoad }) => {
     }
 
     return (
-        <div className="flex-col-center full absolute top-0 left-0 select-none landscape:pt-14">
+        <div className="flex-col-center full top-0 left-0 select-none md:absolute">
             {/** TOP TEXT **/}
             <div className="flex space-x-2">
                 {topText.map((word, i) => {
@@ -31,7 +31,7 @@ const Intro = ({ isFirstLoad }) => {
                             key={`intro-topTxt-word-${i}`}
                             className="relative text-lg font-semibold tracking-wider"
                             initial="hidden"
-                            animate={anim}
+                            animate="show"
                             variants={variants.TopText}
                             custom={isFirstLoad.current ? i : -1}
                             onAnimationComplete={isLastWord && checkIfFirst}

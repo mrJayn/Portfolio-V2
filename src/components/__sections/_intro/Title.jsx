@@ -50,7 +50,6 @@ const Title = ({ titleControls, contentControls, isFirstLoad }) => {
                                         delay: DELAY + 0.25,
                                     },
                                 }}
-                                custom="#fff"
                                 onAnimationComplete={isLast && onAnimComplete}
                             />
                         )

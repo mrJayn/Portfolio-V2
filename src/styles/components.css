@@ -3,14 +3,11 @@
 
 @layer components {
     /** ================== Layout ================= **/
-
-    @media (screen(md)) {
-        .section-area {
-            scroll-snap-align: center;
-            scroll-snap-stop: always;
-            scroll-margin-top: 48px;
-            margin-bottom: 0px;
-        }
+    .section-snap {
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+        scroll-margin-top: 48px;
+        @apply landscape:snap-start md:landscape:snap-center;
     }
 
     /** SectionCardContent Underline & Bg Effect **/

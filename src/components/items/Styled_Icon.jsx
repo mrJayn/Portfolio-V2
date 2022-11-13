@@ -6,7 +6,7 @@ const Styled_Icon = ({
     fill = 'none',
     stroke = '#fff',
     className = '',
-    styled = true,
+    styled = false,
 }) => {
     // Two Seperate SVG Tags to achieve correct blur Effect :/
     const svgProps = {

@@ -1,7 +1,7 @@
 import { isValidElement, useEffect, useRef, useState } from 'react'
 import { getAllMarkdown } from 'src/lib/markdown'
 import { Contact, Intro, Layout, Section } from '@components'
-import { index2id } from '@config'
+import { index2id } from '@utils'
 
 const title = 'Portfolio'
 const description =
@@ -58,11 +58,26 @@ export default function Home({
 
     // Section Components
     const sectionComponents = [
-        ['intro', <Intro key="intro" {...data} />],
-        ['about', data.about],
-        ['experience', data.experience],
-        ['projects', data.projects],
-        ['contact', <Contact key="contact" {...data} />],
+        {
+            id: 'intro',
+            data: <Intro key="intro" {...data} />,
+        },
+        {
+            id: 'about',
+            data: data.about,
+        },
+        {
+            id: 'experience',
+            data: data.experience,
+        },
+        {
+            id: 'projects',
+            data: data.projects,
+        },
+        {
+            id: 'contact',
+            data: <Contact key="contact" {...data} />,
+        },
     ]
 
     return (
@@ -73,7 +88,7 @@ export default function Home({
             isHome={data.isHome}
             isMd={isMd}
         >
-            {sectionComponents.map(([id, data], i) => {
+            {sectionComponents.map(({ id, data }, i) => {
                 const isValidJSX = isValidElement(data)
                 const props = {
                     id: id,

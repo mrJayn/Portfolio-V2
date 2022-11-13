@@ -5,7 +5,6 @@ import Signature from 'src/components/__sections/_contact/Signature'
 import { Social_Icons, Styled_Button } from '@components'
 import { useMediaQuery } from '@hooks'
 import { contactVariants as variants } from '@motion'
-import { config } from '@config'
 import Link from 'next/link'
 
 const ptext = [
@@ -20,7 +19,6 @@ const ptext = [
 const Contact = () => {
     const isXs = useMediaQuery(360)
     const isMd = useMediaQuery(768)
-    const router = useRouter()
 
     const Ct_Header = ({ span = false }) => (
         <div
@@ -78,8 +76,8 @@ const Contact = () => {
                 <motion.p {...btnProps}>or</motion.p>
                 <motion.button {...btnProps}>
                     <a
-                        href={'mailto:' + config.email}
-                        className="styled_button-text cursor-pointer text-grey-70 hover:text-white md:text-xl"
+                        href="mailto:m63jayne@gmail.com"
+                        className="styled_link sm:text-lg md:text-xl"
                     >
                         m63jayne@gmail.com
                     </a>
@@ -107,7 +105,7 @@ const Contact = () => {
                 {/** Socials */}
                 <div className="flex w-screen max-w-[1280px] justify-around sm:justify-evenly">
                     <Social_Icons
-                        size={isMd ? 40 : isXs ? 35 : 30}
+                        size={isMd ? 40 : 35}
                         initial="hidden"
                         animate="show"
                         variants={variants.Socials}

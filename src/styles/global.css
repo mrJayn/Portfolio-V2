@@ -19,6 +19,7 @@
 /* ================ VARIABLES ================ */
 :root {
     --nav-bg: 21 21 21;
+    --nav-height: 48px;
     --theme-teal: theme(colors.teal.DEFAULT);
     --theme-purple: theme(colors.purple.DEFAULT);
 }

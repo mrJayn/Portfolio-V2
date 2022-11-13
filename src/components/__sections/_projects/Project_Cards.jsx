@@ -19,7 +19,7 @@ const Project_Icons = ({ hrefs, size = 45, ...props }) =>
                 : ['External', 'Visit Project']
         return (
             <a key={`project-link-${i}`} href={href} title={title} {...props}>
-                <Styled_Icon invert={true} name={name} size={size} />
+                <Styled_Icon styled invert={true} name={name} size={size} />
             </a>
         )
     })

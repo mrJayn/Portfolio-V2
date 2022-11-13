@@ -13,7 +13,7 @@ const Featured_Icons = ({ hrefs, size }) =>
                 : ['External', 'Visit Project']
         return (
             <a key={`project-link-${i}`} href={href} title={title}>
-                <Styled_Icon name={name} size={size} />
+                <Styled_Icon styled name={name} size={size} />
             </a>
         )
     })

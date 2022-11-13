@@ -1,6 +1,5 @@
-import { useAnimation, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { toggleScrolling } from '@utils'
-import { useEffect, useState } from 'react'
 
 const Styled_Button = ({
     children,
@@ -13,8 +12,6 @@ const Styled_Button = ({
     variants,
     ...props
 }) => {
-    const controls = useAnimation()
-
     // onClick Func()
     const handleOnClick = (e) => {
         const btn = e.currentTarget
@@ -77,7 +74,7 @@ const Styled_Button = ({
             {/** TEXT DISPLAY **/}
             {toTextAt && (
                 <p
-                    className={`styled_button-text relative cursor-pointer px-1 text-xl font-semibold ${textStyle}`}
+                    className={`styled_link relative cursor-pointer px-1 text-xl font-semibold ${textStyle}`}
                     onClick={handleOnClick}
                     {...props}
                 >

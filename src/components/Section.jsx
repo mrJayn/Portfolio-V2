@@ -74,35 +74,36 @@ const Section = ({
         <>
             <span
                 id={`${id}-area`}
-                className="section-area min-h-[100vw] md:min-h-0"
+                className="section-area mb-24 h-[calc(100vh-var(--nav-height))] min-h-[100vw] w-full last-of-type:mb-0 md:min-h-0"
                 ref={ref}
             />
-
             {isMd ? (
-                <AnimatePresence mode="sync" initial={false} custom={yDir}>
-                    {(activeSection === index) & inView ? (
-                        <section
-                            key={id}
-                            id={id}
-                            className="flex-center fixed left-0 top-12 h-[calc(100vh-48px)]  w-full"
-                        >
-                            <motion.div
-                                className="absoluteFull overflow-hidden"
-                                initial={INITIAL}
-                                animate={ANIM}
-                                exit={EXIT}
-                                variants={variants}
-                                custom={yDir}
+                <>
+                    <AnimatePresence mode="sync" initial={false} custom={yDir}>
+                        {(activeSection === index) & inView ? (
+                            <section
+                                key={id}
+                                id={id}
+                                className="flex-center fixed left-0 top-12 h-[calc(100vh-48px)]  w-full"
                             >
-                                {useChildren ? (
-                                    children
-                                ) : (
-                                    <Section_Card {...cardProps} />
-                                )}
-                            </motion.div>
-                        </section>
-                    ) : null}
-                </AnimatePresence>
+                                <motion.div
+                                    className="absoluteFull overflow-hidden"
+                                    initial={INITIAL}
+                                    animate={ANIM}
+                                    exit={EXIT}
+                                    variants={variants}
+                                    custom={yDir}
+                                >
+                                    {useChildren ? (
+                                        children
+                                    ) : (
+                                        <Section_Card {...cardProps} />
+                                    )}
+                                </motion.div>
+                            </section>
+                        ) : null}
+                    </AnimatePresence>
+                </>
             ) : (
                 <motion.section
                     id={id}

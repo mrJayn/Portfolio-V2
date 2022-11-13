@@ -1,11 +1,12 @@
 /** @type {import('next').NextConfig} */
 
-const prod = process.env.NODE_ENV === 'production'
-
+/**
+const prod = process.env.NODE_ENV === 'production' 
+ */
 const isGithubActions = process.env.GITHUB_ACTIONS || false
 
 let assetPrefix = ''
-let basePath = '/'
+let basePath = ''
 
 if (isGithubActions) {
     // trim off `<owner>/`
@@ -15,16 +16,15 @@ if (isGithubActions) {
     basePath = `/${repo}`
 }
 
+console.log(basePath)
+
 module.exports = {
-    env: {
-        BACKEND_URL: prod ? '/Portfolio' : '',
-    },
     images: {
         loader: 'akamai',
-        path: '/Portfolio',
+        path: basePath,
     },
-    basePath: prod ? basePath : '',
-    assetPrefix: prod ? assetPrefix : '',
+    basePath: basePath,
+    assetPrefix: assetPrefix,
     webpack5: true,
     webpack: (config) => {
         config.resolve.fallback = { fs: false }

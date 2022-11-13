@@ -6,8 +6,7 @@
             "@navItems": ["src/components/__nav/index.js"],
             "@hooks": ["src/hooks/index.js"],
             "@utils": ["src/utils/utils.js"],
-            "@motion": ["src/utils/motion.js"],
-            "@config": ["src/config.js"]
+            "@motion": ["src/utils/motion.js"]
         }
     }
 }

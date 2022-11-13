@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
 import { useRouter } from 'next/router'
@@ -55,11 +55,7 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <link
-                    rel="icon"
-                    type="image/x-icon"
-                    href={`${process.env.FAVICON}/assets/favicon.ico`}
-                />
+                <link rel="icon" href={`/assets/favicon.ico`} />
             </Head>
             <DefaultSeo
                 titleTemplate="Mike Jayne | %s"

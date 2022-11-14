@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 
 import Card_Base from './Card_Base'
-import Card_Expanded from '../items/Card_Expanded'
+import Tabs from '../items/Tabs'
 
 import { useGlobalControls, useMediaQuery } from '@hooks'
 
@@ -41,7 +41,7 @@ const Card_Group = ({ tabs, globalControls, ...data }) => {
             <Card_Base {...cardProps} />
             {/**************************************/}
             <AnimatePresence onExitComplete={() => setTab([0, 0])}>
-                {expanded && <Card_Expanded {...card_expanded_props} />}
+                {expanded && <Tabs {...card_expanded_props} />}
             </AnimatePresence>
         </>
     )

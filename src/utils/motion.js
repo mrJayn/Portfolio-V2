@@ -765,7 +765,7 @@ export const experienceMotion = {
             show: {
                 opacity: 1,
                 filter: 'blur(0px) brightness(1)',
-                transition: { duration: 0.6, delay: 0.1 },
+                transition: { duration: 0.5 },
             },
             exit: {
                 opacity: 0,

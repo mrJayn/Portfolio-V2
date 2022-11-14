@@ -6,12 +6,47 @@ import { useMediaQuery } from '@hooks'
 import { experienceMotion } from '@motion'
 const variants = experienceMotion.Certs
 
-const CertLinks = ({ src, href, sitename, ...props }) =>
-    [href, src].map((href, i) => (
-        <motion.a key={`cert-link-${i}`} href={href} {...props}>
-            {href == src ? 'View Certificate' : sitename}
-        </motion.a>
-    ))
+const AccordionContent = ({ Links, desc, isMd }) => (
+    <>
+        <p className="p-4 text-sm">{desc}</p>
+        {Links.map(([href, text], i) => (
+            <a
+                key={`cert-link-${i}`}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`whitespace-nowrap px-2 py-1
+                                                    ${
+                                                        isMd
+                                                            ? 'styled_link'
+                                                            : 'styled-btn'
+                                                    }
+                                                `}
+            >
+                {text}&nbsp;&raquo;
+            </a>
+        ))}
+    </>
+)
+
+const Cert_Image = ({ title, src }) => (
+    <motion.div
+        className="relative mx-auto flex aspect-[22.05/17] w-[90%] overflow-hidden rounded-3xl shadow-md"
+        initial="hidden"
+        animate="show"
+        exit="exit"
+        variants={variants.image}
+    >
+        <Image
+            src={src}
+            alt={`${title} certification image`}
+            layout="fill"
+            objectFit="cover"
+            placeholder="blur"
+            blurDataURL="/assets/certifications/blurDataCertificate.png"
+        />
+    </motion.div>
+)
 
 const Certifications = ({ ...data }) => {
     const isMd = useMediaQuery(768)
@@ -19,23 +54,32 @@ const Certifications = ({ ...data }) => {
     const certs = data.certifications
 
     return (
-        <div className="flex-top full relative pb-10">
+        <div className="flex-top full relative md:py-20">
+            {isMd ? (
+                <h4 className="absolute -top-14 left-1/2 translate-x-[-50%] whitespace-nowrap">
+                    Education & Certifications
+                </h4>
+            ) : null}
             <ul className="w-full space-y-2 overflow-hidden">
                 {certs.map(([title, desc, sitename, href, src], i) => {
                     const ACTIVE = active === i
+                    const Links = [
+                        [href, sitename],
+                        [src, 'View Certificate'],
+                    ]
                     return (
                         <motion.li
                             layout="size"
                             key={`certification-${i}`}
-                            className={`overflow-hidden rounded-2xl bg-grey-10 p-1 md:p-0 ${
-                                !ACTIVE && 'duration-150 hover:brightness-95'
-                            }`}
+                            className="overflow-hidden rounded-2xl bg-grey-10 p-1 md:p-0"
                         >
                             {/** [  CLICKABLE LIST  ] **/}
 
                             <p
-                                className={`cursor-pointer rounded-t-2xl p-2 duration-250 ease-in  ${
-                                    ACTIVE && 'bg-teal/25 text-white'
+                                className={`list-item-bg cursor-pointer rounded-t-2xl p-2 duration-250 ease-in after:opacity-0  ${
+                                    ACTIVE
+                                        ? 'text-white after:opacity-50'
+                                        : ' text-grey-60 hover:after:opacity-10'
                                 }`}
                                 onClick={() => {
                                     if (!ACTIVE) setActive(i)
@@ -49,37 +93,31 @@ const Certifications = ({ ...data }) => {
                                 {ACTIVE && (
                                     <motion.div
                                         key={`cert-content-${i}`}
-                                        className="flex-col-top origin-top"
+                                        className="flex-col-top"
                                         initial="collapsed"
                                         animate="open"
                                         exit="collapsed"
-                                        variants={variants.accordion}
+                                        variants={{
+                                            open: {
+                                                opacity: 1,
+                                                height: 'auto',
+                                            },
+                                            collapsed: {
+                                                opacity: 0,
+                                                height: 0,
+                                            },
+                                        }}
                                         transition={{
                                             duration: 0.8,
                                             ease: [0.04, 0.62, 0.23, 0.98],
                                         }}
                                     >
                                         {/** [  MOBILE LAYOUT  ] **/}
-                                        <p className="p-4 text-sm">{desc}</p>
-                                        {isMd ? (
-                                            <a
-                                                href={href}
-                                                className="styled_link mb-4 whitespace-nowrap font-medium"
-                                            >
-                                                {sitename}
-                                            </a>
-                                        ) : (
-                                            <>
-                                                <div className="flex-col-center w-full">
-                                                    <CertLinks
-                                                        href={href}
-                                                        src={src}
-                                                        sitename={sitename}
-                                                        className="w-3/4 whitespace-nowrap rounded-xl bg-white/50 p-1.5 text-sm tracking-tight shadow-inset first-of-type:mb-2"
-                                                    />
-                                                </div>
-                                            </>
-                                        )}
+                                        <AccordionContent
+                                            Links={Links}
+                                            desc={desc}
+                                            isMd={isMd}
+                                        />
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -87,42 +125,21 @@ const Certifications = ({ ...data }) => {
                     )
                 })}
             </ul>
-
             {/** [  MD LAYOUT  ] **/}
             {isMd ? (
-                <CertImageWithInfo certData={certs[active]} idx={active} />
-            ) : null}
-        </div>
-    )
-}
-
-const CertImageWithInfo = ({ certData, idx }) => {
-    const [title, _a, _b, _c, src] = certData
-    return (
-        <div
-            className="flex-col-center sticky top-5 -mb-[100vh] w-full overflow-hidden rounded-3xl py-2"
-            style={{ position: '-webkit-sticky' }}
-        >
-            <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                    key={`certInfo-${idx}`}
-                    className="relative mx-auto flex aspect-[22.05/17] w-[60%] overflow-hidden rounded-3xl shadow-md"
-                    initial="hidden"
-                    animate="show"
-                    exit="exit"
-                    variants={variants.image}
+                <div
+                    className="flex-col-center sticky top-[-50%] mb-44 w-full translate-y-[50%] lg:top-0 lg:mb-0 lg:translate-y-0"
+                    style={{ position: '-webkit-sticky' }}
                 >
-                    <Image
-                        key={`certImg-${idx}`}
-                        src={src}
-                        alt={`${title} certification image`}
-                        layout="fill"
-                        objectFit="cover"
-                        placeholder="blur"
-                        blurDataURL="/assets/certifications/blurDataCertificate.png"
-                    />
-                </motion.div>
-            </AnimatePresence>
+                    <AnimatePresence mode="wait">
+                        <Cert_Image
+                            key={`certimg-${active}`}
+                            title={certs[active][0]}
+                            src={certs[active][4]}
+                        />
+                    </AnimatePresence>
+                </div>
+            ) : null}
         </div>
     )
 }

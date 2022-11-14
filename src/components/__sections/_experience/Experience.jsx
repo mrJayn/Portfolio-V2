@@ -1,11 +1,10 @@
 import { useState } from 'react'
-import Card_Expanded from 'src/components/items/Card_Expanded'
+
 import Jobs from './Jobs'
 import Certifications from './Certifications'
-import { Section_Hero } from '@components'
+import { Section_Hero, Tabs } from '@components'
 
 const Experience = ({ isMd, ...data }) => {
-    const globalControls = data.globalControls
     const [[currentTab, direction], setTab] = useState([0, 0])
 
     const components = [
@@ -54,7 +53,7 @@ const Experience = ({ isMd, ...data }) => {
             {components.map((component, i) => component)}
         </div>
     ) : (
-        <Card_Expanded {...tabsLayoutProps} />
+        <Tabs {...tabsLayoutProps} />
     )
 }
 export default Experience

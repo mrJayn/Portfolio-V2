@@ -40,11 +40,11 @@ const Jobs = ({ isMd, ...data }) => {
                     return (
                         <div
                             key={`job-${i}`}
-                            className={`flex-col-center w-full space-y-2 rounded-3xl p-2 duration-250 ease-in first-of-type:mb-4 md:my-4 md:p-0.5 ${
+                            className={`list-item-bg flex-col-center w-full space-y-2 rounded-3xl p-2 duration-250 ease-in first-of-type:mb-4 md:my-4 md:p-0.5 ${
                                 isMd
                                     ? activeItem == i
-                                        ? 'bg-teal/30'
-                                        : 'bg-transparent'
+                                        ? 'text-white after:opacity-50'
+                                        : ' text-grey-60 hover:after:opacity-10'
                                     : 'bg-grey/25'
                             }`}
                         >

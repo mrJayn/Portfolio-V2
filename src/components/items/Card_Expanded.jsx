@@ -36,7 +36,7 @@ const Card_Expanded = ({
             variants={variants.Wrap}
         >
             <div className="full relative overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 bottom-14">
+                <div className="absolute top-12 left-0 right-0 bottom-16">
                     <motion.div
                         className="absoluteFull overflow-x-hidden overflow-y-scroll bg-background text-center"
                         ref={scrollRef}
@@ -56,7 +56,7 @@ const Card_Expanded = ({
                     </motion.div>
                     {/***/}
                     <motion.div
-                        className="md:flex-center fixed bottom-0 left-0 right-0 z-10 h-14 bg-nav py-1 md:rounded-xl"
+                        className="flex-center fixed bottom-0 left-0 right-0 z-10 h-16 bg-nav"
                         variants={variants.TabListContainer}
                     >
                         <Tabs.List {...tabListProps} />

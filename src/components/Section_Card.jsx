@@ -63,7 +63,7 @@ const Section_Card = ({ id, idx, INITIAL, ANIM, EXIT, yDir, isMd, data }) => {
                 </motion.h3>
 
                 <motion.div
-                    className="my-8 w-full rounded-3xl bg-white/10 px-4 py-[10vh] backdrop-blur-sm md:w-[92.5%] md:bg-grey/10 md:py-10 landscape:my-2 landscape:py-2 md:landscape:my-0 md:landscape:py-10"
+                    className="my-8 w-full rounded-3xl bg-white/10 px-4 py-[10vh] backdrop-blur-sm md:w-[92.5%] md:bg-transparent md:py-10 landscape:my-2 landscape:py-2"
                     {...itemProps}
                 >
                     <p className="text-xl font-medium leading-7 sm:text-2xl md:text-xl lg:text-[1.35em]">

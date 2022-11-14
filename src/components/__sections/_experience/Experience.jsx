@@ -17,7 +17,7 @@ const Experience = ({ isMd, ...data }) => {
                 __html: data.content,
             }}
         />,
-        <Jobs key="experience-jobs" {...data.data} />,
+        <Jobs key="experience-jobs" isMd={isMd} {...data.data} />,
         <Certifications key="experience-certs" {...data.data} />,
     ]
     const tabs = [
@@ -50,7 +50,7 @@ const Experience = ({ isMd, ...data }) => {
         isMd: data.isMd,
     }
     return isMd ? (
-        <div className="flex-col-center mt-24 h-auto w-full space-y-24">
+        <div className="flex-col-center h-auto w-full space-y-8 md:space-y-16">
             {components.map((component, i) => component)}
         </div>
     ) : (

@@ -61,7 +61,7 @@ const Section = ({
                 id={`${id}-area`}
                 className={
                     isMd
-                        ? 'section-snap mb-0 h-[calc(100vh-var(--nav-height))] w-full'
+                        ? 'section-snap h-[calc(100vh-var(--nav-height))] w-full'
                         : ''
                 }
                 ref={mdRef}
@@ -96,7 +96,7 @@ const Section = ({
             ) : (
                 <section
                     id={id}
-                    className="section-snap flex-center mb-24 h-[calc(100vh-var(--nav-height))] w-full overflow-hidden last-of-type:mb-0"
+                    className="section-snap flex-center h-[calc(100vh-var(--nav-height))] w-full overflow-hidden"
                     ref={minRef}
                 >
                     {useChildren ? children : <Section_Card {...cardProps} />}

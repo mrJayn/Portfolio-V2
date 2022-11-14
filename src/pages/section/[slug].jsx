@@ -54,7 +54,9 @@ export default function SectionPage({
                 isMd={isMd}
                 {...Data.data}
             />
-            <SlugToContent {...Data} />
+            <div className="px-2 sm:px-6 md:px-10">
+                <SlugToContent {...Data} />
+            </div>
         </Layout>
     )
 }

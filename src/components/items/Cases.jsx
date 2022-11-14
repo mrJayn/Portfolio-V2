@@ -16,6 +16,8 @@ export const Cases = ({ name }) => {
             return <Icon_SeeLess />
         case 'Message':
             return <Icon_Message />
+        case 'ChevronDown':
+            return <ChevronDown />
         default:
             return <Icon_External />
     }
@@ -95,4 +97,11 @@ const Icon_Message = () => (
         <line strokeWidth={2.25} x1="8" y1="12" x2="8" y2="12.01" />
         <line strokeWidth={2.25} x1="16" y1="12" x2="16" y2="12.01" />
     </>
+)
+
+const ChevronDown = () => (
+    <path
+        strokeWidth={0}
+        d="M16.293 9.293 12 13.586 7.707 9.293l-1.414 1.414L12 16.414l5.707-5.707z"
+    />
 )

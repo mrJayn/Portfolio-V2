@@ -4,10 +4,23 @@
 @layer components {
     /** ================== Layout ================= **/
     .section-snap {
-        scroll-snap-align: center;
+        scroll-snap-align: end;
         scroll-snap-stop: always;
         scroll-margin-top: 48px;
+        margin-bottom: 100px;
         @apply landscape:snap-start md:landscape:snap-center;
+    }
+    @media screen(md) {
+        .section-snap {
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            scroll-margin-top: 48px;
+            margin-bottom: 100%;
+            @apply landscape:snap-start md:landscape:snap-center;
+        }
+    }
+    .section-snap:last-of-type() {
+        margin-bottom: 0px;
     }
 
     /** SectionCardContent Underline & Bg Effect **/
@@ -126,9 +139,9 @@
     /* ABOUT */
     #about-innerHTML {
         & > p {
-            @apply flex-center indent-2 md:leading-7;
+            @apply flex-center indent-4 md:indent-8;
             &:first-of-type {
-                @apply mb-4 text-center indent-4 text-[20px] leading-8 sm:text-[24px] sm:leading-9;
+                @apply mb-4 text-center indent-4 text-[20px] font-medium leading-8 sm:text-[24px] sm:leading-9 md:text-xl;
             }
             &:not(:last-of-type) {
                 @apply pb-2 md:pb-6;

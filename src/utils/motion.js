@@ -750,21 +750,14 @@ export const skillsVariants = {
 }
 export const experienceMotion = {
     Certs: {
-        items: {
-            hidden: { opacity: 0 },
-            show: { opacity: 1 },
-        },
-        active: {
-            hidden: { opacity: 0, height: 0 },
-            show: {
+        accordion: {
+            open: {
                 opacity: 1,
                 height: 'auto',
-                transition: { duration: 0.25, delay: 0.25, ease: 'circOut' },
             },
-            exit: {
+            collapsed: {
                 opacity: 0,
                 height: 0,
-                transition: { duration: 0.25, delay: 0.25, ease: 'circOut' },
             },
         },
         image: {
@@ -780,76 +773,64 @@ export const experienceMotion = {
                 transition: { duration: 0.5 },
             },
         },
-        mdLink: {
-            hidden: { opacity: 0 },
+        LinkContainer: {
+            hidden: {},
+            show: {
+                transition: { staggerChildren: 0.2, delayChildren: 0.25 },
+            },
+            exit: {
+                transition: { staggerChildren: 0.1, staggerDirection: -1 },
+            },
+        },
+        LinkItem: {
+            hidden: { opacity: 0, y: -200 },
             show: {
                 opacity: 1,
-                transition: { duration: 0.6, delay: 0.1 },
+                y: 0,
+                transition: { duration: 0.75, ease: 'easeOut' },
             },
             exit: {
                 opacity: 0,
+                y: -200,
                 transition: { duration: 0.5 },
             },
         },
     },
     Jobs: {
-        Card: {
-            closed: {
-                width: '55%',
-                transition: { duration: 1, ease: 'anticipate' },
+        Container: {
+            hidden: {},
+            show: {
+                transition: { staggerChildren: 0.1, delayChildren: 0.25 },
             },
-            opened: {
-                width: '100%',
-                transition: { duration: 1, ease: 'anticipate' },
+            exit: {
+                transition: { staggerChildren: 0.1 },
             },
         },
-
-        active: {
-            hidden: { opacity: 0, height: 0 },
+        Items: {
+            hidden: (pRM) => ({
+                opacity: 0,
+                clipPath: !pRM
+                    ? 'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)'
+                    : 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+            }),
             show: {
                 opacity: 1,
-                height: 'auto',
+                clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
                 transition: {
                     duration: 0.5,
-                    ease: 'circOut',
-                    when: 'beforeChildren',
+                    ease: 'easeOut',
                 },
             },
-            exit: {
+            exit: (pRM) => ({
                 opacity: 0,
-                height: 0,
-                transition: { duration: 0.25, delay: 0.25, ease: 'circOut' },
-            },
-        },
-        activeItems: {
-            hidden: { opacity: 0, height: 0 },
-            show: {
-                opacity: 1,
-                height: 'auto',
+                clipPath: !pRM
+                    ? 'polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)'
+                    : 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
                 transition: {
-                    duration: 0.25,
-                    ease: 'easeInOut',
+                    duration: 0.5,
+                    ease: 'easeIn',
                 },
-            },
-            exit: {
-                opacity: 0,
-                height: 0,
-                transition: {
-                    duration: 0.25,
-                    ease: 'easeInOut',
-                },
-            },
-        },
-        in_active: {
-            hidden: { opacity: 0, height: 0 },
-            show: {
-                opacity: 1,
-                transition: { duration: 2, ease: 'anticipate' },
-            },
-            exit: {
-                opacity: 0,
-                transition: { duration: 1, ease: 'circIn' },
-            },
+            }),
         },
     },
 }

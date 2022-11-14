@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { NextSeo } from 'next-seo'
-import { motion } from 'framer-motion'
+import { motion, useScroll } from 'framer-motion'
 
 const PageGradient = () => (
     <svg className="pointer-events-none invisible absolute -z-50 select-none">
@@ -37,6 +37,13 @@ const Layout = ({
         }
     }, [isHome])
 
+    const { scrollY } = useScroll({ container: scrollRef })
+    useEffect(() => {
+        return scrollY.onChange((last) => {
+            console.log(last)
+        })
+    })
+
     return (
         <>
             <NextSeo
@@ -46,7 +53,7 @@ const Layout = ({
             />
             <motion.main
                 id="layout"
-                className="flex-col-top overscroll-y-scroll left-0 top-12 w-full"
+                className="flex-col-top left-0 top-12 h-auto w-full"
                 style={{
                     position: isHome ? 'absolute' : 'fixed',
                     bottom: !isHome && 0,

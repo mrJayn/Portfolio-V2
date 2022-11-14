@@ -21,6 +21,8 @@ export default function Home({
 
     // Restrict initial page interactability  &  Set FramerMotion "initial" value
     useEffect(() => {
+        const activeIndex = activeSection
+
         const resetProps = () => {
             let timeout = setTimeout(() => {
                 setAllowUpdates(true)
@@ -29,15 +31,19 @@ export default function Home({
             return () => clearTimeout(timeout)
         }
 
-        if (activeSection !== 0) {
-            setSection(activeSection)
+        if (activeIndex !== 0) {
+            setSection(activeIndex)
             setInitialVariant(isRouting ? 'exit' : 'hidden')
             // Align active-section  &  active-area
+            console.log(
+                document.getElementById(index2id(activeIndex) + '-area')
+            )
+            // Scroll To section on viewport change
             document
-                .getElementById(index2id(activeSection) + '-area')
+                .getElementById(index2id(activeIndex) + '-area')
                 .scrollIntoView({
                     behavior: 'auto',
-                    block: isMd ? 'center' : 'end',
+                    block: isMd ? 'center' : 'start',
                 })
             resetProps()
         } else {

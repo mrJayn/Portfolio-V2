@@ -3,8 +3,8 @@ import { Social_Icons } from '@components'
 
 const Socials = ({ ...motionProps }) => {
     return (
-        <div className="flex-col-bottom h-auto w-full rounded-t-[6rem] px-5 pt-5 contrast-150 invert dark:invert-0">
-            <div className="flex-evenly mx-auto h-12 w-screen max-w-[1024px]">
+        <div className="flex-col-bottom h-auto w-full rounded-t-[6rem] px-5 pt-5 contrast-150">
+            <div className="flex-evenly h-12 w-screen max-w-[1024px]">
                 <Social_Icons size={40} />
             </div>
             <motion.div className="z-10 w-full" {...motionProps}>

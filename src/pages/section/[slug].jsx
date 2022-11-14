@@ -35,6 +35,9 @@ export default function SectionPage({
         ...Data,
     }
 
+    const heroData = Data.id == 'projects' ? Data.projects.data : Data.data
+
+    console.log(heroData)
     // Section name from slug for Link "as"
     const title = Data.id.charAt(0).toUpperCase() + Data.id.slice(1)
 
@@ -52,7 +55,7 @@ export default function SectionPage({
                 key={`${Data.id}-hero`}
                 even={Data.activeSection % 2 == 0}
                 isMd={isMd}
-                {...Data.data}
+                {...heroData}
             />
             <div className="px-2 sm:px-6 md:px-10">
                 <SlugToContent {...Data} />

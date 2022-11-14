@@ -8,12 +8,10 @@ const Projects = ({ ...data }) => {
 
     const projectsData = { ...data.projectsData }
 
-    const components = [
-        <Featured key="featured-projects" {...featuredData} />,
-        <All_Projects key="all-projects" {...projectsData} />,
-    ]
+    // <Featured key="featured-projects" {...featuredData} />,
+    const components = [<All_Projects key="all-projects" {...projectsData} />]
 
-    return components.map((component) => component)
+    return <All_Projects key="all-projects" {...projectsData} />
 }
 
 export default Projects

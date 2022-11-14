@@ -63,7 +63,8 @@ const IsMdCard = ({ title, brief, src, tech, href_github, href_site, idx }) => {
                 filter: ` hue-rotate(${idx * 30}deg)`,
             }}
         >
-            <Image
+            {/**
+             * <Image
                 key={`projectImg-${title}`}
                 src={src}
                 alt={`${title} Project Image`}
@@ -73,6 +74,7 @@ const IsMdCard = ({ title, brief, src, tech, href_github, href_site, idx }) => {
                     viewMode ? 'opacity-100' : 'opacity-10'
                 }`}
             />
+             */}
             {/***/}
             <div
                 className={`projectVisBtn absolute top-2 left-2 z-50 cursor-pointer hover:text-teal dark:text-white ${

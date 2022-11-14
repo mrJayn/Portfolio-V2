@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-import { Section, Project_Card, Tabs } from '@components'
+import { Project_Card } from '@components'
 import { projectVariants } from '@motion'
+import Tabs_List from 'src/components/items/Tabs_List'
 
 const All_Projects = ({ isMd, pRM, ...sectionData }) => {
     const [[currentTab, _], setTab] = useState([0, 0])
@@ -57,7 +58,7 @@ const All_Projects = ({ isMd, pRM, ...sectionData }) => {
             </div>
 
             <div className="h-auto w-full">
-                <Tabs.List {...tabListProps} />
+                <Tabs_List {...tabListProps} />
                 <div className="full">
                     <AnimatePresence
                         mode="wait"

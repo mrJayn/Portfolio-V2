@@ -7,15 +7,22 @@ import { Section_Hero, Tabs } from '@components'
 const Experience = ({ isMd, ...data }) => {
     const [[currentTab, direction], setTab] = useState([0, 0])
 
-    const components = [
+    const Heading = ({ text }) => (
+        <h4 className="styled-subsection-title">{text}</h4>
+    )
+
+    const ExperienceContent = () => (
         <div
-            key="experience-content"
             id="experience-innerHTML"
             className="px-2 md:p-10 md:pt-5"
             dangerouslySetInnerHTML={{
                 __html: data.content,
             }}
-        />,
+        />
+    )
+
+    const components = [
+        <ExperienceContent key="experience-content" />,
         <Jobs key="experience-jobs" isMd={isMd} {...data.data} />,
         <Certifications key="experience-certs" {...data.data} />,
     ]
@@ -27,33 +34,36 @@ const Experience = ({ isMd, ...data }) => {
                 isMd={data.isMd}
                 {...data.data}
             />
-            <div
-                key="experience-content"
-                id="experience-innerHTML"
-                className="px-2 md:p-10 md:pt-5"
-                dangerouslySetInnerHTML={{
-                    __html: data.content,
-                }}
-            />
+            <ExperienceContent key="experience-content" />
         </>,
         <Jobs key="experience-jobs" {...data.data} />,
         <Certifications key="experience-certs" {...data.data} />,
     ]
 
-    const tabsLayoutProps = {
-        cardData: data.data,
+    const tabProps = {
+        tabNames: [
+            'Summary',
+            `Work${isMd ? ' Experience' : ''}`,
+            'Certificates',
+        ],
         tabs: tabs,
         currentTab: currentTab,
         direction: direction,
         setTab: setTab,
-        isMd: data.isMd,
     }
     return isMd ? (
-        <div className="flex-col-center h-auto w-full space-y-8 md:space-y-16">
-            {components.map((component, i) => component)}
+        <div className="flex-col-center mx-auto h-auto w-full max-w-[1440px] space-y-8 pb-8 md:space-y-16 md:pb-16">
+            {components.map((component, i) => (
+                <>
+                    <h4 className="styled-subsection-title">
+                        {tabProps.tabNames[i]}
+                    </h4>
+                    {component}
+                </>
+            ))}
         </div>
     ) : (
-        <Tabs {...tabsLayoutProps} />
+        <Tabs {...tabProps} />
     )
 }
 export default Experience

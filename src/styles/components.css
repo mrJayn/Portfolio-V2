@@ -19,7 +19,7 @@
             @apply landscape:snap-start md:landscape:snap-center;
         }
     }
-    .section-snap:last-of-type() {
+    .section-snap:last-of-type {
         margin-bottom: 0px;
     }
 
@@ -47,6 +47,13 @@
             z-index: -1;
             background: theme(backgroundImage.gradient);
         }
+    }
+
+    .styled-subsection-title {
+        top: 0;
+        color: white;
+        white-space: nowrap;
+        @apply translate-y-8 md:translate-y-16;
     }
 
     /** =============== COMPONENTS ============== **/
@@ -160,8 +167,10 @@
     }
     .list-item-bg {
         position: relative;
+        color: theme(colors.grey.60);
         overflow: hidden;
         z-index: 1;
+        transition: 0.25s ease-in;
 
         &:after {
             @apply absoluteFull;
@@ -170,6 +179,15 @@
             opacity: 0;
             z-index: -1;
             transition: 0.25s ease-in;
+        }
+        &:hover:after {
+            opacity: 0.1;
+        }
+        &[data-active='true'] {
+            color: theme(colors.white);
+            &:after {
+                opacity: 0.5;
+            }
         }
     }
 

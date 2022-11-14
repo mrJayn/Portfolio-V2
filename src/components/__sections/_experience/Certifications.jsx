@@ -50,67 +50,49 @@ const Cert_Image = ({ title, src }) => (
 
 const Certifications = ({ ...data }) => {
     const isMd = useMediaQuery(768)
-    const [active, setActive] = useState(isMd ? 0 : 100)
+    const [activeItem, setActiveItem] = useState(isMd ? 0 : 100)
     const certs = data.certifications
 
     return (
-        <div className="flex-top full relative md:py-20">
-            {isMd ? (
-                <h4 className="absolute -top-14 left-1/2 translate-x-[-50%] whitespace-nowrap">
-                    Education & Certifications
-                </h4>
-            ) : null}
-            <ul className="w-full space-y-2 overflow-hidden">
+        <div className="flex-top full relative">
+            <ul className="md:flex-col-top w-full space-y-2 overflow-hidden md:h-[550px]">
                 {certs.map(([title, desc, sitename, href, src], i) => {
-                    const ACTIVE = active === i
+                    const ACTIVE = activeItem === i
                     const Links = [
                         [href, sitename],
                         [src, 'View Certificate'],
                     ]
+                    const handleClick = () => {
+                        if (isMd & ACTIVE) return
+                        setActiveItem(ACTIVE ? 100 : i)
+                    }
+
                     return (
                         <motion.li
                             layout="size"
                             key={`certification-${i}`}
-                            className="overflow-hidden rounded-2xl bg-grey-10 p-1 md:p-0"
+                            className="overflow-hidden rounded-2xl bg-grey-10 p-1 md:w-full md:p-0"
                         >
                             {/** [  CLICKABLE LIST  ] **/}
 
                             <p
-                                className={`list-item-bg cursor-pointer rounded-t-2xl p-2 duration-250 ease-in after:opacity-0  ${
-                                    ACTIVE
-                                        ? 'text-white after:opacity-50'
-                                        : ' text-grey-60 hover:after:opacity-10'
-                                }`}
-                                onClick={() => {
-                                    if (!ACTIVE) setActive(i)
-                                }}
+                                className="list-item-bg cursor-pointer rounded-t-2xl p-2"
+                                data-active={ACTIVE}
+                                onClick={handleClick}
                             >
                                 {title}
                             </p>
 
                             {/** [  EXPANDED INFO  ] **/}
                             <AnimatePresence mode="wait" initial={false}>
-                                {ACTIVE && (
+                                {ACTIVE & (activeItem !== 100) && (
                                     <motion.div
                                         key={`cert-content-${i}`}
                                         className="flex-col-top"
                                         initial="collapsed"
                                         animate="open"
                                         exit="collapsed"
-                                        variants={{
-                                            open: {
-                                                opacity: 1,
-                                                height: 'auto',
-                                            },
-                                            collapsed: {
-                                                opacity: 0,
-                                                height: 0,
-                                            },
-                                        }}
-                                        transition={{
-                                            duration: 0.8,
-                                            ease: [0.04, 0.62, 0.23, 0.98],
-                                        }}
+                                        variants={variants.accordion}
                                     >
                                         {/** [  MOBILE LAYOUT  ] **/}
                                         <AccordionContent
@@ -128,15 +110,17 @@ const Certifications = ({ ...data }) => {
             {/** [  MD LAYOUT  ] **/}
             {isMd ? (
                 <div
-                    className="flex-col-center sticky top-[-50%] mb-44 w-full translate-y-[50%] lg:top-0 lg:mb-0 lg:translate-y-0"
+                    className="flex-col-center sticky top-[25%] mb-44 w-full md:top-[50%]  xl:top-0"
                     style={{ position: '-webkit-sticky' }}
                 >
                     <AnimatePresence mode="wait">
-                        <Cert_Image
-                            key={`certimg-${active}`}
-                            title={certs[active][0]}
-                            src={certs[active][4]}
-                        />
+                        {activeItem !== 100 && (
+                            <Cert_Image
+                                key={`certimg-${activeItem}`}
+                                title={certs[activeItem][0]}
+                                src={certs[activeItem][4]}
+                            />
+                        )}
                     </AnimatePresence>
                 </div>
             ) : null}

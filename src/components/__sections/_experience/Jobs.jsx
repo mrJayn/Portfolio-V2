@@ -30,11 +30,6 @@ const Jobs = ({ isMd, ...data }) => {
 
     return (
         <div className="flex-center relative w-full rounded-3xl p-2 md:min-h-[650px] md:justify-start md:bg-grey-10 lg:min-h-[500px] md:landscape:min-h-[500px]">
-            {isMd ? (
-                <h4 className="absolute -top-14 left-1/2 translate-x-[-50%]">
-                    Work Experience
-                </h4>
-            ) : null}
             <div className="full flex-col-center md:w-[35%]">
                 {data.job_data.map(([title, jobPosition, dates, _], i) => {
                     return (

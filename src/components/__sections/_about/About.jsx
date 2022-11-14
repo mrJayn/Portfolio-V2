@@ -3,7 +3,7 @@ import Skills from './Skills'
 
 const About = ({ ...data }) => {
     return (
-        <div className="flex-col-center h-auto w-full space-y-8 md:space-y-16">
+        <div className="flex-col-center mx-auto h-auto w-full max-w-[1440px] space-y-8 md:space-y-16">
             <div
                 key="about"
                 id="about-innerHTML"

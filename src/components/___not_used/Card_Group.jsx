@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 
 import Card_Base from './Card_Base'
-import Tabs from '../items/Tabs'
+import Tabs from '../__sections/_experience/Tabs'
 
 import { useGlobalControls, useMediaQuery } from '@hooks'
 

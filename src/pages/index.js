@@ -63,10 +63,14 @@ export default function Home({
     }
 
     // Section Components
+    const projectsSectionData = {
+        featured: data.featured_data,
+        ...data.projects,
+    }
     const sectionComponents = [
         {
             id: 'intro',
-            data: <Intro key="intro" {...data} />,
+            data: <Intro {...data} />,
         },
         {
             id: 'about',
@@ -78,11 +82,11 @@ export default function Home({
         },
         {
             id: 'projects',
-            data: data.projects,
+            data: projectsSectionData,
         },
         {
             id: 'contact',
-            data: <Contact key="contact" {...data} />,
+            data: <Contact {...data} />,
         },
     ]
 

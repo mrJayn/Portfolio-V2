@@ -23,6 +23,11 @@ const SlugToContent = ({ ...data }) => {
             return null
     }
 }
+
+const TemperedDiv = () => (
+    <div className="absolute -top-40 left-0 h-40 w-screen bg-gradient_tempered" />
+)
+
 export default function SectionPage({
     isMd,
     Data,
@@ -34,15 +39,11 @@ export default function SectionPage({
         ...pageProps,
         ...Data,
     }
-
     const heroData = Data.id == 'projects' ? Data.projects.data : Data.data
-
-    console.log(heroData)
     // Section name from slug for Link "as"
     const title = Data.id.charAt(0).toUpperCase() + Data.id.slice(1)
-
+    //
     useEffect(() => window.scrollTo(0, 0))
-
     return (
         <Layout
             title={title}
@@ -57,7 +58,8 @@ export default function SectionPage({
                 isMd={isMd}
                 {...heroData}
             />
-            <div className="px-2 sm:px-6 md:px-10">
+            <div className="relative bg-background px-2 sm:px-6 md:mt-20 md:px-10">
+                {isMd ? <TemperedDiv /> : null}
                 <SlugToContent {...Data} />
             </div>
         </Layout>

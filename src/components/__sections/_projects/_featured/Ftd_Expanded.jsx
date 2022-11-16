@@ -1,17 +1,11 @@
 import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 
 import { Styled_ExitButton, Styled_Icon } from '@components'
 import { expanded_Variants } from '@motion'
 
-const Ftd_Expanded = ({
-    project,
-    expanded,
-    setExpanded,
-    even = 0,
-    isSm,
-    pRM,
-}) => {
+const Ftd_Expanded = ({ project, expanded, setExpanded, even = 0, isSm }) => {
+    const pRM = useReducedMotion()
     const data = project.data
     const variants = expanded_Variants.Featured
 

@@ -16,7 +16,6 @@ module.exports = {
 
             background: 'rgb(var(--background) / <alpha-value>)',
             nav: 'rgb(var(--nav-bg) / <alpha-value>)',
-            card: 'rgb(var(--card-bg) / <alpha-value>)',
 
             grey: {
                 10: '#151515',
@@ -37,6 +36,17 @@ module.exports = {
                 90: '#29615f',
                 99: '#40606f',
                 neon: '#66fcf1',
+            },
+            slate: {
+                10: '#e0e6ef',
+                20: '#c1cce0',
+                30: '#a3b3d0',
+                40: '#8499c1',
+                DEFAULT: '#6580b1',
+                60: '#51668e',
+                70: '#3d4d6a',
+                80: '#283347',
+                90: '#141a23',
             },
             purple: {
                 light: '#c1b0e1',
@@ -116,13 +126,21 @@ module.exports = {
             sm: '0px 15px 15px -15px var(--shadow-color)',
             xs: '0px 7.5px 10px -10px var(--shadow-color)',
             inset: 'inset 0 0.1rem 0.1rem #0008, inset 0 -0.25rem 0.25rem #0005, inset 0 -0.5rem 0.5rem #0005, 0 0.1rem 0.1rem #0008',
+            'inset-outset':
+                'inset 0 0.1rem 0.1rem #0008, inset 0 -0.25rem 0.25rem #0005, inset 0 -0.5rem 0.5rem #0005, 0 0.1rem 0.1rem #0008, 0 20px 25px -5px var(--shadow-color), 0 8px 10px -6px var(--shadow-color)',
+            'inset-outset-md':
+                'inset 0 0.1rem 0.1rem #0008, inset 0 -0.25rem 0.25rem #0005, inset 0 -0.5rem 0.5rem #0005, 0 0.1rem 0.1rem #0008, 0 17.5px 22.5px -10px var(--shadow-color), 0 6px 8px -4px var(--shadow-color)',
             none: 'none',
         },
         keyframes: {
-            h2Effects: {
+            bgRotate: {
                 '0%': { backgroundPosition: '0% 0%' },
                 '50%': { backgroundPosition: '75% 0%' },
                 '100%': { backgroundPosition: '150% 0%' },
+            },
+            widthExpand: {
+                '0%': { width: '0%' },
+                '100%': { width: '100%' },
             },
         },
         extend: {
@@ -137,7 +155,7 @@ module.exports = {
                     'radial-gradient(transparent 0%, var(--theme-teal) 2.5%, transparent 20%, transparent 100%)',
                 gradient_title:
                     'linear-gradient(45deg, var(--theme-purple), var(--theme-teal),var(--theme-purple) )',
-                gradient_tempered: `linear-gradient(
+                nav_tempered: `linear-gradient(
                 to bottom,
                 rgb(var(--nav-bg) / 0.8) 0%,
                 rgb(var(--nav-bg) / 0.79) 8.1%,
@@ -156,6 +174,16 @@ module.exports = {
                 rgb(var(--nav-bg) / 0.01) 91.9%,
                 transparent 100%
             )`,
+                gradient_tempered: `linear-gradient(
+                to top,
+                rgb(var(--background) / 1),
+                rgb(var(--background) / 0.975) 10%,
+                rgb(var(--background) / 0.9) 20%,
+                rgb(var(--background) / 0.85) 30%,
+                rgb(var(--background) / 0.4) 70%,
+                rgb(var(--background) / 0.025) 90%,
+                transparent 100%
+            )`,
             },
             transitionDuration: {
                 0: '0ms',
@@ -167,7 +195,6 @@ module.exports = {
             transitionDelay: {
                 0: '0ms',
             },
-            animations: {},
         },
     },
 }

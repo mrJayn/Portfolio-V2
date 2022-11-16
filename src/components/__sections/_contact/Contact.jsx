@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 
 import Signature from 'src/components/__sections/_contact/Signature'

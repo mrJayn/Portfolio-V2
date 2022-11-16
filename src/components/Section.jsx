@@ -44,7 +44,6 @@ const Section = ({
         if (!isMd & inViewMin || isMd & inView) setSection(index)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isMd, inView, inViewMin, allowUpdates, isRouting, setSection])
-
     const cardProps = {
         id: id,
         idx: index,
@@ -55,6 +54,7 @@ const Section = ({
         isMd: isMd,
         ...data,
     }
+
     return (
         <>
             <span

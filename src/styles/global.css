@@ -2,7 +2,6 @@
 @import './components.css';
 @tailwind base;
 
-/* ================== ***** ================== */
 * {
     & ::selection {
         @apply bg-teal-neon/50 text-black dark:bg-teal/75 dark:text-white;
@@ -16,41 +15,19 @@
 ::-webkit-scrollbar {
     display: none;
 }
-/* ================ VARIABLES ================ */
+
 :root {
     --nav-bg: 21 21 21;
     --nav-height: 48px;
+
+    --background: 30 30 30; /*#1d1d1d*/
+    --text-color: #eee;
+    --shadow-color: #000;
+
     --theme-teal: theme(colors.teal.DEFAULT);
     --theme-purple: theme(colors.purple.DEFAULT);
 }
-@media (prefers-color-scheme: light) {
-    :root {
-        --background: 245 245 250; /*#f6f6f6*/
-        --text-color: #111;
-        --shadow-color: #0b0b1080; /* ( -black/50) */
 
-        --card-bg: 245 245 250;
-        --card-inset-color-1: #00000005;
-        --card-inset-color-2: #00000007;
-        --card-inset-color-3: #0001;
-        --card-inset-color-4: #0001;
-        --card-outset-color: #0005;
-    }
-}
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background: 30 30 30; /*#1d1d1d*/
-        --text-color: #eee;
-        --shadow-color: #000;
-
-        --card-bg: 60 60 60;
-        --card-inset-color-1: #0008;
-        --card-inset-color-2: #2225;
-        --card-inset-color-3: #1115;
-        --card-inset-color-4: #0005;
-        --card-outset-color: #000;
-    }
-}
 /* ================== BASE ================== */
 @layer base {
     html {
@@ -75,30 +52,34 @@
         font-weight: 700;
     }
     h2 {
-        @apply animate-[h2Effects_10s_linear_infinite] bg-gradient_title text-5xl sm:text-6xl;
+        @apply text-5xl sm:text-6xl;
         color: transparent;
         font-weight: 700;
         letter-spacing: 0.1em;
         text-transform: uppercase;
+        background: theme(backgroundImage.gradient_title);
         background-clip: text;
         background-size: 300%;
+        @apply animate-[bgRotate_10s_linear_infinite] motion-reduce:animate-none;
     }
     h3 {
-        @apply text-4xl text-black dark:text-white sm:text-5xl;
+        @apply text-4xl text-white sm:text-5xl;
         font-weight: 700;
         letter-spacing: 0.025em;
         text-transform: uppercase;
     }
     h4 {
-        @apply text-3xl text-teal dark:text-grey-90;
-        font-weight: 600;
+        @apply text-3xl;
+        color: theme(colors.teal.40);
+        font-weight: 500;
+        letter-spacing: 0.0125em;
     }
     h5 {
         @apply text-2xl text-grey-80 dark:text-grey-60;
         font-weight: 600;
     }
     h6 {
-        @apply text-xl text-teal dark:text-teal-30;
+        @apply text-xl text-teal-30;
         font-weight: 600;
     }
     h7 {
@@ -106,7 +87,7 @@
         font-weight: 600;
     }
     p {
-        @apply text-base text-grey-40 dark:text-grey-80;
+        @apply text-base text-grey-80;
         letter-spacing: -0.25px;
     }
 }

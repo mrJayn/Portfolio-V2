@@ -26,14 +26,14 @@ const Md_Bg = ({ anim }) => {
         <>
             <motion.span
                 data-cardbase-bg
-                className="absoluteFull rounded-4xl  bg-card will-change-transform"
+                className="absoluteFull rounded-4xl  bg-black will-change-transform"
                 initial={false}
                 animate={anim}
                 variants={variants.MdBg}
             />
             <span
                 data-shadow-hide={anim == 'expanded' ? true : false}
-                className="absolute top-0 h-full bg-card"
+                className="absolute top-0 h-full bg-black"
             />
         </>
     )

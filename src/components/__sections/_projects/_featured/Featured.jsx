@@ -1,89 +1,153 @@
 import { useState } from 'react'
-import { AnimatePresence, useReducedMotion } from 'framer-motion'
+import {
+    motion,
+    AnimatePresence,
+    useMotionValue,
+    useTransform,
+    useDragControls,
+    LayoutGroup,
+} from 'framer-motion'
 import { wrap } from '@popmotion/popcorn'
-import { Section, Ftd_Project, Ftd_Expanded, Tabs } from '@components'
-import { useGlobalControls, useMediaQuery } from '@hooks'
 
-const Featured = ({ globalControls, ...data }) => {
-    const [expandedTabs, setExpandedTabs] = useState(false)
-    const [[currentTab, direction], setTab] = useState([0, 0])
-    const n = wrap(0, Object.keys(data).length, currentTab)
+import Ftd_Project from './Ftd_Project'
+import { paginate } from '@utils'
+import { tabsMotion } from '@motion'
 
-    const tabListProps = {
-        currentTab: currentTab,
-        setTab: setTab,
-        tabNames: wrap.length,
-    }
-    const tabProps = {
-        key: currentTab,
-        section: 'Featured',
-        currentTab: currentTab,
-        setTab: setTab,
-        span: wrap.length,
-        custom: direction,
+const All_Featured = ({ ...projects }) =>
+    Object.keys(projects).map((idx, i) => (
+        <Ftd_Project
+            key={`ftd-project-${i}`}
+            project={projects[idx]}
+            even={i % 2 == 0}
+        />
+    ))
+
+const Slide_Wrap = ({
+    currentTab = null,
+    setTab = null,
+    span = null,
+    children,
+    ...tabProps
+}) => {
+    const x = useMotionValue(0)
+    const shadowOpacity = useTransform(x, [-200, 0, 200], [0, 1, 0])
+
+    const controls = useDragControls()
+
+    tabProps = {
+        onMouseDown: (e) => controls.start(e),
+        dragControls: controls,
+        style: { x },
+        ...tabProps,
     }
 
-    // layout / User Preference Props
-    const isSm = useMediaQuery(600)
-    const config = {
-        isSm: isSm,
-        pRM: useReducedMotion(),
+    function handleSwipe(e, { offset, velocity }) {
+        const threshold = 5000
+        const swipe = Math.abs(offset.x) * velocity.x
+        if (swipe < -threshold) {
+            paginate(1, currentTab, span, setTab)
+        } else if (swipe > threshold) {
+            paginate(-1, currentTab, span, setTab)
+        }
     }
-    // useGlobalControls for dynamic NAV (@media<768px)
-    useGlobalControls(
-        globalControls,
-        [expandedTabs, setExpandedTabs],
-        ['Featured', isSm]
-    )
 
     return (
-        <div id="featured-projects" className="full">
-            {isSm && (
-                /** GRID **/
-                <div id="featured-md" className="flex-col-top">
-                    {Object.keys(data).map((idx, i) => {
-                        return (
-                            <Ftd_Project
-                                key={`ftd-project-${i}`}
-                                project={data[idx]}
-                                even={i % 2 == 0}
-                                {...config}
-                            />
-                        )
-                    })}
-                </div>
-            )}
-            {!isSm && (
-                /** TABS **/
-                <div
-                    className="flex-col-btw"
-                    style={{ height: `calc(100vh - 68px)` }}
-                >
-                    <Ftd_Expanded
-                        project={data[n]}
-                        expanded={expandedTabs}
-                        setExpanded={setExpandedTabs}
-                        {...config}
-                    />
-                    <div className="full relative">
-                        <AnimatePresence mode="wait" custom={direction}>
-                            {!expandedTabs && (
-                                <Tabs.Wrap id="Ftd-Tabs" {...tabProps}>
-                                    <Ftd_Project
-                                        key={`ftd-project-${n}`}
-                                        project={data[n]}
-                                        setExpandedTabs={setExpandedTabs}
-                                        {...config}
+        <motion.div
+            className={`md:flex-top full relative z-0`}
+            variants={tabsMotion.Tabs}
+            initial="enter"
+            animate="show"
+            exit="exit"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+            onDragEnd={handleSwipe}
+            {...tabProps}
+        >
+            <motion.div
+                className="absoluteFull -z-10 overflow-hidden rounded-4xl shadow-inset-outset"
+                style={{ opacity: shadowOpacity, zIndex: -20 }}
+            />
+            {children}
+        </motion.div>
+    )
+}
+const Indicators = ({ currentTab, setTab, span }) => {
+    function handleSelect(clickedTab) {
+        if (clickedTab == currentTab) return
+        let newDirection = clickedTab - currentTab
+        setTab([clickedTab, newDirection])
+    }
+    return (
+        <LayoutGroup>
+            <div className="flex-evenly w-full max-w-screen-md overflow-hidden">
+                {[...Array(span).keys()].map((idx) => (
+                    <div
+                        key={`tabList-Item-${idx}`}
+                        className="mt-5 cursor-pointer p-4"
+                        onClick={() => handleSelect(idx)}
+                    >
+                        <div className="relative h-8 w-8 rounded-full bg-grey/50 duration-250">
+                            <AnimatePresence mode="wait">
+                                {idx == currentTab ? (
+                                    <motion.div
+                                        className="absoluteFull rounded-full bg-slate shadow-inset-outset-md"
+                                        style={{
+                                            filter: `hue-rotate(${
+                                                (idx / span) * 45
+                                            }deg) saturate(2) contrast(2) blur(2px)`,
+                                        }}
+                                        layoutId="highlight"
                                     />
-                                </Tabs.Wrap>
-                            )}
-                        </AnimatePresence>
+                                ) : null}
+                            </AnimatePresence>
+                        </div>
                     </div>
-                    <Tabs.List {...tabListProps} />
-                </div>
-            )}
+                ))}
+            </div>
+        </LayoutGroup>
+    )
+}
+
+const Slides = ({ slug = null, ...projects }) => {
+    const [expandedTabs, setExpandedTabs] = useState(false)
+    const [[currentTab, direction], setTab] = useState([0, 0])
+    const n = wrap(0, Object.keys(projects).length, currentTab)
+
+    return (
+        <div className="flex-col-btw full">
+            <div className="h-[50vh] w-full md:m-auto md:h-[80%] md:w-[80%]">
+                <AnimatePresence mode="wait" custom={direction}>
+                    {!expandedTabs && (
+                        <Slide_Wrap
+                            key={currentTab}
+                            currentTab={currentTab}
+                            setTab={setTab}
+                            span={wrap.length}
+                            custom={direction}
+                        >
+                            <Ftd_Project
+                                slug={slug}
+                                project={projects[n]}
+                                setExpandedTabs={setExpandedTabs}
+                                direction={direction}
+                            />
+                        </Slide_Wrap>
+                    )}
+                </AnimatePresence>
+            </div>
+            <>
+                <Indicators
+                    currentTab={currentTab}
+                    setTab={setTab}
+                    span={wrap.length}
+                />
+            </>
         </div>
     )
 }
+
+// SectionCard is able to call <Slides/> because it does not pass 'isMd' as a prop
+const Featured = ({ isMd, slug = null, ...projects }) =>
+    isMd ? <All_Featured {...projects} /> : <Slides slug={slug} {...projects} />
 
 export default Featured

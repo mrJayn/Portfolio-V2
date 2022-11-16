@@ -1,69 +1,79 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 
 import Jobs from './Jobs'
 import Certifications from './Certifications'
-import { Section_Hero, Tabs } from '@components'
+import Tabs from './Tabs'
+import { Section_Hero } from '@components'
+import { inViewFadeIn } from '@motion'
 
 const Experience = ({ isMd, ...data }) => {
     const [[currentTab, direction], setTab] = useState([0, 0])
 
-    const Heading = ({ text }) => (
-        <h4 className="styled-subsection-title">{text}</h4>
-    )
-
     const ExperienceContent = () => (
         <div
             id="experience-innerHTML"
-            className="px-2 md:p-10 md:pt-5"
+            className="w-full"
             dangerouslySetInnerHTML={{
                 __html: data.content,
             }}
         />
     )
 
-    const components = [
-        <ExperienceContent key="experience-content" />,
-        <Jobs key="experience-jobs" isMd={isMd} {...data.data} />,
-        <Certifications key="experience-certs" {...data.data} />,
-    ]
-    const tabs = [
-        <>
-            <Section_Hero
-                key="experience-hero"
-                idx={data.activeSection}
-                isMd={data.isMd}
-                {...data.data}
-            />
-            <ExperienceContent key="experience-content" />
-        </>,
-        <Jobs key="experience-jobs" {...data.data} />,
-        <Certifications key="experience-certs" {...data.data} />,
+    const componentNames = [
+        'Proffesional Summary',
+        'Work Experience',
+        'Education',
+        'My Certificates',
     ]
 
-    const tabProps = {
-        tabNames: [
-            'Summary',
-            `Work${isMd ? ' Experience' : ''}`,
-            'Certificates',
-        ],
-        tabs: tabs,
-        currentTab: currentTab,
-        direction: direction,
-        setTab: setTab,
-    }
+    const components = [
+        <>
+            {isMd ? null : (
+                <Section_Hero
+                    idx={data.activeSection}
+                    isMd={data.isMd}
+                    {...data.data}
+                />
+            )}
+            <ExperienceContent />
+        </>,
+        <>
+            <Jobs isMd={isMd} {...data.data} />
+        </>,
+        <>
+            {isMd ? <div key="experience-edu">Graduated from UMASS</div> : null}
+        </>,
+        <>
+            {isMd ? null : <div>Graduated from UMASS</div>}
+            <Certifications {...data.data} />
+        </>,
+    ]
+
     return isMd ? (
-        <div className="flex-col-center mx-auto h-auto w-full max-w-[1440px] space-y-8 pb-8 md:space-y-16 md:pb-16">
-            {components.map((component, i) => (
-                <>
-                    <h4 className="styled-subsection-title">
-                        {tabProps.tabNames[i]}
-                    </h4>
-                    {component}
-                </>
-            ))}
+        <div className="flex-col-center mx-auto h-auto w-full max-w-[1440px] space-y-8 py-8 md:space-y-16 md:py-16">
+            {components.map((component, i) => {
+                const title = componentNames[i]
+                return (
+                    <motion.div
+                        key={`exp-item-${title}`}
+                        className="subsection full"
+                        {...inViewFadeIn}
+                    >
+                        <h4>{title}</h4>
+                        {component}
+                    </motion.div>
+                )
+            })}
         </div>
     ) : (
-        <Tabs {...tabProps} />
+        <Tabs
+            tabNames={['Summary', 'Jobs', 'Education']}
+            tabs={components}
+            currentTab={currentTab}
+            direction={direction}
+            setTab={setTab}
+        />
     )
 }
 export default Experience

@@ -1,27 +1,25 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
-import { Styled_Button, SectionImage } from '@components'
+import { Styled_Button, SectionImage, Featured } from '@components'
 import { sectionContentVariants as variants } from '@motion'
 
-const Section_Card = ({ id, idx, INITIAL, ANIM, EXIT, yDir, isMd, data }) => {
+const Section_Card = ({
+    id,
+    idx,
+    INITIAL,
+    ANIM,
+    EXIT,
+    yDir,
+    isMd,
+    data,
+    featured,
+}) => {
     const even = idx % 2 == 0
 
     // Section name from slug for Link "as"
     const pathAs = data.slug.charAt(0).toUpperCase() + data.slug.slice(1)
 
-    // Title Decoration
-    const Title_Decoration = (
-        <motion.span
-            className="section-title-underline"
-            style={{
-                originX: isMd ? (even ? 0.85 : 0.15) : 0.5,
-                right: isMd & even ? 0 : 'auto',
-                left: isMd & even ? 'auto' : 0,
-            }}
-            variants={variants.Decoration}
-        />
-    )
     // Props
     const motionProps = { initial: INITIAL, animate: ANIM, exit: EXIT }
     const itemProps = {
@@ -35,15 +33,32 @@ const Section_Card = ({ id, idx, INITIAL, ANIM, EXIT, yDir, isMd, data }) => {
         ...motionProps,
     }
 
+    // Title Decoration
+    const Title_Decoration = (
+        <motion.span
+            className="styled-underline"
+            style={{
+                originX: isMd ? (even ? 0.85 : 0.15) : 0.5,
+                right: isMd & even ? 0 : 'auto',
+                left: isMd & even ? 'auto' : 0,
+            }}
+            variants={variants.Decoration}
+        />
+    )
+
     return (
         <div id={`${id}-content`} className="full relative md:flex">
             {isMd ? (
-                <SectionImage
-                    style={{ order: even ? 2 : 1, userSelect: 'none' }}
-                    variants={variants.ImgMd}
-                    custom={even ? 1 : -1}
-                    {...sectionImgProps}
-                />
+                featured ? (
+                    <Featured slug={data.slug} {...featured} />
+                ) : (
+                    <SectionImage
+                        style={{ order: even ? 2 : 1, userSelect: 'none' }}
+                        variants={variants.ImgMd}
+                        custom={even ? 1 : -1}
+                        {...sectionImgProps}
+                    />
+                )
             ) : null}
 
             <motion.div

@@ -4,9 +4,6 @@
 @layer components {
     /** ================== Layout ================= **/
     .section-snap {
-        scroll-snap-align: end;
-        scroll-snap-stop: always;
-        scroll-margin-top: 48px;
         margin-bottom: 100px;
         @apply landscape:snap-start md:landscape:snap-center;
     }
@@ -23,37 +20,15 @@
         margin-bottom: 0px;
     }
 
-    /** SectionCardContent Underline & Bg Effect **/
-    .section-title-underline {
-        position: absolute;
-        bottom: 0;
-        height: 2px;
-        border-radius: 999px;
-        background: theme(backgroundImage.gradient);
-        filter: brightness(1.5);
-        @apply left-0 w-full md:left-auto md:w-[calc(5em+15vw)];
-        &.slugHero {
-            @apply md:w-full;
+    .subsection {
+        counter-increment: subsection 1;
+        & h4:before {
+            content: '0' counter(subsection) '. ';
+            color: theme(colors.white);
+            font-size: 0.65em;
+            font-weight: 300;
+            letter-spacing: 0;
         }
-        &:after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: -2px;
-            height: 4px;
-            width: calc(100% + 4px);
-            border-radius: 10%;
-            filter: blur(3px) saturate(2) contrast(2);
-            z-index: -1;
-            background: theme(backgroundImage.gradient);
-        }
-    }
-
-    .styled-subsection-title {
-        top: 0;
-        color: white;
-        white-space: nowrap;
-        @apply translate-y-8 md:translate-y-16;
     }
 
     /** =============== COMPONENTS ============== **/
@@ -81,7 +56,7 @@
             @apply absoluteFull;
             content: '';
             pointer-events: none;
-            background: theme(backgroundImage.gradient_tempered);
+            background: theme(backgroundImage.nav_tempered);
             backdrop-filter: blur(4px);
             opacity: var(--after-opacity);
             transition: var(--transition);
@@ -188,6 +163,51 @@
             &:after {
                 opacity: 0.5;
             }
+        }
+    }
+
+    /** Scroll Down Arrow **/
+    .scroll-down-arrow {
+        position: absolute;
+        bottom: -32px;
+        left: 0;
+        height: auto;
+        width: 100%;
+        display: flex;
+
+        & span {
+            width: 100%;
+            border-top: 3px solid;
+            border-bottom: 3px solid;
+
+            &:nth-of-type(1) {
+                transform: rotate(12.5deg) skew(12.5deg) translateX(1px);
+            }
+            &:nth-of-type(2) {
+                transform: rotate(-12.5deg) skew(-12.5deg) translateX(-1px);
+            }
+        }
+    }
+    @keyframes heightGrow {
+        0% {
+            height: 50px;
+            opacity: 0;
+            margin-bottom: 50px;
+        }
+        50% {
+            height: 25px;
+            opacity: 1;
+            margin-bottom: 0px;
+        }
+        60% {
+            height: 25px;
+            opacity: 1;
+            margin-bottom: 0px;
+        }
+        100% {
+            height: 25px;
+            opacity: 1;
+            margin-bottom: 0px;
         }
     }
 
@@ -309,7 +329,30 @@
     }
 */
 
-    /** prevent un-intentional swipes **/
+    /** SectionCardContent Underline & Bg Effect **/
+    .styled-underline {
+        position: absolute;
+        bottom: 0px;
+        height: 2px;
+        background-color: #fffa;
+        border-radius: 40% 40% 0 0;
+        filter: blur(0.5px);
+        @apply left-0 w-full md:left-auto md:w-[calc(5em+15vw)];
+
+        &:after {
+            content: '';
+            position: absolute;
+            bottom: -2.5px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: theme(backgroundImage.gradient);
+            background-size: 500%;
+            background-position: 33%;
+            border-radius: 0 0 40% 40%;
+            filter: blur(2px) contrast(1.5);
+        }
+    }
 
     /** Styled_btn**/
     .styled-btn {

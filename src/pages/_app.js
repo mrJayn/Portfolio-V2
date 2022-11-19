@@ -77,7 +77,7 @@ function MyApp({ Component, pageProps }) {
                     <MotionConfig reducedMotion="user">
                         <Navbar {...navProps} />
                         <>
-                            <AnimatePresence mode="wait">
+                            <AnimatePresence mode="wait" onExitComplete={()=>console.log("exit")}>
                                 <Component {...pageProps} key={url} />
                             </AnimatePresence>
                         </>

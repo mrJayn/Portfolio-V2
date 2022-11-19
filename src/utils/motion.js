@@ -256,48 +256,31 @@ export const sectionContentVariants = {
             y: 25,
         },
         show: {
-            opacity: 1,
-            x: '-50%',
-            y: 0,
+            opacity: [0, 1, 1, 0],
+            x: ['-50%', '-50%', '-50%', '-50%'],
+            y: [-25, 0, 0, 25],
             transition: {
-                duration: 1.5,
                 delay: 1,
-                ease: 'easeOut',
-            },
-        },
-        exit: {
-            opacity: 0,
-            x: '-50%',
-            y: 0,
-            transition: {
-                duration: 0.5,
-                ease: 'easeIn',
+                duration: 3,
+                times: [0, 0.3, 0.7, 1],
+                ease: ['easeOut', 'linear', 'backIn'],
             },
         },
     },
     scrollDownArrow: {
         hidden: {
-            height: '50px',
+            height: '25px',
             opacity: 0,
             marginBottom: '25px',
         },
         show: {
-            height: '20px',
+            height: '25px',
             opacity: 1,
             marginBottom: '0px',
             transition: {
-                duration: 1.5,
                 delay: 1,
+                duration: 2,
                 ease: 'easeOut',
-            },
-        },
-        exit: {
-            height: '0px',
-            opacity: 0,
-            marginBottom: '0px',
-            transition: {
-                duration: 0.5,
-                ease: 'easeIn',
             },
         },
     },
@@ -689,11 +672,6 @@ export const tabsMotion = {
             transition: { ease: 'easeIn' },
         },
     },
-    Reduced: {
-        enter: { opacity: 0 },
-        show: { opacity: 1 },
-        exit: { opacity: 0 },
-    },
 }
 
 /** ~ SECTIONS ~  **/
@@ -976,23 +954,116 @@ export const projectVariants = {
     },
 }
 /****/
-export const featuredProject_Variants = {
+export const ftdSlidesVariants = {
+    Slides: {
+        enter: {
+            opacity: 0,
+            x: '-50%',
+        },
+        show: {
+            opacity: 1,
+            x: 0,
+            transition: { duration: 0.75, ease: [0, 0, 0.5, 1] },
+        },
+        exit: {
+            opacity: 0,
+            x: '200%',
+            transition: { duration: 1.5, ease: [0.5, 0, 1, 1] },
+        },
+        close: {
+            opacity: 0,
+            x: '-50%',
+            transition: { duration: 0.5, ease: [0.5, 0, 1, 1] },
+        },
+    },
+    draggableSlides: {
+        enter: (direction) => ({
+            opacity: 0,
+            x: direction > 0 ? '100%' : '-100%',
+        }),
+        show: {
+            opacity: 1,
+            x: 0,
+            transition: { ease: [0.5, 0.5, 0, 0.75] },
+        },
+        exit: (direction) => ({
+            opacity: 0,
+            x: direction < 0 ? '100%' : '-100%',
+            transition: { ease: [0.75, 0, 0.5, 0.5] },
+        }),
+    },
+    IndicatorsWrap: {
+        hidden: { transition: { staggerChildren: 0.1, staggerDirection: -1 } },
+        show: { transition: { staggerChildren: 0.1, delayChildren: 0.25 } },
+    },
+    Indicators: {
+        hidden: {
+            opacity: 0,
+            y: 10,
+            transition: { duration: 0.5, ease: 'easeIn' },
+        },
+        show: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 1, ease: 'circOut' },
+        },
+    },
+}
+/****/
+export const ftdProjectVariants = {
     isHome: {
-        description: {
+        Header: {
             hidden: (i = -1) => ({
-                x: i * 20 + '%',
+                opacity: 0,
+                x: i * -50 + '%',
             }),
             show: {
+                opacity: 1,
                 x: 0,
-                transition: {
-                    duration: 1,
-                    type: 'spring',
-                    bounce: 0,
-                },
+                transition: { duration: 0.75, ease: [0, 0, 0.5, 1] },
             },
+            exit: (i = -1) => ({
+                opacity: 0,
+                x: i * 200 + '%',
+                transition: { duration: 1.5, ease: [0.5, 0, 1, 1] },
+            }),
         },
     },
     slug: {
+        md: {
+            header: {
+                hidden: {
+                    transition: { staggerChildren: 0.1, staggerDirection: -1 },
+                },
+                show: { transition: { staggerChildren: 0.1, delay: 0.5 } },
+            },
+            fade: {
+                hidden: { opacity: 0 },
+                show: { opacity: 1 },
+            },
+            img: {
+                hidden: (i = 0) => ({
+                    x: i * -25,
+                    scale: 0.9,
+                    transition: { duration: 1, ease: 'easeIn' },
+                }),
+                show: {
+                    x: 0,
+                    scale: 1,
+                    transition: { duration: 1, ease: 'easeOut' },
+                },
+            },
+            item: {
+                hidden: (i = 0) => ({
+                    x: i * 25,
+                    transition: { duration: 1, ease: 'easeIn' },
+                }),
+                show: {
+                    x: 0,
+                    transition: { duration: 1, ease: 'easeOut' },
+                },
+            },
+        },
         image: {
             initial: {
                 opacity: 1,
@@ -1022,8 +1093,6 @@ export const featuredProject_Variants = {
         },
     },
 }
-/****/
-
 /****/
 
 export const ftdVariants = [

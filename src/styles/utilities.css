@@ -41,7 +41,8 @@
     .flex-col-left,
     .flex-col-right,
     .flex-col-btw,
-    .flex-col-evenly {
+    .flex-col-evenly,
+    .flex-col-around {
         display: flex;
         flex-flow: column;
     }
@@ -100,6 +101,10 @@
     }
     .flex-col-evenly {
         justify-content: space-evenly;
+        align-items: center;
+    }
+    .flex-col-around {
+        justify-content: space-around;
         align-items: center;
     }
 }

@@ -9,6 +9,16 @@ export function toggleScrolling(allowScroll) {
     }
 }
 
+export function handleSwipe(x, v, currentTab, span, setTab) {
+    const threshold = 5000
+    const swipe = Math.abs(x) * v
+    if (swipe < -threshold) {
+        paginate(1, currentTab, span, setTab)
+    } else if (swipe > threshold) {
+        paginate(-1, currentTab, span, setTab)
+    }
+}
+
 /**
  * Gesture Recognition for Tab Swiping
  * @param {number} newDirection

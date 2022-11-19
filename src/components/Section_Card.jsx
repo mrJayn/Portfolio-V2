@@ -1,17 +1,18 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
-import { Styled_Button, SectionImage, Featured } from '@components'
+import { Styled_Button, SectionImage, Featured_Slides } from '@components'
 import { sectionContentVariants as variants } from '@motion'
 
 const Section_Card = ({
     id,
     idx,
-    INITIAL,
-    ANIM,
-    EXIT,
-    yDir,
+    initialAnim,
+    anim,
+    exitAnim,
+    scrollDirection,
     isMd,
+    isRouting,
     data,
     featured,
 }) => {
@@ -21,10 +22,10 @@ const Section_Card = ({
     const pathAs = data.slug.charAt(0).toUpperCase() + data.slug.slice(1)
 
     // Props
-    const motionProps = { initial: INITIAL, animate: ANIM, exit: EXIT }
+    const motionProps = { initial: initialAnim, animate: anim, exit: exitAnim }
     const itemProps = {
         variants: isMd ? variants.Items_X : variants.Items_Y,
-        custom: isMd ? (even ? -1 : 1) : yDir,
+        custom: isMd ? (even ? -1 : 1) : scrollDirection,
     }
     const sectionImgProps = {
         src: data.src,
@@ -50,7 +51,7 @@ const Section_Card = ({
         <div id={`${id}-content`} className="full relative md:flex">
             {isMd ? (
                 featured ? (
-                    <Featured slug={data.slug} {...featured} />
+                    <Featured_Slides isRouting={isRouting} {...featured} />
                 ) : (
                     <SectionImage
                         style={{ order: even ? 2 : 1, userSelect: 'none' }}
@@ -63,7 +64,7 @@ const Section_Card = ({
 
             <motion.div
                 id={`content-${id}`}
-                data-animation={ANIM}
+                data-animation={anim}
                 className={`full flex-col-btw relative whitespace-pre-line p-8 text-center sm:px-20 sm:py-32 md:justify-center md:space-y-10 md:p-0 landscape:justify-center landscape:py-0  ${
                     even
                         ? 'order-1 md:items-end md:text-end'
@@ -101,7 +102,7 @@ const Section_Card = ({
                             as={'/' + pathAs}
                             scroll={false}
                         >
-                            Read More
+                            {featured ? 'View All' : 'Read More'}
                         </Link>
                     </Styled_Button>
                 </motion.div>

@@ -32,7 +32,7 @@ const Section = ({
     })
 
     // Desktop EXIT directions
-    const yDir = scrollYProgress.get() > 0.5 ? -1 : 1
+    const scrollDirection = scrollYProgress.get() > 0.5 ? -1 : 1
 
     // Motion
     const ANIM = isRouting ? 'exit' : 'show'
@@ -44,14 +44,16 @@ const Section = ({
         if (!isMd & inViewMin || isMd & inView) setSection(index)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isMd, inView, inViewMin, allowUpdates, isRouting, setSection])
+
     const cardProps = {
         id: id,
         idx: index,
-        INITIAL: INITIAL,
-        ANIM: ANIM,
-        EXIT: EXIT,
-        yDir: yDir,
+        initialAnim: INITIAL,
+        anim: ANIM,
+        exitAnim: EXIT,
+        scrollDirection: scrollDirection,
         isMd: isMd,
+        isRouting: isRouting,
         ...data,
     }
 
@@ -68,7 +70,11 @@ const Section = ({
             />
             {isMd ? (
                 <>
-                    <AnimatePresence mode="sync" initial={false} custom={yDir}>
+                    <AnimatePresence
+                        mode="sync"
+                        initial={false}
+                        custom={scrollDirection}
+                    >
                         {(activeSection === index) & inView ? (
                             <section
                                 key={id}
@@ -81,7 +87,7 @@ const Section = ({
                                     animate={ANIM}
                                     exit={EXIT}
                                     variants={variants}
-                                    custom={yDir}
+                                    custom={scrollDirection}
                                 >
                                     {useChildren ? (
                                         children

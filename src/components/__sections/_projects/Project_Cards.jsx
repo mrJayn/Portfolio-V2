@@ -95,10 +95,14 @@ const IsMdCard = ({ title, brief, src, tech, href_github, href_site, idx }) => {
                     className=" border-b-[1px] text-3xl font-bold"
                 />
                 <div className="flex-evenly mb-2 w-full space-x-3">
-                    <Tech
-                        tech={tech}
-                        className="text-center text-sm tracking-tighter dark:text-grey-60/90 dark:brightness-110"
-                    />
+                    {tech.map((item, i) => (
+                        <span
+                            key={`tech-item-${i}`}
+                            className="relative w-full whitespace-nowrap text-center text-sm capitalize italic tracking-tighter text-grey-60/90 brightness-110 sm:font-medium md:tracking-wide"
+                        >
+                            {item}
+                        </span>
+                    ))}
                 </div>
 
                 {/***/}

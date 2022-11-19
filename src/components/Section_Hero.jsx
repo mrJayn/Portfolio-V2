@@ -1,16 +1,14 @@
 import { motion } from 'framer-motion'
 import { SectionImage } from '@components'
 import { sectionContentVariants as variants } from '@motion'
-import { useMediaQuery } from '@hooks'
 
 const ScrollDownText = ({ even = false }) => (
-    <motion.h7
-        className={`fixed bottom-[20%] -z-10 ${
+    <motion.p
+        className={`fixed bottom-[20%] -z-10 text-lg tracking-tight ${
             even == false ? 'left-1/2' : even ? 'left-1/4' : 'right-1/4'
         }`}
         initial="hidden"
         whileInView="show"
-        exit="exit"
         variants={variants.scrollDownText}
     >
         Scroll Down
@@ -18,7 +16,7 @@ const ScrollDownText = ({ even = false }) => (
             <motion.span variants={variants.scrollDownArrow} />
             <motion.span variants={variants.scrollDownArrow} />
         </span>
-    </motion.h7>
+    </motion.p>
 )
 
 const Section_Hero = ({ even, isMd, ...data }) => {
@@ -49,7 +47,7 @@ const Section_Hero = ({ even, isMd, ...data }) => {
                 ) : null}
 
                 <motion.div
-                    className="flex-col-center full px-4 text-center md:px-10"
+                    className="flex-col-center full gap-y-5 px-4 text-center     md:px-10"
                     style={{
                         order: even ? 1 : 2,
                         maxWidth: isMd & !isProjectsSection ? '50%' : 'none',
@@ -61,7 +59,7 @@ const Section_Hero = ({ even, isMd, ...data }) => {
                     variants={variants.Container}
                 >
                     <motion.h2
-                        className="relative mb-5 animate-none text-4xl sm:text-5xl md:mb-10"
+                        className="relative animate-none text-4xl sm:text-5xl"
                         {...itemProps}
                     >
                         {data.title}
@@ -78,7 +76,7 @@ const Section_Hero = ({ even, isMd, ...data }) => {
                     </motion.p>
 
                     <motion.hr
-                        className="my-5 w-full text-grey md:my-10"
+                        className="w-full text-grey"
                         variants={variants.Decoration}
                         custom={even}
                     />

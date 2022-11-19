@@ -82,10 +82,6 @@
         @apply text-xl text-teal-30;
         font-weight: 600;
     }
-    h7 {
-        @apply text-lg text-grey-80;
-        font-weight: 600;
-    }
     p {
         @apply text-base text-grey-80;
         letter-spacing: -0.25px;

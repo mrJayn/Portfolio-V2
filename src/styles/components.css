@@ -134,9 +134,14 @@
     /* EXPERIENCE */
     #experience-innerHTML {
         & > p {
-            @apply flex-center indent-2 md:leading-7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            white-space: pre-wrap;
+            text-indent: 8px;
+
             &:not(:last-of-type) {
-                @apply pb-2 md:pb-6;
+                padding-bottom: 24px;
             }
         }
     }
@@ -166,6 +171,29 @@
         }
     }
 
+    .project-innerHTML {
+        & > p {
+            white-space: pre-wrap;
+            text-indent: 8px;
+        }
+        &:before {
+            content: '';
+            height: 30%;
+            width: 60%;
+            -webkit-shape-outside: inset(0 0 0 0);
+            shape-outside: inset(0 0 0 0);
+        }
+        &[data-even='true']:before {
+            float: right;
+        }
+        &[data-even='false']:before {
+            float: left;
+        }
+    }
+    .custom-img {
+        position: relative !important;
+        height: unset !important;
+    }
     /** Scroll Down Arrow **/
     .scroll-down-arrow {
         position: absolute;

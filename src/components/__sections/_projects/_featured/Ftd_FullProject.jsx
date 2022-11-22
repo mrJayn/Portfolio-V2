@@ -23,7 +23,7 @@ const Featured_Full = ({ even, ...data }) => {
         ['External', 'Visit Project', Data.external],
     ].map(([name, title, href], i) => (
         <a key={`icon-link-${i}`} href={href} title={title}>
-            <Styled_Icon styled name={name} size={55} />
+            <Styled_Icon name={name} size={55} />
         </a>
     ))
 

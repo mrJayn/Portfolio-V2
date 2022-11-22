@@ -28,12 +28,7 @@ const TemperedDiv = () => (
     <div className="absolute -top-40 left-0 h-40 w-screen bg-gradient_tempered" />
 )
 
-export default function SectionPage({
-    isMd,
-    Data,
-    sectionScrollRef,
-    ...pageProps
-}) {
+export default function SectionPage({ isMd, Data, ...pageProps }) {
     Data = {
         isMd: isMd,
         ...pageProps,
@@ -43,14 +38,12 @@ export default function SectionPage({
     // Section name from slug for Link "as"
     const title = Data.id.charAt(0).toUpperCase() + Data.id.slice(1)
     //
-    useEffect(() => window.scrollTo(0, 0))
+
     return (
         <Layout
             title={title}
             description={Data.description}
-            isHome={false}
             isMd={pageProps.isMd}
-            scrollRef={sectionScrollRef}
         >
             <Section_Hero
                 key={`${Data.id}-hero`}

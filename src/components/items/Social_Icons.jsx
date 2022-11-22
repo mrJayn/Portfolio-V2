@@ -16,21 +16,16 @@ const links = [
     },
 ]
 
-const Socials = ({ size = 30, action = null, ...props }) =>
+const Socials = ({ size = 30, ...props }) =>
     links.map(({ name, href }, i) => (
-        <motion.div
-            key={`social-icon-${i}`}
-            onClick={action}
-            custom={i + 1}
-            {...props}
-        >
-            <a title={name} href={href}>
-                <Styled_Icon
-                    styled
-                    key={`social-${i}`}
-                    name={name}
-                    size={size}
-                />
+        <motion.div key={`social-icon-${i}`} custom={i + 1} {...props}>
+            <a
+                title={name}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <Styled_Icon name={name} size={size} />
             </a>
         </motion.div>
     ))

@@ -12,9 +12,15 @@ const ScrollDownText = ({ even = false }) => (
         variants={variants.scrollDownText}
     >
         Scroll Down
-        <span className="scroll-down-arrow">
-            <motion.span variants={variants.scrollDownArrow} />
-            <motion.span variants={variants.scrollDownArrow} />
+        <span className="scroll-down-arrow absolute -bottom-8 left-0 flex h-auto w-full">
+            <motion.span
+                className="w-full border-y-[3px]"
+                variants={variants.scrollDownArrow}
+            />
+            <motion.span
+                className="w-full border-y-[3px]"
+                variants={variants.scrollDownArrow}
+            />
         </span>
     </motion.p>
 )
@@ -47,10 +53,10 @@ const Section_Hero = ({ even, isMd, ...data }) => {
                 ) : null}
 
                 <motion.div
-                    className="flex-col-center full gap-y-5 px-4 text-center     md:px-10"
+                    className="flex-col-center full gap-y-5 px-4 text-center md:px-10"
                     style={{
                         order: even ? 1 : 2,
-                        maxWidth: isMd & !isProjectsSection ? '50%' : 'none',
+                        maxWidth: isMd & !isProjectsSection ? '50vw' : 'none',
                     }}
                     initial="hidden"
                     whileInView="show"

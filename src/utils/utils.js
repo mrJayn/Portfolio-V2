@@ -1,14 +1,38 @@
 /**
- * Enable or Disable page scrolling
- * @param {boolean} allowScroll
+ * @param {string} querySelector - Selector string for scrollable element
+ * @param {function} callback - Function to perform after scroll
  */
-export function toggleScrolling(allowScroll) {
-    if (typeof window !== undefined) {
-        document.querySelector('body').style.overflow =
-            allowScroll == true ? 'auto' : 'hidden'
-    }
+export function awaitScrollToTop(querySelector = 'body', callback) {
+    const scrollDiv = document.querySelector(querySelector)
+    const prevScrollY = null
+
+    scrollDiv.scrollTo({ top: 0, behavior: 'smooth' })
+
+    const checkIfAtTop = setInterval(() => {
+        var scrollY = scrollDiv.scrollTop
+        if (scrollY == prevScrollY) {
+            clearInterval(checkIfAtTop)
+            callback()
+        }
+        prevScrollY = scrollY
+    }, 50)
 }
 
+/**
+ * @param {boolean} toggle - True - enabled / False - disabled
+ */
+export function toggleScrolling(toggle) {
+    const overflowStyle = toggle ? 'auto' : 'hidden'
+    document.querySelector('body').style.overflow = overflowStyle
+}
+
+/**
+ * @param {number} x - Drag event offset x value
+ * @param {number} v  - Drag event velocity x value
+ * @param {number} currentTab - Index of current open tab
+ * @param {number} span - Total number of tabs
+ * @param {function} setTab - Function to set new current Tab
+ */
 export function handleSwipe(x, v, currentTab, span, setTab) {
     const threshold = 5000
     const swipe = Math.abs(x) * v
@@ -41,22 +65,25 @@ export const paginate = (newDirection, currentTab, span, setTab) => {
 
 /**
  * Scroll to the specified id
- * @param {string} id - section or anchor id including the "#"
+ * @param {string} querySelector - Query Selector of target element
  * @param {string} behaivor - scroll behaivor "smooth" or "auto"
  */
-export function scrollToID(id, behaivor = null) {
-    const scrollType = behaivor !== null ? behaivor : isMd ? 'auto' : 'smooth'
+export function scrollToID(querySelector, behaivor = null) {
     const isMd = window.innerWidth >= 768
-    document.querySelector(id).scrollIntoView({
-        behavior: scrollType,
+
+    const scrollBehaivor =
+        behaivor !== null ? behaivor : isMd ? 'auto' : 'smooth'
+
+    document.querySelector(querySelector).scrollIntoView({
+        behavior: scrollBehaivor,
+        block: isMd ? 'center' : 'end',
     })
 }
 
 /**
- * Return an index value from a specified index
- * @param idx - index of active section
+ * @param {number} index - index of active section
  */
-export const index2id = (idx) => {
+export const index2id = (index) => {
     const sectionsIDXs = {
         0: 'intro',
         1: 'about',
@@ -64,5 +91,5 @@ export const index2id = (idx) => {
         3: 'projects',
         4: 'contact',
     }
-    return sectionsIDXs[idx]
+    return sectionsIDXs[index]
 }

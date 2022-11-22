@@ -104,7 +104,7 @@ const Contact = () => {
                 {/** Socials */}
                 <div className="flex w-screen max-w-[1280px] justify-around sm:justify-evenly">
                     <Social_Icons
-                        size={isMd ? 40 : 35}
+                        size={isMd ? 50 : 35}
                         initial="hidden"
                         animate="show"
                         variants={variants.Socials}

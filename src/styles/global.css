@@ -24,6 +24,7 @@
     --text-color: #eee;
     --shadow-color: #000;
 
+    --theme-slate: theme(colors.slate.DEFAULT);
     --theme-teal: theme(colors.teal.DEFAULT);
     --theme-purple: theme(colors.purple.DEFAULT);
 }

@@ -1,113 +1,121 @@
-import { createRef, useEffect, useRef } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useInView, AnimatePresence } from 'framer-motion'
 
 import { Section_Card } from '@components'
-import { useIsRouting, useMediaQuery } from '@hooks'
 import { sectionVariants as variants } from '@motion'
+import { index2id } from '@utils'
 
 const Section = ({
     id,
     index,
-    useChildren,
     activeSection,
     setSection,
-    allowUpdates,
-    INITIAL,
-    scrollRef,
+    isMd,
+    isRouting,
+    screenOrientation,
+    useChildren = false,
     children,
     ...data
 }) => {
-    const mdRef = useRef(null)
-    const minRef = createRef(null)
     // REMEMBER TO CHANGE THIS ROUTING TO FALSE --- TRUE FOR EDTING PURPOSES
-    const isRouting = useIsRouting(true)
-    const isMd = useMediaQuery(768)
-
-    const inView = useInView(mdRef, { amount: 0.75 })
-    const inViewMin = useInView(minRef, { amount: 0.5 })
-
+    const ref = useRef(null)
+    const inView = useInView(ref, { amount: 0.75 })
     const { scrollYProgress } = useScroll({
-        target: mdRef,
+        target: ref,
         offset: ['end end', 'start start'],
     })
-
-    // Desktop EXIT directions
     const scrollDirection = scrollYProgress.get() > 0.5 ? -1 : 1
 
-    // Motion
-    const ANIM = isRouting ? 'exit' : 'show'
-    const EXIT = isRouting ? 'exit' : 'hidden'
+    const [initialAnim, setInitialAnim] = useState('hidden')
+    const anim = isRouting & (index == activeSection) ? 'exit' : 'show'
 
-    // Set current Section
+    const SectionContent = useChildren ? (
+        children
+    ) : (
+        <Section_Card
+            id={id}
+            idx={index}
+            initialAnim={initialAnim}
+            anim={anim}
+            scrollDirection={scrollDirection}
+            isMd={isMd}
+            isRouting={isRouting}
+            {...data}
+        />
+    )
+
+    // Scroll to section on Resize / md breakpoint
     useEffect(() => {
-        if (isRouting || !allowUpdates || activeSection == index) return
-        if (!isMd & inViewMin || isMd & inView) setSection(index)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isMd, inView, inViewMin, allowUpdates, isRouting, setSection])
+        let current = activeSection
+        if (current == 0) return
+        const resizehandler = () => {
+            if (index == current) {
+                document
+                    .getElementById(`${index2id(current)}-area`)
+                    .scrollIntoView({
+                        behavior: 'auto',
+                        block: isMd ? 'center' : 'end',
+                    })
+            }
+            setSection(current)
+        }
+        resizehandler()
+        window.addEventListener('resize', resizehandler)
+        return () => window.removeEventListener('resize', resizehandler)
+    }, [isMd, screenOrientation])
 
-    const cardProps = {
-        id: id,
-        idx: index,
-        initialAnim: INITIAL,
-        anim: ANIM,
-        exitAnim: EXIT,
-        scrollDirection: scrollDirection,
-        isMd: isMd,
-        isRouting: isRouting,
-        ...data,
-    }
+    // Set Initial Variant if Routing
+    useEffect(() => {
+        if ((index == activeSection) & (index !== 0))
+            setInitialAnim(isRouting ? 'exit' : 'hidden')
+    }, [isRouting])
+
+    // Set Active Section
+    useEffect(() => {
+        if ((activeSection !== index) & inView & !isRouting) setSection(index)
+    }, [inView])
 
     return (
         <>
             <span
                 id={`${id}-area`}
-                className={
-                    isMd
-                        ? 'section-snap h-[calc(100vh-var(--nav-height))] w-full'
-                        : ''
-                }
-                ref={mdRef}
-            />
+                className={` md:section-snap mb-24 h-[calc(100vh-var(--nav-height))] w-full last-of-type:mb-0`}
+                ref={ref}
+            >
+                {!isMd ? (
+                    <section id={id} className="flex-center full">
+                        {SectionContent}
+                    </section>
+                ) : null}
+            </span>
+
             {isMd ? (
-                <>
-                    <AnimatePresence
-                        mode="sync"
-                        initial={false}
-                        custom={scrollDirection}
-                    >
-                        {(activeSection === index) & inView ? (
-                            <section
-                                key={id}
-                                id={id}
-                                className="flex-center fixed left-0 top-12 h-[calc(100vh-48px)]  w-full"
-                            >
-                                <motion.div
-                                    className="absoluteFull overflow-hidden"
-                                    initial={INITIAL}
-                                    animate={ANIM}
-                                    exit={EXIT}
-                                    variants={variants}
-                                    custom={scrollDirection}
-                                >
-                                    {useChildren ? (
-                                        children
-                                    ) : (
-                                        <Section_Card {...cardProps} />
-                                    )}
-                                </motion.div>
-                            </section>
-                        ) : null}
-                    </AnimatePresence>
-                </>
-            ) : (
-                <section
-                    id={id}
-                    className="section-snap flex-center h-[calc(100vh-var(--nav-height))] w-full overflow-hidden"
-                    ref={minRef}
+                <AnimatePresence
+                    mode="sync"
+                    initial={false}
+                    custom={scrollDirection}
                 >
-                    {useChildren ? children : <Section_Card {...cardProps} />}
-                </section>
-            )}
+                    {(activeSection === index) & inView ? (
+                        <section
+                            key={id}
+                            id={id}
+                            className="flex-center fixed left-0 top-0 h-screen w-full"
+                        >
+                            <motion.div
+                                className="absoluteFull overflow-hidden"
+                                initial={initialAnim}
+                                animate={anim}
+                                exit="hidden"
+                                variants={variants}
+                                custom={scrollDirection}
+                            >
+                                {SectionContent}
+                            </motion.div>
+                        </section>
+                    ) : null}
+                </AnimatePresence>
+            ) : null}
         </>
     )
 }

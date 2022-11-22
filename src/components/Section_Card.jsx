@@ -9,7 +9,6 @@ const Section_Card = ({
     idx,
     initialAnim,
     anim,
-    exitAnim,
     scrollDirection,
     isMd,
     isRouting,
@@ -22,7 +21,7 @@ const Section_Card = ({
     const pathAs = data.slug.charAt(0).toUpperCase() + data.slug.slice(1)
 
     // Props
-    const motionProps = { initial: initialAnim, animate: anim, exit: exitAnim }
+    const motionProps = { initial: initialAnim, animate: anim, exit: 'hidden' }
     const itemProps = {
         variants: isMd ? variants.Items_X : variants.Items_Y,
         custom: isMd ? (even ? -1 : 1) : scrollDirection,
@@ -63,7 +62,7 @@ const Section_Card = ({
             ) : null}
 
             <motion.div
-                id={`content-${id}`}
+                id={id + '-content'}
                 data-animation={anim}
                 className={`full flex-col-btw relative whitespace-pre-line p-8 text-center sm:px-20 sm:py-32 md:justify-center md:space-y-10 md:p-0 landscape:justify-center landscape:py-0  ${
                     even

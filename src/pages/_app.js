@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
 import { useRouter } from 'next/router'
@@ -11,7 +11,7 @@ import {
 import { ToastContainer } from 'react-toastify'
 
 import { Navbar, Loader } from '@components'
-import { useIsRouting, useMediaQuery } from '@hooks'
+import { useIsRouting, useMediaQuery, useScreenOrientation } from '@hooks'
 
 import '../styles/global.css'
 import 'react-toastify/dist/ReactToastify.css'
@@ -21,35 +21,28 @@ function MyApp({ Component, pageProps }) {
     const isHome = router.pathname === '/'
     const url = `https://mikejayne.com${router.pathname}`
 
-    const isMd = useMediaQuery(768)
-
     const [isLoading, setIsLoading] = useState(isHome)
-
-    const [globOpen, setGlobOpen] = useState(null)
-
     const [activeSection, setSection] = useState(0)
-
-    const scrollRef = useRef(null)
+    const isMd = useMediaQuery(768)
+    const isRouting = useIsRouting(true)
 
     // Page Properties
     pageProps = {
         isHome: isHome,
-        isRouting: useIsRouting(true),
         isFirstLoad: useRef(true),
+        isRouting: isRouting,
+        isMd: isMd,
+        screenOrientation: useScreenOrientation(),
         activeSection: activeSection,
         setSection: setSection,
-        scrollRef: scrollRef,
-        isMd: isMd,
         pRM: useReducedMotion(),
-        globalControls: [globOpen, setGlobOpen],
         ...pageProps,
     }
 
     const navProps = {
         isHome: isHome,
         isMd: isMd,
-        scrollRef: scrollRef,
-        globalControls: [globOpen, setGlobOpen],
+        isRouting: isRouting,
     }
 
     return (
@@ -77,7 +70,7 @@ function MyApp({ Component, pageProps }) {
                     <MotionConfig reducedMotion="user">
                         <Navbar {...navProps} />
                         <>
-                            <AnimatePresence mode="wait" onExitComplete={()=>console.log("exit")}>
+                            <AnimatePresence mode="sync" initial={false}>
                                 <Component {...pageProps} key={url} />
                             </AnimatePresence>
                         </>

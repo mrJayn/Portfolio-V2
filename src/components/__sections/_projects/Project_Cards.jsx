@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { BiShow, BiHide } from 'react-icons/bi'
 
-import { Tech, Styled_Icon } from '@components'
+import { Styled_Icon } from '@components'
 import { projectVariants } from '@motion'
 
 const ProjectTitle = ({ title, className = '' }) => (
@@ -19,7 +19,7 @@ const Project_Icons = ({ hrefs, size = 45, ...props }) =>
                 : ['External', 'Visit Project']
         return (
             <a key={`project-link-${i}`} href={href} title={title} {...props}>
-                <Styled_Icon styled invert={true} name={name} size={size} />
+                <Styled_Icon name={name} size={size} />
             </a>
         )
     })

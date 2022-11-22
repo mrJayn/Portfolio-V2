@@ -1,7 +1,6 @@
-import { isValidElement, useEffect, useRef, useState } from 'react'
+import { isValidElement } from 'react'
 import { getAllMarkdown } from 'src/lib/markdown'
 import { Contact, Intro, Layout, Section } from '@components'
-import { index2id } from '@utils'
 
 const title = 'Portfolio'
 const description =
@@ -12,61 +11,14 @@ export default function Home({
     setSection,
     isRouting,
     isMd,
+    screenOrientation,
     data,
     ...pageProps
 }) {
-    const scrollRef = useRef(null)
-    const [initialVariant, setInitialVariant] = useState('')
-    const [allowUpdates, setAllowUpdates] = useState(false)
-
-    // Restrict initial page interactability  &  Set FramerMotion "initial" value
-    useEffect(() => {
-        const activeIndex = activeSection
-
-        const resetProps = () => {
-            let timeout = setTimeout(() => {
-                setAllowUpdates(true)
-                setInitialVariant('hidden')
-            }, 1500)
-            return () => clearTimeout(timeout)
-        }
-
-        if (activeIndex !== 0) {
-            setSection(activeIndex)
-            setInitialVariant(isRouting ? 'exit' : 'hidden')
-            // Align active-section  &  active-area
-            console.log(
-                document.getElementById(index2id(activeIndex) + '-area')
-            )
-            // Scroll To section on viewport change
-            document
-                .getElementById(index2id(activeIndex) + '-area')
-                .scrollIntoView({
-                    behavior: 'auto',
-                    block: isMd ? 'center' : 'start',
-                })
-            resetProps()
-        } else {
-            resetProps()
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isMd])
-
     // Required States + Markdown + Global States
-    data = {
-        activeSection: activeSection,
-        setSection: setSection,
-        allowUpdates: allowUpdates,
-        initialVariant: initialVariant,
-        ...pageProps,
-        ...data,
-    }
+    data = { ...pageProps, ...data }
 
     // Section Components
-    const projectsSectionData = {
-        featured: data.featured_data,
-        ...data.projects,
-    }
     const sectionComponents = [
         {
             id: 'intro',
@@ -82,7 +34,10 @@ export default function Home({
         },
         {
             id: 'projects',
-            data: projectsSectionData,
+            data: {
+                featured: data.featured_data,
+                ...data.projects,
+            },
         },
         {
             id: 'contact',
@@ -91,23 +46,17 @@ export default function Home({
     ]
 
     return (
-        <Layout
-            scrollRef={scrollRef}
-            title={title}
-            description={description}
-            isHome={data.isHome}
-            isMd={isMd}
-        >
-            {sectionComponents.map(({ id, data }, i) => {
+        <Layout isHome title={title} description={description} isMd={isMd}>
+            {sectionComponents.map(({ id, data }, index) => {
                 const isValidJSX = isValidElement(data)
                 const props = {
                     id: id,
-                    index: i,
+                    index: index,
                     activeSection: activeSection,
                     setSection: setSection,
-                    allowUpdates: allowUpdates,
-                    INITIAL: initialVariant,
-                    scrollRef: scrollRef,
+                    isMd: isMd,
+                    isRouting: isRouting,
+                    screenOrientation: screenOrientation,
                     ...(isValidJSX ? { useChildren: true } : data),
                 }
                 return isValidJSX ? (

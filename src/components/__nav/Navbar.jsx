@@ -1,101 +1,69 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { motion, useScroll } from 'framer-motion'
+import { motion } from 'framer-motion'
 
-import { BackBtn, Burger, Logo, Menu, MsgBtn, NavLinks } from '@navItems'
-import { useIsRouting } from '@hooks'
-import { toggleScrolling } from '@utils'
-import { navVariants } from '@motion'
+import { BackBtn, Burger, Menu, MsgBtn, NavLinks } from '@navItems'
+import { awaitScrollToTop, toggleScrolling } from '@utils'
 
-const Navbar = ({ isHome, isMd, scrollRef, globalControls }) => {
+const Logo = () => (
+    <motion.a
+        href="/"
+        className="flex-center full relative  z-50  cursor-pointer select-none text-center text-3xl font-semibold leading-10 tracking-wide text-slate transition-none md:text-4xl"
+        style={{ textShadow: '2px 2px 1px #8ad, 2px 2px 3px #fff8' }}
+    >
+        JYN
+    </motion.a>
+)
+
+const Navbar = ({ isHome, isMd }) => {
     const router = useRouter()
-    const isRouting = useIsRouting(true)
-    const [globOpen, setGlobOpen] = globalControls
-    const globalOpen = globOpen !== null
-    const [menuOpen, setMenuOpen] = useState(false)
-    const { scrollY } = useScroll({ container: scrollRef })
+    const [menuOpen, setMenu] = useState(false)
 
-    // Menu Toggle Function
     const toggleMenu = () => {
-        setMenuOpen(!menuOpen)
+        setMenu(!menuOpen)
         toggleScrolling(menuOpen)
     }
 
-    // Return from SectionPage
-    const returnHome = () => {
-        document
-            .querySelector('main > div')
-            .scrollTo({ top: 0, behavior: 'smooth' })
+    const backToHome = () =>
+        awaitScrollToTop('main > div', () =>
+            router.push('/', '', { scroll: false })
+        )
 
-        var position = null
-        const checkIfScrollIsStatic = setInterval(() => {
-            if (position == scrollY.get()) {
-                clearInterval(checkIfScrollIsStatic)
-                router.back()
-            }
-            position = scrollY.get()
-        }, 50)
-    }
-
-    const handleBurger = () => (isHome ? toggleMenu() : returnHome())
-    const handleLogo = () => {
-        if (isHome) {
-            if (menuOpen) toggleMenu()
-            window.scrollTo({ top: 0, behavior: isMd ? 'auto' : 'smooth' })
-        } else {
-            returnHome()
-        }
-    }
-
-    // ~ Components ~ @Media max-width: 767px
+    // Components via screen size
+    const ActiveComponents = isMd ? [1, 3] : [0, 1, 2]
     const Components = {
         0: (
             <Burger
-                ANIM={
-                    !isHome
-                        ? 'return'
-                        : menuOpen || globalOpen
-                        ? 'opened'
-                        : 'closed'
-                }
-                handleBurger={handleBurger}
+                ANIM={!isHome ? 'return' : menuOpen ? 'opened' : 'closed'}
+                handleBurger={() => (isHome ? toggleMenu() : backToHome())}
             />
         ),
-        1: <Logo handleLogo={handleLogo} />,
+        1: <Logo />,
         2: <MsgBtn isHome={isHome} router={router} />,
-        3: (
-            <NavLinks
-                state={isHome & !isRouting}
-                variants={navVariants.NavLinks}
-            />
-        ),
+        3: <NavLinks isHome={isHome} />,
     }
-
-    // Select Keys to display
-    const ActiveKeys = isMd ? [1, 3] : [0, 1, 2]
 
     // Close Menu if isRouting || @media > 768px
     useEffect(() => {
-        // if (isMd & menuOpen || !isHome & menuOpen) setMenuOpen(false)
-        if (isMd & menuOpen || !isHome & menuOpen) setMenuOpen(false)
+        if (isMd & menuOpen || !isHome & menuOpen) setMenu(false)
     }, [isMd, isHome, menuOpen])
 
     return (
         <>
             <motion.nav
-                id="nav"
+                id="navbar"
+                className="tempered-bg fixed top-0 left-0 z-30 h-14 w-full"
                 data-menuopen={menuOpen}
-                className="fixed top-0 left-0 z-30 h-12 w-full"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
             >
                 <ul className="flex-btw full md:pl-[calc(5vw-30px)] md:pr-[calc(2.5vw-20px)]">
                     <>
-                        {ActiveKeys.map((key) => {
+                        {ActiveComponents.map((key) => {
                             return (
                                 <li
                                     key={`nav-item-${key}`}
-                                    className="flex-center relative z-10 h-[48px] min-w-[48px]"
+                                    className="flex-center relative z-10 h-14 min-w-[48px]"
                                     style={{ order: key }}
                                 >
                                     {Components[key]}
@@ -106,9 +74,9 @@ const Navbar = ({ isHome, isMd, scrollRef, globalControls }) => {
                 </ul>
             </motion.nav>
             {/** Menu **/}
-            {isMd ? <BackBtn isHome={isHome} returnHome={returnHome} /> : null}
+            {isMd ? <BackBtn isHome={isHome} backToHome={backToHome} /> : null}
             {/** Menu **/}
-            {isMd ? null : <Menu isOpen={menuOpen} toggleMenu={toggleMenu} />}
+            {isMd ? null : <Menu menuOpen={menuOpen} toggleMenu={toggleMenu} />}
         </>
     )
 }

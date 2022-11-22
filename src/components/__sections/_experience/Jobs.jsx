@@ -1,8 +1,6 @@
-import { useOnClickOutside } from '@hooks'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useState } from 'react'
 import { experienceMotion } from '@motion'
-import { Styled_Icon } from '@components'
 
 const Jobs = ({ isMd, ...data }) => {
     // JOBS
@@ -29,7 +27,7 @@ const Jobs = ({ isMd, ...data }) => {
         ))
 
     return (
-        <div className="flex-center relative w-full rounded-3xl p-2 md:min-h-[650px] md:justify-start md:bg-grey-10 lg:min-h-[500px] md:landscape:min-h-[500px]">
+        <div className="flex-center relative w-full rounded-3xl p-2 md:min-h-[650px] md:justify-start md:bg-grey-10 md:landscape:min-h-[500px] lg:min-h-[500px]">
             <div className="full flex-col-center md:w-[35%]">
                 {data.job_data.map(([title, jobPosition, dates, _], i) => {
                     return (

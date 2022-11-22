@@ -224,6 +224,7 @@ export const sectionContentVariants = {
                 opacity: 1,
                 scale: 0.75,
                 originX: i == 0 ? 0.5 : i == 1 ? 0.3 : 0.7,
+                zIndex: 1,
                 transition: {
                     default: {
                         duration: 2,
@@ -239,6 +240,7 @@ export const sectionContentVariants = {
             opacity: 1,
             scale: 1,
             originX: [i == 0 ? 0.5 : i == 1 ? 0.3 : 0.7, 0.5],
+            zIndex: -1,
             transition: {
                 default: {
                     duration: 1,
@@ -287,33 +289,18 @@ export const sectionContentVariants = {
 }
 
 export const navVariants = {
-    Logo: {
-        hidden: { opacity: 0, y: -50 },
-        show: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 2, delay: 0.25, ease: 'anticipate' },
-        },
-    },
     NavLinks: {
-        Wrap: {
-            hidden: { transition: { staggerChildren: 0.075 } },
-            show: {
-                transition: {
-                    staggerChildren: 0.075,
-                    staggerDirection: -1,
-                    delayChildren: 0.5,
-                },
+        hidden: (i) => ({
+            y: -50,
+            transition: { duration: 0.5, delay: i * 0.075 },
+        }),
+        show: (i) => ({
+            y: 0,
+            transition: {
+                duration: 1,
+                delay: 1.75 + i * 0.075,
             },
-        },
-        Items: {
-            hidden: { opacity: 0, y: -25, transition: { duration: 0.5 } },
-            show: {
-                opacity: 1,
-                y: 0,
-                transition: { y: { duration: 0.5, ease: 'circOut' } },
-            },
-        },
+        }),
     },
     Burger: {
         Wrap: {
@@ -376,37 +363,25 @@ export const navVariants = {
             }),
         },
     },
-    MessageBtn: {
-        hidden: { opacity: 0 },
-        show: { opacity: 1 },
-        exit: {
-            opacity: 0,
-            x: '100%',
-            transition: {
-                default: { ease: 'backIn' },
-                opacity: { duration: 1.25 },
-            },
-        },
-    },
     BackButton: {
-        Container: {
+        LineA: {
             hidden: {
-                opacity: 0,
-                x: 150,
+                scaleX: 0,
+                originX: [0, -1],
+                transition: { duration: 0.5 },
             },
             show: {
-                opacity: 1,
-                x: 0,
-                transition: { duration: 1, delay: 0.25, ease: 'easeInOut' },
-            },
-            exit: {
-                opacity: 0,
-                x: -500,
-                transition: { duration: 1, ease: 'backIn' },
+                scaleX: 1,
+                originX: [2, 1],
+                transition: { duration: 1, delay: 0.25, ease: 'easeOut' },
             },
         },
-        LineA: {
-            hidden: { opacity: 0, rotate: 0 },
+        LineB: {
+            hidden: {
+                opacity: 0,
+                rotate: 0,
+                transition: { duration: 0.25 },
+            },
             show: (i = 0) => ({
                 opacity: 1,
                 rotate: i,
@@ -416,24 +391,6 @@ export const navVariants = {
                     ease: 'anticipate',
                 },
             }),
-            exit: (i) => ({
-                opacity: 1,
-                rotate: i / 2,
-                transition: { duration: 0.5, ease: 'backOut' },
-            }),
-        },
-        LineB: {
-            hidden: {
-                scaleX: 0,
-            },
-            show: {
-                scaleX: 1,
-                transition: { duration: 1, delay: 0.25, ease: 'easeInOut' },
-            },
-            exit: {
-                scaleX: 0,
-                transition: { duration: 1, ease: 'easeIn' },
-            },
         },
     },
 }
@@ -452,7 +409,7 @@ export const menuVariants = {
         show: {
             clipPath: `polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)`,
             transition: {
-                delay: 0.25,
+                delay: 0.35,
                 type: 'spring',
                 bounce: 0,
                 stiffness: 50,

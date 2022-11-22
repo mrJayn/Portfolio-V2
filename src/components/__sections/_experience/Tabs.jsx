@@ -43,13 +43,13 @@ const Tabs = ({ tabNames, tabs, currentTab, direction, setTab }) => {
     const scrollRef = useRef(null)
     return (
         <motion.div
-            className="fixed left-0 right-0 top-12 bottom-0 bg-background"
+            className="fixed left-0 right-0 top-14 bottom-0 bg-background"
             initial="hidden"
             animate="show"
             exit="hidden"
             variants={variants.Wrap}
         >
-            <div className="absolute top-0 left-0 right-0 bottom-16">
+            <div className="absolute top-0 left-0 right-0 bottom-14">
                 <motion.div
                     className="absoluteFull overflow-x-hidden overflow-y-scroll bg-background text-center"
                     ref={scrollRef}
@@ -73,7 +73,7 @@ const Tabs = ({ tabNames, tabs, currentTab, direction, setTab }) => {
                 </motion.div>
                 {/***/}
                 <motion.div
-                    className="flex-center fixed bottom-0 left-0 right-0 z-10 h-16 bg-nav"
+                    className="flex-center fixed bottom-0 left-0 right-0 z-10 h-14 bg-nav"
                     variants={variants.TabListContainer}
                 >
                     <Tabs_List

@@ -4,9 +4,9 @@ import { AnimatePresence } from 'framer-motion'
 import Card_Base from './Card_Base'
 import Tabs from '../__sections/_experience/Tabs'
 
-import { useGlobalControls, useMediaQuery } from '@hooks'
+import { useMediaQuery } from '@hooks'
 
-const Card_Group = ({ tabs, globalControls, ...data }) => {
+const Card_Group = ({ tabs, ...data }) => {
     const isMd = useMediaQuery(768)
     const [expanded, setExpanded] = useState(false)
     const [[currentTab, direction], setTab] = useState([0, 0])
@@ -32,9 +32,6 @@ const Card_Group = ({ tabs, globalControls, ...data }) => {
         setExpanded: setExpanded,
         isMd: isMd,
     }
-
-    // useGlobalControls for dynamic NAV (@media<768px)
-    useGlobalControls(globalControls, [expanded, setExpanded], ['card', isMd])
 
     return (
         <>

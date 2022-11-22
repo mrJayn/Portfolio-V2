@@ -47,6 +47,7 @@ module.exports = {
                 70: '#3d4d6a',
                 80: '#283347',
                 90: '#141a23',
+                neon: '#6199ff',
             },
             purple: {
                 light: '#c1b0e1',

@@ -37,7 +37,7 @@ const Featured_Slide = ({ projectData, direction = 0, isMd }) => {
         ['External', 'Visit Project', projectData.external],
     ].map(([name, title, href], i) => (
         <a key={`project-link-${i}`} href={href} title={title}>
-            <Styled_Icon styled name={name} size={55} />
+            <Styled_Icon name={name} size={55} />
         </a>
     ))
 

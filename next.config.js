@@ -13,17 +13,15 @@ if (isGithubActions) {
     const repo = process.env.GITHUB_REPOSITORY.replace(/.*?\//, '')
 
     assetPrefix = `/${repo}/`
-    basePath = `/${repo}`
 }
-
-console.log(basePath)
 
 module.exports = {
     images: {
         loader: 'akamai',
         path: basePath,
     },
-
+    basePath: basePath,
+    assetPrefix: assetPrefix,
     webpack5: true,
     webpack: (config) => {
         config.resolve.fallback = { fs: false }

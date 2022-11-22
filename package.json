@@ -1,5 +1,6 @@
 {
     "name": "portfolio-nextjs",
+    "homepage": "https://www.mikejayne.com",
     "version": "0.1.0",
     "private": true,
     "scripts": {

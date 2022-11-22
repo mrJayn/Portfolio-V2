@@ -1,13 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
 import { useRouter } from 'next/router'
-import {
-    AnimatePresence,
-    MotionConfig,
-    useReducedMotion,
-    useScroll,
-} from 'framer-motion'
+import { AnimatePresence, MotionConfig, useReducedMotion } from 'framer-motion'
 import { ToastContainer } from 'react-toastify'
 
 import { Navbar, Loader } from '@components'

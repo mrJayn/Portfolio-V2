@@ -7,7 +7,7 @@ import { awaitScrollToTop, toggleScrolling } from '@utils'
 
 const Logo = () => (
     <motion.a
-        href="/"
+        onClick={() => location.reload()}
         className="flex-center full relative  z-50  cursor-pointer select-none text-center text-3xl font-semibold leading-10 tracking-wide text-slate transition-none md:text-4xl"
         style={{ textShadow: '2px 2px 1px #8ad, 2px 2px 3px #fff8' }}
     >

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { navVariants as variants } from '@motion'
+import { scrollToID } from '@utils'
 const linkIds = ['about', 'experience', 'projects', 'contact', 'my Resume']
 
 const NavLinks = ({ isHome }) => (
@@ -20,7 +21,7 @@ const NavLinks = ({ isHome }) => (
                         {item}
                     </a>
                 ) : (
-                    <a href={`#${item}-area`}>{item}</a>
+                    <a onClick={() => scrollToID(`#${item}-area`)}>{item}</a>
                 )}
             </motion.li>
         ))}

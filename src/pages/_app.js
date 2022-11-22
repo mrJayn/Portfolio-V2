@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css'
 function MyApp({ Component, pageProps }) {
     const router = useRouter()
     const isHome = router.pathname === '/'
-    const url = `https://mikejayne.com${router.pathname}`
+    const url = `https://mikejayne.com/Portfolio${router.pathname}`
 
     const [isLoading, setIsLoading] = useState(isHome)
     const [activeSection, setSection] = useState(0)

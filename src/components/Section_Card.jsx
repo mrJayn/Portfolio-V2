@@ -92,7 +92,7 @@ const Section_Card = ({
                     className="relative md:mx-10"
                     variants={variants.Btn}
                 >
-                    <Styled_Button even={even}>
+                    <Styled_Button>
                         <Link
                             href={{
                                 pathname: '/section/[slug]',

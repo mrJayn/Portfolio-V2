@@ -24,25 +24,47 @@ const fontSizes = {
     '6xl': clamp(6),
 }
 
-// FONT-SIZE CONVERSION
-/* Pixels ----tw Utility Class ---- rem ----
-    12px               text-xs                 0.75rem
-    14px               text-sm                0.875rem
-    16px               text-base             1rem
-    18px               text-xl                  1.125rem 
-    20px               text-2xl               1.25rem 
-    24px               text-3xl               1.5rem 
-    30px               text-3xl               1.875rem 
-    36px               text-4xl               2.25rem 
-    48px               text-5xl               3rem 
-    60px               text-6xl               3.75rem 
-    72px               text-7xl               4.5rem 
-    96px               text-8xl               6rem 
-    128px              text-9xl               8rem 
-*/
+/* 
+    -- IT IS posible to use css variables by using postCSS-variables --
+    -- Below comment can be used when window !== undefined --
+    const asRGB = getComputedStyle(document.body, null).getPropertyValue('background-color')
+    var [r, g, b] = asRGB.substring(4, asRGB.length - 1).replace(/ /g, '').split(',')
+    */
+
+const compToHex = (c) => {
+    var hex = c.toString(16)
+    return hex.length == 1 ? '0' + hex : hex
+}
+
+const getGradient = (start = 0, totalColors = 5) => {
+    const hexColors = []
+    var [r, g, b] = [37, 42, 55]
+
+    var gradientString = 'linear-gradient(to bottom,'
+
+    for (let i = 0; i < totalColors; i++) {
+        if (i >= start) {
+            const afterHex = i == totalColors - 1 ? ')' : ','
+            const asHex =
+                '#' + compToHex(r) + compToHex(g) + compToHex(b) + afterHex
+            gradientString += asHex
+        }
+
+        r = r - 10 < 0 ? 0 : r - 10
+        g = g - 10 < 0 ? 0 : g - 10
+        b = b - 10 < 0 ? 0 : b - 10
+    }
+    console.log(gradientString)
+    return gradientString
+    /**
+     * `linear-gradient(to bottom, ${hexColors[0]}, ${hexColors[1]}, ${hexColors[2]}, ${hexColors[3]}, ${hexColors[4]})`
+     */
+}
 
 module.exports = {
     themeConfig: {
         fontSize: fontSizes,
+        backgroundGradient: getGradient(),
+        getGradient: (start, total) => getGradient(start, total),
     },
 }

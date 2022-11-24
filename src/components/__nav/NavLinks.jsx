@@ -3,16 +3,18 @@ import { navVariants as variants } from '@motion'
 import { scrollToID } from '@utils'
 const linkIds = ['about', 'experience', 'projects', 'contact', 'my Resume']
 
-const NavLinks = ({ isHome }) => (
+const NavLinks = ({ hideLinks }) => (
     <motion.ul className="full flex-center">
         {linkIds.map((item, i) => (
             <motion.li
                 key={`link-${i}`}
                 className="my-auto mx-4 cursor-pointer text-[16px] font-medium tracking-tight text-grey-60 md:pt-2 md:pb-1 lg:text-[18px]"
                 initial={false}
-                animate={isHome ? 'show' : 'hidden'}
-                variants={variants.NavLinks}
-                custom={isHome ? linkIds.length - i : i}
+                animate={hideLinks ? { y: -50 } : { y: 0 }}
+                transition={{
+                    duration: hideLinks ? 0.25 : 1,
+                    delay: hideLinks ? i * 0.075 : (linkIds.length - i) * 0.075,
+                }}
                 whileHover={{ color: '#fff' }}
                 whileTap={{ scale: 0.95, originY: 1 }}
             >

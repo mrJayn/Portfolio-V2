@@ -150,6 +150,7 @@ module.exports = {
             },
             backgroundImage: {
                 pattern: "url('/assets/misc/cardboard.png')",
+                'background-gradient': themeConfig.backgroundGradient,
                 gradient:
                     'linear-gradient(45deg, var(--theme-purple), var(--theme-teal))',
                 gradient_radial:
@@ -159,20 +160,20 @@ module.exports = {
                 nav_tempered: `linear-gradient(
                 to bottom,
                 rgb(var(--nav-bg) / 0.8) 0%,
-                rgb(var(--nav-bg) / 0.79) 8.1%,
-                rgb(var(--nav-bg) / 0.761) 15.5%,
-                rgb(var(--nav-bg) / 0.717) 22.5%,
-                rgb(var(--nav-bg) / 0.66) 29%,
-                rgb(var(--nav-bg) / 0.593) 35.3%,
-                rgb(var(--nav-bg) / 0.518) 41.2%,
-                rgb(var(--nav-bg) / 0.44) 47.1%,
-                rgb(var(--nav-bg) / 0.36) 52.9%,
-                rgb(var(--nav-bg) / 0.282) 58.8%,
-                rgb(var(--nav-bg) / 0.207) 64.7%,
-                rgb(var(--nav-bg) / 0.14) 71%,
-                rgb(var(--nav-bg) / 0.083) 77.5%,
-                rgb(var(--nav-bg) / 0.039) 84.5%,
-                rgb(var(--nav-bg) / 0.01) 91.9%,
+                rgb(var(--nav-bg) / 0.8) 10%,
+                rgb(var(--nav-bg) / 0.75) 15%,
+                rgb(var(--nav-bg) / 0.7) 22.5%,
+                rgb(var(--nav-bg) / 0.65) 30%,
+                rgb(var(--nav-bg) / 0.6) 35%,
+                rgb(var(--nav-bg) / 0.5) 40%,
+                rgb(var(--nav-bg) / 0.4) 47.5%,
+                rgb(var(--nav-bg) / 0.3) 52.5%,
+                rgb(var(--nav-bg) / 0.2) 60%,
+                rgb(var(--nav-bg) / 0.1) 70%,
+                rgb(var(--nav-bg) / 0.05) 77.5%,
+                rgb(var(--nav-bg) / 0.025) 85%,
+                rgb(var(--nav-bg) / 0.0125) 90%,
+                rgb(var(--nav-bg) / 0.00625) 92.5%,
                 transparent 100%
             )`,
                 gradient_tempered: `linear-gradient(

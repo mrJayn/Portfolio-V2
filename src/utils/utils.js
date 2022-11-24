@@ -1,24 +1,4 @@
 /**
- * @param {string} querySelector - Selector string for scrollable element
- * @param {function} callback - Function to perform after scroll
- */
-export function awaitScrollToTop(querySelector = 'body', callback) {
-    const scrollDiv = document.querySelector(querySelector)
-    const prevScrollY = null
-
-    scrollDiv.scrollTo({ top: 0, behavior: 'smooth' })
-
-    const checkIfAtTop = setInterval(() => {
-        var scrollY = scrollDiv.scrollTop
-        if (scrollY == prevScrollY) {
-            clearInterval(checkIfAtTop)
-            callback()
-        }
-        prevScrollY = scrollY
-    }, 50)
-}
-
-/**
  * @param {boolean} toggle - True - enabled / False - disabled
  */
 export function toggleScrolling(toggle) {

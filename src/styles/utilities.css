@@ -25,6 +25,14 @@
         bottom: 0;
     }
 
+    .dynamic-text-gradient {
+        color: transparent !important;
+        background: theme(backgroundImage.gradient_title) !important;
+        background-clip: text !important;
+        background-size: 300% !important;
+        @apply animate-[bgRotate_10s_linear_infinite] motion-reduce:animate-none;
+    }
+
     /** =============== FLEX BOXES =============== **/
     .flex-center,
     .flex-top,

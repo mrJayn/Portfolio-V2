@@ -11,25 +11,29 @@ const Layout = ({ isHome = false, title, description, isMd, children }) => {
             />
             <motion.main
                 id="layout"
-                className={`flex-col-top left-0 top-14 h-auto w-full ${
-                    isHome ? 'absolute' : 'fixed bottom-0 z-40'
+                className={`flex-col-top left-0 h-auto w-full ${
+                    isHome
+                        ? 'bg-background-gradient absolute top-14 z-0'
+                        : 'fixed top-0 bottom-0 z-20'
                 }`}
                 initial="hidden"
                 animate="show"
                 exit="exit"
                 variants={{
                     hidden: { opacity: isMd ? 1 : 0 },
-                    show: { opacity: 1 },
-                    exit: { opacity: 0 },
+                    show: {
+                        opacity: 1,
+                        transition: { duration: 0.5, when: 'beforeChildren' },
+                    },
+                    exit: { opacity: 0, transition: { duration: 0.5 } },
                 }}
-                transition={{ duration: 0.25 }}
             >
                 {isHome ? (
                     children
                 ) : (
                     <>
                         <a id="slugTop" />
-                        <div className="z-10 h-auto w-full overflow-x-hidden overflow-y-scroll bg-background">
+                        <div className="z-20 h-auto w-full overflow-x-hidden overflow-y-scroll">
                             {children}
                         </div>
                     </>

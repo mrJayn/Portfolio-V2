@@ -80,7 +80,7 @@ const Section = ({
         <>
             <span
                 id={`${id}-area`}
-                className={` md:section-snap mb-24 h-[calc(100vh-var(--nav-height))] w-full last-of-type:mb-0`}
+                className="md:section-snap mb-24 h-[calc(100vh-56px)] w-full last-of-type:mb-0"
                 ref={ref}
             >
                 {!isMd ? (

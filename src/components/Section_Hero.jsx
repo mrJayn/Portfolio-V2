@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { SectionImage } from '@components'
-import { sectionContentVariants as variants } from '@motion'
+import { sectionHeroVariants as variants } from '@motion'
 
 const ScrollDownText = ({ even = false }) => (
     <motion.p
@@ -25,7 +25,7 @@ const ScrollDownText = ({ even = false }) => (
     </motion.p>
 )
 
-const Section_Hero = ({ even, isMd, ...data }) => {
+const Section_Hero = ({ even, isMd, isRouting, ...data }) => {
     const isProjectsSection = data.sectionName == 'Projects'
     const itemProps = {
         variants: isMd ? variants.Items_X : variants.Items_Y,
@@ -33,16 +33,11 @@ const Section_Hero = ({ even, isMd, ...data }) => {
     }
     return (
         <>
-            {isMd ? (
-                <>
-                    <span className="relative h-screen w-full" />
-                    <ScrollDownText even={!isProjectsSection && even} />
-                </>
-            ) : null}
+            {isMd ? <ScrollDownText even={!isProjectsSection && even} /> : null}
 
             <div
                 id={`${data.sectionName}Page-hero`}
-                className="relative h-auto w-full py-3 md:flex md:h-[calc(100vh-48px)] md:py-0"
+                className="relative h-auto w-full py-3 md:flex md:h-screen md:py-0"
             >
                 {isMd & !isProjectsSection ? (
                     <SectionImage
@@ -59,10 +54,9 @@ const Section_Hero = ({ even, isMd, ...data }) => {
                         maxWidth: isMd & !isProjectsSection ? '50vw' : 'none',
                     }}
                     initial="hidden"
-                    whileInView="show"
-                    exit="back"
-                    viewport={{ once: true }}
+                    whileInView={isRouting ? 'back' : 'show'}
                     variants={variants.Container}
+                    viewport={{ once: true }}
                 >
                     <motion.h2
                         className="relative animate-none text-4xl sm:text-5xl"

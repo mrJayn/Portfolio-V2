@@ -251,6 +251,12 @@ export const sectionContentVariants = {
             },
         }),
     },
+}
+export const sectionHeroVariants = {
+    Container: sectionContentVariants.Container,
+    Items_X: sectionContentVariants.Items_X,
+    Items_Y: sectionContentVariants.Items_Y,
+    Decoration: sectionContentVariants.Decoration,
     scrollDownText: {
         hidden: {
             opacity: 0,
@@ -287,7 +293,6 @@ export const sectionContentVariants = {
         },
     },
 }
-
 export const navVariants = {
     NavLinks: {
         hidden: (i) => ({
@@ -633,44 +638,36 @@ export const tabsMotion = {
 
 /** ~ SECTIONS ~  **/
 export const introVariants = {
-    TopText: {
-        hidden: { opacity: 0, y: 10 },
-        show: (i) => {
-            const [is1st, is2nd, pause] = [i == 0, i == 1, 0.75]
-            const stagger = is1st
-                ? 0
-                : is2nd
-                ? pause
-                : i == -1
-                ? -0.5
-                : pause + i * 0.05
-            return {
-                opacity: 1,
-                y: 0,
-                transition: { duration: 0.5, delay: 1.5 + stagger },
-            }
-        },
+    TitleContainer: {
+        hidden: { transition: { when: 'afterChildren' } },
+        show: (initialDelay) => ({
+            transition: {
+                staggerChildren: 0.08,
+                delayChildren: initialDelay,
+            },
+        }),
     },
     Title: {
         hidden: {
             pathLength: 0,
             stroke: '#66fcf1',
-            strokeOpacity: 1,
-            fill: '#ffffff',
-            fillOpacity: 0,
-        },
-        pRM_hidden: {
-            pathLength: 0.5,
-            stroke: '#66fcf1',
+            strokeWidth: 2,
             strokeOpacity: 0,
-            fill: '#ffffff',
             fillOpacity: 0,
         },
         show: {
             pathLength: 1,
-            stroke: '#ffffff',
+            stroke: '#fff',
+            strokeWidth: 0,
             strokeOpacity: 1,
-            fill: '#ffffff',
+            fillOpacity: 1,
+        },
+    },
+    TitleBlur: {
+        hidden: {
+            fillOpacity: 0,
+        },
+        show: {
             fillOpacity: 1,
         },
     },
@@ -1100,31 +1097,39 @@ export const contactVariants = {
         hidden: { opacity: 0, transition: { delay: 1 } },
         show: {
             opacity: 1,
-            transition: { staggerChildren: 0.1, delayChildren: 0.25 },
+            transition: { staggerChildren: 0.08, delayChildren: 0.5 },
         },
     },
     Item: {
-        hidden: (i = 0) => ({
-            x: i * 65 + '%',
-            y: 0,
-            clipPath: xPolygonBuilder(50 - i * 150),
+        hidden: {
+            opacity: 0,
+            y: -50,
+            clipPath: yPolygonBuilder(100),
             transition: {
                 duration: 0,
                 delay: 1,
                 ease: 'easeIn',
             },
-        }),
-        show: {
-            x: 0,
-            y: 0,
-            clipPath: 'polygon(-5% -5%, 105% -5%, 105% 105%, -5% 105%)',
-            transition: { duration: 1.5, ease: 'circOut' },
         },
-        exit: (i = 0) => ({
-            x: i * 65 + '%',
+        show: {
+            opacity: 1,
             y: 0,
-            clipPath: xPolygonBuilder(50 - i * 150),
-            transition: { duration: 0.75, ease: 'easeIn' },
+            clipPath: 'polygon(0% -5%, 100% -5%, 100% 115%, 0% 115%)',
+            transition: { duration: 1.5, ease: 'backOut' },
+        },
+    },
+    Links: {
+        hidden: {
+            opacity: 0,
+            scale: 0.7,
+        },
+        show: (i) => ({
+            opacity: 1,
+            scale: 1,
+            transition: {
+                duration: 1.5,
+                delay: 1 + i * 0.08,
+            },
         }),
     },
     Socials: {
@@ -1133,6 +1138,11 @@ export const contactVariants = {
             opacity: 1,
             y: 0,
             transition: { type: 'spring', bounce: 0, delay: 1 + i * 0.08 },
+        }),
+        exit: (i) => ({
+            opacity: 0,
+            y: '200%',
+            transition: { type: 'spring', bounce: 0, delay: i * 0.08 },
         }),
     },
     Signature: {
@@ -1143,6 +1153,10 @@ export const contactVariants = {
         show: {
             y: 0,
             transition: { duration: 1, delay: 0.5, ease: 'anticipate' },
+        },
+        exit: {
+            y: '100%',
+            transition: { duration: 0.5, delay: 0.5, ease: 'backIn' },
         },
     },
 }

@@ -18,40 +18,35 @@
     .section-snap:last-of-type {
         margin-bottom: 0px;
     }
-
     .subsection {
         counter-increment: subsection 1;
         & h4:before {
             content: '0' counter(subsection) '. ';
-            color: theme(colors.white);
-            font-size: 0.65em;
-            font-weight: 300;
-            letter-spacing: 0;
+            @apply text-[0.65em] font-light tracking-normal text-white;
         }
     }
 
     /** =============== COMPONENTS ============== **/
     #navbar {
         --nav-ce: cubic-bezier(0.5, 1, 0.5, 1);
-
         --before: 0;
-        --after-opacity: 1;
         --pseudos-transition: all 0.5s 0.85s var(--nav-ce);
 
         &[data-menuopen='true'] {
-            --before: 1;
-            --after-opacity: 1;
+            --before: 1.15;
             --pseudos-transition: all 0.5s 0s var(--nav-ce);
         }
 
-        &.tempered-bg {
+        &.tempered-bg,
+        & .tempered-bg {
+            @apply md:origin-left;
             &:before,
             &:after {
                 @apply absoluteFull;
                 content: '';
             }
             &:before {
-                @apply bg-nav;
+                @apply origin-top bg-nav;
                 opacity: var(--before);
                 transform: scaleY(var(--before));
                 transition: var(--pseudos-transition);
@@ -59,8 +54,6 @@
             &:after {
                 @apply bg-nav_tempered backdrop-blur-sm;
                 content: '';
-                opacity: var(--after-opacity);
-                transition: var(--pseudos-transition);
             }
         }
     }
@@ -135,10 +128,7 @@
             float: left;
         }
     }
-    .custom-img {
-        position: relative !important;
-        height: unset !important;
-    }
+
     /** Scroll Down Arrow **/
     .scroll-down-arrow {
         & span:nth-of-type(1) {
@@ -267,7 +257,6 @@
     }
 */
 
-    /** SectionCardContent Underline & Bg Effect **/
     .styled-underline {
         position: absolute;
         bottom: 0px;
@@ -292,23 +281,22 @@
         }
     }
 
-    /** Styled_btn**/
     .styled-btn {
-        position: relative;
-        border-radius: 3rem;
-        color: white;
-        overflow: hidden;
-        z-index: 1;
+        box-shadow: inset 0 0.1rem 0.1rem #0008, inset 0 -0.25rem 0.25rem #0005,
+            inset 0 -0.5rem 0.5rem #0005, 0 0.1rem 0.1rem #0008,
+            0 1rem 0.5rem -0.5rem #0008;
 
-        &:before {
-            @apply absoluteFull;
-            content: '';
-            background: theme(backgroundImage.gradient);
-            opacity: 0.25;
-            filter: brightness(1.25) saturate(1.5);
-            z-index: -1;
+        &:hover {
+            box-shadow: inset 0 0.1rem 0.1rem #0008,
+                inset 0 -0.25rem 0.25rem #0005, inset 0 -0.5rem 0.5rem #0005,
+                0 0.1rem 0.1rem #000, 0 2rem 1rem -1rem #000f;
+        }
+
+        &.clicked {
+            @apply scale-95 saturate-0 duration-1000;
         }
     }
+
     /** Styled Link **/
     .styled_link {
         position: relative;

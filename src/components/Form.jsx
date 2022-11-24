@@ -192,9 +192,7 @@ const Form = () => {
             </FormChild>
 
             <FormChild i={4}>
-                <Styled_Button animateOn={true} btnStyle="p-4" type="submit">
-                    Send a Message
-                </Styled_Button>
+                <Styled_Button type="submit">Send a Message</Styled_Button>
             </FormChild>
         </form>
     )

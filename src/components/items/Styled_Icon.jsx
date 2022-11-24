@@ -9,7 +9,7 @@ const Styled_Icon = ({ name, size = 30, fill = 'none', className = '' }) => {
         strokeLinejoin: 'round',
     }
     return className == '' ? (
-        <div className="group cursor-pointer">
+        <div className="flex-center group cursor-pointer">
             <svg {...svgProps}>
                 <g className="stroke-slate-30/75 drop-shadow-[0px_0px_1px_#fff4] duration-150 ease-in group-hover:stroke-slate-neon">
                     <Cases name={name} />

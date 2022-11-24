@@ -3,19 +3,9 @@ import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 
 import { BackBtn, Burger, Menu, MsgBtn, NavLinks } from '@navItems'
-import { awaitScrollToTop, toggleScrolling } from '@utils'
+import { toggleScrolling } from '@utils'
 
-const Logo = () => (
-    <motion.a
-        onClick={() => location.reload()}
-        className="flex-center full relative  z-50  cursor-pointer select-none text-center text-3xl font-semibold leading-10 tracking-wide text-slate transition-none md:text-4xl"
-        style={{ textShadow: '2px 2px 1px #8ad, 2px 2px 3px #fff8' }}
-    >
-        JYN
-    </motion.a>
-)
-
-const Navbar = ({ isHome, isMd }) => {
+const Navbar = ({ isHome, isMd, isRouting }) => {
     const router = useRouter()
     const [menuOpen, setMenu] = useState(false)
 
@@ -24,10 +14,33 @@ const Navbar = ({ isHome, isMd }) => {
         toggleScrolling(menuOpen)
     }
 
-    const backToHome = () =>
-        awaitScrollToTop('main > div', () =>
-            router.push('/', '', { scroll: false })
-        )
+    const backToHome = () => {
+        const scrollDiv = document.querySelector('main > div')
+        const prevScrollY = null
+
+        scrollDiv.scrollTo({ top: 0, behavior: 'smooth' })
+
+        const checkIfAtTop = setInterval(() => {
+            var scrollY = scrollDiv.scrollTop
+            if (scrollY == prevScrollY) {
+                clearInterval(checkIfAtTop)
+                router.push('/', '', { scroll: false })
+            }
+            prevScrollY = scrollY
+        }, 50)
+    }
+
+    const Logo = () => (
+        <motion.a
+            onClick={() => {
+                location.reload()
+            }}
+            className="flex-center full relative  z-50  cursor-pointer select-none text-center text-3xl font-semibold leading-10 tracking-wide text-slate transition-none md:text-4xl"
+            style={{ textShadow: '2px 2px 1px #8ad, 2px 2px 3px #fff8' }}
+        >
+            JYN
+        </motion.a>
+    )
 
     // Components via screen size
     const ActiveComponents = isMd ? [1, 3] : [0, 1, 2]
@@ -40,7 +53,7 @@ const Navbar = ({ isHome, isMd }) => {
         ),
         1: <Logo />,
         2: <MsgBtn isHome={isHome} router={router} />,
-        3: <NavLinks isHome={isHome} />,
+        3: <NavLinks hideLinks={!isHome || isRouting} />,
     }
 
     // Close Menu if isRouting || @media > 768px
@@ -52,7 +65,7 @@ const Navbar = ({ isHome, isMd }) => {
         <>
             <motion.nav
                 id="navbar"
-                className="tempered-bg fixed top-0 left-0 z-30 h-14 w-full"
+                className="fixed top-0 left-0 z-30 h-14 w-full"
                 data-menuopen={menuOpen}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -72,6 +85,19 @@ const Navbar = ({ isHome, isMd }) => {
                         })}
                     </>
                 </ul>
+                <motion.span
+                    className="tempered-bg absolute inset-0"
+                    initial={false}
+                    animate={
+                        isMd & (!isHome || isRouting)
+                            ? { scaleX: 1 }
+                            : { scaleX: 1 }
+                    }
+                    transition={{
+                        duration: !isHome || isRouting ? 0.25 : 1,
+                        delay: !isHome || isRouting ? 0 : 0.25,
+                    }}
+                />
             </motion.nav>
             {/** Menu **/}
             {isMd ? <BackBtn isHome={isHome} backToHome={backToHome} /> : null}

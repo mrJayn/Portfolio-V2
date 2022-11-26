@@ -38,7 +38,6 @@ const Section = ({
             idx={index}
             initialAnim={initialAnim}
             anim={anim}
-            scrollDirection={scrollDirection}
             isMd={isMd}
             isRouting={isRouting}
             {...data}
@@ -80,7 +79,7 @@ const Section = ({
         <>
             <span
                 id={`${id}-area`}
-                className="md:section-snap mb-24 h-[calc(100vh-56px)] w-full last-of-type:mb-0"
+                className="md:section-snap mb-24 h-auto w-full first-of-type:h-[calc(100vh-56px)] last-of-type:mb-0 md:h-[calc(100vh-56px)]"
                 ref={ref}
             >
                 {!isMd ? (

@@ -7,6 +7,7 @@ module.exports = {
         './src/pages/**/*.{js,ts,jsx,tsx}',
         './src/components/**/*.{js,ts,jsx,tsx}',
     ],
+    corePlugins: {},
     theme: {
         colors: {
             transparent: 'transparent',
@@ -160,20 +161,17 @@ module.exports = {
                 nav_tempered: `linear-gradient(
                 to bottom,
                 rgb(var(--nav-bg) / 0.8) 0%,
-                rgb(var(--nav-bg) / 0.8) 10%,
+                rgb(var(--nav-bg) / 0.75) 10%,
                 rgb(var(--nav-bg) / 0.75) 15%,
-                rgb(var(--nav-bg) / 0.7) 22.5%,
-                rgb(var(--nav-bg) / 0.65) 30%,
-                rgb(var(--nav-bg) / 0.6) 35%,
-                rgb(var(--nav-bg) / 0.5) 40%,
-                rgb(var(--nav-bg) / 0.4) 47.5%,
+                rgb(var(--nav-bg) / 0.5) 30%,
+                rgb(var(--nav-bg) / 0.45) 35%,
+                rgb(var(--nav-bg) / 0.4) 40%,
+                rgb(var(--nav-bg) / 0.35) 47.5%,
                 rgb(var(--nav-bg) / 0.3) 52.5%,
                 rgb(var(--nav-bg) / 0.2) 60%,
                 rgb(var(--nav-bg) / 0.1) 70%,
                 rgb(var(--nav-bg) / 0.05) 77.5%,
-                rgb(var(--nav-bg) / 0.025) 85%,
-                rgb(var(--nav-bg) / 0.0125) 90%,
-                rgb(var(--nav-bg) / 0.00625) 92.5%,
+                transparent 85%,
                 transparent 100%
             )`,
                 gradient_tempered: `linear-gradient(

@@ -1,29 +1,4 @@
-const Styled_Icon = ({ name, size = 30, fill = 'none', className = '' }) => {
-    const svgProps = {
-        xmlns: 'http://www.w3.org/2000/svg',
-        viewBox: '0 0 24 24',
-        hieght: size,
-        width: size,
-        fill: fill,
-        strokeLinecap: 'round',
-        strokeLinejoin: 'round',
-    }
-    return className == '' ? (
-        <div className="flex-center group cursor-pointer">
-            <svg {...svgProps}>
-                <g className="stroke-slate-30/75 drop-shadow-[0px_0px_1px_#fff4] duration-150 ease-in group-hover:stroke-slate-neon">
-                    <Cases name={name} />
-                </g>
-            </svg>
-        </div>
-    ) : (
-        <svg className={className} {...svgProps}>
-            <Cases name={name} />
-        </svg>
-    )
-}
-
-const Cases = ({ name }) => {
+const Paths = ({ name }) => {
     const Icon_External = () => (
         <path
             strokeWidth={1.5}
@@ -89,7 +64,4 @@ const Cases = ({ name }) => {
     }
 }
 
-// ICON PATHS ACCREDITED TO :
-// https://react-icons.github.io/react-icons
-
-export default Styled_Icon
+export default Paths

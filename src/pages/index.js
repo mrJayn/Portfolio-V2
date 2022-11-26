@@ -45,6 +45,21 @@ export default function Home({
         },
     ]
 
+    const variants = {
+        hidden: { opacity: isMd ? 1 : 0 },
+        show: {
+            opacity: 1,
+            transition: {
+                duration: 0.5,
+                delay: 0.5,
+                when: 'beforeChildren',
+            },
+        },
+        exit: {
+            opacity: isMd ? 1 : 0,
+            transition: { duration: 0.5 },
+        },
+    }
     return (
         <Layout isHome title={title} description={description} isMd={isMd}>
             {sectionComponents.map(({ id, data }, index) => {

@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { navVariants as variants } from '@motion'
 import { scrollToID } from '@utils'
 const linkIds = ['about', 'experience', 'projects', 'contact', 'my Resume']
 
@@ -12,8 +11,13 @@ const NavLinks = ({ hideLinks }) => (
                 initial={false}
                 animate={hideLinks ? { y: -50 } : { y: 0 }}
                 transition={{
-                    duration: hideLinks ? 0.25 : 1,
-                    delay: hideLinks ? i * 0.075 : (linkIds.length - i) * 0.075,
+                    default: {
+                        duration: hideLinks ? 0.25 : 1,
+                        delay: hideLinks
+                            ? i * 0.075
+                            : (linkIds.length - i) * 0.075,
+                    },
+                    color: { duration: 0.25, ease: 'easeIn' },
                 }}
                 whileHover={{ color: '#fff' }}
                 whileTap={{ scale: 0.95, originY: 1 }}
@@ -23,7 +27,9 @@ const NavLinks = ({ hideLinks }) => (
                         {item}
                     </a>
                 ) : (
-                    <a onClick={() => scrollToID(`#${item}-area`)}>{item}</a>
+                    <a onClick={() => scrollToID(`#${item}-area`, 'smooth')}>
+                        {item}
+                    </a>
                 )}
             </motion.li>
         ))}

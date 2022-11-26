@@ -1,9 +1,8 @@
 import { useState } from 'react'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { BiShow, BiHide } from 'react-icons/bi'
 
-import { Styled_Icon } from '@components'
+import { Styled } from '@components'
 import { projectVariants } from '@motion'
 
 const ProjectTitle = ({ title, className = '' }) => (
@@ -18,8 +17,14 @@ const Project_Icons = ({ hrefs, size = 45, ...props }) =>
                 ? ['GitHub', 'View on GitHub']
                 : ['External', 'Visit Project']
         return (
-            <a key={`project-link-${i}`} href={href} title={title} {...props}>
-                <Styled_Icon name={name} size={size} />
+            <a
+                key={`project-link-${i}`}
+                className="relative aspect-square h-full"
+                href={href}
+                title={title}
+                {...props}
+            >
+                <Styled.Icon name={name} size={size} />
             </a>
         )
     })
@@ -29,7 +34,7 @@ const MobileCard = ({ title, brief, href_github, href_site, idx }) => {
     const showIcons = (href_github !== '') & (href_site !== '')
     return (
         <div
-            className="full flex-col-top bg-projectCard"
+            className="full flex-col-top bg-slate-70/50"
             style={{
                 filter: ` hue-rotate(${idx * 30}deg)`,
             }}
@@ -37,8 +42,7 @@ const MobileCard = ({ title, brief, href_github, href_site, idx }) => {
             {showIcons ? (
                 <Project_Icons
                     hrefs={[href_github]}
-                    size={40}
-                    className="absolute top-0 right-0 h-16 w-16"
+                    className="absolute top-0 right-0 h-16 w-16 bg-red/10"
                 />
             ) : null}
             <a

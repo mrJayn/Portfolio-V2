@@ -7,7 +7,7 @@ const Projects = ({ isMd, idx = 3, ...data }) => {
     const projectsData = { isMd: isMd, ...data.projectsData }
 
     return (
-        <div className="flex-col-center mx-auto h-auto w-full max-w-[1440px] space-y-8 py-8 md:space-y-16 md:py-16">
+        <>
             <div className="flex-col-top relative h-auto w-full">
                 {isMd ? (
                     Object.keys(featuredData).map((i) => (
@@ -22,7 +22,7 @@ const Projects = ({ isMd, idx = 3, ...data }) => {
                 )}
             </div>
             <Archive {...projectsData} />
-        </div>
+        </>
     )
 }
 

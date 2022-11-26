@@ -1,6 +1,6 @@
 // FONT-SIZES
 const clamp = (scale = 0) => {
-    const [fontSize_min, fontSize_max] = [18, 20] // 'min/max' - Base font-sizes
+    const [fontSize_min, fontSize_max] = [18, 22] // 'min/max' - Base font-sizes
     const [factor_min, factor_max] = [1.185, 1.225] // 'min/max' - Base multipliers
     const [screenMin, screenMax] = [320, 1440] // 'min/max' - Screen Bounds
 
@@ -11,16 +11,17 @@ const clamp = (scale = 0) => {
 }
 
 const fontSizes = {
-    xs: clamp(-1),
-    sm: clamp(-0.5),
-    base: clamp(0),
-    md: clamp(0.25),
-    lg: clamp(0.5),
-    xl: clamp(1),
+    min: clamp(0.175),
+    xs: clamp(0.2125),
+    sm: clamp(0.25),
+    base: clamp(0.5),
+    md: clamp(1),
+    lg: clamp(1.125),
+    xl: clamp(1.25),
     '2xl': clamp(2),
     '3xl': clamp(3),
     '4xl': clamp(4),
-    '5xl': clamp(5),
+    '5xl': clamp(5.5),
     '6xl': clamp(6),
 }
 
@@ -31,40 +32,40 @@ const fontSizes = {
     var [r, g, b] = asRGB.substring(4, asRGB.length - 1).replace(/ /g, '').split(',')
     */
 
+const BackgroundRGB = '42 47 61'
+
 const compToHex = (c) => {
     var hex = c.toString(16)
     return hex.length == 1 ? '0' + hex : hex
 }
+const getGradient = (index = null) => {
+    const range = 5
+    var linearGradient = 'linear-gradient(to bottom,'
+    var [r, g, b] = BackgroundRGB.split(' ').map((i) => parseInt(i))
 
-const getGradient = (start = 0, totalColors = 5) => {
-    const hexColors = []
-    var [r, g, b] = [37, 42, 55]
+    for (let i = 0; i < range; i++) {
+        const afterHex = i == range - 1 ? ')' : ','
+        var asHex = '#' + compToHex(r) + compToHex(g) + compToHex(b)
 
-    var gradientString = 'linear-gradient(to bottom,'
-
-    for (let i = 0; i < totalColors; i++) {
-        if (i >= start) {
-            const afterHex = i == totalColors - 1 ? ')' : ','
-            const asHex =
-                '#' + compToHex(r) + compToHex(g) + compToHex(b) + afterHex
-            gradientString += asHex
+        if (index == null) {
+            linearGradient += asHex + afterHex
+        } else {
+            if (i == index) return asHex
         }
 
-        r = r - 10 < 0 ? 0 : r - 10
-        g = g - 10 < 0 ? 0 : g - 10
-        b = b - 10 < 0 ? 0 : b - 10
+        const increment = 6
+        r = r - increment < 0 ? 0 : r - increment
+        g = g - increment < 0 ? 0 : g - increment
+        b = b - increment < 0 ? 0 : b - increment
     }
-    console.log(gradientString)
-    return gradientString
-    /**
-     * `linear-gradient(to bottom, ${hexColors[0]}, ${hexColors[1]}, ${hexColors[2]}, ${hexColors[3]}, ${hexColors[4]})`
-     */
+    return linearGradient
 }
 
 module.exports = {
     themeConfig: {
         fontSize: fontSizes,
+        BackgroundRGB: BackgroundRGB,
         backgroundGradient: getGradient(),
-        getGradient: (start, total) => getGradient(start, total),
+        getSectionColor: (index) => getGradient(index),
     },
 }

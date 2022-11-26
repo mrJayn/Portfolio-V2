@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { Social_Icons } from '@components'
+import { Styled } from '@components'
 import { menuVariants } from '@motion'
 import { scrollToID } from '@utils'
 
@@ -55,12 +55,12 @@ const Menu = ({ menuOpen, toggleMenu }) => {
                         </motion.ul>
 
                         <motion.div
-                            className="grid w-full grid-cols-3 py-5 landscape:h-full landscape:w-1/2 landscape:grid-cols-1 landscape:py-0"
+                            className="relative grid w-full grid-cols-3 landscape:h-full landscape:w-1/2 landscape:grid-cols-1 landscape:py-0"
                             variants={menuVariants.IconWrap}
                         >
-                            <Social_Icons
-                                size={50}
+                            <Styled.Socials
                                 variants={menuVariants.Icons}
+                                className="relative m-auto aspect-square h-16"
                             />
                         </motion.div>
                     </div>

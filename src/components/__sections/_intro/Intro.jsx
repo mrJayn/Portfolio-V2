@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { motion, useAnimation } from 'framer-motion'
 
 import { TitlePaths } from './TitlePaths'
-import { Styled_Button } from '@components'
+import { Styled } from '@components'
 import { introVariants as variants } from '@motion'
 import { theme } from 'tailwind.config'
 
@@ -100,10 +100,10 @@ const Intro = ({ isFirstLoad }) => {
     return (
         <motion.div
             className="flex-col-center full select-none md:absolute md:top-0 md:left-0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1, delay: 0.5, when: 'beforeChildren' }}
+            initial="hidden"
+            animate="show"
+            exit="exit"
+            variants={variants.Wrap}
         >
             {/****/}
             <Title
@@ -127,7 +127,7 @@ const Intro = ({ isFirstLoad }) => {
                 animate={ContentControls}
                 variants={variants.StyledButton}
             >
-                <Styled_Button>
+                <Styled.Button>
                     <Link
                         href={{
                             pathname: '/section/[slug]',
@@ -138,7 +138,7 @@ const Intro = ({ isFirstLoad }) => {
                     >
                         VIEW MY PROJECTS
                     </Link>
-                </Styled_Button>
+                </Styled.Button>
             </motion.div>
         </motion.div>
     )

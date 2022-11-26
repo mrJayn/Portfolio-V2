@@ -1,121 +1,118 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
-import { Social_Icons, Styled_Button } from '@components'
 import { useMediaQuery } from '@hooks'
 import { contactVariants as variants } from '@motion'
+import { Styled, Social_Icons } from '@components'
 
-const ptext = [
-    `If you'd like to contact me about`,
-    'a full time position,',
-    'a new project,',
+const Text = [
+    `If you'd like to contact me about `,
+    'a full time position, ',
+    'a new project, ',
     'or even just to chat...',
-    ` I'd love to hear from you!`,
+    `I'd love to hear from you!`,
 ]
 
-const Ct_Header = ({ isXs, span = false }) => (
-    <div
-        className={`w-full bg-grey/25 text-center ${
-            !span && 'md:landscape:hidden'
-        }`}
-    >
-        {isXs ? (
-            <h3 className={` ${span && 'hidden md:landscape:block'}`}>
-                Whats Next?
-            </h3>
-        ) : null}
-        <h4 className={` ${span && 'hidden md:landscape:block'}`}>
-            Get in Touch!
-        </h4>
+const Socials = () => (
+    <div className="z-0 flex h-12 w-screen max-w-[1280px] justify-around sm:justify-evenly md:h-14">
+        <Styled.Socials
+            className="relative aspect-square h-full"
+            initial="hidden"
+            animate="show"
+            variants={variants.Socials}
+        />
     </div>
-)
-
-const Ct_Links = () => (
-    <div className="flex-col-center w-full gap-1 md:my-10 md:gap-3 md:landscape:w-auto">
-        <motion.div variants={variants.Links} custom={0}>
-            <Styled_Button>
-                <Link href="/contactpage" as="/Contact" scroll={false}>
-                    Read More
-                </Link>
-            </Styled_Button>
-        </motion.div>
-        <motion.p variants={variants.Links} custom={1}>
-            or
-        </motion.p>
-        <motion.div variants={variants.Links} custom={2}>
-            <a
-                href="mailto:m63jayne@gmail.com"
-                className="styled_link sm:text-lg md:text-xl"
-            >
-                m63jayne@gmail.com
-            </a>
-        </motion.div>
-    </div>
-)
-
-const Credits = () => (
-    <motion.div
-        className="z-10 w-screen border-t-2 border-t-grey bg-background"
-        initial="hidden"
-        animate="show"
-        variants={variants.Signature}
-    >
-        <div className="flex-col-center mt-2 py-1 xs:my-2 xs:py-2">
-            <p className="text-[12px] uppercase text-grey-60">
-                Designed & Built by &nbsp;
-                <span className="font-robotoMono text-[15px] capitalize tracking-tighter text-white">
-                    Michael Jayne
-                </span>
-            </p>
-            <p className="text-[12px] uppercase text-grey-60">
-                &#169; Copyright {new Date().getFullYear()}.
-            </p>
-        </div>
-    </motion.div>
 )
 
 const Contact = () => {
-    const isXs = useMediaQuery(360)
     const isMd = useMediaQuery(768)
+    const currentYear = new Date().getFullYear()
+
+    const LinkComponents = [
+        <Styled.Button key="ct-link-0">
+            <Link href="/contactpage" as="/Contact" scroll={false}>
+                Send a Message
+            </Link>
+        </Styled.Button>,
+        <p key="ct-link-1" className="text-[0.9em]">
+            OR
+        </p>,
+        <a
+            key="ct-link-2"
+            href="mailto:m63jayne@gmail.com"
+            className="text-grey-70 duration-150 ease-in hover:text-white"
+        >
+            m63jayne@gmail.com
+        </a>,
+    ]
 
     return (
         <motion.div
-            className="flex-col-btw full"
+            className="flex-col-btw full gap-y-4 md:mt-14 md:h-[calc(100%-56px)]"
             initial={isMd ? 'hidden' : 'show'}
             animate="show"
-            exit={{ opacity: 0, transition: { duration: 1 } }}
+            exit="exit"
+            variants={variants.Wrap}
         >
-            <div className="full flex-col-center">
-                {isMd ? <Ct_Header isXs={isXs} span /> : null}
-                <div className="flex-col-evenly w-full gap-1 text-center sm:gap-10 md:h-1/2 md:justify-center md:landscape:flex-row md:landscape:items-start md:landscape:gap-x-20">
-                    <Ct_Header isXs={isXs} />
+            <div className="full flex-col-center text-center md:landscape:justify-end">
+                <div className="w-full bg-slate-80">
+                    <h3>Whats Next?</h3>
+                    <h4>Get in Touch!</h4>
+                </div>
+                <div className="flex-col-evenly full gap-y-4 py-4 sm:gap-y-8 sm:py-8 md:h-auto md:landscape:h-2/3 md:landscape:flex-row md:landscape:justify-center md:landscape:gap-x-20">
                     <motion.div
-                        className="flex-col-center mt-4 w-full md:mt-10 md:landscape:w-auto"
-                        variants={variants.Container}
+                        className="flex-col-center"
+                        variants={variants.TextContainer}
                     >
-                        {ptext.map((item, i) => (
+                        {Text.map((item, i) => (
                             <motion.p
-                                key={`pText-${i}`}
-                                className="text-xs xs:text-base xs:leading-7 sm:text-lg sm:tracking-normal md:text-2xl"
-                                variants={variants.Item}
-                                custom={isMd ? 1 : 0}
+                                key={`line-${i}`}
+                                variants={variants.pClip}
                             >
                                 {item}
                             </motion.p>
                         ))}
                     </motion.div>
-                    <Ct_Links />
+                    <div className="flex-col-center  gap-1 md:gap-3">
+                        {LinkComponents.map((Component, i) => (
+                            <motion.div
+                                key={`link-component-${i}`}
+                                variants={variants.Links}
+                                custom={i}
+                            >
+                                {Component}
+                            </motion.div>
+                        ))}
+                    </div>
                 </div>
             </div>
-            <div className="flex w-screen max-w-[1280px] justify-around sm:justify-evenly md:mb-4">
-                <Social_Icons
-                    size={isMd ? 50 : 35}
+            <Socials />
+            <div className="relative z-20 w-screen overflow-hidden py-2">
+                <motion.div
+                    className="flex-col-bottom full text-[12px] uppercase sm:text-[14px] md:justify-start"
                     initial="hidden"
                     animate="show"
-                    variants={variants.Socials}
+                    variants={variants.Signature}
+                    transition={{ duration: 1, delay: 0.5, ease: 'backOut' }}
+                >
+                    <p className="text-grey-60">
+                        Designed & Built by :&nbsp;
+                        <span className="font-robotoMono text-sm capitalize text-white md:text-[18.6px]">
+                            Michael Jayne
+                        </span>
+                    </p>
+                    <p className="text-grey-60">
+                        &#169; Copyright {currentYear}.
+                    </p>
+                </motion.div>
+                <motion.span
+                    initial="hidden"
+                    animate="show"
+                    className="absoluteFull -z-10 bg-gradient-to-b from-transparent via-black/20 to-black/50"
+                    variants={variants.Signature}
+                    transition={{ duration: 1.5, ease: 'circOut' }}
                 />
             </div>
-            <Credits />
         </motion.div>
     )
 }

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 
-import { Styled_Icon } from '@components'
+import { Styled } from '@components'
 import { ftdProjectVariants as variants } from '@motion'
 import Image from 'next/image'
 
@@ -22,8 +22,13 @@ const Featured_Full = ({ even, ...data }) => {
         ['GitHub', 'View on Github', Data.github],
         ['External', 'Visit Project', Data.external],
     ].map(([name, title, href], i) => (
-        <a key={`icon-link-${i}`} href={href} title={title}>
-            <Styled_Icon name={name} size={55} />
+        <a
+            key={`icon-link-${i}`}
+            className="relative aspect-square h-full"
+            href={href}
+            title={title}
+        >
+            <Styled.Icon name={name} />
         </a>
     ))
 
@@ -58,7 +63,7 @@ const Featured_Full = ({ even, ...data }) => {
                     </h3>
                     <div className="flex">{Technology}</div>
                 </div>
-                <div className="order-2 flex w-1/2 justify-around">
+                <div className="order-2 flex h-16 w-1/2 justify-around">
                     {IconLinks}
                 </div>
             </motion.div>

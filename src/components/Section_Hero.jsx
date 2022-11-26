@@ -1,11 +1,15 @@
 import { motion } from 'framer-motion'
-import { SectionImage } from '@components'
+import { Styled } from '@components'
 import { sectionHeroVariants as variants } from '@motion'
 
-const ScrollDownText = ({ even = false }) => (
+const ScrollDownText = ({ even }) => (
     <motion.p
-        className={`fixed bottom-[20%] -z-10 text-lg tracking-tight ${
-            even == false ? 'left-1/2' : even ? 'left-1/4' : 'right-1/4'
+        className={`flex-center absolute bottom-[20%] z-10 w-[200px] text-lg tracking-tight ${
+            even == null
+                ? 'left-1/2 ml-[-100px]'
+                : even
+                ? 'left-1/4 ml-[-100px]'
+                : 'right-1/4 mr-[-100px]'
         }`}
         initial="hidden"
         whileInView="show"
@@ -25,7 +29,7 @@ const ScrollDownText = ({ even = false }) => (
     </motion.p>
 )
 
-const Section_Hero = ({ even, isMd, isRouting, ...data }) => {
+const Section_Hero = ({ even, backgroundColor, isMd, isRouting, ...data }) => {
     const isProjectsSection = data.sectionName == 'Projects'
     const itemProps = {
         variants: isMd ? variants.Items_X : variants.Items_Y,
@@ -33,14 +37,12 @@ const Section_Hero = ({ even, isMd, isRouting, ...data }) => {
     }
     return (
         <>
-            {isMd ? <ScrollDownText even={!isProjectsSection && even} /> : null}
-
             <div
                 id={`${data.sectionName}Page-hero`}
                 className="relative h-auto w-full py-3 md:flex md:h-screen md:py-0"
             >
                 {isMd & !isProjectsSection ? (
-                    <SectionImage
+                    <Styled.Image
                         src={data.src}
                         alt={data.alt}
                         style={{ order: even ? 2 : 1, zIndex: 1 }}
@@ -59,7 +61,7 @@ const Section_Hero = ({ even, isMd, isRouting, ...data }) => {
                     viewport={{ once: true }}
                 >
                     <motion.h2
-                        className="relative animate-none text-4xl sm:text-5xl"
+                        className="relative z-10 animate-none md:text-4xl lg:text-5xl"
                         {...itemProps}
                     >
                         {data.title}
@@ -81,6 +83,9 @@ const Section_Hero = ({ even, isMd, isRouting, ...data }) => {
                         custom={even}
                     />
                 </motion.div>
+                {isMd ? (
+                    <ScrollDownText even={isProjectsSection ? null : even} />
+                ) : null}
             </div>
         </>
     )

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Styled_Icon } from '@components'
+import { Styled } from '@components'
 import { ftdProjectVariants as variants } from '@motion'
 
 const Styled_Header = ({ homeSlides = false, title, tech, ...motionProps }) => (
@@ -36,8 +36,13 @@ const Featured_Slide = ({ projectData, direction = 0, isMd }) => {
         ['GitHub', 'View on Github', projectData.github],
         ['External', 'Visit Project', projectData.external],
     ].map(([name, title, href], i) => (
-        <a key={`project-link-${i}`} href={href} title={title}>
-            <Styled_Icon name={name} size={55} />
+        <a
+            key={`project-link-${i}`}
+            className="relative aspect-square h-12 xs:h-14 sm:h-16"
+            href={href}
+            title={title}
+        >
+            <Styled.Icon name={name} />
         </a>
     ))
 

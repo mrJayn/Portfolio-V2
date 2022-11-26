@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-import Tabs_List from '../../items/Tabs_List'
+import Tabs_List from './Tabs_List'
 import { paginate } from '@utils'
 import { cardExpanded_Variants as variants } from '@motion'
 import { tabsMotion } from '@motion'
@@ -88,65 +88,3 @@ const Tabs = ({ tabNames, tabs, currentTab, direction, setTab }) => {
 }
 
 export default Tabs
-
-/**
- * const Tabs_Wrap = ({
-    children,
-    section,
-    currentTab = null,
-    setTab = null,
-    span = null,
-    ...tabProps
-}) => {
-    const pRM = useReducedMotion()
-
-    const x = useMotionValue(0)
-    const shadowOpacity = useTransform(x, [-200, 0, 200], [0, 1, 0])
-
-    // ~ Props ~
-    
-    const controls = useDragControls()
-    const dragShadowProps = (section == 'Featured') & !pRM && {
-        onMouseDown: (e) => controls.start(e),
-        dragControls: controls,
-        style: { x },
-    }
-    
-    tabProps = {
-        ...tabProps,
-    }
-    // Basic Gesture Detection
-    const threshold = 5000
-    function handleSwipe(e, { offset, velocity }) {
-        const swipe = Math.abs(offset.x) * velocity.x
-
-        if (swipe < -threshold) {
-            paginate(1, currentTab, span, setTab)
-        } else if (swipe > threshold) {
-            paginate(-1, currentTab, span, setTab)
-        }
-    }
-    return (
-        <motion.div
-            className={`md:flex-top full relative z-0 rounded-lg opacity-100`}
-            variants={tabsMotion.Tabs}
-            initial="enter"
-            animate="show"
-            exit="exit"
-            drag="x"
-            dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-            onDragEnd={handleSwipe}
-            {...tabProps}
-        >
-            {children}
-            *  {section == 'Featured' ? (
-                <motion.div
-                    className="absoluteFull -z-10 rounded-xl shadow"
-                    style={{ opacity: shadowOpacity, zIndex: -20 }}
-                />
-            ) : null}
-            *
-        </motion.div>
-    )
-}
- */

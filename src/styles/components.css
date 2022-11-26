@@ -18,6 +18,9 @@
     .section-snap:last-of-type {
         margin-bottom: 0px;
     }
+    .counter-increment {
+        counter-increment: item 1;
+    }
     .subsection {
         counter-increment: subsection 1;
         & h4:before {
@@ -58,7 +61,7 @@
         }
     }
 
-    #about-innerHTML {
+    .content-innerHTML {
         & > p {
             @apply flex-center indent-4 md:indent-8;
             &:first-of-type {
@@ -70,16 +73,12 @@
         }
     }
 
-    #experience-innerHTML {
+    .experience-innerHTML {
         & > p {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            white-space: pre-wrap;
-            text-indent: 8px;
+            @apply flex-center whitespace-pre-wrap indent-2 md:indent-8;
 
             &:not(:last-of-type) {
-                padding-bottom: 24px;
+                @apply pb-6;
             }
         }
     }
@@ -138,124 +137,6 @@
             transform: rotate(-12.5deg) skew(-12.5deg) translateX(-1px);
         }
     }
-
-    /** FORM  **/
-    #form {
-        @apply flex-top flex-wrap;
-        & > div {
-            @apply flex-col-center full mx-auto mb-5 grid grid-cols-3 border-b-2 border-dashed border-grey-60/40 py-1;
-            counter-increment: form-item 1;
-            transition: 0.15s ease-in;
-
-            & label {
-                @apply full ml-[12.5px] text-left text-sm font-medium uppercase sm:text-base;
-                &:before {
-                    content: '0' counter(form-item) '. ';
-                    @apply absolute left-[-5px] inline-block text-teal sm:relative;
-                }
-            }
-
-            & input {
-                @apply col-span-2;
-                @apply full z-10 bg-transparent text-sm outline-none;
-            }
-
-            & textarea {
-                @apply col-span-3 col-start-1;
-                @apply z-10 mt-2 mb-4 flex w-full resize-none border-2 border-grey-60/75 bg-transparent p-1 pt-2 outline-none;
-                &:focus {
-                    transition: 0.25s ease-in;
-                    @apply border-teal-neon;
-                }
-            }
-
-            &*::placeholder {
-                @apply font-robotoMono text-sm opacity-75;
-            }
-        }
-        /* parent div activates when input is focused */
-        & > div:focus-within {
-            transition: 0.25s ease-in;
-            @apply border-teal-neon;
-        }
-        /* Inputs (01. + 02.) */
-        & > div:nth-of-type(-n + 2) {
-            @apply sm:w-[45%];
-        }
-        /* Input (03.Subject) and down */
-        & > div:nth-of-type(n + 3) {
-            @apply sm:mb-10 sm:w-[95%];
-        }
-        /* Input (04.Message) and down */
-        & > div:nth-of-type(n + 4) {
-            @apply border-b-0;
-        }
-    }
-
-    /* 
-    Styled_Button Hexagons 
-    .styled-btn {
-        --s: 30px;
-        --m: 0px;
-        --cont-t: 1;
-    }
-    .styled-btn:hover {
-        --s: 30px; 
-        --m: 10px;
-        --cont-t: 1.5;
-    }
-    .hexagons {
-        --cb-ease: cubic-bezier(0.64, 0.57, 0.67, 1.53);
-
-        & > div {
-            transform: scale(var(--cont-t));
-            transform-origin: top;
-            transition: 0.5s var(--ease);
-        }
-        & .container {
-            & div {
-                width: var(--s);
-                margin: var(--m);
-                height: calc(var(--s) * 1.1547);
-                clip-path: polygon(
-                    0% 25%,
-                    0% 75%,
-                    50% 100%,
-                    100% 75%,
-                    100% 25%,
-                    50% 0%
-                );
-                margin-bottom: calc(var(--m) - var(--s) * 0.2885);
-                transition: 1s var(--cb-ease);
-            }
-
-            --f: calc(1.732 * var(--s) + 4 * var(--m) - 1px);
-
-            &:before {
-                content: '';
-                width: calc(var(--s) / 2 + var(--m));
-                float: left;
-                height: 120%;
-                shape-outside: repeating-linear-gradient(
-                    #0000 0 calc(var(--f) - 3px),
-                    #000 0 var(--f)
-                );
-                transition: 1s var(--cb-ease);
-            }
-        }
-
-        &:after {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            left: 0;
-            z-index: 1;
-            box-shadow: inset 0 0 1rem 1rem #0002;
-        }
-    }
-*/
 
     .styled-underline {
         position: absolute;
@@ -365,3 +246,68 @@
         }
     }
 }
+
+/* 
+    Styled Btn Hexagons 
+    .styled-btn {
+        --s: 30px;
+        --m: 0px;
+        --cont-t: 1;
+    }
+    .styled-btn:hover {
+        --s: 30px; 
+        --m: 10px;
+        --cont-t: 1.5;
+    }
+    .hexagons {
+        --cb-ease: cubic-bezier(0.64, 0.57, 0.67, 1.53);
+
+        & > div {
+            transform: scale(var(--cont-t));
+            transform-origin: top;
+            transition: 0.5s var(--ease);
+        }
+        & .container {
+            & div {
+                width: var(--s);
+                margin: var(--m);
+                height: calc(var(--s) * 1.1547);
+                clip-path: polygon(
+                    0% 25%,
+                    0% 75%,
+                    50% 100%,
+                    100% 75%,
+                    100% 25%,
+                    50% 0%
+                );
+                margin-bottom: calc(var(--m) - var(--s) * 0.2885);
+                transition: 1s var(--cb-ease);
+            }
+
+            --f: calc(1.732 * var(--s) + 4 * var(--m) - 1px);
+
+            &:before {
+                content: '';
+                width: calc(var(--s) / 2 + var(--m));
+                float: left;
+                height: 120%;
+                shape-outside: repeating-linear-gradient(
+                    #0000 0 calc(var(--f) - 3px),
+                    #000 0 var(--f)
+                );
+                transition: 1s var(--cb-ease);
+            }
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            z-index: 1;
+            box-shadow: inset 0 0 1rem 1rem #0002;
+        }
+    }
+*/

@@ -5,8 +5,7 @@
 :root {
     --nav-bg: 37 42 55;
 
-    --background: 37 42 55;
-    --background-dark: 07 12 25;
+    --background: 42 47 61;
 
     --text-color: #eee;
     --shadow-color: #000;
@@ -22,7 +21,7 @@
         word-spacing: 1px;
     }
     body {
-        @apply h-screen w-screen overflow-x-hidden bg-background;
+        @apply text-min h-screen w-screen overflow-x-hidden bg-background xs:text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl;
     }
     h1 {
         @apply text-6xl font-bold;
@@ -31,10 +30,10 @@
         @apply dynamic-text-gradient text-5xl font-bold uppercase tracking-widest sm:text-6xl;
     }
     h3 {
-        @apply text-4xl font-bold uppercase tracking-wide text-white sm:text-5xl;
+        @apply text-4xl font-bold uppercase tracking-wide text-white;
     }
     h4 {
-        @apply text-3xl font-medium tracking-[0.0125em] text-teal-40;
+        @apply text-3xl font-medium tracking-wide text-slate-neon;
     }
     h5 {
         @apply text-2xl font-semibold text-grey-80 dark:text-grey-60;
@@ -43,8 +42,39 @@
         @apply text-xl font-semibold text-teal-30;
     }
     p {
-        @apply text-base tracking-[-0.25px] text-grey-80;
+        @apply text-grey-80;
     }
+
+    button {
+        @apply bg-slate !important;
+    }
+
+    input {
+        @apply full relative z-10 rounded-lg border-[3px] border-grey/25 p-1 pt-[0.75em] text-[0.9em] text-black outline-none duration-150 ease-in  invalid:bg-[#faa] focus:border-slate-neon;
+        &:focus + span {
+            @apply translate-y-0 scale-[0.6];
+        }
+        &:not(:placeholder-shown) + span {
+            @apply translate-y-0 scale-[0.6];
+        }
+    }
+
+    textarea {
+        @apply full z-10 flex resize-none overflow-y-scroll rounded-lg border-[3px] border-grey/75 p-1 pt-[0.75em] text-black outline-none duration-150 ease-in focus:border-slate-neon;
+
+        &:focus + span {
+            @apply translate-y-0 scale-[0.6];
+        }
+        &:not(:placeholder-shown) + span {
+            @apply translate-y-0 scale-[0.6];
+        }
+        -ms-overflow-style: visible;
+        scrollbar-width: block;
+        &::-webkit-scrollbar {
+            @apply block;
+        }
+    }
+
     /* Selection Colors + ScrollBar */
     * {
         & ::selection {
@@ -58,5 +88,8 @@
     /* Hide scrollbar for Chrome, Safari and Opera */
     ::-webkit-scrollbar {
         @apply hidden;
+    }
+    ::placeholder {
+        @apply px-4 text-center font-robotoMono text-xs font-thin;
     }
 }

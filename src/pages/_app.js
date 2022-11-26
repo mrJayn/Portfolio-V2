@@ -34,12 +34,6 @@ function MyApp({ Component, pageProps }) {
         ...pageProps,
     }
 
-    const navProps = {
-        isHome: isHome,
-        isMd: isMd,
-        isRouting: isRouting,
-    }
-
     return (
         <>
             <Head>
@@ -67,12 +61,13 @@ function MyApp({ Component, pageProps }) {
             ) : (
                 <>
                     <MotionConfig reducedMotion="user">
-                        <Navbar {...navProps} />
+                        <Navbar
+                            isHome={isHome}
+                            isMd={isMd}
+                            isRouting={isRouting}
+                        />
                         <>
-                            <AnimatePresence
-                                mode={isMd ? 'sync' : 'wait'}
-                                initial={!isMd}
-                            >
+                            <AnimatePresence mode={isMd ? 'sync' : 'wait'}>
                                 <Component {...pageProps} key={url} />
                             </AnimatePresence>
                         </>

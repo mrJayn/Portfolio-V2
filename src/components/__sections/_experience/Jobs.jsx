@@ -27,7 +27,7 @@ const Jobs = ({ isMd, ...data }) => {
         ))
 
     return (
-        <div className="flex-center relative w-full rounded-3xl p-2 md:min-h-[650px] md:justify-start md:bg-grey-10 md:landscape:min-h-[500px] lg:min-h-[500px]">
+        <div className="flex-center relative w-full rounded-3xl p-2 md:min-h-[650px] md:justify-start md:bg-grey-10 md:landscape:min-h-[500px]">
             <div className="full flex-col-center md:w-[35%]">
                 {data.job_data.map(([title, jobPosition, dates, _], i) => {
                     return (
@@ -72,7 +72,7 @@ const Jobs = ({ isMd, ...data }) => {
                     <AnimatePresence>
                         <motion.div
                             key={`job-content-${data.job_data[activeItem][0]}`}
-                            className="absoluteFull flex-col-center px-8"
+                            className="absoluteFull flex-col-center p-4 text-[0.825em]"
                             initial="hidden"
                             animate="show"
                             exit="exit"

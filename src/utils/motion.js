@@ -30,6 +30,45 @@ export const inViewFadeIn = {
     viewport: { once: true },
 }
 
+export const layoutVariants = {
+    HomePage: {
+        hidden: (isMd) => ({ opacity: isMd ? 1 : 0 }),
+        show: {
+            opacity: 1,
+            transition: {
+                duration: 0.5,
+                delay: 0.5,
+                when: 'beforeChildren',
+            },
+        },
+        exit: (isMd) => ({
+            opacity: isMd ? 1 : 0,
+            transition: { duration: 0.75 },
+        }),
+    },
+    SectionPage: {
+        hidden: (isMd) => ({ opacity: isMd ? 1 : 0 }),
+        show: (isMd) => ({
+            opacity: 1,
+            transition: { duration: isMd ? 0 : 0.5 },
+        }),
+        exit: (isMd) => ({
+            opacity: isMd ? 1 : 0,
+            transition: { duration: 0.5 },
+        }),
+    },
+    ContactPage: {
+        hidden: (isMd) => ({ opacity: 0 }),
+        show: {
+            opacity: 1,
+            transition: { duration: 0.5 },
+        },
+        exit: (isMd) => ({
+            opacity: isMd ? 1 : 0,
+            transition: { duration: 0.5 },
+        }),
+    },
+}
 // ~ Section.js ~
 export const sectionVariants = {
     hidden: (i) => ({
@@ -222,7 +261,7 @@ export const sectionContentVariants = {
         show: (i) => {
             return {
                 opacity: 1,
-                scale: 0.75,
+                scale: 0.65,
                 originX: i == 0 ? 0.5 : i == 1 ? 0.3 : 0.7,
                 zIndex: 1,
                 transition: {
@@ -260,16 +299,14 @@ export const sectionHeroVariants = {
     scrollDownText: {
         hidden: {
             opacity: 0,
-            x: '-50%',
             y: 25,
         },
         show: {
             opacity: [0, 1, 1, 0],
-            x: ['-50%', '-50%', '-50%', '-50%'],
             y: [-25, 0, 0, 25],
             transition: {
                 delay: 1,
-                duration: 3,
+                duration: 2,
                 times: [0, 0.3, 0.7, 1],
                 ease: ['easeOut', 'linear', 'backIn'],
             },
@@ -399,7 +436,6 @@ export const navVariants = {
         },
     },
 }
-
 export const menuVariants = {
     backgroundClip: {
         hidden: {
@@ -473,8 +509,6 @@ export const menuVariants = {
         },
     },
 }
-
-/** ~ CARDS & TABS ~  **/
 export const cardVariants = {
     CardSm: {
         hidden: { opacity: 0 },
@@ -600,7 +634,6 @@ export const expanded_Variants = {
         },
     },
 }
-
 export const tabsMotion = {
     Tabs: {
         enter: (direction) => ({
@@ -635,9 +668,16 @@ export const tabsMotion = {
         },
     },
 }
-
-/** ~ SECTIONS ~  **/
 export const introVariants = {
+    Wrap: {
+        hidden: { opacity: 0 },
+        show: { opacity: 1, transition: { duration: 1, delay: 0.5 } },
+        exit: {
+            opacity: 0,
+            y: -500,
+            transition: { duration: 0.25, ease: 'easeIn' },
+        },
+    },
     TitleContainer: {
         hidden: { transition: { when: 'afterChildren' } },
         show: (initialDelay) => ({
@@ -834,7 +874,6 @@ export const experienceMotion = {
         },
     },
 }
-/****/
 export const projectsVariants = {
     title: {
         container: {
@@ -879,7 +918,6 @@ export const projectsVariants = {
         exit: { opacity: 0, scale: 0.95, transition: { duration: 0.25 } },
     },
 }
-/****/
 export const projectVariants = {
     Wrap: {
         hidden: { opacity: 0 },
@@ -907,7 +945,6 @@ export const projectVariants = {
         show: { opacity: 1, pointerEvents: 'auto' },
     },
 }
-/****/
 export const ftdSlidesVariants = {
     Slides: {
         enter: {
@@ -963,7 +1000,6 @@ export const ftdSlidesVariants = {
         },
     },
 }
-/****/
 export const ftdProjectVariants = {
     isHome: {
         Header: {
@@ -1047,8 +1083,6 @@ export const ftdProjectVariants = {
         },
     },
 }
-/****/
-
 export const ftdVariants = [
     /**img**/ {
         initial: {
@@ -1089,27 +1123,35 @@ export const ftdVariants = [
         expanded: { opacity: 0 },
     },
 ]
-/****/
 export const archiveVariants = {}
-/****/
 export const contactVariants = {
-    Container: {
+    Wrap: {
+        hidden: { opacity: 0 },
+        show: {
+            opacity: 1,
+            transition: { duration: 1, delay: 0.5, ease: 'circOut' },
+        },
+        exit: {
+            opacity: 0,
+            transition: {
+                duration: 0.75,
+                ease: 'easeIn',
+            },
+        },
+    },
+    TextContainer: {
         hidden: { opacity: 0, transition: { delay: 1 } },
         show: {
             opacity: 1,
             transition: { staggerChildren: 0.08, delayChildren: 0.5 },
         },
     },
-    Item: {
+    pClip: {
         hidden: {
             opacity: 0,
             y: -50,
             clipPath: yPolygonBuilder(100),
-            transition: {
-                duration: 0,
-                delay: 1,
-                ease: 'easeIn',
-            },
+            transition: { duration: 0, delay: 1 },
         },
         show: {
             opacity: 1,
@@ -1137,26 +1179,58 @@ export const contactVariants = {
         show: (i) => ({
             opacity: 1,
             y: 0,
-            transition: { type: 'spring', bounce: 0, delay: 1 + i * 0.08 },
+            transition: { type: 'spring', bounce: 0, delay: 1 + i * 0.125 },
         }),
         exit: (i) => ({
             opacity: 0,
             y: '200%',
-            transition: { type: 'spring', bounce: 0, delay: i * 0.08 },
+            transition: { type: 'spring', bounce: 0, delay: i * 0.0625 },
         }),
     },
     Signature: {
         hidden: {
+            opacity: 0,
             y: '100%',
-            transition: { delay: 1 },
         },
         show: {
+            opacity: 1,
             y: 0,
-            transition: { duration: 1, delay: 0.5, ease: 'anticipate' },
         },
         exit: {
+            opacity: 0,
             y: '100%',
-            transition: { duration: 0.5, delay: 0.5, ease: 'backIn' },
+        },
+    },
+}
+export const formVariants = {
+    Wrap: {
+        hidden: { opacity: 0 },
+        show: { opacity: 1, transition: { delay: 1, duration: 1 } },
+        exit: { opacity: 0, transition: { duration: 0.25 } },
+    },
+    Form: {
+        hidden: {},
+        show: {
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 1,
+            },
+        },
+    },
+    Item: {
+        hidden: { opacity: 0, x: 50 },
+        show: {
+            opacity: 1,
+            x: 0,
+            transition: {
+                opacity: {
+                    duration: 0.75,
+                },
+                x: {
+                    duration: 0.75,
+                    ease: 'backOut',
+                },
+            },
         },
     },
 }

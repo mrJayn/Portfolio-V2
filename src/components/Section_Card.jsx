@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
-import { Styled_Button, SectionImage, Featured_Slides } from '@components'
+import { Featured_Slides, Styled } from '@components'
 import { sectionContentVariants as variants } from '@motion'
 
 const Section_Card = ({
@@ -9,7 +9,6 @@ const Section_Card = ({
     idx,
     initialAnim,
     anim,
-    scrollDirection,
     isMd,
     isRouting,
     data,
@@ -23,8 +22,8 @@ const Section_Card = ({
     // Props
     const motionProps = { initial: initialAnim, animate: anim, exit: 'hidden' }
     const itemProps = {
-        variants: isMd ? variants.Items_X : variants.Items_Y,
-        custom: isMd ? (even ? -1 : 1) : scrollDirection,
+        variants: variants.Items_X,
+        custom: isMd && (even ? -1 : 1),
     }
     const sectionImgProps = {
         src: data.src,
@@ -52,7 +51,7 @@ const Section_Card = ({
                 featured ? (
                     <Featured_Slides isRouting={isRouting} {...featured} />
                 ) : (
-                    <SectionImage
+                    <Styled.Image
                         style={{ order: even ? 2 : 1, userSelect: 'none' }}
                         variants={variants.ImgMd}
                         custom={even ? 1 : -1}
@@ -64,7 +63,7 @@ const Section_Card = ({
             <motion.div
                 id={id + '-content'}
                 data-animation={anim}
-                className={`full flex-col-btw relative whitespace-pre-line p-8 text-center sm:px-20 sm:py-32 md:justify-center md:space-y-10 md:p-0 landscape:justify-center landscape:py-0  ${
+                className={`full flex-col-btw relative select-none whitespace-pre-line p-8 text-center sm:gap-y-4 sm:px-24 sm:py-32 md:select-text md:justify-center md:gap-y-10 md:p-0 landscape:justify-center landscape:py-0 ${
                     even
                         ? 'order-1 md:items-end md:text-end'
                         : 'order-2 md:items-start md:text-start'
@@ -78,21 +77,21 @@ const Section_Card = ({
                 </motion.h3>
 
                 <motion.div
-                    className="my-8 w-full rounded-3xl bg-white/10 px-4 py-[10vh] backdrop-blur-sm md:w-[92.5%] md:bg-transparent md:py-10 landscape:my-2 landscape:py-2"
+                    className="z-10 my-8 w-full rounded-xl bg-white/10 px-4 py-[5vh] shadow-black/10 backdrop-blur-sm xs:py-[10vh] md:w-[92.5%] md:bg-transparent md:py-10 md:shadow-none landscape:my-2 landscape:py-2"
                     {...itemProps}
                 >
-                    <p className="text-xl font-medium leading-7 sm:text-2xl md:text-xl lg:text-[1.35em]">
+                    <p className="text-xl font-medium leading-7 sm:text-2xl md:text-md">
                         {data.subtitle.replace('<br/>', `\n`)}
                     </p>
                 </motion.div>
 
-                {!isMd ? <SectionImage {...sectionImgProps} /> : null}
+                {!isMd ? <Styled.Image {...sectionImgProps} /> : null}
 
                 <motion.div
                     className="relative md:mx-10"
                     variants={variants.Btn}
                 >
-                    <Styled_Button>
+                    <Styled.Button>
                         <Link
                             href={{
                                 pathname: '/section/[slug]',
@@ -103,7 +102,7 @@ const Section_Card = ({
                         >
                             {featured ? 'View All' : 'Read More'}
                         </Link>
-                    </Styled_Button>
+                    </Styled.Button>
                 </motion.div>
             </motion.div>
         </div>

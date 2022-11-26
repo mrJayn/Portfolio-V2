@@ -1,9 +1,50 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
-
-import { BackBtn, Burger, Menu, MsgBtn, NavLinks } from '@navItems'
 import { toggleScrolling } from '@utils'
+import { Styled } from '@components'
+import BackButton from './BackBtn'
+import Burger from './Burger'
+import Menu from './Menu'
+import NavLinks from './NavLinks'
+
+const Logo = () => (
+    <motion.a
+        onClick={() => {
+            if (window.scrollY == 0) {
+                location.reload()
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+            }
+        }}
+        className="flex-center full relative  z-50  cursor-pointer select-none text-center text-3xl font-semibold leading-10 tracking-wide text-slate transition-none md:text-4xl"
+        style={{ textShadow: '2px 2px 1px #8ad, 2px 2px 3px #fff8' }}
+    >
+        JYN
+    </motion.a>
+)
+
+const MessageBtn = ({ isHome, router }) => (
+    <motion.div
+        key="send-message-btn"
+        className="group relative aspect-square h-full cursor-pointer p-0.5"
+        initial={false}
+        animate={isHome ? 'show' : 'hidden'}
+        variants={{ show: { x: '0%' }, hidden: { x: '110%' } }}
+        transition={{
+            delay: isHome ? 1.75 : 0,
+            ease: isHome ? 'backOut' : 'backIn',
+        }}
+        onClick={() =>
+            router.push('/contactpage', 'Contact', { scroll: false })
+        }
+    >
+        <Styled.Icon
+            name="Message"
+            className="stroke-grey-60 group-hover:stroke-white"
+        />
+    </motion.div>
+)
 
 const Navbar = ({ isHome, isMd, isRouting }) => {
     const router = useRouter()
@@ -29,19 +70,6 @@ const Navbar = ({ isHome, isMd, isRouting }) => {
             prevScrollY = scrollY
         }, 50)
     }
-
-    const Logo = () => (
-        <motion.a
-            onClick={() => {
-                location.reload()
-            }}
-            className="flex-center full relative  z-50  cursor-pointer select-none text-center text-3xl font-semibold leading-10 tracking-wide text-slate transition-none md:text-4xl"
-            style={{ textShadow: '2px 2px 1px #8ad, 2px 2px 3px #fff8' }}
-        >
-            JYN
-        </motion.a>
-    )
-
     // Components via screen size
     const ActiveComponents = isMd ? [1, 3] : [0, 1, 2]
     const Components = {
@@ -52,10 +80,9 @@ const Navbar = ({ isHome, isMd, isRouting }) => {
             />
         ),
         1: <Logo />,
-        2: <MsgBtn isHome={isHome} router={router} />,
+        2: <MessageBtn isHome={isHome} router={router} />,
         3: <NavLinks hideLinks={!isHome || isRouting} />,
     }
-
     // Close Menu if isRouting || @media > 768px
     useEffect(() => {
         if (isMd & menuOpen || !isHome & menuOpen) setMenu(false)
@@ -85,22 +112,12 @@ const Navbar = ({ isHome, isMd, isRouting }) => {
                         })}
                     </>
                 </ul>
-                <motion.span
-                    className="tempered-bg absolute inset-0"
-                    initial={false}
-                    animate={
-                        isMd & (!isHome || isRouting)
-                            ? { scaleX: 1 }
-                            : { scaleX: 1 }
-                    }
-                    transition={{
-                        duration: !isHome || isRouting ? 0.25 : 1,
-                        delay: !isHome || isRouting ? 0 : 0.25,
-                    }}
-                />
+                <span className="tempered-bg absolute inset-0" />
             </motion.nav>
             {/** Menu **/}
-            {isMd ? <BackBtn isHome={isHome} backToHome={backToHome} /> : null}
+            {isMd ? (
+                <BackButton isHome={isHome} backToHome={backToHome} />
+            ) : null}
             {/** Menu **/}
             {isMd ? null : <Menu menuOpen={menuOpen} toggleMenu={toggleMenu} />}
         </>

@@ -1,26 +1,36 @@
 import { motion } from 'framer-motion'
 import { Layout, Form } from '@components'
+import { formVariants } from '@motion'
+import { themeConfig } from 'twThemeFS'
 
-const ContactPage = ({ isHome, isMd }) => {
-    const contactProps = {
-        title: 'Contact',
-        description: 'Send me a message!',
-        isHome: isHome,
-    }
-    // FORM STYLING in " ./styles/components.css"
+const title = 'Contact'
+const description = 'Send me a message!'
+
+export default function ContactPage({ isMd, activeSection }) {
+    const backgroundColor = themeConfig.getSectionColor(activeSection)
     return (
-        <Layout {...contactProps}>
-            <motion.div className="flex-col-center mt-16 w-full max-w-[1040px] overflow-hidden p-5 px-5 text-center md:mt-16 lg:mx-auto">
-                <h2>Hello!</h2>
-                <p className="h-[3em] text-md sm:h-auto md:mx-10">
-                    {`Message me anything at all and I'll get back to you as soon as I can!`}
-                </p>
-
-                <div className="full relative mt-5 md:mt-10">
-                    <Form />
-                </div>
-            </motion.div>
+        <Layout title={title} description={description} isMd={isMd}>
+            <div
+                className="min-h-[100vh] w-full"
+                style={{ backgroundColor: backgroundColor }}
+            >
+                <motion.div
+                    className="flex-col-center mx-auto w-full max-w-[856px] px-2 py-14 text-center"
+                    initial="hidden"
+                    animate="show"
+                    exit="exit"
+                    variants={formVariants.Wrap}
+                >
+                    <h3>Hello!</h3>
+                    <p>
+                        Message me anything at all and I&apos;ll get back to you
+                        as soon as I can!
+                    </p>
+                    <div className="relative mt-4 md:mt-8">
+                        <Form />
+                    </div>
+                </motion.div>
+            </div>
         </Layout>
     )
 }
-export default ContactPage

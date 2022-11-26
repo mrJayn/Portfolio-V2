@@ -1,13 +1,16 @@
 import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { Styled_Button } from '@components'
-import { useMediaQuery } from '@hooks'
+
+import { formVariants as variants } from '@motion'
+import { Styled } from '@components'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 const ToastMsg = ({ success }) => {
     return (
         <div className="flex-col-top whitespace-pre-line text-center">
-            <p className="mb-1 border-b-2 text-md font-semibold">
+            <p className="mb-1 border-b-2 font-semibold">
                 {success ? 'Thank you!' : 'Uh Oh!'}
             </p>
             <p className="leading-5">
@@ -35,7 +38,7 @@ const Form = () => {
         reset,
         formState: { errors },
     } = useForm()
-
+    const router = useRouter()
     // SUBMIT ACTION
     const onSubmit = (data) => {
         fetch('/api/form', {
@@ -57,6 +60,7 @@ const Form = () => {
                         closeOnClick: true,
                         pauseOnHover: true,
                     })
+                    router.push('/', '/', { scroll: false })
                 } else {
                     // console.log("Email/Password is invalid.");
                     toast.warn(<ToastMsg success={false} />, {
@@ -73,128 +77,128 @@ const Form = () => {
         reset()
     }
 
-    // INVALID IMPUTS
-    const handleErr = (e) => {
-        setTimeout(() => {
-            switch (e.target.name) {
-                case 'name':
-                    if (!e.target.checkValidity()) {
-                        setInvalidname(true)
-                    } else {
-                        setInvalidname(false)
-                    }
-                    break
-                case 'subject':
-                    if (!e.target.checkValidity()) {
-                        setInvalidsubject(true)
-                    } else {
-                        setInvalidsubject(false)
-                    }
-                    break
-                case 'message':
-                    if (!e.target.checkValidity()) {
-                        setInvalidmessage(true)
-                    } else {
-                        setInvalidmessage(false)
-                    }
-                    break
-
-                default:
-                    return
-            }
-        }, 1500)
-    }
-    // INVALID EMAIL
-    const handleEmail = () => {
+    /* INVALID EMAIL
+    const [invalidEmail, setInvalidEmail] = useState(false)
+    const handleEmail = (e) => {
+        let email = e.currentTarget.value
         let re =
             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-
+        console.log(email)
         if (re.test(email)) {
             setInvalidEmail(false)
-            console.log('good')
         } else {
             setInvalidEmail(true)
         }
     }
-
-    // FORM ITEMS MOTION
-    const FormChild = ({ i, children }) => {
-        const isMd = useMediaQuery(768)
-        return (
-            <motion.div
-                initial={{ opacity: 0, x: isMd ? 0 : 50 }}
-                animate={{
-                    opacity: 1,
-                    x: 0,
-                    transition: {
-                        duration: 0.25,
-                        ease: 'easeOut',
-                        delay: 0.25 + i * 0.25,
-                    },
-                }}
-            >
-                {children}
-            </motion.div>
-        )
-    }
-
-    return (
-        <form id="form" onSubmit={handleSubmit(onSubmit)} method="POST">
-            <FormChild i={0}>
-                <label htmlFor="fullName">Name</label>
-                <input
-                    type="text"
-                    name="fullName"
-                    id="fullName"
-                    autoComplete="name"
-                    placeholder="Who am I speaking with?"
-                    {...register('fullName', {
-                        required: true,
-                    })}
-                />
-            </FormChild>
-
-            <FormChild i={1}>
-                <label htmlFor="email">Email</label>
-                <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    autoComplete="email"
-                    placeholder="Where should I reach you?"
-                    {...register('email', { required: true })}
-                />
-            </FormChild>
-
-            <FormChild i={2}>
-                <label htmlFor="subject">subject</label>
-                <input
-                    type="text"
-                    name="subject"
-                    id="subject"
-                    placeholder="What is the topic of this message?"
-                    {...register('subject', { required: true })}
-                />
-            </FormChild>
-
-            <FormChild i={3}>
-                <label htmlFor="message">message</label>
+    */
+    // COMPONENTS
+    const formItems = [
+        {
+            id: 'fullName',
+            text: 'Name*',
+            item: (
+                <>
+                    <input
+                        type="text"
+                        name="fullName"
+                        id="fullName"
+                        autoComplete="name"
+                        placeholder=" "
+                        {...register('fullName', {
+                            required: true,
+                        })}
+                    />
+                </>
+            ),
+        },
+        {
+            id: 'email',
+            text: 'Email Address*',
+            item: (
+                <>
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        autoComplete="email"
+                        placeholder=" "
+                        {...register('email', {
+                            required: true,
+                            onChange: (e) => handleEmail(e),
+                        })}
+                    />
+                </>
+            ),
+        },
+        {
+            id: 'subject',
+            text: 'Subject*',
+            item: (
+                <>
+                    <input
+                        type="text"
+                        name="subject"
+                        id="subject"
+                        placeholder=" "
+                        {...register('subject', { required: true })}
+                    />
+                </>
+            ),
+        },
+        {
+            id: 'message',
+            text: 'Message*',
+            item: (
                 <textarea
                     type="text"
                     name="message"
                     id="message"
                     autoFocus={false}
                     rows={8}
-                    placeholder="Type your message here."
+                    placeholder=" "
                     defaultValue={''}
                     {...register('message', { required: true })}
                 />
-            </FormChild>
+            ),
+        },
+        {
+            id: 'submit-button',
+            text: '',
+            item: <Styled.Button submit>Send a Message</Styled.Button>,
+        },
+    ]
 
-            <FormChild i={4}>
-                <Styled_Button type="submit">Send a Message</Styled_Button>
-            </FormChild>
-        </form>
+    return (
+        <motion.form
+            id="form"
+            className="full flex flex-wrap gap-y-8"
+            onSubmit={handleSubmit(onSubmit)}
+            method="POST"
+            initial="hidden"
+            animate="show"
+            variants={variants.Form}
+        >
+            {formItems.map(({ id, text, item }, i) => (
+                <motion.div
+                    key={`form-component-${id}`}
+                    className={`flex-col-bottom relative mx-auto h-[3em] w-full ${
+                        i <= 1
+                            ? 'sm:w-[45%]'
+                            : id == 'message'
+                            ? 'h-[10em] sm:w-[95%] md:h-[7.5em]'
+                            : ' sm:w-[95%]'
+                    }`}
+                    style={{ counterIncrement: 'form-item 1' }}
+                    variants={variants.Item}
+                >
+                    {item}
+
+                    <span className="pointer-events-none absolute top-0 z-10 w-full origin-top-left translate-y-[0.5em] select-none p-4 text-left  text-[0.85em] text-grey-40 duration-150 ease-in">
+                        {text}
+                    </span>
+                </motion.div>
+            ))}
+        </motion.form>
     )
 }
 

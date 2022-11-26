@@ -1,7 +1,12 @@
 import { NextSeo } from 'next-seo'
 import { motion } from 'framer-motion'
+import { layoutVariants } from '@motion'
 
-const Layout = ({ isHome = false, title, description, isMd, children }) => {
+const Layout = ({ isHome = false, title, description, children, ...props }) => {
+    const pageName =
+        title == 'Contact' ? 'ContactPage' : isHome ? 'HomePage' : 'SectionPage'
+    const variants = layoutVariants[pageName]
+
     return (
         <>
             <NextSeo
@@ -10,23 +15,18 @@ const Layout = ({ isHome = false, title, description, isMd, children }) => {
                 openGraph={{ title, description }}
             />
             <motion.main
+                key={title}
                 id="layout"
                 className={`flex-col-top left-0 h-auto w-full ${
                     isHome
-                        ? 'bg-background-gradient absolute top-14 z-0'
+                        ? 'absolute top-14 z-0 bg-background-gradient'
                         : 'fixed top-0 bottom-0 z-20'
                 }`}
                 initial="hidden"
                 animate="show"
                 exit="exit"
-                variants={{
-                    hidden: { opacity: isMd ? 1 : 0 },
-                    show: {
-                        opacity: 1,
-                        transition: { duration: 0.5, when: 'beforeChildren' },
-                    },
-                    exit: { opacity: 0, transition: { duration: 0.5 } },
-                }}
+                variants={variants}
+                custom={props.isMd}
             >
                 {isHome ? (
                     children

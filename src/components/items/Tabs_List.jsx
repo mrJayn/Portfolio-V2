@@ -17,8 +17,10 @@ const Tabs_List = ({
     return (
         <LayoutGroup>
             <div
-                className={`flex-evenly w-full overflow-hidden  ${
-                    isLabeled ? 'h-12 sm:h-14 lg:h-16' : 'max-w-screen-md'
+                className={`w-auto min-w-full  ${
+                    isLabeled
+                        ? 'flex h-12 overflow-x-scroll sm:h-14 lg:h-16'
+                        : 'flex-evenly max-w-screen-md overflow-hidden'
                 } ${bgStyle}`}
             >
                 {[...Array(isLabeled ? tabNames.length : tabNames).keys()].map(
@@ -26,7 +28,7 @@ const Tabs_List = ({
                         isLabeled ? (
                             <div
                                 key={`tabList-Item-${idx}`}
-                                className="flex-center full group relative cursor-pointer whitespace-nowrap p-1 sm:p-2 lg:p-3"
+                                className="flex-center full group relative min-w-[115px] cursor-pointer whitespace-nowrap p-1 sm:p-2 lg:p-3"
                                 onClick={() => handleSelect(idx)}
                             >
                                 <div className="full flex-center relative z-10 rounded-lg bg-white/10 font-medium capitalize tracking-wide text-grey duration-100 group-hover:bg-[#eeeeee50]">

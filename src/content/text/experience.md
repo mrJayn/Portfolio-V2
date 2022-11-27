@@ -9,17 +9,23 @@ alt: /
 
 slug: experience
 
-tabNames: [Summary, Jobs, Certifications]
-job_data:
-    [
+education:
+    university: University of Massachusetts Amherst
+    degree: B.S. in Chemical Engineering
+    dates: September 2015 - May 2020
+
+job_data: [
         [
             Rochester Electronics,
             ChemEng Electro-Plating Internship,
             May 2019 -Sept. 2019,
             [
-                'While employed at Rochester Electronics, I would conduct experiments, gather data, and present statistical models, in order to help construct/incorperate a new electroplating process. This process would be using a Nickel / Tin alloy solution, and was planned on being implemented into full production.',
-
-                'Some other duties I performed included precision measurements of hermatically promised components using an XRF to measure, thickness of the deposition.  I performed calibration for the baking-clips used on the silicon die to be etched, and also created multiple ease-of-use macros using VBA.',
+                'Rochester Electronics is the worlds single largest conitnuous provider of semiconductors. While employed there, I mainly conducted batch experiments, collected data, analyzed said data, and communicated the results, the statistical models, and further recommendations moving ahead.',
+                'More specifically, I conducted small-scale experiments revolving an electroplating process using a Nickel/Tin based solution. This process was due to be implemented in the near future and required addittional assessment of ideal conditions, some of which being: electrical current across the anode/electrode through the chemical solution, agitation rate of parts during deposition, and correct concentrations to produced the desired deposition thickness. My  experiments and research data helped the department to begin full scale implementation.',
+                'Some more curious of the duties I carried out on a daily basis included
+                - quality assurance using XRF (X-ray fluorescence)
+                - tensile calibration for silicon die baking-clips
+                - Creation of simple brute-force macros in VBA, that transfered data from a particular intruments API to excel. ',
             ],
         ],
         [
@@ -32,6 +38,39 @@ job_data:
             ],
         ],
     ]
+
+certificates:
+    0:
+        title: Responsive Web Design
+        description: 'The basics of HTML & CSS including modern CSS and responsive design.'
+        href: 'https://www.freecodecamp.org/learn/2022/responsive-web-design/'
+        src: '/assets/certifications/responsive_web.png'
+    1:
+        title: Javascript Algorithms and Data Structures
+        description: 'The fundamentals of JavaScript including dataTypes, OOP, and Functional Programming.'
+        href: 'https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/'
+        src: '/assets/certifications/js_algorithms.png'
+    2:
+        title: Data Visualization with D3.js
+        description: 'The basics of D3.js including building intractive charts, graphs, and maps along with basic JSON manipulation and working with online data using APIs.'
+        href: 'https://www.freecodecamp.org/learn/data-visualization/'
+        src: '/assets/certifications/data_vis.png'
+    3:
+        title: Scientific Computing with Python
+        description: 'Python fundamentals like variables, loops, conditionals, and functions along with complex data structures, networking, relational databases, and data visualization.'
+        href: 'https://www.freecodecamp.org/learn/scientific-computing-with-python/'
+        src: '/assets/certifications/py_computing.png'
+    4:
+        title: Data Analysis with Python
+        description: 'The fundamentals of data analysis with Python including reading data from sources like CSVs and SQL, and using libraries like Numpy, Pandas, Matplotlib, and Seaborn to process and visualize data.'
+        href: 'https://www.freecodecamp.org/learn/data-analysis-with-python/'
+        src: '/assets/certifications/py_data_analysis.png'
+    5:
+        title: Machine Learning with Python
+        description: Learned to use the TensorFlow framework to build several types of neural networks and create more advanced ML programs involving techniques like natural language processing and reinforcement learning.',
+        href: 'https://www.freecodecamp.org/learn/machine-learning-with-python/'
+        src: '/assets/certifications/py_data_analysis.png'
+
 certifications:
     [
         [
@@ -79,14 +118,8 @@ certifications:
     ]
 ---
 
-As for real-world jobs...well... I've never had a real one... that is in regards to software, coding or development. BUT ! I did work an internship at Rochester Electronics, the worlds single largest conitnuous provider of semiconductors.
+#### Professional Summary
 
-As an intern, I was responsible for independently constructing, and conducting small-scale experiments in order to find ideal conditions for a process being newly implemented into production. The process was one of electroplating, or electrodeposition, onto semiconductor components, using a nickel / tin alloy bath. The tests conducted were rather simple, just using the bath solution, and a battery connected to an anode and electrode to provide the cuurent. And well... I gathered enough data and essentially fiinished my summer's worth of work, EXTEMELY early.
+A Chemical Engineer graduate and recently self-taught and certified software engineer/developer, seeking to launch a career in the information technology industry.
 
-So they decided to make use of me while I was there and assigned me a multitude of tasks, one being writing a simple brute-force macro to transfer data from a particular program into excel. So I guees I did manage to get a bit of coding experience!
-
-But, it's safe to say that on a piece of paper, I look like a bit of a deadbeat ( in my own opinion ). However, I can at least justify the last 4... maybe 5 years of my life being spent on trying to further my education. And the past 6 months alone, strictly to coding. And I say coding because I've touched briefly on so many subjects. And towards the end of the past few months I've managed to narrow my sights down and get particularly knowledgable with just a few.
-
-So in conclusion, I do have my certifications, however if anything is to speak for my acquired knowledge, it'd have to be this portfolio alone. At least considering, that this is my first ever website.
-
-So please, if you did manage to read all that, I appreciate it and would love for you to have a look at some of the small projects I've managed to piece together!
+Fluent in javascript full-stack development and Python based data analysis, and day-by-day, becoming more acquainted with a variety of other coding languages and their related resources.

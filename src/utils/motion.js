@@ -740,7 +740,20 @@ export const introVariants = {
         },
     },
 }
-export const skillsVariants = {
+export const aboutVariants = {
+    Skills: {
+        Container: {
+            hidden: { opacity: 1 },
+            show: {
+                opacity: 1,
+                transition: { staggerChildren: 0.025, delayChildren: 0.2 },
+            },
+        },
+        Item: {
+            hidden: { opacity: 0 },
+            show: { opacity: 1 },
+        },
+    },
     ItemMd: {
         closed: (i) => ({
             opacity: 1,

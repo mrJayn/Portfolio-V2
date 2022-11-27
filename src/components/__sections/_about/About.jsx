@@ -4,26 +4,26 @@ import { motion } from 'framer-motion'
 import { Tabs } from '@components'
 import Skills from './Skills'
 
-const About = ({ isMd, ...data }) => {
+const About = ({ isSm, ...props }) => {
     const [[currentTab, direction], setTab] = useState([0, 0])
 
     const Components = [
-        <div
+        <motion.div
             key={0}
-            className="content-innerHTML w-full"
-            dangerouslySetInnerHTML={{ __html: data.content }}
+            className="content-innerHTML about w-full"
+            dangerouslySetInnerHTML={{ __html: props.content }}
         />,
 
-        <Skills key={1} skills={data.data.skills} isMd={data.isMd} />,
+        <Skills key={1} skills={props.data.skills} />,
     ]
 
-    return isMd ? (
+    return isSm ? (
         <>
             {Components.map((component, i) => (
                 <motion.div
                     key={`about-item-${i}`}
-                    className="subsection full"
-                    initial={{ opacity: 0, y: 50 }}
+                    className="subsection full z-10"
+                    initial={{ opacity: 1, y: 25 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1.5, ease: 'circOut' }}
                     viewport={{ once: true }}

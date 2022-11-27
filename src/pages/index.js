@@ -10,15 +10,14 @@ export default function Home({
     activeSection,
     setSection,
     isRouting,
+    isSm,
     isMd,
     screenOrientation,
     data,
     ...pageProps
 }) {
-    // Required States + Markdown + Global States
     data = { ...pageProps, ...data }
 
-    // Section Components
     const sectionComponents = [
         {
             id: 'intro',
@@ -45,21 +44,6 @@ export default function Home({
         },
     ]
 
-    const variants = {
-        hidden: { opacity: isMd ? 1 : 0 },
-        show: {
-            opacity: 1,
-            transition: {
-                duration: 0.5,
-                delay: 0.5,
-                when: 'beforeChildren',
-            },
-        },
-        exit: {
-            opacity: isMd ? 1 : 0,
-            transition: { duration: 0.5 },
-        },
-    }
     return (
         <Layout isHome title={title} description={description} isMd={isMd}>
             {sectionComponents.map(({ id, data }, index) => {
@@ -69,6 +53,7 @@ export default function Home({
                     index: index,
                     activeSection: activeSection,
                     setSection: setSection,
+                    isSm: isSm,
                     isMd: isMd,
                     isRouting: isRouting,
                     screenOrientation: screenOrientation,

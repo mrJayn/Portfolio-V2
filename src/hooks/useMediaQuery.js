@@ -1,20 +1,27 @@
 import { useState, useEffect } from 'react'
 /**
  * React Hook
- * @param {number} mediaWidth
- * @returns {boolean} Boolean value or if screen matches provided media query.
+ * @param {number} query1 - Query screen width value e.g. (min-width: {query1})
+ * @param {number} query2 - 2nd (optional) Query Value
+ * @returns {(boolean | Array<boolean>)} - Boolean value or if screen matches provided media query.
  */
-const useMediaQuery = (mediaWidth) => {
-    const [matches, setMatches] = useState(true)
+const useMediaQuery = (query1, query2 = null) => {
+    const [matches1, setMatches1] = useState(true)
+    const [matches2, setMatches2] = useState(true)
+
     useEffect(() => {
-        const checkWidth = () => {
-            setMatches(window.innerWidth >= mediaWidth)
+        const checkScreen = () => {
+            setMatches1(window.innerWidth >= query1)
+            if (query2 !== null) setMatches2(window.innerWidth >= query2)
         }
-        checkWidth()
-        window.addEventListener('resize', checkWidth)
-        return () => window.removeEventListener('resize', checkWidth)
-    }, [matches, mediaWidth])
-    return matches
+
+        checkScreen()
+
+        window.addEventListener('resize', checkScreen)
+        return () => window.removeEventListener('resize', checkScreen)
+    }, [matches1, query1, matches2, query2])
+
+    return query2 !== null ? [matches1, matches2] : matches1
 }
 
 export default useMediaQuery

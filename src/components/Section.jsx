@@ -5,12 +5,14 @@ import { motion, useScroll, useInView, AnimatePresence } from 'framer-motion'
 import { Section_Card } from '@components'
 import { sectionVariants as variants } from '@motion'
 import { index2id } from '@utils'
+import { useMediaQuery } from '@hooks'
 
 const Section = ({
     id,
     index,
     activeSection,
     setSection,
+    isSm,
     isMd,
     isRouting,
     screenOrientation,
@@ -46,6 +48,22 @@ const Section = ({
 
     // Scroll to section on Resize / md breakpoint
     useEffect(() => {
+        const resizehandler = (current) => {
+            if ((index == current) & (current !== 0)) {
+                console.log(current)
+                document
+                    .getElementById(`${index2id(current)}-area`)
+                    .scrollIntoView({
+                        behavior: 'auto',
+                        block: isMd || isSm ? 'center' : 'end',
+                    })
+                setSection(activeSection)
+            }
+        }
+        resizehandler(activeSection)
+    }, [isSm, isMd, screenOrientation])
+    /** Old Version of ABOVE ^
+     useEffect(() => {
         let current = activeSection
         if (current == 0) return
         const resizehandler = () => {
@@ -63,7 +81,7 @@ const Section = ({
         window.addEventListener('resize', resizehandler)
         return () => window.removeEventListener('resize', resizehandler)
     }, [isMd, screenOrientation])
-
+ */
     // Set Initial Variant if Routing
     useEffect(() => {
         if ((index == activeSection) & (index !== 0))
@@ -79,7 +97,7 @@ const Section = ({
         <>
             <span
                 id={`${id}-area`}
-                className="md:section-snap mb-24 h-auto w-full first-of-type:h-[calc(100vh-56px)] last-of-type:mb-0 md:h-[calc(100vh-56px)]"
+                className="md:section-snap mb-24 h-[calc(100vh-56px)] w-full last-of-type:mb-0"
                 ref={ref}
             >
                 {!isMd ? (

@@ -27,12 +27,14 @@ const SlugToContent = ({ ...data }) => {
 
 export default function SectionPage({
     activeSection,
+    isSm,
     isMd,
     isRouting,
     Data,
     ...pageProps
 }) {
     Data = {
+        isSm: isSm,
         isMd: isMd,
         ...pageProps,
         ...Data,

@@ -5,7 +5,17 @@ import { Tabs } from '@components'
 import Jobs from './Jobs'
 import Certifications from './Certifications'
 
-const Experience = ({ isMd, ...data }) => {
+const Education = ({ ...props }) => (
+    <div key="experience-edu" className="flex-center min-h-[50%] w-full">
+        <div className="flex-col-left mx-2 h-auto w-full border-l-2 border-l-white px-2 xs:mx-4 xs:px-4">
+            <h5>{props.university}</h5>
+            <p>{props.degree}</p>
+            <p>{props.dates}</p>
+        </div>
+    </div>
+)
+
+const Experience = ({ isMd, ...props }) => {
     const [[currentTab, direction], setTab] = useState([0, 0])
 
     const Components = [
@@ -13,41 +23,35 @@ const Experience = ({ isMd, ...data }) => {
             title: 'Proffesional Summary',
             component: (
                 <>
-                    {isMd ? null : (
-                        <h4 className="my-4 font-semibold">
-                            My Journey Thus Far
-                        </h4>
-                    )}
                     <div
-                        className="content-innerHTML w-full"
-                        dangerouslySetInnerHTML={{ __html: data.content }}
+                        className="content-innerHTML experience"
+                        dangerouslySetInnerHTML={{ __html: props.content }}
                     />
                 </>
             ),
         },
         {
             title: 'Work Experience',
-            component: <Jobs key={1} isMd={isMd} {...data.data} />,
+            component: <Jobs isMd={isMd} {...props.data} />,
         },
         {
             title: 'Education',
-            component: isMd ? (
-                <div key="experience-edu">Graduated from UMASS</div>
-            ) : null,
+            component: isMd ? <Education {...props.data.education} /> : null,
         },
         {
             title: 'Certificates',
             component: (
-                <>
-                    {isMd ? null : <div>Graduated from UMASS</div>}
-                    <Certifications {...data.data} />
-                </>
+                <div className="flex-col-top full relative">
+                    {isMd ? null : <Education {...props.data.education} />}
+                    <Certifications {...props.data} />
+                </div>
             ),
         },
     ]
 
     const ComponentArr = []
     Object.values(Components).forEach((obj) => {
+        if (obj.title == 'Education') return
         ComponentArr.push(obj.component)
     })
 
@@ -69,7 +73,7 @@ const Experience = ({ isMd, ...data }) => {
         </>
     ) : (
         <Tabs
-            tabNames={['Summary', 'Jobs', 'Education', 'Certificates']}
+            tabNames={['Summary', 'Jobs', 'Certificates']}
             tabs={ComponentArr}
             currentTab={currentTab}
             direction={direction}

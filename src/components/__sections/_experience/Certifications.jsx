@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Image from 'next/image'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
 import { useMediaQuery } from '@hooks'
 import { experienceMotion } from '@motion'
@@ -48,24 +48,17 @@ const Cert_Image = ({ title, src }) => (
     </motion.div>
 )
 
-const Certifications = ({ ...data }) => {
+const Certifications = ({ ...props }) => {
     const isMd = useMediaQuery(768)
-    const [activeItem, setActiveItem] = useState(isMd ? 0 : 100)
-    const certs = data.certifications
+    const [active, setActive] = useState(isMd ? 0 : 100)
+    const certsData = [...Object.values(props.certificates)]
 
     return (
-        <div className="flex-top full relative">
+        <>
             <ul className="md:flex-col-top w-full space-y-2 overflow-hidden md:h-[550px]">
-                {certs.map(([title, desc, sitename, href, src], i) => {
-                    const ACTIVE = activeItem === i
-                    const Links = [
-                        [href, sitename],
-                        [src, 'View Certificate'],
-                    ]
-                    const handleClick = () => {
-                        if (isMd & ACTIVE) return
-                        setActiveItem(ACTIVE ? 100 : i)
-                    }
+                {certsData.map(({ title, description, href, src }, i) => {
+                    const isActive = active === i
+                    const sitename = href.match(/(\w{0,}\.(org|com|net|edu))/gm)
 
                     return (
                         <motion.li
@@ -77,15 +70,18 @@ const Certifications = ({ ...data }) => {
 
                             <p
                                 className="list-item-bg cursor-pointer rounded-t-2xl p-2"
-                                data-active={ACTIVE}
-                                onClick={handleClick}
+                                data-active={isActive}
+                                onClick={() => {
+                                    if (isMd & isActive) return
+                                    setActive(isActive ? 100 : i)
+                                }}
                             >
                                 {title}
                             </p>
 
                             {/** [  EXPANDED INFO  ] **/}
                             <AnimatePresence mode="wait" initial={false}>
-                                {ACTIVE & (activeItem !== 100) && (
+                                {isActive & (active !== 100) && (
                                     <motion.div
                                         key={`cert-content-${i}`}
                                         className="flex-col-top"
@@ -96,8 +92,11 @@ const Certifications = ({ ...data }) => {
                                     >
                                         {/** [  MOBILE LAYOUT  ] **/}
                                         <AccordionContent
-                                            Links={Links}
-                                            desc={desc}
+                                            Links={[
+                                                [href, sitename],
+                                                [src, 'View Certificate'],
+                                            ]}
+                                            desc={description}
                                             isMd={isMd}
                                         />
                                     </motion.div>
@@ -114,17 +113,17 @@ const Certifications = ({ ...data }) => {
                     style={{ position: '-webkit-sticky' }}
                 >
                     <AnimatePresence mode="wait">
-                        {activeItem !== 100 && (
+                        {active !== 100 && (
                             <Cert_Image
-                                key={`certimg-${activeItem}`}
-                                title={certs[activeItem][0]}
-                                src={certs[activeItem][4]}
+                                key={`certimg-${active}`}
+                                title={certsData[active]['title']}
+                                src={certsData[active]['src']}
                             />
                         )}
                     </AnimatePresence>
                 </div>
             ) : null}
-        </div>
+        </>
     )
 }
 

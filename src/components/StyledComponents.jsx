@@ -40,7 +40,7 @@ const StyledComponents = {
     ),
     Image: ({ isPriority = false, src, alt, ...props }) => (
         <motion.div
-            className="flex-center absoluteFull pointer-events-none z-0 select-none p-2 pt-0 xs:p-4 sm:p-8 md:relative md:z-0 md:w-full md:p-0"
+            className="flex-center absoluteFull pointer-events-none z-0 select-none  p-4 pt-0 sm:px-8 md:relative md:z-0 md:w-full md:p-0"
             {...props}
         >
             <div className="full relative overflow-hidden rounded-4xl shadow md:max-w-[50vw]">

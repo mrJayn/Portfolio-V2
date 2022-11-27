@@ -9,7 +9,6 @@ alt: A picture of me
 
 slug: about
 
-tabNames: [About Me, My Skills]
 skills:
     [
         [Python, '/assets/skills/python.png'],
@@ -56,3 +55,15 @@ real educational content. And since then, I&apos;ve
 taken up the challenge to build, not only my
 knowledge and undestanding of developement, but my
 carrer as well.
+
+As for real-world jobs...well... I've never had a real one... that is in regards to software, coding or development. BUT ! I did work an internship at Rochester Electronics, the worlds single largest conitnuous provider of semiconductors.
+
+As an intern, I was responsible for independently constructing, and conducting small-scale experiments in order to find ideal conditions for a process being newly implemented into production. The process was one of electroplating, or electrodeposition, onto semiconductor components, using a nickel / tin alloy bath. The tests conducted were rather simple, just using the bath solution, and a battery connected to an anode and electrode to provide the cuurent. And well... I gathered enough data and essentially fiinished my summer's worth of work, EXTEMELY early.
+
+So they decided to make use of me while I was there and assigned me a multitude of tasks, one being writing a simple brute-force macro to transfer data from a particular program into excel. So I guees I did manage to get a bit of coding experience!
+
+But, it's safe to say that on a piece of paper, I look like a bit of a deadbeat ( in my own opinion ). However, I can at least justify the last 4... maybe 5 years of my life being spent on trying to further my education. And the past 6 months alone, strictly to coding. And I say coding because I've touched briefly on so many subjects. And towards the end of the past few months I've managed to narrow my sights down and get particularly knowledgable with just a few.
+
+So in conclusion, I do have my certifications, however if anything is to speak for my acquired knowledge, it'd have to be this portfolio alone. At least considering, that this is my first ever website.
+
+So please, if you did manage to read all that, I appreciate it and would love for you to have a look at some of the small projects I've managed to piece together!

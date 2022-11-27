@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
 
     const [isLoading, setIsLoading] = useState(isHome)
     const [activeSection, setSection] = useState(0)
-    const isMd = useMediaQuery(768)
+    const [isSm, isMd] = useMediaQuery(600, 768)
     const isRouting = useIsRouting(true)
 
     // Page Properties
@@ -26,6 +26,7 @@ function MyApp({ Component, pageProps }) {
         isHome: isHome,
         isFirstLoad: useRef(true),
         isRouting: isRouting,
+        isSm: isSm,
         isMd: isMd,
         screenOrientation: useScreenOrientation(),
         activeSection: activeSection,

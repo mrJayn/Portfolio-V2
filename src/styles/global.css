@@ -21,13 +21,14 @@
         word-spacing: 1px;
     }
     body {
-        @apply text-min h-screen w-screen overflow-x-hidden bg-background xs:text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl;
+        @apply h-screen w-screen overflow-x-hidden bg-background text-min xs:text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl;
     }
     h1 {
         @apply text-6xl font-bold;
     }
     h2 {
-        @apply dynamic-text-gradient text-5xl font-bold uppercase tracking-widest sm:text-6xl;
+        @apply animate-[bgRotate_10s_linear_infinite] bg-gradient_title bg-clip-text text-5xl font-bold uppercase tracking-widest text-transparent motion-reduce:animate-none sm:text-6xl;
+        background-size: 300%;
     }
     h3 {
         @apply text-4xl font-bold uppercase tracking-wide text-white;
@@ -81,13 +82,11 @@
             @apply bg-slate-40/50 text-white;
         }
         -webkit-tap-highlight-color: transparent;
-        /* Hide scrollbar for IE, Edge and Firefox */
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* Hide Scrollbar - IE and Edge */
+        scrollbar-width: none; /* Hide Scrollbar - Firefox */
     }
-    /* Hide scrollbar for Chrome, Safari and Opera */
     ::-webkit-scrollbar {
-        @apply hidden;
+        @apply hidden; /* Hide Scrollbar - Chrome, Safari, and Opera */
     }
     ::placeholder {
         @apply px-4 text-center font-robotoMono text-xs font-thin;

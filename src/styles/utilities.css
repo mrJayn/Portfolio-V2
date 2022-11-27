@@ -2,117 +2,59 @@
 @tailwind utilities;
 
 @layer utilities {
-    /** ================= SIZING ================= **/
+    .backdrop-blurred:after {
+        content: '';
+        @apply absolute inset-0 -z-10 bg-white/10 backdrop-blur-md duration-1000 ease-in-out;
+    }
     .full {
-        height: 100%;
-        width: 100%;
+        @apply h-full w-full;
     }
-    .screen {
-        height: 100vh;
-        width: 100vw;
-    }
-    .centered {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50% -50%);
-    }
-
     .absoluteFull {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        @apply absolute top-0 right-0 left-0 bottom-0;
     }
-
-    .dynamic-text-gradient {
-        color: transparent !important;
-        background: theme(backgroundImage.gradient_title) !important;
-        background-clip: text !important;
-        background-size: 300% !important;
-        @apply animate-[bgRotate_10s_linear_infinite] motion-reduce:animate-none;
-    }
-
-    /** =============== FLEX BOXES =============== **/
-    .flex-center,
-    .flex-top,
-    .flex-bottom,
-    .flex-left,
-    .flex-right,
-    .flex-btw,
-    .flex-evenly {
-        display: flex;
-    }
-    .flex-col-center,
-    .flex-col-top,
-    .flex-col-bottom,
-    .flex-col-left,
-    .flex-col-right,
-    .flex-col-btw,
-    .flex-col-evenly,
-    .flex-col-around {
-        display: flex;
-        flex-flow: column;
-    }
-
     .flex-center {
-        justify-content: center;
-        align-items: center;
+        @apply flex items-center justify-center;
     }
     .flex-top {
-        justify-content: center;
-        align-items: flex-start;
+        @apply flex items-start justify-center;
     }
     .flex-bottom {
-        justify-content: center;
-        align-items: flex-end;
+        @apply flex items-end justify-center;
     }
     .flex-left {
-        justify-content: flex-start;
-        align-items: center;
+        @apply flex items-center justify-start;
     }
     .flex-right {
-        justify-content: flex-end;
-        align-items: center;
+        @apply flex items-center justify-end;
     }
     .flex-btw {
-        justify-content: space-between;
-        align-items: center;
+        @apply flex items-center justify-between;
     }
     .flex-evenly {
-        justify-content: space-evenly;
-        align-items: center;
+        @apply flex items-center justify-evenly;
     }
     .flex-col-center {
-        justify-content: center;
-        align-items: center;
+        @apply flex flex-col items-center justify-center;
     }
     .flex-col-top {
-        justify-content: flex-start;
-        align-items: center;
+        @apply flex flex-col items-center justify-start;
     }
     .flex-col-bottom {
-        justify-content: flex-end;
-        align-items: center;
+        @apply flex flex-col items-center justify-end;
     }
     .flex-col-left {
-        justify-content: center;
-        align-items: flex-start;
+        @apply flex flex-col items-start justify-center;
     }
     .flex-col-right {
-        justify-content: center;
-        align-items: flex-end;
+        @apply flex flex-col items-end justify-center;
     }
     .flex-col-btw {
-        justify-content: space-between;
-        align-items: center;
+        @apply flex flex-col items-center justify-between;
     }
     .flex-col-evenly {
-        justify-content: space-evenly;
-        align-items: center;
+        @apply flex flex-col items-center justify-evenly;
     }
     .flex-col-around {
-        justify-content: space-around;
-        align-items: center;
+        @apply flex flex-col items-center justify-around;
     }
 }

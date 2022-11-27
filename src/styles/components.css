@@ -18,9 +18,7 @@
     .section-snap:last-of-type {
         margin-bottom: 0px;
     }
-    .counter-increment {
-        counter-increment: item 1;
-    }
+
     .subsection {
         counter-increment: subsection 1;
         & h4:before {
@@ -62,26 +60,37 @@
     }
 
     .content-innerHTML {
+        @apply w-full pb-16;
+
         & > p {
-            @apply flex-center indent-4 md:indent-8;
-            &:first-of-type {
-                @apply mb-4 text-center indent-4 text-[20px] font-medium leading-8 sm:text-[24px] sm:leading-9 md:text-xl;
+            @apply indent-4 md:indent-8;
+        }
+        & > p:first-of-type {
+            @apply indent-4;
+        }
+
+        &.about {
+            & > p {
+                &:first-of-type {
+                    @apply mb-4 font-medium leading-7 sm:text-[24px] sm:leading-8 md:text-center md:text-[1.1em];
+                }
+                &:not(:last-of-type) {
+                    @apply pb-2 md:pb-6;
+                }
             }
-            &:not(:last-of-type) {
-                @apply pb-2 md:pb-6;
+        }
+
+        &.experience {
+            & > h4 {
+                @apply flex-center h-[2em] text-2xl xs:h-[4em] sm:text-3xl md:hidden;
+            }
+            & > p {
+                @apply mb-4 px-4 text-start last-of-type:mb-0 xs:leading-7 sm:px-12;
             }
         }
     }
 
-    .experience-innerHTML {
-        & > p {
-            @apply flex-center whitespace-pre-wrap indent-2 md:indent-8;
-
-            &:not(:last-of-type) {
-                @apply pb-6;
-            }
-        }
-    }
+    /*Experience*/
     .list-item-bg {
         position: relative;
         color: theme(colors.grey.60);

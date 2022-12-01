@@ -1,33 +1,23 @@
-export const Variants = {
-    fade_props: {
-        initial: { opacity: 0 },
-        animate: { opacity: 1 },
-        exit: { opacity: 0 },
-    },
+const xPolygonBuilder = (x) =>
+    `polygon(${x}% 0%, ${x}% 0%, ${x}% 120%, ${x}% 120%)`
+const yPolygonBuilder = (y) =>
+    `polygon(0% ${y}%, 100% ${y}%, 100% ${y}%, 0% ${y}%)`
+
+const Pre = {
     fade: {
         hidden: { opacity: 0 },
-        enter: { opacity: 1, x: [0, 0] },
+        enter: { opacity: 1 },
         exit: { opacity: 0 },
     },
     fadeY: {
-        hidden: (i = 50) => ({ opacity: 0, y: -i }),
+        hidden: { opacity: 0, y: -15 },
         enter: { opacity: 1, y: 0 },
-        exit: (i = 50) => ({ opacity: 0, y: -i }),
+        exit: { opacity: 0, y: -15 },
     },
     stagger: {
         enter: { transition: { staggerChildren: 0.1, staggerDirection: 1 } },
-        exit: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
+        exit: { transition: { staggerChildren: 0.075, staggerDirection: -1 } },
     },
-}
-
-export const inViewFadeIn = {
-    initial: { opacity: 0, y: 100 },
-    whileInView: { opacity: 1, y: 0 },
-    transition: {
-        duration: 1.5,
-        ease: 'circOut',
-    },
-    viewport: { once: true },
 }
 
 export const layoutVariants = {
@@ -69,7 +59,6 @@ export const layoutVariants = {
         }),
     },
 }
-// ~ Section.js ~
 export const sectionVariants = {
     hidden: (i) => ({
         opacity: i == 0 ? 1 : 0,
@@ -91,15 +80,7 @@ export const sectionVariants = {
     }),
     exit: { y: 0, opacity: 1 },
 }
-/**
- * Function - PolygonBuilders
- */
-const xPolygonBuilder = (x) =>
-    `polygon(${x}% 0%, ${x}% 0%, ${x}% 120%, ${x}% 120%)`
-const yPolygonBuilder = (y) =>
-    `polygon(0% ${y}%, 100% ${y}%, 100% ${y}%, 0% ${y}%)`
-// ~ Section_Card.js ~
-export const sectionContentVariants = {
+export const sectionCardVariants = {
     Container: {
         hidden: {
             opacity: 0,
@@ -292,44 +273,12 @@ export const sectionContentVariants = {
     },
 }
 export const sectionHeroVariants = {
-    Container: sectionContentVariants.Container,
-    Items_X: sectionContentVariants.Items_X,
-    Items_Y: sectionContentVariants.Items_Y,
-    Decoration: sectionContentVariants.Decoration,
-    scrollDownText: {
-        hidden: {
-            opacity: 0,
-            y: 25,
-        },
-        show: {
-            opacity: [0, 1, 1, 0],
-            y: [-25, 0, 0, 25],
-            transition: {
-                delay: 1,
-                duration: 2,
-                times: [0, 0.3, 0.7, 1],
-                ease: ['easeOut', 'linear', 'backIn'],
-            },
-        },
-    },
-    scrollDownArrow: {
-        hidden: {
-            height: '25px',
-            opacity: 0,
-            marginBottom: '25px',
-        },
-        show: {
-            height: '25px',
-            opacity: 1,
-            marginBottom: '0px',
-            transition: {
-                delay: 1,
-                duration: 2,
-                ease: 'easeOut',
-            },
-        },
-    },
+    Container: sectionCardVariants.Container,
+    Items_X: sectionCardVariants.Items_X,
+    Items_Y: sectionCardVariants.Items_Y,
+    Decoration: sectionCardVariants.Decoration,
 }
+
 export const navVariants = {
     NavLinks: {
         hidden: (i) => ({
@@ -509,165 +458,6 @@ export const menuVariants = {
         },
     },
 }
-export const cardVariants = {
-    CardSm: {
-        hidden: { opacity: 0 },
-        show: { opacity: 1, transition: { duration: 0.5, delay: 0.25 } },
-        expanded: { opacity: 0, transition: { duration: 0.25 } },
-    },
-    MdBg: {
-        show: {
-            scaleX: 0.5,
-            scaleY: 0.95,
-            filter: 'brightness(1)',
-            transition: {
-                scaleX: {
-                    duration: 0.5,
-                    delay: 0.7,
-                    ease: [0.25, 0.5, 0.25, 1],
-                },
-                default: { duration: 0.2, delay: 0.25 },
-            },
-        },
-        expanded: {
-            scaleX: 1,
-            scaleY: 1,
-            filter: 'brightness(1)',
-            transition: {
-                scaleX: { duration: 0.5, ease: [0.25, 1, 0.65, 1] },
-                default: { duration: 0.25, delay: 0.5, ease: 'easeOut' },
-            },
-        },
-    },
-    Img: {
-        hidden: (isAbout = null) => ({
-            transition: { delay: 0.5 },
-        }),
-        show: (isAbout = null) => ({
-            opacity: 1,
-            transition: {
-                delay: isAbout == null && 0.5,
-                type: 'spring',
-                bounce: 0,
-            },
-        }),
-        expanded: (isAbout = null) => ({
-            opacity: 0.8,
-            x: isAbout == null ? 0 : isAbout ? '100%' : '-100%',
-
-            transition: { duration: isAbout == null ? 0.5 : 0.5 },
-        }),
-    },
-    Content: {
-        hidden: { opacity: 1, transition: { delay: 0.5 } },
-        show: {
-            opacity: 1,
-            transition: { duration: 1, delay: 0.5 },
-        },
-        expanded: (isMd) => ({ opacity: isMd ? 0 : 1 }),
-    },
-}
-export const cardExpanded_Variants = {
-    Wrap: {
-        hidden: { opacity: 0, transition: { duration: 0.5 } },
-        show: { opacity: 1, transition: { duration: 0.5, delay: 0.5 } },
-    },
-    Content: {
-        hidden: { opacity: 1, transition: { duration: 1 } },
-        show: { opacity: 1, transition: { duration: 1, delay: 0.5 } },
-    },
-    TabListContainer: {
-        hidden: {
-            opacity: 0,
-            y: '100%',
-            transition: {
-                duration: 1,
-                ease: 'backIn',
-            },
-        },
-        show: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.5,
-                delay: 0.5,
-                ease: 'backOut',
-            },
-        },
-    },
-}
-export const expanded_Variants = {
-    Featured: {
-        GridWrap: {
-            hidden: (i) => ({
-                opacity: 0,
-                x: i * 100,
-                transition: {
-                    opacity: { duration: 0.4 },
-                    x: { duration: 0.5 },
-                },
-            }),
-            show: {
-                opacity: 1,
-                x: 0,
-                transition: {
-                    opacity: { duration: 0.4, delay: 0.35 },
-                    x: { duration: 0.5, delay: 0.25 },
-                },
-            },
-        },
-        TabsExpWrap: {
-            hidden: { opacity: 0, y: 15 },
-            show: {
-                opacity: 1,
-                y: 0,
-                transition: { duration: 0.5, delay: 0.25, ease: 'easeOut' },
-            },
-            exit: {
-                opacity: 0,
-                transition: { duration: 0.25 },
-            },
-        },
-        pRM: {
-            hidden: { opacity: 0, transition: { duration: 0.4 } },
-            show: { opacity: 1, transition: { duration: 0.4, delay: 0.35 } },
-        },
-    },
-}
-export const tabsMotion = {
-    Tabs: {
-        enter: (direction) => ({
-            opacity: 0,
-            x: direction > 0 ? '100%' : '-100%',
-        }),
-        show: {
-            opacity: 1,
-            x: 0,
-            transition: { ease: [0.5, 0.5, 0, 0.75] },
-        },
-        exit: (direction) => ({
-            opacity: 0,
-            x: direction < 0 ? '100%' : '-100%',
-            transition: { ease: [0.75, 0, 0.5, 0.5] },
-        }),
-    },
-    TabList: {
-        initial: {
-            color: '#c5c5c9',
-            paddingInline: '0px',
-            transition: { ease: 'easeIn' },
-        },
-        active: {
-            color: '#fff',
-            paddingInline: '7.5px',
-            transition: { delay: 0.15, type: 'tween' },
-        },
-        reduced: {
-            color: '#fff',
-            transition: { ease: 'easeIn' },
-        },
-    },
-}
 export const introVariants = {
     Wrap: {
         hidden: { opacity: 0 },
@@ -746,12 +536,12 @@ export const aboutVariants = {
             hidden: { opacity: 1 },
             show: {
                 opacity: 1,
-                transition: { staggerChildren: 0.025, delayChildren: 0.2 },
+                transition: { staggerChildren: 0.15, delayChildren: 0.5 },
             },
         },
         Item: {
-            hidden: { opacity: 0 },
-            show: { opacity: 1 },
+            hidden: { opacity: 0, y: 25 },
+            show: { opacity: 1, y: 0 },
         },
     },
     ItemMd: {
@@ -794,96 +584,34 @@ export const aboutVariants = {
     },
 }
 export const experienceMotion = {
-    Certs: {
-        accordion: {
-            open: {
-                opacity: 1,
-                height: 'auto',
-                transition: {
-                    duration: 0.8,
-                    ease: [0.04, 0.62, 0.23, 0.98],
-                },
-            },
-            collapsed: {
-                opacity: 0,
-                height: 0,
-                transition: {
-                    duration: 0.8,
-                    ease: [0.04, 0.62, 0.23, 0.98],
-                },
-            },
+    Accordion: {
+        closed: {
+            height: 0,
+            transition: { duration: 0.5 },
         },
-        image: {
-            hidden: { opacity: 0, filter: 'blur(3px) brightness(0.75)' },
-            show: {
-                opacity: 1,
-                filter: 'blur(0px) brightness(1)',
-                transition: { duration: 0.5 },
-            },
-            exit: {
-                opacity: 0,
-                filter: 'blur(3px) brightness(0.75)',
-                transition: { duration: 0.5 },
-            },
-        },
-        LinkContainer: {
-            hidden: {},
-            show: {
-                transition: { staggerChildren: 0.2, delayChildren: 0.25 },
-            },
-            exit: {
-                transition: { staggerChildren: 0.1, staggerDirection: -1 },
-            },
-        },
-        LinkItem: {
-            hidden: { opacity: 0, y: -200 },
-            show: {
-                opacity: 1,
-                y: 0,
-                transition: { duration: 0.75, ease: 'easeOut' },
-            },
-            exit: {
-                opacity: 0,
-                y: -200,
-                transition: { duration: 0.5 },
+        open: {
+            height: 'auto',
+            opacity: 1,
+            transition: {
+                duration: 0.5,
+                staggerChildren: 0.075,
+                delayChildren: 0.15,
             },
         },
     },
-    Jobs: {
-        Container: {
-            hidden: {},
-            show: {
-                transition: { staggerChildren: 0.1, delayChildren: 0.25 },
-            },
-            exit: {
-                transition: { staggerChildren: 0.1 },
-            },
+    Content: {
+        closed: { opacity: 0 },
+        open: { opacity: 1, transition: { duration: 0.5 } },
+    },
+    Image: {
+        open: {
+            opacity: 1,
+            filter: 'blur(0px)',
+            transition: { duration: 0.75 },
         },
-        Items: {
-            hidden: (pRM) => ({
-                opacity: 0,
-                clipPath: !pRM
-                    ? 'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)'
-                    : 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-            }),
-            show: {
-                opacity: 1,
-                clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-                transition: {
-                    duration: 0.5,
-                    ease: 'easeOut',
-                },
-            },
-            exit: (pRM) => ({
-                opacity: 0,
-                clipPath: !pRM
-                    ? 'polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)'
-                    : 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-                transition: {
-                    duration: 0.5,
-                    ease: 'easeIn',
-                },
-            }),
+        closed: {
+            opacity: 0,
+            filter: 'blur(5px)',
         },
     },
 }
@@ -1096,6 +824,7 @@ export const ftdProjectVariants = {
         },
     },
 }
+
 export const ftdVariants = [
     /**img**/ {
         initial: {
@@ -1136,6 +865,7 @@ export const ftdVariants = [
         expanded: { opacity: 0 },
     },
 ]
+
 export const archiveVariants = {}
 export const contactVariants = {
     Wrap: {
@@ -1215,6 +945,7 @@ export const contactVariants = {
         },
     },
 }
+
 export const formVariants = {
     Wrap: {
         hidden: { opacity: 0 },
@@ -1244,6 +975,68 @@ export const formVariants = {
                     ease: 'backOut',
                 },
             },
+        },
+    },
+}
+
+export const tabsMotion = {
+    Wrap: {
+        hidden: { opacity: 0, transition: { duration: 0.5 } },
+        show: { opacity: 1, transition: { duration: 0.5, delay: 0.5 } },
+    },
+    Content: {
+        hidden: { opacity: 1, transition: { duration: 1 } },
+        show: { opacity: 1, transition: { duration: 1, delay: 0.5 } },
+    },
+    Tabs: {
+        enter: (direction) => ({
+            opacity: 0,
+            x: direction > 0 ? '100%' : '-100%',
+        }),
+        show: {
+            opacity: 1,
+            x: 0,
+            transition: { ease: [0.5, 0.5, 0, 0.75] },
+        },
+        exit: (direction) => ({
+            opacity: 0,
+            x: direction < 0 ? '100%' : '-100%',
+            transition: { ease: [0.75, 0, 0.5, 0.5] },
+        }),
+    },
+    TabListContainer: {
+        hidden: {
+            opacity: 0,
+            y: '100%',
+            transition: {
+                duration: 1,
+                ease: 'backIn',
+            },
+        },
+        show: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.5,
+                delay: 0.5,
+                ease: 'backOut',
+            },
+        },
+    },
+    TabList: {
+        initial: {
+            color: '#c5c5c9',
+            paddingInline: '0px',
+            transition: { ease: 'easeIn' },
+        },
+        active: {
+            color: '#fff',
+            paddingInline: '7.5px',
+            transition: { delay: 0.15, type: 'tween' },
+        },
+        reduced: {
+            color: '#fff',
+            transition: { ease: 'easeIn' },
         },
     },
 }

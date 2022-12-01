@@ -1,8 +1,8 @@
 // FONT-SIZES
 const clamp = (scale = 0) => {
-    const [fontSize_min, fontSize_max] = [18, 22] // 'min/max' - Base font-sizes
-    const [factor_min, factor_max] = [1.185, 1.225] // 'min/max' - Base multipliers
-    const [screenMin, screenMax] = [320, 1440] // 'min/max' - Screen Bounds
+    const [fontSize_min, fontSize_max] = [18, 20] // 'min/max' - Base font-sizes
+    const [factor_min, factor_max] = [1.125, 1.225] // 'min/max' - Base multipliers
+    const [screenMin, screenMax] = [320, 1920] // 'min/max' - Screen Bounds
 
     const fsMin = fontSize_min * Math.pow(factor_min, scale)
     const fsMax = fontSize_max * Math.pow(factor_max, scale)
@@ -21,8 +21,11 @@ const fontSizes = {
     '2xl': clamp(2),
     '3xl': clamp(3),
     '4xl': clamp(4),
-    '5xl': clamp(5.5),
+    '5xl': clamp(5),
     '6xl': clamp(6),
+    '7xl': clamp(7),
+    '8xl': clamp(8),
+    '9xl': clamp(9),
 }
 
 /* 

@@ -1,88 +1,56 @@
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useState } from 'react'
-import { experienceMotion } from '@motion'
+import { motion } from 'framer-motion'
 
-const Jobs = ({ isMd, ...data }) => {
-    // JOBS
-    /** [ title, position, date, desc, _null  ] **/
-    /** [   0,        1,          2,      3         4    ] **/
-    // CERTS
-    /** [ title, desc, website, href, src ] **/
-    /** [   0       1          2         3      4   ] **/
+import { experienceMotion as variants } from '@motion'
+import { Accordion } from '@components'
 
-    const pRM = useReducedMotion()
-    const [activeItem, setActiveItem] = useState(0)
-    const variants = experienceMotion.Jobs
-
-    const Description = ({ idx }) =>
-        data.job_data[idx][3].map((paragraph, i) => (
-            <motion.p
-                key={`job-text-${i}`}
-                className="mb-2 indent-8"
-                variants={isMd && variants.Items}
-                custom={pRM}
+const Content = ({ Job }) => (
+    <ul className="full -z-10 px-2 md:p-4 md:pt-20">
+        <motion.li
+            className="flex-col-top tracking-wide text-grey-90 underline-offset-8 md:absolute md:top-4 md:right-4 md:left-4 md:flex-row md:justify-center md:gap-x-10 md:underline"
+            variants={variants.Content}
+        >
+            <span className="md:w-3/4">{Job.position}</span>
+            <span className="whitespace-nowrap text-[0.7em]">{Job.dates}</span>
+        </motion.li>
+        {Job.description.map((item, i) => (
+            <motion.li
+                key={`job-desc-item-${i}`}
+                className="listed-item mb-3 text-start text-grey-70"
+                variants={variants.Content}
+                transition={{
+                    ease: [0.5, 0.5, 0.5, 1],
+                }}
             >
-                {paragraph}
-            </motion.p>
-        ))
+                {item}
+            </motion.li>
+        ))}
+    </ul>
+)
+
+const Jobs = ({ ...props }) => {
+    const [active, setActive] = useState(-1)
 
     return (
-        <div className="flex-center relative w-full rounded-3xl p-2 md:min-h-[650px] md:justify-start md:bg-grey-10 md:landscape:min-h-[500px]">
-            <div className="full flex-col-center md:w-[35%]">
-                {data.job_data.map(([title, jobPosition, dates, _], i) => {
+        <div className="flex-col-center w-full md:rounded-4xl md:rounded-tl-none md:rounded-br-none md:bg-slate-90 md:p-6">
+            <h3 className="h-[3em]">Work Experience</h3>
+            <div className="flex-col-center w-full overflow-hidden px-2 sm:px-4 lg:py-4">
+                {props.jobs.map((Job, index) => {
+                    const isActive = index == active
                     return (
-                        <div
-                            key={`job-${i}`}
-                            className={`list-item-bg flex-col-center w-full space-y-2 rounded-3xl p-2 duration-250 ease-in first-of-type:mb-4 md:my-4 md:p-0.5 ${
-                                isMd
-                                    ? activeItem == i
-                                        ? 'text-white after:opacity-50'
-                                        : ' text-grey-60 hover:after:opacity-10'
-                                    : 'bg-grey/25'
-                            }`}
+                        <Accordion
+                            key={`job-${index}`}
+                            data={Job}
+                            isActive={isActive}
+                            onClick={() => {
+                                setActive(isActive ? -1 : index)
+                            }}
                         >
-                            <div
-                                className="flex-col-center w-full cursor-pointer space-y-2 rounded-3xl bg-grey-10 p-2 md:min-h-[150px] md:bg-grey-20/25"
-                                style={{ gridArea: '1 / 1 / 1 / 1' }}
-                                onClick={() => {
-                                    if (isMd & (activeItem !== i))
-                                        setActiveItem(i)
-                                }}
-                            >
-                                <p className="whitespace-nowrap font-bold underline underline-offset-8">
-                                    {title}
-                                </p>
-                                <p className="px-2 text-center text-sm">
-                                    {jobPosition}
-                                </p>
-                                {isMd ? (
-                                    <p className="mb-2 text-xs italic">
-                                        {dates}
-                                    </p>
-                                ) : null}
-                            </div>
-                            {isMd ? null : <Description idx={i} />}
-                        </div>
+                            <Content Job={Job} />
+                        </Accordion>
                     )
                 })}
             </div>
-
-            {isMd ? (
-                <div className="absolute left-[37.5%] right-4 top-4 bottom-4 rounded-4xl rounded-tl-none rounded-br-none bg-background">
-                    <AnimatePresence>
-                        <motion.div
-                            key={`job-content-${data.job_data[activeItem][0]}`}
-                            className="absoluteFull flex-col-center p-4 text-[0.825em]"
-                            initial="hidden"
-                            animate="show"
-                            exit="exit"
-                            variants={variants.Container}
-                        >
-                            <Description idx={activeItem} />
-                        </motion.div>
-                    </AnimatePresence>
-                </div>
-            ) : null}
         </div>
     )
 }

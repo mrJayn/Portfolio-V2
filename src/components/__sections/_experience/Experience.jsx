@@ -1,23 +1,10 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
-
 import { Tabs } from '@components'
-import Jobs from './Jobs'
+import Education from './Education'
 import Certifications from './Certifications'
-
-const Education = ({ ...props }) => (
-    <div key="experience-edu" className="flex-center min-h-[50%] w-full">
-        <div className="flex-col-left mx-2 h-auto w-full border-l-2 border-l-white px-2 xs:mx-4 xs:px-4">
-            <h5>{props.university}</h5>
-            <p>{props.degree}</p>
-            <p>{props.dates}</p>
-        </div>
-    </div>
-)
+import Jobs from './Jobs'
 
 const Experience = ({ isMd, ...props }) => {
-    const [[currentTab, direction], setTab] = useState([0, 0])
-
     const Components = [
         {
             title: 'Proffesional Summary',
@@ -32,16 +19,16 @@ const Experience = ({ isMd, ...props }) => {
         },
         {
             title: 'Work Experience',
-            component: <Jobs isMd={isMd} {...props.data} />,
+            component: <Jobs {...props.data} />,
         },
         {
             title: 'Education',
             component: isMd ? <Education {...props.data.education} /> : null,
         },
         {
-            title: 'Certificates',
+            title: 'Certifications',
             component: (
-                <div className="flex-col-top full relative">
+                <div className="flex-col-top relative w-full gap-y-8">
                     {isMd ? null : <Education {...props.data.education} />}
                     <Certifications {...props.data} />
                 </div>
@@ -49,35 +36,32 @@ const Experience = ({ isMd, ...props }) => {
         },
     ]
 
-    const ComponentArr = []
-    Object.values(Components).forEach((obj) => {
-        if (obj.title == 'Education') return
-        ComponentArr.push(obj.component)
-    })
+    const ComponentArr = [
+        ...Object.values(Components)
+            .filter((obj) => obj.title !== 'Education')
+            .map((obj) => obj.component),
+    ]
 
     return isMd ? (
-        <>
-            {Components.map(({ title, component }, i) => (
-                <motion.div
-                    key={`exp-item-${title}`}
-                    className="subsection full"
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1.5, ease: 'circOut' }}
-                    viewport={{ once: true }}
-                >
-                    {title == '' ? null : <h4>{title}</h4>}
-                    {component}
-                </motion.div>
-            ))}
-        </>
+        Components.map(({ title, component }) => (
+            <motion.div
+                key={`exp-item-${title}`}
+                id="Experience"
+                className="subsection full"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1.5, ease: 'circOut' }}
+                viewport={{ once: true }}
+            >
+                <h4>{title}</h4>
+                {component}
+            </motion.div>
+        ))
     ) : (
         <Tabs
-            tabNames={['Summary', 'Jobs', 'Certificates']}
+            id="Experience"
+            tabNames={['Summary', 'Jobs', 'Education']}
             tabs={ComponentArr}
-            currentTab={currentTab}
-            direction={direction}
-            setTab={setTab}
         />
     )
 }

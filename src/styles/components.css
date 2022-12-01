@@ -21,7 +21,7 @@
 
     .subsection {
         counter-increment: subsection 1;
-        & h4:before {
+        & > h4:before {
             content: '0' counter(subsection) '. ';
             @apply text-[0.65em] font-light tracking-normal text-white;
         }
@@ -71,9 +71,6 @@
 
         &.about {
             & > p {
-                &:first-of-type {
-                    @apply mb-4 font-medium leading-7 sm:text-[24px] sm:leading-8 md:text-center md:text-[1.1em];
-                }
                 &:not(:last-of-type) {
                     @apply pb-2 md:pb-6;
                 }
@@ -81,8 +78,8 @@
         }
 
         &.experience {
-            & > h4 {
-                @apply flex-center h-[2em] text-2xl xs:h-[4em] sm:text-3xl md:hidden;
+            & > h3 {
+                @apply h-[3em];
             }
             & > p {
                 @apply mb-4 px-4 text-start last-of-type:mb-0 xs:leading-7 sm:px-12;
@@ -90,31 +87,8 @@
         }
     }
 
-    /*Experience*/
-    .list-item-bg {
-        position: relative;
-        color: theme(colors.grey.60);
-        overflow: hidden;
-        z-index: 1;
-        transition: 0.25s ease-in;
-
-        &:after {
-            @apply absoluteFull;
-            content: '';
-            background: theme(backgroundImage.gradient);
-            opacity: 0;
-            z-index: -1;
-            transition: 0.25s ease-in;
-        }
-        &:hover:after {
-            opacity: 0.1;
-        }
-        &[data-active='true'] {
-            color: theme(colors.white);
-            &:after {
-                opacity: 0.5;
-            }
-        }
+    #Experience h3 {
+        @apply flex-center px-5 text-xl font-semibold xs:text-2xl sm:text-3xl md:hidden;
     }
 
     .project-innerHTML {
@@ -137,13 +111,25 @@
         }
     }
 
+    /* colored bullets */
+    .listed-item:before {
+        content: '\2022';
+        @apply inline-block w-[0.75em] font-bold text-slate-neon;
+    }
     /** Scroll Down Arrow **/
     .scroll-down-arrow {
-        & span:nth-of-type(1) {
-            transform: rotate(12.5deg) skew(12.5deg) translateX(1px);
+        &:before,
+        &:after {
+            content: '';
+            @apply absolute top-1 h-[2px] w-1/2 bg-current;
         }
-        & span:nth-of-type(2) {
-            transform: rotate(-12.5deg) skew(-12.5deg) translateX(-1px);
+        &:before {
+            @apply left-0;
+            transform: rotate(7.5deg) translateX(0.5px);
+        }
+        &:after {
+            @apply right-0;
+            transform: rotate(-7.5deg) translateX(-0.5px);
         }
     }
 

@@ -1,33 +1,6 @@
 import { motion } from 'framer-motion'
-import { Styled } from '@components'
 import { sectionHeroVariants as variants } from '@motion'
-
-const ScrollDownText = ({ even }) => (
-    <motion.p
-        className={`flex-center absolute bottom-[20%] z-10 w-[200px] text-lg tracking-tight ${
-            even == null
-                ? 'left-1/2 ml-[-100px]'
-                : even
-                ? 'left-1/4 ml-[-100px]'
-                : 'right-1/4 mr-[-100px]'
-        }`}
-        initial="hidden"
-        whileInView="show"
-        variants={variants.scrollDownText}
-    >
-        Scroll Down
-        <span className="scroll-down-arrow absolute -bottom-8 left-0 flex h-auto w-full">
-            <motion.span
-                className="w-full border-y-[3px]"
-                variants={variants.scrollDownArrow}
-            />
-            <motion.span
-                className="w-full border-y-[3px]"
-                variants={variants.scrollDownArrow}
-            />
-        </span>
-    </motion.p>
-)
+import { Styled } from '@components'
 
 const Section_Hero = ({ even, backgroundColor, isMd, isRouting, ...data }) => {
     const isProjectsSection = data.sectionName == 'Projects'
@@ -83,9 +56,6 @@ const Section_Hero = ({ even, backgroundColor, isMd, isRouting, ...data }) => {
                         custom={even}
                     />
                 </motion.div>
-                {isMd ? (
-                    <ScrollDownText even={isProjectsSection ? null : even} />
-                ) : null}
             </div>
         </>
     )

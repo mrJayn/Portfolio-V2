@@ -17,5 +17,5 @@ export { default as Form } from './Form'
 
 export { default as Tabs } from './items/Tabs'
 export { default as Tabs_List } from './items/Tabs_List'
-
+export { default as Accordion } from './items/Accordion'
 export { default as Styled } from './StyledComponents'

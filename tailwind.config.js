@@ -195,6 +195,9 @@ module.exports = {
             transitionDelay: {
                 0: '0ms',
             },
+            transitionTimingFunction: {
+                tween: 'cubic-bezier(0.5, 0.5, 0.5, 1)',
+            },
         },
     },
 }

@@ -1,18 +1,53 @@
-import { useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useRef, useState } from 'react'
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 
-import Tabs_List from './Tabs_List'
 import { paginate } from '@utils'
-import { cardExpanded_Variants as variants } from '@motion'
-import { tabsMotion } from '@motion'
+import { tabsMotion as variants } from '@motion'
 
-const Tabs_Wrap = ({
-    currentTab = null,
-    setTab = null,
-    span = null,
-    children,
-    ...tabProps
-}) => {
+const Tabs_List = ({ currentTab, tabNames, handleSelect }) => {
+    return (
+        <LayoutGroup>
+            <div className="flex-evenly full">
+                {tabNames.map((label, index) => {
+                    const isActive = index == currentTab
+                    return (
+                        <motion.div
+                            key={`tabList-Item-${index}`}
+                            className="full flex cursor-pointer p-0.5"
+                            whileTap={{ scale: 0.9 }}
+                            onClick={() => handleSelect(index)}
+                        >
+                            <div className="full flex-center relative z-10 rounded-lg shadow-inset shadow-black/25">
+                                <p
+                                    className={`z-10 select-none text-[0.9em] font-medium duration-250 ${
+                                        isActive && 'text-white'
+                                    }`}
+                                >
+                                    {label}
+                                </p>
+                                <AnimatePresence mode="wait">
+                                    {isActive && (
+                                        <motion.div
+                                            layoutId="highlight"
+                                            className="absolute inset-0 rounded-lg bg-slate shadow-inset"
+                                            transition={{ delay: 0.1 }}
+                                        />
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                        </motion.div>
+                    )
+                })}
+            </div>
+        </LayoutGroup>
+    )
+}
+
+const Tabs = ({ tabs, tabNames, ...props }) => {
+    const [[currentTab, direction], setTab] = useState([0, 0])
+    const scrollRef = useRef(null)
+    const span = tabNames.length
+
     function handleSwipe(e, { offset, velocity }) {
         const threshold = 5000
         const swipe = Math.abs(offset.x) * velocity.x
@@ -22,36 +57,24 @@ const Tabs_Wrap = ({
             paginate(-1, currentTab, span, setTab)
         }
     }
-    return (
-        <motion.div
-            className={`md:flex-top full relative z-0 rounded-lg opacity-100`}
-            variants={tabsMotion.Tabs}
-            initial="enter"
-            animate="show"
-            exit="exit"
-            drag="x"
-            dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-            onDragEnd={handleSwipe}
-            {...tabProps}
-        >
-            {children}
-        </motion.div>
-    )
-}
+    function handleSelect(clickedTab) {
+        if (clickedTab == currentTab) return
+        let newDirection = clickedTab - currentTab
+        setTab([clickedTab, newDirection])
+    }
 
-const Tabs = ({ tabNames, tabs, currentTab, direction, setTab }) => {
-    const scrollRef = useRef(null)
     return (
         <motion.div
-            className="fixed left-0 right-0 top-14 bottom-0 bg-background"
+            className="fixed inset-0 bg-background"
             initial="hidden"
             animate="show"
             exit="hidden"
             variants={variants.Wrap}
+            {...props}
         >
-            <div className="absolute top-0 left-0 right-0 bottom-14">
-                <motion.div
-                    className="absoluteFull overflow-x-hidden overflow-y-scroll bg-background text-center"
+            <div className="absolute inset-0">
+                <div
+                    className="absoluteFull overflow-x-hidden overflow-y-scroll text-center"
                     ref={scrollRef}
                 >
                     <AnimatePresence
@@ -60,26 +83,38 @@ const Tabs = ({ tabNames, tabs, currentTab, direction, setTab }) => {
                         initial={false}
                         onExitComplete={() => scrollRef.current.scrollTo(0, 0)}
                     >
-                        <Tabs_Wrap
+                        <motion.div
                             key={currentTab}
-                            currentTab={currentTab}
-                            setTab={setTab}
-                            span={tabNames.length}
+                            className="full relative rounded-lg opacity-100"
+                            initial="enter"
+                            animate="show"
+                            exit="exit"
+                            variants={variants.Tabs}
                             custom={direction}
+                            drag="x"
+                            dragConstraints={{
+                                left: 0,
+                                right: 0,
+                                top: 0,
+                                bottom: 0,
+                            }}
+                            onDragEnd={handleSwipe}
                         >
-                            {tabs[currentTab]}
-                        </Tabs_Wrap>
+                            <div className="w-full py-14">
+                                {tabs[currentTab]}
+                            </div>
+                        </motion.div>
                     </AnimatePresence>
-                </motion.div>
+                </div>
                 {/***/}
                 <motion.div
-                    className="flex-center fixed bottom-0 left-0 right-0 z-10 h-14 bg-nav"
+                    className="fixed bottom-0 left-0 right-0 z-10 h-12 bg-background sm:h-14"
                     variants={variants.TabListContainer}
                 >
                     <Tabs_List
                         currentTab={currentTab}
-                        setTab={setTab}
                         tabNames={tabNames}
+                        handleSelect={handleSelect}
                     />
                 </motion.div>
             </div>

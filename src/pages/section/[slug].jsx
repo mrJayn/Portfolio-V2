@@ -58,7 +58,7 @@ export default function SectionPage({
                         {...heroData}
                     />
                 ) : null}
-                <div className="flex-col-center relative mx-auto h-auto w-full max-w-[1440px] space-y-8 px-2 py-8 sm:px-6 md:mt-20 md:space-y-16 md:px-10 md:py-16">
+                <div className="flex-col-center relative mx-auto h-auto w-full max-w-[1440px] space-y-8 px-2 py-8 sm:px-6 md:mt-20 md:pt-0 lg:space-y-16 lg:px-10">
                     <SlugToContent {...Data} />
                 </div>
             </div>

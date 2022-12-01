@@ -10,60 +10,54 @@ alt: A picture of me
 slug: about
 
 skills:
-    [
-        [Python, '/assets/skills/python.png'],
-        [TensorFlow, '/assets/skills/tensor.png'],
-        [HTML, '/assets/skills/html.png'],
-        [CSS, '/assets/skills/css.png'],
-        [Tailwind, '/assets/skills/tailwind.png'],
-        [Javascript, '/assets/skills/javascript.png'],
-        [React.js, '/assets/skills/react.png'],
-        [D3.js, '/assets/skills/d3.png'],
-        [Node.js, '/assets/skills/node.png'],
-        [Anaconda3, '/assets/skills/anaconda.png'],
-        [GitHub, '/assets/skills/github1.png'],
-        [VS Code, '/assets/skills/vscode.png'],
-        [Jupyter, '/assets/skills/jupyter.png'],
-    ]
+    - title: Python
+      src: '/assets/skills/python.png'
+    - title: TensorFlow
+      src: '/assets/skills/tensor.png'
+    - title: HTML
+      src: '/assets/skills/html.png'
+    - title: CSS
+      src: '/assets/skills/css.png'
+    - title: Tailwind
+      src: '/assets/skills/tailwind.png'
+    - title: Javascript
+      src: '/assets/skills/javascript.png'
+    - title: React.js
+      src: '/assets/skills/react.png'
+    - title: D3.js
+      src: '/assets/skills/d3.png'
+    - title: Node.js
+      src: '/assets/skills/node.png'
+    - title: Anaconda3
+      src: '/assets/skills/anaconda.png'
+    - title: GitHub
+      src: '/assets/skills/github1.png'
+    - title: VS Code
+      src: '/assets/skills/vscode.png'
+    - title: Jupyter
+      src: '/assets/skills/jupyter.png'
 ---
 
-My name is Michael Jayne and I love
-developing tools to make tedious tasks, simple.
+### Summary
 
-My interests for problem solving began long before I
-took up development, and as early as I can remember.
-My first interactions with some type of development
-were a CAD design course, and a robotics course both
-offered at my highschool. However, when it came to
-college, I chose a chemical engineering degree, not
-quite yet knowing where I wanted to head in life.
+I'm an engineer with a brain built for problem solving, whose incredibly motivated to consume as much knowledge as possible in this life, and whose goal is to find and solve challenges that don't yet have a solution.
 
-After graduation, I still felt uncertain about what
-lie ahead. And after about a month of thinking, I
-thought I&apos;d give pharmaceutical development a
-try, but after a little less than a year with a
-related job and coursework, I also knew this
-wasn&apos;t right for me.
+### The Beginning
 
-I finally realized my love for development a litle
-over a year ago. While developing a mediocre google
-sheets app for tracking working out and
-periodization for workout programs, I ended up
-stumbling into google API... and then I just kept
-going until I decided it was time to access some
-real educational content. And since then, I&apos;ve
-taken up the challenge to build, not only my
-knowledge and undestanding of developement, but my
-carrer as well.
+I was born and raised in Newburyport, Massachusetts, a fairly well-off and privelidged community. My early years were by no means difficult. Having a healthy functioning family with hard-working parents, helped me to attend private insitutions until the 7th grade before attending public schools.
 
-As for real-world jobs...well... I've never had a real one... that is in regards to software, coding or development. BUT ! I did work an internship at Rochester Electronics, the worlds single largest conitnuous provider of semiconductors.
+My interests for problem solving began as early as I can remember, however my first interactions with some type of development came in 8th grade in CAD design course, and again sophmore year of highschool in a Robotics course both being suprelative courses with no more than 10 kids in each class. In hindsight, attending these classes were always the highlight of my day.
 
-As an intern, I was responsible for independently constructing, and conducting small-scale experiments in order to find ideal conditions for a process being newly implemented into production. The process was one of electroplating, or electrodeposition, onto semiconductor components, using a nickel / tin alloy bath. The tests conducted were rather simple, just using the bath solution, and a battery connected to an anode and electrode to provide the cuurent. And well... I gathered enough data and essentially fiinished my summer's worth of work, EXTEMELY early.
+### Education
 
-So they decided to make use of me while I was there and assigned me a multitude of tasks, one being writing a simple brute-force macro to transfer data from a particular program into excel. So I guees I did manage to get a bit of coding experience!
+I applied to many prestigous colleges, however very few offered scholarships, and the few that did, seemed unimpactful, except for one. The University of Massachusetts Amherst offered free tuition and with the in-state-resident fees, this was my new home for the next 4 years. I chose to persue a chemical engineering degree, not quite knowing which direction I was headed in life, only knowing that this was considered to be the most difficult engineering major.
 
-But, it's safe to say that on a piece of paper, I look like a bit of a deadbeat ( in my own opinion ). However, I can at least justify the last 4... maybe 5 years of my life being spent on trying to further my education. And the past 6 months alone, strictly to coding. And I say coding because I've touched briefly on so many subjects. And towards the end of the past few months I've managed to narrow my sights down and get particularly knowledgable with just a few.
+I struggled in the begining, adjusting to the new way of life and over time I learned a lot about myself. I began attending less of my classes and begain studying directly from the source material seeing as I could save myself ALOT of time. This practive was not loved by all and came back to bite me in my final year. A required art suprelative course, in my cases "The history of Jazz", had a professor who failed me (albeit I hadn't scored less than a 100% on any exam) due to my attendance, or should I say absence, and forced me to remain an undergaduate student for one extra semester.
 
-So in conclusion, I do have my certifications, however if anything is to speak for my acquired knowledge, it'd have to be this portfolio alone. At least considering, that this is my first ever website.
+After graduation, I still felt uncertain about what lie ahead. My 4 years of engineering were interesting, but after a few internships and seeing what work was really like, I was uninspired. I took time to really think and plan what was next. And with that I set my sights on a discipline in a pharmaceutical based field. I spent the next year taking pre-requisite courses to attend MCPHS (Mass. School of Pharmacy), all while working full time as a pharmacy technician and covid-19 PCR test administrator. During that time, I felt unchallenged by what seemed like, tedious, rather than intellectually demanding tasks, and once again, concluded that this profession wasn't right for me.
 
-So please, if you did manage to read all that, I appreciate it and would love for you to have a look at some of the small projects I've managed to piece together!
+### Realization
+
+And then it dawned on me, while adding another function to a google sheet I had been using religously for the past couple of years, that I may have accidentally created an entirely functioning app from google sheets alone. This "sheet-app" managed the entirety of my workouts, including displaying daily workouts, updating program statistics daily, and even going as far as tracking precise muscles that may be "over-worked" from too much direct work (and this was before I knew about web-scraping so every muscles data was enter in manually on another document). And somewhere along the way I stumbled into Google API and Google Scripts, which accidently had me writing HTML and Javascript before I knew it's name.
+
+At this realization, that my small hobby may actually be a profittable and exciting profession, I not only took up the challenge to begin building not only my knowledge and undestanding of developement, but my career as well.

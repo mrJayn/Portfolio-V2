@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 
 import { Featured_Slides, Styled } from '@components'
-import { sectionContentVariants as variants } from '@motion'
+import { sectionCardVariants as variants } from '@motion'
 
 const Section_Card = ({
     id,
@@ -74,7 +74,7 @@ const Section_Card = ({
                 </motion.h3>
 
                 <motion.div
-                    className="blurrAfterAnim relative z-10 flex  min-h-[33%] w-full items-center justify-center overflow-hidden rounded-xl p-8 md:my-2 md:min-h-0 md:w-[92.5%] md:bg-transparent md:py-2 landscape:my-2 landscape:py-2"
+                    className="blurrAfterAnim relative z-10 flex  min-h-[33%] w-full items-center justify-center overflow-hidden rounded-xl p-8 md:my-2 md:min-h-0 md:w-auto md:bg-transparent md:px-0 md:py-2 landscape:my-2 landscape:py-2"
                     {...itemProps}
                 >
                     <span className="backdrop-blurred md:hidden" />

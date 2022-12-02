@@ -68,7 +68,7 @@ const Featured_Slide = ({ projectData, direction = 0, isMd }) => {
                 initial="hidden"
                 animate="show"
                 exit="exit"
-                variants={variants.isHome.Header}
+                variants={variants.Slide.HeaderMd}
                 custom={direction}
             />
             <div className="full relative overflow-hidden rounded-4xl">

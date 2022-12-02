@@ -17,7 +17,7 @@ const Section_Card = ({
     const even = idx % 2 == 0
 
     // Section name from slug for Link "as"
-    const pathAs = data.slug.charAt(0).toUpperCase() + data.slug.slice(1)
+    const pathAs = data.id.charAt(0).toUpperCase() + data.id.slice(1)
 
     // Props
     const motionProps = { initial: initialAnim, animate: anim, exit: 'hidden' }
@@ -61,7 +61,7 @@ const Section_Card = ({
                 {...motionProps}
             >
                 <motion.h3 className="relative sm:w-[75%] sm:text-5xl md:w-full md:px-4 md:text-4xl">
-                    {data.sectionName}
+                    {data.id}
                     <motion.span
                         className="styled-underline"
                         style={{
@@ -90,7 +90,7 @@ const Section_Card = ({
                         <Link
                             href={{
                                 pathname: '/section/[slug]',
-                                query: { slug: data.slug },
+                                query: { slug: data.id },
                             }}
                             as={'/' + pathAs}
                             scroll={false}

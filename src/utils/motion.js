@@ -742,8 +742,8 @@ export const ftdSlidesVariants = {
     },
 }
 export const ftdProjectVariants = {
-    isHome: {
-        Header: {
+    Slide: {
+        HeaderMd: {
             hidden: (i = -1) => ({
                 opacity: 0,
                 x: i * -50 + '%',
@@ -760,67 +760,34 @@ export const ftdProjectVariants = {
             }),
         },
     },
-    slug: {
-        md: {
-            header: {
-                hidden: {
-                    transition: { staggerChildren: 0.1, staggerDirection: -1 },
-                },
-                show: { transition: { staggerChildren: 0.1, delay: 0.5 } },
+    FullPage: {
+        Header: {
+            hidden: {
+                transition: { staggerChildren: 0.1, staggerDirection: -1 },
             },
-            fade: {
-                hidden: { opacity: 0 },
-                show: { opacity: 1 },
-            },
-            img: {
-                hidden: (i = 0) => ({
-                    x: i * -25,
-                    scale: 0.9,
-                    transition: { duration: 1, ease: 'easeIn' },
-                }),
-                show: {
-                    x: 0,
-                    scale: 1,
-                    transition: { duration: 1, ease: 'easeOut' },
-                },
-            },
-            item: {
-                hidden: (i = 0) => ({
-                    x: i * 25,
-                    transition: { duration: 1, ease: 'easeIn' },
-                }),
-                show: {
-                    x: 0,
-                    transition: { duration: 1, ease: 'easeOut' },
-                },
-            },
+            show: { transition: { staggerChildren: 0.1, delay: 0.5 } },
         },
-        image: {
-            initial: {
-                opacity: 1,
+        Image: {
+            hidden: (i = 0) => ({
+                x: i * -25,
+                scale: 0.9,
+                transition: { duration: 1, ease: 'easeIn' },
+            }),
+            show: {
                 x: 0,
                 scale: 1,
-                originY: 0,
-                transition: { duration: 0.75, type: 'tween' },
+                transition: { duration: 1, ease: 'easeOut' },
             },
-            expanded: (i) => ({
-                x: `${i * 67.5}%`,
-                scale: 0.85,
-                originY: 0,
-                transition: { duration: 0.75, type: 'tween' },
+        },
+        Item: {
+            hidden: (i = 0) => ({
+                x: i * 25,
+                transition: { duration: 1, ease: 'easeIn' },
             }),
-        },
-        title: {
-            initial: { y: 0 },
-            expanded: { y: 0 },
-        },
-        description: {
-            initial: { opacity: 1, x: 0 },
-            expanded: (i) => ({ opacity: 0, x: i }),
-        },
-        links: {
-            initial: { y: 0 },
-            expanded: { y: 0 },
+            show: {
+                x: 0,
+                transition: { duration: 1, ease: 'easeOut' },
+            },
         },
     },
 }

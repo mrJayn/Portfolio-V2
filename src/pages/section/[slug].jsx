@@ -69,7 +69,7 @@ export default function SectionPage({
 export const getStaticPaths = async () => {
     const data = await getAllMarkdown()
     const paths = [data.about, data.experience, data.projects].map((obj) => {
-        const slug = obj.data.slug
+        const slug = obj.data.id
         return { params: { slug } }
     })
     return { paths, fallback: false }

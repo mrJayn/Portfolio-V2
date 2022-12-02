@@ -19,14 +19,6 @@
         margin-bottom: 0px;
     }
 
-    .subsection {
-        counter-increment: subsection 1;
-        & > h4:before {
-            content: '0' counter(subsection) '. ';
-            @apply text-[0.65em] font-light tracking-normal text-white;
-        }
-    }
-
     /** =============== COMPONENTS ============== **/
     #navbar {
         --nav-ce: cubic-bezier(0.5, 1, 0.5, 1);
@@ -70,6 +62,9 @@
         }
 
         &.about {
+            & > h3 {
+                @apply w-full text-center md:w-auto md:text-start;
+            }
             & > p {
                 &:not(:last-of-type) {
                     @apply pb-2 md:pb-6;

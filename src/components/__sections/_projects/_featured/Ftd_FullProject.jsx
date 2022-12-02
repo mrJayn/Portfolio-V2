@@ -47,7 +47,7 @@ const Featured_Full = ({ even, ...data }) => {
                     justifyContent: even ? 'flex-start' : 'flex-end',
                     gridArea: even ? '1/1/1/-1' : '1/1/1/-1',
                 }}
-                variants={variants.slug.md.header}
+                variants={variants.FullPage.Header}
                 custom={even ? -1 : 1}
             >
                 <div
@@ -72,7 +72,7 @@ const Featured_Full = ({ even, ...data }) => {
             <motion.div
                 className="flex-top relative"
                 style={{ gridArea: even ? '2/6/4/-1' : '2/1/4/8' }}
-                variants={variants.slug.md.img}
+                variants={variants.FullPage.Image}
                 custom={even ? -1 : 1}
             >
                 <div
@@ -95,7 +95,7 @@ const Featured_Full = ({ even, ...data }) => {
             {/** [  Content  ] **/}
             <motion.div
                 style={{ gridArea: even ? '2/1/-1/-1' : '2/1/-1/-1' }}
-                variants={variants.slug.md.item}
+                variants={variants.FullPage.Item}
                 custom={even ? -1 : 1}
             >
                 <div

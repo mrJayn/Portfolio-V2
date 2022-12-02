@@ -1,13 +1,10 @@
 ---
-sectionName: Experience
+id: experience
 title: My Experience
 subtitle: Where I've worked.<br/>What I've accomplished.
 description: My past professional statement, job history, and education.
-
 src: '/assets/misc/resume2022.jpg'
 alt: /
-
-slug: experience
 
 education:
     university: University of Massachusetts Amherst

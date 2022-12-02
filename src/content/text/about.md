@@ -1,63 +1,59 @@
 ---
-sectionName: About
+id: about
+
 title: Michael Jayne
 subtitle: Nice to meet you,<br/>Allow me to introduce myself.
 description: A little bit about me and what I can do.
-
-src: '/assets/misc/mikeJayne.JPG'
+src: '/assets/misc/mikeJayne.jpg'
 alt: A picture of me
 
-slug: about
+brief: Hello, I'm Michael.<br/>I'm an chemical engineer turned developer who wants nothing more than to consume knowledge and to find the problems yet to to have a solution. I started teaching myself how to practically code in early March of 2022 and seeing how far I've come only gets me more excited for what lies ahead. I'm exeptionally well versed in Javascript Front End development, Python and SQL data analysis.
+
+images:
+    - src: '/assets/misc/mikeJayne.jpg'
+      alt: A picture of myself accepting my diploma.
+      href: ''
+
+    - src: '/assets/misc/fantasticContraption.jpg'
+      alt: Fantastic Contraption flash-game screenshot
+      href: 'http://fantasticcontraption.com/original/'
 
 skills:
-    - title: Python
-      src: '/assets/skills/python.png'
-    - title: TensorFlow
-      src: '/assets/skills/tensor.png'
-    - title: HTML
-      src: '/assets/skills/html.png'
-    - title: CSS
-      src: '/assets/skills/css.png'
-    - title: Tailwind
-      src: '/assets/skills/tailwind.png'
     - title: Javascript
       src: '/assets/skills/javascript.png'
-    - title: React.js
-      src: '/assets/skills/react.png'
+
+    - title: Next.js
+      src: '/assets/skills/nextjs.png'
+
+    - title: Tailwind
+      src: '/assets/skills/tailwind.png'
+
+    - title: Python
+      src: '/assets/skills/python.png'
+
+    - title: HTML / CSS
+      src: '/assets/skills/htmlcss.png'
+
+    - title: TensorFlow
+      src: '/assets/skills/tensor.png'
+
     - title: D3.js
       src: '/assets/skills/d3.png'
+
     - title: Node.js
       src: '/assets/skills/node.png'
-    - title: Anaconda3
-      src: '/assets/skills/anaconda.png'
-    - title: GitHub
-      src: '/assets/skills/github1.png'
-    - title: VS Code
-      src: '/assets/skills/vscode.png'
-    - title: Jupyter
-      src: '/assets/skills/jupyter.png'
 ---
 
-### Summary
+### My Passion
 
-I'm an engineer with a brain built for problem solving, whose incredibly motivated to consume as much knowledge as possible in this life, and whose goal is to find and solve challenges that don't yet have a solution.
+I was born and raised in Newburyport, Massachusetts, a fairly well-off and privelidged community. My early years were by no means difficult, having a happy, healthy, and loving family with hard working parents.
 
-### The Beginning
+My interests for problem solving began as early as I can remember. Legos were my first step, as for many, however my creativity often didn't stop on the last page of the instruction manual. I would destroy these pre-concieve designs and use the pieces to build my own creations, ussually modeled after games I'd play in my adolescense.
 
-I was born and raised in Newburyport, Massachusetts, a fairly well-off and privelidged community. My early years were by no means difficult. Having a healthy functioning family with hard-working parents, helped me to attend private insitutions until the 7th grade before attending public schools.
+As coding went, my first and most impactful memory of using coputing to solve problems occured in 2008. At age 12-13 I had stumbled across a flash-based physics game called "Fantastic Contraption". I remeber loving this game so much! I would dig into the code to learn ways to create my own stuff using coordinate grids and very simple code.
 
-My interests for problem solving began as early as I can remember, however my first interactions with some type of development came in 8th grade in CAD design course, and again sophmore year of highschool in a Robotics course both being suprelative courses with no more than 10 kids in each class. In hindsight, attending these classes were always the highlight of my day.
+Unlike today, back in the 2000s coding and computational problem solving was not so readily available in school or any acedmic setting before university. However, lukily, my highschool offered a few computer courses, and I took them all. Those courses revolved around CAD design, Robotics (using Lego Mindstorm), and Adobe Animation. These courses never had more than 10-15 kids enrolled in each of them but, in hindsight, these courses to me, were always the highlight of my day.
 
-### Education
+It dawned on me that writing code may actually be my end all be all I a bit of a strange way. During college I began working out religously and being an engineer, deconstucted and rebuilt my workouts from the foundation up, which admittingly is a bit nerdy. I used google sheets to manage almost the entirety of my workouts and thier data. These sheets displayed daily workouts, updated programmed exercises daily, and even went as far as tracking precise muscles that may have been "over-worked" and recommended adjustments that could be made. Somewhere along the way I stumbled into Google API and Google Scripts, which accidently had me writing HTML and Javascript before I knew it's name. And while adding yet another feature, I realized I may have accidentally created an entirely functioning app from google sheets alone.
 
-I applied to many prestigous colleges, however very few offered scholarships, and the few that did, seemed unimpactful, except for one. The University of Massachusetts Amherst offered free tuition and with the in-state-resident fees, this was my new home for the next 4 years. I chose to persue a chemical engineering degree, not quite knowing which direction I was headed in life, only knowing that this was considered to be the most difficult engineering major.
-
-I struggled in the begining, adjusting to the new way of life and over time I learned a lot about myself. I began attending less of my classes and begain studying directly from the source material seeing as I could save myself ALOT of time. This practive was not loved by all and came back to bite me in my final year. A required art suprelative course, in my cases "The history of Jazz", had a professor who failed me (albeit I hadn't scored less than a 100% on any exam) due to my attendance, or should I say absence, and forced me to remain an undergaduate student for one extra semester.
-
-After graduation, I still felt uncertain about what lie ahead. My 4 years of engineering were interesting, but after a few internships and seeing what work was really like, I was uninspired. I took time to really think and plan what was next. And with that I set my sights on a discipline in a pharmaceutical based field. I spent the next year taking pre-requisite courses to attend MCPHS (Mass. School of Pharmacy), all while working full time as a pharmacy technician and covid-19 PCR test administrator. During that time, I felt unchallenged by what seemed like, tedious, rather than intellectually demanding tasks, and once again, concluded that this profession wasn't right for me.
-
-### Realization
-
-And then it dawned on me, while adding another function to a google sheet I had been using religously for the past couple of years, that I may have accidentally created an entirely functioning app from google sheets alone. This "sheet-app" managed the entirety of my workouts, including displaying daily workouts, updating program statistics daily, and even going as far as tracking precise muscles that may be "over-worked" from too much direct work (and this was before I knew about web-scraping so every muscles data was enter in manually on another document). And somewhere along the way I stumbled into Google API and Google Scripts, which accidently had me writing HTML and Javascript before I knew it's name.
-
-At this realization, that my small hobby may actually be a profittable and exciting profession, I not only took up the challenge to begin building not only my knowledge and undestanding of developement, but my career as well.
+At this realization that my small hobby might just be the profession I'd been searching for. The profession that I'd want to wake up for every morning for. The profession that I could truly come to love. And so, I got started on a logn road, and challenged myself to not only begin building my knowledge, but my career as well.

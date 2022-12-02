@@ -3,7 +3,7 @@ import { sectionHeroVariants as variants } from '@motion'
 import { Styled } from '@components'
 
 const Section_Hero = ({ even, backgroundColor, isMd, isRouting, ...data }) => {
-    const isProjectsSection = data.sectionName == 'Projects'
+    const isProjectsSection = data.id == 'projects'
     const itemProps = {
         variants: isMd ? variants.Items_X : variants.Items_Y,
         custom: isMd ? (even ? -1 : 1) : 0,
@@ -11,7 +11,7 @@ const Section_Hero = ({ even, backgroundColor, isMd, isRouting, ...data }) => {
     return (
         <>
             <div
-                id={`${data.sectionName}Page-hero`}
+                id={`${data.id}Page-hero`}
                 className="relative h-auto w-full py-3 md:flex md:h-screen md:py-0"
             >
                 {isMd & !isProjectsSection ? (

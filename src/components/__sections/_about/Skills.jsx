@@ -13,16 +13,23 @@ const Skills = ({ isMd, ...data }) => (
     >
         <h3>Skill Set</h3>
         <motion.ul
-            className="grid w-full grid-cols-1 gap-2 py-4 sm:grid-cols-2 md:grid-cols-2 md:gap-4 md:px-20"
+            className="grid w-full grid-cols-1 gap-2 py-4 md:grid-cols-2 md:gap-4 md:px-20 landscape:grid-cols-2"
             variants={variants.Container}
         >
             {data.skills.map(({ title, src }, i) => {
+                const rotate = (isMd ? -15 : -15) * i
                 return (
                     <motion.li
                         key={`${title}-skill-item`}
-                        className="flex-left group mx-[12.5%] h-14 w-3/4 overflow-hidden rounded-lg  bg-gradient-to-r from-slate-10/10 to-transparent p-2 shadow-black/5 md:mx-auto md:h-16 md:w-full md:justify-start md:p-4"
+                        className="flex-left group relative mx-[2.5%] h-16 w-[95%] overflow-hidden rounded-3xl p-3 md:mx-auto md:h-16 md:w-full md:justify-start md:p-0"
                         variants={variants.Item}
                     >
+                        <span
+                            className="absolute inset-0 -z-10 bg-gradient-to-r from-slate-20/30 to-transparent"
+                            style={{
+                                filter: `hue-rotate(${rotate}deg)`,
+                            }}
+                        />
                         <div className="relative aspect-square h-full">
                             <Image
                                 src={src}
@@ -31,9 +38,12 @@ const Skills = ({ isMd, ...data }) => (
                                 objectFit="contain"
                             />
                         </div>
-                        <p className="ml-1.5 whitespace-nowrap text-[0.9em] italic tracking-tighter text-slate-20 md:w-auto md:text-[1.25em]">
+                        <span
+                            className="ml-1.5 whitespace-nowrap font-robotoMono text-[1.25em] tracking-tighter text-slate md:w-auto md:text-[1.25em]"
+                            style={{ filter: `hue-rotate(${rotate}deg)` }}
+                        >
                             {title}
-                        </p>
+                        </span>
                     </motion.li>
                 )
             })}

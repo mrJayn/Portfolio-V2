@@ -5,7 +5,6 @@ import { motion, useScroll, useInView, AnimatePresence } from 'framer-motion'
 import { Section_Card } from '@components'
 import { sectionVariants as variants } from '@motion'
 import { index2id } from '@utils'
-import { useMediaQuery } from '@hooks'
 
 const Section = ({
     id,
@@ -97,7 +96,7 @@ const Section = ({
         <>
             <span
                 id={`${id}-area`}
-                className="md:section-snap mb-24 h-[calc(100vh-56px)] w-full last-of-type:mb-0"
+                className="mb-24 h-[calc(100vh-56px)] w-full last-of-type:mb-0 md:mb-[100%] md:snap-start md:snap-always md:scroll-mt-14"
                 ref={ref}
             >
                 {!isMd ? (

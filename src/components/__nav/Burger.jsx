@@ -45,7 +45,11 @@ const Burger = ({ ANIM, handleBurger }) => {
                     return (
                         <motion.line
                             key={`burger-component-${i}`}
-                            className="fill-transparent stroke-grey-60 stroke-[3] group-hover:stroke-white"
+                            className={`fill-transparent stroke-[3] transition-[stroke] duration-500 group-hover:stroke-white ${
+                                ANIM == 'return'
+                                    ? 'stroke-black'
+                                    : 'stroke-grey-60'
+                            }`}
                             x1={x1}
                             x2={x2}
                             y1={y1}

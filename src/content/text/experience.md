@@ -65,8 +65,6 @@ certifications:
       src: '/assets/certifications/py_data_analysis.png'
 ---
 
-### Professional Summary
-
 A Chemical Engineer graduate and recently self-taught and certified software engineer/developer, seeking to launch a career in the information technology industry.
 
 Fluent in javascript full-stack development and Python based data analysis, and day-by-day, becoming more acquainted with a variety of other coding languages and their related resources.

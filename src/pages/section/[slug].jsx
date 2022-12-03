@@ -41,26 +41,29 @@ export default function SectionPage({
     }
     const heroData = Data.id == 'projects' ? Data.projects.data : Data.data
     const title = Data.id.charAt(0).toUpperCase() + Data.id.slice(1)
-    const backgroundColor = themeConfig.getSectionColor(activeSection)
+    const bgColor = themeConfig.getSectionColor(activeSection)
 
     useEffect(() => window.scrollTo({ top: 0, behavior: 'auto' }))
 
     return (
         <Layout title={title} description={Data.description} isMd={isMd}>
-            <div style={{ background: backgroundColor }}>
-                {isMd ? (
-                    <Section_Hero
-                        key={`${Data.id}-hero`}
-                        even={activeSection % 2 == 0}
-                        backgroundColor={backgroundColor}
-                        isMd={isMd}
-                        isRouting={isRouting}
-                        {...heroData}
-                    />
-                ) : null}
-                <div className="flex-col-center relative mx-auto h-auto w-full max-w-[1440px] space-y-8 px-2 py-8 sm:px-6 md:mt-20 md:pt-0 lg:space-y-16 lg:px-10">
-                    <SlugToContent {...Data} />
-                </div>
+            {isMd && (
+                <Section_Hero
+                    key={`${Data.id}-hero`}
+                    even={activeSection % 2 == 0}
+                    bgColor={bgColor}
+                    isMd={isMd}
+                    isRouting={isRouting}
+                    {...heroData}
+                />
+            )}
+            <div
+                className="flex-col-center text-dark relative mx-auto h-auto min-h-screen w-full gap-y-12 px-2 py-14 sm:py-24 md:mt-24 md:gap-y-24 md:px-12"
+                style={{
+                    maxWidth: Data.id == 'projects' ? 'none' : '1200px',
+                }}
+            >
+                <SlugToContent {...Data} />
             </div>
         </Layout>
     )

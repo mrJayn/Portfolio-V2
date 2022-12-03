@@ -2,10 +2,20 @@
 @tailwind utilities;
 
 @layer utilities {
+    .text-dark {
+        & p {
+            @apply text-black;
+        }
+        & h3 {
+            @apply text-5xl font-semibold text-grey-30;
+        }
+    }
+
     .backdrop-blurred:after {
         content: '';
         @apply absolute inset-0 -z-10 bg-white/10 backdrop-blur-md duration-1000 ease-in-out;
     }
+
     .full {
         @apply h-full w-full;
     }

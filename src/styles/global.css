@@ -27,11 +27,11 @@
         @apply text-8xl font-bold;
     }
     h2 {
-        @apply md:text-7xl animate-[bgRotate_10s_linear_infinite] bg-gradient_title bg-clip-text text-6xl font-bold uppercase tracking-widest text-transparent motion-reduce:animate-none;
+        @apply animate-[bgRotate_10s_linear_infinite] bg-gradient_title bg-clip-text text-7xl font-semibold uppercase tracking-[0.15em] text-transparent motion-reduce:animate-none;
         background-size: 300%;
     }
     h3 {
-        @apply text-4xl font-bold uppercase tracking-wide text-white xl:text-5xl;
+        @apply text-6xl font-medium uppercase tracking-wide text-white;
     }
     h4 {
         @apply text-3xl font-medium tracking-wide text-slate-neon;
@@ -45,7 +45,6 @@
     p {
         @apply text-grey-70;
     }
-
     button {
         @apply bg-slate !important;
     }

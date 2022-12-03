@@ -7,29 +7,29 @@ import { tabsMotion as variants } from '@motion'
 const Tabs_List = ({ currentTab, tabNames, handleSelect }) => {
     return (
         <LayoutGroup>
-            <div className="flex-evenly full">
+            <div className="flex-evenly full bg-white/90">
                 {tabNames.map((label, index) => {
                     const isActive = index == currentTab
                     return (
                         <motion.div
                             key={`tabList-Item-${index}`}
                             className="full flex cursor-pointer p-0.5"
-                            whileTap={{ scale: 0.9 }}
+                            whileTap={{ scale: 1 }}
                             onClick={() => handleSelect(index)}
                         >
-                            <div className="full flex-center relative z-10 rounded-lg shadow-inset shadow-black/25">
-                                <p
-                                    className={`z-10 select-none text-[0.9em] font-medium duration-250 ${
-                                        isActive && 'text-white'
+                            <div className="full flex-center relative z-10 overflow-hidden rounded-lg shadow-inset shadow-black/25">
+                                <span
+                                    className={`z-10 select-none font-semibold duration-250 ${
+                                        isActive ? 'text-black' : 'text-grey'
                                     }`}
                                 >
                                     {label}
-                                </p>
+                                </span>
                                 <AnimatePresence mode="wait">
                                     {isActive && (
                                         <motion.div
                                             layoutId="highlight"
-                                            className="absolute inset-0 rounded-lg bg-slate shadow-inset"
+                                            className="absolute inset-0 -z-10 rounded-lg bg-slate/50 bg-blend-multiply blur-sm"
                                             transition={{ delay: 0.1 }}
                                         />
                                     )}
@@ -65,7 +65,7 @@ const Tabs = ({ tabs, tabNames, ...props }) => {
 
     return (
         <motion.div
-            className="fixed inset-0 bg-background"
+            className="fixed inset-0"
             initial="hidden"
             animate="show"
             exit="hidden"

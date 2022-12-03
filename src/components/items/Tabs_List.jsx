@@ -30,7 +30,7 @@ const Tabs_List = ({
                             className="flex-center full group relative min-w-[115px] cursor-pointer whitespace-nowrap p-1 sm:p-2 lg:p-3"
                             onClick={() => handleSelect(idx)}
                         >
-                            <div className="full flex-center relative z-10 rounded-lg bg-white/10 font-medium capitalize tracking-wide text-grey duration-100 group-hover:bg-[#eeeeee50]">
+                            <div className="full flex-center relative z-10 rounded-lg font-medium capitalize tracking-wide text-grey duration-100 group-hover:bg-[#eeeeee50]">
                                 <span
                                     className={`z-10 select-none text-xs font-semibold tracking-normal duration-250 ${
                                         idx == currentTab

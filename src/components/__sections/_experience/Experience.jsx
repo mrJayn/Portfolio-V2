@@ -10,6 +10,7 @@ const Experience = ({ isMd, ...props }) => {
             title: 'Proffesional Summary',
             component: (
                 <>
+                    <h3>Professional Summary</h3>
                     <div
                         className="content-innerHTML experience"
                         dangerouslySetInnerHTML={{ __html: props.content }}
@@ -46,14 +47,12 @@ const Experience = ({ isMd, ...props }) => {
         Components.map(({ title, component }) => (
             <motion.div
                 key={`exp-item-${title}`}
-                id="Experience"
-                className="subsection full"
+                className="full"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.5, ease: 'circOut' }}
                 viewport={{ once: true }}
             >
-                <h4>{title}</h4>
                 {component}
             </motion.div>
         ))

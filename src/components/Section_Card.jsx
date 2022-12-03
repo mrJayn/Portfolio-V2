@@ -25,12 +25,6 @@ const Section_Card = ({
         variants: variants.Items_X,
         custom: isMd && (even ? -1 : 1),
     }
-    const sectionImgProps = {
-        src: data.src,
-        alt: data.alt,
-        id: `image-${id}`,
-        ...motionProps,
-    }
 
     return (
         <div id={`${id}-content`} className="full relative md:flex">
@@ -40,10 +34,12 @@ const Section_Card = ({
                         <Featured_Slides isRouting={isRouting} {...featured} />
                     ) : (
                         <Styled.Image
+                            src={data.src}
+                            alt={data.alt}
                             style={{ order: even ? 2 : 1, userSelect: 'none' }}
-                            variants={variants.ImgMd}
+                            variants={variants.Img}
                             custom={even ? 1 : -1}
-                            {...sectionImgProps}
+                            {...motionProps}
                         />
                     )
                 ) : null}
@@ -60,7 +56,7 @@ const Section_Card = ({
                 variants={variants.Container}
                 {...motionProps}
             >
-                <motion.h3 className="relative sm:w-[75%] sm:text-5xl md:w-full md:px-4 md:text-4xl">
+                <motion.h3 className="relative w-[75%] text-5xl md:w-full md:px-4">
                     {data.id}
                     <motion.span
                         className="styled-underline"
@@ -83,7 +79,7 @@ const Section_Card = ({
                     </p>
                 </motion.div>
 
-                {!isMd ? <Styled.Image {...sectionImgProps} /> : null}
+                {!isMd && <Styled.Image src={data.src} alt={data.alt} />}
 
                 <motion.div variants={variants.Btn}>
                     <Styled.Button>

@@ -1,49 +1,39 @@
 import { motion } from 'framer-motion'
 
-import { Tabs } from '@components'
 import Skills from './Skills'
 import Image from 'next/image'
 
-const AboutImage = ({ img }) => {
-    console.log(img)
-    const Img = () => (
-        <Image src={img.src} alt={img.alt} layout="fill" objectFit="contain" />
+const Summary = ({ content }) => {
+    const TITLE = <h3 className="sm:mb-auto md:w-full">Who I am</h3>
+    const CONTENT = (
+        <div className="w-full whitespace-pre-line px-2 indent-8 md:h-full md:px-4 md:leading-7">
+            <p>{content.replace('<br/>', `\n`)}</p>
+        </div>
     )
-    return img.href !== '' ? (
-        <a
-            href={img.href}
-            alt={img.alt}
-            target="_blank"
-            rel="noopenner noreferrer"
-        >
-            <div className="full relative">
-                <Img />
+    return (
+        <div className="flex-col-center full">
+            {TITLE}
+            <div className="flex-col-top full md:flex-row md:items-start">
+                {CONTENT}
+                <div className="aspect-[4/5] w-full max-w-[400px] p-4 md:-mt-4 md:w-3/4  md:max-w-none md:py-0">
+                    <div className="full relative overflow-hidden rounded-3xl shadow-sm">
+                        <Image
+                            src="./assets/misc/mikeJayne.jpg"
+                            alt="Me accepting congratulations after recieving my diploma"
+                            layout="fill"
+                            objectFit="cover"
+                            objectPosition="top"
+                        />
+                    </div>
+                </div>
             </div>
-        </a>
-    ) : (
-        <div className="full relative">
-            <Img />
         </div>
     )
 }
 
 const About = ({ isMd, ...props }) => {
-    const Summary = () => (
-        <div className="flex-col-center full mt-4 md:mt-0 md:justify-center">
-            <h3>Who I am</h3>
-            <div className="flex-col-center h-auto w-full gap-y-4 sm:flex-row">
-                <div className="h-auto w-full">
-                    <p>{props.data.brief.replace('<br/>', `\n`)}</p>
-                </div>
-                <div className="aspect-[1/1.25] w-full sm:w-3/4 md:w-1/2">
-                    <AboutImage img={props.data.images[0]} />
-                </div>
-            </div>
-        </div>
-    )
-
     const Components = [
-        <Summary key={0} />,
+        <Summary key={0} content={props.data.brief} />,
         <Skills key={1} isMd={isMd} {...props.data} />,
         <div
             key={2}
@@ -55,7 +45,7 @@ const About = ({ isMd, ...props }) => {
     return Components.map((component, i) => (
         <motion.div
             key={`about-item-${i}`}
-            className="full md:flex-center z-10"
+            className="full md:flex-center z-10 md:h-auto"
             initial={{ opacity: 1, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.5, ease: 'circOut' }}

@@ -2,59 +2,74 @@ import { motion } from 'framer-motion'
 import { sectionHeroVariants as variants } from '@motion'
 import { Styled } from '@components'
 
-const Section_Hero = ({ even, backgroundColor, isMd, isRouting, ...data }) => {
+const BgDecorations = ({ even }) =>
+    [true, false].map((bool, i) => (
+        <motion.div
+            key={`decoration-${i}`}
+            className={`flex-center absolute -z-10 h-3/4 w-full ${
+                bool ? 'top-0 bg-slate-40/25 ' : 'bottom-0 bg-slate-90/50'
+            } ${
+                even
+                    ? bool
+                        ? 'left-0 origin-left rounded-br-full'
+                        : ' right-0 origin-right rounded-tl-full'
+                    : bool
+                    ? 'right-0 origin-right rounded-bl-full'
+                    : 'left-0 origin-left rounded-tr-full'
+            }`}
+            variants={variants.Items}
+            custom={bool ? !even : even}
+        />
+    ))
+
+const Section_Hero = ({ even, bgColor, isMd, isRouting, ...data }) => {
     const isProjectsSection = data.id == 'projects'
-    const itemProps = {
-        variants: isMd ? variants.Items_X : variants.Items_Y,
-        custom: isMd ? (even ? -1 : 1) : 0,
-    }
     return (
         <>
             <div
                 id={`${data.id}Page-hero`}
-                className="relative h-auto w-full py-3 md:flex md:h-screen md:py-0"
+                className="relative h-auto w-full py-3 md:flex md:h-screen md:overflow-hidden md:py-0"
+                style={{ backgroundColor: bgColor }}
             >
-                {isMd & !isProjectsSection ? (
+                {!isProjectsSection && (
                     <Styled.Image
                         src={data.src}
                         alt={data.alt}
-                        style={{ order: even ? 2 : 1, zIndex: 1 }}
+                        style={{
+                            marginLeft: even ? 'auto' : 0,
+                            marginRight: even ? 0 : 'auto',
+                            zIndex: 1,
+                            borderRadius: 0,
+                            opacity: 0.25,
+                        }}
                     />
-                ) : null}
+                )}
 
                 <motion.div
-                    className="flex-col-center full gap-y-5 px-4 text-center md:px-10"
-                    style={{
-                        order: even ? 1 : 2,
-                        maxWidth: isMd & !isProjectsSection ? '50vw' : 'none',
-                    }}
+                    className="flex-col-center absolute inset-0 z-20 gap-y-8 text-center"
                     initial="hidden"
-                    whileInView={isRouting ? 'back' : 'show'}
+                    animate="show"
+                    exit="hidden"
                     variants={variants.Container}
-                    viewport={{ once: true }}
                 >
                     <motion.h2
-                        className="relative z-10 animate-none md:text-4xl lg:text-5xl"
-                        {...itemProps}
+                        className="relative animate-none text-8xl"
+                        variants={variants.Items}
                     >
                         {data.title}
                         <motion.span
-                            className={`styled-underline origin-center md:w-full ${
-                                even ? 'left-0' : 'right-0'
-                            }`}
+                            className="styled-underline left-0 w-full origin-center"
                             variants={variants.Decoration}
                         />
                     </motion.h2>
 
-                    <motion.p className="text-2xl leading-7" {...itemProps}>
+                    <motion.p
+                        className="origin-center text-4xl leading-10 text-white"
+                        variants={variants.Items}
+                    >
                         {data.description}
                     </motion.p>
-
-                    <motion.hr
-                        className="w-full text-grey"
-                        variants={variants.Decoration}
-                        custom={even}
-                    />
+                    <BgDecorations even={even} />
                 </motion.div>
             </div>
         </>

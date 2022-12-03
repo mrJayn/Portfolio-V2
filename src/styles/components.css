@@ -2,24 +2,6 @@
 @tailwind components;
 
 @layer components {
-    /** ================== Layout ================= **/
-    .section-snap {
-        margin-bottom: 100px;
-    }
-    @media screen(md) {
-        .section-snap {
-            scroll-snap-align: start;
-            scroll-snap-stop: always;
-            scroll-margin-top: 48px;
-            margin-bottom: 100%;
-            @apply landscape:snap-start md:landscape:snap-center;
-        }
-    }
-    .section-snap:last-of-type {
-        margin-bottom: 0px;
-    }
-
-    /** =============== COMPONENTS ============== **/
     #navbar {
         --nav-ce: cubic-bezier(0.5, 1, 0.5, 1);
         --before: 0;
@@ -57,33 +39,26 @@
         & > p {
             @apply indent-4 md:indent-8;
         }
-        & > p:first-of-type {
-            @apply indent-4;
-        }
+    }
 
-        &.about {
-            & > h3 {
-                @apply w-full text-center md:w-auto md:text-start;
-            }
-            & > p {
-                &:not(:last-of-type) {
-                    @apply pb-2 md:pb-6;
-                }
+    .about.content-innerHTML {
+        & > h3 {
+            @apply w-full text-center md:w-auto md:text-start;
+        }
+        & > p {
+            &:not(:last-of-type) {
+                @apply pb-2 md:pb-6;
             }
         }
-
-        &.experience {
-            & > h3 {
-                @apply h-[3em];
-            }
-            & > p {
-                @apply mb-4 px-4 text-start last-of-type:mb-0 xs:leading-7 sm:px-12;
-            }
+        & > p > img {
+            @apply relative z-0 my-6 mx-auto rounded-2xl shadow-sm md:w-[95%];
         }
     }
 
-    #Experience h3 {
-        @apply flex-center px-5 text-xl font-semibold xs:text-2xl sm:text-3xl md:hidden;
+    .experience.content-innerHTML {
+        & > p {
+            @apply mb-4 px-4 text-start last-of-type:mb-0 xs:leading-7 sm:px-12;
+        }
     }
 
     .project-innerHTML {

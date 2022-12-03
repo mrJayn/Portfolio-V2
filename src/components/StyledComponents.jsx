@@ -40,10 +40,10 @@ const StyledComponents = {
     ),
     Image: ({ isPriority = false, src, alt, ...props }) => (
         <motion.div
-            className="flex-center absoluteFull pointer-events-none z-0 select-none  p-4 pt-0 sm:px-8 md:relative md:z-0 md:w-full md:p-0"
+            className="flex-center pointer-events-none absolute inset-4 z-0 select-none overflow-hidden rounded-4xl shadow md:relative  md:inset-0 md:w-full md:max-w-[50vw]"
             {...props}
         >
-            <div className="full relative overflow-hidden rounded-4xl shadow md:max-w-[50vw]">
+            <div className="full relative">
                 <span className="absoluteFull z-10 shadow-inset" />
                 <Image
                     src={src}

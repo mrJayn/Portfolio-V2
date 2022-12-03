@@ -8,15 +8,13 @@ import { Accordion } from '@components'
 const Content = ({ Cert }) => {
     const sitename = Cert.href.match(/(\w{0,}\.(org|com|net|edu))/gm)
     return (
-        <div className="relative w-full lg:flex lg:p-4">
+        <div className="relative w-full p-4 lg:flex">
             <motion.div
-                className="lg:flex-col-around lg:w-1/2"
+                className="flex-col-around gap-y-4 lg:w-1/2"
                 variants={variants.Content}
             >
-                <p className="py-2 px-1 text-start text-sm lg:text-center">
-                    {Cert.description}
-                </p>
-                <div className="flex flex-col sm:flex-row sm:justify-around lg:w-full lg:flex-col">
+                <p className="md:p-4">{Cert.description}</p>
+                <div className="flex w-full flex-col sm:flex-row sm:justify-around lg:w-full lg:flex-col">
                     {[
                         [Cert.href, sitename],
                         [Cert.src, 'View Certificate'],

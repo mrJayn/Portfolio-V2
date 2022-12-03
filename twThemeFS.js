@@ -1,6 +1,6 @@
 // FONT-SIZES
 const clamp = (scale = 0) => {
-    const [fontSize_min, fontSize_max] = [18, 20] // 'min/max' - Base font-sizes
+    const [fontSize_min, fontSize_max] = [16, 18] // 'min/max' - Base font-sizes
     const [factor_min, factor_max] = [1.125, 1.225] // 'min/max' - Base multipliers
     const [screenMin, screenMax] = [320, 1920] // 'min/max' - Screen Bounds
 

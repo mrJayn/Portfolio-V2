@@ -71,7 +71,7 @@ const Title = ({ initialDelay, onTitleComplete, initialAnim }) => {
             />
         ))
     return (
-        <div className="relative aspect-[400/75] h-[1.25em] max-w-[90vw] text-6xl sm:h-[1.5em] md:h-[1.75em]">
+        <div className="relative aspect-[400/75] h-[1.5em] max-h-[150px] max-w-[90vw] text-8xl md:h-[1.75em]">
             <svg viewBox="-20 -20 400 75" xmlns="http://www.w3.org/2000/svg">
                 <TitleDefs />
                 <g

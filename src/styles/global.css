@@ -21,7 +21,7 @@
         word-spacing: 1px;
     }
     body {
-        @apply h-screen w-screen overflow-x-hidden bg-background text-min xs:text-xs sm:text-base lg:text-md;
+        @apply h-screen w-screen overflow-x-hidden bg-background text-min sm:text-base lg:text-md;
     }
     h1 {
         @apply text-8xl font-bold;
@@ -88,6 +88,6 @@
         @apply hidden; /* Hide Scrollbar - Chrome, Safari, and Opera */
     }
     ::placeholder {
-        @apply px-4 text-center font-robotoMono text-xs font-thin;
+        @apply px-4 text-center font-robotoMono font-thin;
     }
 }

@@ -21,26 +21,15 @@ const Pre = {
 }
 
 export const layoutVariants = {
-    HomePage: {
+    DefaultLayout: {
         hidden: (isMd) => ({ opacity: isMd ? 1 : 0 }),
-        show: (isMd) => ({
+        show: {
             opacity: 1,
             transition: {
-                duration: isMd ? 0 : 0.5,
+                duration: 0.5,
                 when: 'beforeChildren',
             },
-        }),
-        exit: (isMd) => ({
-            opacity: isMd ? 1 : 0,
-            transition: { duration: 0.5 },
-        }),
-    },
-    SectionPage: {
-        hidden: (isMd) => ({ opacity: isMd ? 1 : 0 }),
-        show: (isMd) => ({
-            opacity: 1,
-            transition: { duration: isMd ? 0 : 0.5 },
-        }),
+        },
         exit: (isMd) => ({
             opacity: isMd ? 1 : 0,
             transition: { duration: 0.5 },
@@ -660,7 +649,7 @@ export const projectsVariants = {
         exit: { opacity: 0, scale: 0.95, transition: { duration: 0.25 } },
     },
 }
-export const projectVariants = {
+export const projectCardVariants = {
     Wrap: {
         hidden: { opacity: 0 },
         show: (pRM) => ({
@@ -685,6 +674,50 @@ export const projectVariants = {
     Content: {
         hidden: { opacity: 0, pointerEvents: 'none' },
         show: { opacity: 1, pointerEvents: 'auto' },
+    },
+    Archive: {
+        Header: {
+            container: {
+                hidden: {},
+                show: { transition: { staggerChildren: 0.1 } },
+            },
+            items: {
+                hidden: { y: 50 },
+                show: {
+                    y: 0,
+                    transition: { duration: 1, type: 'spring', bounce: 0 },
+                },
+            },
+            decoration: {
+                hidden: { opacity: 0, scaleX: 0 },
+                show: {
+                    opacity: 1,
+                    scaleX: 1,
+                    transition: { duration: 1, delay: 1, ease: 'easeInOut' },
+                },
+            },
+        },
+        Wrap: {
+            hidden: { opacity: 0 },
+            show: (pRM) => ({
+                opacity: 1,
+                transition: { staggerChildren: pRM ? 0 : 0.08 },
+            }),
+            exit: (pRM) => ({
+                opacity: 0,
+                transition: {
+                    duration: 0,
+                    when: 'afterChildren',
+                    staggerChildren: pRM ? 0 : 0.06,
+                    staggerDirection: -1,
+                },
+            }),
+        },
+        ProjectCard: {
+            hidden: { opacity: 0, scale: 0.85 },
+            show: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
+            exit: { opacity: 0, scale: 0.95, transition: { duration: 0.25 } },
+        },
     },
 }
 export const ftdSlidesVariants = {

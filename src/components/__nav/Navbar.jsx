@@ -11,7 +11,7 @@ import NavLinks from './NavLinks'
 const Logo = () => (
     <motion.a
         onClick={() => {
-            if (window.scrollY == 0) {
+            if (window.scrollY == 0 || typeof window == undefined) {
                 location.reload()
             } else {
                 window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -57,6 +57,7 @@ const Navbar = ({ isHome, isMd, isRouting }) => {
 
     const backToHome = () => {
         const scrollDiv = document.querySelector('main > div')
+        if (scrollDiv == null) return router.push('/')
         const prevScrollY = null
 
         scrollDiv.scrollTo({ top: 0, behavior: 'smooth' })

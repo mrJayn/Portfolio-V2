@@ -3,8 +3,7 @@ import { motion } from 'framer-motion'
 import { layoutVariants } from '@motion'
 
 const Layout = ({ title, description, isHome = false, children, ...props }) => {
-    const pageName =
-        title == 'Contact' ? 'ContactPage' : isHome ? 'HomePage' : 'SectionPage'
+    const pageName = title == 'Contact' ? 'ContactPage' : 'DefaultLayout'
     const variants = layoutVariants[pageName]
 
     return (

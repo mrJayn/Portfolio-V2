@@ -35,7 +35,7 @@ const Menu = ({ menuOpen, toggleMenu }) => {
                                 return (
                                     <motion.li
                                         key={`link-${i}`}
-                                        className="landscape:flex-left cursor-pointer rounded-xl py-[2vh] px-3 text-base capitalize tracking-widest text-grey-60/90 saturate-50 sm:px-5 sm:text-lg landscape:h-auto"
+                                        className="landscape:flex-left cursor-pointer rounded-xl py-[2vh] px-5 text-md capitalize tracking-widest text-grey-60/90 saturate-50 landscape:h-auto"
                                         style={{
                                             boxShadow:
                                                 'inset 1.5px -1.5px 0rem #333, inset -1.5px 1.5px 0rem #40606f',

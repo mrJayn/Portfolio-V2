@@ -7,7 +7,7 @@
             @apply text-black;
         }
         & h3 {
-            @apply text-5xl font-semibold text-grey-30;
+            @apply text-4xl font-semibold text-grey-30 sm:text-5xl;
         }
     }
 
@@ -42,6 +42,9 @@
     }
     .flex-evenly {
         @apply flex items-center justify-evenly;
+    }
+    .flex-around {
+        @apply flex items-center justify-around;
     }
     .flex-col-center {
         @apply flex flex-col items-center justify-center;

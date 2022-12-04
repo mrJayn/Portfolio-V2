@@ -37,7 +37,7 @@
         @apply w-full pb-16;
 
         & > p {
-            @apply indent-4 md:indent-8;
+            @apply px-4 indent-4 sm:px-8 md:indent-8 !important;
         }
     }
 
@@ -46,9 +46,7 @@
             @apply w-full text-center md:w-auto md:text-start;
         }
         & > p {
-            &:not(:last-of-type) {
-                @apply pb-2 md:pb-6;
-            }
+            @apply pb-2 last-of-type:pb-0 md:pb-6 md:last-of-type:pb-0;
         }
         & > p > img {
             @apply relative z-0 my-6 mx-auto rounded-2xl shadow-sm md:w-[95%];
@@ -57,7 +55,7 @@
 
     .experience.content-innerHTML {
         & > p {
-            @apply mb-4 px-4 text-start last-of-type:mb-0 xs:leading-7 sm:px-12;
+            @apply mb-4 text-start leading-7 last-of-type:mb-0;
         }
     }
 

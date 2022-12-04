@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { BiShow, BiHide } from 'react-icons/bi'
 
 import { Styled } from '@components'
-import { projectVariants } from '@motion'
+import { projectCardVariants } from '@motion'
 
 const ProjectTitle = ({ title, className = '' }) => (
     <h6 className={`w-full text-center duration-350 ease-in ${className}`}>
@@ -92,7 +92,7 @@ const IsMdCard = ({ title, brief, src, tech, href_github, href_site, idx }) => {
             <motion.div
                 className="flex-col-top full px-4 py-10"
                 animate={viewMode ? 'hidden' : 'show'}
-                variants={projectVariants.Content}
+                variants={projectCardVariants.Content}
             >
                 <ProjectTitle
                     title={title}

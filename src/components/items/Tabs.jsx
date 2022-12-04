@@ -108,7 +108,7 @@ const Tabs = ({ tabs, tabNames, ...props }) => {
                 </div>
                 {/***/}
                 <motion.div
-                    className="fixed bottom-0 left-0 right-0 z-10 h-12 bg-background sm:h-14"
+                    className="fixed bottom-0 left-0 right-0 z-10 h-12"
                     variants={variants.TabListContainer}
                 >
                     <Tabs_List

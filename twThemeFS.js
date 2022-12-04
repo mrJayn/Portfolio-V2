@@ -11,8 +11,7 @@ const clamp = (scale = 0) => {
 }
 
 const fontSizes = {
-    min: clamp(0.175),
-    xs: clamp(0.2125),
+    min: clamp(0.1),
     sm: clamp(0.25),
     base: clamp(0.5),
     md: clamp(1),

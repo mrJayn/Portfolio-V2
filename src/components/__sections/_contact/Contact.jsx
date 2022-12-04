@@ -14,7 +14,7 @@ const Text = [
 ]
 
 const Socials = () => (
-    <div className="z-0 flex h-12 w-screen max-w-[1280px] justify-around sm:justify-evenly md:h-14">
+    <div className="z-0 flex h-12 w-screen max-w-[1280px] justify-around md:h-14">
         <Styled.Socials
             className="relative aspect-square h-full"
             initial="hidden"
@@ -59,7 +59,7 @@ const Contact = () => {
                     <h3>Whats Next?</h3>
                     <h4>Get in Touch!</h4>
                 </div>
-                <div className="flex-col-evenly full gap-y-4 py-4 sm:gap-y-8 sm:py-8 md:h-auto md:landscape:h-2/3 md:landscape:flex-row md:landscape:justify-center md:landscape:gap-x-20">
+                <div className="flex-col-evenly full gap-y-4 py-4 md:h-auto md:landscape:h-2/3 md:landscape:flex-row md:landscape:justify-center md:landscape:gap-x-20">
                     <motion.div
                         className="flex-col-center"
                         variants={variants.TextContainer}
@@ -89,7 +89,7 @@ const Contact = () => {
             <Socials />
             <div className="relative z-20 w-screen overflow-hidden py-2">
                 <motion.div
-                    className="flex-col-bottom full text-[12px] uppercase sm:text-[14px] md:justify-start"
+                    className="flex-col-bottom full text-[12px] uppercase md:justify-start md:text-[14px]"
                     initial="hidden"
                     animate="show"
                     variants={variants.Signature}

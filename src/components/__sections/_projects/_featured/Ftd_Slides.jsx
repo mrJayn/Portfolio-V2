@@ -11,16 +11,12 @@ import Featured_Slide from './Ftd_SlideProject'
 import { handleSwipe, paginate } from '@utils'
 import { ftdSlidesVariants as variants } from '@motion'
 
-const StaticHeading = () => (
-    <motion.p className="relative font-robotoMono text-lg italic text-slate-30 underline underline-offset-4">
-        Featured Projects
-    </motion.p>
-)
+const StaticHeading = () => <h3>Featured Projects</h3>
 
 const Indicators = ({ currentTab, handleIndicator, span }) => (
     <LayoutGroup>
         <motion.div
-            className="flex-evenly h-[10%] w-full"
+            className="flex-around absolute -left-2 h-12 w-screen"
             variants={variants.IndicatorsWrap}
         >
             {[...Array(span).keys()].map((idx) => (
@@ -30,15 +26,12 @@ const Indicators = ({ currentTab, handleIndicator, span }) => (
                     variants={variants.Indicators}
                     onClick={() => handleIndicator(idx)}
                 >
-                    <motion.div
-                        className="relative aspect-square h-7 rounded-md bg-grey/50"
-                        whileTap={{ scale: 0.9 }}
-                    >
+                    <motion.div className="relative aspect-square h-8 rounded-xl bg-grey/75">
                         <AnimatePresence mode="wait">
                             {idx == currentTab ? (
                                 <motion.div
-                                    className="absoluteFull rounded-md bg-slate shadow-inset blur-[2px] contrast-200 saturate-200"
-                                    layoutId="highlight"
+                                    className="absolute inset-0 rounded-xl bg-slate-40 shadow-inset"
+                                    layoutId="underline"
                                 />
                             ) : null}
                         </AnimatePresence>
@@ -74,13 +67,13 @@ const Ftd_Slides = ({ isMd = true, isRouting, ...projects }) => {
     }, [isMd, currentTab, setTab])
 
     return (
-        <div className="flex-col-center full relative z-0 gap-y-5">
+        <div className="flex-col-center full relative">
             {isMd ? null : <StaticHeading />}
             <div className="h-[50vh] w-full sm:h-[40vh] md:mt-[10%] md:h-[70%] md:w-[75%]">
                 <AnimatePresence mode="wait" custom={direction}>
                     <motion.div
                         key={`featured-slide-${n}`}
-                        className="md:flex-top full relative"
+                        className="md:flex-top full relative rounded-4xl pb-2 shadow-inset-outset-md shadow-grey-40 md:py-0"
                         initial="enter"
                         animate={isRouting ? 'close' : 'show'}
                         exit="exit"
@@ -108,11 +101,10 @@ const Ftd_Slides = ({ isMd = true, isRouting, ...projects }) => {
                             direction={direction}
                             isMd={isMd}
                         />
-                        <span className="absoluteFull rounded-4xl shadow-inset-outset" />
                     </motion.div>
                 </AnimatePresence>
             </div>
-            <div className="w-full md:invisible md:hidden">
+            <div className="relative mt-4 w-full md:invisible md:hidden">
                 <Indicators
                     currentTab={currentTab}
                     handleIndicator={handleIndicator}

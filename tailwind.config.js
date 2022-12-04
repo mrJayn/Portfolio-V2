@@ -60,13 +60,12 @@ module.exports = {
             red: '#dd0000',
         },
         screens: {
-            min: '320px',
-            xs: '360px',
-            sm: '600px',
-            md: '768px',
-            lg: '1024px',
-            xl: '1280px',
-            max: '1440px',
+            /* min:'320px'  320-480px............ Mobile Devices  */
+            sm: '480px' /*  481-768px............. Ipads ~ Tablets  */,
+            md: '768px' /*  769-1024px.......... Small screens ~ laptops  */,
+            lg: '1025px' /*  1025-1280px........  Large screens ~ Desktop  */,
+            xl: '1200px' /*  1281-max............... XL screens ~ TVs  */,
+            /* max: '1440px' */
         },
         spacing: {
             px: '1px',
@@ -120,7 +119,6 @@ module.exports = {
             60: '6',
             auto: 'auto',
         },
-
         boxShadow: {
             DEFAULT:
                 '0 20px 25px -5px var(--shadow-color), 0 8px 10px -6px var(--shadow-color)',

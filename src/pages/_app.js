@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
 
     const [isLoading, setIsLoading] = useState(isHome)
     const [activeSection, setSection] = useState(0)
-    const [isSm, isMd] = useMediaQuery(600, 768)
+    const [isSm, isMd] = useMediaQuery(480, 768)
     const isRouting = useIsRouting(true)
 
     // Page Properties

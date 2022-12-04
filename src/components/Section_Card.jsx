@@ -48,7 +48,7 @@ const Section_Card = ({
             <motion.div
                 id={id + '-content'}
                 data-animation={anim}
-                className={`full flex-col-around relative select-none whitespace-pre-line p-8 text-center  sm:px-16 md:select-text md:justify-center md:gap-y-10 md:p-0 landscape:justify-center landscape:py-0 ${
+                className={`full flex-col-around relative select-none whitespace-pre-line p-8 text-center md:select-text md:justify-center md:gap-y-10 md:p-0 landscape:justify-center landscape:py-0 ${
                     even
                         ? 'order-1 md:items-end md:text-end'
                         : 'order-2 md:items-start md:text-start'
@@ -70,11 +70,11 @@ const Section_Card = ({
                 </motion.h3>
 
                 <motion.div
-                    className="blurrAfterAnim relative z-10 flex  min-h-[33%] w-full items-center justify-center overflow-hidden rounded-xl p-8 md:my-2 md:min-h-0 md:w-auto md:bg-transparent md:px-0 md:py-2 landscape:my-2 landscape:py-2"
+                    className="blurrAfterAnim relative z-10 flex  min-h-[33%] w-full items-center justify-center overflow-hidden rounded-xl py-8 md:my-2 md:min-h-0 md:w-auto md:bg-transparent md:px-0 md:py-2 landscape:my-2 landscape:py-2"
                     {...itemProps}
                 >
                     <span className="backdrop-blurred md:hidden" />
-                    <p className="font-medium leading-7 xs:text-xl sm:text-2xl md:text-md">
+                    <p className="font-medium leading-7 sm:text-[1.15em] md:text-md">
                         {data.subtitle.replace('<br/>', `\n`)}
                     </p>
                 </motion.div>

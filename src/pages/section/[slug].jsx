@@ -58,7 +58,7 @@ export default function SectionPage({
                 />
             )}
             <div
-                className="flex-col-center text-dark relative mx-auto h-auto min-h-screen w-full gap-y-12 px-2 py-14 sm:py-24 md:mt-24 md:gap-y-24 md:px-12"
+                className="flex-col-center text-dark relative mx-auto h-auto min-h-screen w-full gap-y-12 px-2 py-14 md:mt-24 md:gap-y-24 md:py-24 md:px-12"
                 style={{
                     maxWidth: Data.id == 'projects' ? 'none' : '1200px',
                 }}

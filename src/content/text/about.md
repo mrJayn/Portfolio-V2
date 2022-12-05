@@ -4,19 +4,10 @@ id: about
 title: About Me
 subtitle: Nice to meet you,<br/>Allow me to introduce myself.
 description: A little bit about me and what I can do.
-src: '/assets/misc/mikejayne.jpg'
+src: '/assets/misc/mikeJayne.jpg'
 alt: A picture of me
 
 brief: I'm an chemical engineer turned developer who wants nothing more than to consume knowledge and to find the problems yet to to have a solution. I started teaching myself how to practically code in early March of 2022 and seeing how far I've come only gets me more excited for what lies ahead. I'm exeptionally well versed in Javascript Front End development, Python and SQL data analysis.
-
-images:
-    - src: '/assets/misc/mikejayne.jpg'
-      alt: A picture of myself accepting my diploma.
-      href: ''
-
-    - src: '/assets/misc/fantasticContraption.jpg'
-      alt: Fantastic Contraption flash-game screenshot
-      href: 'http://fantasticcontraption.com/original/'
 
 skills:
     - title: Javascript
@@ -53,6 +44,7 @@ My interests for problem solving began as early as I can remember. Legos were my
 As coding went, my first and most impactful memory of using coputing to solve problems occured in 2008. At age 12-13 I had stumbled across a flash-based physics game called "Fantastic Contraption". I remeber loving this game so much! I would dig into the code to learn ways to create my own stuff using coordinate grids and very simple code.
 
 ![Screen Shot of Fantastic Contraption](/assets/misc/fantasticContraption.jpg)
+[fantasticcontraption.com](http://fantasticcontraption.com/original/)
 
 Unlike today, back in the 2000s coding and computational problem solving was not so readily available in school or any acedmic setting before university. However, lukily, my highschool offered a few computer courses, and I took them all. Those courses revolved around CAD design, Robotics (using Lego Mindstorm), and Adobe Animation. These courses never had more than 10-15 kids enrolled in each of them but, in hindsight, these courses to me, were always the highlight of my day.
 

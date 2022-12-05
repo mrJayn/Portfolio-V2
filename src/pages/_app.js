@@ -68,7 +68,7 @@ function MyApp({ Component, pageProps }) {
                             isRouting={isRouting}
                         />
                         <>
-                            <AnimatePresence mode={isMd ? 'sync' : 'wait'}>
+                            <AnimatePresence mode="wait">
                                 <Component {...pageProps} key={url} />
                             </AnimatePresence>
                         </>

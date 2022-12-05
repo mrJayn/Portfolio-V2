@@ -18,7 +18,7 @@ const Summary = ({ content }) => {
                 <div className="aspect-[4/5] w-full max-w-[400px] p-4 md:-mt-4 md:w-3/4  md:max-w-none md:py-0">
                     <div className="full relative overflow-hidden rounded-3xl shadow-sm">
                         <Image
-                            src="./assets/misc/mikejayne.jpg"
+                            src="./assets/misc/mikeJayne.JPG"
                             alt="Me accepting congratulations after recieving my diploma"
                             layout="fill"
                             objectFit="cover"

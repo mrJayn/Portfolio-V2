@@ -4,13 +4,13 @@ id: about
 title: About Me
 subtitle: Nice to meet you,<br/>Allow me to introduce myself.
 description: A little bit about me and what I can do.
-src: '/assets/misc/mikeJayne.jpg'
+src: '/assets/misc/mikejayne.jpg'
 alt: A picture of me
 
 brief: I'm an chemical engineer turned developer who wants nothing more than to consume knowledge and to find the problems yet to to have a solution. I started teaching myself how to practically code in early March of 2022 and seeing how far I've come only gets me more excited for what lies ahead. I'm exeptionally well versed in Javascript Front End development, Python and SQL data analysis.
 
 images:
-    - src: '/assets/misc/mikeJayne.jpg'
+    - src: '/assets/misc/mikejayne.jpg'
       alt: A picture of myself accepting my diploma.
       href: ''
 

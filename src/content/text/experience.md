@@ -1,8 +1,8 @@
 ---
 id: experience
-title: My Experience
-subtitle: Where I've worked.<br/>What I've accomplished.
-description: My past professional statement, job history, and education.
+title: Experience
+subtitle: Work History and <br/> Achievements
+description: My Past Work Experience, Education, and Certifications
 src: '/assets/misc/resume2022.jpg'
 alt: /
 

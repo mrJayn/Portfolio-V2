@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-const { themeConfig } = require('./twThemeFS')
+const { themeConfig } = require('./twTheme')
 
 module.exports = {
     content: [
@@ -12,10 +12,14 @@ module.exports = {
         colors: {
             transparent: 'transparent',
             current: 'currentColor',
-            white: '#fff',
+            white: {
+                DEFAULT: '#fff',
+                dark: '#f8f8f8',
+            },
             black: '#000',
 
-            background: 'rgb(var(--background) / <alpha-value>)',
+            backgroundRGB: themeConfig.BackgroundRGB,
+            background: `rgb(${themeConfig.BackgroundRGB} / <alpha-value>)`,
             nav: 'rgb(var(--nav-bg) / <alpha-value>)',
 
             grey: {
@@ -61,9 +65,9 @@ module.exports = {
         },
         screens: {
             /* min:'320px'  320-480px............ Mobile Devices  */
-            sm: '480px' /*  481-768px............. Ipads ~ Tablets  */,
+            sm: '414px' /*  481-768px............. Ipads ~ Tablets  */,
             md: '768px' /*  769-1024px.......... Small screens ~ laptops  */,
-            lg: '1025px' /*  1025-1280px........  Large screens ~ Desktop  */,
+            lg: '1024px' /*  1025-1280px........  Large screens ~ Desktop  */,
             xl: '1200px' /*  1281-max............... XL screens ~ TVs  */,
             /* max: '1440px' */
         },
@@ -103,6 +107,9 @@ module.exports = {
             72: '288px',
             80: '320px',
             96: '384px',
+            view: 'calc(100vh - 56px)',
+            vmax: '100vmax',
+            vmin: '100vmin',
         },
         fontSize: themeConfig.fontSize,
         fontFamily: {
@@ -144,44 +151,19 @@ module.exports = {
             },
         },
         extend: {
+            maxHeight: {
+                view: 'calc(100vh - 56px)',
+            },
+            minHeight: {
+                view: 'calc(100vh - 56px)',
+            },
             borderRadius: {
                 '4xl': '3rem',
             },
             backgroundImage: {
-                pattern: "url('/assets/misc/cardboard.png')",
                 'background-gradient': themeConfig.backgroundGradient,
                 gradient:
                     'linear-gradient(45deg, var(--theme-purple), var(--theme-teal))',
-                gradient_radial:
-                    'radial-gradient(transparent 0%, var(--theme-teal) 2.5%, transparent 20%, transparent 100%)',
-                gradient_title:
-                    'linear-gradient(45deg, var(--theme-purple), var(--theme-teal),var(--theme-purple) )',
-                nav_tempered: `linear-gradient(
-                to bottom,
-                rgb(var(--nav-bg) / 0.8) 0%,
-                rgb(var(--nav-bg) / 0.75) 10%,
-                rgb(var(--nav-bg) / 0.75) 15%,
-                rgb(var(--nav-bg) / 0.5) 30%,
-                rgb(var(--nav-bg) / 0.45) 35%,
-                rgb(var(--nav-bg) / 0.4) 40%,
-                rgb(var(--nav-bg) / 0.35) 47.5%,
-                rgb(var(--nav-bg) / 0.3) 52.5%,
-                rgb(var(--nav-bg) / 0.2) 60%,
-                rgb(var(--nav-bg) / 0.1) 70%,
-                rgb(var(--nav-bg) / 0.05) 77.5%,
-                transparent 85%,
-                transparent 100%
-            )`,
-                gradient_tempered: `linear-gradient(
-                to top,
-                rgb(var(--background) / 1),
-                rgb(var(--background) / 0.975) 10%,
-                rgb(var(--background) / 0.9) 20%,
-                rgb(var(--background) / 0.85) 30%,
-                rgb(var(--background) / 0.4) 70%,
-                rgb(var(--background) / 0.025) 90%,
-                transparent 100%
-            )`,
             },
             transitionDuration: {
                 0: '0ms',

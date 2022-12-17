@@ -178,10 +178,11 @@ const Loader = ({ setIsLoading }) => {
             </div>
             <div
                 id="loader-bg"
-                className="absolute -z-10 mx-auto translate-y-[-50%] scale-0 bg-gradient_radial  opacity-0 dark:z-10"
+                className="absolute -z-10 mx-auto translate-y-[-50%] scale-0 opacity-0 dark:z-10"
                 style={{
                     height: loaderSize,
                     width: loaderSize,
+                    background: `radial-gradient(transparent 0%, var(--theme-teal) 2.5%, transparent 20%, transparent 100%)`,
                 }}
             />
         </div>

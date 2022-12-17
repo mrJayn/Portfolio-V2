@@ -13,6 +13,8 @@ export { default as Projects } from './__sections/_projects/Projects'
 export { default as Featured_Slides } from './__sections/_projects/_featured/Ftd_Slides'
 export { default as Contact } from './__sections/_contact/Contact'
 
+export { default as Footer } from './Footer'
+
 export { default as Form } from './Form'
 
 export { default as Tabs } from './items/Tabs'

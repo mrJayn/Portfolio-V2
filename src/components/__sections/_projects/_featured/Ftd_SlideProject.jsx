@@ -3,94 +3,105 @@ import { motion } from 'framer-motion'
 import { Styled } from '@components'
 import { ftdProjectVariants as variants } from '@motion'
 
-const Styled_Header = ({ homeSlides = false, title, tech, ...motionProps }) => (
-    <motion.div
-        className={`flex-col-center py-2 text-center ${
-            homeSlides
-                ? 'absolute bottom-[calc(100%-10vh)] right-[-12.5%] z-10 min-h-[22.5%] overflow-hidden rounded-3xl bg-slate-90 shadow-inset-outset-md lg:min-w-[75%] lg:p-4'
-                : 'w-full'
-        }`}
-        {...motionProps}
-    >
-        <p className="hidden text-sm italic tracking-wider text-slate-10 underline underline-offset-4 md:block">
-            Featured Project
-        </p>
-        <h5 className="whitespace-nowrap text-4xl tracking-wide text-slate sm:text-5xl md:text-2xl lg:text-3xl">
-            {title}
-        </h5>
-        <div className="flex w-full whitespace-nowrap text-center">
+const Styled_Header = ({ isLg = false, title, tech, ...motionProps }) => {
+    const Technologies = (
+        <div className="flex w-full whitespace-nowrap text-center lg:w-auto">
             {tech.map((item, i) => (
                 <p
                     key={`tech-item-${i}`}
-                    className="relative w-full border-slate/75 px-2 py-0.5 font-semibold capitalize italic even:border-x-[3px] even:px-4"
+                    className="relative w-full border-slate-80/50 px-2 capitalize italic text-black even:border-x-2 even:px-4 sm:mb-2 sm:py-0.5 sm:px-4 sm:tracking-widest lg:text-[0.7em] lg:text-slate-30 xl:text-[0.9em]"
                 >
                     {item}
                 </p>
             ))}
         </div>
-    </motion.div>
-)
-
-const Featured_Slide = ({ projectData, direction = 0, isMd }) => {
-    const IconLinks = [
-        ['GitHub', 'View on Github', projectData.github],
-        ['External', 'Visit Project', projectData.external],
-    ].map(([name, title, href], i) => (
-        <a
-            key={`project-link-${i}`}
-            className="relative aspect-square h-12"
-            href={href}
-            title={title}
-        >
-            <Styled.Icon name={name} />
-        </a>
-    ))
-
-    const Styled_Img = () => (
-        <>
-            <Image
-                src={projectData.src}
-                alt={projectData.alt}
-                layout="fill"
-                objectFit="cover"
-                objectPosition="top"
-                className="-z-10 opacity-50 blur-sm md:opacity-75 md:blur-0"
-            />
-            <span className="absoluteFull bg-black/10 md:bg-transparent md:shadow-inset" />
-        </>
     )
-    return isMd ? (
+    return isLg ? (
+        <>
+            <motion.div
+                className="absolute bottom-[2.5em] right-[-7.5%] z-10 bg-slate-80 px-8 py-2 text-center"
+                {...motionProps}
+            >
+                <h5 className="whitespace-nowrap text-[1.1em] tracking-widest text-slate-10 xl:text-[1.25em]">
+                    {title}
+                </h5>
+            </motion.div>
+
+            <motion.div
+                className="absolute bottom-2 right-[-7.5%] z-10 bg-slate-80 text-center"
+                {...motionProps}
+            >
+                {Technologies}
+            </motion.div>
+        </>
+    ) : (
+        <div className="flex-col-center">
+            <h5 className="text-4xl leading-none tracking-wide text-slate-80 sm:text-5xl sm:leading-normal">
+                {title}
+            </h5>
+            {Technologies}
+        </div>
+    )
+}
+
+const Featured_Slide = ({ projectData, direction = 0, isLg }) => {
+    const IconLinks = () =>
+        [
+            ['GitHub', 'View on Github', projectData.github],
+            ['External', 'Visit Project', projectData.external],
+        ].map(([name, title, href], i) => (
+            <motion.a
+                key={`link-${i}`}
+                href={href}
+                title={title}
+                className="relative h-12 w-3/4 hover:bg-white/50 sm:h-14"
+                whileTap={{ scale: 0.9 }}
+            >
+                <Styled.Icon name={name} size="85%" />
+            </motion.a>
+        ))
+
+    const Styled_Image = () => (
+        <Image
+            src={projectData.src}
+            alt={projectData.alt}
+            layout="fill"
+            objectFit="cover"
+            objectPosition="top"
+            className="-z-10 select-none opacity-100 lg:rounded-4xl lg:opacity-75"
+        />
+    )
+
+    return isLg ? (
         <>
             <Styled_Header
-                homeSlides
+                isLg
                 title={projectData.title}
                 tech={projectData.tech}
                 initial="hidden"
                 animate="show"
                 exit="exit"
-                variants={variants.Slide.HeaderMd}
+                variants={variants.Slide.HeaderLg}
                 custom={direction}
             />
-            <div className="full relative overflow-hidden rounded-4xl">
-                <Styled_Img />
+            <div className="full relative rounded-4xl">
+                <Styled_Image />
             </div>
         </>
     ) : (
         /** Slug Slide Small */
-        <div className="full relative overflow-hidden rounded-4xl">
-            <div className="full z-10 grid grid-cols-1 px-2">
-                <Styled_Header
-                    title={projectData.title}
-                    tech={projectData.tech}
-                />
-                <p className="mx-auto max-w-lg rounded-xl px-4 text-center text-xl font-medium sm:text-[1.2em]">
-                    {projectData.brief}
-                </p>
-                <div className="z-10 flex h-14 items-end justify-around">
-                    {IconLinks}
-                </div>
+        <div className="flex-col-around relative mx-auto aspect-square w-full max-w-lg rounded-3xl bg-slate-20 p-1.5 pt-4 shadow-md shadow-grey sm:gap-y-2 sm:p-4">
+            <Styled_Header title={projectData.title} tech={projectData.tech} />
+            <p className="max-w-lg bg-white-dark/40 px-2 py-4 text-center text-[1.1em] leading-tight sm:text-[1.2em]">
+                {projectData.brief}
+            </p>
+            <div className="pointer-events-none relative z-10 aspect-[5/2] w-full flex-1">
+                <Styled_Image />
             </div>
-            <Styled_Img />
+
+            <div className="flex-around z-10 w-full overflow-hidden rounded-b-2xl bg-white/40">
+                <IconLinks />
+            </div>
         </div>
     )
 }

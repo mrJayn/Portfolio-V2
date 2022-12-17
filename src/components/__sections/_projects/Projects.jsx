@@ -2,9 +2,14 @@ import { Featured_Slides } from '@components'
 import Featured_Full from './_featured/Ftd_FullProject'
 import Archive from './Archive'
 
-const Projects = ({ isMd, idx = 3, ...data }) => {
+const Projects = ({ isSm, isMd, isLg, idx = 3, ...data }) => {
     const featuredData = data.featuredData
-    const projectsData = { isMd: isMd, ...data.projectsData }
+    const projectsData = {
+        isSm: isSm,
+        isMd: isMd,
+        isLg: isLg,
+        ...data.projectsData,
+    }
 
     return (
         <>
@@ -12,13 +17,13 @@ const Projects = ({ isMd, idx = 3, ...data }) => {
                 {isMd ? (
                     Object.keys(featuredData).map((i) => (
                         <Featured_Full
-                            key={`ftd-project-${i}`}
+                            key={`featured-project-${i}`}
                             even={i % 2 == 0}
                             {...featuredData[i]}
                         />
                     ))
                 ) : (
-                    <Featured_Slides isMd={isMd} {...featuredData} />
+                    <Featured_Slides isLg={isLg} {...featuredData} />
                 )}
             </div>
             <Archive {...projectsData} />

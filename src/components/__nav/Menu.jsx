@@ -28,7 +28,7 @@ const Menu = ({ menuOpen, toggleMenu }) => {
                                     ? { href: resumeJPEG, target: '_blank' }
                                     : {
                                           onClick: () => {
-                                              scrollToID(`#${item}-area`)
+                                              scrollToID(item)
                                               toggleMenu()
                                           },
                                       }

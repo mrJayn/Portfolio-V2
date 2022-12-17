@@ -22,7 +22,7 @@ const BgDecorations = ({ even }) =>
         />
     ))
 
-const Section_Hero = ({ even, bgColor, isMd, isRouting, ...data }) => {
+const Section_Hero = ({ even, bgColor, isRouting, isLg, ...data }) => {
     const isProjectsSection = data.id == 'projects'
     return (
         <>
@@ -31,7 +31,7 @@ const Section_Hero = ({ even, bgColor, isMd, isRouting, ...data }) => {
                 className="relative h-auto w-full py-3 md:flex md:h-screen md:overflow-hidden md:py-0"
                 style={{ backgroundColor: bgColor }}
             >
-                {!isProjectsSection && (
+                {!isProjectsSection & isLg && (
                     <Styled.Image
                         src={data.src}
                         alt={data.alt}
@@ -53,7 +53,7 @@ const Section_Hero = ({ even, bgColor, isMd, isRouting, ...data }) => {
                     variants={variants.Container}
                 >
                     <motion.h2
-                        className="relative animate-none text-8xl"
+                        className="relative animate-none"
                         variants={variants.Items}
                     >
                         {data.title}
@@ -63,12 +63,12 @@ const Section_Hero = ({ even, bgColor, isMd, isRouting, ...data }) => {
                         />
                     </motion.h2>
 
-                    <motion.p
-                        className="origin-center text-4xl leading-10 text-white"
+                    <motion.h4
+                        className="origin-center whitespace-pre-line leading-10 text-white"
                         variants={variants.Items}
                     >
-                        {data.description}
-                    </motion.p>
+                        {data.description.replace('<br/>', `\n`)}
+                    </motion.h4>
                     <BgDecorations even={even} />
                 </motion.div>
             </div>

@@ -3,18 +3,14 @@ import { motion } from 'framer-motion'
 import Skills from './Skills'
 import Image from 'next/image'
 
-const Summary = ({ content }) => {
-    const TITLE = <h3 className="sm:mb-auto md:w-full">Who I am</h3>
-    const CONTENT = (
-        <div className="w-full whitespace-pre-line px-2 indent-8 md:h-full md:px-4 md:leading-7">
-            <p>{content.replace('<br/>', `\n`)}</p>
-        </div>
-    )
-    return (
-        <div className="flex-col-center full">
-            {TITLE}
+const About = ({ isMd, ...props }) => {
+    const Summary = () => (
+        <div className="flex-col-center full md:items-start">
+            <h3 className="relative mb-[0.5em] md:my-0">Who I am</h3>
             <div className="flex-col-top full md:flex-row md:items-start">
-                {CONTENT}
+                <div className="w-full whitespace-pre-line px-2 indent-8 sm:px-4 md:h-full md:px-4 md:leading-7">
+                    <p>{props.data.introduction.replace('<br/>', `\n`)}</p>
+                </div>
                 <div className="aspect-[4/5] w-full max-w-[400px] p-4 md:-mt-4 md:w-3/4  md:max-w-none md:py-0">
                     <div className="full relative overflow-hidden rounded-3xl shadow-sm">
                         <Image
@@ -29,11 +25,9 @@ const Summary = ({ content }) => {
             </div>
         </div>
     )
-}
 
-const About = ({ isMd, ...props }) => {
     const Components = [
-        <Summary key={0} content={props.data.brief} />,
+        <Summary key={0} />,
         <Skills key={1} isMd={isMd} {...props.data} />,
         <div
             key={2}

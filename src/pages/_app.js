@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState, useRef } from 'react'
 import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
 import { useRouter } from 'next/router'
-import { AnimatePresence, MotionConfig, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, MotionConfig } from 'framer-motion'
 import { ToastContainer } from 'react-toastify'
 
 import { Navbar, Loader } from '@components'
@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
 
     const [isLoading, setIsLoading] = useState(isHome)
     const [activeSection, setSection] = useState(0)
-    const [isSm, isMd] = useMediaQuery(480, 768)
+    const [isSm, isMd, isLg] = useMediaQuery(414, 768, 1024)
     const isRouting = useIsRouting(true)
 
     // Page Properties
@@ -28,13 +28,12 @@ function MyApp({ Component, pageProps }) {
         isRouting: isRouting,
         isSm: isSm,
         isMd: isMd,
+        isLg: isLg,
         screenOrientation: useScreenOrientation(),
         activeSection: activeSection,
         setSection: setSection,
-        pRM: useReducedMotion(),
         ...pageProps,
     }
-
     return (
         <>
             <Head>
@@ -57,6 +56,7 @@ function MyApp({ Component, pageProps }) {
                 }}
                 canonical={url}
             />
+            <h1>Mike Jayne</h1>
             {isLoading && isHome ? (
                 <Loader setIsLoading={setIsLoading} />
             ) : (
@@ -68,7 +68,7 @@ function MyApp({ Component, pageProps }) {
                             isRouting={isRouting}
                         />
                         <>
-                            <AnimatePresence mode="wait">
+                            <AnimatePresence mode="sync">
                                 <Component {...pageProps} key={url} />
                             </AnimatePresence>
                         </>

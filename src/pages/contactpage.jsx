@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { Layout, Form } from '@components'
 import { formVariants } from '@motion'
-import { themeConfig } from 'twThemeFS'
+import { themeConfig } from 'twTheme'
 
 const title = 'Contact'
 const description = 'Send me a message!'

@@ -1,8 +1,8 @@
 ---
 id: projects
 title: Projects
-subtitle: My Creations<br/>Check out what I've been up to this past year.
-description: All code and projects I've worked on so far.
+subtitle: What I've Built
+description: My projects, apps, and code.
 src: '/assets/featured/choropleth_map.png'
 alt: /
 ---

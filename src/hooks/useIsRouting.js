@@ -10,7 +10,7 @@ const useIsRouting = (disableStateAfter = false) => {
 
         const disableRouting = () => {
             if (!disableStateAfter) return
-            let timeout = setTimeout(() => setIsRouting(false), 1500)
+            let timeout = setTimeout(() => setIsRouting(false), 2000)
             return () => clearTimeout(timeout)
         }
 

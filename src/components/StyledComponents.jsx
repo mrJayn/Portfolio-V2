@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion, transform } from 'framer-motion'
 import Image from 'next/image'
 import Paths from './items/Paths'
 
@@ -18,51 +18,42 @@ const links = [
 ]
 
 // Table of Contents
-//      Button
+//      Button -- color in global
 //      Image
 //      Icon
 //      Socials
 const StyledComponents = {
-    Button: ({ submit = false, children }) => (
-        <button
-            type={submit ? 'submit' : 'button'}
-            className="flex-center styled-btn ease-[cubic-bezier(0.5,1,0.5,1) relative z-10 w-[75vw] min-w-[150px] max-w-[325px] cursor-pointer select-none whitespace-nowrap rounded-4xl bg-slate py-4 text-lg font-semibold tracking-wide text-slate-20/75 contrast-125 duration-500 hover:translate-y-[-2.5px] hover:text-white md:w-auto md:max-w-[100%] md:px-10 lg:px-14 lg:text-xl"
-            onClick={(e) => {
-                const btn = e.currentTarget
-                btn.classList.toggle('clicked')
-                setTimeout(() => {
-                    btn.classList.toggle('clicked')
-                }, 1000)
-            }}
-        >
-            {children}
-        </button>
-    ),
+    Button: ({ submit = false, children }) => {
+        return (
+            <button
+                type={submit ? 'submit' : 'button'}
+                className="flex-center full group relative z-10 min-w-fit cursor-pointer select-none whitespace-nowrap rounded-md px-8 py-2 font-robotoMono text-21pt uppercase tracking-widest opacity-100  shadow-inset-outset shadow-black/5 hover:-translate-y-0.5 hover:text-white hover:shadow-black/10 lg:w-auto lg:max-w-[100%] lg:px-12 lg:text-24pt xl:px-16"
+            >
+                {children}
+            </button>
+        )
+    },
     Image: ({ isPriority = false, src, alt, ...props }) => (
         <motion.div
-            className="flex-center pointer-events-none absolute inset-4 z-0 select-none overflow-hidden rounded-4xl shadow md:relative  md:inset-0 md:w-full md:max-w-[50vw]"
+            className="flex-center lg:full pointer-events-none absolute inset-0 -z-10 mx-auto select-none overflow-hidden lg:inset-auto lg:max-w-[50vw] lg:shadow"
             {...props}
         >
-            <div className="full relative">
-                <span className="absoluteFull z-10 shadow-inset" />
-                <Image
-                    src={src}
-                    alt={alt}
-                    layout="fill"
-                    objectPosition="top"
-                    objectFit="cover"
-                    className="opacity-25 md:opacity-90"
-                    priority={isPriority}
-                />
-            </div>
+            <Image
+                src={src}
+                alt={alt}
+                layout="fill"
+                className="object-cover object-top opacity-25 lg:opacity-75 landscape:object-center"
+                quality={25}
+                priority={isPriority}
+            />
         </motion.div>
     ),
-    Icon: ({ name, fill = 'none', className = '' }) => {
+    Icon: ({ name, size = '100%', fill = 'none', className = '' }) => {
         const svgProps = {
             xmlns: 'http://www.w3.org/2000/svg',
             viewBox: '0 0 24 24',
-            height: '100%',
-            width: '100%',
+            height: size,
+            width: size,
             fill: fill,
             strokeLinecap: 'round',
             strokeLinejoin: 'round',
@@ -70,7 +61,7 @@ const StyledComponents = {
         return className == '' ? (
             <div className="flex-center full group absolute inset-0 cursor-pointer">
                 <svg {...svgProps}>
-                    <g className="stroke-slate-30/75 drop-shadow-[0px_0px_1px_#fff4] duration-150 ease-in group-hover:stroke-slate-neon">
+                    <g className="stroke-slate drop-shadow-[0px_0px_1px_#fff4] duration-150 ease-in group-hover:stroke-slate-neon">
                         <Paths name={name} />
                     </g>
                 </svg>
@@ -94,6 +85,26 @@ const StyledComponents = {
                 </a>
             </motion.div>
         ))
+    },
+    Chevron: ({ direction = 'up', skewDeg = 37.5, ...props }) => {
+        const dir2deg = { up: -45, right: 45, down: 135, left: -135 }
+        const rotateDeg = dir2deg[direction] + skewDeg / 2
+        const scaleY = Math.cos((skewDeg * Math.PI) / 180)
+        return (
+            <motion.span
+                className="group relative aspect-square h-full cursor-pointer text-white/40 hover:text-white"
+                {...props}
+            >
+                <span
+                    className="absolute inset-0 rounded-md rounded-tr-none border-t-[6px] border-r-[6px] duration-250 ease-tween"
+                    style={{
+                        transform: `rotate(${rotateDeg}deg) skewX(${skewDeg}deg) scaleY(${scaleY})`,
+                    }}
+                >
+                    <span className="absolute top-2 right-2 -bottom-3 -left-3 rounded-md rounded-tr-none border-t-[6px] border-r-[6px]" />
+                </span>
+            </motion.span>
+        )
     },
 }
 

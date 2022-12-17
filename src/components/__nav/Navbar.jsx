@@ -17,10 +17,14 @@ const Logo = () => (
                 window.scrollTo({ top: 0, behavior: 'smooth' })
             }
         }}
-        className="flex-center full font-medum  relative  z-50 cursor-pointer select-none text-center text-3xl leading-10 tracking-widest text-white/75 duration-250 ease-tween hover:text-white"
-        style={{ textShadow: '4px 4px 1px #8af8' }}
+        className="flex-center full z-50 cursor-pointer select-none"
     >
-        MIKE JAYNE
+        <span
+            className="text-3xl font-medium leading-10 tracking-widest text-white/75 duration-250 ease-tween hover:text-white"
+            style={{ textShadow: '4px 4px 1px #8af8' }}
+        >
+            MIKE JAYNE
+        </span>
     </motion.a>
 )
 
@@ -72,7 +76,7 @@ const Navbar = ({ isHome, isMd, isRouting }) => {
         }, 50)
     }
     // Components via screen size
-    const ActiveComponents = isMd ? [1, 3] : [0, 1, 2]
+    const ActiveComponents = isMd ? [1, 3] : [0, 1, 4]
     const Components = {
         0: (
             <Burger
@@ -83,6 +87,7 @@ const Navbar = ({ isHome, isMd, isRouting }) => {
         1: <Logo />,
         2: <MessageBtn isHome={isHome} router={router} />,
         3: <NavLinks hideLinks={!isHome || isRouting} />,
+        4: <span />,
     }
     // Close Menu if isRouting || @media > 768px
     useEffect(() => {
@@ -93,12 +98,12 @@ const Navbar = ({ isHome, isMd, isRouting }) => {
         <>
             <motion.nav
                 id="navbar"
-                className="fixed top-0 left-0 z-30 h-14 w-full"
+                className="fixed top-0 left-0 z-30 h-14 w-full bg-nav/50"
                 data-menuopen={menuOpen}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
             >
-                <ul className="flex-btw full md:pl-[calc(5vw-30px)] md:pr-[calc(2.5vw-20px)]">
+                <ul className="full flex-btw md:pl-[calc(5vw-30px)] md:pr-[calc(2.5vw-20px)]">
                     <>
                         {ActiveComponents.map((key) => {
                             return (

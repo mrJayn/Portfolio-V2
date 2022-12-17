@@ -3,9 +3,9 @@
 @tailwind base;
 
 :root {
-    --nav-bg: 37 42 55;
+    --nav-bg: 15 20 30;
 
-    --background: 42 47 61;
+    --background: 70 80 105;
 
     --text-color: #eee;
     --shadow-color: #000;
@@ -16,37 +16,59 @@
 }
 
 @layer base {
+    * {
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
     html {
-        @apply snap-y snap-mandatory font-montserrat text-base antialiased;
+        @apply snap-y snap-mandatory whitespace-pre-line font-montserrat text-base antialiased;
         word-spacing: 1px;
     }
     body {
-        @apply h-screen w-screen overflow-x-hidden bg-background text-min sm:text-base lg:text-md;
+        @apply h-screen w-screen overflow-x-hidden bg-black;
+        /*@apply text-min sm:text-base lg:text-md;*/
     }
     h1 {
-        @apply text-8xl font-bold;
+        @apply absolute h-px w-px overflow-hidden whitespace-nowrap;
+        clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+        clip: rect(1px, 1px, 1px, 1px);
+        clip-path: inset(0px 0px 99.9% 99.9%);
     }
     h2 {
-        @apply animate-[bgRotate_10s_linear_infinite] bg-gradient_title bg-clip-text text-7xl font-semibold uppercase tracking-[0.15em] text-transparent motion-reduce:animate-none;
+        @apply text-40pt md:text-48pt lg:text-56pt;
+        @apply font-semibold uppercase tracking-[0.15em];
+        background: linear-gradient(
+            45deg,
+            var(--theme-purple),
+            var(--theme-teal),
+            var(--theme-purple)
+        );
+        background-clip: text;
         background-size: 300%;
+        @apply animate-[bgRotate_10s_linear_infinite] text-transparent motion-reduce:animate-none;
     }
     h3 {
-        @apply text-6xl font-medium uppercase tracking-wide text-white;
+        @apply text-32pt md:text-48pt lg:text-56pt;
+        @apply font-medium uppercase tracking-wide text-white;
     }
     h4 {
-        @apply text-3xl font-medium tracking-wide text-slate-neon;
+        @apply text-24pt md:text-28pt;
+        @apply tracking-wide text-white;
     }
     h5 {
-        @apply text-2xl font-semibold text-grey-80 dark:text-grey-60;
+        @apply text-2xl font-semibold text-white;
     }
     h6 {
         @apply text-xl font-semibold;
     }
     p {
-        @apply text-grey-70;
+        @apply text-17pt text-grey-70 md:text-19pt lg:text-21pt;
     }
     button {
-        @apply bg-slate !important;
+        @apply z-10 bg-grey-20 text-grey-80 duration-350 ease-tween hover:bg-grey-30 hover:text-white !important;
+        & span {
+            @apply duration-350 ease-tween;
+        }
     }
 
     input {

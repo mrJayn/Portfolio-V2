@@ -7,15 +7,15 @@ export function toggleScrolling(toggle) {
 }
 
 /**
- * @param {number} x - Drag event offset x value
- * @param {number} v  - Drag event velocity x value
+ * @param {number} offset - Drag event offset x value
+ * @param {number} velocity  - Drag event velocity x value
  * @param {number} currentTab - Index of current open tab
  * @param {number} span - Total number of tabs
  * @param {function} setTab - Function to set new current Tab
  */
-export function handleSwipe(x, v, currentTab, span, setTab) {
+export function handleSwipe(offset, velocity, currentTab, span, setTab) {
     const threshold = 5000
-    const swipe = Math.abs(x) * v
+    const swipe = Math.abs(offset) * velocity
     if (swipe < -threshold) {
         paginate(1, currentTab, span, setTab)
     } else if (swipe > threshold) {
@@ -54,7 +54,7 @@ export function scrollToID(querySelector, behaivor = null) {
     const scrollBehaivor =
         behaivor !== null ? behaivor : isMd ? 'auto' : 'smooth'
 
-    document.querySelector(querySelector).scrollIntoView({
+    document.querySelector(`#${querySelector}`).scrollIntoView({
         behavior: scrollBehaivor,
         block: isMd ? 'center' : 'end',
     })

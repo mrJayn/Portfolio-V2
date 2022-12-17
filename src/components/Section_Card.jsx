@@ -1,87 +1,72 @@
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 
-import { Featured_Slides, Styled } from '@components'
+import { Styled } from '@components'
 import { sectionCardVariants as variants } from '@motion'
+import { useEffect, useRef } from 'react'
 
-const Section_Card = ({
-    id,
-    idx,
-    initialAnim,
-    anim,
-    isMd,
-    isRouting,
-    data,
-    featured,
-}) => {
-    const even = idx % 2 == 0
-
-    // Section name from slug for Link "as"
+const Section_Card = ({ id, index, isLg, inView, data, featured }) => {
+    const even = index % 2 == 0
     const pathAs = data.id.charAt(0).toUpperCase() + data.id.slice(1)
 
-    // Props
-    const motionProps = { initial: initialAnim, animate: anim, exit: 'hidden' }
-    const itemProps = {
-        variants: variants.Items_X,
-        custom: isMd && (even ? -1 : 1),
+    const mobileMotion = {
+        initial: false,
+        animate: inView ? { opacity: 1 } : { opacity: 0 },
+        exit: { opacity: 0 },
     }
 
-    return (
-        <div id={`${id}-content`} className="full relative md:flex">
-            <>
-                {isMd ? (
-                    featured ? (
-                        <Featured_Slides isRouting={isRouting} {...featured} />
-                    ) : (
-                        <Styled.Image
-                            src={data.src}
-                            alt={data.alt}
-                            style={{ order: even ? 2 : 1, userSelect: 'none' }}
-                            variants={variants.Img}
-                            custom={even ? 1 : -1}
-                            {...motionProps}
-                        />
-                    )
-                ) : null}
-            </>
+    const Headline = (
+        <>
+            <motion.h3
+                className="relative lg:w-full"
+                {...(isLg ? { variants: variants.Title } : { ...mobileMotion })}
+                custom={isLg && even}
+            >
+                {data.title}
+                <motion.span
+                    className="styled-underline lg:left-auto lg:w-[calc(5em+15vw)]"
+                    style={{
+                        originX: isLg ? (even ? 0.85 : 0.15) : 0.5,
+                        right: isLg ? (even ? 0 : 'auto') : '-5vw',
+                        left: isLg ? (even ? 'auto' : 0) : '-5vw',
+                    }}
+                    variants={isLg && variants.Decoration}
+                />
+            </motion.h3>
+        </>
+    )
+    const Subhead = (
+        <motion.div
+            className="flex-top full relative overflow-hidden lg:h-auto lg:w-auto lg:p-4 lg:pb-0"
+            {...(isLg ? { variants: variants.Items_X } : { ...mobileMotion })}
+            custom={isLg && even ? 1 : -1}
+        >
+            <h4>{data.subtitle.replace('<br/>', `\n`)}</h4>
+        </motion.div>
+    )
 
+    return (
+        <>
             <motion.div
                 id={id + '-content'}
-                data-animation={anim}
-                className={`full flex-col-around relative select-none whitespace-pre-line p-8 text-center md:select-text md:justify-center md:gap-y-10 md:p-0 landscape:justify-center landscape:py-0 ${
+                className={`flex-col-btw full select-text gap-y-4 py-[10vh] lg:h-full lg:justify-center lg:overflow-hidden lg:py-0 ${
                     even
-                        ? 'order-1 md:items-end md:text-end'
-                        : 'order-2 md:items-start md:text-start'
+                        ? 'order-1 lg:items-end lg:text-end'
+                        : 'order-2 lg:items-start lg:text-start'
                 }`}
-                variants={variants.Container}
-                {...motionProps}
+                variants={variants.StaggerContainer}
             >
-                <motion.h3 className="relative w-[75%] text-5xl md:w-full md:px-4">
-                    {data.id}
-                    <motion.span
-                        className="styled-underline"
-                        style={{
-                            originX: isMd ? (even ? 0.85 : 0.15) : 0.5,
-                            right: isMd & even ? 0 : 'auto',
-                            left: isMd & even ? 'auto' : 0,
-                        }}
-                        variants={variants.Decoration}
-                    />
-                </motion.h3>
+                <>
+                    {Headline}
+                    {Subhead}
+                </>
 
                 <motion.div
-                    className="blurrAfterAnim relative z-10 flex  min-h-[33%] w-full items-center justify-center overflow-hidden rounded-xl py-8 md:my-2 md:min-h-0 md:w-auto md:bg-transparent md:px-0 md:py-2 landscape:my-2 landscape:py-2"
-                    {...itemProps}
+                    className="lg:mt-20 lg:w-auto lg:translate-x-0 lg:px-4"
+                    {...(isLg
+                        ? { variants: variants.Btn }
+                        : { ...mobileMotion })}
                 >
-                    <span className="backdrop-blurred md:hidden" />
-                    <p className="font-medium leading-7 sm:text-[1.15em] md:text-md">
-                        {data.subtitle.replace('<br/>', `\n`)}
-                    </p>
-                </motion.div>
-
-                {!isMd && <Styled.Image src={data.src} alt={data.alt} />}
-
-                <motion.div variants={variants.Btn}>
                     <Styled.Button>
                         <Link
                             href={{
@@ -96,7 +81,7 @@ const Section_Card = ({
                     </Styled.Button>
                 </motion.div>
             </motion.div>
-        </div>
+        </>
     )
 }
 

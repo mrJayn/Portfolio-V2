@@ -1,9 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from 'react'
-import { motion, useScroll, useInView, AnimatePresence } from 'framer-motion'
+import {
+    motion,
+    useScroll,
+    useInView,
+    AnimatePresence,
+    useTransform,
+    useSpring,
+    motionValue,
+    useVelocity,
+} from 'framer-motion'
 
-import { Section_Card } from '@components'
-import { sectionVariants as variants } from '@motion'
+import { Featured_Slides, Section_Card, Styled } from '@components'
+import { sectionVariants as variants, springTransition } from '@motion'
 import { index2id } from '@utils'
 
 const Section = ({
@@ -11,127 +20,140 @@ const Section = ({
     index,
     activeSection,
     setSection,
-    isSm,
-    isMd,
+    direction,
+    isLg,
     isRouting,
     screenOrientation,
     useChildren = false,
     children,
     ...data
 }) => {
-    // REMEMBER TO CHANGE THIS ROUTING TO FALSE --- TRUE FOR EDTING PURPOSES
     const ref = useRef(null)
-    const inView = useInView(ref, { amount: 0.75 })
+    const [initialAnim, setInitialAnim] = useState('hidden')
+
+    const inView = useInView(ref, { amount: 0.95 })
     const { scrollYProgress } = useScroll({
         target: ref,
-        offset: ['end end', 'start start'],
+        offset: ['start end', 'end start'],
     })
-    const scrollDirection = scrollYProgress.get() > 0.5 ? -1 : 1
 
-    const [initialAnim, setInitialAnim] = useState('hidden')
-    const anim = isRouting & (index == activeSection) ? 'exit' : 'show'
-
-    const SectionContent = useChildren ? (
-        children
-    ) : (
-        <Section_Card
-            id={id}
-            idx={index}
-            initialAnim={initialAnim}
-            anim={anim}
-            isMd={isMd}
-            isRouting={isRouting}
-            {...data}
-        />
-    )
+    const ySpring = useSpring(scrollYProgress, springTransition)
+    const y = useTransform(ySpring, [0, 0.5, 1], ['100%', '0%', '-100%'])
 
     // Scroll to section on Resize / md breakpoint
     useEffect(() => {
         const resizehandler = (current) => {
             if ((index == current) & (current !== 0)) {
-                console.log(current)
-                document
-                    .getElementById(`${index2id(current)}-area`)
-                    .scrollIntoView({
-                        behavior: 'auto',
-                        block: isMd || isSm ? 'center' : 'end',
-                    })
+                document.getElementById(`${index2id(current)}`).scrollIntoView({
+                    behavior: 'auto',
+                    block: isLg ? 'center' : 'center',
+                })
+                y.set('0%')
                 setSection(activeSection)
             }
         }
         resizehandler(activeSection)
-    }, [isSm, isMd, screenOrientation])
-    /** Old Version of ABOVE ^
-     useEffect(() => {
-        let current = activeSection
-        if (current == 0) return
-        const resizehandler = () => {
-            if (index == current) {
-                document
-                    .getElementById(`${index2id(current)}-area`)
-                    .scrollIntoView({
-                        behavior: 'auto',
-                        block: isMd ? 'center' : 'end',
-                    })
-            }
-            setSection(current)
-        }
-        resizehandler()
-        window.addEventListener('resize', resizehandler)
-        return () => window.removeEventListener('resize', resizehandler)
-    }, [isMd, screenOrientation])
- */
+    }, [isLg, screenOrientation])
+
     // Set Initial Variant if Routing
     useEffect(() => {
-        if ((index == activeSection) & (index !== 0))
+        if (index == activeSection)
             setInitialAnim(isRouting ? 'exit' : 'hidden')
     }, [isRouting])
 
     // Set Active Section
     useEffect(() => {
-        if ((activeSection !== index) & inView & !isRouting) setSection(index)
+        if ((activeSection !== index) & inView & !isRouting) {
+            setSection(index)
+        }
     }, [inView])
+
+    const SectionCardProps = {
+        id: id,
+        index: index,
+        inView: inView,
+        isLg: isLg,
+        ...data,
+    }
+    const isActive = index == activeSection
+    const even = index % 2 == 0
 
     return (
         <>
-            <span
-                id={`${id}-area`}
-                className="mb-24 h-[calc(100vh-56px)] w-full last-of-type:mb-0 md:mb-[100%] md:snap-start md:snap-always md:scroll-mt-14"
+            <section
+                id={id}
+                data-section-in-view={isActive}
+                className="h-view w-full snap-end last-of-type:mb-0 lg:mb-[200%] lg:snap-center"
                 ref={ref}
             >
-                {!isMd ? (
-                    <section id={id} className="flex-center full">
-                        {SectionContent}
-                    </section>
-                ) : null}
-            </span>
-
-            {isMd ? (
-                <AnimatePresence
-                    mode="sync"
-                    initial={false}
-                    custom={scrollDirection}
+                <div
+                    id={`${id}-content`}
+                    className={`flex-center full relative lg:fixed lg:inset-0 lg:h-auto lg:w-auto lg:overflow-hidden ${
+                        isActive ? 'lg:z-10' : 'lg:z-0'
+                    }`}
                 >
-                    {(activeSection === index) & inView ? (
-                        <section
-                            key={id}
-                            id={id}
-                            className="flex-center fixed left-0 top-0 h-screen w-full"
+                    {isLg ? (
+                        <motion.div
+                            key={`${id}-scroll-motion`}
+                            className="absolute inset-0 flex"
+                            style={{ y }}
+                            initial={initialAnim}
+                            animate={
+                                !inView ? 'hidden' : isRouting ? 'exit' : 'show'
+                            }
+                            exit="exit"
+                            transition={{
+                                delay: inView ? 0.25 : 0,
+                                ...springTransition,
+                            }}
+                            variants={variants.Content}
                         >
-                            <motion.div
-                                className="absoluteFull overflow-hidden"
-                                initial={initialAnim}
-                                animate={anim}
-                                exit="hidden"
-                                variants={variants}
-                                custom={scrollDirection}
-                            >
-                                {SectionContent}
-                            </motion.div>
-                        </section>
-                    ) : null}
-                </AnimatePresence>
-            ) : null}
+                            {useChildren ? (
+                                children
+                            ) : (
+                                <>
+                                    <div
+                                        className="full z-10 select-none"
+                                        style={{ order: even ? 2 : 1 }}
+                                    >
+                                        {data.featured ? (
+                                            <Featured_Slides
+                                                isRouting={isRouting}
+                                                {...data.featured}
+                                            />
+                                        ) : (
+                                            <Styled.Image
+                                                isPriority
+                                                src={data.data.src}
+                                                alt={data.data.alt}
+                                                variants={variants.Graphic}
+                                            />
+                                        )}
+                                    </div>
+                                    <Section_Card
+                                        key={id}
+                                        {...SectionCardProps}
+                                    />
+                                </>
+                            )}
+                        </motion.div>
+                    ) : (
+                        <>
+                            {useChildren ? (
+                                children
+                            ) : (
+                                <>
+                                    <Section_Card {...SectionCardProps} />
+                                    <Styled.Image
+                                        src={data.data.src}
+                                        alt={data.data.alt}
+                                    />
+                                </>
+                            )}
+                        </>
+                    )}
+                </div>
+            </section>
         </>
     )
 }

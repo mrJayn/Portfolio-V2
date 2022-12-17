@@ -1,27 +1,17 @@
-import { isValidElement } from 'react'
+import { isValidElement, useEffect, useState } from 'react'
 import { getAllMarkdown } from 'src/lib/markdown'
 import { Contact, Intro, Layout, Section } from '@components'
+import { useScroll } from 'framer-motion'
 
 const title = 'Portfolio'
 const description =
     "Hello, I'm Michael👋 - I'm an ChemEng graduate and a recent self-taught developer, aiming to break into tech ASAP!"
 
-export default function Home({
-    activeSection,
-    setSection,
-    isRouting,
-    isSm,
-    isMd,
-    screenOrientation,
-    data,
-    ...pageProps
-}) {
-    data = { ...pageProps, ...data }
-
+export default function Home({ data, ...pageProps }) {
     const sectionComponents = [
         {
             id: 'intro',
-            data: <Intro {...data} />,
+            data: <Intro {...pageProps} />,
         },
         {
             id: 'about',
@@ -40,24 +30,24 @@ export default function Home({
         },
         {
             id: 'contact',
-            data: <Contact {...data} />,
+            data: <Contact {...pageProps} />,
         },
     ]
 
     return (
-        <Layout isHome title={title} description={description} isMd={isMd}>
+        <Layout
+            isHome
+            title={title}
+            description={description}
+            isLg={pageProps.isLg}
+        >
             {sectionComponents.map(({ id, data }, index) => {
                 const isValidJSX = isValidElement(data)
                 const props = {
                     id: id,
                     index: index,
-                    activeSection: activeSection,
-                    setSection: setSection,
-                    isSm: isSm,
-                    isMd: isMd,
-                    isRouting: isRouting,
-                    screenOrientation: screenOrientation,
                     ...(isValidJSX ? { useChildren: true } : data),
+                    ...pageProps,
                 }
                 return isValidJSX ? (
                     <Section key={id} {...props}>

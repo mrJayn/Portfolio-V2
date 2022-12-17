@@ -1,118 +1,90 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
-import { useMediaQuery } from '@hooks'
 import { contactVariants as variants } from '@motion'
-import { Styled, Social_Icons } from '@components'
+import { Styled } from '@components'
 
-const Text = [
-    `If you'd like to contact me about `,
-    'a full time position, ',
-    'a new project, ',
-    'or even just to chat...',
-    `I'd love to hear from you!`,
-]
-
-const Socials = () => (
-    <div className="z-0 flex h-12 w-screen max-w-[1280px] justify-around md:h-14">
-        <Styled.Socials
-            className="relative aspect-square h-full"
-            initial="hidden"
-            animate="show"
-            variants={variants.Socials}
-        />
+const Foot = ({ currentYear }) => (
+    <div className="flex-col-center relative w-screen overflow-hidden bg-gradient-to-b from-transparent to-black py-4 font-light uppercase md:py-8 lg:py-12">
+        <div className="flex-col-center w-full">
+            <p className="text-12pt lg:text-17pt">
+                Designed & Built by :&nbsp;
+                <span className="text-1.4x font-robotoMono capitalize text-white">
+                    Michael Jayne
+                </span>
+            </p>
+            <p className="text-12pt lg:text-17pt">
+                &#169; Copyright {currentYear}.
+            </p>
+        </div>
     </div>
 )
 
-const Contact = () => {
-    const isMd = useMediaQuery(768)
+const Contact = ({ isLg }) => {
     const currentYear = new Date().getFullYear()
 
-    const LinkComponents = [
-        <Styled.Button key="ct-link-0">
-            <Link href="/contactpage" as="/Contact" scroll={false}>
-                Send a Message
-            </Link>
-        </Styled.Button>,
-        <p key="ct-link-1" className="text-[0.9em]">
-            OR
-        </p>,
-        <a
-            key="ct-link-2"
-            href="mailto:m63jayne@gmail.com"
-            className="text-grey-70 duration-150 ease-in hover:text-white"
-        >
-            m63jayne@gmail.com
-        </a>,
-    ]
+    const Links = () => (
+        <div className="flex-col-center gap-y-1">
+            <Styled.Button>
+                <Link href="/contactpage" as="/Contact" scroll={false}>
+                    Send a Message
+                </Link>
+            </Styled.Button>
+            <p className="text-0.7x h-full tracking-widest">OR</p>
+            <a href="mailto:m63jayne@gmail.com" className="pg-link">
+                m63jayne@gmail.com
+            </a>
+        </div>
+    )
+
+    const Content = () => (
+        <>
+            {isLg ? (
+                <motion.p
+                    whileInView="show"
+                    variants={variants.Text}
+                    viewport={{ once: !isLg }}
+                    className="lg:text-1.3x whitespace-pre-line text-center"
+                >
+                    {` If you'd like to contact me<br/>about a full time position,<br/>a new project,<br/>or just to chat...<br/>I'd love to hear from you!`.replaceAll(
+                        '<br/>',
+                        `\n`
+                    )}
+                </motion.p>
+            ) : (
+                <p className="text-21pt md:text-24pt">
+                    {`Send me a message!<br/>I'd love to hear from you!`.replace(
+                        '<br/>',
+                        `\n`
+                    )}
+                </p>
+            )}
+
+            <Links />
+        </>
+    )
 
     return (
         <motion.div
-            className="flex-col-btw full gap-y-4 md:mt-14 md:h-[calc(100%-56px)]"
-            initial={isMd ? 'hidden' : 'show'}
-            animate="show"
-            exit="exit"
-            variants={variants.Wrap}
+            className="flex-col-btw full min-h-fit"
+            initial="hidden"
+            whileInView={isLg && 'show'}
         >
-            <div className="full flex-col-center text-center md:landscape:justify-end">
-                <div className="w-full bg-slate-80">
+            <div className="flex-col-center full max-w-[1280px] pt-2 lg:pt-8">
+                <div className="w-full bg-slate-80 text-center leading-tight md:py-2">
                     <h3>Whats Next?</h3>
                     <h4>Get in Touch!</h4>
                 </div>
-                <div className="flex-col-evenly full gap-y-4 py-4 md:h-auto md:landscape:h-2/3 md:landscape:flex-row md:landscape:justify-center md:landscape:gap-x-20">
-                    <motion.div
-                        className="flex-col-center"
-                        variants={variants.TextContainer}
-                    >
-                        {Text.map((item, i) => (
-                            <motion.p
-                                key={`line-${i}`}
-                                variants={variants.pClip}
-                            >
-                                {item}
-                            </motion.p>
-                        ))}
-                    </motion.div>
-                    <div className="flex-col-center  gap-1 md:gap-3">
-                        {LinkComponents.map((Component, i) => (
-                            <motion.div
-                                key={`link-component-${i}`}
-                                variants={variants.Links}
-                                custom={i}
-                            >
-                                {Component}
-                            </motion.div>
-                        ))}
-                    </div>
+                <div className="flex-col-center relative flex-1 gap-y-4 p-4 text-center md:gap-y-8 lg:gap-x-[15vw]">
+                    <Content />
+                </div>
+
+                <div className="flex-around z-0 mx-auto w-screen overflow-hidden">
+                    <Styled.Socials className="relative aspect-square h-10 sm:h-12 lg:h-14" />
                 </div>
             </div>
-            <Socials />
-            <div className="relative z-20 w-screen overflow-hidden py-2">
-                <motion.div
-                    className="flex-col-bottom full text-[12px] uppercase md:justify-start md:text-[14px]"
-                    initial="hidden"
-                    animate="show"
-                    variants={variants.Signature}
-                    transition={{ duration: 1, delay: 0.5, ease: 'backOut' }}
-                >
-                    <p className="text-grey-60">
-                        Designed & Built by :&nbsp;
-                        <span className="font-robotoMono text-sm capitalize text-white md:text-[18.6px]">
-                            Michael Jayne
-                        </span>
-                    </p>
-                    <p className="text-grey-60">
-                        &#169; Copyright {currentYear}.
-                    </p>
-                </motion.div>
-                <motion.span
-                    initial="hidden"
-                    animate="show"
-                    className="absoluteFull -z-10 bg-gradient-to-b from-transparent via-black/20 to-black/50"
-                    variants={variants.Signature}
-                    transition={{ duration: 1.5, ease: 'circOut' }}
-                />
-            </div>
+
+            <Foot currentYear={currentYear} />
         </motion.div>
     )
 }

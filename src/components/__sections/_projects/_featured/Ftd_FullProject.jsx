@@ -9,104 +9,95 @@ const Featured_Full = ({ even, ...data }) => {
     const HtmlContent = data.content
 
     const Technology = Data.tech.map((item, i) => (
-        <motion.span
+        <motion.p
             key={`tech-item-${i}`}
-            className="relative whitespace-nowrap border-slate-10/50 px-2 text-center font-medium capitalize italic text-slate-20 even:border-x-2 even:px-8 md:tracking-wide"
+            className="relative whitespace-nowrap border-slate-90/50 text-center font-medium capitalize italic text-slate-70 even:mx-8 even:border-x-2 even:px-8 md:tracking-wide"
             style={{ direction: even ? 'ltr' : 'rtl' }}
         >
             {item}
-        </motion.span>
+        </motion.p>
     ))
 
     const IconLinks = [
         ['GitHub', 'View on Github', Data.github],
         ['External', 'Visit Project', Data.external],
     ].map(([name, title, href], i) => (
-        <a
+        <motion.a
             key={`icon-link-${i}`}
             className="relative aspect-square h-full"
             href={href}
             title={title}
+            whileHover={{ y: -2.5 }}
         >
             <Styled.Icon name={name} />
-        </a>
+        </motion.a>
     ))
 
     return (
         <motion.div
             id={`featured-project-${Data.title}`}
-            className="relative z-10 grid h-auto max-h-screen w-full grid-cols-12 grid-rows-5 pb-8"
+            className="flex-col-top relative z-10 mb-24 h-auto w-full first-of-type:mt-24"
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
         >
             {/** gridLayout :  [  desc  ] + [  TITLE  ] + [  TECH  ] **/}
             <motion.div
-                className={`mb-5 flex items-center gap-x-20`}
-                style={{
-                    justifyContent: even ? 'flex-start' : 'flex-end',
-                    gridArea: even ? '1/1/1/-1' : '1/1/1/-1',
-                }}
+                className={`flex w-full items-end ${
+                    even ? 'text-start' : 'text-end'
+                }`}
                 variants={variants.FullPage.Header}
                 custom={even ? -1 : 1}
             >
                 <div
-                    className={`w-1/2 min-w-fit ${
-                        even ? 'order-1 text-start' : 'order-3 text-end'
+                    className={`w-full whitespace-nowrap lg:w-full ${
+                        even ? 'flex-right order-3' : 'flex-right order-1'
                     }`}
                 >
-                    <p className="mx-2 -skew-x-6 italic tracking-wider text-slate-10 underline underline-offset-4">
-                        Featured Project
-                    </p>
-                    <h3 className="whitespace-nowrap text-4xl text-slate-40 contrast-200">
-                        {Data.title}
-                    </h3>
-                    <div className="flex">{Technology}</div>
+                    <div
+                        className={
+                            even
+                                ? 'flex-col-left order-1 mr-auto'
+                                : 'flex-col-right order-3 ml-auto'
+                        }
+                    >
+                        <h5 className="mx-2 font-normal italic leading-[0.5] tracking-wider text-grey">
+                            Featured Project
+                        </h5>
+                        <h3>{Data.title}</h3>
+                    </div>
+                    <div className="order-2 flex">{Technology}</div>
                 </div>
-                <div className="order-2 flex h-16 w-1/2 justify-around">
-                    {IconLinks}
-                </div>
+                <div className="order-2 flex h-24 flex-col">{IconLinks}</div>
             </motion.div>
 
-            {/** [  IMAGE  ] **/}
-            <motion.div
-                className="flex-top relative"
-                style={{ gridArea: even ? '2/6/4/-1' : '2/1/4/8' }}
-                variants={variants.FullPage.Image}
-                custom={even ? -1 : 1}
-            >
-                <div
-                    className={`full absolute overflow-hidden rounded-3xl ${
-                        even ? 'left-0' : 'right-0'
-                    }`}
-                >
-                    <Image
-                        src={Data.src}
-                        alt={Data.alt}
-                        layout="responsive"
-                        objectFit="contain"
-                        objectPosition="top"
-                        width="100%"
-                        height="100%"
-                    />
-                </div>
-            </motion.div>
-
-            {/** [  Content  ] **/}
-            <motion.div
-                style={{ gridArea: even ? '2/1/-1/-1' : '2/1/-1/-1' }}
-                variants={variants.FullPage.Item}
-                custom={even ? -1 : 1}
-            >
-                <div
-                    className="project-innerHTML full relative overflow-hidden whitespace-pre-wrap px-2 text-lg leading-[1.625rem] lg:text-xl"
-                    style={{ textAlign: even ? 'start' : 'end' }}
+            <div className="relative w-full">
+                {/** [  Content  ] **/}
+                <motion.div
+                    className="projects content-innerHTML z-10"
                     data-even={even}
                     dangerouslySetInnerHTML={{
                         __html: HtmlContent,
                     }}
+                    variants={variants.FullPage.Item}
+                    custom={even ? -1 : 1}
                 />
-            </motion.div>
+                <motion.div
+                    className={`absolute top-5 -z-10 aspect-[5/3] w-[57.5%] select-none overflow-hidden rounded-3xl border-2 border-grey shadow-sm lg:top-0 lg:w-[50%] ${
+                        even ? 'right-0 lg:-right-8' : 'left-0 lg:-left-8'
+                    }`}
+                    variants={variants.FullPage.Image}
+                    custom={even ? -1 : 1}
+                >
+                    <Image
+                        src={Data.src}
+                        alt={Data.alt}
+                        layout="fill"
+                        objectFit="cover"
+                    />
+                </motion.div>
+            </div>
+            {/** [  IMAGE  ] **/}
         </motion.div>
     )
 }

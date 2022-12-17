@@ -27,9 +27,7 @@ const NavLinks = ({ hideLinks }) => (
                         {item}
                     </a>
                 ) : (
-                    <a onClick={() => scrollToID(`#${item}-area`, 'smooth')}>
-                        {item}
-                    </a>
+                    <a onClick={() => scrollToID(item, 'smooth')}>{item}</a>
                 )}
             </motion.li>
         ))}

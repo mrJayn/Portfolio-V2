@@ -2,6 +2,9 @@
 @tailwind utilities;
 
 @layer utilities {
+    .headline {
+    }
+
     .text-dark {
         & p {
             @apply text-black;

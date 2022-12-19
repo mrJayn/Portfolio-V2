@@ -19,7 +19,7 @@ const Intro = ({ isMd, isLg, isFirstLoad, isRouting }) => {
     return (
         <motion.div
             key="intro-section"
-            className="flex-col-center full select-text py-[4vh] lg:pt-20 lg:pb-32"
+            className="flex-col-center full select-text py-[4vh] lg:py-20"
             initial="hidden"
             animate={isRouting ? 'exit' : 'show'}
             exit="hidden"
@@ -39,7 +39,9 @@ const Intro = ({ isMd, isLg, isFirstLoad, isRouting }) => {
             >
                 Portfolio
             </motion.h2>
-            <Graphic isMd={isMd} isLg={isLg} />
+            <div className="relative my-4 w-full flex-[0.5] overflow-x-hidden rounded-lg md:w-2/3 lg:flex-[0.8]">
+                <Graphic />
+            </div>
             <motion.div
                 initial={initialAnim}
                 animate={ContentControls}

@@ -139,17 +139,7 @@ module.exports = {
                 'inset 0 0.1rem 0.1rem #0008, inset 0 -0.25rem 0.25rem #0005, inset 0 -0.5rem 0.5rem #0005, 0 0.1rem 0.1rem #0008, 0 17.5px 22.5px -10px var(--shadow-color), 0 6px 8px -4px var(--shadow-color)',
             none: 'none',
         },
-        keyframes: {
-            bgRotate: {
-                '0%': { backgroundPosition: '0% 0%' },
-                '50%': { backgroundPosition: '75% 0%' },
-                '100%': { backgroundPosition: '150% 0%' },
-            },
-            widthExpand: {
-                '0%': { width: '0%' },
-                '100%': { width: '100%' },
-            },
-        },
+
         extend: {
             maxHeight: {
                 view: 'calc(100vh - 56px)',
@@ -157,13 +147,14 @@ module.exports = {
             minHeight: {
                 view: 'calc(100vh - 56px)',
             },
-            borderRadius: {
-                '4xl': '3rem',
-            },
             backgroundImage: {
                 'background-gradient': themeConfig.backgroundGradient,
                 gradient:
                     'linear-gradient(45deg, var(--theme-purple), var(--theme-teal))',
+                blackHole_LightRing: `radial-gradient( #0000 30%, var(--blackhole-light-1) 40%, var(--blackhole-light-2) 42.5%,var(--blackhole-light-3) 55%, #0000 70%)`,
+            },
+            borderRadius: {
+                '4xl': '3rem',
             },
             transitionDuration: {
                 0: '0ms',
@@ -177,6 +168,31 @@ module.exports = {
             },
             transitionTimingFunction: {
                 tween: 'cubic-bezier(0.5, 0.5, 0.5, 1)',
+            },
+            keyframes: {
+                bgRotate: {
+                    '0%': { backgroundPosition: '0% 0%' },
+                    '50%': { backgroundPosition: '75% 0%' },
+                    '100%': { backgroundPosition: '150% 0%' },
+                },
+                widthExpand: {
+                    '0%': { width: '0%' },
+                    '100%': { width: '100%' },
+                },
+                orbit: {
+                    '0%': { transform: 'rotateZ(0deg)' },
+                    '100%': { transform: 'rotateZ(-360deg)' },
+                },
+                invert: {
+                    '0%': {
+                        transform:
+                            'rotateX(-90deg) rotateY(360deg) rotateZ(0deg)',
+                    },
+                    '100%': {
+                        transform:
+                            'rotateX(-90deg) rotateY(0deg) rotateZ(0deg)',
+                    },
+                },
             },
         },
     },

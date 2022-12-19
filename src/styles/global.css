@@ -13,6 +13,10 @@
     --theme-slate: theme(colors.slate.DEFAULT);
     --theme-teal: theme(colors.teal.DEFAULT);
     --theme-purple: theme(colors.purple.DEFAULT);
+
+    --blackhole-light-1: theme(colors.slate.30/0.5);
+    --blackhole-light-2: theme(colors.slate.40/0.25);
+    --blackhole-light-3: theme(colors.slate.DEFAULT);
 }
 
 @layer base {

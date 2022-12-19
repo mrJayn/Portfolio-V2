@@ -1,43 +1,90 @@
 import { motion } from 'framer-motion'
-import { theme } from 'tailwind.config'
 
-const Graphic = ({ isMd, isLg }) => {
-    const itemSize = isLg ? 23 : isMd ? 20 : 16
-    const ContainerSize = itemSize ** 2 + itemSize + 3
-    return (
-        <motion.div
-            key={0}
-            className="flex-center rounded-[0% 50% 0% 50%]  relative -z-20 my-4 flex-1 overflow-hidden opacity-50 contrast-200"
-            style={{ width: ContainerSize, maxHeight: ContainerSize }}
-        >
+const Graphic = () => {
+    const Orbital = ({
+        size = 1,
+        radius,
+        freq,
+        color = 'rgb(222 222 222 / 1)',
+    }) => {
+        const orbitalAnim = `orbit ${freq}s linear infinite`
+        const invertAnim = `invert ${freq}s linear infinite`
+
+        return (
             <div
-                className="absolute flex aspect-square flex-wrap items-start justify-start gap-[1px] bg-white/10"
-                style={{ height: ContainerSize, width: ContainerSize }}
+                className="absolute top-1/2 left-1/2 rounded-full"
+                style={{
+                    transformStyle: 'preserve-3d',
+                    height: radius + 'em',
+                    width: radius + 'em',
+                    margin: `${radius / -2}em 0em 0em ${radius / -2}em`,
+                }}
             >
-                {[...Array(itemSize ** 2).keys()].map((index) => (
+                <div
+                    className="absolute top-1/2 left-1/2 rounded-[50%]"
+                    style={{
+                        animation: orbitalAnim,
+                        transformStyle: 'preserve-3d',
+                        height: radius + 'em',
+                        width: radius + 'em',
+                        margin: `${radius / -2}em 0em 0em ${radius / -2}em`,
+                    }}
+                >
                     <div
-                        key={`graphic-item-${index}`}
-                        className="relative m-auto aspect-square overflow-hidden rounded"
-                        style={{ height: itemSize + 'px' }}
-                    >
-                        <motion.div
-                            className="graphic-anim absolute inset-0 rounded odd:bg-teal even:bg-slate-20"
-                            style={{
-                                height: itemSize + 'px',
-                                backgroundColor:
-                                    index % 3 == 0
-                                        ? theme.colors.slate[80]
-                                        : index % 5 == 0
-                                        ? theme.colors.teal.neon
-                                        : null,
-                                transitionTimingFunction: 'ease-in-out',
-                                transitionDelay: index + 's',
-                            }}
-                        />
-                    </div>
-                ))}
+                        className="absolute top-1/2 left-1/2 ml-[-0.5em] mt-[-0.5em] h-[1em] w-[1em] rounded-[50%] shadow-inset"
+                        style={{
+                            animation: invertAnim,
+                            transformStyle: 'preserve-3d',
+                            fontSize: size + 'em',
+                            margin: `${radius / -2}em 0em 0em ${radius / -2}em`,
+                            backgroundColor: color,
+                        }}
+                    />
+                </div>
             </div>
-        </motion.div>
+        )
+    }
+
+    const BlackHole = () => (
+        <div
+            className="absolute top-1/2 left-1/2 ml-[-0.5em] mt-[-0.5em] h-[1em] w-[1em] rounded-[50%] bg-slate text-[6em] shadow-inset"
+            style={{
+                transform: 'rotateX(-90deg)',
+                transformStyle: 'preserve-3d',
+            }}
+        />
+    )
+
+    return (
+        <div className="absolute inset-0">
+            <div className="full relative">
+                <motion.div
+                    className="absolute inset-0 will-change-transform"
+                    style={{
+                        transform: 'rotateX(75deg) rotateY(5deg)',
+                        transformStyle: 'preserve-3d',
+                    }}
+                    initial={false}
+                    whileInView={{
+                        rotateX: [70, 75],
+                        rotateY: [2.5, 5],
+                        transition: { duration: 4, ease: 'easeInOut' },
+                    }}
+                >
+                    {/**<Orbital radius={12} freq={15} color="#f60" /> */}
+                    <BlackHole />
+                    <Orbital size={0.75} radius={20} freq={10} />
+
+                    <div
+                        className="curve-outer absolute top-1/2 left-1/2 ml-[-0.5em] mt-[-0.5em] h-[1em] w-[1em] rounded-full bg-blackHole_LightRing text-[15em]"
+                        style={{
+                            animation: 'orbit 10s linear infinite',
+                        }}
+                    ></div>
+                </motion.div>
+            </div>
+        </div>
     )
 }
+/** linear-gradient(135deg,#efbc23 30%, #ef8e38 60%) */
 export default Graphic

@@ -57,7 +57,6 @@ function MyApp({ Component, pageProps }) {
                 canonical={url}
             />
             <h1>Mike Jayne</h1>
-
             {isLoading && isHome ? (
                 <Loader
                     setIsLoading={setIsLoading}

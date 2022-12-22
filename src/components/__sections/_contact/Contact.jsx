@@ -9,7 +9,7 @@ const Foot = ({ currentYear }) => (
         <div className="flex-col-center w-full">
             <p className="text-12pt lg:text-17pt">
                 Designed & Built by :&nbsp;
-                <span className="text-1.4x font-robotoMono capitalize text-white">
+                <span className="font-robotoMono text-1.4x capitalize text-white">
                     Michael Jayne
                 </span>
             </p>
@@ -30,7 +30,7 @@ const Contact = ({ isLg }) => {
                     Send a Message
                 </Link>
             </Styled.Button>
-            <p className="text-0.7x h-full tracking-widest">OR</p>
+            <p className="h-full text-0.7x tracking-widest">OR</p>
             <a href="mailto:m63jayne@gmail.com" className="pg-link">
                 m63jayne@gmail.com
             </a>
@@ -44,7 +44,7 @@ const Contact = ({ isLg }) => {
                     whileInView="show"
                     variants={variants.Text}
                     viewport={{ once: !isLg }}
-                    className="lg:text-1.3x whitespace-pre-line text-center"
+                    className="whitespace-pre-line text-center lg:text-1.3x"
                 >
                     {` If you'd like to contact me<br/>about a full time position,<br/>a new project,<br/>or just to chat...<br/>I'd love to hear from you!`.replaceAll(
                         '<br/>',
@@ -66,7 +66,7 @@ const Contact = ({ isLg }) => {
 
     return (
         <motion.div
-            className="flex-col-btw full min-h-fit"
+            className="flex-col-btw full min-h-fit pt-28 lg:pt-0"
             initial="hidden"
             whileInView={isLg && 'show'}
         >

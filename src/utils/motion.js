@@ -5,10 +5,9 @@ const yPolygonBuilder = (y) =>
 
 export const springTransition = {
     type: 'spring',
-    stiffness: 200,
-    damping: 100,
-    mass: 10,
-    restDelta: 0.0001,
+    stiffness: 150,
+    damping: 75,
+    restDelta: 0.0005,
 }
 
 export const layoutVariants = {
@@ -76,39 +75,35 @@ export const sectionVariants = {
 export const sectionCardVariants = {
     StaggerContainer: {
         hidden: {
-            opacity: 0,
             transition: {
-                when: 'beforeChildren',
-                duration: 1,
-                ease: 'circIn',
+                staggerChildren: 0.08,
+                staggerDirection: -1,
             },
         },
         show: {
-            opacity: 1,
             transition: {
                 staggerChildren: 0.5,
                 delayChildren: 0.25,
             },
         },
         exit: {
-            opacity: 0,
             transition: {
-                when: 'afterChildren',
                 staggerChildren: 0.08,
                 staggerDirection: -1,
             },
         },
     },
     Title: {
-        hidden: (even) => ({
-            x: even ? 1 : -1 * 75 + '%',
+        hidden: (i = 0) => ({
+            x: i * 75 + '%',
+            transition: { ...springTransition },
         }),
         show: {
             x: 0,
-            transition: { duration: 1, ease: 'circOut' },
+            transition: { ...springTransition },
         },
-        exit: (even) => ({
-            x: even ? 1 : -1 * 75 + '%',
+        exit: (i = 0) => ({
+            x: i * 75 + '%',
             transition: { duration: 0.75 },
         }),
     },
@@ -116,11 +111,12 @@ export const sectionCardVariants = {
         hidden: (i = 0) => ({
             x: i * 100 + '%',
             clipPath: xPolygonBuilder(50 + i * 150),
+            transition: { ...springTransition },
         }),
         show: {
             x: 0,
             clipPath: 'polygon(0% 0%, 100% 0%, 100% 120%, 0% 120%)',
-            transition: { duration: 1, ease: 'circOut' },
+            transition: { ...springTransition },
         },
         exit: (i = 0) => ({
             x: i * 100 + '%',
@@ -129,7 +125,11 @@ export const sectionCardVariants = {
         }),
     },
     Decoration: {
-        hidden: { opacity: 0, scaleX: 0 },
+        hidden: {
+            opacity: 0,
+            scaleX: 0,
+            transition: { ...springTransition },
+        },
         show: {
             opacity: 1,
             scaleX: 1,
@@ -142,13 +142,16 @@ export const sectionCardVariants = {
         },
     },
     Btn: {
-        hidden: { opacity: 0, scale: 0.6 },
+        hidden: {
+            opacity: 0,
+            scale: 0.6,
+            transition: { ...springTransition },
+        },
         show: {
             opacity: 1,
             scale: 1,
             transition: {
-                opacity: { duration: 1 },
-                scale: { duration: 1.5, ease: 'circOut' },
+                ...springTransition,
             },
         },
         exit: {
@@ -159,6 +162,11 @@ export const sectionCardVariants = {
                 scale: { duration: 0.5 },
             },
         },
+    },
+    mobileVars: {
+        hidden: { opacity: 0 },
+        show: { opacity: 1 },
+        exit: { opacity: 0 },
     },
 }
 export const sectionHeroVariants = {

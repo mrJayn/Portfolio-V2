@@ -27,7 +27,7 @@ const StyledComponents = {
         return (
             <button
                 type={submit ? 'submit' : 'button'}
-                className="flex-center full group relative z-10 min-w-fit cursor-pointer select-none whitespace-nowrap rounded-md px-8 py-2 font-robotoMono text-21pt uppercase tracking-widest opacity-100  shadow-inset-outset shadow-black/5 hover:-translate-y-0.5 hover:text-white hover:shadow-black/10 lg:w-auto lg:max-w-[100%] lg:px-12 lg:text-24pt xl:px-16"
+                className="flex-center full group relative z-10 min-w-fit cursor-pointer select-none whitespace-nowrap rounded-md px-8 py-2 font-robotoMono text-21pt uppercase tracking-widest opacity-100  shadow-inset-outset shadow-black/5 hover:-translate-y-0.5 hover:text-white hover:shadow-black/10 md:text-24pt lg:w-auto lg:max-w-[100%] lg:px-12 lg:text-28pt xl:px-16"
             >
                 {children}
             </button>

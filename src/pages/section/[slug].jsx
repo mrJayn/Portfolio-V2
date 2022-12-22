@@ -44,7 +44,7 @@ export default function SectionPage({
     const bgColor = themeConfig.getSectionColor(activeSection)
 
     useEffect(() => window.scrollTo({ top: 0, behavior: 'auto' }))
-    console.log(activeSection)
+
     return (
         <Layout title={title} description={Data.description} isLg={isLg}>
             {isMd && (

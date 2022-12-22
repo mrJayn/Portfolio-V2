@@ -4,11 +4,8 @@ import {
     motion,
     useScroll,
     useInView,
-    AnimatePresence,
     useTransform,
     useSpring,
-    motionValue,
-    useVelocity,
 } from 'framer-motion'
 
 import { Featured_Slides, Section_Card, Styled } from '@components'
@@ -83,12 +80,12 @@ const Section = ({
             <section
                 id={id}
                 data-section-in-view={isActive}
-                className="h-view w-full snap-end last-of-type:mb-0 lg:mb-[200%] lg:snap-center"
+                className="h-screen w-screen snap-center last-of-type:mb-0 lg:mb-[200%] lg:h-view"
                 ref={ref}
             >
                 <div
                     id={`${id}-content`}
-                    className={`flex-center full relative lg:fixed lg:inset-0 lg:h-auto lg:w-auto lg:overflow-hidden ${
+                    className={`flex-center full relative overflow-hidden lg:fixed lg:inset-0 lg:h-auto lg:w-auto ${
                         isActive ? 'lg:z-10' : 'lg:z-0'
                     }`}
                 >
@@ -143,11 +140,11 @@ const Section = ({
                                 children
                             ) : (
                                 <>
-                                    <Section_Card {...SectionCardProps} />
                                     <Styled.Image
                                         src={data.data.src}
                                         alt={data.data.alt}
                                     />
+                                    <Section_Card {...SectionCardProps} />
                                 </>
                             )}
                         </>

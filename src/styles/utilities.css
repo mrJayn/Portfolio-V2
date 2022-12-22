@@ -19,6 +19,7 @@
         @apply absolute inset-0 -z-10 bg-white/10 backdrop-blur-md duration-1000 ease-in-out;
     }
 
+    /* Functional */
     .full {
         @apply h-full w-full;
     }

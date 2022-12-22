@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion'
 import { theme } from 'tailwind.config'
-import { introVariants as variants } from '@motion'
+import { introVariants } from '@motion'
 import { TitlePaths } from './TitlePaths'
+
+const variants = introVariants.TitleVars
 
 const TitleDefs = () => (
     <defs>
@@ -12,7 +14,7 @@ const TitleDefs = () => (
     </defs>
 )
 
-const Title = ({ initialDelay, onTitleComplete, initialAnim }) => {
+const Title = ({ initialDelay, onTitleComplete, initialAnim, titleAnim }) => {
     const ogLen = TitlePaths.length
     const Doubled = TitlePaths.concat(TitlePaths)
 
@@ -74,7 +76,7 @@ const Title = ({ initialDelay, onTitleComplete, initialAnim }) => {
                                     : {}
                             }
                             initial={initialAnim}
-                            animate="show"
+                            animate={titleAnim}
                             variants={
                                 index < ogLen
                                     ? variants.TitleBlur

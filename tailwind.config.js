@@ -152,6 +152,8 @@ module.exports = {
                 gradient:
                     'linear-gradient(45deg, var(--theme-purple), var(--theme-teal))',
                 blackHole_LightRing: `radial-gradient( #0000 30%, var(--blackhole-light-1) 40%, var(--blackhole-light-2) 42.5%,var(--blackhole-light-3) 55%, #0000 70%)`,
+                'loader-gradient':
+                    'radial-gradient(transparent 0%, var(--loader-gradient-color-1) 2.5%, var(--loader-gradient-color-2) 15%, transparent 30%)',
             },
             borderRadius: {
                 '4xl': '3rem',

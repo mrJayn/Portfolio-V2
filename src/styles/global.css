@@ -14,6 +14,9 @@
     --theme-teal: theme(colors.teal.DEFAULT);
     --theme-purple: theme(colors.purple.DEFAULT);
 
+    --loader-gradient-color-1: theme(colors.slate.neon);
+    --loader-gradient-color-2: theme(colors.slate.neon/0.25);
+
     --blackhole-light-1: theme(colors.slate.30/0.5);
     --blackhole-light-2: theme(colors.slate.40/0.25);
     --blackhole-light-3: theme(colors.slate.DEFAULT);

@@ -90,66 +90,42 @@
     }
 
     /* Intro Graphic */
-
-    .orbitAnimation {
-        @apply absolute top-1/2 left-1/2 rounded-[50%] border-[1px] border-white/20;
-        animation-name: orbit;
-        animation-iteration-count: infinite;
-        animation-timing-function: linear;
-        transform-style: preserve-3d;
-    }
-
-    .position {
-        @apply absolute top-1/2 mt-[-1em] ml-[-1em] h-[2em] w-[2em];
-        animation-name: invert;
-        animation-iteration-count: infinite;
-        animation-timing-function: linear;
-        transform-style: preserve-3d;
-    }
-
-    .planet {
-        @apply absolute top-1/2 left-1/2 ml-[-0.5em] mt-[-0.5em] h-[1em] w-[1em] rounded-[50%] bg-black;
-        transform-style: preserve-3d;
-    }
-
     @keyframes orbit {
         0% {
             transform: rotateZ(0deg);
         }
-
         100% {
             transform: rotateZ(-360deg);
         }
     }
 
-    @keyframes suborbit {
-        0% {
-            transform: rotateX(90deg) rotateZ(0deg);
-        }
-
-        100% {
-            transform: rotateX(90deg) rotateZ(-360deg);
-        }
-    }
-
     @keyframes invert {
         0% {
-            transform: rotateX(-90deg) rotateY(360deg) rotateZ(0deg);
+            transform: rotateX(-90deg) rotateY(360deg) rotateZ(0deg) scale(1.25);
         }
-
+        12.5% {
+            transform: rotateX(-90deg) rotateY(315deg) rotateZ(0deg) scale(1.5);
+        }
+        25% {
+            transform: rotateX(-90deg) rotateY(270deg) rotateZ(0deg) scale(1.75);
+        }
+        37.5% {
+            transform: rotateX(-90deg) rotateY(225deg) rotateZ(0deg) scale(2);
+        }
+        50% {
+            transform: rotateX(-90deg) rotateY(180deg) rotateZ(0deg) scale(1.75);
+        }
+        62.5% {
+            transform: rotateX(-90deg) rotateY(135deg) rotateZ(0deg) scale(1.5);
+        }
+        75% {
+            transform: rotateX(-90deg) rotateY(90deg) rotateZ(0deg) scale(1.25);
+        }
+        87.5% {
+            transform: rotateX(-90deg) rotateY(45deg) rotateZ(0deg) scale(1);
+        }
         100% {
-            transform: rotateX(-90deg) rotateY(0deg) rotateZ(0deg);
-        }
-    }
-
-    .curve-outer {
-        &:before {
-            content: '';
-            @apply absolute inset-6 rounded-full;
-        }
-        &:before {
-            box-shadow: inset 0 20px 30px theme(colors.slate.neon/0.5),
-                inset 10px 0px 30px theme(colors.slate.10/0.5);
+            transform: rotateX(-90deg) rotateY(0deg) rotateZ(0deg) scale(1.25);
         }
     }
 
@@ -293,55 +269,55 @@
         --m: 10px;
         --cont-t: 1.5;
     }
-    .hexagons {
-        --cb-ease: cubic-bezier(0.64, 0.57, 0.67, 1.53);
+    */
+.hexagons {
+    --cb-ease: cubic-bezier(0.64, 0.57, 0.67, 1.53);
 
-        & > div {
-            transform: scale(var(--cont-t));
-            transform-origin: top;
-            transition: 0.5s var(--ease);
-        }
-        & .container {
-            & div {
-                width: var(--s);
-                margin: var(--m);
-                height: calc(var(--s) * 1.1547);
-                clip-path: polygon(
-                    0% 25%,
-                    0% 75%,
-                    50% 100%,
-                    100% 75%,
-                    100% 25%,
-                    50% 0%
-                );
-                margin-bottom: calc(var(--m) - var(--s) * 0.2885);
-                transition: 1s var(--cb-ease);
-            }
-
-            --f: calc(1.732 * var(--s) + 4 * var(--m) - 1px);
-
-            &:before {
-                content: '';
-                width: calc(var(--s) / 2 + var(--m));
-                float: left;
-                height: 120%;
-                shape-outside: repeating-linear-gradient(
-                    #0000 0 calc(var(--f) - 3px),
-                    #000 0 var(--f)
-                );
-                transition: 1s var(--cb-ease);
-            }
+    & > div {
+        transform: scale(var(--cont-t));
+        transform-origin: top;
+        transition: 0.5s var(--ease);
+    }
+    & .container {
+        & div {
+            width: var(--s);
+            margin: var(--m);
+            height: calc(var(--s) * 1.1547);
+            clip-path: polygon(
+                0% 25%,
+                0% 75%,
+                50% 100%,
+                100% 75%,
+                100% 25%,
+                50% 0%
+            );
+            margin-bottom: calc(var(--m) - var(--s) * 0.2885);
+            transition: 1s var(--cb-ease);
         }
 
-        &:after {
+        --f: calc(1.732 * var(--s) + 4 * var(--m) - 1px);
+
+        &:before {
             content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            left: 0;
-            z-index: 1;
-            box-shadow: inset 0 0 1rem 1rem #0002;
+            width: calc(var(--s) / 2 + var(--m));
+            float: left;
+            height: 120%;
+            shape-outside: repeating-linear-gradient(
+                #0000 0 calc(var(--f) - 3px),
+                #000 0 var(--f)
+            );
+            transition: 1s var(--cb-ease);
         }
     }
-*/
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: 1;
+        box-shadow: inset 0 0 1rem 1rem #0002;
+    }
+}

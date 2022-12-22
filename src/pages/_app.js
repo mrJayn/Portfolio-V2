@@ -57,8 +57,12 @@ function MyApp({ Component, pageProps }) {
                 canonical={url}
             />
             <h1>Mike Jayne</h1>
+
             {isLoading && isHome ? (
-                <Loader setIsLoading={setIsLoading} />
+                <Loader
+                    setIsLoading={setIsLoading}
+                    screenFill={isMd ? 50 : isSm ? 75 : 100}
+                />
             ) : (
                 <>
                     <MotionConfig reducedMotion="user">

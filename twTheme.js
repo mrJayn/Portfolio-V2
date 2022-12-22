@@ -69,7 +69,7 @@ const alpha2Hex = (opa) => {
 }
 
 // Inputs
-const color_RGB = '70 80 105'
+const color_RGB = '20 25 45'
 const totalColors = 5
 
 const getGradient = (index = null) => {
@@ -87,12 +87,12 @@ const getGradient = (index = null) => {
             return asHex
         }
 
-        const increment = 10
+        const increment = 40
         const offsets = {
-            red: -2,
-            green: 0,
-            blue: 2,
-            alpha: -0.15,
+            red: -15,
+            green: -10,
+            blue: 0,
+            alpha: 0,
         }
         const [rX, gX, bX, aX] = [...Object.values(offsets)]
 

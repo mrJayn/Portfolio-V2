@@ -397,76 +397,117 @@ export const menuVariants = {
 export const introVariants = {
     Wrap: {
         hidden: (is1st) => ({
-            opacity: is1st ? 0 : 1,
-            transition: { delay: 0.5 },
+            opacity: 0,
+            transition: {
+                duration: 0.5,
+                staggerChildren: 0.25,
+                staggerDirection: -1,
+            },
         }),
-        show: { opacity: 1, transition: { duration: 1, delay: 0.5 } },
+        show: (is1st) => ({
+            opacity: 1,
+            transition: {
+                duration: 1,
+                when: 'beforeChildren',
+                staggerChildren: 0.25,
+                delayChildren: is1st ? 3 : 0,
+            },
+        }),
         exit: {
             opacity: 0,
             transition: { duration: 0.25, ease: 'easeIn' },
         },
     },
-    TitleContainer: {
-        hidden: {},
-        show: (initialDelay) => ({
-            transition: {
-                staggerChildren: 0.08,
-                delayChildren: initialDelay,
+    TitleVars: {
+        Title: {
+            hidden: {
+                pathLength: 0,
+                stroke: '#66fcf1',
+                strokeWidth: 2,
+                strokeOpacity: 0,
+                fillOpacity: 0,
             },
-        }),
+            show: {
+                pathLength: 1,
+                stroke: '#fff',
+                strokeWidth: 0,
+                strokeOpacity: 1,
+                fillOpacity: 1,
+            },
+        },
+        TitleBlur: {
+            hidden: {
+                fillOpacity: 0,
+            },
+            show: {
+                fillOpacity: 1,
+            },
+        },
     },
-    Title: {
+
+    SubHead: {
         hidden: {
-            pathLength: 0,
-            stroke: '#66fcf1',
-            strokeWidth: 2,
-            strokeOpacity: 0,
-            fillOpacity: 0,
+            opacity: 0,
+            y: '100%',
+            clipPath: 'inset(0% 0% 100% 0%)',
+            transition: { duration: 0.5 },
         },
-        show: {
-            pathLength: 1,
-            stroke: '#fff',
-            strokeWidth: 0,
-            strokeOpacity: 1,
-            fillOpacity: 1,
-        },
-    },
-    TitleBlur: {
-        hidden: {
-            fillOpacity: 0,
-        },
-        show: {
-            fillOpacity: 1,
-        },
-    },
-    Content: {
-        hidden: { opacity: 0, y: '100%', clipPath: 'inset(0% 0% 100% 0%)' },
         show: {
             opacity: 1,
             y: '0%',
             clipPath: 'inset(0% 0% 0% 0%)',
             transition: {
-                default: { duration: 1, ease: 'circOut' },
-                opacity: {},
+                y: { duration: 1, ease: 'circOut' },
+                clipPath: { duration: 1, ease: 'circOut' },
             },
         },
     },
-    StyledButton: {
+    Btn: {
         hidden: {
             opacity: 0,
             pointerEvents: 'none',
             scale: 0.8,
+            transition: { duration: 0.5 },
         },
         show: {
             opacity: 1,
             scale: 1,
             pointerEvents: 'auto',
             transition: {
-                delay: 0.35,
                 opacity: { duration: 1 },
                 scale: { duration: 1.5, ease: 'circOut' },
             },
         },
+    },
+    DownArrow: {
+        hidden: {
+            opacity: 0,
+            y: 50,
+            transition: { duration: 0.5, ease: 'backIn' },
+        },
+        show: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 1, ease: 'backOut' },
+        },
+    },
+    Graphic: {
+        hidden: {
+            rotateX: 67,
+            rotateY: 0,
+            y: '75vh',
+            transition: { duration: 1, ease: 'circIn' },
+        },
+        show: (is1st) => ({
+            rotateX: 75,
+            rotateY: 5,
+            y: '0vh',
+            transition: {
+                delay: is1st ? 3.5 : 0.5,
+                default: { duration: 2, ease: 'easeOut' },
+                y: { duration: 2, ease: 'backOut' },
+            },
+        }),
     },
 }
 export const aboutVariants = {

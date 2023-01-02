@@ -55,8 +55,8 @@ const Intro = ({ isFirstLoad, isRouting }) => {
             </motion.div>
             <motion.a
                 href="#about"
-                className="absolute bottom-[2em] text-56pt text-grey duration-250 ease-tween hover:text-white"
-                variants={variants.DownArrow}
+                className="absolute bottom-[1em] text-56pt text-grey duration-250 ease-tween hover:text-white"
+                variants={variants.NextSectionBtn}
             >
                 <BsChevronCompactDown />
             </motion.a>

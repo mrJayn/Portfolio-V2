@@ -8,12 +8,6 @@ const Section_Card = ({ id, index, isLg, inView, data, featured }) => {
     const even = index % 2 == 0
     const pathAs = data.id.charAt(0).toUpperCase() + data.id.slice(1)
 
-    const mobileMotion = {
-        initial: false,
-        animate: inView ? 'show' : 'hidden',
-        exit: 'hidden',
-    }
-
     const SectionLink = () => (
         <Styled.Button>
             <Link

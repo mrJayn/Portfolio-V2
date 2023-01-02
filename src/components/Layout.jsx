@@ -31,7 +31,10 @@ const Layout = ({ title, description, isHome = false, children, isLg }) => {
                 ) : (
                     <>
                         <a id="slugTop" />
-                        <div className="z-20 h-auto w-full overflow-x-hidden overflow-y-scroll bg-black">
+                        <div
+                            id="page-scroll-container"
+                            className="z-20 h-auto w-full overflow-x-hidden overflow-y-scroll bg-black"
+                        >
                             {children}
                         </div>
                     </>

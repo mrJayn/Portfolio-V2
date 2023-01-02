@@ -60,7 +60,7 @@ const Project_Card = ({ data, i = 0, isMd }) => {
                 {data.tech.map((item, idx) => (
                     <span
                         key={`${data.title}-tech-item-${idx}`}
-                        className="relative w-full whitespace-nowrap text-center text-sm capitalize italic tracking-tighter text-grey-60/90 brightness-110 sm:font-medium md:tracking-wide"
+                        className="relative w-full whitespace-nowrap text-center text-sm capitalize italic tracking-tighter text-grey-60 brightness-110 sm:font-medium md:tracking-wide"
                     >
                         {item}
                     </span>

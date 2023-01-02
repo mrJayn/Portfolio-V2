@@ -44,10 +44,10 @@ export default function SectionPage({
     const bgColor = themeConfig.getSectionColor(activeSection)
 
     useEffect(() => window.scrollTo({ top: 0, behavior: 'auto' }))
-
+    console.log(activeSection % 2 == 0)
     return (
         <Layout title={title} description={Data.description} isLg={isLg}>
-            {isMd && (
+            {isLg && (
                 <Section_Hero
                     key={`${Data.id}-hero`}
                     even={activeSection % 2 == 0}
@@ -58,10 +58,11 @@ export default function SectionPage({
                 />
             )}
             <div
-                className="flex-col-center text-dark relative mx-auto h-auto min-h-screen w-full gap-y-24 bg-white-dark px-2 py-14 lg:px-12"
-                style={{
-                    maxWidth: Data.id == 'projects' ? 'none' : '1200px',
-                }}
+                id={`${Data.id}-section-content`}
+                data-reading-section
+                className={`flex-col-center relative mx-auto h-auto min-h-screen w-full gap-y-24 px-2 py-14 lg:px-12 ${
+                    Data.id !== 'projects' && 'max-w-[1200px]'
+                }`}
             >
                 <SlugToContent {...Data} />
             </div>

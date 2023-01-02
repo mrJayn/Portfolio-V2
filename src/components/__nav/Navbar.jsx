@@ -45,7 +45,7 @@ const MessageBtn = ({ isHome, router }) => (
     >
         <Styled.Icon
             name="Message"
-            className="stroke-grey-60 group-hover:stroke-white"
+            className="stroke-grey-40 group-hover:stroke-white"
         />
     </motion.div>
 )

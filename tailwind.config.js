@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
+const colors = require('tailwindcss/colors')
 const { themeConfig } = require('./twTheme')
 
 module.exports = {
@@ -22,16 +23,21 @@ module.exports = {
             background: `rgb(${themeConfig.BackgroundRGB} / <alpha-value>)`,
             nav: 'rgb(var(--nav-bg) / <alpha-value>)',
 
+            zinc: colors.zinc,
             grey: {
-                10: '#151515',
-                20: '#333',
-                30: '#454545',
-                40: '#666',
-                DEFAULT: '#999',
-                60: '#a5a5a5',
-                70: '#ccc',
-                80: '#d5d5d5',
-                90: '#eee',
+                /** Tailwind's default 'grey' **/
+                5: '#f9fafb',
+                10: '#f3f4f6',
+                20: '#e5e7eb',
+                25: '#dbdee3',
+                30: '#d1d5db',
+                40: '#9ca3af',
+                DEFAULT: '#6b7280',
+                60: '#4b5563',
+                70: '#374151',
+                75: '#2b3544',
+                80: '#1f2937',
+                90: '#111827',
             },
             teal: {
                 10: '#daecec',
@@ -61,14 +67,14 @@ module.exports = {
                 neon: '#cc22aa',
             },
 
-            red: '#dd0000',
+            red: '#B00',
         },
         screens: {
-            /* min:'320px'  320-480px............ Mobile Devices  */
-            sm: '414px' /*  481-768px............. Ipads ~ Tablets  */,
-            md: '768px' /*  769-1024px.......... Small screens ~ laptops  */,
-            lg: '1024px' /*  1025-1280px........  Large screens ~ Desktop  */,
-            xl: '1200px' /*  1281-max............... XL screens ~ TVs  */,
+            /* min:'320px'  320-413px............ Mobile Devices  */
+            sm: '414px' /*  414-767px............. Ipads ~ Tablets  */,
+            md: '768px' /*  768-1023px.......... Small screens ~ laptops  */,
+            lg: '1024px' /*  1024-1199px........  Large screens ~ Desktop  */,
+            xl: '1200px' /*  1200-max............... XL screens ~ TVs  */,
             /* max: '1440px' */
         },
         spacing: {

@@ -5,12 +5,15 @@
     .headline {
     }
 
-    .text-dark {
+    div[data-reading-section] {
+        @apply bg-white-dark;
+
         & p {
             @apply text-black;
         }
+
         & h3 {
-            @apply text-4xl font-semibold text-grey-30 sm:text-5xl;
+            @apply text-4xl font-semibold text-slate sm:text-5xl;
         }
     }
 

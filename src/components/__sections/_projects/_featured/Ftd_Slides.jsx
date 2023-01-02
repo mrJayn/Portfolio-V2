@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { motion, AnimatePresence, LayoutGroup, useCycle } from 'framer-motion'
 import { wrap } from '@popmotion/popcorn'
 
 import Featured_Slide from './Ftd_SlideProject'
@@ -38,91 +38,119 @@ const Indicators = ({ currentTab, handleIndicator, span }) => (
     </div>
 )
 
+const UserControls = ({ chevronAction, userPause, setUserPause }) => (
+    <>
+        <motion.div
+            key="pause-btn"
+            className={`pause-btn flex-btw order-[0] aspect-square h-full cursor-pointer py-3 px-3.5 ${
+                userPause
+                    ? 'text-[#F448] hover:text-[#A448]'
+                    : 'text-white/40 hover:text-white'
+            }`}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setUserPause(!userPause)}
+        />
+        {[
+            ['left', -1],
+            ['right', 1],
+        ].map(([dir, value]) => (
+            <div
+                key={`${dir == 'left' ? 'last' : 'next'}-btn`}
+                className="h-full py-2.5 px-4"
+                style={{ order: value }}
+            >
+                <Styled.Chevron
+                    direction={dir}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => chevronAction(value)}
+                />
+            </div>
+        ))}
+    </>
+)
+
 const Ftd_Slides = ({ isLg = true, isRouting, ...projects }) => {
     const [[currentTab, direction], setTab] = useState([0, 0])
     const n = wrap(0, Object.keys(projects).length, currentTab)
+    // Dsktp cycling slides - Related States
+    const [pause, setPause] = useState(false)
+    const [userPause, setUserPause] = useState(false)
 
+    const time = useRef(0)
+
+    // On drag detect direction
     function useDetectGesture(e, { offset, velocity }) {
         const [x, v] = [offset.x, velocity.x]
         handleSwipe(x, v, currentTab, wrap.length, setTab)
+        time.current = 0
     }
 
+    // Mobile Indicators - onTap
     function handleIndicator(idx) {
-        if (idx == currentTab) return
-        setTab([idx, idx - currentTab])
+        if (idx !== currentTab) setTab([idx, idx - currentTab])
     }
 
-    // isLg/Desktop - Auto Cylce Projects
+    // Dsktp cycling slides - Interval
     useEffect(() => {
-        if (!isLg) return
-        const interval = setInterval(
-            () => paginate(-1, currentTab, wrap.length, setTab),
-            30000
-        )
-        return () => clearInterval(interval)
-    }, [isLg, currentTab, setTab])
+        if (!isLg || pause || userPause) return
+        const interval = setInterval(function cycleProjects() {
+            const intervalTime = 10
+            if (time.current !== intervalTime) {
+                time.current++
+            } else {
+                time.current = 0
+                paginate(-1, currentTab, wrap.length, setTab)
+            }
+        }, 1000)
 
-    const chevronProps = {
-        initial: { opacity: 0 },
-        variants: {
-            show: { opacity: 1, transition: { delay: 1.5 } },
-            exit: { opacity: 0 },
-        },
-        whileTap: { scale: 0.9 },
-    }
+        return () => clearInterval(interval)
+    }, [isLg, currentTab, setTab, pause, userPause])
+
     return (
         <div className="flex-col-center full relative">
             {!isLg && <h3>Featured Projects</h3>}
             <div className="mt-2 h-auto w-full lg:mt-[10%] lg:h-[70%] lg:w-[75%]">
                 <AnimatePresence mode="wait" custom={direction}>
-                    <motion.div
-                        key={`featured-slide-${n}`}
-                        className="full relative cursor-grab rounded-3xl active:cursor-grabbing lg:rounded-4xl lg:shadow-inset-outset-md"
-                        initial="hidden"
-                        animate={isRouting ? 'exit' : 'show'}
-                        exit="next"
-                        variants={
-                            isLg ? variants.Slides : variants.draggableSlides
-                        }
-                        custom={direction}
-                        drag="x"
-                        dragConstraints={{
-                            left: 0,
-                            right: 0,
-                            top: 0,
-                            bottom: 0,
-                        }}
-                        dragElastic={0.75}
-                        dragTransition={{ bounceDamping: 30 }}
-                        onDragEnd={useDetectGesture}
-                    >
-                        <Featured_Slide
-                            projectData={projects[n].data}
-                            direction={direction}
-                            isLg={isLg}
-                        />
-                    </motion.div>
+                    {!isRouting && (
+                        <motion.div
+                            key={`featured-slide-${n}`}
+                            className="full relative cursor-grab rounded-3xl active:cursor-grabbing lg:rounded-4xl"
+                            initial="hidden"
+                            animate="show"
+                            exit="next"
+                            variants={variants.Slides[isLg ? 'Dsktp' : 'Mble']}
+                            custom={direction}
+                            transition={{ duration: isLg ? 1.25 : 0.5 }}
+                            drag="x"
+                            dragConstraints={{ left: 0, right: 0 }}
+                            dragElastic={0.75}
+                            onMouseDown={() => setPause(true)}
+                            onMouseOut={() => setPause(false)}
+                            onDragEnd={useDetectGesture}
+                        >
+                            <Featured_Slide
+                                projectData={projects[n].data}
+                                direction={direction}
+                                isLg={isLg}
+                            />
+                        </motion.div>
+                    )}
                 </AnimatePresence>
             </div>
             {isLg ? (
-                <>
-                    <div className="absolute inset-y-[47%] left-2 flex xl:inset-y-[46.5%] xl:left-6">
-                        <Styled.Chevron
-                            direction="left"
-                            onClick={() => setTab([currentTab - 1, 1])}
-                            whileHover={{ x: -2.5 }}
-                            {...chevronProps}
-                        />
-                    </div>
-                    <div className="absolute inset-y-[47%] right-2 flex xl:inset-y-[46.5%] xl:right-6">
-                        <Styled.Chevron
-                            direction="right"
-                            onClick={() => setTab([currentTab + 1, -1])}
-                            whileHover={{ x: 2.5 }}
-                            {...chevronProps}
-                        />
-                    </div>
-                </>
+                <motion.div
+                    className="flex-evenly absolute bottom-[2.5%] h-10 w-1/4"
+                    variants={variants.PlayPauseControls}
+                >
+                    <UserControls
+                        chevronAction={(n) => {
+                            time.current = 0
+                            setTab([currentTab + n, -n])
+                        }}
+                        userPause={userPause}
+                        setUserPause={setUserPause}
+                    />
+                </motion.div>
             ) : (
                 <Indicators
                     currentTab={currentTab}

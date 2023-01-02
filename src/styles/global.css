@@ -28,11 +28,13 @@
         box-sizing: border-box;
     }
     html {
-        @apply snap-y snap-mandatory whitespace-pre-line font-montserrat text-base antialiased;
+        @apply snap-y snap-mandatory whitespace-pre-line font-montserrat antialiased;
+        @apply text-17pt text-grey-30 md:text-19pt lg:text-21pt;
+
         word-spacing: 1px;
     }
     body {
-        @apply h-screen w-screen overflow-x-hidden bg-black;
+        @apply h-screen w-screen overflow-x-hidden bg-white dark:bg-black;
         /*@apply text-min sm:text-base lg:text-md;*/
     }
     h1 {
@@ -63,45 +65,80 @@
         @apply tracking-wide text-white;
     }
     h5 {
-        @apply text-2xl font-semibold text-white;
+        @apply text-21pt md:text-24pt;
+        @apply text-white;
     }
     h6 {
         @apply text-xl font-semibold;
     }
     p {
-        @apply text-17pt text-grey-70 md:text-19pt lg:text-21pt;
     }
     button {
-        @apply z-10 bg-grey-20 text-grey-80 duration-350 ease-tween hover:bg-grey-30 hover:text-white !important;
-        & span {
-            @apply duration-350 ease-tween;
+        @apply cursor-pointer select-none whitespace-nowrap rounded-md py-2 font-robotoMono uppercase tracking-widest;
+        @apply bg-zinc-600 shadow-inset-outset-md shadow-black/25 duration-250 ease-tween will-change-transform !important;
+
+        &:hover {
+            @apply translate-y-[-2.5px] bg-zinc-600 text-white !important;
+        }
+
+        &[type='button'] {
+            @apply flex-center relative z-10 w-full min-w-fit px-8 text-19pt md:text-21pt lg:w-auto lg:max-w-[100%] lg:px-12 lg:text-24pt xl:px-16;
+        }
+        &[type='submit'] {
+            @apply flex-center z-20 px-24 text-21pt md:text-24pt;
+        }
+        &[data-active-state='true'] {
+            @apply bg-zinc-600 text-white !important;
+            &:hover {
+                @apply transform-none !important;
+            }
         }
     }
 
-    input {
-        @apply full relative z-10 rounded-lg border-[3px] border-grey/25 p-1 pt-[0.75em] text-[0.9em] text-black outline-none duration-150 ease-in  invalid:bg-[#faa] focus:border-slate-neon;
-        &:focus + span {
+    /* max-width: 768px -- page form style */
+    input,
+    textarea {
+        @apply z-10 w-full rounded-md bg-white pl-[0.75em] leading-none text-black shadow-inset shadow-black/20 outline-none duration-250 ease-in invalid:bg-[#b5a5a5] focus:border-slate focus:bg-slate-10 focus:valid:bg-white invalid:focus:border-red/25;
+        &:focus {
+            @apply my-0;
+        }
+        &:focus + span.placeholder,
+        &:not(:placeholder-shown) + span.placeholder {
             @apply translate-y-0 scale-[0.6];
         }
-        &:not(:placeholder-shown) + span {
-            @apply translate-y-0 scale-[0.6];
+
+        &:valid:not(:placeholder-shown) + span.placeholder {
+            @apply text-[#090];
+        }
+        &:focus:valid:not(:placeholder-shown) + span.placeholder {
+            @apply text-grey;
+        }
+    }
+    input {
+        @apply h-[3em] pt-[0.75em];
+    }
+    input[data-invalid='true'] {
+        & + span {
+            @apply text-red;
+        }
+        &:focus + span {
+            @apply text-slate-neon;
         }
     }
 
     textarea {
-        @apply full z-10 flex resize-none overflow-y-scroll rounded-lg border-[3px] border-grey/75 p-1 pt-[0.75em] text-black outline-none duration-150 ease-in focus:border-slate-neon;
+        @apply resize-none overflow-y-scroll pt-[1.5em];
 
-        &:focus + span {
-            @apply translate-y-0 scale-[0.6];
-        }
-        &:not(:placeholder-shown) + span {
-            @apply translate-y-0 scale-[0.6];
-        }
         -ms-overflow-style: visible;
         scrollbar-width: block;
         &::-webkit-scrollbar {
             @apply block;
         }
+    }
+
+    @media not all and screen(md) {
+    }
+    @media screen(md) {
     }
 
     /* Selection Colors + ScrollBar */

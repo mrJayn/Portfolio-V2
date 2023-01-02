@@ -142,31 +142,48 @@
             clip-path: inset(0 0 0 0);
         }
     }
+    .responsive-socials-width {
+        @apply w-1/2 sm:portrait:w-full landscape:w-1/2 md:landscape:w-1/2 lg:landscape:w-full;
+    }
+    .socials-text-style {
+        & > span {
+            @apply relative;
+        }
+        & > span:after {
+            content: '';
+            @apply absolute -inset-x-0.5 -bottom-1 -z-20 h-[4px] origin-bottom-right scale-x-0  rounded-full bg-slate will-change-transform;
+            transition: transform 0.25s linear;
+        }
+        &:hover > span:after {
+            @apply origin-bottom-left scale-x-100;
+        }
+    }
+    .styled-exit-btn {
+        @apply flex-center relative cursor-pointer;
+        &:after,
+        &:before {
+            content: '';
+            @apply absolute h-[2px] w-full bg-white;
+        }
+        &:before {
+            @apply -rotate-45;
+        }
+        &:after {
+            @apply rotate-45;
+        }
+    }
 
     /* colored bullets */
     .listed-item:before {
         content: '\2022';
         @apply inline-block w-[0.75em] font-bold text-slate-neon;
     }
-    /** Scroll Down Arrow **/
-    .arrow {
-        @apply aspect-square cursor-pointer rounded-md rounded-tr border-r-[6px] border-t-[6px];
-        transition: colors 0.25s ease-in;
-    }
-    .chevron {
-        @apply arrow relative;
 
-        &:after {
-            content: '';
-            @apply absolute top-1.5 right-1.5 -bottom-3 -left-3 rounded-md rounded-tr border-t-[6px] border-r-[6px] brightness-75 ease-tween;
-            transition-duration: 0.5s;
-            transition-property: transform, filter;
-        }
-        &:hover:after {
-            @apply translate-x-0.5 -translate-y-0.5 brightness-100;
-        }
+    .pause-btn:before,
+    .pause-btn:after {
+        content: '';
+        @apply h-full w-[4px] rounded bg-current transition-colors duration-200 ease-tween;
     }
-
     .styled-underline {
         @apply absolute bottom-0 h-0.5 blur-[0.5px];
         background-color: #fffa;
@@ -254,70 +271,5 @@
                 transition: transform 0.25s var(--ease) !important;
             }
         }
-    }
-}
-
-/* 
-    Styled Btn Hexagons 
-    .styled-btn-shadow {
-        --s: 30px;
-        --m: 0px;
-        --cont-t: 1;
-    }
-    .styled-btn-shadow:hover {
-        --s: 30px; 
-        --m: 10px;
-        --cont-t: 1.5;
-    }
-    */
-.hexagons {
-    --cb-ease: cubic-bezier(0.64, 0.57, 0.67, 1.53);
-
-    & > div {
-        transform: scale(var(--cont-t));
-        transform-origin: top;
-        transition: 0.5s var(--ease);
-    }
-    & .container {
-        & div {
-            width: var(--s);
-            margin: var(--m);
-            height: calc(var(--s) * 1.1547);
-            clip-path: polygon(
-                0% 25%,
-                0% 75%,
-                50% 100%,
-                100% 75%,
-                100% 25%,
-                50% 0%
-            );
-            margin-bottom: calc(var(--m) - var(--s) * 0.2885);
-            transition: 1s var(--cb-ease);
-        }
-
-        --f: calc(1.732 * var(--s) + 4 * var(--m) - 1px);
-
-        &:before {
-            content: '';
-            width: calc(var(--s) / 2 + var(--m));
-            float: left;
-            height: 120%;
-            shape-outside: repeating-linear-gradient(
-                #0000 0 calc(var(--f) - 3px),
-                #000 0 var(--f)
-            );
-            transition: 1s var(--cb-ease);
-        }
-    }
-
-    &:after {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        z-index: 1;
-        box-shadow: inset 0 0 1rem 1rem #0002;
     }
 }

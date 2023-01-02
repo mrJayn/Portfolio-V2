@@ -80,7 +80,7 @@ const Section = ({
             <section
                 id={id}
                 data-section-in-view={isActive}
-                className="h-screen w-screen snap-center last-of-type:mb-0 lg:mb-[200%] lg:h-view"
+                className="h-screen w-screen snap-center last-of-type:mb-0 lg:mb-[200%]"
                 ref={ref}
             >
                 <div
@@ -92,41 +92,39 @@ const Section = ({
                     {isLg ? (
                         <motion.div
                             key={`${id}-scroll-motion`}
-                            className="absolute inset-0 flex"
+                            className="flex-center absolute inset-0"
                             style={{ y }}
-                            initial={initialAnim}
+                            initial={isRouting ? 'exit' : false}
                             animate={
                                 !inView ? 'hidden' : isRouting ? 'exit' : 'show'
                             }
-                            exit="exit"
-                            transition={{
-                                delay: inView ? 0.25 : 0,
-                                ...springTransition,
-                            }}
-                            variants={variants.Content}
                         >
                             {useChildren ? (
                                 children
                             ) : (
                                 <>
-                                    <div
-                                        className="full z-10 select-none"
-                                        style={{ order: even ? 2 : 1 }}
-                                    >
-                                        {data.featured ? (
+                                    {data.featured ? (
+                                        <motion.div
+                                            className="full z-10 select-none"
+                                            style={{ order: even ? 2 : 1 }}
+                                            variants={variants.Graphic}
+                                            custom={false}
+                                        >
                                             <Featured_Slides
+                                                isLg
                                                 isRouting={isRouting}
                                                 {...data.featured}
                                             />
-                                        ) : (
-                                            <Styled.Image
-                                                isPriority
-                                                src={data.data.src}
-                                                alt={data.data.alt}
-                                                variants={variants.Graphic}
-                                            />
-                                        )}
-                                    </div>
+                                        </motion.div>
+                                    ) : (
+                                        <Styled.Image
+                                            isPriority
+                                            src={data.data.src}
+                                            alt={data.data.alt}
+                                            style={{ order: even ? 2 : 1 }}
+                                            variants={variants.Graphic}
+                                        />
+                                    )}
                                     <Section_Card
                                         key={id}
                                         {...SectionCardProps}

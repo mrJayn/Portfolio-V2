@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Styled } from '@components'
-import { ftdProjectVariants as variants } from '@motion'
+import { ftdSlidesVariants as variants } from '@motion'
 
 const Styled_Header = ({ isLg = false, title, tech, ...motionProps }) => {
     const Technologies = (
@@ -9,7 +9,7 @@ const Styled_Header = ({ isLg = false, title, tech, ...motionProps }) => {
             {tech.map((item, i) => (
                 <p
                     key={`tech-item-${i}`}
-                    className="relative w-full border-slate-80/50 px-2 capitalize italic text-black even:border-x-2 even:px-4 sm:mb-2 sm:py-0.5 sm:px-4 sm:tracking-widest lg:text-[0.7em] lg:text-slate-30 xl:text-[0.9em]"
+                    className="relative w-full border-slate-80/50 px-2 capitalize italic text-black even:border-x-2 even:px-4 sm:mb-2 sm:py-0.5 sm:px-4 sm:tracking-widest lg:my-1 lg:px-6 lg:pt-1.5 lg:text-[0.75em] lg:text-slate-30 xl:text-[0.9em]"
                 >
                     {item}
                 </p>
@@ -19,7 +19,7 @@ const Styled_Header = ({ isLg = false, title, tech, ...motionProps }) => {
     return isLg ? (
         <>
             <motion.div
-                className="absolute bottom-[2.5em] right-[-7.5%] z-10 bg-slate-80 px-8 py-2 text-center"
+                className="absolute bottom-[2.75em] right-[-5%] z-10 rounded-lg bg-slate-70 px-8 py-2 text-center"
                 {...motionProps}
             >
                 <h5 className="whitespace-nowrap text-[1.1em] tracking-widest text-slate-10 xl:text-[1.25em]">
@@ -28,7 +28,7 @@ const Styled_Header = ({ isLg = false, title, tech, ...motionProps }) => {
             </motion.div>
 
             <motion.div
-                className="absolute bottom-2 right-[-7.5%] z-10 bg-slate-80 text-center"
+                className="absolute bottom-2 right-[-7.5%] z-10 rounded-lg bg-slate-70 text-center"
                 {...motionProps}
             >
                 {Technologies}
@@ -61,16 +61,17 @@ const Featured_Slide = ({ projectData, direction = 0, isLg }) => {
             </motion.a>
         ))
 
-    const Styled_Image = () => (
-        <Image
-            src={projectData.src}
-            alt={projectData.alt}
-            layout="fill"
-            objectFit="cover"
-            objectPosition="top"
-            className="-z-10 select-none opacity-100 lg:rounded-4xl lg:opacity-75"
-        />
-    )
+    const [SRC, ALT, imgProps] = [
+        projectData.src,
+        projectData.alt,
+        {
+            layout: 'fill',
+            objectFit: 'cover',
+            objectPosition: 'top',
+            className:
+                '-z-10 select-none opacity-100 lg:rounded-4xl lg:opacity-90',
+        },
+    ]
 
     return isLg ? (
         <>
@@ -81,11 +82,12 @@ const Featured_Slide = ({ projectData, direction = 0, isLg }) => {
                 initial="hidden"
                 animate="show"
                 exit="exit"
-                variants={variants.Slide.HeaderLg}
+                variants={variants.Slides.HeaderLg}
                 custom={direction}
             />
-            <div className="full relative rounded-4xl">
-                <Styled_Image />
+            <div className="full relative z-0">
+                <Image src={SRC} alt={ALT} {...imgProps} />
+                <span className="absolute inset-0 z-10 rounded-4xl shadow-inset-outset-md" />
             </div>
         </>
     ) : (
@@ -96,7 +98,7 @@ const Featured_Slide = ({ projectData, direction = 0, isLg }) => {
                 {projectData.brief}
             </p>
             <div className="pointer-events-none relative z-10 aspect-[5/2] w-full flex-1">
-                <Styled_Image />
+                <Image src={SRC} alt={ALT} {...imgProps} />
             </div>
 
             <div className="flex-around z-10 w-full overflow-hidden rounded-b-2xl bg-white/40">

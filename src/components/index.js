@@ -11,7 +11,7 @@ export { default as About } from './__sections/_about/About'
 export { default as Experience } from './__sections/_experience/Experience'
 export { default as Projects } from './__sections/_projects/Projects'
 export { default as Featured_Slides } from './__sections/_projects/_featured/Ftd_Slides'
-export { default as Contact } from './__sections/_contact/Contact'
+export { default as Contact } from './__sections/_contact/ContactSection'
 
 export { default as Footer } from './Footer'
 

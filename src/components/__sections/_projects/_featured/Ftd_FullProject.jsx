@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 
 import { Styled } from '@components'
-import { ftdProjectVariants as variants } from '@motion'
+import { full_projectVariants as variants } from '@motion'
 import Image from 'next/image'
 
 const Featured_Full = ({ even, ...data }) => {

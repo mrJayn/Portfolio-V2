@@ -1,11 +1,10 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
-import { formVariants as variants } from '@motion'
+import { contactVariants as variants } from '@motion'
 import { Styled } from '@components'
-import { useRouter } from 'next/router'
-import { useState } from 'react'
 
 const ToastMsg = ({ success }) => {
     return (
@@ -30,7 +29,7 @@ const ToastMsg = ({ success }) => {
     )
 }
 
-const Form = () => {
+const Form = ({ isLg }) => {
     const {
         register,
         handleSubmit,
@@ -38,7 +37,6 @@ const Form = () => {
         reset,
         formState: { errors },
     } = useForm()
-    const router = useRouter()
     // SUBMIT ACTION
     const onSubmit = (data) => {
         fetch('/api/form', {
@@ -60,7 +58,6 @@ const Form = () => {
                         closeOnClick: true,
                         pauseOnHover: true,
                     })
-                    router.push('/', '/', { scroll: false })
                 } else {
                     // console.log("Email/Password is invalid.");
                     toast.warn(<ToastMsg success={false} />, {
@@ -77,7 +74,7 @@ const Form = () => {
         reset()
     }
 
-    /* INVALID EMAIL
+    /* INVALID EMAIL */
     const [invalidEmail, setInvalidEmail] = useState(false)
     const handleEmail = (e) => {
         let email = e.currentTarget.value
@@ -90,65 +87,56 @@ const Form = () => {
             setInvalidEmail(true)
         }
     }
-    */
+
     // COMPONENTS
     const formItems = [
         {
-            id: 'fullName',
-            text: 'Name*',
-            item: (
-                <>
-                    <input
-                        type="text"
-                        name="fullName"
-                        id="fullName"
-                        autoComplete="name"
-                        placeholder=" "
-                        {...register('fullName', {
-                            required: true,
-                        })}
-                    />
-                </>
+            name: 'Name*',
+            component: (
+                <input
+                    type="text"
+                    name="fullName"
+                    id="fullName"
+                    autoComplete="name"
+                    placeholder=" "
+                    {...register('fullName', {
+                        required: true,
+                    })}
+                />
             ),
         },
         {
-            id: 'email',
-            text: 'Email Address*',
-            item: (
-                <>
-                    <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        autoComplete="email"
-                        placeholder=" "
-                        {...register('email', {
-                            required: true,
-                            onChange: (e) => handleEmail(e),
-                        })}
-                    />
-                </>
+            name: 'Email Address*',
+            component: (
+                <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    autoComplete="email"
+                    placeholder=" "
+                    {...register('email', {
+                        required: true,
+                        onChange: (e) => handleEmail(e),
+                    })}
+                    data-invalid={invalidEmail}
+                />
             ),
         },
         {
-            id: 'subject',
-            text: 'Subject*',
-            item: (
-                <>
-                    <input
-                        type="text"
-                        name="subject"
-                        id="subject"
-                        placeholder=" "
-                        {...register('subject', { required: true })}
-                    />
-                </>
+            name: 'Subject*',
+            component: (
+                <input
+                    type="text"
+                    name="subject"
+                    id="subject"
+                    placeholder=" "
+                    {...register('subject', { required: true })}
+                />
             ),
         },
         {
-            id: 'message',
-            text: 'Message*',
-            item: (
+            name: 'Message*',
+            component: (
                 <textarea
                     type="text"
                     name="message"
@@ -162,40 +150,48 @@ const Form = () => {
             ),
         },
         {
-            id: 'submit-button',
-            text: '',
-            item: <Styled.Button submit>Send a Message</Styled.Button>,
+            name: null,
+            component: (
+                <Styled.Button submit>
+                    <span className="lg:text-1.2x">send</span>
+                </Styled.Button>
+            ),
         },
     ]
+
+    const ReactivePlaceholder = ({ name }) =>
+        name ? (
+            <span className="placeholder pointer-events-none absolute inset-0 z-10 flex origin-top-left translate-y-3 select-none justify-start pl-3 pt-1 font-medium text-grey duration-150 ease-in">
+                {name}
+            </span>
+        ) : null
 
     return (
         <motion.form
             id="form"
-            className="full flex flex-wrap gap-y-8"
+            className="flex-col-center flex w-full max-w-[600px] gap-x-2 md:grid md:grid-cols-4 md:p-4 lg:w-[85vw] lg:max-w-[1000px] lg:text-1.1x"
             onSubmit={handleSubmit(onSubmit)}
             method="POST"
-            initial="hidden"
-            animate="show"
-            variants={variants.Form}
+            variants={variants.FormContainer}
+            custom={isLg}
         >
-            {formItems.map(({ id, text, item }, i) => (
+            {formItems.map(({ name, component }, i) => (
                 <motion.div
-                    key={`form-component-${id}`}
-                    className={`flex-col-bottom relative mx-auto h-[3em] w-full ${
-                        i <= 1
-                            ? 'sm:w-[45%]'
-                            : id == 'message'
-                            ? 'h-[10em] sm:w-[95%] md:h-[7.5em]'
-                            : ' sm:w-[95%]'
-                    }`}
-                    style={{ counterIncrement: 'form-item 1' }}
+                    key={`form-component-${i}`}
+                    className="full flex-center relative last-of-type:mt-4"
+                    style={{
+                        gridArea: [
+                            '1/1/1/3',
+                            '1/3/1/-1',
+                            '2/1/2/-1',
+                            '3/1/3/-1',
+                            '4/1/4/-1',
+                        ][i],
+                    }}
                     variants={variants.Item}
                 >
-                    {item}
-
-                    <span className="pointer-events-none absolute top-0 z-10 w-full origin-top-left translate-y-[0.5em] select-none p-4 text-left  text-[0.85em] text-grey-40 duration-150 ease-in">
-                        {text}
-                    </span>
+                    {component}
+                    <ReactivePlaceholder name={name} />
                 </motion.div>
             ))}
         </motion.form>

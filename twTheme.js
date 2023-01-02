@@ -62,23 +62,25 @@ const rgbToHex = (val) => {
     return hex.length == 1 ? '0' + hex : hex
 }
 const alpha2Hex = (opa) => {
-    if (opa >= 1) return 'ff'
+    if (opa >= 1) return ''
     if (opa <= 0) return '00'
     var hexOpa = Math.round(opa * 256).toString(16)
     return hexOpa.length == 1 ? '0' + hexOpa : hexOpa
 }
 
 // Inputs
-const color_RGB = '20 25 45'
+const base_color_rgb = '17 24 39'
+const base_opacity = 1
 const totalColors = 5
 
 const getGradient = (index = null) => {
     var linearGradient = 'linear-gradient(to bottom,'
-    var [r, g, b] = color_RGB.split(' ').map((i) => parseInt(i))
-    var a = 0.75
+    var [r, g, b] = base_color_rgb.split(' ').map((i) => parseInt(i))
+    var a = base_opacity
 
     for (let i = 0; i < totalColors; i++) {
         const afterHex = i == totalColors - 1 ? ')' : ','
+
         var asHex = '#' + rgbToHex(r) + rgbToHex(g) + rgbToHex(b) + alpha2Hex(a)
 
         if (index == null) {
@@ -87,27 +89,37 @@ const getGradient = (index = null) => {
             return asHex
         }
 
-        const increment = 40
+        /*
+        function getShade(n, increment) {
+            const inc = Math.abs(increment)
+            if (inc === 0 || inc >= 0.5) return n
+            return inc >= 0
+                ? Math.round(n + (255 - n) * inc)
+                : Math.round(n * inc)
+        }
+*/
+        const increment = 10
         const offsets = {
-            red: -15,
-            green: -10,
-            blue: 0,
+            red: -1,
+            green: 0,
+            blue: 2,
             alpha: 0,
         }
         const [rX, gX, bX, aX] = [...Object.values(offsets)]
 
-        r = Math.max(0, r + rX + increment)
-        g = Math.max(0, g + gX + increment)
-        b = Math.max(0, b + bX + increment)
+        r = Math.min(255, Math.max(0, Math.round(r + increment + rX)))
+        g = Math.min(255, Math.max(0, Math.round(g + increment + gX)))
+        b = Math.min(255, Math.max(0, Math.round(b + increment + bX)))
         a = a + aX
     }
+
     return linearGradient
 }
 
 module.exports = {
     themeConfig: {
         fontSize: fontSizes,
-        BackgroundRGB: color_RGB,
+        BackgroundRGB: base_color_rgb,
         backgroundGradient: getGradient(),
         getSectionColor: (index) => getGradient(index),
     },

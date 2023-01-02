@@ -7,7 +7,7 @@ const NavLinks = ({ hideLinks }) => (
         {linkIds.map((item, i) => (
             <motion.li
                 key={`link-${i}`}
-                className="my-auto mx-4 cursor-pointer text-[16px] font-medium tracking-tight text-grey-60 md:pt-2 md:pb-1 lg:text-[18px]"
+                className="my-auto mx-4 cursor-pointer text-[16px] font-medium tracking-tight text-grey-40 md:pt-2 md:pb-1 lg:text-[18px]"
                 initial={false}
                 animate={hideLinks ? { y: -50 } : { y: 0 }}
                 transition={{

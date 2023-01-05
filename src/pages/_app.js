@@ -90,7 +90,7 @@ function MyApp({ Component, pageProps }) {
                         />
                         <>
                             <AnimatePresence
-                                mode="wait"
+                                mode="sync"
                                 onExitComplete={() => setIsRouting(false)}
                             >
                                 <Component {...pageProps} key={url} />

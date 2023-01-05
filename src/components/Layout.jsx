@@ -15,14 +15,14 @@ const Layout = ({ title, description, isHome = false, variants, children }) => {
                 key={title}
                 className={`flex-col-top top-0 left-0 w-full ${
                     isHome
-                        ? 'absolute z-0 h-auto bg-background-gradient'
-                        : 'fixed bottom-0 z-10'
+                        ? 'absolute h-auto bg-background-gradient'
+                        : 'fixed bottom-0'
                 }`}
                 initial="hidden"
                 animate="show"
                 exit="exit"
-                variants={variants}
                 transition={{ duration: 0.75 }}
+                variants={variants}
             >
                 {isHome ? (
                     children

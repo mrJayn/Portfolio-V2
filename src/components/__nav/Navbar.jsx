@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
-import { toggleScrolling } from '@utils'
+import { index2id, toggleScrolling } from '@utils'
 import { Styled } from '@components'
 import BackButton from './BackBtn'
 import Burger from './Burger'
@@ -28,29 +28,7 @@ const Logo = () => (
     </motion.a>
 )
 
-const MessageBtn = ({ isHome, router }) => (
-    <motion.div
-        key="send-message-btn"
-        className="group relative aspect-square h-full cursor-pointer p-0.5"
-        initial={false}
-        animate={isHome ? 'show' : 'hidden'}
-        variants={{ show: { x: '0%' }, hidden: { x: '110%' } }}
-        transition={{
-            delay: isHome ? 1.75 : 0,
-            ease: isHome ? 'backOut' : 'backIn',
-        }}
-        onClick={() =>
-            router.push('/contactpage', 'Contact', { scroll: false })
-        }
-    >
-        <Styled.Icon
-            name="Message"
-            className="stroke-grey-40 group-hover:stroke-white"
-        />
-    </motion.div>
-)
-
-const Navbar = ({ isHome, isMd, isRouting }) => {
+const Navbar = ({ activeSection, isHome, isMd, isRouting }) => {
     const router = useRouter()
     const [menuOpen, setMenu] = useState(false)
 
@@ -61,7 +39,9 @@ const Navbar = ({ isHome, isMd, isRouting }) => {
 
     const backToHome = () => {
         const scrollDiv = document.querySelector('main > div')
-        if (scrollDiv == null) return router.push('/')
+
+        if (scrollDiv == null) return router.push('/', '', { scroll: false })
+
         const prevScrollY = null
 
         scrollDiv.scrollTo({ top: 0, behavior: 'smooth' })
@@ -76,7 +56,7 @@ const Navbar = ({ isHome, isMd, isRouting }) => {
         }, 50)
     }
     // Components via screen size
-    const ActiveComponents = isMd ? [1, 3] : [0, 1, 4]
+    const ActiveComponents = isMd ? [1, 2] : [0, 1, 3]
     const Components = {
         0: (
             <Burger
@@ -85,9 +65,13 @@ const Navbar = ({ isHome, isMd, isRouting }) => {
             />
         ),
         1: <Logo />,
-        2: <MessageBtn isHome={isHome} router={router} />,
-        3: <NavLinks hideLinks={!isHome || isRouting} />,
-        4: <span />,
+        2: (
+            <NavLinks
+                hideLinks={!isHome || isRouting}
+                activeSection={activeSection}
+            />
+        ),
+        3: <span />,
     }
     // Close Menu if isRouting || @media > 768px
     useEffect(() => {

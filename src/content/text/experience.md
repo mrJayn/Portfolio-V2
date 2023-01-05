@@ -1,8 +1,8 @@
 ---
 id: experience
 title: Experience
-subtitle: Work History and <br/> Achievements
-description: My Past Work Experience, Education, and Certifications
+subtitle: Past Work and<br/>Education
+description: My Previous Work Experiences, Education, and Certifications
 src: '/assets/misc/resume2022.jpg'
 alt: /
 

@@ -1,215 +1,138 @@
 const xPolygonBuilder = (x) =>
-    `polygon(${x}% 0%, ${x}% 0%, ${x}% 120%, ${x}% 120%)`
+    `polygon(${x}% 0%, ${x}% 0%, ${x}% 100%, ${x}% 100%)`
 const yPolygonBuilder = (y) =>
     `polygon(0% ${y}%, 100% ${y}%, 100% ${y}%, 0% ${y}%)`
 
 export const springTransition = {
     type: 'spring',
-    stiffness: 100,
-    damping: 42,
-    mass: 5,
-    restDelta: 0.0001,
+    stiffness: 250,
+    damping: 56,
+    mass: 3,
+    restDelta: 0.001,
 }
 const noBounceSpring = {
     type: 'spring',
     bounce: 0,
 }
-
-export const layoutVariants = {
-    DefaultLayout: {
-        hidden: (custom) => ({ opacity: custom ? 1 : 0 }),
-        show: {
-            opacity: 1,
-            transition: {
-                duration: 1,
-                when: 'beforeChildren',
-            },
+const defaultBtn = {
+    hidden: {
+        opacity: 0,
+        scale: 0.6,
+        pointerEvents: 'none',
+        transition: {
+            opacity: { duration: 0.4 },
+            scale: { duration: 0.5 },
         },
-        exit: (custom) => ({
-            opacity: custom ? 1 : 0,
-            transition: { duration: 0.5 },
-        }),
     },
-    ContactPage: {
-        hidden: { opacity: 0 },
-        show: { opacity: 1, transition: { delay: 0.25, duration: 0.5 } },
-        exit: { opacity: 0, transition: { delay: 1 } },
+    show: {
+        opacity: 1,
+        scale: 1,
+        pointerEvents: 'auto',
+        transition: {
+            opacity: { duration: 0.75 },
+            scale: { duration: 1, ease: 'circOut' },
+        },
+    },
+    exit: {
+        opacity: 0,
+        scale: 0.6,
+        pointerEvents: 'none',
+        transition: {
+            opacity: { duration: 0.4 },
+            scale: { duration: 0.5 },
+        },
     },
 }
-export const sectionVariants = {
-    Content: {
-        hidden: { opacity: 0 },
+
+export const layoutVariants = {
+    HomePage: {
+        hidden: { opacity: 1 },
         show: { opacity: 1 },
         exit: { opacity: 1 },
     },
-    Graphic: {
-        hidden: (custom = true) => ({
-            opacity: 1,
-            scale: custom ? 0.65 : 1,
-            zIndex: 1,
-            borderRadius: '3rem',
-            transition: {
-                duration: 1,
-                ease: 'easeIn',
-            },
-        }),
-        show: (custom = true) => ({
-            opacity: 1,
-            scale: custom ? 0.65 : 1,
-            zIndex: 1,
-            borderRadius: '3rem',
-            transition: {
-                delay: 1,
-                duration: 2,
-                ease: 'easeInOut',
-            },
-        }),
-        exit: {
-            opacity: 0.25,
-            scale: 1,
-            zIndex: -1,
-            borderRadius: '0rem',
-            transition: {
-                duration: 0.75,
-                ease: 'easeInOut',
-            },
-        },
+    SectionPage: {
+        hidden: { opacity: 1 },
+        show: { opacity: 1 },
+        exit: { opacity: 0, transition: { delay: 1 } },
     },
-}
-export const sectionCardVariants = {
-    StaggerContainer: {
-        hidden: {
-            transition: {
-                staggerChildren: 0.08,
-                staggerDirection: -1,
-            },
-        },
-        show: {
-            transition: {
-                staggerChildren: 0.5,
-                delayChildren: 0.25,
-            },
-        },
-        exit: {
-            transition: {
-                staggerChildren: 0.08,
-                staggerDirection: -1,
-            },
-        },
+    Contact: {
+        hidden: { opacity: 0 },
+        show: { opacity: 1 },
+        exit: { opacity: 0, transition: { delay: 1 } },
     },
-    Title: {
-        hidden: (i = 0) => ({
-            x: i * 75 + '%',
-            transition: { ...springTransition },
-        }),
-        show: {
-            x: 0,
-            transition: { ...springTransition },
-        },
-        exit: (i = 0) => ({
-            x: i * 75 + '%',
-            transition: { duration: 0.75 },
-        }),
-    },
-    Items_X: {
-        hidden: (i = 0) => ({
-            x: i * 100 + '%',
-            clipPath: xPolygonBuilder(50 + i * 150),
-            transition: { ...springTransition },
-        }),
-        show: {
-            x: 0,
-            clipPath: 'polygon(0% 0%, 100% 0%, 100% 120%, 0% 120%)',
-            transition: { ...springTransition },
-        },
-        exit: (i = 0) => ({
-            x: i * 100 + '%',
-            clipPath: xPolygonBuilder(50 + i * 150),
-            transition: { duration: 0.75 },
-        }),
-    },
-    Decoration: {
-        hidden: {
-            opacity: 0,
-            scaleX: 0,
-            transition: { ...springTransition },
-        },
-        show: {
-            opacity: 1,
-            scaleX: 1,
-            transition: { duration: 2, ease: 'anticipate' },
-        },
-        exit: {
-            opacity: 0,
-            scaleX: 0,
-            transition: { duration: 0.25, ease: 'easeIn' },
-        },
-    },
-    Btn: {
-        hidden: {
-            opacity: 0,
-            scale: 0.6,
-            transition: { ...springTransition },
-        },
-        show: {
-            opacity: 1,
-            scale: 1,
-            transition: {
-                ...springTransition,
-            },
-        },
-        exit: {
-            opacity: 0,
-            scale: 0.6,
-            transition: {
-                opacity: { duration: 0.25 },
-                scale: { duration: 0.5 },
-            },
-        },
-    },
-    mobileVars: {
+    Mobile: {
         hidden: { opacity: 0 },
         show: { opacity: 1 },
         exit: { opacity: 0 },
     },
 }
-export const sectionHeroVariants = {
-    Container: {
+export const sectionVariants = {
+    Graphic: (custom = null) => ({
         hidden: {
             opacity: 0,
-            transition: {
-                when: 'afterChildren',
-                staggerChildren: 0,
-            },
+            scale: custom == null ? 0.65 : 0.9,
+            borderRadius: '3rem',
+            transition: { duration: 1.5, ease: 'easeInOut' },
         },
         show: {
             opacity: 1,
+            scale: custom == null ? 0.65 : 0.9,
+            borderRadius: '3rem',
+            transition: { duration: 1.5, ease: 'easeInOut' },
+        },
+        exit: {
+            opacity: 0.25,
+            scale: custom == null ? 1 : 0.9,
+            borderRadius: '0rem',
+            transition: { duration: 0.75, ease: 'easeInOut' },
+        },
+    }),
+}
+export const sectionCardVariants = {
+    Container: {
+        hidden: {
+            rowGap: '100px',
+            transition: { duration: 0.75, ease: 'easeIn' },
+        },
+        show: {
+            rowGap: '0px',
             transition: {
-                when: 'beforeChildren',
-                staggerChildren: 0.25,
-                staggerDirection: -1,
+                delay: 0.25,
+                duration: 1,
+                ease: 'circOut',
+                staggerChildren: 0.1,
+                delayChildren: 0.15,
+            },
+        },
+        exit: {
+            rowGap: '100px',
+            transition: {
+                duration: 0.75,
+                ease: 'easeIn',
+                staggerChildren: 0.1,
             },
         },
     },
-    Items: {
-        hidden: (even = null) => ({
+    Item: {
+        hidden: { opacity: 0 },
+        show: { opacity: 1, transition: { duration: 0.5, ease: 'easeInOut' } },
+        exit: { opacity: 0 },
+    },
+}
+export const sectionHeroVariants = {
+    Container: {
+        show: { transition: { staggerChildren: 0.25, staggerDirection: -1 } },
+    },
+    Headings: {
+        hidden: {
             opacity: 0,
-            clipPath:
-                even == null
-                    ? 'polygon(50% -5%, 50% -5%, 50% 105%, 50% 105%)'
-                    : even
-                    ? 'polygon(105% -5%, 105% -5%, 105% 105%, 105% 105%)'
-                    : 'polygon(-5% -5%, -5% -5%, -5% 105%, -5% 105%)',
-            transition: { duration: 1.5, ease: [0.4, 0, 0.15, 1] },
-        }),
+            clipPath: 'polygon(50% 0%, 50% 0%, 50% 105%, 50% 105%)',
+            transition: { duration: 0.75, ease: 'easeIn' },
+        },
         show: {
             opacity: 1,
-            clipPath: 'polygon(-5% -5%, 105% -5%, 105% 105%, -5% 105%)',
-            transition: {
-                duration: 2,
-                type: 'spring',
-                bounce: 0,
-            },
+            clipPath: 'polygon(-5% 0%, 105% 0%, 105% 105%, -5% 105%)',
+            transition: { duration: 2, ...noBounceSpring },
         },
     },
     Decoration: {
@@ -456,7 +379,6 @@ export const introVariants = {
             },
         },
     },
-
     SubHead: {
         hidden: {
             opacity: 0,
@@ -474,23 +396,7 @@ export const introVariants = {
             },
         },
     },
-    Btn: {
-        hidden: {
-            opacity: 0,
-            pointerEvents: 'none',
-            scale: 0.8,
-            transition: { duration: 0.5 },
-        },
-        show: {
-            opacity: 1,
-            scale: 1,
-            pointerEvents: 'auto',
-            transition: {
-                opacity: { duration: 1 },
-                scale: { duration: 1.5, ease: 'circOut' },
-            },
-        },
-    },
+    Btn: { ...defaultBtn },
     NextSectionBtn: {
         hidden: {
             opacity: 0,
@@ -530,7 +436,7 @@ export const aboutVariants = {
             hidden: { opacity: 1 },
             show: {
                 opacity: 1,
-                transition: { staggerChildren: 0.15, delayChildren: 0.5 },
+                transition: { staggerChildren: 0.1, delayChildren: 0.25 },
             },
         },
         Item: {
@@ -852,10 +758,12 @@ export const contactSectionVariants = {
     Headline: {
         h3: {
             hidden: {
+                opacity: 0,
                 clipPath: 'inset(0 0 100% 0)',
                 transition: { duration: 0.5 },
             },
             show: {
+                opacity: 1,
                 clipPath: 'inset(0 0 0% 0)',
                 transition: { duration: 1, ease: 'easeInOut' },
             },
@@ -884,7 +792,7 @@ export const contactSectionVariants = {
     Button: {
         hidden: {
             opacity: 0,
-            scale: 0.8,
+            scale: 0.6,
             transition: { duration: 0.25 },
         },
         show: {
@@ -920,7 +828,7 @@ export const contactSectionVariants = {
 export const contactVariants = {
     Wrapper: {
         hidden: {
-            opacity: 0,
+            opacity: 1,
             transition: { when: 'afterChildren' },
         },
         show: {
@@ -1010,5 +918,18 @@ export const tabsMotion = {
 }
 
 export const styledComponentsVariants = {
-    Background: { ...sectionHeroVariants.Items },
+    Background: {
+        hidden: (even = null) => ({
+            opacity: 0,
+            clipPath: even
+                ? 'polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)'
+                : 'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)',
+            transition: { duration: 0.75, ease: 'easeIn' },
+        }),
+        show: {
+            opacity: 1,
+            clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+            transition: { duration: 2, ...noBounceSpring },
+        },
+    },
 }

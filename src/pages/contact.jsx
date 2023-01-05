@@ -1,13 +1,17 @@
 import { motion } from 'framer-motion'
 
 import { themeConfig } from 'twTheme'
-import { contactVariants as variants } from '@motion'
+import { layoutVariants, contactVariants as variants } from '@motion'
 import { Layout, Form, Styled } from '@components'
 
 export default function Contact({ isLg, activeSection }) {
     const backgroundColor = themeConfig.getSectionColor(activeSection)
     return (
-        <Layout title="Contact" description="Send me a message!" isLg={isLg}>
+        <Layout
+            title="Contact"
+            description="Send me a message!"
+            variants={layoutVariants.Contact}
+        >
             <motion.div
                 className="flex-col-center relative z-0 mx-auto min-h-screen w-full overflow-y-scroll px-2 py-14 text-center"
                 style={{ backgroundColor: backgroundColor }}

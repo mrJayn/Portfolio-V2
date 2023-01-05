@@ -28,7 +28,7 @@
         box-sizing: border-box;
     }
     html {
-        @apply snap-y snap-mandatory whitespace-pre-line font-montserrat antialiased;
+        @apply snap-y snap-mandatory scroll-auto whitespace-pre-line font-montserrat antialiased;
         @apply text-17pt text-grey-30 md:text-19pt lg:text-21pt;
 
         word-spacing: 1px;
@@ -37,6 +37,7 @@
         @apply h-screen w-screen overflow-x-hidden bg-white dark:bg-black;
         /*@apply text-min sm:text-base lg:text-md;*/
     }
+
     h1 {
         @apply absolute h-px w-px overflow-hidden whitespace-nowrap;
         clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
@@ -58,10 +59,10 @@
     }
     h3 {
         @apply text-32pt md:text-48pt lg:text-56pt;
-        @apply font-medium uppercase tracking-wide text-white;
+        @apply uppercase tracking-wider text-white;
     }
     h4 {
-        @apply text-24pt md:text-28pt;
+        @apply text-21pt md:text-24pt lg:text-28pt;
         @apply tracking-wide text-white;
     }
     h5 {
@@ -73,16 +74,17 @@
     }
     p {
     }
+
     button {
         @apply cursor-pointer select-none whitespace-nowrap rounded-md py-2 font-robotoMono uppercase tracking-widest;
-        @apply bg-zinc-600 shadow-inset-outset-md shadow-black/25 duration-250 ease-tween will-change-transform !important;
+        @apply bg-zinc-900/75 text-white/50 backdrop-blur duration-250 ease-tween will-change-transform !important;
 
         &:hover {
-            @apply translate-y-[-2.5px] bg-zinc-600 text-white !important;
+            @apply translate-y-[-2.5px] text-white !important;
         }
 
         &[type='button'] {
-            @apply flex-center relative z-10 w-full min-w-fit px-8 text-19pt md:text-21pt lg:w-auto lg:max-w-[100%] lg:px-12 lg:text-24pt xl:px-16;
+            @apply flex-center relative z-10 w-full min-w-fit px-8 text-21pt md:text-24pt lg:w-auto lg:max-w-[100%] lg:px-12 lg:text-24pt xl:px-16;
         }
         &[type='submit'] {
             @apply flex-center z-20 px-24 text-21pt md:text-24pt;
@@ -134,11 +136,6 @@
         &::-webkit-scrollbar {
             @apply block;
         }
-    }
-
-    @media not all and screen(md) {
-    }
-    @media screen(md) {
     }
 
     /* Selection Colors + ScrollBar */

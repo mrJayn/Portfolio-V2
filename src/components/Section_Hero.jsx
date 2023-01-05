@@ -24,14 +24,13 @@ const Section_Hero = ({ even, bgColor, isRouting, isLg, ...data }) => (
 
         <motion.div
             className="flex-col-center absolute inset-0 z-20 gap-y-8 text-center"
-            initial="hidden"
-            animate="show"
-            exit="hidden"
+            initial={false}
+            animate={isRouting ? 'hidden' : 'show'}
             variants={variants.Container}
         >
             <motion.h2
                 className="relative animate-none"
-                variants={variants.Items}
+                variants={variants.Headings}
             >
                 {data.title}
                 <motion.span
@@ -42,7 +41,7 @@ const Section_Hero = ({ even, bgColor, isRouting, isLg, ...data }) => (
 
             <motion.h4
                 className="origin-center whitespace-pre-line leading-10 text-white"
-                variants={variants.Items}
+                variants={variants.Headings}
             >
                 {data.description.replace('<br/>', `\n`)}
             </motion.h4>

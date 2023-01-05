@@ -9,6 +9,7 @@ import {
 } from '@components'
 import { useEffect } from 'react'
 import { themeConfig } from 'twTheme'
+import { layoutVariants } from '@motion'
 
 const SlugToContent = ({ ...data }) => {
     switch (data.id) {
@@ -44,9 +45,13 @@ export default function SectionPage({
     const bgColor = themeConfig.getSectionColor(activeSection)
 
     useEffect(() => window.scrollTo({ top: 0, behavior: 'auto' }))
-    console.log(activeSection % 2 == 0)
+
     return (
-        <Layout title={title} description={Data.description} isLg={isLg}>
+        <Layout
+            title={title}
+            description={Data.description}
+            variants={layoutVariants[isLg ? 'SectionPage' : 'Mobile']}
+        >
             {isLg && (
                 <Section_Hero
                     key={`${Data.id}-hero`}

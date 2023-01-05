@@ -1,13 +1,15 @@
-import { motion } from 'framer-motion'
+import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
 import { scrollToID } from '@utils'
 const linkIds = ['about', 'experience', 'projects', 'contact', 'my Resume']
 
-const NavLinks = ({ hideLinks }) => (
+const NavLinks = ({ hideLinks, activeSection }) => (
     <motion.ul className="full flex-center">
         {linkIds.map((item, i) => (
             <motion.li
                 key={`link-${i}`}
-                className="my-auto mx-4 cursor-pointer text-[16px] font-medium tracking-tight text-grey-40 md:pt-2 md:pb-1 lg:text-[18px]"
+                className={`flex-center relative mx-2 h-3/4 cursor-pointer bg-clip-text px-2 text-[0.85em] font-medium leading-none transition-colors duration-250 ease-in hover:text-white ${
+                    activeSection === i + 1 ? 'text-white' : 'text-white/40'
+                }`}
                 initial={false}
                 animate={hideLinks ? { y: -50 } : { y: 0 }}
                 transition={{
@@ -17,10 +19,7 @@ const NavLinks = ({ hideLinks }) => (
                             ? i * 0.075
                             : (linkIds.length - i) * 0.075,
                     },
-                    color: { duration: 0.25, ease: 'easeIn' },
                 }}
-                whileHover={{ color: '#fff' }}
-                whileTap={{ scale: 0.95, originY: 1 }}
             >
                 {item.includes('Resume') ? (
                     <a href="/assets/misc/resume2022.jpg" target="_blank">

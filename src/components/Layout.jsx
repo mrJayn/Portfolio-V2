@@ -1,10 +1,8 @@
 import { NextSeo } from 'next-seo'
 import { motion } from 'framer-motion'
-import { layoutVariants } from '@motion'
 
-const Layout = ({ title, description, isHome = false, children, isLg }) => {
-    const pageName = title == 'Contact' ? 'ContactPage' : 'DefaultLayout'
-    const variants = layoutVariants[pageName]
+const Layout = ({ title, description, isHome = false, variants, children }) => {
+    // const variants = layoutVariants[variantId == null ? title : variantId]
 
     return (
         <>
@@ -15,16 +13,15 @@ const Layout = ({ title, description, isHome = false, children, isLg }) => {
             />
             <motion.main
                 key={title}
-                className={`flex-col-top left-0 h-auto w-full ${
+                className={`flex-col-top top-0 left-0 w-full ${
                     isHome
-                        ? 'absolute top-0 z-0 bg-background-gradient pt-14'
-                        : 'fixed top-0 bottom-0 z-20'
+                        ? 'absolute z-0 h-auto bg-background-gradient'
+                        : 'fixed bottom-0 z-10'
                 }`}
                 initial="hidden"
                 animate="show"
                 exit="exit"
                 variants={variants}
-                custom={isLg}
             >
                 {isHome ? (
                     children

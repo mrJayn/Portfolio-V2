@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import {
     motion,
     useScroll,
@@ -9,147 +9,139 @@ import {
 } from 'framer-motion'
 
 import { Featured_Slides, Section_Card, Styled } from '@components'
-import { sectionVariants as variants, springTransition } from '@motion'
-import { index2id } from '@utils'
+import { sectionVariants as variants } from '@motion'
+
+function useParrallax(scrollYProgress, isLg, isRouting) {
+    const d = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]).current
+    const ySpring = useSpring(scrollYProgress, {
+        type: 'spring',
+        stiffness: 1000,
+        damping: isRouting ? 50 : 400 - d * 200,
+        restDelta: 0.0005,
+    })
+    const props = {
+        opacityMV: isLg ? ySpring : scrollYProgress,
+        bounds: isLg ? [0, 0.5, 1] : [0.3, 0.5, 0.7],
+        rowGap: isLg ? ['100px', '0px', '100px'] : ['10px', '0px', '10px'],
+    }
+    return {
+        yPos: useTransform(ySpring, [0, 1], ['150%', '-150%']),
+        yNeg: useTransform(ySpring, [0, 1], ['-50%', '50%']),
+        opacity: useTransform(props.opacityMV, props.bounds, [0, 1, 0]),
+        rowGap: useTransform(scrollYProgress, props.bounds, props.rowGap),
+    }
+}
 
 const Section = ({
     id,
     index,
     activeSection,
     setSection,
-    direction,
     isLg,
     isRouting,
-    screenOrientation,
     useChildren = false,
     children,
     ...data
 }) => {
     const ref = useRef(null)
-    const [initialAnim, setInitialAnim] = useState('hidden')
-
-    const inView = useInView(ref, { amount: 0.95 })
+    const inView = useInView(ref, { amount: isLg ? 0.5 : 0.75 })
     const { scrollYProgress } = useScroll({
         target: ref,
         offset: ['start end', 'end start'],
     })
-
-    const ySpring = useSpring(scrollYProgress, springTransition)
-    const y = useTransform(ySpring, [0, 0.5, 1], ['100%', '0%', '-100%'])
-
-    // Scroll to section on Resize / md breakpoint
-    useEffect(() => {
-        const resizehandler = (current) => {
-            if ((index == current) & (current !== 0)) {
-                document.getElementById(`${index2id(current)}`).scrollIntoView({
-                    behavior: 'auto',
-                    block: isLg ? 'center' : 'center',
-                })
-                y.set('0%')
-                setSection(activeSection)
-            }
-        }
-        resizehandler(activeSection)
-    }, [isLg, screenOrientation])
-
-    // Set Initial Variant if Routing
-    useEffect(() => {
-        if (index == activeSection)
-            setInitialAnim(isRouting ? 'exit' : 'hidden')
-    }, [isRouting])
+    const { yPos, yNeg, opacity, rowGap } = useParrallax(
+        scrollYProgress,
+        isLg,
+        isRouting
+    )
 
     // Set Active Section
     useEffect(() => {
-        if ((activeSection !== index) & inView & !isRouting) {
-            setSection(index)
-        }
+        if ((activeSection !== index) & inView & !isRouting) setSection(index)
     }, [inView])
 
     const SectionCardProps = {
         id: id,
         index: index,
-        inView: inView,
         isLg: isLg,
         ...data,
     }
-    const isActive = index == activeSection
-    const even = index % 2 == 0
 
     return (
-        <>
-            <section
-                id={id}
-                data-section-in-view={isActive}
-                className="h-screen w-screen snap-center last-of-type:mb-0 lg:mb-[200%]"
-                ref={ref}
+        <motion.section
+            id={id}
+            data-section-in-view={index == activeSection}
+            className="h-screen w-screen snap-center last-of-type:mb-0 lg:mb-[200%]"
+            initial={false}
+            animate={!inView ? 'hidden' : isRouting ? 'exit' : 'show'}
+            ref={ref}
+        >
+            <div
+                id={`${id}-content`}
+                className={`flex-center full relative overflow-hidden lg:fixed lg:inset-0 lg:h-auto lg:w-auto ${
+                    index == activeSection ? 'lg:z-10' : 'lg:z-0'
+                }`}
             >
-                <div
-                    id={`${id}-content`}
-                    className={`flex-center full relative overflow-hidden lg:fixed lg:inset-0 lg:h-auto lg:w-auto ${
-                        isActive ? 'lg:z-10' : 'lg:z-0'
-                    }`}
-                >
-                    {isLg ? (
-                        <motion.div
-                            key={`${id}-scroll-motion`}
-                            className="flex-center absolute inset-0"
-                            style={{ y }}
-                            initial={isRouting ? 'exit' : false}
-                            animate={
-                                !inView ? 'hidden' : isRouting ? 'exit' : 'show'
-                            }
-                        >
-                            {useChildren ? (
-                                children
-                            ) : (
-                                <>
-                                    {data.featured ? (
-                                        <motion.div
-                                            className="full z-10 select-none"
-                                            style={{ order: even ? 2 : 1 }}
-                                            variants={variants.Graphic}
-                                            custom={false}
-                                        >
-                                            <Featured_Slides
-                                                isLg
-                                                isRouting={isRouting}
-                                                {...data.featured}
-                                            />
-                                        </motion.div>
-                                    ) : (
-                                        <Styled.Image
-                                            isPriority
-                                            src={data.data.src}
-                                            alt={data.data.alt}
-                                            style={{ order: even ? 2 : 1 }}
-                                            variants={variants.Graphic}
+                {isLg ? (
+                    <motion.div
+                        key={`${id}-scroll-motion`}
+                        className="flex-center absolute inset-0"
+                        style={{ y: yPos, opacity }}
+                    >
+                        {useChildren ? (
+                            children
+                        ) : (
+                            <>
+                                {data.featured ? (
+                                    <motion.div
+                                        className="full z-10 select-none"
+                                        variants={variants.Graphic('slides')}
+                                    >
+                                        <Featured_Slides
+                                            isLg
+                                            inView={inView}
+                                            isRouting={isRouting}
+                                            {...data.featured}
                                         />
-                                    )}
-                                    <Section_Card
-                                        key={id}
-                                        {...SectionCardProps}
-                                    />
-                                </>
-                            )}
-                        </motion.div>
-                    ) : (
-                        <>
-                            {useChildren ? (
-                                children
-                            ) : (
-                                <>
+                                    </motion.div>
+                                ) : (
                                     <Styled.Image
+                                        isPriority
                                         src={data.data.src}
                                         alt={data.data.alt}
+                                        variants={variants.Graphic()}
                                     />
-                                    <Section_Card {...SectionCardProps} />
-                                </>
-                            )}
-                        </>
-                    )}
-                </div>
-            </section>
-        </>
+                                )}
+                                <Section_Card
+                                    style={{
+                                        order: (index % 2) * 2 - 1,
+                                        y: yNeg,
+                                    }}
+                                    {...SectionCardProps}
+                                />
+                            </>
+                        )}
+                    </motion.div>
+                ) : (
+                    <>
+                        {useChildren ? (
+                            children
+                        ) : (
+                            <>
+                                <Styled.Image
+                                    src={data.data.src}
+                                    alt={data.data.alt}
+                                />
+                                <Section_Card
+                                    style={{ opacity, rowGap: rowGap }}
+                                    {...SectionCardProps}
+                                />
+                            </>
+                        )}
+                    </>
+                )}
+            </div>
+        </motion.section>
     )
 }
 

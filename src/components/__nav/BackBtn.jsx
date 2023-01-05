@@ -7,7 +7,7 @@ const BVars = navVariants.BackButton.LineB
 const BackButton = ({ isHome, backToHome }) => {
     return (
         <AnimatePresence>
-            {!isHome ? (
+            {!isHome && (
                 <motion.div
                     key="backToHome-btn"
                     className="group fixed top-16 left-[calc(5vw-30px)] z-50  h-16  w-24 cursor-pointer overflow-hidden rounded-xl bg-black/50 backdrop-blur-sm"
@@ -36,7 +36,7 @@ const BackButton = ({ isHome, backToHome }) => {
                         />
                     ))}
                 </motion.div>
-            ) : null}
+            )}
         </AnimatePresence>
     )
 }

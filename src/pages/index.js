@@ -1,14 +1,11 @@
-import { isValidElement, useEffect, useState } from 'react'
+import { isValidElement, useEffect } from 'react'
 import { getAllMarkdown } from 'src/lib/markdown'
 import { Contact, Intro, Layout, Section } from '@components'
-import { useScroll } from 'framer-motion'
-
-const title = 'Portfolio'
-const description =
-    "Hello, I'm Michael👋 - I'm an ChemEng graduate and a recent self-taught developer, aiming to break into tech ASAP!"
+import { layoutVariants as variants } from '@motion'
+import { index2id } from '@utils'
 
 export default function Home({ data, ...pageProps }) {
-    const sectionComponents = [
+    const Sections = [
         {
             id: 'intro',
             data: <Intro {...pageProps} />,
@@ -34,14 +31,25 @@ export default function Home({ data, ...pageProps }) {
         },
     ]
 
+    useEffect(() => {
+        let current = pageProps.activeSection
+
+        if (current == 0) return
+        document
+            .getElementById(index2id(current))
+            .scrollIntoView({ behavior: 'auto' })
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pageProps.isLg, pageProps.screenOrientation])
+
     return (
         <Layout
             isHome
-            title={title}
-            description={description}
-            isLg={pageProps.isLg}
+            title="Portfolio"
+            description="Hello, I'm Michael👋 - I'm an ChemEng graduate and a recent self-taught developer, aiming to break into tech ASAP!"
+            variants={variants[pageProps.isLg ? 'HomePage' : 'Mobile']}
         >
-            {sectionComponents.map(({ id, data }, index) => {
+            {Sections.map(({ id, data }, index) => {
                 const isValidJSX = isValidElement(data)
                 const props = {
                     id: id,

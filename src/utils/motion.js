@@ -52,7 +52,7 @@ export const layoutVariants = {
     },
     SectionPage: {
         hidden: { opacity: 1 },
-        show: { opacity: 1 },
+        show: { opacity: 1, transition: { delay: 1 } },
         exit: { opacity: 0, transition: { delay: 1 } },
     },
     Contact: {

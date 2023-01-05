@@ -22,6 +22,7 @@ const Layout = ({ title, description, isHome = false, variants, children }) => {
                 animate="show"
                 exit="exit"
                 variants={variants}
+                transition={{ duration: 0.75 }}
             >
                 {isHome ? (
                     children

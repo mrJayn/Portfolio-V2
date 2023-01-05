@@ -23,11 +23,12 @@ const links = [
 ]
 
 const StyledComponents = {
-    Button: ({ submit = false, active = false, children }) => {
+    Button: ({ submit = false, active = false, children, ...props }) => {
         return (
             <button
                 type={submit ? 'submit' : 'button'}
                 data-active-state={active}
+                {...props}
             >
                 {children}
             </button>

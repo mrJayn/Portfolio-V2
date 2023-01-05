@@ -3,11 +3,17 @@ import { motion } from 'framer-motion'
 
 import { Styled } from '@components'
 import { sectionCardVariants as variants } from '@motion'
+import { useRouter } from 'next/router'
 
 const Section_Card = ({ id, index, isLg, data, featured, style = {} }) => {
+    const router = useRouter()
     const even = index % 2 == 0
     const pathAs = data.id.charAt(0).toUpperCase() + data.id.slice(1)
-
+    const href = {
+        pathname: '/section/[slug]',
+        query: { slug: data.id },
+    }
+    const openSection = () => router.push(href, `/${pathAs}`, { scroll: false })
     return (
         <motion.div
             id={id + '-content'}
@@ -29,17 +35,8 @@ const Section_Card = ({ id, index, isLg, data, featured, style = {} }) => {
             </motion.h4>
 
             <motion.div className="mt-3" variants={isLg && variants.Item}>
-                <Styled.Button>
-                    <Link
-                        href={{
-                            pathname: '/section/[slug]',
-                            query: { slug: data.id },
-                        }}
-                        as={'/' + pathAs}
-                        scroll={false}
-                    >
-                        {featured ? 'View All' : 'Read More'}
-                    </Link>
+                <Styled.Button onClick={openSection}>
+                    {featured ? 'View All' : 'Read More'}
                 </Styled.Button>
             </motion.div>
         </motion.div>

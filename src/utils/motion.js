@@ -51,7 +51,7 @@ export const layoutVariants = {
         exit: { opacity: 1, transition: { delay: 1 } },
     },
     SectionPage: {
-        hidden: { opacity: 0 },
+        hidden: { opacity: 1 },
         show: { opacity: 1 },
         exit: { opacity: 0, transition: { delay: 1 } },
     },

@@ -31,16 +31,14 @@ export default function Home({ data, ...pageProps }) {
         },
     ]
 
-    useEffect(() => {
-        let current = pageProps.activeSection
-
-        if (current == 0) return
-        document
-            .getElementById(index2id(current))
-            .scrollIntoView({ behavior: 'auto' })
-
+    useEffect(
+        () =>
+            document
+                .getElementById(index2id(pageProps.activeSection))
+                .scrollIntoView({ behavior: 'auto' }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageProps.isLg, pageProps.screenOrientation])
+        [pageProps.isLg, pageProps.screenOrientation]
+    )
 
     return (
         <Layout

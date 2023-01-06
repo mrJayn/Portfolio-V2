@@ -45,6 +45,9 @@ function MyApp({ Component, pageProps }) {
         setSection: setSection,
         ...pageProps,
     }
+    const loaderProps = {
+        isMd: isMd,
+    }
     useEffect(() => {
         if (!isRouting) return () => clearTimeout(tiemout)
         const tiemout = setTimeout(() => {

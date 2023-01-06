@@ -67,13 +67,15 @@ const Section = ({
         ...data,
     }
 
+    // !inView ? 'hidden' : isRouting ? 'exit' : 'show'
     return (
         <motion.section
             id={id}
             data-section-in-view={index == activeSection}
             className="h-screen w-screen snap-center last-of-type:mb-0 lg:mb-[200%]"
-            initial={false}
-            animate={!inView ? 'hidden' : isRouting ? 'exit' : 'show'}
+            initial={isRouting ? 'exit' : 'hidden'}
+            animate="show"
+            exit={isRouting ? 'exit' : 'hidden'}
             ref={ref}
         >
             <div

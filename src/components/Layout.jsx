@@ -1,7 +1,19 @@
 import { NextSeo } from 'next-seo'
 import { motion } from 'framer-motion'
+import { useMediaQuery } from '@hooks'
+import { layoutVariants } from '@motion'
 
 const Layout = ({ title, description, isHome = false, variants, children }) => {
+    const isLg = useMediaQuery(1024)
+    const Variants =
+        layoutVariants[
+            isLg
+                ? ['HomePage', 'ContactPage'].includes(title)
+                    ? title
+                    : 'SectionPage'
+                : 'Mobile'
+        ]
+    console.log(Variants)
     // const variants = layoutVariants[variantId == null ? title : variantId]
 
     return (

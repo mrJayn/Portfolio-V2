@@ -34,21 +34,6 @@ const StyledComponents = {
             </button>
         )
     },
-    Image: ({ isPriority = false, src, alt, ...props }) => (
-        <motion.div
-            className="flex-center lg:full pointer-events-none absolute inset-0 -z-10 mx-auto select-none overflow-hidden lg:relative lg:inset-auto lg:max-w-[50vw] lg:shadow"
-            {...props}
-        >
-            <Image
-                src={src}
-                alt={alt}
-                layout="fill"
-                className="object-cover object-top opacity-25 lg:opacity-75 landscape:object-center"
-                quality={25}
-                priority={isPriority}
-            />
-        </motion.div>
-    ),
     Icon: ({ name, size = '100%', fill = 'none', className = '' }) => {
         const svgProps = {
             xmlns: 'http://www.w3.org/2000/svg',

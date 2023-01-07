@@ -29,7 +29,7 @@ const defaultBtn = {
         scale: 1,
         pointerEvents: 'auto',
         transition: {
-            opacity: { duration: 0.75 },
+            opacity: { duration: 0.5 },
             scale: { duration: 1, ease: 'circOut' },
         },
     },
@@ -52,7 +52,7 @@ export const layoutVariants = {
     },
     SectionPage: {
         hidden: { opacity: 1 },
-        show: { opacity: 1 },
+        show: { opacity: 1, transition: { delayChildren: 1 } },
         exit: { opacity: 1 },
     },
     Contact: {
@@ -67,56 +67,36 @@ export const layoutVariants = {
     },
 }
 export const sectionVariants = {
-    Graphic: (custom = null) => ({
-        hidden: {
-            opacity: 0,
-            scale: custom == null ? 0.65 : 0.9,
-            borderRadius: '3rem',
-            transition: { duration: 1.5, ease: 'easeInOut' },
-        },
-        show: {
-            opacity: 1,
-            scale: custom == null ? 0.65 : 0.9,
-            borderRadius: '3rem',
-            transition: { duration: 1.5, ease: 'easeInOut' },
-        },
-        exit: {
-            opacity: 0.25,
-            scale: custom == null ? 1 : 0.9,
-            borderRadius: '0rem',
-            transition: { duration: 0.75, ease: 'easeInOut' },
-        },
-    }),
-}
-export const sectionCardVariants = {
-    Container: {
-        hidden: {
-            rowGap: '100px',
-            transition: { duration: 0.75, ease: 'easeIn' },
-        },
-        show: {
-            rowGap: '0px',
-            transition: {
-                delay: 0.25,
-                duration: 1,
-                ease: 'circOut',
-                staggerChildren: 0.1,
-                delayChildren: 0.15,
+    Content: {
+        Container: {
+            hidden: {
+                transition: { duration: 0.75, ease: 'easeIn' },
+            },
+            show: {
+                transition: {
+                    delay: 0.25,
+                    duration: 1,
+                    ease: 'circOut',
+                    staggerChildren: 0.1,
+                    delayChildren: 0.15,
+                },
+            },
+            exit: {
+                transition: {
+                    duration: 0.75,
+                    ease: 'easeIn',
+                    staggerChildren: 0.1,
+                },
             },
         },
-        exit: {
-            rowGap: '100px',
-            transition: {
-                duration: 0.75,
-                ease: 'easeIn',
-                staggerChildren: 0.1,
+        Item: {
+            hidden: { opacity: 0 },
+            show: {
+                opacity: 1,
+                transition: { duration: 0.5, ease: 'easeInOut' },
             },
+            exit: { opacity: 0 },
         },
-    },
-    Item: {
-        hidden: { opacity: 0 },
-        show: { opacity: 1, transition: { duration: 0.5, ease: 'easeInOut' } },
-        exit: { opacity: 0 },
     },
 }
 export const sectionHeroVariants = {
@@ -331,26 +311,21 @@ export const menuVariants = {
 
 export const introVariants = {
     Wrap: {
-        hidden: (is1st) => ({
-            opacity: 0,
-            transition: {
-                duration: 0.5,
-                staggerChildren: 0.25,
-                staggerDirection: -1,
-            },
-        }),
+        hidden: { opacity: 0, rowGap: '15vh' },
         show: (is1st) => ({
             opacity: 1,
+            rowGap: '0vh',
             transition: {
                 duration: 1,
                 when: 'beforeChildren',
-                staggerChildren: 0.25,
+                staggerChildren: 0.15,
                 delayChildren: is1st ? 3 : 0,
             },
         }),
         exit: {
             opacity: 0,
-            transition: { duration: 0.25, ease: 'easeIn' },
+            rowGap: '15vh',
+            transition: { duration: 0.75 },
         },
     },
     TitleVars: {
@@ -371,12 +346,8 @@ export const introVariants = {
             },
         },
         TitleBlur: {
-            hidden: {
-                fillOpacity: 0,
-            },
-            show: {
-                fillOpacity: 1,
-            },
+            hidden: { fillOpacity: 0 },
+            show: { fillOpacity: 1 },
         },
     },
     SubHead: {
@@ -384,7 +355,6 @@ export const introVariants = {
             opacity: 0,
             y: '100%',
             clipPath: 'inset(0% 0% 100% 0%)',
-            transition: { duration: 0.5 },
         },
         show: {
             opacity: 1,
@@ -398,25 +368,20 @@ export const introVariants = {
     },
     Btn: { ...defaultBtn },
     NextSectionBtn: {
-        hidden: {
-            opacity: 0,
-            y: 50,
-            transition: { duration: 0.5, ease: 'backIn' },
-        },
+        hidden: { opacity: 0, y: 50 },
         show: {
             opacity: 1,
             y: 0,
             transition: { duration: 1, ease: 'backOut' },
         },
-        exit: { opacity: 0 },
+        exit: {
+            opacity: 0,
+            y: 100,
+            transition: { duration: 0.5 },
+        },
     },
     Graphic: {
-        hidden: {
-            rotateX: 67,
-            rotateY: 0,
-            y: '75vh',
-            transition: { duration: 1, ease: 'circIn' },
-        },
+        hidden: { rotateX: 67, rotateY: 0, y: '75vh' },
         show: (is1st) => ({
             rotateX: 75,
             rotateY: 5,
@@ -427,6 +392,12 @@ export const introVariants = {
                 y: { duration: 2, ease: 'backOut' },
             },
         }),
+        exit: {
+            rotateX: 67,
+            rotateY: 0,
+            y: '-150vh',
+            transition: { duration: 0.5, ease: 'circIn' },
+        },
     },
 }
 

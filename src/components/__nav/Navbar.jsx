@@ -28,7 +28,7 @@ const Logo = () => (
     </motion.a>
 )
 
-const Navbar = ({ activeSection, isHome, isMd, isRouting }) => {
+const Navbar = ({ activeSection, isHome, isMd }) => {
     const router = useRouter()
     const [menuOpen, setMenu] = useState(false)
 
@@ -38,16 +38,12 @@ const Navbar = ({ activeSection, isHome, isMd, isRouting }) => {
     }
 
     const backToHome = () => {
-        const scrollDiv = document.querySelector('main > div')
-
-        if (scrollDiv == null) return router.push('/', '', { scroll: false })
-
         const prevScrollY = null
 
-        scrollDiv.scrollTo({ top: 0, behavior: 'smooth' })
+        window.scrollTo({ top: 0, behavior: 'smooth' })
 
         const checkIfAtTop = setInterval(() => {
-            var scrollY = scrollDiv.scrollTop
+            var scrollY = window.scrollY
             if (scrollY == prevScrollY) {
                 clearInterval(checkIfAtTop)
                 router.push('/', '', { scroll: false })
@@ -65,15 +61,10 @@ const Navbar = ({ activeSection, isHome, isMd, isRouting }) => {
             />
         ),
         1: <Logo />,
-        2: (
-            <NavLinks
-                hideLinks={!isHome || isRouting}
-                activeSection={activeSection}
-            />
-        ),
+        2: <NavLinks hideLinks={!isHome} activeSection={activeSection} />,
         3: <span />,
     }
-    // Close Menu if isRouting || @media > 768px
+    // Close Menu || @media > 768px
     useEffect(() => {
         if (isMd & menuOpen || !isHome & menuOpen) setMenu(false)
     }, [isMd, isHome, menuOpen])

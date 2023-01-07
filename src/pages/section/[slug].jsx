@@ -5,11 +5,10 @@ import {
     Layout,
     Experience,
     Form,
-    Section_Hero,
+    Section_Hero as Hero,
 } from '@components'
 import { useEffect } from 'react'
 import { themeConfig } from 'twTheme'
-import { layoutVariants } from '@motion'
 
 const SlugToContent = ({ ...data }) => {
     switch (data.id) {
@@ -30,7 +29,6 @@ export default function SectionPage({
     activeSection,
     isLg,
     isMd,
-    isRouting,
     Data,
     ...pageProps
 }) {
@@ -47,17 +45,12 @@ export default function SectionPage({
     useEffect(() => window.scrollTo({ top: 0, behavior: 'auto' }))
 
     return (
-        <Layout
-            title={title}
-            description={Data.description}
-            variants={layoutVariants[isLg ? 'SectionPage' : 'Mobile']}
-        >
+        <Layout title={title} description={Data.description}>
             {isLg && (
-                <Section_Hero
+                <Hero
                     key={`${Data.id}-hero`}
                     even={activeSection % 2 == 0}
                     bgColor={bgColor}
-                    isRouting={isRouting}
                     isLg={isLg}
                     {...heroData}
                 />
@@ -65,9 +58,7 @@ export default function SectionPage({
             <div
                 id={`${Data.id}-section-content`}
                 data-reading-section
-                className={`flex-col-center relative mx-auto h-auto min-h-screen w-full gap-y-24 px-2 py-14 lg:px-12 ${
-                    Data.id !== 'projects' && 'max-w-[1200px]'
-                }`}
+                className="flex-col-center relative mx-auto h-auto min-h-screen w-full max-w-[1200px] gap-y-24 px-2 py-14 lg:px-12"
             >
                 <SlugToContent {...Data} />
             </div>

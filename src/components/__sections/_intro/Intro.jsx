@@ -7,10 +7,8 @@ import { Styled } from '@components'
 import Title from './Title'
 import Graphic from './Graphic'
 
-const Intro = ({ isFirstLoad, isRouting }) => {
+const Intro = ({ isFirstLoad }) => {
     const initialAnim = isFirstLoad.current ? 'hidden' : 'show'
-    const anim = isRouting ? 'hidden' : 'show'
-    const graphicAnim = isFirstLoad.current ? 'showFirst' : 'show'
 
     const onTitleComplete = () => {
         if (!isFirstLoad.current) return
@@ -23,18 +21,13 @@ const Intro = ({ isFirstLoad, isRouting }) => {
         <motion.div
             key="intro-section"
             className="flex-col-center full select-text py-[4vh] lg:py-20"
-            initial="hidden"
-            animate={anim}
-            exit="hidden"
+            initial={is1st ? 'hidden' : 'exit'}
+            animate="show"
+            exit="exit"
             variants={variants.Wrap}
             custom={is1st}
         >
-            <Title
-                initialAnim={initialAnim}
-                titleAnim={isRouting ? 'hidden' : 'show'}
-                initialDelay={isFirstLoad.current ? 1.5 : 0.75}
-                onTitleComplete={onTitleComplete}
-            />
+            <Title is1st={is1st} onTitleComplete={onTitleComplete} />
             <motion.h2 className="leading-none" variants={variants.SubHead}>
                 Portfolio
             </motion.h2>
@@ -64,7 +57,8 @@ const Intro = ({ isFirstLoad, isRouting }) => {
             <div className="pointer-events-none absolute top-[12.5%] bottom-0 left-0 -z-10 w-full overflow-hidden rounded-lg opacity-50 lg:left-1/2 lg:top-0 lg:bottom-[45%] lg:z-10 lg:w-1/2 lg:translate-x-[-5vw] lg:opacity-100">
                 <Graphic
                     initial="hidden"
-                    animate={isRouting ? 'hidden' : 'show'}
+                    animate="show"
+                    exit="exit"
                     variants={variants.Graphic}
                     custom={is1st}
                 />

@@ -34,7 +34,7 @@
         word-spacing: 1px;
     }
     body {
-        @apply h-screen w-screen overflow-x-hidden bg-white dark:bg-black;
+        @apply h-screen w-screen overflow-x-hidden bg-white-dark;
         /*@apply text-min sm:text-base lg:text-md;*/
     }
 

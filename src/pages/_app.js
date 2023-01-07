@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
 import { useRouter } from 'next/router'
-import { AnimatePresence, MotionConfig } from 'framer-motion'
+import { motion, AnimatePresence, MotionConfig } from 'framer-motion'
 import { ToastContainer } from 'react-toastify'
 
 import { Navbar, Loader } from '@components'
@@ -45,15 +45,15 @@ function MyApp({ Component, pageProps }) {
         setSection: setSection,
         ...pageProps,
     }
-    const loaderProps = {
-        isMd: isMd,
-    }
+
     useEffect(() => {
         if (!isRouting) return () => clearTimeout(tiemout)
         const tiemout = setTimeout(() => {
             if (isRouting) setIsRouting(false)
         }, 5000)
     }, [isRouting])
+    console.log(isRouting ? 'started Routing' : 'done Routing')
+
     return (
         <>
             <Head>
@@ -89,14 +89,13 @@ function MyApp({ Component, pageProps }) {
                             activeSection={activeSection}
                             isHome={isHome}
                             isMd={isMd}
-                            isRouting={isRouting}
                         />
                         <>
                             <AnimatePresence
-                                mode="wait"
+                                mode={isLg ? 'wait' : 'sync'}
                                 onExitComplete={() => setIsRouting(false)}
                             >
-                                <Component {...pageProps} key={url} />
+                                <Component key={url} {...pageProps} />
                             </AnimatePresence>
                         </>
                         <ToastContainer />

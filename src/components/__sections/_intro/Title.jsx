@@ -14,11 +14,13 @@ const TitleDefs = () => (
     </defs>
 )
 
-const Title = ({ initialDelay, onTitleComplete, initialAnim, titleAnim }) => {
+const Title = ({ is1st, onTitleComplete }) => {
+    const initialDelay = is1st ? 1.5 : 0.75
+
     const ogLen = TitlePaths.length
     const Doubled = TitlePaths.concat(TitlePaths)
 
-    const propTransition = (idx) => {
+    const getTransition = (idx) => {
         const i = idx < ogLen ? idx + 1 : idx - ogLen
         const propDelay = (i, extraDelay) =>
             initialDelay + extraDelay + i * 0.08
@@ -75,14 +77,12 @@ const Title = ({ initialDelay, onTitleComplete, initialAnim, titleAnim }) => {
                                       }
                                     : {}
                             }
-                            initial={initialAnim}
-                            animate={titleAnim}
+                            initial={is1st ? 'hidden' : 'show'}
+                            animate="show"
                             variants={
-                                index < ogLen
-                                    ? variants.TitleBlur
-                                    : variants.Title
+                                variants[index < ogLen ? 'TitleBlur' : 'Title']
                             }
-                            transition={propTransition(index)}
+                            transition={getTransition(index)}
                             onAnimationComplete={() => {
                                 if (index == Doubled.length - 1)
                                     onTitleComplete()

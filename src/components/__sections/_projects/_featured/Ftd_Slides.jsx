@@ -69,7 +69,7 @@ const UserControls = ({ chevronAction, userPause, setUserPause }) => (
     </>
 )
 
-const Ftd_Slides = ({ isLg = false, inView, isRouting, ...projects }) => {
+const Ftd_Slides = ({ isLg = false, inView, ...projects }) => {
     const [[currentTab, direction], setTab] = useState([0, 0])
     const n = wrap(0, Object.keys(projects).length, currentTab)
     // Dsktp cycling slides - Related States
@@ -102,24 +102,22 @@ const Ftd_Slides = ({ isLg = false, inView, isRouting, ...projects }) => {
             {!isLg && <h3>Featured Projects</h3>}
             <div className="mt-2 h-auto w-full lg:mt-[10%] lg:h-[70%] lg:w-[75%]">
                 <AnimatePresence mode="wait" custom={direction}>
-                    {!isRouting && (
-                        <motion.div
-                            key={`featured-slide-${n}`}
-                            className="full relative rounded-3xl lg:rounded-4xl"
-                            initial="hidden"
-                            animate="show"
-                            exit="next"
-                            variants={variants.Slides[isLg ? 'Dsktp' : 'Mble']}
-                            custom={direction}
-                            transition={{ duration: isLg ? 1.25 : 0.5 }}
-                        >
-                            <Featured_Slide
-                                projectData={projects[n].data}
-                                direction={direction}
-                                isLg={isLg}
-                            />
-                        </motion.div>
-                    )}
+                    <motion.div
+                        key={`featured-slide-${n}`}
+                        className="full relative rounded-3xl lg:rounded-4xl"
+                        initial="hidden"
+                        animate="show"
+                        exit="next"
+                        variants={variants.Slides[isLg ? 'Dsktp' : 'Mble']}
+                        custom={direction}
+                        transition={{ duration: isLg ? 1.25 : 0.5 }}
+                    >
+                        <Featured_Slide
+                            projectData={projects[n].data}
+                            direction={direction}
+                            isLg={isLg}
+                        />
+                    </motion.div>
                 </AnimatePresence>
             </div>
             {isLg ? (

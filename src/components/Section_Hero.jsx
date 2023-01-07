@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 const Styled_Image = ({ src, alt, even }) => (
     <div
-        className={`full pointer-events-none relative z-10 max-w-[50vw] select-none overflow-hidden shadow ${
+        className={`full pointer-events-none relative z-10 max-w-[50vw] select-none overflow-hidden opacity-25 shadow ${
             even ? 'ml-auto' : 'mr-auto'
         }`}
     >
@@ -14,7 +14,7 @@ const Styled_Image = ({ src, alt, even }) => (
             alt={alt}
             layout="fill"
             quality={25}
-            className="object-cover object-center opacity-25"
+            className="object-cover object-center"
         />
     </div>
 )
@@ -22,7 +22,7 @@ const Styled_Image = ({ src, alt, even }) => (
 const Section_Hero = ({ even, bgColor, isLg, ...data }) => (
     <motion.div
         id={`${data.id}Page-hero`}
-        className="relative flex h-screen w-full overflow-hidden"
+        className="relative flex h-screen w-full shadow shadow-black"
         style={{ backgroundColor: bgColor }}
         initial="hidden"
         animate="show"
@@ -36,10 +36,7 @@ const Section_Hero = ({ even, bgColor, isLg, ...data }) => (
             className="flex-col-center absolute inset-0 z-20 gap-y-8 text-center"
             variants={variants.Container}
         >
-            <motion.h2
-                className="relative animate-none"
-                variants={variants.Headings}
-            >
+            <motion.h2 className="relative" variants={variants.Headings}>
                 {data.title}
                 <motion.span
                     className="styled-underline left-0 w-full origin-center"

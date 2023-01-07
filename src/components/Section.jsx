@@ -68,33 +68,39 @@ const Section = ({
         <motion.section
             id={id}
             data-section-in-view={index == activeSection}
-            className="h-screen w-screen snap-center last-of-type:mb-0 lg:mb-[200%]"
+            className="relative h-screen w-screen snap-center last-of-type:mb-0 lg:mb-[200%]"
             ref={ref}
         >
-            <motion.div
-                key={`${id}-section-content-${isLg ? 'dsktp' : 'mobile'}`}
-                className="flex-center full relative overflow-hidden lg:fixed lg:inset-0 lg:h-auto lg:w-auto"
-                style={isLg ? { y } : { y: 0 }}
-                initial="exit"
-                animate={activeSection === index || !isLg ? 'show' : 'hidden'}
-                exit="exit"
-            >
-                {useChildren ? (
-                    children
-                ) : (
-                    <>
-                        <Section_Graphic {...graphicProps} />
-                        <Section_Content
-                            style={{
-                                order: (index % 2) * 2 - 1,
-                                translateY,
-                                rowGap,
-                            }}
-                            {...contentProps}
-                        />
-                    </>
-                )}
-            </motion.div>
+            {useChildren ? (
+                <motion.div
+                    key={`${id}-section-content`}
+                    className="flex-center inset-0 overflow-hidden max-lg:absolute lg:fixed"
+                    style={{ y }}
+                >
+                    {children}
+                </motion.div>
+            ) : (
+                <motion.div
+                    key={`${id}-section-content-${isLg ? 'dsktp' : 'mobile'}`}
+                    className="flex-center relative inset-0 overflow-hidden max-lg:absolute lg:fixed"
+                    style={{ y }}
+                    initial="exit"
+                    animate={
+                        activeSection === index || !isLg ? 'show' : 'hidden'
+                    }
+                    exit="exit"
+                >
+                    <Section_Graphic {...graphicProps} />
+                    <Section_Content
+                        style={{
+                            order: (index % 2) * 2 - 1,
+                            translateY,
+                            rowGap,
+                        }}
+                        {...contentProps}
+                    />
+                </motion.div>
+            )}
         </motion.section>
     )
 }

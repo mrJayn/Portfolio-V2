@@ -9,6 +9,7 @@ import {
 } from '@components'
 import { useEffect } from 'react'
 import { themeConfig } from 'twTheme'
+import { MobileLayoutVariants as variants } from '@motion'
 
 const SlugToContent = ({ ...data }) => {
     switch (data.id) {
@@ -45,7 +46,11 @@ export default function SectionPage({
     useEffect(() => window.scrollTo({ top: 0, behavior: 'auto' }))
 
     return (
-        <Layout title={title} description={Data.description}>
+        <Layout
+            title={title}
+            description={Data.description}
+            variants={!isLg && variants}
+        >
             {isLg && (
                 <Hero
                     key={`${Data.id}-hero`}

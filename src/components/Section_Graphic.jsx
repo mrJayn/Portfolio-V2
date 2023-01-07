@@ -32,7 +32,7 @@ const Section_Graphic = ({ inView, isLg, featured, data }) => {
     return (
         <motion.div
             key={`${data.id}-section-graphic-isLg`}
-            className={`full -z-10 select-none max-lg:pointer-events-none ${
+            className={`full pointer-events-none -z-10 select-none ${
                 !useFtd & isLg &&
                 'pointer-events-none relative overflow-hidden shadow'
             }`}

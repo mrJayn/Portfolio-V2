@@ -44,24 +44,7 @@ const defaultBtn = {
     },
 }
 
-export const layoutVariants = {
-    HomePage: {
-        hidden: { opacity: 1 },
-        show: { opacity: 1 },
-        exit: { opacity: 1 },
-    },
-    SectionPage: {
-        hidden: { opacity: 1 },
-        show: { opacity: 1, transition: { delayChildren: 1 } },
-        exit: { opacity: 1 },
-    },
-    Contact: {
-        hidden: { opacity: 0 },
-        show: { opacity: 1 },
-        exit: { opacity: 0, transition: { delay: 1 } },
-    },
-}
-export const MobileLayoutVariants = {
+export const LayoutVariants = {
     hidden: { opacity: 0 },
     show: { opacity: 1, transition: { duration: 1 } },
     exit: { opacity: 0, transition: { duration: 1 } },
@@ -100,32 +83,69 @@ export const sectionVariants = {
         },
     },
 }
-export const sectionHeroVariants = {
-    Container: {
+export const slugHeroVariants = {
+    Wrapper: {
+        hidden: {
+            height: '100vh',
+            transition: { duration: 0.7, ...noBounceSpring },
+        },
+        show: {
+            height: '90vh',
+            transition: {
+                delay: 1.5,
+                duration: 0.7,
+                ...noBounceSpring,
+            },
+        },
+    },
+    StaggerParent: {
         show: { transition: { staggerChildren: 0.25, staggerDirection: -1 } },
     },
-    Headings: {
+    Text: {
         hidden: {
             opacity: 0,
             clipPath: 'polygon(50% 0%, 50% 0%, 50% 105%, 50% 105%)',
-            transition: { duration: 0.75, ease: 'easeIn' },
+            transition: { duration: 0.5, ease: 'easeIn' },
         },
         show: {
             opacity: 1,
             clipPath: 'polygon(-5% 0%, 105% 0%, 105% 105%, -5% 105%)',
-            transition: { duration: 2, ...noBounceSpring },
+            transition: {
+                duration: 1.5,
+                delayChildren: 0.25,
+                ...noBounceSpring,
+            },
         },
     },
     Decoration: {
         hidden: {
             opacity: 0,
             scaleX: 0,
-            transition: { duration: 0.75, ease: [0.4, 0, 0.15, 1] },
+            transition: { duration: 0 },
         },
         show: {
             opacity: 1,
             scaleX: 1,
-            transition: { duration: 3, ...noBounceSpring },
+            transition: { duration: 1.5, ...noBounceSpring },
+        },
+    },
+    Chevron: {
+        hidden: {
+            opacity: 0,
+            y: '10vh',
+            transition: { duration: 0.7, ...noBounceSpring },
+        },
+        show: {
+            opacity: 1,
+            y: '-2.5vh',
+            transition: {
+                delay: 1.5,
+                opacity: { duration: 0.4 },
+                y: {
+                    duration: 0.7,
+                    ease: 'backOut',
+                },
+            },
         },
     },
 }
@@ -309,7 +329,6 @@ export const menuVariants = {
         },
     },
 }
-
 export const introVariants = {
     Wrap: {
         hidden: { opacity: 0, rowGap: '15vh' },
@@ -401,7 +420,6 @@ export const introVariants = {
         },
     },
 }
-
 export const aboutVariants = {
     Skills: {
         Container: {
@@ -455,7 +473,6 @@ export const aboutVariants = {
         },
     },
 }
-
 export const experienceMotion = {
     Accordion: {
         closed: {
@@ -490,7 +507,6 @@ export const experienceMotion = {
         },
     },
 }
-
 export const projectCardVariants = {
     Wrap: {
         hidden: { opacity: 0 },
@@ -721,11 +737,10 @@ export const archiveVariants = {
         exit: { opacity: 0, scale: 0.95, transition: { duration: 0.25 } },
     },
 }
-
 export const contactSectionVariants = {
     Content: {
         hidden: {},
-        show: { transition: { delayChildren: 1.5 } },
+        show: { transition: { delayChildren: 1 } },
     },
     Headline: {
         h3: {
@@ -793,6 +808,13 @@ export const contactSectionVariants = {
                 clipPath: 'inset(0 0 0% 0)',
                 transition: { duration: 0.5, ease: 'backOut' },
             },
+        },
+    },
+    Footer: {
+        hidden: { y: '100%', transition: { duration: 0.5, ease: 'backIn' } },
+        show: {
+            y: '0%',
+            transition: { duration: 1, ease: 'backOut' },
         },
     },
 }
@@ -896,12 +918,22 @@ export const styledComponentsVariants = {
             clipPath: even
                 ? 'polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)'
                 : 'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)',
-            transition: { duration: 0.75, ease: 'easeIn' },
+            transition: { duration: 0.7, ...noBounceSpring },
         }),
         show: {
             opacity: 1,
             clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-            transition: { duration: 2, ...noBounceSpring },
+            transition: {
+                clipPath: { duration: 2, ...noBounceSpring },
+                opacity: { duration: 0.5 },
+            },
         },
+        exit: (even = null) => ({
+            opacity: 1,
+            clipPath: even
+                ? 'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)'
+                : 'polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)',
+            transition: { duration: 0.7, ...noBounceSpring },
+        }),
     },
 }

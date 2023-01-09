@@ -52,7 +52,6 @@ function MyApp({ Component, pageProps }) {
             if (isRouting) setIsRouting(false)
         }, 5000)
     }, [isRouting])
-    console.log(isRouting ? 'started Routing' : 'done Routing')
 
     return (
         <>

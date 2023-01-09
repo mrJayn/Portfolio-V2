@@ -7,7 +7,12 @@ import { Layout, Form, Styled } from '@components'
 export default function Contact({ isLg, activeSection }) {
     const backgroundColor = themeConfig.getSectionColor(activeSection)
     return (
-        <Layout title="Contact" description="Send me a message!">
+        <Layout
+            title="Contact"
+            description="Send me a message!"
+            useTransition={!isLg}
+            activeSection={activeSection}
+        >
             <motion.div
                 className="flex-col-center relative z-0 mx-auto min-h-screen w-full overflow-y-scroll px-2 py-14 text-center"
                 style={{ backgroundColor: backgroundColor }}

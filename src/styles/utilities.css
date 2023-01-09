@@ -6,8 +6,6 @@
     }
 
     div[data-reading-section] {
-        @apply bg-white-dark;
-
         & p {
             @apply text-black;
         }

@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+import { themeConfig } from 'twTheme'
 import { getAllMarkdown, getSectionMarkdown } from 'src/lib/markdown'
 import {
     About,
@@ -5,11 +7,10 @@ import {
     Layout,
     Experience,
     Form,
-    Section_Hero as Hero,
+    Slug_Hero as Hero,
+    Styled,
 } from '@components'
-import { useEffect } from 'react'
-import { themeConfig } from 'twTheme'
-import { MobileLayoutVariants as variants } from '@motion'
+import { BsArrowDown, BsChevronCompactDown } from 'react-icons/bs'
 
 const SlugToContent = ({ ...data }) => {
     switch (data.id) {
@@ -41,7 +42,6 @@ export default function SectionPage({
     }
     const heroData = Data.id == 'projects' ? Data.projects.data : Data.data
     const title = Data.id.charAt(0).toUpperCase() + Data.id.slice(1)
-    const bgColor = themeConfig.getSectionColor(activeSection)
 
     useEffect(() => window.scrollTo({ top: 0, behavior: 'auto' }))
 
@@ -49,13 +49,13 @@ export default function SectionPage({
         <Layout
             title={title}
             description={Data.description}
-            variants={!isLg && variants}
+            useTransition={!isLg}
+            activeSection={activeSection}
         >
             {isLg && (
                 <Hero
                     key={`${Data.id}-hero`}
                     even={activeSection % 2 == 0}
-                    bgColor={bgColor}
                     isLg={isLg}
                     {...heroData}
                 />
@@ -63,7 +63,7 @@ export default function SectionPage({
             <div
                 id={`${Data.id}-section-content`}
                 data-reading-section
-                className="flex-col-center relative mx-auto h-auto min-h-screen w-full max-w-[1200px] gap-y-24 px-2 py-14 lg:px-12"
+                className="flex-col-center relative mx-auto h-auto min-h-screen w-full max-w-screen-xxl gap-y-24 bg-white-dark px-2 py-14 lg:px-32 lg:py-[10vh] xxl:rounded-lg xxl:shadow"
             >
                 <SlugToContent {...Data} />
             </div>

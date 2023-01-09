@@ -56,7 +56,7 @@ const UserControls = ({ chevronAction, userPause, setUserPause }) => (
         ].map(([dir, value]) => (
             <div
                 key={`${dir == 'left' ? 'last' : 'next'}-btn`}
-                className="h-full py-2.5 px-4"
+                className="mx-1.5 h-full cursor-pointer p-2.5 text-white/40 hover:text-white"
                 style={{ order: value }}
             >
                 <Styled.Chevron

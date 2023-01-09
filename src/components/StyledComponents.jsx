@@ -103,7 +103,7 @@ const StyledComponents = {
         const scaleY = Math.cos((skewDeg * Math.PI) / 180)
         return (
             <motion.div
-                className={`group relative aspect-square h-full cursor-pointer text-white/40 hover:text-white ${dir2Trans[direction]}`}
+                className={`group relative aspect-square h-full cursor-pointer ${dir2Trans[direction]}`}
                 style={{
                     transition: 'transform 0.2s ease-out',
                 }}

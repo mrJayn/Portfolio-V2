@@ -36,7 +36,7 @@ const Featured_Full = ({ even, ...data }) => {
     return (
         <motion.div
             id={`featured-project-${Data.title}`}
-            className="flex-col-top relative z-10 mb-24 h-auto w-full first-of-type:mt-24"
+            className="flex-col-top relative z-10 mb-24 h-auto w-full"
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}

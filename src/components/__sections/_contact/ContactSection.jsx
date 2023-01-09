@@ -18,13 +18,15 @@ const ContactSection = ({ isLg }) => {
     const currentYear = new Date().getFullYear()
 
     return (
-        <div className="full flex flex-col">
+        <motion.div
+            className="full flex flex-col"
+            initial="hidden"
+            animate="show"
+            exit="hidden"
+        >
             <motion.div
                 key="contact-content"
                 className="flex-col-top full relative overflow-hidden pt-28 lg:justify-center max-lg:portrait:gap-y-8 max-lg:landscape:pt-14"
-                initial="hidden"
-                animate="show"
-                exit="hidden"
                 variants={variants.Content}
             >
                 <Headline />
@@ -54,7 +56,10 @@ const ContactSection = ({ isLg }) => {
             </motion.div>
 
             {/** FOOT **/}
-            <div className="flex-col-center w-full overflow-hidden py-2 text-12pt font-light uppercase md:py-4 xl:text-17pt">
+            <motion.div
+                className="flex-col-center w-full overflow-hidden py-2 text-12pt font-light uppercase md:py-4 xl:text-17pt"
+                variants={variants.Footer}
+            >
                 <p>
                     Designed & Built by :&nbsp;
                     <span className="font-robotoMono text-1.4x capitalize text-white">
@@ -62,8 +67,8 @@ const ContactSection = ({ isLg }) => {
                     </span>
                 </p>
                 <p>&#169; Copyright {currentYear}.</p>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     )
 }
 

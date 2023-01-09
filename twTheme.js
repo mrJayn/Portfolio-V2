@@ -71,11 +71,23 @@ const alpha2Hex = (opa) => {
 // Inputs
 const base_color_rgb = '17 24 39'
 const base_opacity = 1
-const totalColors = 5
 
-const getGradient = (index = null) => {
+const getGradient = (
+    index = null,
+    base_color = base_color_rgb,
+    totalColors = 5,
+    increment = 10,
+    offsets = {
+        red: -1,
+        green: 0,
+        blue: 2,
+        alpha: 0,
+    }
+) => {
     var linearGradient = 'linear-gradient(to bottom,'
-    var [r, g, b] = base_color_rgb.split(' ').map((i) => parseInt(i))
+    var [r, g, b] = String(base_color)
+        .split(' ')
+        .map((i) => parseInt(i))
     var a = base_opacity
 
     for (let i = 0; i < totalColors; i++) {
@@ -98,13 +110,6 @@ const getGradient = (index = null) => {
                 : Math.round(n * inc)
         }
 */
-        const increment = 10
-        const offsets = {
-            red: -1,
-            green: 0,
-            blue: 2,
-            alpha: 0,
-        }
         const [rX, gX, bX, aX] = [...Object.values(offsets)]
 
         r = Math.min(255, Math.max(0, Math.round(r + increment + rX)))
@@ -120,7 +125,14 @@ module.exports = {
     themeConfig: {
         fontSize: fontSizes,
         BackgroundRGB: base_color_rgb,
-        backgroundGradient: getGradient(),
+        bgGradient: getGradient(),
+        bgGradient2: getGradient(null, 2, -10, {
+            red: 2,
+            green: 0,
+            blue: 2,
+            alpha: -1,
+        }),
         getSectionColor: (index) => getGradient(index),
+        getGradient: getGradient,
     },
 }

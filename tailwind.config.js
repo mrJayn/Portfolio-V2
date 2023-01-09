@@ -75,6 +75,7 @@ module.exports = {
             md: '768px' /*  768-1023px.......... Small screens ~ laptops  */,
             lg: '1024px' /*  1024-1199px........  Large screens ~ Desktop  */,
             xl: '1200px' /*  1200-max............... XL screens ~ TVs  */,
+            xxl: '1440px',
             /* max: '1440px' */
         },
         spacing: {
@@ -154,12 +155,10 @@ module.exports = {
                 view: 'calc(100vh - 56px)',
             },
             backgroundImage: {
-                'background-gradient': themeConfig.backgroundGradient,
+                'background-gradient': themeConfig.bgGradient,
+                'background-gradient-2': themeConfig.bgGradient2,
                 gradient:
                     'linear-gradient(45deg, var(--theme-purple), var(--theme-teal))',
-                blackHole_LightRing: `radial-gradient( #0000 30%, var(--blackhole-light-1) 40%, var(--blackhole-light-2) 42.5%,var(--blackhole-light-3) 55%, #0000 70%)`,
-                'loader-gradient':
-                    'radial-gradient(transparent 0%, var(--loader-gradient-color-1) 2.5%, var(--loader-gradient-color-2) 15%, transparent 30%)',
             },
             borderRadius: {
                 '4xl': '3rem',

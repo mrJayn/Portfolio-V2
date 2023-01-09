@@ -2,7 +2,7 @@ export { default as Layout } from './Layout'
 export { default as Section } from './Section'
 export { default as Section_Content } from './Section_Content'
 export { default as Section_Graphic } from './Section_Graphic'
-export { default as Section_Hero } from './Section_Hero'
+export { default as Slug_Hero } from './Slug_Hero'
 
 export { default as Loader } from './Loader'
 

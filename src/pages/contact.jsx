@@ -10,7 +10,7 @@ export default function Contact({ isLg, activeSection }) {
         <Layout
             title="Contact"
             description="Send me a message!"
-            useTransition={!isLg}
+            isLg={isLg}
             activeSection={activeSection}
         >
             <motion.div

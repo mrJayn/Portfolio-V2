@@ -7,7 +7,7 @@ const Layout = ({
     title,
     description,
     isHome = false,
-    useTransition = false,
+    isLg,
     activeSection,
     children,
 }) => {
@@ -24,14 +24,14 @@ const Layout = ({
                 id={`${title}-Layout`}
                 className={`flex-col-top top-0 left-0 w-full ${
                     isHome
-                        ? 'bg-background-gradient absolute h-auto max-lg:z-0'
-                        : 'h-auto w-full overflow-x-hidden overflow-y-scroll max-lg:z-20'
+                        ? 'absolute h-auto bg-background-gradient max-lg:z-0'
+                        : 'h-auto overflow-hidden max-lg:z-20'
                 }`}
                 style={{ background: !isHome && baseColor }}
                 initial="hidden"
                 animate="show"
                 exit="exit"
-                variants={useTransition && LayoutVariants}
+                variants={!isLg && LayoutVariants}
             >
                 {!isHome && <a id="slugTop" />}
                 {children}

@@ -37,6 +37,12 @@
         @apply h-screen w-screen overflow-x-hidden bg-white-dark;
         /*@apply text-min sm:text-base lg:text-md;*/
     }
+    section {
+        @apply z-0;
+        &[data-section-in-view='true'] {
+            @apply z-10;
+        }
+    }
 
     h1 {
         @apply absolute h-px w-px overflow-hidden whitespace-nowrap;

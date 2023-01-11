@@ -46,43 +46,68 @@ const defaultBtn = {
 
 export const LayoutVariants = {
     hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { duration: 1 } },
-    exit: { opacity: 0, transition: { duration: 1 } },
+    show: { opacity: 1 },
+    exit: { opacity: 0 },
 }
 
 export const sectionVariants = {
-    Content: {
-        Container: {
-            hidden: {
-                transition: { duration: 0.75, ease: 'easeIn' },
-            },
-            show: {
-                transition: {
-                    delay: 0.25,
-                    duration: 1,
-                    ease: 'circOut',
-                    staggerChildren: 0.1,
-                    delayChildren: 0.15,
-                },
-            },
-            exit: {
-                transition: {
-                    duration: 0.75,
-                    ease: 'easeIn',
-                    staggerChildren: 0.1,
-                },
-            },
-        },
-        Item: {
-            hidden: { opacity: 0 },
-            show: {
-                opacity: 1,
-                transition: { duration: 0.5, ease: 'easeInOut' },
-            },
-            exit: { opacity: 0 },
-        },
-    },
+    Content: (isLg) =>
+        isLg
+            ? {
+                  Container: {
+                      hidden: {
+                          transition: { duration: 0.75, ease: 'easeIn' },
+                      },
+                      show: {
+                          transition: {
+                              staggerChildren: 0.25,
+                              staggerDirection: 1,
+                              delayChildren: 0.25,
+                          },
+                      },
+                      exit: {
+                          transition: {
+                              duration: 0.75,
+                              ease: 'easeIn',
+                              staggerChildren: 0.1,
+                          },
+                      },
+                  },
+                  Item: {
+                      hidden: { opacity: 0 },
+                      show: { opacity: 1, transition: { duration: 0.5 } },
+                      exit: { opacity: 0 },
+                  },
+              }
+            : { Container: {}, Item: {} },
+    Graphic: (isLg) =>
+        isLg
+            ? {
+                  hidden: (useFtd) => ({
+                      opacity: 0.15,
+                      scale: useFtd ? 1 : 0.65,
+                      borderRadius: '3rem',
+                      transition: { duration: 1, ease: 'easeInOut' },
+                  }),
+                  show: (useFtd) => ({
+                      opacity: 1,
+                      scale: useFtd ? 1 : 0.65,
+                      borderRadius: '3rem',
+                      transition: { duration: 1.5, ease: 'easeInOut' },
+                  }),
+                  exit: (useFtd) => ({
+                      opacity: useFtd ? 0 : 0.25,
+                      scale: 1,
+                      borderRadius: '0rem',
+                      transition: { duration: 0.75, ease: 'easeInOut' },
+                  }),
+              }
+            : {
+                  show: { opacity: 1 },
+                  exit: { opacity: 0 },
+              },
 }
+
 export const slugHeroVariants = {
     Wrapper: {
         hidden: {
@@ -152,24 +177,10 @@ export const slugHeroVariants = {
 
 export const navVariants = {
     NavLinks: {
-        hidden: (i) => ({
-            y: -50,
-            transition: { duration: 0.5, delay: i * 0.075 },
-        }),
-        show: (i) => ({
-            y: 0,
-            transition: {
-                duration: 1,
-                delay: 1.75 + i * 0.075,
-            },
-        }),
+        hidden: { y: -50 },
+        show: { y: 0 },
     },
     Burger: {
-        Wrap: {
-            initial: { opacity: 0 },
-            animate: { opacity: 1 },
-            exit: { opacity: 0 },
-        },
         Buns: {
             closed: {
                 rotate: 0.01,
@@ -226,6 +237,22 @@ export const navVariants = {
         },
     },
     BackButton: {
+        Wrapper: {
+            hidden: {
+                opacity: 0,
+                width: '0px',
+                transition: { when: 'afterChildren' },
+            },
+            show: {
+                opacity: 1,
+                width: '7.5vw',
+                transition: {
+                    delay: 0.5,
+                    duration: 0.5,
+                    when: 'beforeChildren',
+                },
+            },
+        },
         LineA: {
             hidden: {
                 scaleX: 0,

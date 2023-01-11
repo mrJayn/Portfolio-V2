@@ -2,16 +2,13 @@
 @tailwind utilities;
 
 @layer utilities {
-    .headline {
-    }
-
     div[data-reading-section] {
         & p {
             @apply text-black;
         }
 
         & h3 {
-            @apply text-4xl font-semibold text-slate sm:text-5xl;
+            @apply text-4xl font-semibold text-slate max-lg:text-center sm:text-5xl;
         }
     }
 

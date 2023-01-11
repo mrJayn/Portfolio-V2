@@ -31,6 +31,13 @@ function MyApp({ Component, pageProps }) {
         }
     }, [router.events])
 
+    useEffect(() => {
+        if (!isRouting) return () => clearTimeout(tiemout)
+        const tiemout = setTimeout(() => {
+            if (isRouting) setIsRouting(false)
+        }, 5000)
+    }, [isRouting])
+
     // Page Properties
     pageProps = {
         isHome: isHome,
@@ -45,13 +52,6 @@ function MyApp({ Component, pageProps }) {
         setSection: setSection,
         ...pageProps,
     }
-
-    useEffect(() => {
-        if (!isRouting) return () => clearTimeout(tiemout)
-        const tiemout = setTimeout(() => {
-            if (isRouting) setIsRouting(false)
-        }, 5000)
-    }, [isRouting])
 
     return (
         <>
@@ -88,10 +88,11 @@ function MyApp({ Component, pageProps }) {
                             activeSection={activeSection}
                             isHome={isHome}
                             isMd={isMd}
+                            isLg={isLg}
                         />
                         <>
                             <AnimatePresence
-                                mode={isLg ? 'wait' : 'sync'}
+                                mode="wait"
                                 onExitComplete={() => setIsRouting(false)}
                             >
                                 <Component key={url} {...pageProps} />

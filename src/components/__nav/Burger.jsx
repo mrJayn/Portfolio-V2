@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { navVariants } from '@motion'
 
-const Burger = ({ ANIM, handleBurger }) => {
+const Burger = ({ ANIM, handleBurger, size = 28 }) => {
     // ~Props~
     const lineProps = {
         strokeLinecap: 'round',
@@ -28,15 +28,17 @@ const Burger = ({ ANIM, handleBurger }) => {
 
     return (
         <motion.div
-            className="flex-center group aspect-square h-full cursor-pointer"
+            className="flex-center aspect-square h-full cursor-pointer text-grey-40 hover:text-white"
             onClick={handleBurger}
-            {...burgerVars.Wrap}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
         >
             <motion.svg
                 viewBox="0 0 2 2"
                 overflow="visible"
-                width={20}
-                height={20}
+                width={size}
+                height={size}
                 whileTap={{ scale: 0.95 }}
                 whileHover={{ stroke: '#66fcf1' }}
             >
@@ -45,7 +47,7 @@ const Burger = ({ ANIM, handleBurger }) => {
                     return (
                         <motion.line
                             key={`burger-component-${i}`}
-                            className="fill-transparent stroke-grey-40 stroke-[3] transition-[stroke] duration-500 group-hover:stroke-white"
+                            className="fill-transparent stroke-current stroke-[3] transition-colors duration-500"
                             x1={x1}
                             x2={x2}
                             y1={y1}

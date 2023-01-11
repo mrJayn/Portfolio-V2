@@ -4,49 +4,29 @@ import { Contact, Intro, Layout, Section } from '@components'
 import { index2id } from '@utils'
 
 export default function Home({ data, ...pageProps }) {
-    const Sections = [
-        {
-            id: 'intro',
-            data: <Intro {...pageProps} />,
-        },
-        {
-            id: 'about',
-            data: data.about,
-        },
-        {
-            id: 'experience',
-            data: data.experience,
-        },
-        {
-            id: 'projects',
-            data: {
-                featured: data.featured_data,
-                ...data.projects,
-            },
-        },
-        {
-            id: 'contact',
-            data: <Contact {...pageProps} />,
-        },
-    ]
+    const Sections = {
+        intro: <Intro {...pageProps} />,
+        about: data.about,
+        experience: data.experience,
+        projects: { featured: data.featured_data, ...data.projects },
+        contact: <Contact {...pageProps} />,
+    }
 
-    // scroll restDelta value - [ default=0.0005 , fast=10 ]
     const defaultRestDelta = 0.001
-    const [scrollSpeed, setScrollSpeed] = useState(defaultRestDelta)
-
+    const [restDelta, setRestDelta] = useState(defaultRestDelta)
     useEffect(() => {
         const sectionId = index2id(pageProps.activeSection)
         const section = document.getElementById(sectionId)
         const prevScrollY = null
 
-        setScrollSpeed(10)
+        setRestDelta(10)
         section.scrollIntoView({ behavior: 'auto' })
 
         const checkScroll = setInterval(() => {
             var scrollY = section.scrollTop
             if (scrollY == prevScrollY) {
                 clearInterval(checkScroll)
-                setScrollSpeed(defaultRestDelta)
+                setRestDelta(defaultRestDelta)
             }
             prevScrollY = scrollY
         }, 50)
@@ -58,13 +38,14 @@ export default function Home({ data, ...pageProps }) {
             isHome
             title="Portfolio"
             description="Hello, I'm Michael👋 - I'm an ChemEng graduate and a recent self-taught developer, aiming to break into tech ASAP!"
+            isLg={pageProps.isLg}
         >
-            {Sections.map(({ id, data }, index) => {
+            {Object.entries(Sections).map(([id, data], index) => {
                 const isValidJSX = isValidElement(data)
                 const props = {
                     id: id,
                     index: index,
-                    scrollSpeed: scrollSpeed,
+                    restDelta: restDelta,
                     ...(isValidJSX ? { useChildren: true } : data),
                     ...pageProps,
                 }

@@ -5,45 +5,38 @@ import Certifications from './Certifications'
 import Jobs from './Jobs'
 
 const Experience = ({ isMd, ...props }) => {
-    const Components = [
-        {
-            title: 'Proffesional Summary',
-            component: (
-                <>
-                    <h3>Professional Summary</h3>
-                    <div
-                        className="content-innerHTML experience"
-                        dangerouslySetInnerHTML={{ __html: props.content }}
-                    />
-                </>
-            ),
-        },
-        {
-            title: 'Work Experience',
-            component: <Jobs {...props.data} />,
-        },
-        {
-            title: 'Education',
-            component: isMd ? <Education {...props.data.education} /> : null,
-        },
-        {
-            title: 'Certifications',
-            component: (
-                <div className="flex-col-top relative w-full gap-y-8">
-                    {isMd ? null : <Education {...props.data.education} />}
-                    <Certifications {...props.data} />
-                </div>
-            ),
-        },
-    ]
+    const Comps = {
+        'Proffesional Summary': (
+            <>
+                <h3>Professional Summary</h3>
+                <div
+                    className="content-innerHTML experience"
+                    dangerouslySetInnerHTML={{ __html: props.content }}
+                />
+            </>
+        ),
+        'Work Experience': <Jobs {...props.data} />,
+        Education: <Education {...props.data.education} />,
+        Certifications: <Certifications {...props.data} />,
+    }
 
-    const ComponentArr = [
-        ...Object.values(Components)
-            .filter((obj) => obj.title !== 'Education')
-            .map((obj) => obj.component),
-    ]
+    return Object.entries(Comps).map(([title, component]) => (
+        <motion.div
+            key={`exp-item-${title}`}
+            className="full"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.5, ease: 'circOut' }}
+            viewport={{ once: true }}
+        >
+            {component}
+        </motion.div>
+    ))
+}
+export default Experience
 
-    return isMd ? (
+/**
+ *  return isMd ? (
         Components.map(({ title, component }) => (
             <motion.div
                 key={`exp-item-${title}`}
@@ -63,5 +56,4 @@ const Experience = ({ isMd, ...props }) => {
             tabs={ComponentArr}
         />
     )
-}
-export default Experience
+ */

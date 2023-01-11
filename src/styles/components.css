@@ -7,6 +7,24 @@
         --before: 0;
         --pseudos-transition: all 0.5s 0.85s var(--nav-ce);
 
+        & a[data-logo-text]:after {
+            --y1: 1;
+            --d: calc(1 - var(--y1));
+            --ty: calc(25% * var(--d));
+            content: attr(data-logo-text);
+            background: linear-gradient(
+                45deg,
+                var(--theme-teal),
+                var(--theme-slate),
+                var(--theme-purple),
+                var(--theme-slate),
+                var(--theme-teal)
+            );
+            background-size: 300%;
+            transition: transform 1s var(--nav-ce), filter 1s var(--nav-ce);
+            @apply absolute inset-0 -z-20 origin-top translate-x-[-0.05px] translate-y-[-5%] scale-y-[1.1] animate-[bgRotate_10s_linear_infinite] bg-clip-text text-center font-bold tracking-[0.075em] text-transparent blur-[1px] contrast-200 motion-reduce:animate-none;
+        }
+
         &[data-menuopen='true'] {
             --before: 1.15;
             --pseudos-transition: all 0.5s 0s var(--nav-ce);

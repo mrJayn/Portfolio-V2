@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { themeConfig } from 'twTheme'
 import { getAllMarkdown, getSectionMarkdown } from 'src/lib/markdown'
 import {
     About,
@@ -8,9 +7,7 @@ import {
     Experience,
     Form,
     Slug_Hero as Hero,
-    Styled,
 } from '@components'
-import { BsArrowDown, BsChevronCompactDown } from 'react-icons/bs'
 
 const SlugToContent = ({ ...data }) => {
     switch (data.id) {
@@ -49,7 +46,7 @@ export default function SectionPage({
         <Layout
             title={title}
             description={Data.description}
-            useTransition={!isLg}
+            isLg={isLg}
             activeSection={activeSection}
         >
             {isLg && (
@@ -63,7 +60,7 @@ export default function SectionPage({
             <div
                 id={`${Data.id}-section-content`}
                 data-reading-section
-                className="flex-col-center relative mx-auto h-auto min-h-screen w-full max-w-screen-xxl gap-y-24 bg-white-dark px-2 py-14 lg:px-32 lg:py-[10vh] xxl:rounded-lg xxl:shadow"
+                className=" flex-col-center relative mx-auto h-auto min-h-screen w-full max-w-screen-xxl gap-y-12 bg-white-dark px-2 pt-16 pb-12 md:gap-y-24 md:px-12 md:pb-24 md:pt-28 lg:px-32 lg:py-[10vh] xxl:rounded-lg xxl:shadow"
             >
                 <SlugToContent {...Data} />
             </div>

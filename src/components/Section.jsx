@@ -9,35 +9,30 @@ import {
 } from 'framer-motion'
 
 import { Section_Content, Section_Graphic } from '@components'
+import { sectionVariants } from '@motion'
 
-function useParrallax(scrollYProgress, isLg, scrollSpeed) {
-    const d = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]).current
-
+function useParrallax(scrollYProgress, scrollSpeed) {
+    const d = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0, 1]).current
     const ySpring = useSpring(scrollYProgress, {
         type: 'spring',
-        stiffness: 1250 - 500 * d,
-        damping: 500 - 250 * d,
-        mass: 10,
+        stiffness: 200 - d * 50,
+        damping: 100 - d * 50,
+        mass: 7.5,
         restDelta: scrollSpeed,
     })
 
-    var bounds = isLg ? [0, 0.5, 1] : [0.3, 0.5, 0.7]
-    var yOff = isLg ? 100 : 0
-    var yOff2 = yOff * -0.15
-    var motionValue = isLg ? ySpring : scrollYProgress
-
     return {
-        y: useTransform(ySpring, [0, 1], [`${yOff}%`, `${-yOff}%`]),
-        translateY: useTransform(ySpring, [0, 1], [`${-yOff2}%`, `${yOff2}%`]),
-        opacity: useTransform(motionValue, bounds, [0, 1, 0]),
-        rowGap: useTransform(motionValue, bounds, ['15vh', '1.5vh', '15vh']),
+        y: useTransform(ySpring, [0, 1], ['100%', '-100%']),
+        translateY: useTransform(ySpring, [0, 1], ['50%', '-50%']),
+        rowGap: useTransform(ySpring, [0, 0.5, 1], ['20vh', '2vh', '20vh']),
+        opacity: useTransform(scrollYProgress, [0.3, 0.5, 0.7], [0, 1, 0]),
     }
 }
 
 const Section = ({
     id,
     index,
-    scrollSpeed,
+    restDelta,
     activeSection,
     setSection,
     isLg,
@@ -52,30 +47,27 @@ const Section = ({
         target: ref,
         offset: ['start end', 'end start'],
     })
-    const { y, translateY, opacity, rowGap } = useParrallax(
+    const { y, translateY, rowGap, opacity } = useParrallax(
         scrollYProgress,
-        isLg,
-        scrollSpeed
+        restDelta
     )
-
     useEffect(() => {
         if ((activeSection !== index) & inView & !isRouting) setSection(index)
     }, [inView])
 
-    const contentProps = { id: id, index: index, isLg: isLg, ...data }
-    const graphicProps = { inView: inView, isLg: isLg, ...data }
+    const dataProps = { data: data.data, featured: data.featured }
     return (
         <motion.section
             id={id}
             data-section-in-view={index == activeSection}
-            className="relative h-screen w-screen snap-center"
+            className="relative h-screen w-screen snap-center last-of-type:mb-0 lg:mb-[100%]"
             ref={ref}
         >
             {useChildren ? (
                 <motion.div
                     key={`${id}-section-content`}
                     className="flex-center inset-0 overflow-hidden max-lg:absolute lg:fixed"
-                    style={{ y }}
+                    style={isLg ? { y } : {}}
                 >
                     {children}
                 </motion.div>
@@ -83,21 +75,34 @@ const Section = ({
                 <motion.div
                     key={`${id}-section-content-${isLg ? 'dsktp' : 'mobile'}`}
                     className="flex-center relative inset-0 overflow-hidden max-lg:absolute lg:fixed"
-                    style={{ y }}
+                    style={isLg ? { y } : {}}
                     initial="exit"
                     animate={
                         activeSection === index || !isLg ? 'show' : 'hidden'
                     }
                     exit="exit"
                 >
-                    <Section_Graphic {...graphicProps} />
+                    <Section_Graphic
+                        key={`${id}-graphic`}
+                        inView={inView}
+                        isLg={isLg}
+                        {...dataProps}
+                    />
                     <Section_Content
-                        style={{
-                            order: (index % 2) * 2 - 1,
-                            translateY,
-                            rowGap,
-                        }}
-                        {...contentProps}
+                        key={id + '-content'}
+                        urlAs={id.charAt(0).toUpperCase() + id.slice(1)}
+                        even={index % 2 == 0}
+                        style={
+                            isLg
+                                ? {
+                                      order: (index % 2) * 2 - 1,
+                                      translateY,
+                                      rowGap,
+                                  }
+                                : { opacity }
+                        }
+                        variants={sectionVariants.Content(isLg)}
+                        {...dataProps}
                     />
                 </motion.div>
             )}

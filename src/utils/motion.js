@@ -240,12 +240,14 @@ export const navVariants = {
         Wrapper: {
             hidden: {
                 opacity: 0,
-                width: '0px',
+                scaleX: 0,
+                originX: 0,
                 transition: { when: 'afterChildren' },
             },
             show: {
                 opacity: 1,
-                width: '7.5vw',
+                scaleX: 1,
+                originX: 0,
                 transition: {
                     delay: 0.5,
                     duration: 0.5,

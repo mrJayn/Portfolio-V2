@@ -22,7 +22,7 @@ const Layout = ({
             <motion.main
                 key={`${title}-Layout`}
                 id={`${title}-Layout`}
-                className={`flex-col-top top-0 left-0 w-full ${
+                className={`flex-col-top top-0 left-0 w-full min-w-[320px] ${
                     isHome
                         ? 'absolute h-auto bg-background-gradient max-lg:z-0'
                         : 'h-auto overflow-hidden max-lg:z-20'

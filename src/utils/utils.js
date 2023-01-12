@@ -44,23 +44,6 @@ export const paginate = (newDirection, currentTab, span, setTab) => {
 }
 
 /**
- * Scroll to the specified id
- * @param {string} querySelector - Query Selector of target element
- * @param {string} behaivor - scroll behaivor "smooth" or "auto"
- */
-export function scrollToID(querySelector, behaivor = null) {
-    const isMd = window.innerWidth >= 768
-
-    const scrollBehaivor =
-        behaivor !== null ? behaivor : isMd ? 'auto' : 'smooth'
-
-    document.querySelector(`#${querySelector}`).scrollIntoView({
-        behavior: scrollBehaivor,
-        block: isMd ? 'center' : 'end',
-    })
-}
-
-/**
  * @param {number} index - index of active section
  */
 export const index2id = (index) => {

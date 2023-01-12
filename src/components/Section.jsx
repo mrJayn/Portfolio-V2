@@ -60,7 +60,7 @@ const Section = ({
         <motion.section
             id={id}
             data-section-in-view={index == activeSection}
-            className="relative h-screen w-screen snap-center last-of-type:mb-0 lg:mb-[100%]"
+            className="relative h-screen w-full snap-center last-of-type:mb-0 lg:mb-[100%]"
             ref={ref}
         >
             {useChildren ? (

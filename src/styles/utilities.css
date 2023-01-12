@@ -72,4 +72,7 @@
     .flex-col-around {
         @apply flex flex-col items-center justify-around;
     }
+    .preserve-3d {
+        transform-style: preserve-3d;
+    }
 }

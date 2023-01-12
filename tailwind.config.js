@@ -130,8 +130,6 @@ module.exports = {
             30: '3',
             40: '4',
             50: '5',
-            60: '6',
-            auto: 'auto',
         },
         boxShadow: {
             DEFAULT:
@@ -181,10 +179,6 @@ module.exports = {
                     '0%': { backgroundPosition: '0% 0%' },
                     '50%': { backgroundPosition: '75% 0%' },
                     '100%': { backgroundPosition: '150% 0%' },
-                },
-                widthExpand: {
-                    '0%': { width: '0%' },
-                    '100%': { width: '100%' },
                 },
                 orbit: {
                     '0%': { transform: 'rotateZ(0deg)' },

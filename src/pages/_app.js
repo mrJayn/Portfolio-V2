@@ -2,15 +2,14 @@ import { useState, useRef, useEffect } from 'react'
 import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
 import { useRouter } from 'next/router'
-import { motion, AnimatePresence, MotionConfig } from 'framer-motion'
+import { AnimatePresence, MotionConfig } from 'framer-motion'
 import { ToastContainer } from 'react-toastify'
 
 import { Navbar, Loader } from '@components'
-import { useIsRouting, useMediaQuery, useScreenOrientation } from '@hooks'
+import { useMediaQuery, useScreenOrientation } from '@hooks'
 
 import '../styles/global.css'
 import 'react-toastify/dist/ReactToastify.css'
-import { index2id } from '@utils'
 
 function MyApp({ Component, pageProps }) {
     const router = useRouter()

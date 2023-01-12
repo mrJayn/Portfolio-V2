@@ -53,6 +53,8 @@ const fontSizes = {
     '1.7x': '1.7em',
     '1.8x': '1.8em',
     '1.9x': '1.9em',
+
+    logo: `clamp(26px,calc(26px + (32 - 26) * ((100vw - 320px) / (96))), 32px)`,
 }
 
 // BG-GRADIENT // BG-COLORS

@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
 import { toggleScrolling } from '@utils'
 import { Burger, Menu, NavItems } from '@navItems'
+import { useMediaQuery } from '@hooks'
 
-const Navbar = ({ activeSection, isHome, isMd, isLg }) => {
+const Navbar = ({ activeSection, isHome }) => {
+    const isLg = useMediaQuery(1024)
     const router = useRouter()
     const [menuOpen, setMenu] = useState(false)
 
@@ -30,9 +32,17 @@ const Navbar = ({ activeSection, isHome, isMd, isLg }) => {
         }, 50)
     }
 
+    const handleLogo = () => {
+        if (window.scrollY == 0 || typeof window == undefined) {
+            router.reload()
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+    }
+
     const Components = [
         {
-            display: !isMd,
+            display: !isLg,
             component: (
                 <Burger
                     ANIM={!isHome ? 'return' : menuOpen ? 'opened' : 'closed'}
@@ -42,16 +52,10 @@ const Navbar = ({ activeSection, isHome, isMd, isLg }) => {
         },
         {
             display: 'always',
-            component: (
-                <NavItems.Logo
-                    key="logo"
-                    isHome={isHome}
-                    useAnim={isMd & !isLg}
-                />
-            ),
+            component: <NavItems.Logo key="logo" onClick={handleLogo} />,
         },
         {
-            display: isMd,
+            display: isLg,
             component: (
                 <NavItems.NavLinks
                     key="nav-links"
@@ -63,8 +67,8 @@ const Navbar = ({ activeSection, isHome, isMd, isLg }) => {
     ]
 
     useEffect(() => {
-        if (isMd & menuOpen || !isHome & menuOpen) setMenu(false)
-    }, [isMd, isHome, menuOpen])
+        if (isLg & menuOpen || !isHome & menuOpen) setMenu(false)
+    }, [isLg, isHome, menuOpen])
 
     return (
         <>
@@ -91,10 +95,18 @@ const Navbar = ({ activeSection, isHome, isMd, isLg }) => {
                 </ul>
                 <span className="tempered-bg absolute inset-0" />
             </motion.nav>
-            {isMd && (
-                <NavItems.BackBtn isHome={isHome} backToHome={backToHome} />
-            )}
-            {!isMd && <Menu menuOpen={menuOpen} toggleMenu={toggleMenu} />}
+            <AnimatePresence>
+                {isLg
+                    ? !isHome && (
+                          <NavItems.BackBtn
+                              key="nav-back-btn"
+                              backToHome={backToHome}
+                          />
+                      )
+                    : menuOpen && (
+                          <Menu key="nav-menu" toggleMenu={toggleMenu} />
+                      )}
+            </AnimatePresence>
         </>
     )
 }

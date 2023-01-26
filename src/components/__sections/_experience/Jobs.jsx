@@ -5,13 +5,14 @@ import { experienceMotion as variants } from '@motion'
 import { Accordion } from '@components'
 
 const Content = ({ Job }) => (
-    <ul className="full -z-10 p-4 md:pt-20">
+    <ul className="full p-4">
         <motion.li
-            className="flex-col-top font-semibold tracking-wide text-black underline-offset-8 md:absolute md:top-4 md:right-4 md:left-4 md:flex-row md:justify-center md:gap-x-10 md:underline"
+            className="flex-col-top mb-1 border-b-[1px]"
             variants={variants.Content}
         >
-            <span className="md:w-3/4">{Job.position}</span>
-            <span className="whitespace-nowrap text-[0.7em]">{Job.dates}</span>
+            <h6 className="min-h-[2em] text-center font-semibold tracking-md text-black">
+                {Job.position}
+            </h6>
         </motion.li>
         {Job.description.map((item, i) => (
             <motion.li
@@ -32,9 +33,9 @@ const Jobs = ({ ...props }) => {
     const [active, setActive] = useState(-1)
 
     return (
-        <div className="flex-col-center w-full md:rounded-4xl md:rounded-tl-none md:rounded-br-none md:bg-slate-90 md:p-6">
-            <h3>Work Experience</h3>
-            <div className="flex-col-center w-full overflow-hidden px-2 sm:px-4 lg:py-4">
+        <div className="flex-col-center relative w-full">
+            <h3 className="z-10">Work Experience</h3>
+            <div className="flex-col-center z-10 w-full overflow-hidden p-2">
                 {props.jobs.map((Job, index) => {
                     const isActive = index == active
                     return (
@@ -51,6 +52,7 @@ const Jobs = ({ ...props }) => {
                     )
                 })}
             </div>
+            <div className="absolute -inset-3 -bottom-6 rounded-3xl rounded-tl-none rounded-br-none bg-slate-90" />
         </div>
     )
 }

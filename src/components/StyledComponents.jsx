@@ -1,5 +1,4 @@
-import { motion, transform } from 'framer-motion'
-import Image from 'next/image'
+import { motion } from 'framer-motion'
 import Paths from './items/Paths'
 import { styledComponentsVariants as variants } from '@motion'
 
@@ -23,15 +22,21 @@ const links = [
 ]
 
 const StyledComponents = {
-    Button: ({ submit = false, active = false, children, ...props }) => {
+    Button: ({ submit = false, children }) => {
         return (
-            <button
+            <motion.button
                 type={submit ? 'submit' : 'button'}
-                data-active-state={active}
-                {...props}
+                className="flex-center z-30 mx-auto min-w-min max-w-full cursor-pointer select-none overflow-hidden whitespace-nowrap rounded-md px-6 py-3 font-robotoMono uppercase tracking-2xl text-white/75 shadow-sm brightness-100 contrast-100 hover:text-white hover:brightness-110 hover:contrast-125 max-lg:w-[50vw] lg:px-24"
+                style={{
+                    transition:
+                        'all 0.25s cubic-bezier(0.5, 0.5, 0.5, 1), color 0.25s ease-in',
+                }}
+                data-styled-btn
+                whileHover={{ y: -2.5 }}
+                whileTap={{ scale: 0.9 }}
             >
                 {children}
-            </button>
+            </motion.button>
         )
     },
     Icon: ({ name, size = '100%', fill = 'none', className = '' }) => {
@@ -158,11 +163,11 @@ const StyledComponents = {
             </motion.div>
         )
     },
-    Background: ({ even = true }) =>
+    Background: ({ even = true, zIndex = -1 }) =>
         [true, false].map((bool, i) => (
             <motion.div
                 key={`decoration-${i}`}
-                className={`flex-center absolute -z-10 h-3/4 w-full ${
+                className={`flex-center absolute h-3/4 w-full ${
                     bool ? 'top-0 bg-slate-40/25 ' : 'bottom-0 bg-slate-90/50'
                 } ${
                     even
@@ -173,6 +178,7 @@ const StyledComponents = {
                         ? 'right-0 origin-right rounded-bl-full'
                         : 'left-0 origin-left rounded-tr-full'
                 }`}
+                style={{ zIndex: zIndex }}
                 variants={variants.Background}
                 custom={bool ? !even : even}
             />

@@ -2,16 +2,18 @@
 @tailwind utilities;
 
 @layer utilities {
-    div[data-reading-section] {
-        & p {
-            @apply text-black;
-        }
-
-        & h3 {
-            @apply text-4xl font-semibold text-slate max-lg:text-center sm:text-5xl;
-        }
+    .border-2-red {
+        @apply border-2 border-red;
     }
-
+    .bg-gradient-wave {
+        background: linear-gradient(
+            45deg,
+            var(--theme-purple),
+            var(--theme-teal),
+            var(--theme-purple)
+        );
+        @apply animate-[bgRotate_10s_linear_infinite] bg-300% bg-clip-text text-transparent motion-reduce:animate-none;
+    }
     .backdrop-blurred:after {
         content: '';
         @apply absolute inset-0 -z-10 bg-white/10 backdrop-blur-md duration-1000 ease-in-out;
@@ -20,6 +22,12 @@
     /* Functional */
     .full {
         @apply h-full w-full;
+    }
+    .screen {
+        @apply h-screen w-screen;
+    }
+    .preserve-3d {
+        transform-style: preserve-3d;
     }
     .absoluteFull {
         @apply absolute top-0 right-0 left-0 bottom-0;
@@ -71,8 +79,5 @@
     }
     .flex-col-around {
         @apply flex flex-col items-center justify-around;
-    }
-    .preserve-3d {
-        transform-style: preserve-3d;
     }
 }

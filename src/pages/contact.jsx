@@ -1,36 +1,36 @@
 import { motion } from 'framer-motion'
 
 import { themeConfig } from 'twTheme'
-import { contactVariants as variants } from '@motion'
 import { Layout, Form, Styled } from '@components'
+import { useEffect } from 'react'
 
-export default function Contact({ isLg, activeSection }) {
+export default function Contact({ activeSection }) {
     const backgroundColor = themeConfig.getSectionColor(activeSection)
+
+    useEffect(() => window.scrollTo({ top: 0, behavior: 'auto' }))
+
     return (
         <Layout
             title="Contact"
             description="Send me a message!"
-            isLg={isLg}
             activeSection={activeSection}
         >
             <motion.div
-                className="flex-col-center relative z-0 mx-auto min-h-screen w-full overflow-y-scroll px-2 py-14 text-center"
+                className="flex-col-center px-2 py-14 relative z-0 mx-auto min-h-screen w-full overflow-y-scroll text-center"
                 style={{ backgroundColor: backgroundColor }}
                 initial="hidden"
                 animate="show"
                 exit="hidden"
-                variants={variants.Wrapper}
+                variants={{ hidden: { opacity: 0 }, show: { opacity: 1 } }}
+                transition={{ duration: 0.5 }}
             >
-                {isLg && <Styled.Background />}
+                <Styled.Background />
 
-                <motion.p
-                    className="my-4 text-center md:portrait:text-1.2x landscape:text-1x lg:landscape:text-1.3x"
-                    variants={variants.Item}
-                >
+                <p className="my-4 lg:mb-2 text-center md:portrait:text-[1.2em] lg:landscape:text-[1.3em]">
                     Use this form to send your message, <br />
                     and I&apos;ll get back to you ASAP!
-                </motion.p>
-                <Form isLg={isLg} />
+                </p>
+                <Form />
             </motion.div>
         </Layout>
     )

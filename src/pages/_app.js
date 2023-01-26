@@ -6,7 +6,7 @@ import { AnimatePresence, MotionConfig } from 'framer-motion'
 import { ToastContainer } from 'react-toastify'
 
 import { Navbar, Loader } from '@components'
-import { useMediaQuery, useScreenOrientation } from '@hooks'
+import { useMediaQuery } from '@hooks'
 
 import '../styles/global.css'
 import 'react-toastify/dist/ReactToastify.css'
@@ -18,8 +18,8 @@ function MyApp({ Component, pageProps }) {
 
     const [isLoading, setIsLoading] = useState(isHome)
     const [activeSection, setSection] = useState(0)
-    const [isSm, isMd, isLg] = useMediaQuery(414, 768, 1024)
-    // const isRouting = useIsRouting(true)
+    const isLg = useMediaQuery(1024)
+
     const [isRouting, setIsRouting] = useState(false)
     useEffect(() => {
         router.events.on('routeChangeStart', () => setIsRouting(true))
@@ -30,25 +30,14 @@ function MyApp({ Component, pageProps }) {
         }
     }, [router.events])
 
-    useEffect(() => {
-        if (!isRouting) return () => clearTimeout(tiemout)
-        const tiemout = setTimeout(() => {
-            if (isRouting) setIsRouting(false)
-        }, 5000)
-    }, [isRouting])
-
-    // Page Properties
     pageProps = {
         isHome: isHome,
         isFirstLoad: useRef(true),
-        isRouting: isRouting,
-        setIsRouting: setIsRouting,
-        isSm: isSm,
-        isMd: isMd,
-        isLg: isLg,
-        screenOrientation: useScreenOrientation(),
         activeSection: activeSection,
-        setSection: setSection,
+        setSection: (index) => {
+            if (!isRouting) setSection(index)
+        },
+        ...(!isHome && { isLg: isLg }),
         ...pageProps,
     }
 
@@ -76,19 +65,11 @@ function MyApp({ Component, pageProps }) {
             />
             <h1>Mike Jayne</h1>
             {isLoading && isHome ? (
-                <Loader
-                    setIsLoading={setIsLoading}
-                    screenFill={isMd ? 50 : isSm ? 75 : 100}
-                />
+                <Loader loaderComplete={() => setIsLoading(false)} />
             ) : (
                 <>
                     <MotionConfig reducedMotion="user">
-                        <Navbar
-                            activeSection={activeSection}
-                            isHome={isHome}
-                            isMd={isMd}
-                            isLg={isLg}
-                        />
+                        <Navbar isHome={isHome} activeSection={activeSection} />
                         <>
                             <AnimatePresence
                                 mode="wait"

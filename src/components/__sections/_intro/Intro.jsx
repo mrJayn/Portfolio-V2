@@ -8,38 +8,34 @@ import Title from './Title'
 import Graphic from './Graphic'
 
 const Intro = ({ isFirstLoad }) => {
-    const initialAnim = isFirstLoad.current ? 'hidden' : 'show'
+    const is1st = isFirstLoad.current
 
     const onTitleComplete = () => {
         if (!isFirstLoad.current) return
         isFirstLoad.current = false
     }
 
-    const is1st = isFirstLoad.current
-
     return (
         <motion.div
             key="intro-section"
             className="flex-col-center full select-text py-[4vh] lg:py-20"
-            initial={is1st ? 'hidden' : 'exit'}
+            initial="hidden"
             animate="show"
             exit="exit"
             variants={variants.Wrap}
             custom={is1st}
         >
-            <Title is1st={is1st} onTitleComplete={onTitleComplete} />
-            <motion.h2 className="leading-none" variants={variants.SubHead}>
-                Portfolio
-            </motion.h2>
-            <span className="w-full flex-[0.5] lg:flex-[0.25]" />
+            <Title onTitleComplete={onTitleComplete} />
+            <motion.h2 variants={variants.SubHead}>Portfolio</motion.h2>
+
+            <span className="w-full flex-[0.25] md:flex-[0.5] lg:flex-[0.6]" />
             <motion.div variants={variants.Btn}>
                 <Styled.Button>
                     <Link
                         href={{
-                            pathname: '/section/[slug]',
-                            query: { slug: 'projects' },
+                            pathname: '/[sid]',
+                            query: { sid: 'Projects' },
                         }}
-                        as={'/Projects'}
                         scroll={false}
                     >
                         VIEW MY PROJECTS
@@ -53,8 +49,7 @@ const Intro = ({ isFirstLoad }) => {
             >
                 <BsChevronCompactDown />
             </motion.a>
-
-            <div className="pointer-events-none absolute top-[12.5%] bottom-0 left-0 -z-10 w-full overflow-hidden rounded-lg opacity-50 lg:left-1/2 lg:top-0 lg:bottom-[45%] lg:z-10 lg:w-1/2 lg:translate-x-[-5vw] lg:opacity-100">
+            <div className="pointer-events-none absolute inset-0 top-[6.25%] -z-10">
                 <Graphic
                     initial="hidden"
                     animate="show"

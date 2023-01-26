@@ -7,9 +7,10 @@ import {
     useTransform,
     useSpring,
 } from 'framer-motion'
-
-import { Section_Content, Section_Graphic } from '@components'
+import { useMediaQuery } from '@hooks'
 import { sectionVariants } from '@motion'
+import Section_Content from './Section_Content'
+import Section_Graphic from './Section_Graphic'
 
 function useParrallax(scrollYProgress, scrollSpeed) {
     const d = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0, 1]).current
@@ -35,12 +36,11 @@ const Section = ({
     restDelta,
     activeSection,
     setSection,
-    isLg,
-    isRouting,
     useChildren = false,
     children,
     ...data
 }) => {
+    const isLg = useMediaQuery(1024)
     const ref = useRef(null)
     const inView = useInView(ref, { amount: isLg ? 0.5 : 0.75 })
     const { scrollYProgress } = useScroll({
@@ -52,7 +52,7 @@ const Section = ({
         restDelta
     )
     useEffect(() => {
-        if ((activeSection !== index) & inView & !isRouting) setSection(index)
+        if ((activeSection !== index) & inView) setSection(index)
     }, [inView])
 
     const dataProps = { data: data.data, featured: data.featured }
@@ -89,7 +89,7 @@ const Section = ({
                         {...dataProps}
                     />
                     <Section_Content
-                        key={id + '-content'}
+                        key={`${id}-content`}
                         urlAs={id.charAt(0).toUpperCase() + id.slice(1)}
                         even={index % 2 == 0}
                         style={

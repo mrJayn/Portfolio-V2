@@ -5,8 +5,7 @@ brief: 'A simple treemap diagram constructed using primarily D3.js and CSS'
 tech:
     - D3.js
     - HTML
-    - CSS
-    - jacascript
+    - SCSS
 github: ''
 external: 'https://codepen.io/mrjayn/pen/ExQxpQm'
 src: '/assets/featured/treemap_diagram.png'

@@ -1,16 +1,15 @@
 import { motion } from 'framer-motion'
-import { Tabs } from '@components'
 import Education from './Education'
 import Certifications from './Certifications'
 import Jobs from './Jobs'
 
-const Experience = ({ isMd, ...props }) => {
+const Experience = ({ ...props }) => {
     const Comps = {
         'Proffesional Summary': (
             <>
                 <h3>Professional Summary</h3>
                 <div
-                    className="content-innerHTML experience"
+                    className="content-innerHTML w-full"
                     dangerouslySetInnerHTML={{ __html: props.content }}
                 />
             </>
@@ -21,39 +20,16 @@ const Experience = ({ isMd, ...props }) => {
     }
 
     return Object.entries(Comps).map(([title, component]) => (
-        <motion.div
+        <motion.section
             key={`exp-item-${title}`}
             className="full"
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.5, ease: 'circOut' }}
             viewport={{ once: true }}
         >
             {component}
-        </motion.div>
+        </motion.section>
     ))
 }
 export default Experience
-
-/**
- *  return isMd ? (
-        Components.map(({ title, component }) => (
-            <motion.div
-                key={`exp-item-${title}`}
-                className="full"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1.5, ease: 'circOut' }}
-                viewport={{ once: true }}
-            >
-                {component}
-            </motion.div>
-        ))
-    ) : (
-        <Tabs
-            id="Experience"
-            tabNames={['Summary', 'Jobs', 'Education']}
-            tabs={ComponentArr}
-        />
-    )
- */

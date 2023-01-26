@@ -39,7 +39,7 @@ export async function getAllMarkdown() {
             })
         }
     }
-    const textFolder = table.filter((x) => x.folder == 'text')
+
     res['about'] = table
         .filter((x) => x.folder == 'text')
         .filter((y) => y.id == 'about')[0]
@@ -57,6 +57,8 @@ export async function getAllMarkdown() {
 
 //=================================================
 export async function getSectionMarkdown(slug) {
+    slug = slug.toLowerCase()
+
     if (slug !== 'projects') {
         const sectionPath = path.join(contentDirectory, 'text', slug + '.md')
         const sectionContent = fs.readFileSync(sectionPath, 'utf-8')

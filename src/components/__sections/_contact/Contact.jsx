@@ -14,7 +14,7 @@ const Headline = () => (
     </div>
 )
 
-const ContactSection = ({ isLg }) => {
+const ContactSection = ({}) => {
     const currentYear = new Date().getFullYear()
 
     return (
@@ -30,14 +30,12 @@ const ContactSection = ({ isLg }) => {
                 variants={variants.Content}
             >
                 <Headline />
-                <div className="max-lg:flex-col-evenly lg:flex-evenly relative w-[90%] gap-y-8 rounded-3xl md:py-12 lg:flex-row-reverse max-[900px]:landscape:gap-y-2 max-[900px]:landscape:py-4">
+                <div className="max-lg:flex-col-evenly lg:flex-evenly relative w-[90%] gap-y-8 rounded-3xl md:py-12 lg:flex-row-reverse max-[930px]:landscape:gap-y-2 max-[930px]:landscape:py-2">
                     {/** Right **/}
                     <motion.div variants={variants.Button}>
                         <Styled.Button>
                             <Link href="./contact" scroll={false}>
-                                <span className="md:py-4 md:text-1.1x lg:text-1.3x landscape:py-0 lg:landscape:py-4">
-                                    Send a Message
-                                </span>
+                                Send Message
                             </Link>
                         </Styled.Button>
                     </motion.div>
@@ -48,7 +46,7 @@ const ContactSection = ({ isLg }) => {
                     >
                         <Styled.Socials
                             useText
-                            className={`sm:flex-center responsive-socials-width relative h-[3em] lg:text-1.3x `}
+                            className="sm:flex-center responsive-socials-width relative h-[3em] lg:text-[1.3em]"
                             variants={variants.Socials.Item}
                         />
                     </motion.div>
@@ -62,7 +60,7 @@ const ContactSection = ({ isLg }) => {
             >
                 <p>
                     Designed & Built by :&nbsp;
-                    <span className="font-robotoMono text-1.4x capitalize text-white">
+                    <span className="font-robotoMono text-[1.4em] capitalize text-white">
                         Michael Jayne
                     </span>
                 </p>

@@ -32,33 +32,14 @@ const Links = ({ activeSection = 0, className, action = null, ...props }) =>
     })
 
 const NavItems = {
-    Logo: ({ useAnim, isHome }) => (
-        <motion.a
-            key={`logo-${useAnim && 'animated'}`}
+    Logo: ({ ...props }) => (
+        <a
             data-logo="MIKE JAYNE"
-            onClick={() => {
-                if (window.scrollY == 0 || typeof window == undefined) {
-                    location.reload()
-                } else {
-                    window.scrollTo({ top: 0, behavior: 'smooth' })
-                }
-            }}
-            className="flex-center relative cursor-pointer select-none overflow-hidden whitespace-nowrap text-center text-28pt tracking-widest text-white/50 transition-colors duration-500 ease-tween hover:text-white/80 max-md:fixed max-md:left-1/2 max-md:translate-x-[-50%]"
-            {...(useAnim && {
-                initial: false,
-                animate: isHome
-                    ? {
-                          x: '0%',
-                          transition: { duration: 1, ease: 'easeInOut' },
-                      }
-                    : {
-                          x: 'calc(50vw - 60%)',
-                          transition: { duration: 1, ease: 'easeInOut' },
-                      },
-            })}
+            className="flex-center relative cursor-pointer select-none overflow-hidden whitespace-nowrap text-center text-28pt font-thin tracking-2xl text-white/60 transition-colors duration-500 ease-tween hover:text-white/80 max-lg:fixed max-lg:left-1/2 max-lg:translate-x-[-50%]"
+            {...props}
         >
             MIKE JAYNE
-        </motion.a>
+        </a>
     ),
     NavLinks: ({ isHome, activeSection }) => (
         <AnimatePresence>
@@ -82,7 +63,7 @@ const NavItems = {
                 >
                     <Links
                         activeSection={activeSection}
-                        className="flex-center relative mx-2 h-3/4 cursor-pointer bg-clip-text px-2 text-[0.85em] font-medium leading-none transition-colors delay-100 duration-250 ease-in hover:text-white"
+                        className="flex-center relative mx-2 h-3/4 cursor-pointer bg-clip-text px-2 text-[0.9em] font-medium leading-none transition-colors delay-100 duration-250 ease-in hover:text-white"
                         variants={{ hidden: { y: -50 }, show: { y: 0 } }}
                         transition={{ duration: 0.5 }}
                     />
@@ -96,7 +77,7 @@ const NavItems = {
             variants={menuVariants.Links.Wrap}
         >
             <Links
-                className="landscape:flex-left cursor-pointer rounded-xl py-[2vh] px-5 text-md capitalize tracking-widest text-grey-40 saturate-50 landscape:max-h-[4em]"
+                className="landscape:flex-left cursor-pointer rounded-xl py-[2vh] px-5 capitalize tracking-2xl text-grey-40 saturate-50 landscape:max-h-[4em]"
                 action={toggleMenu}
                 style={{
                     boxShadow:
@@ -111,38 +92,31 @@ const NavItems = {
             />
         </motion.ul>
     ),
-    BackBtn: ({ isHome, backToHome }) => (
-        <AnimatePresence>
-            {!isHome && (
-                <motion.div
-                    className="fixed top-2 left-[calc(5vw-30px)] z-50 aspect-[1.75/1] w-24 cursor-pointer overflow-hidden rounded-xl bg-nav/75 text-white/75 shadow-md backdrop-blur-sm hover:text-white lg:top-16 lg:aspect-[1.5/1]"
+    BackBtn: ({ backToHome }) => (
+        <motion.button
+            className="fixed top-16 left-2 z-50 aspect-[1.25/1] w-24 cursor-pointer overflow-hidden rounded-xl bg-black/50  text-grey-30 backdrop-blur-sm hover:text-white max:left-[calc(8px+(25vw-360px))]"
+            initial="hidden"
+            animate="show"
+            exit="hidden"
+            variants={navVariants.BackBtn.Wrapper}
+            whileHover={{ x: -2.5 }}
+            whileTap={{ scale: 0.9, originX: 0.5 }}
+            onClick={() => backToHome()}
+        >
+            {[0, 45, -45].map((degrees, i) => (
+                <motion.span
+                    key={`back-btn-component-${i}`}
+                    className={`absolute top-[45%] left-[15%] h-1.5 rounded-full bg-current transition-colors duration-250 ease-tween ${
+                        degrees == 0 ? 'ml-[3px] w-[60%]' : 'w-[35%]'
+                    }`}
                     initial="hidden"
                     animate="show"
                     exit="hidden"
-                    variants={navVariants.BackButton.Wrapper}
-                    whileHover={{ scale: 1.05, originX: 0.5 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={backToHome}
-                >
-                    {[0, 45, -45].map((deg, i) => (
-                        <motion.span
-                            key={`back-btn-line-${i}`}
-                            className={`absolute top-[45%] left-1/4 h-1 rounded-full bg-current transition-colors duration-250 ease-in ${
-                                deg == 0
-                                    ? 'ml-[3px] w-1/2'
-                                    : 'w-1/4 origin-left'
-                            }`}
-                            variants={
-                                navVariants.BackButton[
-                                    deg == 0 ? 'LineA' : 'LineB'
-                                ]
-                            }
-                            custom={deg}
-                        />
-                    ))}
-                </motion.div>
-            )}
-        </AnimatePresence>
+                    variants={navVariants.BackBtn.Line}
+                    custom={degrees}
+                />
+            ))}
+        </motion.button>
     ),
 }
 

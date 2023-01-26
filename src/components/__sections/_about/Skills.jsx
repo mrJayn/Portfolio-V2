@@ -3,21 +3,18 @@ import { motion } from 'framer-motion'
 import { aboutVariants } from '@motion'
 const variants = aboutVariants.Skills
 
-const Skills = ({ isMd, ...data }) => (
-    <motion.div
-        key="about-skill"
-        className="flex-col-top h-auto w-full text-center md:items-start"
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-    >
+const Skills = ({ ...data }) => (
+    <>
         <h3>Skill Set</h3>
         <motion.ul
             className="grid w-full grid-cols-1 gap-2 py-4 md:grid-cols-2 md:gap-4 md:px-20 landscape:grid-cols-2"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
             variants={variants.Container}
         >
             {data.skills.map(({ title, src }, i) => {
-                const rotate = (isMd ? -15 : -15) * i
+                const rotate = -15 * i
                 return (
                     <motion.li
                         key={`${title}-skill-item`}
@@ -39,7 +36,7 @@ const Skills = ({ isMd, ...data }) => (
                             />
                         </div>
                         <span
-                            className="ml-1.5 whitespace-nowrap font-robotoMono text-[1.25em] tracking-tighter text-slate md:w-auto md:text-[1.25em]"
+                            className="ml-1.5 whitespace-nowrap font-robotoMono text-[1.2em] -tracking-lg text-slate md:w-auto"
                             style={{ filter: `hue-rotate(${rotate}deg)` }}
                         >
                             {title}
@@ -48,7 +45,7 @@ const Skills = ({ isMd, ...data }) => (
                 )
             })}
         </motion.ul>
-    </motion.div>
+    </>
 )
 
 export default Skills

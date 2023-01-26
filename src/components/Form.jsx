@@ -1,9 +1,8 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/router'
+import { motion } from 'framer-motion'
 import { toast } from 'react-toastify'
-
-import { contactVariants as variants } from '@motion'
 import { Styled } from '@components'
 
 const ToastMsg = ({ success }) => {
@@ -29,7 +28,8 @@ const ToastMsg = ({ success }) => {
     )
 }
 
-const Form = ({ isLg }) => {
+const Form = ({}) => {
+    const router = useRouter()
     const {
         register,
         handleSubmit,
@@ -49,7 +49,7 @@ const Form = ({ isLg }) => {
         })
             .then((res) => {
                 if (res.status === 200) {
-                    // console.log("Response succeeded!");
+                    router.push('/', '', { scroll: false })
                     toast.success(<ToastMsg success={true} />, {
                         toastId: 'success-toast',
                         position: 'top-right',
@@ -153,7 +153,7 @@ const Form = ({ isLg }) => {
             name: null,
             component: (
                 <Styled.Button submit>
-                    <span className="lg:text-1.2x">send</span>
+                    <span className="lg:text-[1.2em]">send</span>
                 </Styled.Button>
             ),
         },
@@ -161,7 +161,7 @@ const Form = ({ isLg }) => {
 
     const ReactivePlaceholder = ({ name }) =>
         name ? (
-            <span className="placeholder pointer-events-none absolute inset-0 z-10 flex origin-top-left translate-y-3 select-none justify-start pl-3 pt-1 font-medium text-grey duration-150 ease-in">
+            <span className="placeholder inset-0 translate-y-3 pl-3 pt-1 pointer-events-none absolute z-10 flex origin-top-left select-none justify-start font-medium text-grey duration-150 ease-in">
                 {name}
             </span>
         ) : null
@@ -169,16 +169,19 @@ const Form = ({ isLg }) => {
     return (
         <motion.form
             id="form"
-            className="flex-col-center flex w-full max-w-[600px] gap-x-2 md:grid md:grid-cols-4 md:p-4 lg:w-[85vw] lg:max-w-[1000px] lg:text-1.1x"
+            className="flex-col-center gap-x-2 md:p-4 flex w-full max-w-[600px] md:grid md:grid-cols-4 lg:w-[85vw] lg:max-w-[1000px] lg:text-[1.1em]"
             onSubmit={handleSubmit(onSubmit)}
             method="POST"
-            variants={variants.FormContainer}
-            custom={isLg}
+            variants={{
+                hidden: { rowGap: '24px' },
+                show: { rowGap: '8px' },
+            }}
+            transition={{ duration: 1 }}
         >
             {formItems.map(({ name, component }, i) => (
-                <motion.div
+                <div
                     key={`form-component-${i}`}
-                    className="full flex-center relative last-of-type:mt-4"
+                    className="full flex-center last-of-type:mt-4 relative"
                     style={{
                         gridArea: [
                             '1/1/1/3',
@@ -188,11 +191,10 @@ const Form = ({ isLg }) => {
                             '4/1/4/-1',
                         ][i],
                     }}
-                    variants={variants.Item}
                 >
                     {component}
                     <ReactivePlaceholder name={name} />
-                </motion.div>
+                </div>
             ))}
         </motion.form>
     )

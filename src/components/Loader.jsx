@@ -1,8 +1,9 @@
-import { useEffect, useCallback } from 'react'
+import { useEffect, useCallback, useState } from 'react'
 import anime from 'animejs'
 
-const Loader = ({ setIsLoading, screenFill = 100 }) => {
+const Loader = ({ loaderComplete }) => {
     const gridSize = 20
+    const [elSize, setElSize] = useState(5)
 
     const animate = useCallback(() => {
         const spring = 'spring(1, 20, 10, 10)'
@@ -11,7 +12,7 @@ const Loader = ({ setIsLoading, screenFill = 100 }) => {
             from: 'center',
         }
         const animation = anime.timeline({
-            complete: () => setIsLoading(false),
+            complete: () => loaderComplete(),
         })
         animation
             .add(
@@ -125,35 +126,17 @@ const Loader = ({ setIsLoading, screenFill = 100 }) => {
                 },
                 2250
             )
-        /*
-            .add(
-                {
-                    targets: '.square',
-                    scale: [
-                        { value: 0.5 },
-                        { value: 0.75, easing: spring, duration: 250 },
-                        { value: 0, easing: spring, duration: 150 },
-                    ],
-                    translateX: anime.stagger(-15, {
-                        ...staggerProps,
-                        axis: 'x',
-                    }),
-                    translateY: anime.stagger(-15, {
-                        ...staggerProps,
-                        axis: 'y',
-                    }),
-                    delay: anime.stagger(75, {
-                        ...staggerProps,
-                        direction: 'reverse',
-                    }),
-                    easing: spring,
-                },
-                '-=1000'
-            )
-            */
-    }, [gridSize, setIsLoading])
+    }, [gridSize, loaderComplete])
 
     useEffect(() => {
+        const loaderDiv = document.querySelector('#loader')
+        const vmin = Math.round(
+            (Math.min(loaderDiv.clientHeight, loaderDiv.clientWidth) /
+                Math.min(window.innerHeight, window.innerWidth)) *
+                100
+        )
+        setElSize(vmin / gridSize)
+
         const timeout = setTimeout(() => animate(), 500)
         return () => clearTimeout(timeout)
     }, [animate])
@@ -164,34 +147,28 @@ const Loader = ({ setIsLoading, screenFill = 100 }) => {
             className="flex-center relative z-[99] h-screen w-screen overflow-hidden bg-background opacity-0"
         >
             <span
-                className="absolute z-10 rounded-full text-background/90"
+                className="absolute z-10 aspect-square h-[150vmin] rounded-full text-background/90 md:h-[100vmin]"
                 style={{
-                    height: `${screenFill * 2}vmin`,
-                    width: `${screenFill * 2}vmin`,
                     background: `radial-gradient(transparent 25%, currentColor 30%)`,
                 }}
             />
             <div
                 id="loader"
-                className="clip-loader relative flex flex-wrap"
-                style={{
-                    height: `${screenFill}vmin`,
-                    width: `${screenFill}vmin`,
-                }}
+                className="clip-loader relative flex aspect-square h-[75vmin] flex-wrap md:h-[50vmin]"
             >
                 {[...Array(gridSize ** 2).keys()].map((i) => (
                     <div
                         key={`loader-item-${i}`}
                         className="square rounded-full bg-teal-40 odd:bg-teal"
                         style={{
-                            height: `${screenFill / gridSize}vmin`,
-                            width: `${screenFill / gridSize}vmin`,
+                            height: `${elSize}vmin`,
+                            width: `${elSize}vmin`,
                         }}
                     />
                 ))}
                 <div
                     id="loader-bg"
-                    className="absolute inset-0 z-10 bg-loader-gradient opacity-0"
+                    className="inset-0 bg-loader-gradient absolute z-10 opacity-0"
                 />
             </div>
         </div>

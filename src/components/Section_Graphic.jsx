@@ -14,7 +14,7 @@ const Section_Graphic = ({ inView, isLg, data, featured }) => {
             custom={useFtd}
         >
             {useFtd & isLg ? (
-                <Featured_Slides isLg inView={inView} {...featured} />
+                <Featured_Slides inView={inView} {...featured} />
             ) : (
                 <Image
                     src={data.src}

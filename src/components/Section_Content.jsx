@@ -2,33 +2,30 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Styled } from '@components'
 
-const Section_Content = ({ urlAs, even, style, variants, data, featured }) => (
+const Section_Content = ({ even, style, variants, data, featured }) => (
     <motion.div
-        className={`flex-col-center fixed inset-0 select-text overflow-hidden py-28 max-lg:gap-y-4 ${
+        className={`flex-col-top fixed max-lg:inset-0 max-lg:top-1/2 max-lg:-translate-y-1/2 ${
             even ? 'lg:items-end lg:text-end' : 'lg:items-start lg:text-start'
-        } lg:full lg:relative lg:py-0`}
+        } lg:full lg:relative`}
         style={style}
         variants={variants.Container}
     >
-        <motion.h3 className="leading-none" variants={variants.Item}>
+        <motion.h3 className="leading-none" variants={variants.Title}>
             {data.title}
         </motion.h3>
-
         <motion.h4
-            className="text-center font-light tracking-wider lg:mx-1 lg:whitespace-nowrap"
+            className="whitespace-pre text-center max-lg:h-full max-lg:pt-[1.5vh] lg:whitespace-nowrap"
             variants={variants.Item}
         >
             {data.subtitle.replaceAll('<br/>', `\n`)}
         </motion.h4>
-
-        <motion.div className="mt-2" variants={variants.Item}>
-            <Styled.Button>
+        <motion.div variants={variants.Item}>
+            <Styled.Button even={even}>
                 <Link
                     href={{
-                        pathname: '/section/[slug]',
-                        query: { slug: data.id },
+                        pathname: '/[sid]',
+                        query: { sid: data.id },
                     }}
-                    as={`/${urlAs}`}
                     scroll={false}
                 >
                     {featured ? 'View All' : 'Read More'}

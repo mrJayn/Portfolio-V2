@@ -16,6 +16,7 @@ module.exports = {
             white: {
                 DEFAULT: '#fff',
                 dark: '#f8f8f8',
+                darker: '#f0f0f0',
             },
             black: '#000',
 
@@ -70,58 +71,26 @@ module.exports = {
             red: '#B00',
         },
         screens: {
-            /* min:'320px'  320-413px............ Mobile Devices  */
+            min: '320px' /*  320-413px............ Mobile Devices  */,
             sm: '414px' /*  414-767px............. Ipads ~ Tablets  */,
             md: '768px' /*  768-1023px.......... Small screens ~ laptops  */,
             lg: '1024px' /*  1024-1199px........  Large screens ~ Desktop  */,
             xl: '1200px' /*  1200-max............... XL screens ~ TVs  */,
-            xxl: '1440px',
-            /* max: '1440px' */
+            max: '1440px',
         },
-        spacing: {
-            px: '1px',
-            0: '0',
-            0.5: '2px',
-            1: '4px',
-            1.5: '6px',
-            2: '8px',
-            2.5: '10px',
-            3: '12px',
-            3.5: '14px',
-            4: '16px',
-            5: '20px',
-            6: '24px',
-            7: '28px',
-            8: '32px',
-            9: '36px',
-            10: '40px',
-            11: '44px',
-            12: '48px',
-            14: '56px',
-            16: '64px',
-            20: '80px',
-            24: '96px',
-            28: '112px',
-            32: '128px',
-            36: '144px',
-            40: '160px',
-            44: '176px',
-            48: '192px',
-            52: '208px',
-            56: '224px',
-            60: '240px',
-            64: '256px',
-            72: '288px',
-            80: '320px',
-            96: '384px',
-            view: 'calc(100vh - 56px)',
-            vmax: '100vmax',
-            vmin: '100vmin',
-        },
-        fontSize: themeConfig.fontSize,
         fontFamily: {
             montserrat: ['Montserrat', 'sans-serif'],
             robotoMono: ['Roboto Mono', 'monospace'],
+        },
+        fontSize: themeConfig.fontSize,
+        spacing: themeConfig.spacing,
+        letterSpacing: {
+            normal: '0em',
+            md: '0.025em',
+            lg: '0.05em',
+            xl: '0.075em',
+            '2xl': '0.1em',
+            '3xl': '0.15em',
         },
         zIndex: {
             0: '0',
@@ -138,25 +107,20 @@ module.exports = {
             sm: '0px 15px 15px -15px var(--shadow-color)',
             xs: '0px 7.5px 10px -10px var(--shadow-color)',
             inset: 'inset 0 0.1rem 0.1rem #0008, inset 0 -0.25rem 0.25rem #0005, inset 0 -0.5rem 0.5rem #0005, 0 0.1rem 0.1rem #0008',
-            'inset-outset':
-                'inset 0 0.1rem 0.1rem #0008, inset 0 -0.25rem 0.25rem #0005, inset 0 -0.5rem 0.5rem #0005, 0 0.1rem 0.1rem #0008, 0 20px 25px -5px var(--shadow-color), 0 8px 10px -6px var(--shadow-color)',
-            'inset-outset-md':
-                'inset 0 0.1rem 0.1rem #0008, inset 0 -0.25rem 0.25rem #0005, inset 0 -0.5rem 0.5rem #0005, 0 0.1rem 0.1rem #0008, 0 17.5px 22.5px -10px var(--shadow-color), 0 6px 8px -4px var(--shadow-color)',
             none: 'none',
         },
 
         extend: {
-            maxHeight: {
-                view: 'calc(100vh - 56px)',
-            },
-            minHeight: {
-                view: 'calc(100vh - 56px)',
-            },
             backgroundImage: {
                 'background-gradient': themeConfig.bgGradient,
-                'background-gradient-2': themeConfig.bgGradient2,
                 gradient:
                     'linear-gradient(45deg, var(--theme-purple), var(--theme-teal))',
+                'gradient-loop':
+                    'linear-gradient(45deg,var(--theme-purple),var(--theme-teal),var(--theme-purple))',
+            },
+            backgroundSize: {
+                '200%': '200%',
+                '300%': '300%',
             },
             borderRadius: {
                 '4xl': '3rem',
@@ -167,9 +131,6 @@ module.exports = {
                 350: '350ms',
                 400: '400ms',
                 600: '600ms',
-            },
-            transitionDelay: {
-                0: '0ms',
             },
             transitionTimingFunction: {
                 tween: 'cubic-bezier(0.5, 0.5, 0.5, 1)',

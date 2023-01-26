@@ -2,7 +2,10 @@
 title: 'Choropleth Map'
 category: 'javascript'
 brief: 'A simple Choropleth map constructed using primarily D3.js and CSS.'
-tech: [D3.js, HTML, CSS, javascript]
+tech:
+    - D3.js
+    - HTML
+    - SCSS
 github: ''
 external: 'https://codepen.io/mrjayn/pen/abqbZGV'
 src: '/assets/featured/choropleth_map.png'

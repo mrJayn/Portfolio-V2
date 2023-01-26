@@ -14,16 +14,13 @@ const TitleDefs = () => (
     </defs>
 )
 
-const Title = ({ is1st, onTitleComplete }) => {
-    const initialDelay = is1st ? 1.5 : 0.75
-
+const Title = ({ onTitleComplete }) => {
     const ogLen = TitlePaths.length
     const Doubled = TitlePaths.concat(TitlePaths)
 
     const getTransition = (idx) => {
         const i = idx < ogLen ? idx + 1 : idx - ogLen
-        const propDelay = (i, extraDelay) =>
-            initialDelay + extraDelay + i * 0.08
+        const propDelay = (i, extraDelay) => 0.75 + extraDelay + i * 0.08
         return {
             strokeOpacity: {
                 duration: 0.25,
@@ -49,7 +46,7 @@ const Title = ({ is1st, onTitleComplete }) => {
     }
 
     return (
-        <div className="relative aspect-[5/1] min-h-[70px] max-w-[100vw] overflow-hidden md:min-h-[92px] lg:min-h-[112px]">
+        <div className="h-TitleSVG relative aspect-[5/1] max-w-[100vw] overflow-hidden">
             <svg
                 height="100%"
                 width="100%"
@@ -77,7 +74,7 @@ const Title = ({ is1st, onTitleComplete }) => {
                                       }
                                     : {}
                             }
-                            initial={is1st ? 'hidden' : 'show'}
+                            initial="hidden"
                             animate="show"
                             variants={
                                 variants[index < ogLen ? 'TitleBlur' : 'Title']

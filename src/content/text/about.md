@@ -1,6 +1,6 @@
 ---
-id: about
-
+id: About
+index: 1
 title: About Me
 subtitle: Get to know me.
 description: Nice to meet you,<br/>Allow me to introduce myself.

@@ -1,28 +1,24 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { experienceMotion as variants } from '@motion'
-import { BsChevronDoubleDown } from 'react-icons/bs'
 
 const Label = ({ Title, isActive, ...onClick }) => (
     <div
-        className={`flex-btw relative z-10 cursor-pointer overflow-hidden  rounded-r-lg border-l-[3px] border-slate-neon/50 p-2 font-medium duration-250 ease-tween  ${
-            isActive ? 'bg-slate-30/50' : 'bg-slate-30/20'
-        }`}
+        className="flex-btw relative z-10 cursor-pointer overflow-hidden rounded-tr-lg bg-gradient-to-r from-slate/75 via-grey/50 to-grey/50 p-2 font-medium text-slate-neon/75 duration-500 ease-tween"
+        style={{
+            backgroundSize: '200%',
+            backgroundPosition: isActive ? '0%' : '100%',
+            boxShadow: isActive ? '0px 0 1px -4px' : '-8px 0 1px -4px',
+            transitionDelay: isActive ? '0s' : '0.2s',
+        }}
         {...onClick}
     >
         <span
-            className={`select-none py-1 text-start sm:py-2 ${
-                isActive ? 'pl-4 text-slate-neon' : 'px-2 text-slate'
+            className={`select-none py-2 text-start font-medium leading-none ${
+                isActive ? 'pl-3 text-white' : 'pl-0 text-grey-10/75'
             } duration-500 ease-tween`}
         >
             {Title}
         </span>
-        <div
-            className={`aspect-square h-full px-1 text-slate-neon duration-250 ease-tween ${
-                isActive ? 'translate-y-4 opacity-0' : 'opacity-100 delay-300'
-            } md:flex-center md:h-full`}
-        >
-            <BsChevronDoubleDown />
-        </div>
     </div>
 )
 
@@ -37,7 +33,7 @@ const Accordion = ({ children, data, isActive, ...onClick }) => (
                 {isActive && (
                     <motion.div
                         key={`job-${data.title}`}
-                        className="relative w-full overflow-hidden rounded-b-3xl border-l-2 border-l-slate-neon/50 bg-white"
+                        className="relative w-full overflow-hidden rounded-bl-xl border-l-2 border-l-slate-neon/50 bg-white-dark"
                         initial="closed"
                         animate="open"
                         exit="closed"

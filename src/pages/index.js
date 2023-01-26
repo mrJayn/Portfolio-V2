@@ -31,14 +31,13 @@ export default function Home({ data, ...pageProps }) {
             prevScrollY = scrollY
         }, 50)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageProps.isLg, pageProps.screenOrientation])
+    }, [pageProps.isLg])
 
     return (
         <Layout
             isHome
             title="Portfolio"
             description="Hello, I'm Michael👋 - I'm an ChemEng graduate and a recent self-taught developer, aiming to break into tech ASAP!"
-            isLg={pageProps.isLg}
         >
             {Object.entries(Sections).map(([id, data], index) => {
                 const isValidJSX = isValidElement(data)

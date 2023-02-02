@@ -27,19 +27,19 @@ const Slug_Hero = ({ activeSection, isLg, ...data }) => {
     )
     const customTitleDir =
         activeSection == 0 ? null : isLg ? (even ? -50 : 50) : 0
-    console.log(customTitleDir)
+
     return (
         <motion.div
-            className="full relative z-10 shadow"
+            className="full relative z-10 shadow-md"
             style={{ backgroundColor: bgColor }}
             variants={variants.Container}
         >
             {!isProjects && <Styled_Image />}
 
-            <div className="flex-col-top lg:flex-center absolute inset-0 z-20 overflow-hidden py-[20vh] text-button-lg lg:bottom-[1.5em]">
+            <div className="flex-col-top absolute inset-0 z-20 overflow-hidden text-button-lg max-lg:top-1/2 max-lg:-translate-y-1/2 lg:pt-[33vh]">
                 <motion.h3
                     layout
-                    className="bg-gradient-wave relative leading-none"
+                    className="bg-gradient-wave relative h-[1.25em] leading-none"
                     variants={variants.Title}
                     custom={customTitleDir}
                 >
@@ -50,10 +50,17 @@ const Slug_Hero = ({ activeSection, isLg, ...data }) => {
                     />
                 </motion.h3>
                 <motion.h4
-                    className="mt-8 text-center"
+                    className="min-[500px]:flex-col-center mt-8 text-center"
                     variants={variants.Text}
                 >
-                    {data.description.replace('<br/>', `\n`)}
+                    {data.description.split('<br/>').map((line, i) => (
+                        <span
+                            key={`hero-desc-line-${i}`}
+                            className="w-full lg:whitespace-nowrap"
+                        >
+                            {line}
+                        </span>
+                    ))}
                 </motion.h4>
                 <motion.div
                     className="flex-center absolute bottom-[-1.25vh] aspect-[2/1] h-[7.5vh] cursor-pointer text-slate-40"

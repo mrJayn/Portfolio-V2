@@ -1,6 +1,5 @@
 /** https://usehooks.com/useOnClickOutside/ **/
 
-import { toggleScrolling } from '@utils'
 import { useEffect } from 'react'
 
 export default function useOnClickOutside(ref, action, mediaMdOnly = false) {
@@ -10,7 +9,7 @@ export default function useOnClickOutside(ref, action, mediaMdOnly = false) {
             if (!ref.current || ref.current.contains(e.target)) return
 
             action()
-            toggleScrolling(true)
+            document.querySelector('body').style.overflow = 'auto'
         }
 
         document.addEventListener('mousedown', listener)

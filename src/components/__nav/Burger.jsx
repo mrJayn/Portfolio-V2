@@ -28,11 +28,11 @@ const Burger = ({ ANIM, handleBurger, size = 28 }) => {
 
     return (
         <motion.div
-            className="flex-center aspect-square h-full cursor-pointer text-grey-40 hover:text-white"
+            className="flex-center absolute left-0 top-0 z-10 h-14 w-14 cursor-pointer text-white/40 hover:text-white"
             onClick={handleBurger}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            exit={{ opacity: 0, transition: { duration: 0.5, ease: 'easeIn' } }}
         >
             <motion.svg
                 viewBox="0 0 2 2"

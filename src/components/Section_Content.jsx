@@ -6,7 +6,7 @@ const Section_Content = ({ even, style, variants, data, featured }) => (
     <motion.div
         className={`flex-col-top fixed max-lg:inset-0 max-lg:top-1/2 max-lg:-translate-y-1/2 ${
             even ? 'lg:items-end lg:text-end' : 'lg:items-start lg:text-start'
-        } lg:full lg:relative`}
+        } lg:full lg:relative lg:pt-[33vh] lg:will-change-transform`}
         style={style}
         variants={variants.Container}
     >

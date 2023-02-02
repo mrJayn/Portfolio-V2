@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Featured_Slides } from '@components'
 import { sectionVariants } from '@motion'
+import Ftd_Slides from './__sections/_projects/Featured_Slides'
 
 const Section_Graphic = ({ inView, isLg, data, featured }) => {
     const useFtd = featured !== undefined
@@ -14,7 +14,7 @@ const Section_Graphic = ({ inView, isLg, data, featured }) => {
             custom={useFtd}
         >
             {useFtd & isLg ? (
-                <Featured_Slides inView={inView} {...featured} />
+                <Ftd_Slides {...featured} />
             ) : (
                 <Image
                     src={data.src}

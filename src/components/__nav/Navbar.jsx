@@ -1,37 +1,56 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
-import { toggleScrolling } from '@utils'
-import { Burger, Menu, NavItems } from '@navItems'
 import { useMediaQuery } from '@hooks'
+import { returnHome } from '@utils'
+import { Styled } from '@components'
+import Burger from './Burger'
+import Menu from './Menu'
+
+const LOGO = ({ centered, handleLogo }) => (
+    <motion.a
+        id="logo"
+        className="flex-center relative z-10 min-w-max cursor-pointer select-none overflow-hidden whitespace-nowrap text-center text-28pt font-thin tracking-2xl text-white/60 transition-colors duration-500 ease-tween after:content-['MIKE_JAYNE'] hover:text-white/80"
+        initial={false}
+        animate={{ x: centered ? 'calc(50vw - 116px)' : '0px' }}
+        transition={{ delay: 0.25, duration: 1, ease: 'easeInOut' }}
+        onClick={handleLogo}
+    >
+        MIKE JAYNE
+    </motion.a>
+)
+
+const NavLinks = ({ activeSection }) => (
+    <motion.ul
+        className="flex-center absolute right-0 top-0 z-10 h-full"
+        initial="hidden"
+        animate="show"
+        exit="hidden"
+        variants={{
+            hidden: { transition: { staggerChildren: 0.075 } },
+            show: {
+                transition: {
+                    staggerChildren: 0.075,
+                    staggerDirection: -1,
+                    delayChildren: 0.5,
+                },
+            },
+        }}
+    >
+        <Styled.SectionLinks
+            activeSection={activeSection}
+            className="flex-center relative mx-4 h-3/4 bg-clip-text text-[0.9em] leading-none transition-colors delay-100 duration-250 ease-in hover:text-white"
+            variants={{ hidden: { y: -50 }, show: { y: 0 } }}
+            transition={{ duration: 0.5 }}
+        />
+    </motion.ul>
+)
 
 const Navbar = ({ activeSection, isHome }) => {
-    const isLg = useMediaQuery(1024)
     const router = useRouter()
+    const isLg = useMediaQuery(1024)
     const [menuOpen, setMenu] = useState(false)
-
-    const toggleMenu = () => {
-        setMenu(!menuOpen)
-        toggleScrolling(menuOpen)
-    }
-
-    const backToHome = () => {
-        const prevScrollY = null
-        const goHome = () => router.push('/', '', { scroll: false })
-
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-
-        const checkIfAtTop = setInterval(() => {
-            var scrollY = window.scrollY
-            if (scrollY == prevScrollY) {
-                clearInterval(checkIfAtTop)
-                goHome()
-            }
-            prevScrollY = scrollY
-        }, 50)
-    }
-
     const handleLogo = () => {
         if (window.scrollY == 0 || typeof window == undefined) {
             router.reload()
@@ -39,32 +58,13 @@ const Navbar = ({ activeSection, isHome }) => {
             window.scrollTo({ top: 0, behavior: 'smooth' })
         }
     }
+    const backToHome = () => returnHome(router)
 
-    const Components = [
-        {
-            display: !isLg,
-            component: (
-                <Burger
-                    ANIM={!isHome ? 'return' : menuOpen ? 'opened' : 'closed'}
-                    handleBurger={() => (isHome ? toggleMenu() : backToHome())}
-                />
-            ),
-        },
-        {
-            display: 'always',
-            component: <NavItems.Logo key="logo" onClick={handleLogo} />,
-        },
-        {
-            display: isLg,
-            component: (
-                <NavItems.NavLinks
-                    key="nav-links"
-                    isHome={isHome}
-                    activeSection={activeSection}
-                />
-            ),
-        },
-    ]
+    const toggleMenu = () => {
+        setMenu(!menuOpen)
+        const overflowStyle = menuOpen ? 'auto' : 'hidden'
+        document.querySelector('body').style.overflow = overflowStyle
+    }
 
     useEffect(() => {
         if (isLg & menuOpen || !isHome & menuOpen) setMenu(false)
@@ -74,38 +74,45 @@ const Navbar = ({ activeSection, isHome }) => {
         <>
             <motion.nav
                 id="navbar"
-                className="fixed top-0 left-0 z-30 h-14 w-full bg-nav/50"
+                className="tempered-bg fixed top-0 left-0 z-30 flex h-14 w-screen items-center bg-nav/50 px-4"
                 data-menuopen={menuOpen}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
             >
-                <ul className="flex-btw full md:pl-[calc(5vw-30px)] md:pr-[calc(2.5vw-20px)]">
-                    {Components.map(({ display, component }, i) => {
-                        return (
-                            display && (
-                                <li
-                                    key={`nav-item-${i}`}
-                                    className="flex-center relative z-10 h-full"
-                                >
-                                    {component}
-                                </li>
-                            )
+                <LOGO centered={!isLg || !isHome} handleLogo={handleLogo} />
+                <AnimatePresence mode="wait">
+                    {isLg ? (
+                        isHome && (
+                            <NavLinks
+                                key="nav-links"
+                                activeSection={activeSection}
+                            />
                         )
-                    })}
-                </ul>
-                <span className="tempered-bg absolute inset-0" />
+                    ) : (
+                        <Burger
+                            key="nav-burger"
+                            ANIM={
+                                !isHome
+                                    ? 'return'
+                                    : menuOpen
+                                    ? 'opened'
+                                    : 'closed'
+                            }
+                            handleBurger={() =>
+                                isHome ? toggleMenu() : backToHome()
+                            }
+                        />
+                    )}
+                </AnimatePresence>
             </motion.nav>
             <AnimatePresence>
-                {isLg
-                    ? !isHome && (
-                          <NavItems.BackBtn
-                              key="nav-back-btn"
-                              backToHome={backToHome}
-                          />
-                      )
-                    : menuOpen && (
-                          <Menu key="nav-menu" toggleMenu={toggleMenu} />
-                      )}
+                {isLg && !isHome && (
+                    <Styled.BackButton
+                        key="nav-back-btn"
+                        backToHome={backToHome}
+                    />
+                )}
+                {menuOpen && <Menu key="nav-menu" toggleMenu={toggleMenu} />}
             </AnimatePresence>
         </>
     )

@@ -33,9 +33,9 @@ const Jobs = ({ ...props }) => {
     const [active, setActive] = useState(-1)
 
     return (
-        <div className="flex-col-center relative w-full">
-            <h3 className="z-10">Work Experience</h3>
-            <div className="flex-col-center z-10 w-full overflow-hidden p-2">
+        <div className="relative z-0 mx-auto flex w-[96.125%] flex-col">
+            <h3>Work Experience</h3>
+            <div className="flex-col-center md:p-4">
                 {props.jobs.map((Job, index) => {
                     const isActive = index == active
                     return (
@@ -52,7 +52,13 @@ const Jobs = ({ ...props }) => {
                     )
                 })}
             </div>
-            <div className="absolute -inset-3 -bottom-6 rounded-3xl rounded-tl-none rounded-br-none bg-slate-90" />
+            <div
+                className="absolute -inset-3 -z-10 rounded-2xl bg-slate-90 md:rounded-[2rem]"
+                style={{
+                    borderTopLeftRadius: '0px',
+                    borderBottomRightRadius: '0px',
+                }}
+            />
         </div>
     )
 }

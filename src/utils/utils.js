@@ -1,9 +1,17 @@
-/**
- * @param {boolean} toggle - True - enabled / False - disabled
- */
-export function toggleScrolling(toggle) {
-    const overflowStyle = toggle ? 'auto' : 'hidden'
-    document.querySelector('body').style.overflow = overflowStyle
+export const sectionIDs = ['about', 'experience', 'projects', 'contact']
+
+export function returnHome(router) {
+    const prevScrollY = null
+    const goHome = () => router.push('/', '', { scroll: false })
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    const checkIfAtTop = setInterval(() => {
+        var scrollY = window.scrollY
+        if (scrollY == prevScrollY) {
+            clearInterval(checkIfAtTop)
+            goHome()
+        }
+        prevScrollY = scrollY
+    }, 50)
 }
 
 /**

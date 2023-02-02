@@ -3,7 +3,6 @@
         "baseUrl": "./",
         "paths": {
             "@components": ["src/components/index.js"],
-            "@navItems": ["src/components/__nav/index.js"],
             "@hooks": ["src/hooks/index.js"],
             "@utils": ["src/utils/utils.js"],
             "@motion": ["src/utils/motion.js"]

@@ -14,13 +14,14 @@ import Section_Graphic from './Section_Graphic'
 
 function useParrallax(scrollYProgress, scrollSpeed) {
     const d = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0, 1]).current
-    const ySpring = useSpring(scrollYProgress, {
+    const springConfig = {
         type: 'spring',
-        stiffness: 200 - d * 50,
-        damping: 100 - d * 50,
+        stiffness: 300 - d * 50,
+        damping: 100 - d * 25,
         mass: 7.5,
         restDelta: scrollSpeed,
-    })
+    }
+    const ySpring = useSpring(scrollYProgress, springConfig)
 
     return {
         y: useTransform(ySpring, [0, 1], ['100%', '-100%']),

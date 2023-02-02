@@ -7,8 +7,7 @@
         --before: 0;
         --pseudos-transition: all 0.5s 0.85s var(--nav-ce);
 
-        & a[data-logo='MIKE JAYNE']:after {
-            content: attr(data-logo);
+        & a#logo:after {
             background: linear-gradient(
                 45deg,
                 var(--theme-teal),
@@ -17,9 +16,8 @@
                 var(--theme-slate),
                 var(--theme-teal)
             );
-            background-size: 300%;
-            transition: transform 1s var(--nav-ce), filter 1s var(--nav-ce);
-            @apply md:preserve-3d absolute inset-0 -z-20 origin-top translate-x-[-0.05px] translate-y-[-5%] scale-y-[1.1] animate-[bgRotate_10s_linear_infinite] bg-clip-text text-center font-bold tracking-xl text-transparent blur-[1px] contrast-200 motion-reduce:animate-none;
+
+            @apply absolute inset-0 -z-20 origin-top translate-x-[-0.05px] translate-y-[-5%] scale-y-[1.1] animate-[bgRotate_10s_linear_infinite] bg-300% bg-clip-text text-center font-bold tracking-xl text-transparent blur-[1px] contrast-200 motion-reduce:animate-none;
         }
 
         &[data-menuopen='true'] {
@@ -32,7 +30,7 @@
             @apply md:origin-left;
             &:before,
             &:after {
-                @apply absoluteFull;
+                @apply absolute inset-0 -z-20;
                 content: '';
             }
             &:before {
@@ -63,87 +61,12 @@
             }
         }
     }
-
     .content-innerHTML {
         & > p {
-            @apply cursor-text select-text whitespace-pre-line indent-4 md:indent-8 !important;
+            @apply mb-1 cursor-text select-text whitespace-pre-line indent-4 last-of-type:mb-0 !important;
         }
     }
 
-    /* Intro Graphic */
-    @keyframes orbit {
-        0% {
-            transform: rotateZ(0deg);
-        }
-        100% {
-            transform: rotateZ(-360deg);
-        }
-    }
-    @keyframes invert {
-        0% {
-            transform: rotateX(-90deg) rotateY(360deg) rotateZ(0deg);
-        }
-
-        100% {
-            transform: rotateX(-90deg) rotateY(0deg) rotateZ(0deg);
-        }
-    }
-
-    @keyframes shadow-orbital {
-        0% {
-            box-shadow: inset 0.75em 0 0.5em rgba(0, 0, 0, 0.5);
-        }
-
-        25% {
-            box-shadow: inset 0.5em 0 0.25em rgba(0, 0, 0, 0.5);
-        }
-
-        50% {
-            box-shadow: inset 0.5em 0 0.25em rgba(0, 0, 0, 0.5);
-        }
-
-        100% {
-            box-shadow: inset 0.75em 0 0.5em rgba(0, 0, 0, 0.5);
-        }
-    }
-
-    @keyframes rotate-earth {
-        0% {
-            background-position-x: 0%;
-        }
-        100% {
-            background-position-x: -166.666%;
-        }
-    }
-
-    @keyframes rotate-clouds {
-        0% {
-            transform: rotateX(0deg) rotateY(0deg);
-        }
-        50% {
-            transform: rotateX(-5deg) rotateY(20deg);
-        }
-        100% {
-            transform: rotateX(0deg) rotateY(0deg);
-        }
-    }
-
-    /* LINKS */
-    .pg-link {
-        @apply relative cursor-pointer tracking-md text-slate-neon duration-250 ease-tween hover:mr-3;
-        &:after {
-            content: '\000BB';
-            @apply absolute right-0 text-[1.5em] leading-[0.85] duration-250 ease-tween;
-            clip-path: inset(0 0 0 100%);
-        }
-        &:hover:after {
-            @apply -right-4;
-            clip-path: inset(0 0 0 0);
-        }
-    }
-    .responsive-socials-width {
-        @apply w-1/2 sm:portrait:w-full landscape:w-1/2 md:landscape:w-1/2 lg:landscape:w-full;
-    }
     .socials-text-style {
         & > span {
             @apply relative;
@@ -157,27 +80,11 @@
             @apply origin-bottom-left scale-x-100;
         }
     }
-    .styled-exit-btn {
-        @apply flex-center relative cursor-pointer;
-        &:after,
-        &:before {
-            content: '';
-            @apply absolute h-[2px] w-full bg-white;
-        }
-        &:before {
-            @apply -rotate-45;
-        }
-        &:after {
-            @apply rotate-45;
-        }
-    }
-
-    /* colored bullets */
     .listed-item:before {
+        /* colored bullets @ JOBS */
         content: '\2022';
         @apply inline-block w-[0.75em] font-bold text-slate-neon;
     }
-
     .styled-underline {
         @apply absolute bottom-0 h-0.5 blur-[0.5px];
         background-color: #fffa;
@@ -198,72 +105,19 @@
             }
         }
     }
-
-    /** Styled Link **/
-    .styled_link {
-        position: relative;
-        color: theme(colors.grey.70);
-        cursor: pointer;
-        filter: blur(0px) saturate(1) contrast(1);
-        transform: translateY(0px);
-        transition: all 0.3s 0s ease-in-out;
-
+    .archiveIndicator-decoration {
         &:before,
         &:after {
             content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            background: theme(backgroundImage.gradient);
-            background-size: 300%;
-            background-position: 0%;
-            border-radius: 10%;
-            opacity: 0;
-            transform-origin: top;
-            transition: color 0.3s ease-in-out, opacity 0.3s ease-in-out;
-            @apply motion-reduce:scale-y-100;
+            @apply absolute bottom-[0px] h-1/2 w-1/4 bg-transparent duration-350 ease-tween;
         }
         &:before {
-            bottom: 0px;
-            height: 2px;
-            filter: blur(3px) saturate(2) contrast(2);
+            @apply left-[-25%] rounded-br-full;
+            box-shadow: 20px 10px 0px 10px;
         }
         &:after {
-            bottom: 3px;
-            height: 1px;
-            filter: blur(0px) saturate(1) contrast(0.5);
-        }
-
-        &:hover {
-            color: white;
-            transform: translateY(-2.5px);
-            transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
-            @apply text-white motion-reduce:translate-y-0;
-
-            &:before {
-                opacity: 1;
-                transform-origin: top;
-                transition: opacity 0.6s ease-in-out;
-            }
-            &:after {
-                opacity: 1;
-                transform-origin: top;
-                transition: opacity 0.3s 0.15s ease-in-out;
-            }
-        }
-
-        &.clicked {
-            --ease: cubic-bezier(0.5, 0.5, 0.5, 1);
-
-            filter: blur(3px) saturate(2) contrast(2) !important;
-            transform: scale(0.95) !important;
-            transition: filter 0.25s var(--ease), transform 0.25s var(--ease) !important;
-
-            &:before,
-            &:after {
-                transform: scale(0);
-                transition: transform 0.25s var(--ease) !important;
-            }
+            @apply right-[-25%] rounded-bl-full;
+            box-shadow: -20px 10px 0px 10px;
         }
     }
 }

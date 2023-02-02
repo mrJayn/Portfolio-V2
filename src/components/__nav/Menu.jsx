@@ -1,8 +1,29 @@
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Styled } from '@components'
 
 import { menuVariants } from '@motion'
-import NavItems from './NavItems'
+
+const MenuLinks = ({ toggleMenu }) => (
+    <motion.ul
+        className="full relative flex flex-col space-y-3 landscape:grid"
+        variants={menuVariants.Links.Wrap}
+    >
+        <Styled.SectionLinks
+            className="landscape:flex-left rounded-xl py-[2vh] px-5 tracking-2xl saturate-50 landscape:max-h-[4em]"
+            action={toggleMenu}
+            style={{
+                boxShadow:
+                    'inset 1.5px -1.5px 0rem #333, inset -1.5px 1.5px 0rem #40606f',
+            }}
+            variants={menuVariants.Links.Items}
+            whileHover={{
+                color: '#fff',
+                marginLeft: '4px',
+                filter: 'brightness(1.5) saturate(0.75)',
+            }}
+        />
+    </motion.ul>
+)
 
 const Menu = ({ toggleMenu }) => (
     <motion.menu
@@ -13,7 +34,7 @@ const Menu = ({ toggleMenu }) => (
         variants={menuVariants.backgroundClip}
     >
         <div className="absoluteFull flex-col-btw overflow-hidden p-4 landscape:flex-row">
-            <NavItems.MenuLinks toggleMenu={toggleMenu} />
+            <MenuLinks toggleMenu={toggleMenu} />
 
             <motion.div
                 className="relative grid w-full grid-cols-4 landscape:h-full landscape:w-1/2 landscape:grid-cols-1"

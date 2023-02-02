@@ -155,6 +155,42 @@ module.exports = {
                             'rotateX(-90deg) rotateY(0deg) rotateZ(0deg)',
                     },
                 },
+                'shadow-orbital': {
+                    '0%': {
+                        boxShadow: 'inset 0.75em 0 0.5em rgba(0, 0, 0, 0.5)',
+                    },
+
+                    '25%': {
+                        boxShadow: 'inset 0.5em 0 0.25em rgba(0, 0, 0, 0.5)',
+                    },
+
+                    '50%': {
+                        boxShadow: 'inset 0.5em 0 0.25em rgba(0, 0, 0, 0.5)',
+                    },
+
+                    '100%': {
+                        boxShadow: 'inset 0.75em 0 0.5em rgba(0, 0, 0, 0.5)',
+                    },
+                },
+                'rotate-earth': {
+                    '0%': {
+                        backgroundPositionX: '0%',
+                    },
+                    '100%': {
+                        backgroundPositionX: '-166.666%',
+                    },
+                },
+                'rotate-clouds': {
+                    '0%': {
+                        transform: 'rotateX(0deg) rotateY(0deg)',
+                    },
+                    '50%': {
+                        transform: 'rotateX(-5deg) rotateY(20deg)',
+                    },
+                    '100%': {
+                        transform: 'rotateX(0deg) rotateY(0deg)',
+                    },
+                },
             },
         },
     },

@@ -52,7 +52,11 @@ export default function SectionPage({ ...pageProps }) {
             <div
                 id={`${data.id}-section-content`}
                 data-reading-section
-                className="flex-col-top relative mx-auto h-auto min-h-screen w-screen max-w-[1440px] gap-y-24 bg-white-dark py-14 px-[clamp(16px,calc(16px+112*((100vw-600px)/414)),128px)]"
+                className={`flex-col-top relative mx-auto h-auto min-h-screen w-screen max-w-[1600px] gap-y-24 bg-white-dark py-14 px-[] ${
+                    data.id == 'projects'
+                        ? 'px-4'
+                        : 'px-[clamp(8px,calc(8px+120*((100vw-320px)/704)),128px)]'
+                }`}
             >
                 <SlugToContent {...data} />
             </div>

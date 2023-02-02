@@ -29,8 +29,8 @@ const fontSizes = {
 
     root: clamp(19, 24),
     'heading-2': clamp(40, 96),
-    'heading-3a': clamp(38, 88),
-    'heading-3b': clamp(38, 56),
+    'heading-3a': clamp(32, 88),
+    'heading-3b': clamp(32, 56),
     'heading-4': clamp(26, 44),
     'heading-5': clamp(24, 32),
     'heading-6': clamp(21, 28),

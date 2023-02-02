@@ -14,20 +14,29 @@ const Skills = ({ ...data }) => (
             variants={variants.Container}
         >
             {data.skills.map(({ title, src }, i) => {
-                const rotate = -15 * i
+                const itemColor = {
+                    Javascript: ['#ffd600', null],
+                    'Next.js': ['#000', null],
+                    Tailwind: ['#43a7b2', null],
+                    Python: ['#356b98', '#fed040'],
+                    'HTML / CSS': ['#ec6026', '#254ce2'],
+                    TensorFlow: ['#fd8200', null],
+                    'D3.js': ['#cb624c', '#f79c40'],
+                    'Node.js': ['#90ce4c', null],
+                }[title]
                 return (
                     <motion.li
                         key={`${title}-skill-item`}
-                        className="flex-left group relative mx-[2.5%] h-16 w-[95%] overflow-hidden rounded-3xl p-3 md:mx-auto md:h-16 md:w-full md:justify-start md:p-0"
+                        className="flex-left group relative mx-[2.5%] h-16 w-[95%] cursor-default select-text overflow-hidden rounded-l-3xl p-3 md:mx-auto md:h-16 md:w-full md:justify-start md:p-1"
                         variants={variants.Item}
                     >
                         <span
-                            className="absolute inset-0 -z-10 bg-gradient-to-r from-slate-20/30 to-transparent"
+                            className="absolute inset-0 opacity-30"
                             style={{
-                                filter: `hue-rotate(${rotate}deg)`,
+                                background: `linear-gradient(to right, ${itemColor[0]},transparent)`,
                             }}
                         />
-                        <div className="relative aspect-square h-full">
+                        <div className="relative z-10 aspect-square h-full select-none overflow-hidden rounded-l-3xl">
                             <Image
                                 src={src}
                                 alt={`${title} Graphic`}
@@ -36,8 +45,10 @@ const Skills = ({ ...data }) => (
                             />
                         </div>
                         <span
-                            className="ml-1.5 whitespace-nowrap font-robotoMono text-[1.2em] -tracking-lg text-slate md:w-auto"
-                            style={{ filter: `hue-rotate(${rotate}deg)` }}
+                            className="ml-1.5 whitespace-nowrap font-robotoMono text-[1.2em] font-medium brightness-50 max-lg:-tracking-lg md:w-auto"
+                            style={{
+                                color: itemColor[itemColor[1] == null ? 0 : 1],
+                            }}
                         >
                             {title}
                         </span>

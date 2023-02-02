@@ -1,51 +1,62 @@
 import { motion } from 'framer-motion'
 
+const Moon = () => {
+    const size = 1 / 1.83
+    const radius = 4
+    const freq = 12
+    return (
+        <div
+            key="orbit"
+            className="absolute top-1/2 left-1/2 animate-[orbit] rounded-full"
+            style={{
+                height: `${radius}em`,
+                width: `${radius}em`,
+                margin: `${radius / -2}em 0em 0em ${radius / -2}em`,
+                // animation: `orbit ${freq}s linear infinite`,
+                animationDuration: freq,
+                animationTimingFunction: 'linear',
+                animationIterationCount: 'infinite',
+                transformStyle: 'preserve-3d',
+            }}
+        >
+            <div
+                key="pos"
+                className="absolute ml-[-1em] mt-[-1em] h-[2em] w-[2em] animate-[invert]"
+                style={{
+                    fontSize: `${size}em`,
+                    top: '0%',
+                    left: '50%',
+                    // animation: `invert ${freq}s linear infinite`,
+                    animationDuration: freq,
+                    animationTimingFunction: 'linear',
+                    animationIterationCount: 'infinite',
+                    transformStyle: 'preserve-3d',
+                }}
+            >
+                <div
+                    key="planet"
+                    className="absolute top-1/2 left-1/2 ml-[-0.5em] mt-[-0.5em] h-[1em] w-[1em] animate-[shadow-orbital_,_rotate-earth] rounded-[50%]"
+                    style={{
+                        backgroundImage:
+                            'url(https://www.solarsystemscope.com/textures/download/2k_mercury.jpg)',
+                        backgroundSize: '200%',
+                        // animation: `shadow-orbital ${freq}s linear infinite, rotate-earth ${freq}s linear infinite`,
+                        animationDuration: freq,
+                        animationTimingFunction: 'linear',
+                        animationIterationCount: 'infinite',
+                        transformStyle: 'preserve-3d',
+                    }}
+                />
+            </div>
+        </div>
+    )
+}
+
 const Graphic = ({ ...props }) => {
     // https://www.solarsystemscope.com/textures/download/2k_earth_nightmap.jpg
     // https://eoimages.gsfc.nasa.gov/images/imagerecords/144000/144898/BlackMarble_2016_01deg.jpg
     const src =
         'https://eoimages.gsfc.nasa.gov/images/imagerecords/144000/144898/BlackMarble_2016_01deg.jpg'
-
-    const Moon = ({ size = 1, radius, freq }) => {
-        return (
-            <div
-                key="orbit"
-                className="absolute top-1/2 left-1/2 rounded-full"
-                style={{
-                    height: `${radius}em`,
-                    width: `${radius}em`,
-                    margin: `${radius / -2}em 0em 0em ${radius / -2}em`,
-                    animation: `orbit ${freq}s linear infinite`,
-                    transformStyle: 'preserve-3d',
-                }}
-            >
-                <div
-                    key="pos"
-                    className="absolute ml-[-1em] mt-[-1em] h-[2em] w-[2em]"
-                    style={{
-                        fontSize: `${size}em`,
-
-                        top: '0%',
-                        left: '50%',
-                        transformStyle: 'preserve-3d',
-                        animation: `invert ${freq}s linear infinite`,
-                    }}
-                >
-                    <div
-                        key="planet"
-                        className="absolute top-1/2 left-1/2 ml-[-0.5em] mt-[-0.5em] h-[1em] w-[1em] rounded-[50%]"
-                        style={{
-                            backgroundImage:
-                                'url(https://www.solarsystemscope.com/textures/download/2k_mercury.jpg)',
-                            backgroundSize: '200%',
-                            transformStyle: 'preserve-3d',
-                            animation: `shadow-orbital ${freq}s linear infinite, rotate-earth ${freq}s linear infinite`,
-                        }}
-                    />
-                </div>
-            </div>
-        )
-    }
 
     const colors = {
         light: {
@@ -81,23 +92,20 @@ const Graphic = ({ ...props }) => {
             >
                 <div
                     key="night"
-                    className="absolute inset-0 overflow-hidden rounded-full brightness-125"
+                    className="absolute inset-0 animate-[rotate-earth_80s_linear_infinite] overflow-hidden rounded-full brightness-125"
                     style={{
                         backgroundImage: `url(${src})`,
                         backgroundSize: '250%',
                         backgroundPositionY: '50%',
-                        animation: 'rotate-earth 80s linear infinite',
                     }}
                 />
                 <div
                     key="clouds"
-                    className="absolute inset-0 rounded-l-full opacity-20"
+                    className="absolute inset-0 animate-[rotate-earth_70s_linear_infinite_,_rotate-clouds_100s_ease_infinite] rounded-l-full opacity-20"
                     style={{
                         backgroundImage:
                             'url(https://www.solarsystemscope.com/textures/download/2k_earth_clouds.jpg)',
                         backgroundSize: '250% 150%',
-                        animation:
-                            'rotate-earth 70s linear infinite, rotate-clouds 100s ease infinite',
                     }}
                 />
                 <div
@@ -116,7 +124,7 @@ const Graphic = ({ ...props }) => {
         </div>
     )
 }
-/** linear-gradient(135deg,#efbc23 30%, #ef8e38 60%) */
+
 export default Graphic
 
 /**

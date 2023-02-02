@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import Paths from './items/Paths'
+import Paths from './Paths'
 import { styledComponentsVariants as variants } from '@motion'
 import Image from 'next/image'
 

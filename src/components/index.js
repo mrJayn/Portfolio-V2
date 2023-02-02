@@ -13,4 +13,4 @@ export { default as Contact } from './__sections/_contact/Contact'
 
 export { default as Form } from './Form'
 export { default as Accordion } from './items/Accordion'
-export { default as Styled } from './StyledComponents'
+export { default as Styled } from './items/StyledComponents'

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { sectionVariants } from '@motion'
 import Ftd_Slides from './__sections/_projects/Featured_Slides'
 
-const Section_Graphic = ({ inView, isLg, data, featured }) => {
+const Section_Graphic = ({ isLg, data, featured }) => {
     const useFtd = featured !== undefined
     return (
         <motion.div

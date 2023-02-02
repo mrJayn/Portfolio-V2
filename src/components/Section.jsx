@@ -85,7 +85,6 @@ const Section = ({
                 >
                     <Section_Graphic
                         key={`${id}-graphic`}
-                        inView={inView}
                         isLg={isLg}
                         {...dataProps}
                     />

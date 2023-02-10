@@ -5,7 +5,7 @@ import { menuVariants } from '@motion'
 
 const MenuLinks = ({ toggleMenu }) => (
     <motion.ul
-        className="full relative flex flex-col space-y-3 landscape:grid"
+        className="relative flex w-full flex-col space-y-3 landscape:mb-auto landscape:grid"
         variants={menuVariants.Links.Wrap}
     >
         <Styled.SectionLinks
@@ -27,22 +27,22 @@ const MenuLinks = ({ toggleMenu }) => (
 
 const Menu = ({ toggleMenu }) => (
     <motion.menu
-        className="fixed left-0 top-14 bottom-0 z-30 w-screen bg-nav"
+        className="fixed inset-0 top-14 z-30 bg-nav"
         initial="hidden"
         animate="show"
         exit="hidden"
         variants={menuVariants.backgroundClip}
     >
-        <div className="absoluteFull flex-col-btw overflow-hidden p-4 landscape:flex-row">
+        <div className="absoluteFull flex-btw overflow-hidden px-4 portrait:flex-col">
             <MenuLinks toggleMenu={toggleMenu} />
 
             <motion.div
-                className="relative grid w-full grid-cols-4 landscape:h-full landscape:w-1/2 landscape:grid-cols-1"
+                className="relative grid w-full portrait:grid-cols-4 landscape:h-full landscape:w-1/2"
                 variants={menuVariants.IconWrap}
             >
                 <Styled.Socials
                     variants={menuVariants.Icons}
-                    className="relative m-auto aspect-square h-12 sm:h-16"
+                    className="socials-icon-bg relative m-auto aspect-square h-12 max-h-full portrait:mb-4"
                 />
             </motion.div>
         </div>

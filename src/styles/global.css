@@ -3,8 +3,6 @@
 @tailwind base;
 
 :root {
-    --app-height: 100%;
-
     --nav-bg: 15 20 30;
 
     --background: 70 80 105;
@@ -26,18 +24,24 @@
 
 @layer base {
     * {
+        @apply box-border;
         -moz-box-sizing: border-box;
-        box-sizing: border-box;
+    }
+    html,
+    body {
+        @apply m-0 block h-full p-0;
     }
     html {
-        @apply snap-y snap-mandatory scroll-auto;
+        @apply snap-mandatory scroll-auto;
+        @apply snap-y;
         @apply whitespace-pre-line font-montserrat text-root text-grey-30 antialiased;
         word-spacing: 1px;
-        height: var(--app-height);
+        block-size: -webkit-fill-available;
     }
     body {
-        @apply h-screen w-screen overflow-x-hidden bg-white-dark;
-        height: var(--app-height);
+        @apply w-screen overflow-x-hidden bg-white-dark;
+        min-block-size: 100vh;
+        min-block-size: -webkit-fill-available;
     }
     section {
         &[data-section-in-view='false'] {

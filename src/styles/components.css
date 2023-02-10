@@ -61,6 +61,10 @@
             }
         }
     }
+    menu .socials-icon-bg:after {
+        @apply pointer-events-none absolute inset-[-5px] -z-10 rounded-full bg-grey-80/50 content-[''];
+    }
+
     .content-innerHTML {
         & > p {
             @apply mb-1 cursor-text select-text whitespace-pre-line indent-4 last-of-type:mb-0 !important;

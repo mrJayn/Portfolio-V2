@@ -31,17 +31,6 @@ function MyApp({ Component, pageProps }) {
         }
     }, [router.events])
 
-    useEffect(() => {
-        const getVH = () =>
-            document.documentElement.style.setProperty(
-                '--vh',
-                `${window.innerHeight}px`
-            )
-        getVH
-        window.addEventListener('resize', getVH)
-        return () => window.removeEventListener('resize', getVH)
-    }, [])
-
     pageProps = {
         isHome: isHome,
         isFirstLoad: useRef(true),

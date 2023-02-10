@@ -5,7 +5,7 @@ import { Styled } from '@components'
 const Section_Content = ({ even, style, variants, data, featured }) => (
     <motion.div
         layout
-        className={`flex-col-center max-lg:safe-area-padding fixed text-center max-lg:inset-y-24 ${
+        className={`flex-col-center max-lg:safe-area-padding fixed text-center max-lg:top-24 ${
             even ? 'lg:items-end lg:text-end' : 'lg:items-start lg:text-start'
         } lg:full lg:relative lg:pt-[33vh] lg:will-change-transform`}
         style={style}

@@ -18,7 +18,7 @@ const Intro = ({ isFirstLoad }) => {
     return (
         <motion.div
             key="intro-section"
-            className="flex-col-center full select-text py-[4vh] lg:py-20"
+            className="flex-col-center h-full w-full select-text py-[4vh] lg:py-20"
             initial="hidden"
             animate="show"
             exit="exit"
@@ -29,7 +29,7 @@ const Intro = ({ isFirstLoad }) => {
             <motion.h2 variants={variants.SubHead}>Portfolio</motion.h2>
 
             <span className="w-full flex-[0.25] md:flex-[0.5] lg:flex-[0.6]" />
-            <motion.div variants={variants.Btn}>
+            <motion.div className="w-full" variants={variants.Btn}>
                 <Styled.Button>
                     <Link
                         href={{

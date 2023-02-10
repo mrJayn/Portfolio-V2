@@ -18,7 +18,7 @@ const Section_Content = ({ even, style, variants, data, featured }) => (
             {data.title}
         </motion.h3>
         <motion.h4
-            className="whitespace-pre max-lg:h-full max-lg:py-[1.5vh] max-lg:duration-250 max-lg:ease-in-out lg:whitespace-nowrap"
+            className="whitespace-pre max-lg:h-full max-lg:py-2 max-lg:duration-250 max-lg:ease-in-out lg:whitespace-nowrap"
             variants={variants.Item}
         >
             {data.subtitle.replaceAll('<br/>', `\n`)}

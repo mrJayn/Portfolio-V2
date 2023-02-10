@@ -36,16 +36,9 @@
         @apply snap-y;
         @apply whitespace-pre-line font-montserrat text-root text-grey-30 antialiased;
         word-spacing: 1px;
-        block-size: -webkit-fill-available;
     }
     body {
-        @apply w-screen overflow-x-hidden bg-white-dark;
-        min-block-size: 100vh;
-        min-block-size: -webkit-fill-available;
-    }
-    main {
-        padding-bottom: 0px;
-        padding-bottom: env(safe-area-inset-bottom);
+        @apply h-screen w-screen overflow-x-hidden bg-white-dark;
     }
     section {
         &[data-section-in-view='false'] {

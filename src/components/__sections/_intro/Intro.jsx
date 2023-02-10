@@ -29,7 +29,7 @@ const Intro = ({ isFirstLoad }) => {
             <motion.h2 variants={variants.SubHead}>Portfolio</motion.h2>
 
             <span className="w-full flex-[0.25] md:flex-[0.5] lg:flex-[0.6]" />
-            <motion.div className="w-full" variants={variants.Btn}>
+            <motion.div className="max-lg:w-full" variants={variants.Btn}>
                 <Styled.Button>
                     <Link
                         href={{

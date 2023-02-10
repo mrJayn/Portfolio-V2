@@ -32,7 +32,10 @@ const ContactSection = ({}) => {
                 <Headline />
                 <div className="max-lg:flex-col-evenly lg:flex-evenly relative w-full rounded-3xl max-lg:h-full lg:flex-row-reverse max-lg:portrait:max-h-[500px] max-lg:landscape:mt-auto">
                     {/** Right **/}
-                    <motion.div variants={variants.Button}>
+                    <motion.div
+                        className="max-lg:w-full"
+                        variants={variants.Button}
+                    >
                         <Styled.Button>
                             <Link href="./contact" scroll={false}>
                                 Send Message

@@ -5,7 +5,7 @@ import { Styled } from '@components'
 const Section_Content = ({ even, style, variants, data, featured }) => (
     <motion.div
         layout
-        className={`flex-col-center fixed text-center max-lg:top-24 ${
+        className={`flex-col-center max-lg:safe-area-padding fixed text-center max-lg:inset-y-24 ${
             even ? 'lg:items-end lg:text-end' : 'lg:items-start lg:text-start'
         } lg:full lg:relative lg:pt-[33vh] lg:will-change-transform`}
         style={style}
@@ -23,10 +23,7 @@ const Section_Content = ({ even, style, variants, data, featured }) => (
         >
             {data.subtitle.replaceAll('<br/>', `\n`)}
         </motion.h4>
-        <motion.div
-            className="max-lg:fixed max-lg:top-[calc(100%-96px)] max-lg:duration-250 max-lg:ease-in-out"
-            variants={variants.Item}
-        >
+        <motion.div className="max-lg:w-full" variants={variants.Item}>
             <Styled.Button even={even}>
                 <Link
                     href={{

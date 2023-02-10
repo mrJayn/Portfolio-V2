@@ -20,6 +20,14 @@
     }
 
     /* Functional */
+    .webkit-fill-available {
+        height: 100vh;
+        height: -webkit-fill-available;
+    }
+    .safe-area-padding {
+        padding-bottom: 0px;
+        padding-bottom: env(safe-area-inset-bottom);
+    }
     .full {
         @apply h-full w-full;
     }

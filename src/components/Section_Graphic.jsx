@@ -4,17 +4,20 @@ import { sectionVariants } from '@motion'
 import Ftd_Slides from './__sections/_projects/Featured_Slides'
 
 const Section_Graphic = ({ isLg, data, featured }) => {
-    const useFtd = featured !== undefined
+    const isProjects = featured !== undefined
     return (
         <motion.div
-            className={`full -z-10 select-none ${
-                !useFtd && 'pointer-events-none relative overflow-hidden shadow'
+            className={`full -z-10 select-none border-2 ${
+                !isProjects &&
+                'pointer-events-none relative overflow-hidden shadow'
             }`}
-            variants={sectionVariants.Graphic(isLg)}
-            custom={useFtd}
+            variants={isLg && sectionVariants.Graphic}
+            custom={isProjects}
         >
-            {useFtd & isLg ? (
-                <Ftd_Slides {...featured} />
+            {isProjects & isLg ? (
+                <div className="full relative border-2 border-red">
+                    <Ftd_Slides {...featured} />
+                </div>
             ) : (
                 <Image
                     src={data.src}

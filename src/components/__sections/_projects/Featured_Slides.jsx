@@ -56,7 +56,7 @@ const Ftd_Slides = ({ inView, ...projects }) => {
         }
     }
     return (
-        <div className="full relative">
+        <>
             <div className="absolute top-[15%] left-0 right-[17.5%] h-[70%]">
                 <AnimatePresence>
                     {Object.keys(projects).map(
@@ -84,7 +84,7 @@ const Ftd_Slides = ({ inView, ...projects }) => {
                     whileTap={{ scale: 0.75 }}
                 />
             </div>
-        </div>
+        </>
     )
 }
 

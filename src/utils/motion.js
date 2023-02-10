@@ -91,33 +91,72 @@ export const sectionVariants = {
                       exit: { opacity: 0 },
                   },
               },
-    Graphic: (isLg) =>
-        isLg
-            ? {
-                  hidden: (useFtd) => ({
-                      opacity: 0.15,
-                      scale: useFtd ? 1 : 0.65,
-                      borderRadius: '3rem',
-                      transition: { duration: 1, ease: 'easeInOut' },
-                  }),
-                  show: (useFtd) => ({
-                      opacity: 1,
-                      scale: useFtd ? 1 : 0.65,
-                      borderRadius: '3rem',
-                      transition: { duration: 1.5, ease: 'easeInOut' },
-                  }),
-                  exit: (useFtd) => ({
-                      opacity: useFtd ? 0 : 0.25,
-                      scale: 1,
-                      borderRadius: '0rem',
-                      transition: { duration: 0.75, ease: 'easeInOut' },
-                  }),
-              }
-            : {
-                  hidden: { opacity: 1 },
-                  show: { opacity: 1 },
-                  exit: { opacity: 1 },
-              },
+    Contents: {
+        Dsktp: {
+            Container: {
+                hidden: {
+                    transition: { duration: 0.75, ease: 'easeIn' },
+                },
+                show: {
+                    transition: {
+                        staggerChildren: 0.25,
+                        staggerDirection: 1,
+                        delayChildren: 0.25,
+                    },
+                },
+                exit: {
+                    transition: {
+                        duration: 0.75,
+                        ease: 'easeIn',
+                        staggerChildren: 0.1,
+                    },
+                },
+            },
+            Title: {
+                hidden: { opacity: 0 },
+                show: { opacity: 1, transition: { duration: 0.5 } },
+                exit: { opacity: 1 },
+            },
+            Item: {
+                hidden: { opacity: 0 },
+                show: { opacity: 1, transition: { duration: 0.5 } },
+                exit: { opacity: 0 },
+            },
+        },
+        Mobile: {
+            Container: {},
+            Title: {
+                hidden: { opacity: 0 },
+                show: { opacity: 1, transition: { duration: 0.5 } },
+                exit: { opacity: 1 },
+            },
+            Item: {
+                hidden: { opacity: 0 },
+                show: { opacity: 1, transition: { duration: 0.5 } },
+                exit: { opacity: 0 },
+            },
+        },
+    },
+    Graphic: {
+        hidden: (useFtd) => ({
+            opacity: 0.15,
+            scale: useFtd ? 1 : 0.65,
+            borderRadius: '3rem',
+            transition: { duration: 1, ease: 'easeInOut' },
+        }),
+        show: (useFtd) => ({
+            opacity: 1,
+            scale: useFtd ? 1 : 0.65,
+            borderRadius: '3rem',
+            transition: { duration: 1.5, ease: 'easeInOut' },
+        }),
+        exit: (useFtd) => ({
+            opacity: useFtd ? 0 : 0.25,
+            scale: 1,
+            borderRadius: '0rem',
+            transition: { duration: 0.75, ease: 'easeInOut' },
+        }),
+    },
 }
 
 export const slugHeroVariants = {

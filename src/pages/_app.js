@@ -19,8 +19,8 @@ function MyApp({ Component, pageProps }) {
     const [isLoading, setIsLoading] = useState(isHome)
     const [activeSection, setSection] = useState(0)
     const isLg = useMediaQuery(1024)
-
     const [isRouting, setIsRouting] = useState(false)
+
     useEffect(() => {
         router.events.on('routeChangeStart', () => setIsRouting(true))
         router.events.on('routeChangeError', () => setIsRouting(true))
@@ -29,6 +29,16 @@ function MyApp({ Component, pageProps }) {
             router.events.off('routeChangeError', () => setIsRouting(true))
         }
     }, [router.events])
+
+    useEffect(() => {
+        if (isLg) return
+        const getVH = () => {
+            let vh = window.innerHeight * 0.01
+            document.documentElement.style.setProperty('--vh', `${vh}px`)
+        }
+        window.addEventListener('resize', getVH)
+        return () => window.removeEventListener('resize', getVH)
+    })
 
     pageProps = {
         isHome: isHome,

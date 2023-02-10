@@ -101,7 +101,9 @@ const Section = ({
                                   }
                                 : { opacity }
                         }
-                        variants={sectionVariants.Content(isLg)}
+                        variants={
+                            sectionVariants.Contents[isLg ? 'Dsktp' : 'Mobile']
+                        }
                         {...dataProps}
                     />
                 </motion.div>

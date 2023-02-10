@@ -43,6 +43,10 @@
         min-block-size: 100vh;
         min-block-size: -webkit-fill-available;
     }
+    main {
+        padding-bottom: 0px;
+        padding-bottom: env(safe-area-inset-bottom);
+    }
     section {
         &[data-section-in-view='false'] {
             @apply z-0;

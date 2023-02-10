@@ -45,53 +45,7 @@ const defaultBtn = {
 }
 
 export const sectionVariants = {
-    Content: (isLg) =>
-        isLg
-            ? {
-                  Container: {
-                      hidden: {
-                          transition: { duration: 0.75, ease: 'easeIn' },
-                      },
-                      show: {
-                          transition: {
-                              staggerChildren: 0.25,
-                              staggerDirection: 1,
-                              delayChildren: 0.25,
-                          },
-                      },
-                      exit: {
-                          transition: {
-                              duration: 0.75,
-                              ease: 'easeIn',
-                              staggerChildren: 0.1,
-                          },
-                      },
-                  },
-                  Title: {
-                      hidden: { opacity: 0 },
-                      show: { opacity: 1, transition: { duration: 0.5 } },
-                      exit: { opacity: 1 },
-                  },
-                  Item: {
-                      hidden: { opacity: 0 },
-                      show: { opacity: 1, transition: { duration: 0.5 } },
-                      exit: { opacity: 0 },
-                  },
-              }
-            : {
-                  Container: {},
-                  Title: {
-                      hidden: { opacity: 0 },
-                      show: { opacity: 1, transition: { duration: 0.5 } },
-                      exit: { opacity: 1 },
-                  },
-                  Item: {
-                      hidden: { opacity: 0 },
-                      show: { opacity: 1, transition: { duration: 0.5 } },
-                      exit: { opacity: 0 },
-                  },
-              },
-    Contents: {
+    Content: {
         Dsktp: {
             Container: {
                 hidden: {

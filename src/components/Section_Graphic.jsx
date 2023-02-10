@@ -7,7 +7,7 @@ const Section_Graphic = ({ isLg, data, featured }) => {
     const isProjects = featured !== undefined
     return (
         <motion.div
-            className={`full -z-10 select-none border-2 ${
+            className={`full -z-10 select-none ${
                 !isProjects &&
                 'pointer-events-none relative overflow-hidden shadow'
             }`}

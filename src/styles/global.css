@@ -3,6 +3,8 @@
 @tailwind base;
 
 :root {
+    --app-height: 100%;
+
     --nav-bg: 15 20 30;
 
     --background: 70 80 105;
@@ -31,9 +33,11 @@
         @apply snap-y snap-mandatory scroll-auto;
         @apply whitespace-pre-line font-montserrat text-root text-grey-30 antialiased;
         word-spacing: 1px;
+        height: var(--app-height);
     }
     body {
         @apply h-screen w-screen overflow-x-hidden bg-white-dark;
+        height: var(--app-height);
     }
     section {
         &[data-section-in-view='false'] {

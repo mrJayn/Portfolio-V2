@@ -102,7 +102,7 @@ const Section = ({
                                 : { opacity }
                         }
                         variants={
-                            sectionVariants.Contents[isLg ? 'Dsktp' : 'Mobile']
+                            sectionVariants.Content[isLg ? 'Dsktp' : 'Mobile']
                         }
                         {...dataProps}
                     />

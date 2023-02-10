@@ -32,15 +32,15 @@ function MyApp({ Component, pageProps }) {
     }, [router.events])
 
     useEffect(() => {
-        if (isLg) return
-        const getVH = () => {
-            let vh = window.innerHeight * 0.01
-            document.documentElement.style.setProperty('--vh', `${vh}px`)
-            setScreenHeight(vh)
-        }
+        const getVH = () =>
+            document.documentElement.style.setProperty(
+                '--vh',
+                `${window.innerHeight}px`
+            )
+        getVH
         window.addEventListener('resize', getVH)
         return () => window.removeEventListener('resize', getVH)
-    }, [screenHeight, isLg])
+    }, [])
 
     pageProps = {
         isHome: isHome,

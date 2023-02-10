@@ -4,7 +4,7 @@ import { Styled } from '@components'
 
 const Section_Content = ({ even, style, variants, data, featured }) => (
     <motion.div
-        className={`flex-col-top fixed max-lg:inset-x-0 max-lg:top-[clamp(64px,calc(var(--vh)*25),25vh)] max-lg:h-[calc(var(--vh,1vh)*50)] ${
+        className={`flex-col-top fixed max-lg:inset-x-0 max-lg:top-[clamp(64px,calc(var(--vh)*25),25vh)] max-lg:h-[calc(var(--vh)*0.5)] ${
             even ? 'lg:items-end lg:text-end' : 'lg:items-start lg:text-start'
         } lg:full lg:relative lg:pt-[33vh] lg:will-change-transform`}
         style={style}

@@ -19,6 +19,7 @@ function MyApp({ Component, pageProps }) {
     const [isLoading, setIsLoading] = useState(isHome)
     const [activeSection, setSection] = useState(0)
     const isLg = useMediaQuery(1024)
+    const [screenHeight, setScreenHeight] = useState(null)
     const [isRouting, setIsRouting] = useState(false)
 
     useEffect(() => {
@@ -35,10 +36,11 @@ function MyApp({ Component, pageProps }) {
         const getVH = () => {
             let vh = window.innerHeight * 0.01
             document.documentElement.style.setProperty('--vh', `${vh}px`)
+            setScreenHeight(vh)
         }
         window.addEventListener('resize', getVH)
         return () => window.removeEventListener('resize', getVH)
-    })
+    }, [screenHeight, isLg])
 
     pageProps = {
         isHome: isHome,

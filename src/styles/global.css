@@ -31,22 +31,16 @@
     body {
         @apply m-0 block h-full p-0;
     }
+    section {
+        @apply max-w-[1600px];
+    }
     html {
-        @apply snap-mandatory scroll-auto;
-        @apply snap-y;
+        @apply max-lg:snap-y max-lg:snap-mandatory max-lg:snap-normal;
         @apply whitespace-pre-line font-montserrat text-root text-grey-30 antialiased;
         word-spacing: 1px;
     }
     body {
         @apply h-screen w-screen overflow-x-hidden bg-white-dark;
-    }
-    section {
-        &[data-section-in-view='false'] {
-            @apply z-0;
-        }
-        &[data-section-in-view='true'] {
-            @apply z-10;
-        }
     }
     h1 {
         @apply absolute h-px w-px overflow-hidden whitespace-nowrap;
@@ -93,16 +87,6 @@
             & h3 {
                 @apply max-md:text-center;
             }
-        }
-    }
-
-    button[data-styled-btn] {
-        @apply bg-grey will-change-transform !important;
-        &[type='button'] {
-            @apply text-button-sm lg:text-button-lg;
-        }
-        &[type='submit'] {
-            @apply px-24 text-21pt md:text-24pt;
         }
     }
 

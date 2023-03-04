@@ -126,6 +126,15 @@ const Loader = ({ loaderComplete }) => {
                 },
                 2250
             )
+            .add(
+                {
+                    targets: '#loader-wrap',
+                    opacity: 0,
+                    duration: 500,
+                    easing: 'easeInQuad',
+                },
+                4200
+            )
     }, [gridSize, loaderComplete])
 
     useEffect(() => {
@@ -144,7 +153,7 @@ const Loader = ({ loaderComplete }) => {
     return (
         <div
             id="loader-wrap"
-            className="flex-center relative z-[99] h-screen w-screen overflow-hidden bg-background opacity-0"
+            className="flex-center relative z-[99] h-screen w-screen overflow-hidden  opacity-0"
         >
             <span
                 className="absolute z-10 aspect-square h-[150vmin] rounded-full text-background/90 md:h-[100vmin]"
@@ -168,7 +177,7 @@ const Loader = ({ loaderComplete }) => {
                 ))}
                 <div
                     id="loader-bg"
-                    className="inset-0 bg-loader-gradient absolute z-10 opacity-0"
+                    className="bg-loader-gradient absolute inset-0 z-10 opacity-0"
                 />
             </div>
         </div>

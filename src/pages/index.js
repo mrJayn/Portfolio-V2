@@ -1,4 +1,4 @@
-import { isValidElement, useEffect, useState } from 'react'
+import { isValidElement, useEffect } from 'react'
 import { getAllMarkdown } from 'src/lib/markdown'
 import { Contact, Intro, Layout, Section } from '@components'
 import { index2id } from '@utils'
@@ -12,26 +12,22 @@ export default function Home({ data, ...pageProps }) {
         contact: <Contact {...pageProps} />,
     }
 
-    const defaultRestDelta = 0.001
-    const [restDelta, setRestDelta] = useState(defaultRestDelta)
     useEffect(() => {
         const sectionId = index2id(pageProps.activeSection)
         const section = document.getElementById(sectionId)
         const prevScrollY = null
 
-        setRestDelta(10)
         section.scrollIntoView({ behavior: 'auto' })
 
         const checkScroll = setInterval(() => {
-            var scrollY = section.scrollTop
-            if (scrollY == prevScrollY) {
+            var scrollTop = section.scrollTop
+            if (scrollTop == prevScrollY) {
                 clearInterval(checkScroll)
-                setRestDelta(defaultRestDelta)
             }
-            prevScrollY = scrollY
+            prevScrollY = scrollTop
         }, 50)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageProps.isLg])
+    }, [])
 
     return (
         <Layout
@@ -44,7 +40,6 @@ export default function Home({ data, ...pageProps }) {
                 const props = {
                     id: id,
                     index: index,
-                    restDelta: restDelta,
                     ...(isValidJSX ? { useChildren: true } : data),
                     ...pageProps,
                 }

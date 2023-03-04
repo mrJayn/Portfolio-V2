@@ -3,6 +3,8 @@ export const sectionIDs = ['about', 'experience', 'projects', 'contact']
 export function returnHome(router) {
     const prevScrollY = null
     const goHome = () => router.push('/', '', { scroll: false })
+    document.body.style.overflowY = 'hidden'
+    // app router will return overflowY to auto
     window.scrollTo({ top: 0, behavior: 'smooth' })
     const checkIfAtTop = setInterval(() => {
         var scrollY = window.scrollY

@@ -6,7 +6,7 @@ import { Styled } from '@components'
 
 const FEATURED_SLIDE = ({ project, custom }) => (
     <motion.div
-        className=" absolute right-0 h-full w-[32.5vw] rounded-4xl border-2 shadow-md"
+        className=" absolute right-0 h-full w-[32.5vw] rounded-4xl shadow-sm"
         initial="hidden"
         animate="show"
         exit="hidden"
@@ -18,12 +18,12 @@ const FEATURED_SLIDE = ({ project, custom }) => (
             variants={variants.Content}
             custom={custom}
         >
-            <div className="ml-auto mb-1 mr-4 w-min whitespace-nowrap rounded-2xl bg-grey-10 py-3 px-6 shadow-sm">
+            <div className="ml-auto mb-1 mr-4 w-min whitespace-nowrap rounded-2xl bg-white-dark/90 py-3 px-6 shadow-sm">
                 <h5 className="font-bold tracking-normal text-black">
                     {project.title}
                 </h5>
             </div>
-            <div className="flex min-w-full rounded-2xl bg-grey-10 p-2 text-black/90 shadow-md">
+            <div className="flex min-w-full rounded-2xl bg-white-dark/90 p-2 text-black/90 shadow-md">
                 <Styled.Technolgy techs={project.tech} />
             </div>
         </motion.div>
@@ -57,7 +57,7 @@ const Ftd_Slides = ({ inView, ...projects }) => {
     }
     return (
         <>
-            <div className="absolute top-[15%] left-0 right-[17.5%] h-[70%]">
+            <div className="absolute top-[15%] left-0 right-[17.5%] h-[65%]">
                 <AnimatePresence>
                     {Object.keys(projects).map(
                         (i) =>
@@ -72,7 +72,7 @@ const Ftd_Slides = ({ inView, ...projects }) => {
                 </AnimatePresence>
             </div>
 
-            <div className="flex-around absolute bottom-[5%] left-1/2 h-8 w-[300px] -translate-x-1/2">
+            <div className="flex-around absolute bottom-[12.5%] left-1/2 h-8 w-[300px] -translate-x-1/2">
                 <Styled.Chevron
                     direction="left"
                     onClick={() => changeSlide(-1)}

@@ -152,7 +152,7 @@ const Form = ({}) => {
         {
             name: null,
             component: (
-                <Styled.Button submit>
+                <Styled.Button type="submit">
                     <span className="lg:text-[1.2em]">send</span>
                 </Styled.Button>
             ),
@@ -161,7 +161,7 @@ const Form = ({}) => {
 
     const ReactivePlaceholder = ({ name }) =>
         name ? (
-            <span className="placeholder inset-0 translate-y-3 pl-3 pt-1 pointer-events-none absolute z-10 flex origin-top-left select-none justify-start font-medium text-grey duration-150 ease-in">
+            <span className="placeholder pointer-events-none absolute inset-0 z-10 flex origin-top-left translate-y-3 select-none justify-start pl-3 pt-1 font-medium text-grey duration-150 ease-in">
                 {name}
             </span>
         ) : null
@@ -169,7 +169,7 @@ const Form = ({}) => {
     return (
         <motion.form
             id="form"
-            className="flex-col-center gap-x-2 md:p-4 flex w-full max-w-[600px] md:grid md:grid-cols-4 lg:w-[85vw] lg:max-w-[1000px] lg:text-[1.1em]"
+            className="flex-col-center flex w-full max-w-[600px] gap-x-2 md:grid md:grid-cols-4 md:p-4 lg:w-[85vw] lg:max-w-[1000px] lg:text-[1.1em]"
             onSubmit={handleSubmit(onSubmit)}
             method="POST"
             variants={{
@@ -181,7 +181,7 @@ const Form = ({}) => {
             {formItems.map(({ name, component }, i) => (
                 <div
                     key={`form-component-${i}`}
-                    className="full flex-center last-of-type:mt-4 relative"
+                    className="full flex-center relative last-of-type:mt-4"
                     style={{
                         gridArea: [
                             '1/1/1/3',

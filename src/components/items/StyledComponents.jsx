@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import Paths from './Paths'
 import { styledComponentsVariants as variants } from '@motion'
 import Image from 'next/image'
+import { theme } from 'tailwind.config'
 
 const links = [
     {
@@ -93,17 +94,16 @@ const StyledComponents = {
                 custom={bool ? !even : even}
             />
         )),
-    Button: ({ submit = false, children }) => {
+    Button: ({ children, ...props }) => {
         return (
             <motion.button
-                type={submit ? 'submit' : 'button'}
-                className="flex-center z-30 mx-auto min-w-min max-w-full cursor-pointer select-none overflow-hidden whitespace-nowrap rounded-md px-6 py-3 font-robotoMono uppercase tracking-2xl text-white/75 shadow-sm brightness-100 contrast-100 hover:text-white hover:brightness-110 hover:contrast-125 max-lg:w-[50vw] lg:px-24"
-                style={{
-                    transition:
-                        'all 0.25s cubic-bezier(0.5, 0.5, 0.5, 1), color 0.25s ease-in',
-                }}
                 data-styled-btn
+                className="flex-center z-30 min-w-min max-w-full cursor-pointer select-none overflow-hidden whitespace-nowrap rounded-md px-6 py-3 font-robotoMono text-button-sm uppercase tracking-2xl text-white opacity-75 shadow-sm transition-opacity duration-150 ease-in hover:opacity-100 max-lg:mx-auto max-lg:w-[50vw] lg:px-24 lg:text-button-lg"
+                style={{
+                    backgroundColor: theme.colors.grey[60],
+                }}
                 whileTap={{ scale: 0.9 }}
+                {...props}
             >
                 {children}
             </motion.button>

@@ -9,13 +9,10 @@ const Featured_Project = ({ featuredData, inViewRef, ...props }) => {
     const isEven = props.i % 2 == 0
     const inView = useInView(inViewRef, { amount: 0.25, once: true })
 
-    const componentShadow = isEven
-        ? 'lg:shadow-[15px_15px_15px_-10px]'
-        : 'lg:shadow-[-15px_15px_15px_-10px]'
     const HEADER = () => (
         <header
             key={`${data.title}-header`}
-            className={`flex-col-center w-full min-w-min rounded-3xl bg-white-dark lg:max-w-max lg:px-8 lg:py-4 ${componentShadow}`}
+            className={`flex-col-center w-full min-w-min rounded-3xl bg-white-dark/90 lg:max-w-max lg:px-8 lg:py-4 lg:shadow-xs `}
             style={{ filter: `hue-rotate(${props.i * 60}deg)` }}
         >
             <motion.h3

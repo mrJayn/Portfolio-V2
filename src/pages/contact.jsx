@@ -16,8 +16,7 @@ export default function Contact({ activeSection }) {
             activeSection={activeSection}
         >
             <motion.div
-                className="flex-col-center px-2 py-14 relative z-0 mx-auto min-h-screen w-full overflow-y-scroll text-center"
-                style={{ backgroundColor: backgroundColor }}
+                className="flex-col-center relative z-10 mx-auto min-h-screen w-full overflow-y-scroll px-2 py-14 text-center"
                 initial="hidden"
                 animate="show"
                 exit="hidden"
@@ -26,7 +25,7 @@ export default function Contact({ activeSection }) {
             >
                 <Styled.Background />
 
-                <p className="my-4 lg:mb-2 text-center md:portrait:text-[1.2em] lg:landscape:text-[1.3em]">
+                <p className="my-4 text-center md:portrait:text-[1.2em] lg:mb-2 lg:landscape:text-[1.3em]">
                     Use this form to send your message, <br />
                     and I&apos;ll get back to you ASAP!
                 </p>

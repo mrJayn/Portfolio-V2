@@ -1,4 +1,5 @@
 export { default as Loader } from './Loader'
+export { default as Background } from './Background'
 
 export { default as Layout } from './Layout'
 export { default as Section } from './Section'

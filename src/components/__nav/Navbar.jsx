@@ -76,8 +76,14 @@ const Navbar = ({ activeSection, isHome }) => {
                 id="navbar"
                 className="tempered-bg fixed top-0 left-0 z-30 flex h-14 w-screen items-center bg-nav/50 px-4"
                 data-menuopen={menuOpen}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                initial={{ opacity: 0, y: -56 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                    when: 'beforeChildren',
+                    duration: 1,
+                    ease: 'easeInOut',
+                    delayChildren: 0.25,
+                }}
             >
                 <LOGO centered={!isLg || !isHome} handleLogo={handleLogo} />
                 <AnimatePresence mode="wait">

@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { AnimatePresence, MotionConfig } from 'framer-motion'
 import { ToastContainer } from 'react-toastify'
 
-import { Navbar, Loader } from '@components'
+import { Navbar, Loader, Background } from '@components'
 import { useMediaQuery } from '@hooks'
 
 import '../styles/global.css'
@@ -14,22 +14,33 @@ import 'react-toastify/dist/ReactToastify.css'
 function MyApp({ Component, pageProps }) {
     const router = useRouter()
     const isHome = router.pathname === '/'
-    const url = `https://mikejayne.com/Portfolio${router.pathname}`
-
+    const url = `https://mikejayne.com/Portfolio${router.asPath}`
     const [isLoading, setIsLoading] = useState(isHome)
     const [activeSection, setSection] = useState(0)
     const isLg = useMediaQuery(1024)
-    const [screenHeight, setScreenHeight] = useState(null)
     const [isRouting, setIsRouting] = useState(false)
 
     useEffect(() => {
-        router.events.on('routeChangeStart', () => setIsRouting(true))
-        router.events.on('routeChangeError', () => setIsRouting(true))
+        const routingStart = () => {
+            document.body.style.overflowY = 'hidden'
+            setIsRouting(true)
+        }
+        router.events.on('routeChangeStart', routingStart)
+        router.events.on('routeChangeError', routingStart)
         return () => {
-            router.events.off('routeChangeStart', () => setIsRouting(true))
-            router.events.off('routeChangeError', () => setIsRouting(true))
+            router.events.off('routeChangeStart', routingStart)
+            router.events.off('routeChangeError', routingStart)
         }
     }, [router.events])
+    const routingDone = () => {
+        setIsRouting(false)
+        document.body.style.overflowY = 'auto'
+    }
+    /** */
+    useEffect(() => {
+        setTimeout(() => setIsRouting(false), 1000)
+    }, [isRouting])
+    /** */
 
     pageProps = {
         isHome: isHome,
@@ -74,15 +85,17 @@ function MyApp({ Component, pageProps }) {
                         <>
                             <AnimatePresence
                                 mode="wait"
-                                onExitComplete={() => setIsRouting(false)}
+                                onExitComplete={routingDone}
                             >
                                 <Component key={url} {...pageProps} />
                             </AnimatePresence>
                         </>
+
                         <ToastContainer />
                     </MotionConfig>
                 </>
             )}
+            <Background isLoading={isLoading} />
         </>
     )
 }

@@ -5,7 +5,6 @@ import { BsChevronCompactDown } from 'react-icons/bs'
 import { introVariants as variants } from '@motion'
 import { Styled } from '@components'
 import Title from './Title'
-import Graphic from './Graphic'
 
 const Intro = ({ isFirstLoad }) => {
     const is1st = isFirstLoad.current
@@ -18,17 +17,18 @@ const Intro = ({ isFirstLoad }) => {
     return (
         <motion.div
             key="intro-section"
-            className="flex-col-center h-full w-full select-text py-[4vh] lg:py-20"
+            className="flex-col-around h-full w-full select-text py-14 lg:py-20"
             initial="hidden"
             animate="show"
             exit="exit"
             variants={variants.Wrap}
             custom={is1st}
         >
-            <Title onTitleComplete={onTitleComplete} />
-            <motion.h2 variants={variants.SubHead}>Portfolio</motion.h2>
+            <div className="flex-col-center w-full">
+                <Title onTitleComplete={onTitleComplete} />
+                <motion.h2 variants={variants.SubHead}>Portfolio</motion.h2>
+            </div>
 
-            <span className="w-full flex-[0.25] md:flex-[0.5] lg:flex-[0.6]" />
             <motion.div className="max-lg:w-full" variants={variants.Btn}>
                 <Styled.Button>
                     <Link
@@ -42,22 +42,18 @@ const Intro = ({ isFirstLoad }) => {
                     </Link>
                 </Styled.Button>
             </motion.div>
-            <motion.a
-                href="#about"
-                className="absolute bottom-[1em] text-56pt text-grey duration-250 ease-tween hover:text-white"
+
+            <motion.div
+                className="absolute bottom-0 cursor-pointer text-56pt text-grey duration-250 ease-tween hover:text-white"
                 variants={variants.NextSectionBtn}
+                onClick={() =>
+                    document
+                        .getElementById('about')
+                        .scrollIntoView({ block: 'center', behavior: 'smooth' })
+                }
             >
                 <BsChevronCompactDown />
-            </motion.a>
-            <div className="pointer-events-none absolute inset-0 top-[6.25%] -z-10">
-                <Graphic
-                    initial="hidden"
-                    animate="show"
-                    exit="exit"
-                    variants={variants.Graphic}
-                    custom={is1st}
-                />
-            </div>
+            </motion.div>
         </motion.div>
     )
 }

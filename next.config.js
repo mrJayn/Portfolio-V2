@@ -4,12 +4,12 @@ let assetPrefix = ''
 let basePath = ''
 
 module.exports = {
+    basePath: basePath,
+    assetPrefix: assetPrefix,
     images: {
         loader: 'akamai',
         path: basePath,
     },
-    basePath: basePath,
-    assetPrefix: assetPrefix,
     webpack5: true,
     webpack: (config) => {
         config.resolve.fallback = { fs: false }

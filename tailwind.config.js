@@ -148,11 +148,11 @@ module.exports = {
                 invert: {
                     '0%': {
                         transform:
-                            'rotateX(-90deg) rotateY(360deg) rotateZ(0deg)',
+                            'rotateX(-75deg) rotateY(360deg) rotateZ(0deg)',
                     },
                     '100%': {
                         transform:
-                            'rotateX(-90deg) rotateY(0deg) rotateZ(0deg)',
+                            'rotateX(-75deg) rotateY(0deg) rotateZ(0deg)',
                     },
                 },
                 'shadow-orbital': {

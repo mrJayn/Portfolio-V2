@@ -10,6 +10,12 @@ export const springTransition = {
     mass: 3,
     restDelta: 0.001,
 }
+export const sectionSpring = {
+    type: 'spring',
+    stiffness: 400,
+    damping: 90,
+    restDelta: 0.001,
+}
 const noBounceSpring = {
     type: 'spring',
     bounce: 0,
@@ -17,7 +23,7 @@ const noBounceSpring = {
 const defaultBtn = {
     hidden: {
         opacity: 0,
-        scale: 0.6,
+        scale: 0.7,
         pointerEvents: 'none',
         transition: {
             opacity: { duration: 0.4 },
@@ -35,7 +41,7 @@ const defaultBtn = {
     },
     exit: {
         opacity: 0,
-        scale: 0.6,
+        scale: 0.7,
         pointerEvents: 'none',
         transition: {
             opacity: { duration: 0.4 },
@@ -45,79 +51,36 @@ const defaultBtn = {
 }
 
 export const sectionVariants = {
-    Content: {
-        Dsktp: {
-            Container: {
-                hidden: {
-                    transition: { duration: 0.75, ease: 'easeIn' },
-                },
-                show: {
-                    transition: {
-                        staggerChildren: 0.25,
-                        staggerDirection: 1,
-                        delayChildren: 0.25,
-                    },
-                },
-                exit: {
-                    transition: {
-                        duration: 0.75,
-                        ease: 'easeIn',
-                        staggerChildren: 0.1,
-                    },
-                },
-            },
-            Title: {
-                hidden: { opacity: 0 },
-                show: { opacity: 1, transition: { duration: 0.5 } },
-                exit: { opacity: 1 },
-            },
-            Item: {
-                hidden: { opacity: 0 },
-                show: { opacity: 1, transition: { duration: 0.5 } },
-                exit: { opacity: 0 },
-            },
-        },
-        Mobile: {
-            Container: {},
-            Title: {
-                hidden: { opacity: 0 },
-                show: { opacity: 1, transition: { duration: 0.5 } },
-                exit: { opacity: 1 },
-            },
-            Item: {
-                hidden: { opacity: 0 },
-                show: { opacity: 1, transition: { duration: 0.5 } },
-                exit: { opacity: 0 },
+    Item_A: {
+        hidden: { opacity: 0 },
+        show: {
+            opacity: 1,
+            transition: {
+                duration: 0.75,
+                ease: 'easeIn',
             },
         },
     },
+    Item_B: { ...defaultBtn },
     Graphic: {
-        hidden: (useFtd) => ({
-            opacity: 0.15,
-            scale: useFtd ? 1 : 0.65,
-            borderRadius: '3rem',
-            transition: { duration: 1, ease: 'easeInOut' },
-        }),
-        show: (useFtd) => ({
+        hidden: {
+            opacity: 0,
+            transition: { z: { ease: 'circIn' } },
+        },
+        show: {
             opacity: 1,
-            scale: useFtd ? 1 : 0.65,
-            borderRadius: '3rem',
-            transition: { duration: 1.5, ease: 'easeInOut' },
-        }),
-        exit: (useFtd) => ({
-            opacity: useFtd ? 0 : 0.25,
-            scale: 1,
-            borderRadius: '0rem',
-            transition: { duration: 0.75, ease: 'easeInOut' },
-        }),
+            transition: {
+                opacity: { duration: 0.75, ease: 'easeIn' },
+                z: { duration: 0.75, ease: 'circOut' },
+            },
+        },
     },
 }
 
 export const slugHeroVariants = {
     Container: {
-        hidden: { height: '100vh' },
+        hidden: {},
         show: {
-            height: '95vh',
             transition: {
                 delay: 1.5,
                 duration: 0.7,
@@ -126,8 +89,7 @@ export const slugHeroVariants = {
             },
         },
         exit: {
-            height: '100vh',
-            transition: { duration: 0.7, ...noBounceSpring },
+            transition: { duration: 0.75, ...noBounceSpring },
         },
     },
     Title: {
@@ -453,7 +415,7 @@ export const introVariants = {
     },
     Graphic: {
         hidden: { rotate: 0, y: '25vh', scale: 0.5 },
-        show: (is1st) => ({
+        show: {
             rotate: 0,
             y: '0vh',
             scale: 1,
@@ -461,7 +423,7 @@ export const introVariants = {
                 default: { duration: 3, ease: 'easeOut' },
                 y: { duration: 3, ease: 'backOut' },
             },
-        }),
+        },
         exit: {
             rotateX: 67,
             rotateY: 0,

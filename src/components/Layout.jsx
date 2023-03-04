@@ -1,15 +1,30 @@
+import { useState, useEffect } from 'react'
 import { NextSeo } from 'next-seo'
-import { motion } from 'framer-motion'
-import { themeConfig } from 'twTheme'
+import { motion, useIsPresent, usePresence } from 'framer-motion'
 
-const Layout = ({
-    title,
-    description,
-    isHome = false,
-    activeSection,
-    children,
-}) => {
-    const baseColor = !isHome && themeConfig.getSectionColor(activeSection)
+const variants = {
+    hidden: {
+        opacity: 0,
+    },
+    show: {
+        opacity: 1,
+        transition: {
+            delay: 0,
+            duration: 0,
+            when: 'beforeChildren',
+            delayChildren: 0,
+        },
+    },
+    exit: {
+        opacity: 1,
+        transition: {
+            duration: 0,
+            delay: 0,
+        },
+    },
+}
+
+const Layout = ({ title, description, isHome = false, children }) => {
     return (
         <>
             <NextSeo
@@ -17,21 +32,19 @@ const Layout = ({
                 description={description}
                 openGraph={{ title, description }}
             />
-            <motion.main
-                key={`${title}-Layout`}
+            <motion.div
                 id={`${title}-Layout`}
                 className={`flex-col-top top-0 left-0 w-full min-w-[320px] ${
-                    isHome
-                        ? 'absolute h-auto bg-background-gradient max-lg:z-0'
-                        : 'h-auto overflow-hidden bg-white-dark max-lg:z-20'
+                    isHome ? 'absolute z-10' : 'z-20 overflow-hidden'
                 }`}
-                initial="hidden"
-                animate="show"
+                initial={isHome ? 'exit' : 'hidden'}
+                animate={'show'}
                 exit="exit"
+                variants={variants}
             >
                 {!isHome && <a id="slugTop" />}
                 {children}
-            </motion.main>
+            </motion.div>
         </>
     )
 }

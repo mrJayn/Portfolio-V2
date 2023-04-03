@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
+const plugin = require('tailwindcss/plugin')
 const colors = require('tailwindcss/colors')
 const { themeConfig } = require('./twTheme')
 
@@ -109,7 +110,12 @@ module.exports = {
             inset: 'inset 0 0.1rem 0.1rem #0008, inset 0 -0.25rem 0.25rem #0005, inset 0 -0.5rem 0.5rem #0005, 0 0.1rem 0.1rem #0008',
             none: 'none',
         },
-
+        perspective: {
+            250: '250px',
+            500: '500px',
+            750: '750px',
+            1000: '1000px',
+        },
         extend: {
             backgroundImage: {
                 'background-gradient': themeConfig.bgGradient,
@@ -123,6 +129,7 @@ module.exports = {
                 '300%': '300%',
             },
             borderRadius: {
+                '3.5xl': '2.25rem',
                 '4xl': '3rem',
             },
             transitionDuration: {
@@ -135,11 +142,23 @@ module.exports = {
             transitionTimingFunction: {
                 tween: 'cubic-bezier(0.5, 0.5, 0.5, 1)',
             },
+            animation: {
+                'scroll-left-1': 'scroll-left-1 20s 0s linear infinite',
+                'scroll-left-2': 'scroll-left-2 20s 10s linear infinite',
+            },
             keyframes: {
                 bgRotate: {
                     '0%': { backgroundPosition: '0% 0%' },
                     '50%': { backgroundPosition: '75% 0%' },
                     '100%': { backgroundPosition: '150% 0%' },
+                },
+                'scroll-left-1': {
+                    '0%': { transform: 'translateX(100%)' },
+                    '100%': { transform: 'translateX(-100%)' },
+                },
+                'scroll-left-2': {
+                    '0%': { transform: 'translateX(0%)' },
+                    '100%': { transform: 'translateX(-200%)' },
                 },
                 orbit: {
                     '0%': { transform: 'rotateZ(0deg)' },
@@ -194,4 +213,25 @@ module.exports = {
             },
         },
     },
+    plugins: [
+        plugin(function ({ matchUtilities, theme }) {
+            matchUtilities(
+                {
+                    'translate-z': (value) => ({
+                        '--tw-translate-z': value,
+                        transform: ` translate3d(var(--tw-translate-x), var(--tw-translate-y), var(--tw-translate-z)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))`,
+                    }), // this is actual CSS
+                },
+                { values: theme('translate'), supportsNegativeValues: true }
+            ),
+                matchUtilities(
+                    {
+                        perspective: (value) => ({
+                            perspective: value,
+                        }),
+                    },
+                    { values: theme('perspective') }
+                )
+        }),
+    ],
 }

@@ -1,55 +1,30 @@
-import { useState, useRef, useEffect } from 'react'
+import { useRef } from 'react'
 import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { AnimatePresence, MotionConfig } from 'framer-motion'
 import { ToastContainer } from 'react-toastify'
 
-import { Navbar, Loader, Background } from '@components'
-import { useMediaQuery } from '@hooks'
+import { Navbar, Background } from '@components'
 
 import '../styles/global.css'
 import 'react-toastify/dist/ReactToastify.css'
 
 function MyApp({ Component, pageProps }) {
     const router = useRouter()
-    const isHome = router.pathname === '/'
     const url = `https://mikejayne.com/Portfolio${router.asPath}`
-    const [isLoading, setIsLoading] = useState(isHome)
-    const [activeSection, setSection] = useState(0)
-    const isLg = useMediaQuery(1024)
-    const [isRouting, setIsRouting] = useState(false)
+    const isHome = router.pathname === '/'
 
-    useEffect(() => {
-        const routingStart = () => {
-            document.body.style.overflowY = 'hidden'
-            setIsRouting(true)
-        }
-        router.events.on('routeChangeStart', routingStart)
-        router.events.on('routeChangeError', routingStart)
-        return () => {
-            router.events.off('routeChangeStart', routingStart)
-            router.events.off('routeChangeError', routingStart)
-        }
-    }, [router.events])
-    const routingDone = () => {
-        setIsRouting(false)
-        document.body.style.overflowY = 'auto'
-    }
-    /** */
-    useEffect(() => {
-        setTimeout(() => setIsRouting(false), 1000)
-    }, [isRouting])
-    /** */
+    const activeSection = useRef(0)
+    const isFirstLoad = useRef(true)
+
+    const setSection = (i) => (activeSection.current = i)
 
     pageProps = {
         isHome: isHome,
-        isFirstLoad: useRef(true),
-        activeSection: activeSection,
-        setSection: (index) => {
-            if (!isRouting) setSection(index)
-        },
-        ...(!isHome && { isLg: isLg }),
+        isFirstLoad: isFirstLoad,
+        activeSection: activeSection.current,
+        setSection: setSection,
         ...pageProps,
     }
 
@@ -76,26 +51,30 @@ function MyApp({ Component, pageProps }) {
                 canonical={url}
             />
             <h1>Mike Jayne</h1>
-            {isLoading && isHome ? (
-                <Loader loaderComplete={() => setIsLoading(false)} />
-            ) : (
-                <>
-                    <MotionConfig reducedMotion="user">
-                        <Navbar isHome={isHome} activeSection={activeSection} />
-                        <>
-                            <AnimatePresence
-                                mode="wait"
-                                onExitComplete={routingDone}
-                            >
-                                <Component key={url} {...pageProps} />
-                            </AnimatePresence>
-                        </>
+            <MotionConfig reducedMotion="user">
+                <Navbar
+                    isHome={isHome}
+                    activeSection={activeSection}
+                    setSection={setSection}
+                />
 
-                        <ToastContainer />
-                    </MotionConfig>
-                </>
-            )}
-            <Background isLoading={isLoading} />
+                <AnimatePresence
+                    mode="wait"
+                    onExitComplete={() => {
+                        document.body.style.overflowY = isHome
+                            ? 'auto'
+                            : 'hidden'
+                    }}
+                >
+                    <Component key={url} {...pageProps} />
+                </AnimatePresence>
+                <div
+                    id="scroll-holder"
+                    className="pointer-events-none absolute top-0 left-0 h-[500vh] w-full"
+                />
+                <Background />
+            </MotionConfig>
+            <ToastContainer />
         </>
     )
 }

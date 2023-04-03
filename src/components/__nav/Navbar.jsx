@@ -1,45 +1,45 @@
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import { useMediaQuery } from '@hooks'
-import { returnHome } from '@utils'
+import { pushPage } from '@utils'
 import { Styled } from '@components'
 import Burger from './Burger'
 import Menu from './Menu'
 
-const LOGO = ({ centered, handleLogo }) => (
+const LOGO = ({ centered }) => (
     <motion.a
         id="logo"
         className="flex-center relative z-10 min-w-max cursor-pointer select-none overflow-hidden whitespace-nowrap text-center text-28pt font-thin tracking-2xl text-white/60 transition-colors duration-500 ease-tween after:content-['MIKE_JAYNE'] hover:text-white/80"
         initial={false}
         animate={{ x: centered ? 'calc(50vw - 116px)' : '0px' }}
-        transition={{ delay: 0.25, duration: 1, ease: 'easeInOut' }}
-        onClick={handleLogo}
+        transition={{ duration: 1, ease: 'anticipate' }}
+        onClick={() => {
+            if (window.scrollY == 0 || typeof window == undefined) {
+                router.reload()
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+            }
+        }}
     >
         MIKE JAYNE
     </motion.a>
 )
 
-const NavLinks = ({ activeSection }) => (
+const NavLinks = ({}) => (
     <motion.ul
         className="flex-center absolute right-0 top-0 z-10 h-full"
         initial="hidden"
         animate="show"
         exit="hidden"
         variants={{
-            hidden: { transition: { staggerChildren: 0.075 } },
+            hidden: { transition: { staggerChildren: 0.05 } },
             show: {
-                transition: {
-                    staggerChildren: 0.075,
-                    staggerDirection: -1,
-                    delayChildren: 0.5,
-                },
+                transition: { staggerChildren: 0.05, staggerDirection: -1 },
             },
         }}
     >
         <Styled.SectionLinks
-            activeSection={activeSection}
             className="flex-center relative mx-4 h-3/4 bg-clip-text text-[0.9em] leading-none transition-colors delay-100 duration-250 ease-in hover:text-white"
             variants={{ hidden: { y: -50 }, show: { y: 0 } }}
             transition={{ duration: 0.5 }}
@@ -47,18 +47,9 @@ const NavLinks = ({ activeSection }) => (
     </motion.ul>
 )
 
-const Navbar = ({ activeSection, isHome }) => {
-    const router = useRouter()
+const Navbar = ({ isHome, ...sectionProps }) => {
     const isLg = useMediaQuery(1024)
     const [menuOpen, setMenu] = useState(false)
-    const handleLogo = () => {
-        if (window.scrollY == 0 || typeof window == undefined) {
-            router.reload()
-        } else {
-            window.scrollTo({ top: 0, behavior: 'smooth' })
-        }
-    }
-    const backToHome = () => returnHome(router)
 
     const toggleMenu = () => {
         setMenu(!menuOpen)
@@ -74,7 +65,7 @@ const Navbar = ({ activeSection, isHome }) => {
         <>
             <motion.nav
                 id="navbar"
-                className="tempered-bg fixed top-0 left-0 z-30 flex h-14 w-screen items-center bg-nav/50 px-4"
+                className="tempered-bg fixed top-0 left-0 z-[99] flex h-14 w-screen items-center px-4"
                 data-menuopen={menuOpen}
                 initial={{ opacity: 0, y: -56 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -85,15 +76,10 @@ const Navbar = ({ activeSection, isHome }) => {
                     delayChildren: 0.25,
                 }}
             >
-                <LOGO centered={!isLg || !isHome} handleLogo={handleLogo} />
+                <LOGO centered={!isLg || !isHome} />
                 <AnimatePresence mode="wait">
                     {isLg ? (
-                        isHome && (
-                            <NavLinks
-                                key="nav-links"
-                                activeSection={activeSection}
-                            />
-                        )
+                        isHome && <NavLinks key="nav-links" />
                     ) : (
                         <Burger
                             key="nav-burger"
@@ -105,7 +91,7 @@ const Navbar = ({ activeSection, isHome }) => {
                                     : 'closed'
                             }
                             handleBurger={() =>
-                                isHome ? toggleMenu() : backToHome()
+                                isHome ? toggleMenu() : pushPage('/')
                             }
                         />
                     )}
@@ -115,10 +101,16 @@ const Navbar = ({ activeSection, isHome }) => {
                 {isLg && !isHome && (
                     <Styled.BackButton
                         key="nav-back-btn"
-                        backToHome={backToHome}
+                        onClick={() => pushPage('/')}
                     />
                 )}
-                {menuOpen && <Menu key="nav-menu" toggleMenu={toggleMenu} />}
+                {menuOpen && (
+                    <Menu
+                        key="nav-menu"
+                        action={toggleMenu}
+                        {...sectionProps}
+                    />
+                )}
             </AnimatePresence>
         </>
     )

@@ -3,7 +3,7 @@
 @tailwind base;
 
 :root {
-    --nav-bg: 15 20 30;
+    --nav-bg: 0 0 2;
 
     --background: 70 80 105;
 
@@ -13,13 +13,6 @@
     --theme-slate: theme(colors.slate.DEFAULT);
     --theme-teal: theme(colors.teal.DEFAULT);
     --theme-purple: theme(colors.purple.DEFAULT);
-
-    --loader-gradient-color-1: theme(colors.slate.neon);
-    --loader-gradient-color-2: theme(colors.slate.neon/0.25);
-
-    --blackhole-light-1: theme(colors.slate.30/0.5);
-    --blackhole-light-2: theme(colors.slate.40/0.25);
-    --blackhole-light-3: theme(colors.slate.DEFAULT);
 }
 
 @layer base {
@@ -27,20 +20,16 @@
         @apply box-border;
         -moz-box-sizing: border-box;
     }
-    html,
-    body {
-        @apply m-0 block h-full p-0;
-    }
     section {
         @apply max-w-[1600px];
     }
     html {
-        @apply max-lg:snap-y max-lg:snap-mandatory max-lg:snap-normal;
+        @apply snap-y snap-mandatory snap-normal;
         @apply whitespace-pre-line font-montserrat text-root text-grey-30 antialiased;
         word-spacing: 1px;
     }
     body {
-        @apply h-screen w-screen overflow-x-hidden bg-white-dark;
+        @apply m-0 h-screen w-screen overflow-x-hidden bg-white-dark p-0;
     }
     h1 {
         @apply absolute h-px w-px overflow-hidden whitespace-nowrap;
@@ -58,7 +47,7 @@
     }
     h4 {
         @apply text-heading-4;
-        @apply tracking-md text-grey-10;
+        @apply leading-7 tracking-md text-grey-10;
     }
     h5 {
         @apply text-heading-5;

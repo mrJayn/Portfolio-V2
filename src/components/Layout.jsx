@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
 import { NextSeo } from 'next-seo'
-import { motion, useIsPresent, usePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 const variants = {
     hidden: {
@@ -32,19 +31,20 @@ const Layout = ({ title, description, isHome = false, children }) => {
                 description={description}
                 openGraph={{ title, description }}
             />
-            <motion.div
+            <motion.main
                 id={`${title}-Layout`}
                 className={`flex-col-top top-0 left-0 w-full min-w-[320px] ${
-                    isHome ? 'absolute z-10' : 'z-20 overflow-hidden'
+                    isHome
+                        ? 'absolute z-10 overflow-hidden'
+                        : 'fixed z-50 h-screen overflow-y-scroll'
                 }`}
-                initial={isHome ? 'exit' : 'hidden'}
-                animate={'show'}
+                initial="hidden"
+                animate="show"
                 exit="exit"
                 variants={variants}
             >
-                {!isHome && <a id="slugTop" />}
                 {children}
-            </motion.div>
+            </motion.main>
         </>
     )
 }

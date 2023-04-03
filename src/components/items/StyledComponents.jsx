@@ -1,8 +1,11 @@
-import { motion } from 'framer-motion'
-import Paths from './Paths'
-import { styledComponentsVariants as variants } from '@motion'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { theme } from 'tailwind.config'
+
+import { styledComponentsVariants as variants } from '@motion'
+import { skill_icons } from '@config'
+import Paths from './Paths'
+import { pushPage } from '@utils'
 
 const links = [
     {
@@ -48,16 +51,16 @@ const Icon = ({ name, size = '100%', fill = 'none', className = '' }) => {
 }
 
 const StyledComponents = {
-    BackButton: ({ backToHome }) => (
+    BackButton: ({ ...onclick }) => (
         <motion.button
-            className="fixed top-2 left-2 z-50 aspect-[1/1] w-24 cursor-pointer overflow-hidden rounded-xl bg-black/50  text-grey-30 backdrop-blur-sm hover:text-white max:left-[calc(8px+(25vw-360px))]"
+            className="fixed top-4 left-4 z-[99] aspect-[1/1] w-24 cursor-pointer overflow-hidden rounded-xl bg-nav  text-grey-30 backdrop-blur-sm hover:text-white max:left-[calc(8px+(25vw-360px))]"
             initial="hidden"
             animate="show"
             exit="hidden"
             variants={variants.BackBtn.Wrapper}
             whileHover={{ x: -2.5 }}
             whileTap={{ scale: 0.9, originX: 0.5 }}
-            onClick={() => backToHome()}
+            {...onclick}
         >
             {[0, 45, -45].map((degrees, i) => (
                 <motion.span
@@ -74,34 +77,10 @@ const StyledComponents = {
             ))}
         </motion.button>
     ),
-    Background: ({ even = true, zIndex = -1 }) =>
-        [true, false].map((bool, i) => (
-            <motion.div
-                key={`decoration-${i}`}
-                className={`flex-center absolute h-3/4 w-full ${
-                    bool ? 'top-0 bg-slate-40/25 ' : 'bottom-0 bg-slate-90/50'
-                } ${
-                    even
-                        ? bool
-                            ? 'left-0 origin-left rounded-br-full'
-                            : ' right-0 origin-right rounded-tl-full'
-                        : bool
-                        ? 'right-0 origin-right rounded-bl-full'
-                        : 'left-0 origin-left rounded-tr-full'
-                }`}
-                style={{ zIndex: zIndex }}
-                variants={variants.Background}
-                custom={bool ? !even : even}
-            />
-        )),
     Button: ({ children, ...props }) => {
         return (
             <motion.button
-                data-styled-btn
-                className="flex-center z-30 min-w-min max-w-full cursor-pointer select-none overflow-hidden whitespace-nowrap rounded-md px-6 py-3 font-robotoMono text-button-sm uppercase tracking-2xl text-white opacity-75 shadow-sm transition-opacity duration-150 ease-in hover:opacity-100 max-lg:mx-auto max-lg:w-[50vw] lg:px-24 lg:text-button-lg"
-                style={{
-                    backgroundColor: theme.colors.grey[60],
-                }}
+                className="flex-center z-30 max-w-full cursor-pointer select-none whitespace-nowrap rounded-md bg-grey-60/75 px-6 py-3 font-robotoMono text-button uppercase tracking-2xl text-white/75 shadow-sm transition-colors duration-150 ease-in hover:bg-grey-60 hover:text-white md:px-12 lg:px-20"
                 whileTap={{ scale: 0.9 }}
                 {...props}
             >
@@ -187,7 +166,7 @@ const StyledComponents = {
             key={`featured-image-${alt}`}
             className={
                 isHome
-                    ? 'full relative -z-10 overflow-hidden rounded-4xl'
+                    ? 'full relative -z-10 overflow-hidden rounded-3.5xl'
                     : `relative aspect-[16/9] w-full select-none lg:mt-8 lg:max-w-[888px] ${
                           LG ? 'hidden lg:block' : 'lg:hidden'
                       }`
@@ -232,35 +211,35 @@ const StyledComponents = {
                 </motion.div>
             )
         }),
-    SectionLinks: ({ activeSection = 0, className, action = null, ...props }) =>
-        ['about', 'experience', 'projects', 'contact', 'my Resume'].map(
-            (item, i) => {
-                const itemProps = item.includes('Resume')
-                    ? { href: '/assets/misc/resume2022.jpg', target: '_blank' }
-                    : {
-                          onClick: () => {
-                              document.getElementById(item).scrollIntoView({
-                                  behavior: 'smooth',
-                              })
-                              if (action !== null) action()
-                          },
-                      }
+    SectionLinks: ({ className, action = null, ...motionProps }) => {
+        return ['about', 'experience', 'projects', 'contact', 'my Resume'].map(
+            (id, i) => {
+                const handleClick = () => {
+                    if (id === 'my Resume') {
+                        window.open('/assets/misc/resume2022.jpg', '_blank')
+                    } else {
+                        document.getElementById(id).scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                        })
+                    }
+                    if (action !== null) action()
+                }
+
                 return (
                     <motion.li
                         key={`link-${i}`}
-                        className={`${className} cursor-pointer whitespace-nowrap font-medium capitalize ${
-                            activeSection === i + 1
-                                ? 'md:text-white/80'
-                                : 'md:text-white/40'
-                        }`}
+                        className={`${className} cursor-pointer select-none whitespace-nowrap font-medium capitalize max-lg:flex`}
+                        onClick={handleClick}
                         custom={i + 1}
-                        {...props}
+                        {...motionProps}
                     >
-                        <a {...itemProps}>{item}</a>
+                        {id}
                     </motion.li>
                 )
             }
-        ),
+        )
+    },
     Socials: ({ useText = false, ...props }) => {
         return links.map(({ name, href }, i) => (
             <motion.a
@@ -274,7 +253,7 @@ const StyledComponents = {
                 {...props}
             >
                 {useText ? (
-                    <div className="flex-center socials-text-style group w-full gap-x-2 text-white/40  transition-colors duration-250 ease-tween will-change-transform hover:text-white">
+                    <div className="flex-center socials-text-style group w-full gap-x-2 text-white/60  transition-colors duration-250 ease-tween will-change-transform hover:text-white">
                         <div className="relative h-[2em] w-[2em]">
                             <StyledComponents.Icon name={name} />
                         </div>
@@ -282,7 +261,7 @@ const StyledComponents = {
                             initial={{ opacity: 0 }}
                             animate={{
                                 opacity: 1,
-                                transition: { delay: 1.5 + i * 0.1 },
+                                transition: { delay: 0.25 + i * 0.1 },
                             }}
                         >
                             {name}
@@ -294,7 +273,7 @@ const StyledComponents = {
             </motion.a>
         ))
     },
-    Technolgy: ({ techs, className = '', ...props }) =>
+    Tech: ({ techs, className = '', ...props }) =>
         techs.map((item, i) => (
             <motion.span
                 key={`tech-item-${i}`}

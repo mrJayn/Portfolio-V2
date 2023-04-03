@@ -31,9 +31,12 @@
     .screen {
         @apply h-screen w-screen;
     }
+    /* 3d Styling */
     .preserve-3d {
         transform-style: preserve-3d;
     }
+
+    /* Flex Boxes */
     .absoluteFull {
         @apply absolute top-0 right-0 left-0 bottom-0;
     }
@@ -84,5 +87,8 @@
     }
     .flex-col-around {
         @apply flex flex-col items-center justify-around;
+    }
+    .reverse-flex-col {
+        @apply flex flex-col-reverse;
     }
 }

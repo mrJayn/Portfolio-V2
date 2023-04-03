@@ -61,6 +61,7 @@
             }
         }
     }
+
     menu .socials-icon-bg:after {
         @apply pointer-events-none absolute inset-[-5px] -z-10 rounded-full bg-grey-80/50 content-[''];
     }
@@ -84,11 +85,17 @@
             @apply origin-bottom-left scale-x-100;
         }
     }
+
     .listed-item:before {
         /* colored bullets @ JOBS */
         content: '\2022';
         @apply inline-block w-[0.75em] font-bold text-slate-neon;
     }
+
+    .styled-a-link {
+        @apply whitespace-nowrap font-medium text-slate-neon brightness-90 contrast-75 duration-250 ease-tween after:absolute after:-ml-2  after:text-[2em] after:leading-[0.6] after:duration-250 after:ease-tween after:content-['\00a0\00BB'] hover:translate-x-1 hover:contrast-150 hover:after:-ml-1;
+    }
+
     .styled-underline {
         @apply absolute bottom-0 h-0.5 blur-[0.5px];
         background-color: #fffa;
@@ -109,6 +116,7 @@
             }
         }
     }
+
     .archiveIndicator-decoration {
         &:before,
         &:after {
@@ -123,5 +131,26 @@
             @apply right-[-25%] rounded-bl-full;
             box-shadow: -20px 10px 0px 10px;
         }
+    }
+
+    .stars {
+        box-shadow: 2vw 55vh, 96vw 0vh, 63vw 108vh, 90vw 24vh, 14vw 50vh,
+            22vw 197vh, 47vw 105vh, 76vw 121vh, 88vw 138vh, 72vw 191vh,
+            26vw 10vh, 73vw 180vh, 76vw 136vh, 7vw 83vh, 77vw 104vh, 59vw 179vh,
+            43vw 56vh, 68vw 27vh, 15vw 2vh, 44vw 45vh, 30vw 158vh, 45vw 18vh,
+            62vw 161vh, 74vw 135vh, 44vw 19vh, 45vw 93vh, 97vw 10vh, 91vw 172vh,
+            30vw 31vh, 78vw 9vh, 76vw 174vh, 54vw 98vh, 80vw 156vh, 50vw 104vh,
+            95vw 134vh, 9vw 118vh, 12vw 3vh, 98vw 89vh, 74vw 177vh, 7vw 11vh,
+            98vw 70vh, 66vw 148vh, 43vw 26vh, 57vw 186vh, 52vw 9vh, 83vw 23vh,
+            92vw 177vh, 99vw 90vh, 83vw 75vh, 41vw 86vh, 95vw 39vh, 29vw 75vh,
+            66vw 111vh, 75vw 6vh, 67vw 85vh, 45vw 57vh, 30vw 9vh, 23vw 116vh,
+            89vw 139vh, 43vw 175vh, 55vw 170vh, 4vw 174vh, 19vw 31vh, 95vw 51vh,
+            1vw 193vh, 77vw 56vh, 87vw 43vh, 9vw 69vh, 65vw 75vh, 17vw 191vh,
+            50vw 29vh, 94vw 190vh, 52vw 191vh, 63vw 4vh, 10vw 111vh, 60vw 104vh,
+            48vw 83vh, 10vw 152vh, 11vw 136vh, 83vw 79vh, 28vw 70vh, 52vw 194vh,
+            86vw 51vh, 10vw 92vh, 89vw 168vh, 69vw 35vh, 99vw 126vh, 14vw 122vh,
+            1vw 139vh, 3vw 81vh, 9vw 118vh, 38vw 79vh, 7vw 158vh, 60vw 70vh,
+            0vw 20vh, 48vw 4vh, 3vw 25vh, 14vw 140vh, 25vw 142vh, 32vw 135vh,
+            45vw 67vh;
     }
 }

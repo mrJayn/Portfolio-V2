@@ -1,11 +1,18 @@
 ---
-id: Experience
-index: 2
+id: experience
+
 title: Experience
 subtitle: Past Work and<br/>Education
-description: My Previous Work Experiences,<br/> Education, and Certifications
+btnText: READ MORE
+
 src: '/assets/misc/resume2022.jpg'
 alt: /
+
+headers:
+    summary: PROFESSIONAL SUMMARY
+    jobs: WORK EXPERIENCE
+    education: EDUCATION
+    certifications: CERTIFICATIONS
 
 education:
     university: University of Massachusetts Amherst

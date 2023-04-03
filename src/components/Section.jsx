@@ -1,122 +1,43 @@
-import { useEffect, useRef } from 'react'
-import { useRouter } from 'next/router'
-import Image from 'next/image'
-import {
-    motion,
-    useScroll,
-    useInView,
-    useTransform,
-    useSpring,
-} from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { sectionVariants } from '@motion'
+import { Intro, Contact, PageLink } from '@components'
 
-import { sectionSpring, sectionVariants } from '@motion'
-import { Styled } from '@components'
-import Ftd_Slides from './__sections/_projects/Featured_Slides'
-
-const SectionLink = ({ sid, text }) => {
-    const router = useRouter()
-    return (
-        <motion.div className="max-lg:w-full" variants={sectionVariants.Item_B}>
-            <Styled.Button>
-                <a
-                    onClick={(e) => {
-                        e.preventDefault()
-                        document
-                            .querySelector(`#${sid.toLowerCase()}`)
-                            .scrollIntoView({
-                                block: 'center',
-                                behavior: 'smooth',
-                            })
-                        router.push(
-                            { pathname: '/[sid]', query: { sid: sid } },
-                            `/${sid}`,
-                            { scroll: false }
-                        )
-                    }}
-                >
-                    {text}
-                </a>
-            </Styled.Button>
-        </motion.div>
-    )
-}
-
-const Graphic = ({ data, featured }) => (
-    <motion.div
-        className={`full preserve-3d relative select-none max-lg:hidden ${
-            featured === undefined && 'flex-center pointer-events-none'
-        }`}
-        variants={sectionVariants.Item_A}
-    >
-        {featured === undefined ? (
-            <div className="relative h-[50%] w-[75%] overflow-hidden rounded-[3rem]">
-                <Image
-                    src={data.src}
-                    alt={data.alt}
-                    layout="fill"
-                    objectFit="cover"
-                    quality={25}
-                />
-            </div>
-        ) : (
-            <Ftd_Slides {...featured} />
-        )}
-    </motion.div>
-)
-
-const Section = ({
-    id,
-    index,
-    activeSection,
-    setSection,
-    useChildren = false,
-    children,
-    ...data
-}) => {
+const Section = ({ id, i, activeSection, setSection, data }) => {
     const ref = useRef(null)
     const inView = useInView(ref, { amount: 0.51 })
-
-    useEffect(() => {
-        if ((activeSection !== index) & inView) setSection(index)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [inView])
+    const activate = () => setSection(i)
 
     return (
         <motion.section
             id={id}
-            className="max-lg:safe-area-padding flex-center group relative z-10 h-screen w-full odd:flex-row-reverse max-lg:snap-center"
-            style={{
-                perspective: '1000px',
-                perspectiveOrigin: '50% 50%',
-            }}
-            initial={activeSection === index ? 'hidden' : 'show'}
+            className="flex-col-around group relative z-10 h-screen w-screen overflow-hidden p-4 pt-[max(12.5vh,70px)]"
+            initial={activeSection === i ? 'hidden' : 'show'}
             animate="show"
-            exit={activeSection === index ? 'hidden' : 'show'}
+            {...(inView && { exit: 'exit' })}
             ref={ref}
         >
-            {useChildren ? (
-                children
+            {id === 'intro' ? (
+                <Intro activate={activate} />
+            ) : id === 'contact' ? (
+                <Contact activate={activate} />
             ) : (
-                <>
-                    <Graphic {...data} />
-                    <motion.div className="flex-col-top lg:full absolute text-center max-lg:inset-0 max-lg:top-1/2 max-lg:-translate-y-1/2 lg:relative lg:gap-y-[2vh] lg:pt-[33vh] lg:will-change-transform lg:group-odd:items-end lg:group-even:items-start">
-                        <h3 className="leading-none">{data.data.title}</h3>
-
-                        <motion.h4
-                            className=" whitespace-pre max-lg:h-full lg:whitespace-nowrap"
-                            variants={sectionVariants.Item_A}
-                        >
-                            {data.data.subtitle.replaceAll('<br/>', `\n`)}
-                        </motion.h4>
-
-                        <SectionLink
-                            sid={data.data.id}
-                            text={data.featured ? 'View All' : 'Read More'}
-                        />
-                    </motion.div>
-                </>
+                <div
+                    id={`${id}-content`}
+                    className="flex-col-top absolute z-10 gap-y-[2vh] text-center portrait:top-1/3 landscape:top-[37.5%]"
+                >
+                    <h3 className="whitespace-nowrap">{data.title}</h3>
+                    <PageLink
+                        id={id}
+                        variants={sectionVariants.Button}
+                        activate={activate}
+                    >
+                        {data.btnText}
+                    </PageLink>
+                </div>
             )}
         </motion.section>
     )
 }
+
 export default Section

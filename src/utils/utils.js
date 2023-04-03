@@ -1,16 +1,31 @@
-export const sectionIDs = ['about', 'experience', 'projects', 'contact']
+import { router } from 'next/router'
 
-export function returnHome(router) {
-    const prevScrollY = null
-    const goHome = () => router.push('/', '', { scroll: false })
+export const sectionIDs = [
+    'intro',
+    'about',
+    'experience',
+    'projects',
+    'contact',
+]
+
+export function pushPage(id, href = '/', as = '') {
+    var el, prevScrollY
+
     document.body.style.overflowY = 'hidden'
-    // app router will return overflowY to auto
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+
+    if (id === '/') {
+        el = document.querySelector('main')
+        el.scrollTo({ top: 0, behavior: 'smooth' })
+    } else {
+        el = document.getElementById(id)
+        el.scrollIntoView({ block: 'center', behavior: 'smooth' })
+    }
+
     const checkIfAtTop = setInterval(() => {
-        var scrollY = window.scrollY
+        var scrollY = el.scrollTop
         if (scrollY == prevScrollY) {
             clearInterval(checkIfAtTop)
-            goHome()
+            router.push(href, as, { scroll: false })
         }
         prevScrollY = scrollY
     }, 50)
@@ -53,16 +68,24 @@ export const paginate = (newDirection, currentTab, span, setTab) => {
     }
 }
 
-/**
- * @param {number} index - index of active section
- */
-export const index2id = (index) => {
-    const sectionsIDXs = {
-        0: 'intro',
-        1: 'about',
-        2: 'experience',
-        3: 'projects',
-        4: 'contact',
+/** REACT HOOK */
+function useMousePosition() {
+    const [mousePosition, setMousePosition] = useState({
+        x: null,
+        y: null,
+    })
+    useEffect(() => {
+        const updatePosition = (e) => {
+            setMousePosition({
+                x: (e.clientX / screen.width) * 10,
+                y: (e.clientY / screen.height) * 10,
+            })
+        }
+        window.addEventListener('mousemove', updatePosition)
+        return () => window.removeEventListener('mousemove', updatePosition)
+    }, [])
+    return {
+        cursorX: mousePosition.x,
+        cursorY: mousePosition.y,
     }
-    return sectionsIDXs[index]
 }

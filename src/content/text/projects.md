@@ -1,9 +1,10 @@
 ---
-id: Projects
-index: 3
+id: projects
+
 title: Projects
 subtitle: What I've Built
-description: My projects, apps, and code.
+btnText: VIEW ALL
+
 src: '/assets/featured/choropleth_map.png'
 alt: /
 ---

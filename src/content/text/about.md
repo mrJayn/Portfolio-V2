@@ -1,36 +1,38 @@
 ---
-id: About
-index: 1
+id: about
+
 title: About Me
 subtitle: Get to know me.
-description: Nice to meet you,<br/>Allow me to introduce myself.
+btnText: READ MORE
+
 src: '/assets/misc/mikeJayne.JPG'
 alt: A picture of me
+
+imgs:
+    - src: '/assets/misc/mikeJayne.jpg'
+      alt: Professional head photo
+    - src: '/assets/misc/resume2022.jpg'
+      alt: Photo 2
+    - src: '/assets/misc/moon.jpg'
+      alt: Photo 3
 
 introduction: I'm an chemical engineer turned developer who wants nothing more than to consume knowledge and to find the problems yet to to have a solution. I started teaching myself how to practically code in early March of 2022 and seeing how far I've come only gets me more excited for what lies ahead. I'm exeptionally well versed in Javascript Front End development, Python and SQL data analysis.
 
 skills:
     - title: Javascript
       src: '/assets/skills/javascript.png'
-
     - title: Next.js
       src: '/assets/skills/nextjs.png'
-
     - title: Tailwind
       src: '/assets/skills/tailwind.png'
-
     - title: Python
       src: '/assets/skills/python.png'
-
     - title: HTML / CSS
       src: '/assets/skills/htmlcss.png'
-
     - title: TensorFlow
       src: '/assets/skills/tensor.png'
-
     - title: D3.js
       src: '/assets/skills/d3.png'
-
     - title: Node.js
       src: '/assets/skills/node.png'
 ---

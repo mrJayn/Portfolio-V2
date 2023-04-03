@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion'
 import { featuredProjectVariants as variants } from '@motion'
 import { Styled } from '@components'
 
-const Featured_Project = ({ featuredData, inViewRef, ...props }) => {
+const Content = ({ featuredData, inViewRef, ...props }) => {
     const { data, content } = featuredData
     const isEven = props.i % 2 == 0
     const inView = useInView(inViewRef, { amount: 0.25, once: true })
@@ -26,31 +26,11 @@ const Featured_Project = ({ featuredData, inViewRef, ...props }) => {
                 variants={variants.TechWrap}
                 custom={isEven ? -1 : 1}
             >
-                <Styled.Technolgy techs={data.tech} variants={variants.Tech} />
+                <Styled.Tech techs={data.tech} variants={variants.Tech} />
             </motion.div>
         </header>
     )
-    const CONTENT = () => (
-        <div className="flex-col-center relative w-full rounded-3xl bg-white-dark/90 lg:p-4 lg:shadow-sm">
-            <motion.div
-                className="content-innerHTML w-full max-lg:text-center"
-                dangerouslySetInnerHTML={{ __html: content }}
-                variants={variants.Content}
-            />
-            <div
-                className="flex-around h-[clamp(56px,calc(56px+24*((100vw-320px)/448)),80px)] w-full lg:w-1/2"
-                style={{ filter: `hue-rotate(${props.i * 60}deg)` }}
-            >
-                <Styled.Icon_Links
-                    iconData={[
-                        ['GitHub', data.github],
-                        ['External', data.external],
-                    ]}
-                    variants={variants.LinkItem}
-                />
-            </div>
-        </div>
-    )
+
     const IMG = ({ ...props }) => (
         <Styled.Featured_Image
             src={data.src}
@@ -75,7 +55,25 @@ const Featured_Project = ({ featuredData, inViewRef, ...props }) => {
             >
                 <HEADER />
                 <IMG />
-                <CONTENT />
+                <div className="flex-col-center relative w-full rounded-3xl bg-white-dark/90 lg:p-4 lg:shadow-sm">
+                    <motion.div
+                        className="content-innerHTML w-full max-lg:text-center"
+                        dangerouslySetInnerHTML={{ __html: content }}
+                        variants={variants.Content}
+                    />
+                    <div
+                        className="flex-around h-[clamp(56px,calc(56px+24*((100vw-320px)/448)),80px)] w-full lg:w-1/2"
+                        style={{ filter: `hue-rotate(${props.i * 60}deg)` }}
+                    >
+                        <Styled.Icon_Links
+                            iconData={[
+                                ['GitHub', data.github],
+                                ['External', data.external],
+                            ]}
+                            variants={variants.LinkItem}
+                        />
+                    </div>
+                </div>
             </motion.div>
             <IMG LG />
         </>
@@ -87,18 +85,18 @@ function Featured({ featuredData }) {
         () => Array.from({ length: 3 }).map(() => createRef()),
         []
     )
-    return [...Object.keys(featuredData)].map((i) => {
+    return [...Object.keys(featuredData)].map((key, i) => {
         return (
             <section
-                key={`featured-project-${i}`}
-                className={`relative flex min-h-[600px] w-full flex-col items-center ${
+                key={`featured-project-${key}`}
+                className={`relative mb-24 flex min-h-[600px] w-full flex-col items-center ${
                     i % 2 == 0 ? 'lg:items-end' : 'lg:items-start'
                 }`}
                 ref={refs[i]}
             >
-                <Featured_Project
+                <Content
                     inViewRef={refs[i]}
-                    featuredData={featuredData[i]}
+                    featuredData={featuredData[key]}
                     i={i}
                 />
             </section>

@@ -45,7 +45,7 @@ const Archive_Project = ({ project, ...props }) => (
             {project.title}
         </h5>
         <div className="flex-evenly w-full">
-            <Styled.Technolgy
+            <Styled.Tech
                 techs={project.tech}
                 className="relative w-full whitespace-nowrap px-2 text-center italic -tracking-md text-slate-60 even:border-x-2 even:border-x-slate-40"
             />

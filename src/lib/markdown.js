@@ -6,6 +6,7 @@ const fs = require('fs')
 const path = require('path')
 
 const contentDirectory = path.join(process.cwd(), 'src/content')
+
 export function getDirectories(dirname) {
     return fs
         .readdirSync(dirname, { withFileTypes: true })
@@ -16,13 +17,18 @@ export function getDirectories(dirname) {
 
 export async function getAllMarkdown() {
     const test = getDirectories(contentDirectory)
+    let temp = {}
     let res = {}
-    let table = []
+
     for (const folder of test) {
         const subfolder = path.join(contentDirectory, folder)
         let files = await readdir(subfolder)
+
+        temp[folder] = {}
+
         for (const file of files) {
             const id = file.replace(/\.md$/, '')
+
             const filePath = path.join(subfolder, file)
             const fileContent = fs.readFileSync(filePath, 'utf-8')
             const { data, content } = matter(fileContent)
@@ -31,54 +37,48 @@ export async function getAllMarkdown() {
                 await remark().use(html).process(content)
             ).toString()
 
-            table.push({
-                folder: folder,
+            temp[folder][id] = {
                 id: id,
                 data: data,
                 content: contentHTML,
-            })
+            }
         }
     }
 
-    res['about'] = table
-        .filter((x) => x.folder == 'text')
-        .filter((y) => y.id == 'about')[0]
-    res['experience'] = table
-        .filter((x) => x.folder == 'text')
-        .filter((y) => y.id == 'experience')[0]
-    res['projects'] = table
-        .filter((x) => x.folder == 'text')
-        .filter((y) => y.id == 'projects')[0]
-    res['featured_data'] = table.filter((x) => x.folder == 'featured_data')
-    res['projects_data'] = table.filter((x) => x.folder == 'projects_data')
+    res['intro'] = { id: 'intro' }
+    res['about'] = temp.text.about
+    res['experience'] = temp.text.experience
+    res['projects'] = {
+        ...temp.text.projects,
+        featured: temp.featured,
+        projects: temp.projects,
+    }
+    res['contact'] = { id: 'contact' }
 
     return res
 }
 
 //=================================================
-export async function getSectionMarkdown(slug) {
-    slug = slug.toLowerCase()
-
-    if (slug !== 'projects') {
-        const sectionPath = path.join(contentDirectory, 'text', slug + '.md')
+export async function getSectionMarkdown(sid) {
+    if (sid === 'projects') {
+        const { projects } = await getAllMarkdown()
+        return {
+            id: sid,
+            data: projects.data,
+            featuredData: projects.featured,
+            projectsData: projects.projects,
+        }
+    } else {
+        const sectionPath = path.join(contentDirectory, 'text', sid + '.md')
         const sectionContent = fs.readFileSync(sectionPath, 'utf-8')
         const { data, content } = matter(sectionContent)
         const contentHTML = (
             await remark().use(html).process(content)
         ).toString()
         return {
-            id: slug,
+            id: sid,
             data: data,
             content: contentHTML,
-        }
-    } else {
-        const data = await getAllMarkdown()
-        return {
-            id: slug,
-            description: data.projects.data.description,
-            projects: data.projects,
-            featuredData: data.featured_data,
-            projectsData: data.projects_data,
         }
     }
 }

@@ -10,9 +10,11 @@ import Menu from './Menu'
 const LOGO = ({ centered }) => (
     <motion.a
         id="logo"
-        className="flex-center relative z-10 min-w-max cursor-pointer select-none overflow-hidden whitespace-nowrap text-center text-28pt font-thin tracking-2xl text-white/60 transition-colors duration-500 ease-tween after:content-['MIKE_JAYNE'] hover:text-white/80"
+        className="flex-center relative z-10 min-w-max cursor-pointer select-none overflow-hidden whitespace-nowrap text-center text-28pt font-thin tracking-2xl text-white/40 transition-colors duration-500 ease-tween after:content-['JYN'] hover:text-white/80"
         initial={false}
-        animate={{ x: centered ? 'calc(50vw - 116px)' : '0px' }}
+        animate={{
+            x: centered ? 'calc(50vw - 50% - 16px)' : '0px',
+        }}
         transition={{ duration: 1, ease: 'anticipate' }}
         onClick={() => {
             if (window.scrollY == 0 || typeof window == undefined) {
@@ -22,7 +24,7 @@ const LOGO = ({ centered }) => (
             }
         }}
     >
-        MIKE JAYNE
+        JYN
     </motion.a>
 )
 
@@ -47,9 +49,10 @@ const NavLinks = ({}) => (
     </motion.ul>
 )
 
-const Navbar = ({ isHome, ...sectionProps }) => {
+const Navbar = ({ isHome }) => {
     const isLg = useMediaQuery(1024)
     const [menuOpen, setMenu] = useState(false)
+    const [isMounted, setIsMounted] = useState(false)
 
     const toggleMenu = () => {
         setMenu(!menuOpen)
@@ -67,19 +70,14 @@ const Navbar = ({ isHome, ...sectionProps }) => {
                 id="navbar"
                 className="tempered-bg fixed top-0 left-0 z-[99] flex h-14 w-screen items-center px-4"
                 data-menuopen={menuOpen}
-                initial={{ opacity: 0, y: -56 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                    when: 'beforeChildren',
-                    duration: 1,
-                    ease: 'easeInOut',
-                    delayChildren: 0.25,
-                }}
+                initial={{ y: -56, opacity: 0 }}
+                animate={{ y: 0, opacity: 1, transition: { duration: 1 } }}
+                onAnimationComplete={() => setIsMounted(true)}
             >
                 <LOGO centered={!isLg || !isHome} />
                 <AnimatePresence mode="wait">
                     {isLg ? (
-                        isHome && <NavLinks key="nav-links" />
+                        isHome && isMounted && <NavLinks key="nav-links" />
                     ) : (
                         <Burger
                             key="nav-burger"
@@ -104,13 +102,7 @@ const Navbar = ({ isHome, ...sectionProps }) => {
                         onClick={() => pushPage('/')}
                     />
                 )}
-                {menuOpen && (
-                    <Menu
-                        key="nav-menu"
-                        action={toggleMenu}
-                        {...sectionProps}
-                    />
-                )}
+                {menuOpen && <Menu key="nav-menu" toggleMenu={toggleMenu} />}
             </AnimatePresence>
         </>
     )

@@ -1,11 +1,11 @@
-import { useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
 import { useRouter } from 'next/router'
-import { AnimatePresence, MotionConfig } from 'framer-motion'
+import { AnimatePresence, MotionConfig, useScroll } from 'framer-motion'
 import { ToastContainer } from 'react-toastify'
 
-import { Navbar, Background } from '@components'
+import { Navbar, Background, Loader } from '@components'
 
 import '../styles/global.css'
 import 'react-toastify/dist/ReactToastify.css'
@@ -16,17 +16,20 @@ function MyApp({ Component, pageProps }) {
     const isHome = router.pathname === '/'
 
     const activeSection = useRef(0)
-    const isFirstLoad = useRef(true)
+    const [isLoading, setIsLoading] = useState(true)
 
     const setSection = (i) => (activeSection.current = i)
 
     pageProps = {
         isHome: isHome,
-        isFirstLoad: isFirstLoad,
         activeSection: activeSection.current,
         setSection: setSection,
         ...pageProps,
     }
+
+    useEffect(() => {
+        if (isLoading && !isHome) setIsLoading(false)
+    }, [])
 
     return (
         <>
@@ -44,7 +47,7 @@ function MyApp({ Component, pageProps }) {
                     locale: 'en_IE',
                     url,
                     description:
-                        'The personal portfolio for Michael Jayne, data analyst | software developer.',
+                        'The personal portfolio for Michael Jayne, software engineer.',
                     site_name: 'Mike Jayne | mikejayne.com',
                     images: [],
                 }}
@@ -52,28 +55,15 @@ function MyApp({ Component, pageProps }) {
             />
             <h1>Mike Jayne</h1>
             <MotionConfig reducedMotion="user">
-                <Navbar
-                    isHome={isHome}
-                    activeSection={activeSection}
-                    setSection={setSection}
-                />
+                <Navbar isHome={isHome} />
 
-                <AnimatePresence
-                    mode="wait"
-                    onExitComplete={() => {
-                        document.body.style.overflowY = isHome
-                            ? 'auto'
-                            : 'hidden'
-                    }}
-                >
+                <AnimatePresence mode="wait">
                     <Component key={url} {...pageProps} />
                 </AnimatePresence>
-                <div
-                    id="scroll-holder"
-                    className="pointer-events-none absolute top-0 left-0 h-[500vh] w-full"
-                />
+
                 <Background />
             </MotionConfig>
+
             <ToastContainer />
         </>
     )

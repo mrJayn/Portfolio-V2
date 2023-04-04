@@ -3,13 +3,15 @@ import { getAllMarkdown } from 'src/lib/markdown'
 import { sectionIDs } from '@utils'
 import { Layout, Section } from '@components'
 
-export default function Home({ data, isFirstLoad, ...pageProps }) {
+export default function Home({ data, ...pageProps }) {
     useEffect(
-        () =>
+        () => {
             window.scrollTo({
                 top: pageProps.activeSection * window.innerHeight,
-                behavior: 'auto',
-            }),
+                behavior: 'instant',
+            })
+            document.body.style.overflowY = 'auto'
+        },
         // eslint-disable-next-line react-hooks/exhaustive-deps
         []
     )

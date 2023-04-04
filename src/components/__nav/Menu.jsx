@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { menuVariants } from '@motion'
 import { Styled } from '@components'
 
-const Menu = ({ ...props }) => (
+const Menu = ({ toggleMenu }) => (
     <motion.menu
         className="fixed inset-0 top-14 z-[99] bg-nav"
         initial="hidden"
@@ -17,12 +17,12 @@ const Menu = ({ ...props }) => (
             >
                 <Styled.SectionLinks
                     className="landscape:flex-left rounded-xl py-[2vh] px-5 tracking-2xl shadow-[inset_1.5px_-1.5px_0rem_#333,_inset_-1.5px_1.5px_0rem_#40606f] saturate-50 landscape:max-h-[4em]"
+                    toggleMenu={toggleMenu}
                     variants={menuVariants.Links.Items}
                     whileTap={{
                         scale: 0.9,
                         filter: 'brightness(1.5) saturate(0.75)',
                     }}
-                    {...props}
                 />
             </motion.ul>
 

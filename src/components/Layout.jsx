@@ -1,28 +1,6 @@
 import { NextSeo } from 'next-seo'
 import { motion } from 'framer-motion'
 
-const variants = {
-    hidden: {
-        opacity: 0,
-    },
-    show: {
-        opacity: 1,
-        transition: {
-            delay: 0,
-            duration: 0,
-            when: 'beforeChildren',
-            delayChildren: 0,
-        },
-    },
-    exit: {
-        opacity: 1,
-        transition: {
-            duration: 0,
-            delay: 0,
-        },
-    },
-}
-
 const Layout = ({ title, description, isHome = false, children }) => {
     return (
         <>
@@ -41,7 +19,6 @@ const Layout = ({ title, description, isHome = false, children }) => {
                 initial="hidden"
                 animate="show"
                 exit="exit"
-                variants={variants}
             >
                 {children}
             </motion.main>

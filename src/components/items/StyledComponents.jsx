@@ -1,11 +1,8 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { theme } from 'tailwind.config'
 
 import { styledComponentsVariants as variants } from '@motion'
-import { skill_icons } from '@config'
 import Paths from './Paths'
-import { pushPage } from '@utils'
 
 const links = [
     {
@@ -211,7 +208,7 @@ const StyledComponents = {
                 </motion.div>
             )
         }),
-    SectionLinks: ({ className, action = null, ...motionProps }) => {
+    SectionLinks: ({ className, toggleMenu, ...motionProps }) => {
         return ['about', 'experience', 'projects', 'contact', 'my Resume'].map(
             (id, i) => {
                 const handleClick = () => {
@@ -223,7 +220,7 @@ const StyledComponents = {
                             block: 'center',
                         })
                     }
-                    if (action !== null) action()
+                    if (toggleMenu) toggleMenu()
                 }
 
                 return (

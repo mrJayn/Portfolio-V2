@@ -1,7 +1,7 @@
 import { useEffect, useCallback, useState } from 'react'
 import anime from 'animejs'
 
-const Loader = ({ loaderComplete }) => {
+const Loader = ({ onComplete }) => {
     const gridSize = 20
     const [elSize, setElSize] = useState(5)
 
@@ -12,7 +12,7 @@ const Loader = ({ loaderComplete }) => {
             from: 'center',
         }
         const animation = anime.timeline({
-            complete: () => loaderComplete(),
+            complete: () => onComplete(),
         })
         animation
             .add(
@@ -135,9 +135,10 @@ const Loader = ({ loaderComplete }) => {
                 },
                 4200
             )
-    }, [gridSize, loaderComplete])
+    }, [gridSize, onComplete])
 
     useEffect(() => {
+        document.body.style.overflowY = 'hidden'
         const loaderDiv = document.querySelector('#loader')
         const vmin = Math.round(
             (Math.min(loaderDiv.clientHeight, loaderDiv.clientWidth) /
@@ -152,15 +153,10 @@ const Loader = ({ loaderComplete }) => {
 
     return (
         <div
+            key={0}
             id="loader-wrap"
             className="flex-center relative z-[99] h-screen w-screen overflow-hidden  opacity-0"
         >
-            <span
-                className="absolute z-10 aspect-square h-[150vmin] rounded-full text-background/90 md:h-[100vmin]"
-                style={{
-                    background: `radial-gradient(transparent 25%, currentColor 30%)`,
-                }}
-            />
             <div
                 id="loader"
                 className="clip-loader relative flex aspect-square h-[75vmin] flex-wrap md:h-[50vmin]"
@@ -168,7 +164,7 @@ const Loader = ({ loaderComplete }) => {
                 {[...Array(gridSize ** 2).keys()].map((i) => (
                     <div
                         key={`loader-item-${i}`}
-                        className="square rounded-full bg-teal-40 odd:bg-teal"
+                        className="square rounded-full bg-slate-40 odd:bg-slate-neon"
                         style={{
                             height: `${elSize}vmin`,
                             width: `${elSize}vmin`,

@@ -11,13 +11,15 @@ export const sectionIDs = [
 export function pushPage(id, href = '/', as = '') {
     var el, prevScrollY
 
-    document.body.style.overflowY = 'hidden'
-
     if (id === '/') {
         el = document.querySelector('main')
+
+        el.style.overflowY = 'hidden'
         el.scrollTo({ top: 0, behavior: 'smooth' })
     } else {
         el = document.getElementById(id)
+
+        document.body.style.overflowY = 'hidden'
         el.scrollIntoView({ block: 'center', behavior: 'smooth' })
     }
 

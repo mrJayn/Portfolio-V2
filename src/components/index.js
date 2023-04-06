@@ -13,7 +13,6 @@ export { default as Contact } from './__sections/Contact'
 
 export { default as Form } from './Form'
 
-export { default as Accordion } from './items/Accordion'
 export { default as BgPaths } from './items/BgPaths'
 //export { default as Slides } from './items/FeaturedSlides'
 export { default as Icons } from './items/Icons'

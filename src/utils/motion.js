@@ -1,3 +1,5 @@
+import { theme } from 'tailwind.config'
+
 export const DefVariants = {
     Opacity: (transition = {}) => ({
         hidden: { opacity: 0 },
@@ -362,6 +364,31 @@ export const introVariants = {
     SubTitle: DefVariants.clipPathY(2),
     Btn: DefVariants.Button(2.25),
 }
+export const TitleVariants = {
+    hidden: {
+        strokeOpacity: 0,
+        pathLength: 0,
+        stroke: theme.colors.slate.neon,
+        strokeWidth: 2,
+        fillOpacity: 0,
+    },
+    show: {
+        strokeOpacity: 1,
+        pathLength: 1,
+        stroke: '#fff',
+        strokeWidth: 0,
+        fillOpacity: 1,
+    },
+    exit: {
+        strokeOpacity: 0,
+        fillOpacity: 0,
+        y: -100,
+        transition: {
+            duration: 0.5,
+            ease: 'backIn',
+        },
+    },
+}
 export const contactVariants = {
     Headline: {
         h3: {
@@ -599,16 +626,11 @@ export const projectCardVariants = {
 }
 
 export const featuredProjectVariants = {
-    Title: {
-        hidden: { opacity: 0 },
-        show: { opacity: 1 },
-    },
     TechWrap: {
         show: (i) => ({
             transition: {
                 staggerChildren: 0.125,
                 staggerDirection: i,
-                delayChildren: 0.25,
             },
         }),
     },
@@ -620,46 +642,17 @@ export const featuredProjectVariants = {
             transition: { duration: 0.5, ease: 'backOut' },
         },
     },
-    Content: {
-        hidden: { opacity: 0, y: 25 },
-        show: {
+    Item: {
+        hidden: { opacity: 0, y: 20 },
+        show: (i = 0) => ({
             opacity: 1,
             y: 0,
             transition: {
-                delay: 0.5,
-                duration: 0.5,
-                ease: 'easeOut',
-            },
-        },
-    },
-    LinkItem: {
-        hidden: {
-            opacity: 0,
-            y: 10,
-        },
-        show: (i) => ({
-            opacity: 1,
-            y: 0,
-            transition: {
-                delay: 0.75 + i * 0.125,
+                delay: i * 0.125,
                 duration: 0.5,
                 ease: 'easeOut',
             },
         }),
-    },
-    Image: {
-        hidden: (i) => ({
-            opacity: 0,
-            x: i * 50,
-        }),
-        show: {
-            opacity: 1,
-            x: 0,
-            transition: {
-                duration: 1,
-                ease: 'easeOut',
-            },
-        },
     },
 }
 export const archiveVariants = {

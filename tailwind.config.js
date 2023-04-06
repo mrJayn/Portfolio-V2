@@ -81,6 +81,8 @@ module.exports = {
         },
         fontFamily: {
             montserrat: ['Montserrat', 'sans-serif'],
+            inconsolata: ['Inconsolata', 'monospace'],
+            raleway: ['Raleway', 'sans-serif'],
             robotoMono: ['Roboto Mono', 'monospace'],
         },
         fontSize: themeConfig.fontSize,
@@ -92,6 +94,7 @@ module.exports = {
             xl: '0.075em',
             '2xl': '0.1em',
             '3xl': '0.15em',
+            '4xl': '0.2em',
         },
         zIndex: {
             0: '0',

@@ -11,9 +11,9 @@ function useScrollMV(scrollYProgress) {
     const reducedMotion = useReducedMotion()
     const ySpring = useSpring(scrollYProgress, {
         type: 'spring',
-        stiffness: 250,
-        damping: 200,
-        mass: 50,
+        stiffness: 950,
+        damping: 600,
+        mass: 25,
         restDelta: 0.001,
     })
 
@@ -29,7 +29,7 @@ const Background = ({}) => {
     const baseY = useScrollMV(scrollYProgress)
 
     // Main
-    const y = useTransform(baseY, [0, 1], ['0vh', '-200vh'])
+    const y = useTransform(baseY, [0, 1], ['0vh', '-215vh'])
     // Stars
     const yStars1 = useTransform(baseY, [0, 1], ['10vh', '-70vh'])
     const opacityStars = useTransform(baseY, [0, 0.5], [0.5, 0])
@@ -51,7 +51,7 @@ const Background = ({}) => {
             <BgGradients />
             <motion.div
                 id="scene-bg"
-                className="fixed top-0 left-0 z-0 h-[300vh] w-screen overflow-hidden"
+                className="fixed top-0 left-0 z-0 h-[300vh] w-screen overflow-hidden opacity-75"
                 style={{
                     y,
                     backgroundImage: `
@@ -71,7 +71,7 @@ const Background = ({}) => {
                 />
 
                 {/** Clouds **/}
-                <div className="absolute inset-x-0 top-[40%] z-40 opacity-75">
+                <div className="absolute inset-x-0 top-[40%] z-40 opacity-40">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 1000 250"

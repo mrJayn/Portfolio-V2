@@ -1,4 +1,5 @@
-import { Accordion } from '@components'
+import Certs from './_experience/Certs'
+import Accordion from './_experience/Accordion'
 
 const Summary = ({ innerHTML }) => (
     <>
@@ -27,9 +28,9 @@ const Education = ({ ...props }) => (
 
 const Experience = ({ data, content }) => [
     <Summary key="Proffesional-Summary" innerHTML={content} />,
-    <Accordion key="Work-Experience" name="jobs" {...data} />,
     <Education key="Education" {...data.education} />,
-    <Accordion key="Certifications" name="certifications" {...data} />,
+    <Accordion key="Work-Experience" name="jobs" {...data} />,
+    <Certs key="certs" {...data} />,
 ]
 
 export default Experience

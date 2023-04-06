@@ -9,11 +9,12 @@ const Indicators = ({ current, tabNames, setCurrent }) => (
         {tabNames.map((tabName, i) => (
             <motion.li
                 key={`tab-li-${i}`}
-                className={`full flex-center relative flex cursor-pointer  select-none rounded-t-md p-0.5 font-semibold capitalize -tracking-lg ${
+                className={`flex-center relative mt-auto flex w-full  cursor-pointer select-none rounded-t-md p-0.5 font-semibold capitalize -tracking-lg  md:text-[1.125em] ${
                     i == current
-                        ? 'z-0 bg-grey-40 text-black duration-350 ease-tween md:tracking-normal'
-                        : '-z-10 bg-grey-30 duration-350 ease-tween'
+                        ? 'z-0 h-full bg-slate-40 text-white duration-250 ease-tween md:tracking-normal'
+                        : '-z-10 h-[85%] bg-grey-30 text-grey-60 duration-250 ease-tween'
                 }`}
+                /**hover:bg-slate-30 hover:text-white */
                 onClick={() => {
                     if (i == current) return
                     setCurrent(i)
@@ -21,10 +22,10 @@ const Indicators = ({ current, tabNames, setCurrent }) => (
             >
                 {tabName}
                 <span
-                    className={`archiveIndicator-decoration pointer-events-none absolute inset-y-0 -z-10 duration-350 ease-tween ${
+                    className={`archiveIndicator-decoration pointer-events-none absolute inset-y-0 -z-10 duration-250 ease-tween ${
                         i == current
-                            ? ' inset-x-0 before:text-grey-40 after:text-grey-40'
-                            : 'inset-x-1/2 before:text-grey-30 after:text-grey-30'
+                            ? ' inset-x-0 before:text-slate-40 after:text-slate-40'
+                            : 'inset-x-1/4 before:text-grey-30 after:text-grey-30'
                     }`}
                 />
             </motion.li>

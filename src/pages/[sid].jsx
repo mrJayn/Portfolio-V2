@@ -21,17 +21,13 @@ export default function SectionPage({ ...pageProps }) {
     const { data, activeSection } = pageProps
     const { title } = data.data
 
-    useEffect(() => {
-        const layout = document
-            .getElementById(`${data.id}-Layout`)
-            .scrollTo({ top: 0, behavior: 'auto' })
-        /**
-         * window.scrollTo({
-            top: window.innerHeight * activeSection,
-            behavior: 'auto',
-        })
-         */
-    }, [])
+    useEffect(
+        () =>
+            document
+                .getElementById(`${data.id}-Layout`)
+                .scrollTo({ top: 0, behavior: 'auto' }),
+        [data.id]
+    )
 
     return (
         <Layout title={data.id} description={data.description}>
@@ -67,15 +63,13 @@ export default function SectionPage({ ...pageProps }) {
                 <motion.div
                     id={`${data.id}-section-content`}
                     data-reading-section
-                    className={`flex-col-top relative z-20 mx-auto h-auto min-h-screen w-[90vw] gap-y-24 rounded-t-3xl bg-white-dark py-14 ${
-                        data.id == 'projects' ? 'overflow-hidden' : ''
-                    } px-[clamp(4px,calc(4px+124*((100vw-320px)/704)),128px)]`}
+                    className={`flex-col-top relative z-20 mx-auto h-auto min-h-screen w-[90vw] gap-y-24 overflow-hidden rounded-t-3xl bg-white-dark py-14 px-[clamp(4px,calc(4px+124*((100vw-320px)/704)),128px)]`}
                     variants={sidVariants.Content}
                 >
                     {GetComponents({ ...data }).map((component) => (
                         <section
                             key={`${title}Page-${component.key}`}
-                            className="full"
+                            className="full max-w-[1280px]"
                         >
                             {component}
                         </section>

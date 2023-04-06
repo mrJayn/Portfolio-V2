@@ -1,13 +1,18 @@
 import { motion } from 'framer-motion'
 import { theme } from 'tailwind.config'
-import { TitlePaths } from '@config'
+import { TitlePaths_split, Title_Paths } from '@config'
+import { TitleVariants } from '@motion'
+import { useEffect } from 'react'
 
 const vars = {
     A: {
-        hidden: { fillOpacity: 0, clipPath: 'inset(0% 0% 100% 0%)' },
+        hidden: { opacity: 1, clipPath: 'inset(-10% -10% 100% -10%)' },
         show: {
-            fillOpacity: 1,
-            clipPath: ['inset(100% 0% 0% 0%)', 'inset(0% 0% 0% 0%)'],
+            opacity: 1,
+            clipPath: [
+                'inset(110% -10% -10% -10%)',
+                'inset(-10% -10% -10% -10%)',
+            ],
         },
     },
     B: {
@@ -28,112 +33,102 @@ const vars = {
     },
 }
 
-const colors = [30, 80].map((v) => theme.colors.slate[v])
-const SvgGradient = () => (
-    <defs>
-        <linearGradient id="TitleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            {colors.map((color, i) => (
-                <stop
-                    key={`title-gradient-color-${i}`}
-                    offset={`${(100 * i) / (colors.length - 1)}%`}
-                    stopColor={color}
-                />
-            ))}
-        </linearGradient>
-    </defs>
-)
+const slate = (x) => theme.colors.slate[x]
 
-const getTransition = (i, anim) => {
-    const delay = anim === 'show' ? 0.75 : 0
-    const stagger = anim === 'show' ? 0.08 : 0
-    const propDelay = (factor) => delay + 0.15 * factor + i * stagger
+const getTr = (n, dly = 0.5, stag = 0.1) => {
+    const getDe = (factor) => dly + 0.2 * factor + n * stag
     return {
         strokeOpacity: {
-            duration: 0.25,
-            delay: propDelay(0),
+            duration: 0.2,
+            delay: getDe(0),
         },
         pathLength: {
-            duration: 0.5,
-            ease: 'easeOut',
-            delay: propDelay(1),
+            duration: 0.4,
+            ease: 'linear',
+            delay: getDe(1),
         },
         stroke: {
-            duration: 0.75,
-            ease: 'circIn',
-            delay: propDelay(2),
-        },
-        clipPath: {
-            duration: 0.5,
-            ease: 'easeOut',
-            delay: propDelay(2),
+            duration: 0.2,
+            delay: getDe(3),
         },
         default: {
             duration: 1,
-            ease: 'circOut',
-            delay: propDelay(3),
+            ease: 'circIn',
+            delay: getDe(2),
         },
     }
 }
 
-const Title = () => (
-    <div className="relative aspect-[5/1] h-TitleSVG max-w-[100vw] overflow-hidden">
-        <svg
-            height="100%"
-            width="100%"
-            viewBox="-10 -15 380 75"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-            <SvgGradient />
-            <g
-                strokeLinecap="round"
-                fill="url(#TitleGrad)"
-                fillRule="nonzero"
-                vectorEffect="non-scaling-stroke"
-            >
-                {TitlePaths.concat(TitlePaths).map((path, i) => {
-                    const setA = i < TitlePaths.length
-                    return (
-                        <motion.path
-                            key={`title-letter-${i}`}
-                            d={path}
-                            style={
-                                setA && {
-                                    fill: colors[0],
-                                    strokeWidth: 0,
-                                    y: 2.5,
-                                }
-                            }
-                            variants={{
-                                hidden: {
-                                    ...vars[setA ? 'A' : 'B'].hidden,
-                                    transition: getTransition(
-                                        setA ? i : i - TitlePaths.length,
-                                        'hide'
-                                    ),
-                                },
-                                show: {
-                                    ...vars[setA ? 'A' : 'B'].show,
-                                    transition: getTransition(
-                                        setA ? i : i - TitlePaths.length,
-                                        'show'
-                                    ),
-                                },
-                                exit: {
-                                    strokeOpacity: 0,
-                                    fillOpacity: 0,
-                                    y: -50,
-                                    transition: {
-                                        duration: 0.75,
-                                        ease: 'easeIn',
-                                    },
-                                },
-                            }}
-                        />
-                    )
-                })}
-            </g>
-        </svg>
-    </div>
-)
+const Title = () => {
+    const { MICHAEL, JAYNE } = TitlePaths_split
+    /*
+        MICHAEL -   0 0   576.6   111.0
+        JANYE     -   0 0   424.8  141.6
+        -----------------------------
+                            0 0       -      252.6
+        Full          -   0 0 1027.2 144.6
+    */
 
+    return (
+        <svg
+            id="title-lg"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 -20 1028 150"
+            className="h-title max-w-full overflow-visible"
+            preserveAspectRatio="xMidYMid"
+            style={{
+                strokeLinecap: 'round',
+                vectorEffect: 'non-scaling-stroke',
+            }}
+        >
+            <defs>
+                <linearGradient
+                    id="title-grad1"
+                    x1="0"
+                    y1="-20"
+                    x2="0"
+                    y2="150"
+                    gradientUnits="userSpaceOnUse"
+                >
+                    <stop offset={0} stopColor="#000" />
+                    <stop offset={0.15} stopColor={theme.colors.slate[40]} />
+                    <stop offset={1} stopColor="#FFF" />
+                </linearGradient>
+            </defs>
+            {Title_Paths.map((path, i) => (
+                <motion.path
+                    key={`jayne-letter${i}`}
+                    d={path}
+                    fill="url(#title-grad1)"
+                    variants={TitleVariants}
+                    transition={getTr(i)}
+                />
+            ))}
+        </svg>
+    )
+}
+/*
+  <g transform="translate(0 0)">
+                    {MICHAEL.map((path, i) => (
+                        <motion.path
+                            key={`jayne-letter${i}`}
+                            d={path}
+                            fill="url(#title-grad1)"
+                            variants={TitleVariants}
+                            transition={getTr(i)}
+                        />
+                    ))}
+                </g>
+                <g transform="translate(43.3 -5)">
+                    {JAYNE.map((path, i) => (
+                        <motion.path
+                            key={`jayne-letter${i}`}
+                            d={path}
+                            fill="url(#title-grad1)"
+                            variants={TitleVariants}
+                            transition={getTr(i + 8)}
+                        />
+                    ))}
+                </g>
+*/
 export default Title

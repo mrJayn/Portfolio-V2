@@ -77,7 +77,7 @@ const StyledComponents = {
     Button: ({ children, ...props }) => {
         return (
             <motion.button
-                className="flex-center z-30 max-w-full cursor-pointer select-none whitespace-nowrap rounded-md bg-grey-60/75 px-6 py-3 font-robotoMono text-button uppercase tracking-2xl text-white/75 shadow-sm transition-colors duration-150 ease-in hover:bg-grey-60 hover:text-white md:px-12 lg:px-20"
+                className="flex-center z-30 max-w-full cursor-pointer select-none whitespace-nowrap rounded-md bg-grey-40/50 px-6 py-3 font-inconsolata text-button uppercase tracking-2xl text-white/75 shadow-sm transition-colors duration-150 ease-in hover:bg-grey-60 hover:text-white md:px-12 lg:px-20"
                 whileTap={{ scale: 0.9 }}
                 {...props}
             >

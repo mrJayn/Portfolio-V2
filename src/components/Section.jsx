@@ -11,7 +11,7 @@ const Section = ({ id, i, activeSection, setSection, data }) => {
     return (
         <motion.section
             id={id}
-            className="flex-col-around group relative z-10 h-screen w-screen overflow-hidden p-4 pt-[max(12.5vh,70px)]"
+            className="flex-col-around group relative z-10 h-screen w-screen overflow-hidden p-4 pt-[max(12.5vh,70px)] max-lg:snap-center"
             initial={activeSection === i ? 'hidden' : 'show'}
             animate="show"
             {...(inView && { exit: 'exit' })}
@@ -24,7 +24,7 @@ const Section = ({ id, i, activeSection, setSection, data }) => {
             ) : (
                 <div
                     id={`${id}-content`}
-                    className="flex-col-top absolute z-10 gap-y-[2vh] text-center portrait:top-1/3 landscape:top-[37.5%]"
+                    className="flex-col-top absolute z-10 text-center portrait:top-1/3 landscape:top-[37.5%]"
                 >
                     <h3 className="whitespace-nowrap">{data.title}</h3>
                     <PageLink

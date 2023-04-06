@@ -13,7 +13,7 @@ const Layout = ({ title, description, isHome = false, children }) => {
                 id={`${title}-Layout`}
                 className={`flex-col-top top-0 left-0 w-full min-w-[320px] ${
                     isHome
-                        ? 'absolute z-10 overflow-hidden'
+                        ? 'absolute z-10'
                         : 'fixed z-50 h-screen overflow-y-scroll'
                 }`}
                 initial="hidden"

@@ -18,10 +18,6 @@
 @layer base {
     * {
         @apply box-border;
-        -moz-box-sizing: border-box;
-    }
-    section {
-        @apply max-w-[1600px];
     }
     html {
         @apply snap-y snap-mandatory snap-normal;
@@ -29,7 +25,7 @@
         word-spacing: 1px;
     }
     body {
-        @apply m-0 h-screen w-screen overflow-x-hidden scroll-smooth bg-black p-0;
+        @apply m-0 h-screen w-screen overflow-x-hidden bg-black p-0;
     }
     h1 {
         @apply absolute h-px w-px overflow-hidden whitespace-nowrap;
@@ -38,12 +34,13 @@
         clip-path: inset(0px 0px 99.9% 99.9%);
     }
     h2 {
-        @apply text-heading-2;
-        @apply bg-gradient-wave font-semibold uppercase leading-none tracking-3xl;
+        /* @apply bg-gradient-wave; */
+        @apply font-montserrat text-heading-2 font-black uppercase leading-none tracking-4xl;
+        -webkit-text-stroke: 1px white;
+        -webkit-text-fill-color: transparent;
     }
     h3 {
-        @apply text-heading-3a;
-        @apply font-medium uppercase tracking-lg text-grey-10;
+        @apply font-raleway text-heading-3a font-semibold uppercase tracking-lg  text-white;
     }
     h4 {
         @apply text-heading-4;
@@ -120,18 +117,23 @@
         }
     }
 
-    /* Selection Colors + ScrollBar */
     * {
+        /* Selection Colors */
         & ::selection {
             @apply bg-slate-40/50 text-white;
         }
         -webkit-tap-highlight-color: transparent;
-        -ms-overflow-style: none; /* Hide Scrollbar - IE and Edge */
-        scrollbar-width: none; /* Hide Scrollbar - Firefox */
+        /* Hide Scroll Bar */
+        /* IE , Edge */
+        -ms-overflow-style: none;
+        /* Firefox */
+        scrollbar-width: none;
     }
     ::-webkit-scrollbar {
-        @apply hidden; /* Hide Scrollbar - Chrome, Safari, and Opera */
+        @apply hidden;
+        /* Chrome, Safari, and Opera */
     }
+
     ::placeholder {
         @apply px-4 text-center font-robotoMono font-thin;
     }

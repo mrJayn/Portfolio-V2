@@ -6,10 +6,10 @@ const Summary = ({ introduction }) => (
     <>
         <h3 className=" w-auto">Who I am</h3>
         <div className="flex-col-top full md:flex-row md:items-start">
-            <div className="w-full whitespace-pre-line px-2 indent-8 sm:px-4 md:h-full md:px-4 md:leading-7">
+            <div className="w-full whitespace-pre-line indent-8 md:h-full">
                 <p>{introduction.replace('<br/>', `\n`)}</p>
             </div>
-            <div className="aspect-[4/5] w-full max-w-[400px] p-4 md:-mt-4 md:w-3/4  md:max-w-none md:py-0">
+            <div className="aspect-[4/5] w-full max-w-[300px] p-4 md:-mt-4 md:w-3/4  md:max-w-[400px] md:py-0">
                 <div className="full relative overflow-hidden rounded-3xl shadow-sm">
                     <Image
                         src="./assets/misc/mikeJayne.JPG"
@@ -28,7 +28,7 @@ const Skills = ({ skills }) => (
     <>
         <h3>Skill Set</h3>
         <motion.ul
-            className="grid w-full grid-cols-1 gap-2 py-4 md:grid-cols-2 md:gap-4 md:px-20 landscape:grid-cols-2"
+            className="grid w-full grid-cols-1 gap-2 py-4 md:grid-cols-2"
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
@@ -48,7 +48,7 @@ const Skills = ({ skills }) => (
                 return (
                     <motion.li
                         key={`${title}-skill-item`}
-                        className="flex-left group relative mx-[2.5%] h-16 w-[95%] cursor-default select-text overflow-hidden rounded-l-3xl p-3 md:mx-auto md:h-16 md:w-full md:justify-start md:p-1"
+                        className="flex-left group relative mx-[2.5%] h-16 w-[95%] cursor-default select-none overflow-hidden rounded-l-3xl p-3 md:mx-auto md:w-full md:justify-start md:p-1"
                         variants={aboutVariants.Skills.Item}
                     >
                         <span

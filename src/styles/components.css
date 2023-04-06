@@ -88,7 +88,7 @@
 
     .listed-item:before {
         /* colored bullets @ JOBS */
-        content: '\2022';
+        content: '▹';
         @apply inline-block w-[0.75em] font-bold text-slate-neon;
     }
 
@@ -121,7 +121,7 @@
         &:before,
         &:after {
             content: '';
-            @apply absolute bottom-[0px] h-1/2 w-1/4 bg-transparent duration-350 ease-tween;
+            @apply absolute bottom-[0px] h-1/2 w-1/4 bg-transparent duration-250 ease-tween;
         }
         &:before {
             @apply left-[-25%] rounded-br-full;
@@ -152,5 +152,16 @@
             1vw 139vh, 3vw 81vh, 9vw 118vh, 38vw 79vh, 7vw 158vh, 60vw 70vh,
             0vw 20vh, 48vw 4vh, 3vw 25vh, 14vw 140vh, 25vw 142vh, 32vw 135vh,
             45vw 67vh;
+    }
+    .use-scrollbar {
+        &::-webkit-scrollbar {
+            display: block;
+            overflow: auto;
+            width: 5px;
+            height: 8px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: #888; /* or add it to the track */
+        }
     }
 }

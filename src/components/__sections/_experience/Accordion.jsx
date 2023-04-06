@@ -71,28 +71,24 @@ const Accordion = ({ name, ...props }) => {
                         layout
                         className="relative mb-2 w-full last-of-type:mb-0 md:mb-4"
                     >
-                        <header
-                            className="flex-btw relative z-10 cursor-pointer select-none overflow-hidden rounded-tr-lg bg-gradient-to-r from-slate/75 via-grey/50 to-grey/50 bg-200% p-2 py-4 text-start  font-medium leading-none text-white-darker duration-500 ease-tween"
-                            style={{
-                                backgroundPosition: isActive ? '0%' : '100%',
-                                boxShadow: isActive
-                                    ? '0px 0 1px -4px #6199ffbf'
-                                    : '-8px 0 1px -4px #6199ffbf ',
-                                paddingLeft: `${isActive ? 20 : 8}px`,
-                                transitionDelay: isActive ? '0s' : '0.2s',
-                            }}
+                        <h6
+                            className={`flex-btw relative z-10 h-[3em] cursor-pointer select-none overflow-hidden rounded-tr-lg px-4 leading-none transition-colors duration-150 ease-in hover:bg-slate-30 hover:text-white ${
+                                active === i
+                                    ? 'bg-slate-40 text-white'
+                                    : 'bg-grey-30 text-grey-60'
+                            }`}
                             onClick={() => {
                                 setActive(isActive ? -1 : i)
                             }}
                         >
                             {data.title}
-                        </header>
+                        </h6>
 
                         <AnimatePresence mode="wait">
                             {isActive && (
                                 <motion.div
                                     key={`job-${data.title}`}
-                                    className="relative w-full overflow-hidden rounded-bl-xl border-l-2 border-l-slate-neon/50 bg-white-dark"
+                                    className="relative w-full overflow-hidden"
                                     initial="closed"
                                     animate="open"
                                     exit="closed"
@@ -105,13 +101,6 @@ const Accordion = ({ name, ...props }) => {
                     </motion.div>
                 )
             })}
-            <span
-                className="absolute -inset-3 -z-10 rounded-2xl bg-slate-90 md:rounded-[2rem]"
-                style={{
-                    borderTopLeftRadius: '0px',
-                    borderBottomRightRadius: '0px',
-                }}
-            />
         </div>
     )
 }

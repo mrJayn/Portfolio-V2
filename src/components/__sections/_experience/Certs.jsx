@@ -25,6 +25,7 @@ const Labels = ({ labels, active, setActive }) => (
         ))}
     </div>
 )
+
 const Cert_Info = ({ title, description, href, src }) => (
     <motion.div
         className="flex-col-top relative min-h-[75vh] w-full gap-y-4 max-lg:text-center lg:h-[75vh] lg:items-start"
@@ -58,12 +59,12 @@ const Cert_Info = ({ title, description, href, src }) => (
     </motion.div>
 )
 
-const Certs = ({ certifications, headers }) => {
+const Certs = ({ certifications }) => {
     const [active, setActive] = useState(0)
     const labels = certifications.map((cert) => cert.title)
     return (
         <>
-            <h3>{headers.certifications}</h3>
+            <h4>Certifications</h4>
             <div className="relative flex w-full max-lg:flex-col">
                 <Labels labels={labels} active={active} setActive={setActive} />
                 <AnimatePresence mode="wait">

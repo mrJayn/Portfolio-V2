@@ -86,12 +86,6 @@
         }
     }
 
-    .listed-item:before {
-        /* colored bullets @ JOBS */
-        content: '▹';
-        @apply inline-block w-[0.75em] font-bold text-slate-neon;
-    }
-
     .styled-a-link {
         @apply whitespace-nowrap font-medium text-slate-neon brightness-90 contrast-75 duration-250 ease-tween after:absolute after:-ml-2  after:text-[2em] after:leading-[0.6] after:duration-250 after:ease-tween after:content-['\00a0\00BB'] hover:translate-x-1 hover:contrast-150 hover:after:-ml-1;
     }

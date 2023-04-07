@@ -42,7 +42,7 @@ const Archive_Project = ({ project, ...props }) => (
         variants={variants.Project}
         {...props}
     >
-        <h5 className="relative z-10 w-full border-y-2 border-slate-40 bg-white-dark/50 py-1 text-center text-slate-60">
+        <h5 className="relative z-10 w-full border-y-2 border-slate-40 bg-white-dark/50 py-1 text-center">
             {project.title}
         </h5>
         <div className="flex-evenly w-full">
@@ -78,14 +78,14 @@ const Archive = ({ projectsData }) => {
 
     return (
         <section className="flex-col-center w-full gap-y-4">
-            <motion.h3
+            <motion.h4
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true }}
                 variants={variants.Headline}
             >
                 Archive
-            </motion.h3>
+            </motion.h4>
 
             <Indicators
                 current={current}

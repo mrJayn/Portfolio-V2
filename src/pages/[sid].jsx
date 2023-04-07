@@ -63,13 +63,13 @@ export default function SectionPage({ ...pageProps }) {
                 <motion.div
                     id={`${data.id}-section-content`}
                     data-reading-section
-                    className={`flex-col-top relative z-20 mx-auto h-auto min-h-screen w-[90vw] gap-y-24 overflow-hidden rounded-t-3xl bg-white-dark py-14 px-[clamp(4px,calc(4px+124*((100vw-320px)/704)),128px)]`}
+                    className={`flex-col-top relative z-20 mx-auto min-h-screen w-[95%] max-w-5xl gap-y-24 overflow-hidden rounded-t-3xl bg-white-dark p-[clamp(4px,calc(4px+124*((100vw-320px)/704)),128px)]`}
                     variants={sidVariants.Content}
                 >
                     {GetComponents({ ...data }).map((component) => (
                         <section
                             key={`${title}Page-${component.key}`}
-                            className="full max-w-[1280px]"
+                            className="full relative max-w-3xl"
                         >
                             {component}
                         </section>

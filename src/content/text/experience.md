@@ -22,7 +22,7 @@ education:
 jobs:
     - title: Rochester Electronics
       position: ChemEng Electro-Plating Internship
-      dates: May 2019 -Sept. 2019
+      dates: May 2019 -September 2019
       description:
           - Conducted batch experiments to assess conditions for a new production process.
           - Collected deposition thickness Data using XRF (X-ray fluorescence)
@@ -34,7 +34,7 @@ jobs:
 
     - title: CVS Pharmacy
       position: Pharmacy Technician / PCR Test Administrator
-      dates: Aug. 2020 - Aug. 2021
+      dates: August 2020 - August 2021
       description:
           - Managed patient PHI along with prescription and insurance information.
           - Administered Covid-19 self-performed nasal-swap PCR tests under supervision from a registered nurse practitioner.

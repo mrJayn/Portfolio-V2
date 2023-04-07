@@ -21,7 +21,7 @@
     }
     html {
         @apply snap-y snap-mandatory snap-normal;
-        @apply whitespace-pre-line font-montserrat text-root text-grey-30 antialiased;
+        @apply whitespace-pre-line font-raleway text-root text-grey-30 antialiased;
         word-spacing: 1px;
     }
     body {
@@ -35,33 +35,30 @@
     }
     h2 {
         /* @apply bg-gradient-wave; */
-        @apply font-montserrat text-heading-2 font-black uppercase leading-none tracking-4xl;
+        @apply text-heading-2 font-black uppercase tracking-4xl;
         -webkit-text-stroke: 1px white;
         -webkit-text-fill-color: transparent;
     }
     h3 {
-        @apply font-raleway text-heading-3a font-semibold uppercase tracking-lg  text-white;
+        @apply text-heading-3a font-semibold uppercase tracking-lg text-white;
     }
     h4 {
-        @apply text-heading-4;
-        @apply leading-7 tracking-md text-grey-10;
+        @apply text-heading-3b font-semibold uppercase leading-none tracking-md text-slate-60;
+        @apply mb-2 max-lg:text-center lg:-ml-4;
     }
     h5 {
-        @apply text-heading-5;
-        @apply tracking-normal text-grey-10;
+        @apply text-heading-5 font-medium leading-none text-black;
     }
     h6 {
-        @apply text-heading-6;
-    }
-    p {
+        @apply text-heading-6 font-medium leading-none text-grey-70;
     }
 
     div[data-reading-section] {
-        @apply text-slate;
+        @apply text-black;
 
-        & h3 {
-            @apply text-heading-3b text-slate !important;
+        & > section > div {
         }
+        /*
         & p {
             @apply text-black;
         }
@@ -74,6 +71,7 @@
                 @apply max-md:text-center;
             }
         }
+        */
     }
 
     /* max-width: 768px -- page form style */

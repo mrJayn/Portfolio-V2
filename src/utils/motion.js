@@ -519,40 +519,7 @@ export const aboutVariants = {
         },
     },
 }
-export const experienceMotion = {
-    Accordion: {
-        closed: {
-            opacity: 0.5,
-            height: 0,
-            transition: { duration: 0.5 },
-        },
-        open: {
-            opacity: 1,
-            height: 'auto',
-            opacity: 1,
-            transition: {
-                duration: 0.5,
-                staggerChildren: 0.075,
-                delayChildren: 0.15,
-            },
-        },
-    },
-    Content: {
-        closed: { opacity: 0 },
-        open: { opacity: 1, transition: { duration: 0.5 } },
-    },
-    Image: {
-        open: {
-            opacity: 1,
-            filter: 'blur(0px)',
-            transition: { duration: 0.75 },
-        },
-        closed: {
-            opacity: 0,
-            filter: 'blur(5px)',
-        },
-    },
-}
+
 export const projectCardVariants = {
     Wrap: {
         hidden: { opacity: 0 },

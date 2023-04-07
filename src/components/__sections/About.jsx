@@ -4,7 +4,7 @@ import { aboutVariants } from '@motion'
 
 const Summary = ({ introduction }) => (
     <>
-        <h3 className=" w-auto">Who I am</h3>
+        <h4 className=" w-auto">Who I am</h4>
         <div className="flex-col-top full md:flex-row md:items-start">
             <div className="w-full whitespace-pre-line indent-8 md:h-full">
                 <p>{introduction.replace('<br/>', `\n`)}</p>
@@ -26,7 +26,7 @@ const Summary = ({ introduction }) => (
 
 const Skills = ({ skills }) => (
     <>
-        <h3>Skill Set</h3>
+        <h4>Skill Set</h4>
         <motion.ul
             className="grid w-full grid-cols-1 gap-2 py-4 md:grid-cols-2"
             initial="hidden"

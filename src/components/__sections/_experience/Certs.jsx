@@ -7,7 +7,7 @@ const Labels = ({ labels, active, setActive }) => (
         {labels.map((name, i) => (
             <button
                 key={name}
-                className={`relative h-[4em] select-none px-4 leading-none transition-colors duration-150 ease-in hover:bg-slate-30 hover:text-white max-lg:aspect-[5/2] lg:w-5/6 lg:text-left ${
+                className={`relative h-[4em] select-none px-4 leading-1 transition-colors duration-150 ease-in hover:bg-slate-30 hover:text-white max-lg:aspect-[5/2] lg:w-5/6 lg:text-left ${
                     active === i
                         ? 'bg-slate-40 text-white'
                         : 'bg-grey-30 text-grey-60'
@@ -33,7 +33,7 @@ const Cert_Info = ({ title, description, href, src }) => (
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
     >
-        <h6 className="mt-6 font-semibold leading-none text-black">{title}</h6>
+        <h6 className="mt-6 font-semibold leading-1 text-black">{title}</h6>
         <p>{description}</p>
         <a
             href={href}

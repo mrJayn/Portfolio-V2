@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { featuredProjectVariants as variants } from '@motion'
+import { featuredVariants } from '@motion'
 import { Styled } from '@components'
 
 const inViewProps = {
@@ -15,7 +15,7 @@ const HEADER = ({ title, tech, style, isEven }) => (
         className="flex-col-center w-full min-w-min"
         style={style}
     >
-        <span className="font-inconsolata leading-none text-slate-neon">
+        <span className="font-inconsolata leading-1 text-slate-neon">
             Featured Project
         </span>
 
@@ -24,17 +24,21 @@ const HEADER = ({ title, tech, style, isEven }) => (
         </h4>
         <motion.div
             className="flex w-full overflow-hidden text-slate-neon"
-            variants={variants.TechWrap}
+            variants={featuredVariants.TechWrap}
             custom={isEven ? 1 : -1}
             {...inViewProps}
         >
-            <Styled.Tech techs={tech} variants={variants.Tech} />
+            <Styled.Tech
+                tech={tech}
+                className="font-medium even:border-x-2 max-md:text-[0.9em] max-md:leading-1.75 lg:px-4"
+                variants={featuredVariants.Tech}
+            />
         </motion.div>
     </header>
 )
 
 const Icon_Links = ({ iconData, style }) => (
-    <div className="flex-btw h-icon w-1/2" style={style}>
+    <>
         {iconData.map(([name, href], i) => {
             const title = {
                 GitHub: 'View on GitHub',
@@ -42,35 +46,39 @@ const Icon_Links = ({ iconData, style }) => (
             }[name]
 
             return (
-                <motion.div
+                <motion.a
                     key={`icon-link-${i}`}
-                    className="relative flex aspect-square h-full"
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer noopenner"
+                    title={title}
+                    className="relative aspect-square h-full"
+                    variants={featuredVariants.Item}
                     custom={i}
-                    variants={variants.Item}
+                    whileHover={{ y: -2.5 }}
+                    whileTap={{ y: -3.5 }}
                     {...inViewProps}
                 >
-                    <motion.a
-                        key={i}
-                        href={href}
-                        title={title}
-                        target="_blank"
-                        rel="noreferrer noopenner"
-                        className="relative h-full w-full"
-                        whileHover={{ y: -2.5 }}
-                        whileTap={{ y: -3.5 }}
-                    >
-                        <Styled.Icon name={name} />
-                    </motion.a>
-                </motion.div>
+                    <Styled.Icon name={name} />
+                </motion.a>
             )
         })}
-    </div>
+    </>
 )
 
 const Featured = ({ featuredData }) =>
     Object.entries(featuredData).map(([key, value], i) => {
         const { data, content } = value
         const isEven = i % 2 == 0
+
+        const Content = () => (
+            <motion.div
+                className="content-innerHTML w-full border-2 max-lg:text-center"
+                dangerouslySetInnerHTML={{ __html: content }}
+                variants={featuredVariants.Item}
+                {...inViewProps}
+            />
+        )
 
         return (
             <div className="mb-12 lg:mb-24" key={`featured-project-${key}`}>
@@ -80,37 +88,35 @@ const Featured = ({ featuredData }) =>
                     {...data}
                 />
                 <div
-                    className={`relative mt-4 flex w-full flex-col gap-y-8 ${
+                    className={`relative mt-4 flex w-full flex-col ${
                         isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'
                     }`}
                 >
-                    <div className="relative aspect-[16/9] w-full select-none lg:max-w-[850px]">
+                    <div className="relative aspect-[16/9] w-full max-w-[850px] select-none">
                         <Image
                             src={data.src}
                             alt={data.alt}
                             layout="fill"
-                            className="object-contain object-top"
+                            objectFit="contain"
                         />
                     </div>
                     <div
-                        className={`flex-col-center relative w-full rounded-3xl bg-white-dark/90 lg:p-4 ${
+                        className={`flex-col-center relative w-full lg:p-4 lg:pb-0 ${
                             isEven ? 'lg:left-0' : 'lg:right-0'
                         }`}
                     >
-                        <motion.div
-                            className="content-innerHTML w-full max-lg:text-center"
-                            dangerouslySetInnerHTML={{ __html: content }}
-                            variants={variants.Item}
-                            {...inViewProps}
-                        />
-
-                        <Icon_Links
-                            iconData={[
-                                ['GitHub', data.github],
-                                ['External', data.external],
-                            ]}
+                        <Content />
+                        <div
+                            className="flex-btw h-[3.5em] w-1/2"
                             style={{ filter: `hue-rotate(${i * 60}deg)` }}
-                        />
+                        >
+                            <Icon_Links
+                                iconData={[
+                                    ['GitHub', data.github],
+                                    ['External', data.external],
+                                ]}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { DefVariants, sidVariants } from '@motion'
+import { sidVariants } from '@motion'
 import { About, Projects, Layout, Experience, Styled } from '@components'
 import { getAllMarkdown, getSectionMarkdown } from 'src/lib/markdown'
 
@@ -16,10 +16,35 @@ const GetComponents = ({ ...data }) => {
             return null
     }
 }
-
+const Hero = ({ activeSection, title }) => (
+    <header className="relative z-10 flex h-screen w-full justify-center">
+        <motion.h3
+            className="bg-gradient-wave absolute z-10 portrait:top-1/3 landscape:top-[37.5%]"
+            variants={sidVariants.Title}
+            custom={activeSection === 0 ? 0 : 1}
+        >
+            {title}
+            <motion.span
+                className="styled-underline inset-x-0 origin-center"
+                variants={sidVariants.Underline}
+            />
+        </motion.h3>
+        <motion.div
+            className="flex-col-center fixed bottom-[45vh] aspect-[3/2] text-grey"
+            variants={sidVariants.Chevron}
+        >
+            <p className="translate-y-[0.5em] font-robotoMono uppercase">
+                scroll
+            </p>
+            <div className="pointer-events-none absolute inset-x-[10%] top-[80%] aspect-square">
+                <Styled.Chevron direction="down" />
+            </div>
+        </motion.div>
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-b from-transparent via-white/90 to-white" />
+    </header>
+)
 export default function SectionPage({ ...pageProps }) {
     const { data, activeSection } = pageProps
-    const { title } = data.data
 
     useEffect(
         () =>
@@ -35,41 +60,18 @@ export default function SectionPage({ ...pageProps }) {
                 data-sid-scroll-container
                 className="absolute top-0 left-0 h-auto w-full"
             >
-                <header className="relative z-10 flex h-screen w-full justify-center">
-                    <motion.h3
-                        className="bg-gradient-wave absolute z-10 portrait:top-1/3 landscape:top-[37.5%]"
-                        variants={sidVariants.Title}
-                        custom={activeSection === 0 ? 0 : 1}
-                    >
-                        {title}
-                        <motion.span
-                            className="styled-underline inset-x-0 origin-center"
-                            variants={sidVariants.Underline}
-                        />
-                    </motion.h3>
-                    <motion.div
-                        className="flex-col-center fixed bottom-[15vh] aspect-[3/2] text-white/80"
-                        variants={sidVariants.Chevron}
-                    >
-                        <p className="translate-y-[0.5em] font-robotoMono uppercase">
-                            scroll
-                        </p>
-                        <div className=" absolute inset-x-[10%] top-[80%] aspect-square">
-                            <Styled.Chevron direction="down" />
-                        </div>
-                    </motion.div>
-                </header>
+                <Hero activeSection={activeSection} {...data.data} />
 
                 <motion.div
                     id={`${data.id}-section-content`}
                     data-reading-section
-                    className={`flex-col-top relative z-20 mx-auto min-h-screen w-[95%] max-w-5xl gap-y-24 overflow-hidden rounded-t-3xl bg-white-dark p-[clamp(4px,calc(4px+124*((100vw-320px)/704)),128px)]`}
+                    className={`flex-col-top relative z-20 mx-auto min-h-screen w-full max-w-7xl gap-y-28 bg-white pb-14 ${''} px-2 sm:max-lg:px-[clamp(8px,calc(4px+24*((100vw-414px)/610)),32px)] lg:px-8`}
                     variants={sidVariants.Content}
                 >
                     {GetComponents({ ...data }).map((component) => (
                         <section
-                            key={`${title}Page-${component.key}`}
-                            className="full relative max-w-3xl"
+                            key={`${data.data.title}Page-${component.key}`}
+                            className="full relative"
                         >
                             {component}
                         </section>

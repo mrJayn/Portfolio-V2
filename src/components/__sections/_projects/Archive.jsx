@@ -1,123 +1,112 @@
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 
-import { archiveVariants as variants } from '@motion'
-import { Styled } from '@components'
+import { archiveVariants } from '@motion'
+import Image from 'next/image'
 
-const Indicators = ({ current, tabNames, setCurrent }) => (
-    <ul className="flex-evenly relative z-10 h-14 w-full max-w-3xl overflow-hidden rounded-md">
-        {tabNames.map((tabName, i) => (
-            <motion.li
-                key={`tab-li-${i}`}
-                className={`flex-center relative mt-auto flex w-full  cursor-pointer select-none rounded-t-md p-0.5 font-semibold capitalize -tracking-lg  md:text-[1.125em] ${
-                    i == current
-                        ? 'z-0 h-full bg-slate-40 text-white duration-250 ease-tween md:tracking-normal'
-                        : '-z-10 h-[85%] bg-grey-30 text-grey-60 duration-250 ease-tween'
-                }`}
-                /**hover:bg-slate-30 hover:text-white */
-                onClick={() => {
-                    if (i == current) return
-                    setCurrent(i)
-                }}
-            >
-                {tabName}
-                <span
-                    className={`archiveIndicator-decoration pointer-events-none absolute inset-y-0 -z-10 duration-250 ease-tween ${
-                        i == current
-                            ? ' inset-x-0 before:text-slate-40 after:text-slate-40'
-                            : 'inset-x-1/4 before:text-grey-30 after:text-grey-30'
-                    }`}
-                />
-            </motion.li>
-        ))}
-    </ul>
-)
-
-const Archive_Project = ({ project, ...props }) => (
-    <motion.a
-        href={project.github ? project.github : project.external}
-        target="_blank"
-        rel="noopenner noreferrer"
-        className="flex-col-top full z-10 cursor-pointer overflow-hidden rounded-md bg-slate-20/50 p-4 transition-[background-color] duration-150 ease-tween hover:bg-slate-20/75"
-        variants={variants.Project}
-        {...props}
+const Indicators = ({ isActive, handleClick, children }) => (
+    <li
+        className={`flex-center relative mt-auto flex w-full cursor-pointer select-none rounded-t-xl font-semibold capitalize duration-250 ease-tween md:text-[1.125em] ${
+            isActive
+                ? 'z-0 h-full bg-slate-40 text-white'
+                : '-z-10 h-[85%] bg-grey-30 text-grey-60'
+        }`}
+        onClick={handleClick}
     >
-        <h5 className="relative z-10 w-full border-y-2 border-slate-40 bg-white-dark/50 py-1 text-center">
-            {project.title}
-        </h5>
-        <div className="flex-evenly w-full">
-            <Styled.Tech
-                techs={project.tech}
-                className="relative w-full whitespace-nowrap px-2 text-center italic -tracking-md text-slate-60 even:border-x-2 even:border-x-slate-40"
-            />
-        </div>
-
-        <p className="my-4 w-full overflow-hidden text-center font-medium dark:text-white">
-            {project.brief}
-        </p>
-    </motion.a>
+        {children}
+        <span
+            className={`tab-decoration pointer-events-none absolute inset-y-0 -z-10 duration-250 ease-tween ${
+                isActive
+                    ? 'inset-x-0 before:text-slate-40 after:text-slate-40'
+                    : 'inset-x-1/4 before:text-grey-30 after:text-grey-30'
+            }`}
+        />
+    </li>
 )
 
-const Archive = ({ projectsData }) => {
-    const [current, setCurrent] = useState(0)
-    const projects = Object.values(projectsData)
-    const projectCategories = projects.map((project) => project.data.category)
-    const tabNames = ['all', ...new Set(projectCategories)]
-    const groupedTabs = []
-    for (let i = 0; i < tabNames.length; i++) {
-        let group = []
-        if (i == 0) {
-            group = projects
-        } else {
-            for (let j = 0; j < projectCategories.length; j++) {
-                if (tabNames[i] == projectCategories[j]) group.push(projects[j])
-            }
-        }
-        groupedTabs.push(group)
+const Archive_Project = ({ i, data, content }) => {
+    const { href, src, alt } = data
+    const linkActive = useRef(false)
+    const setLinkState = (on_off) =>
+        setTimeout(() => {
+            linkActive.current = on_off
+        }, 500)
+
+    const handleClick = (e) => {
+        if (!linkActive.current) return
+        window.open(href, '_blank', 'noopener noreferrer')
     }
 
     return (
-        <section className="flex-col-center w-full gap-y-4">
-            <motion.h4
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                variants={variants.Headline}
-            >
-                Archive
-            </motion.h4>
-
-            <Indicators
-                current={current}
-                tabNames={tabNames}
-                setCurrent={setCurrent}
+        <motion.div
+            layout
+            className="flex-center group relative mx-auto cursor-pointer overflow-hidden rounded-lg md:w-1/2"
+            style={{ filter: `hue-rotate(${i * 45}deg)` }}
+            initial="hidden"
+            animate="show"
+            exit="hidden"
+            variants={archiveVariants.Project}
+            transition={{ duration: 0.5, ease: 'easeInOut' }}
+            onClick={handleClick}
+            onTouchStart={() => setLinkState(true)}
+            onTouchEnd={() => setLinkState(false)}
+            onMouseEnter={() => setLinkState(true)}
+            onMouseLeave={() => setLinkState(false)}
+        >
+            <div
+                // Image
+                className={`z-0 h-[240px] w-screen max-w-full opacity-100 transition-all duration-500 ease-tween group-hover:scale-90 group-hover:opacity-25 md:h-[300px] lg:h-[350px] ${''}`}
+                style={{ background: `url(${src}) center center/cover` }}
             />
+            <div
+                // Content
+                data-archive-card
+                className={`flex-col-center absolute inset-1.5 z-10 select-none rounded bg-white px-2.5 opacity-0 group-hover:opacity-100 lg:bg-white/25 ${''}`}
+                style={{ transition: 'opacity 0.5s ease-in' }}
+                dangerouslySetInnerHTML={{ __html: content }}
+            />
+        </motion.div>
+    )
+}
 
-            <div className=" full relative min-h-screen">
-                <AnimatePresence>
-                    <motion.div
-                        key={current}
-                        className="absolute grid grid-cols-1 gap-1 md:grid-cols-2 xl:grid-cols-3"
-                        initial="hidden"
-                        animate="show"
-                        exit="hidden"
-                        variants={variants.ProjectWrap}
+const Archive = ({ projectsData }) => {
+    const [curr, setCurr] = useState(0)
+    const projects = Object.values(projectsData)
+    const tabs = ['all', ...new Set(projects.map(({ data }) => data.category))]
+    // prev method --> projects.filter(({ data }) => data.category === tabNames[1])
+
+    return (
+        <>
+            <h4 className="text-center">Projects</h4>
+            <ul className="flex-evenly relative z-10 mx-auto h-14 w-full max-w-3xl overflow-hidden rounded-lg">
+                {tabs.map((tabName, i) => (
+                    <Indicators
+                        key={tabName}
+                        isActive={i == curr}
+                        handleClick={() => setCurr(i)}
                     >
-                        {groupedTabs[current].map((projectData, i) => (
-                            <Archive_Project
-                                key={`${tabNames[current]}-group-project-${i}`}
-                                project={projectData.data}
-                                style={{
-                                    filter: `hue-rotate(${
-                                        (i + current) * 45
-                                    }deg)`,
-                                }}
-                            />
-                        ))}
-                    </motion.div>
-                </AnimatePresence>
+                        {tabName}
+                    </Indicators>
+                ))}
+            </ul>
+            {/***/}
+            <div className="relative mt-1 flex min-h-[100vmax] w-full flex-wrap items-center gap-y-1">
+                <LayoutGroup>
+                    <AnimatePresence>
+                        {projects.map((project, i) => {
+                            return curr === 0 ||
+                                tabs[curr] === project.data.category ? (
+                                <Archive_Project
+                                    key={`project-${i}`}
+                                    i={i}
+                                    {...project}
+                                />
+                            ) : null
+                        })}
+                    </AnimatePresence>
+                </LayoutGroup>
             </div>
-        </section>
+        </>
     )
 }
 

@@ -7,17 +7,12 @@ import {
 } from 'framer-motion'
 import { BgPaths } from '@components'
 
-function useScrollMV(scrollYProgress) {
-    const reducedMotion = useReducedMotion()
-    const ySpring = useSpring(scrollYProgress, {
-        type: 'spring',
-        stiffness: 950,
-        damping: 600,
-        mass: 25,
-        restDelta: 0.001,
-    })
-
-    return reducedMotion ? scrollYProgress : ySpring
+const springConfig = {
+    type: 'spring',
+    stiffness: 950,
+    damping: 400,
+    mass: 10,
+    restDelta: 0.001,
 }
 
 function useParallax(value, n, invert = 0) {
@@ -25,11 +20,16 @@ function useParallax(value, n, invert = 0) {
 }
 
 const Background = ({}) => {
+    const reducedMotion = useReducedMotion()
+
     const { scrollYProgress } = useScroll()
-    const baseY = useScrollMV(scrollYProgress)
+    const ySpring = useSpring(scrollYProgress, springConfig)
+    const baseY = reducedMotion ? scrollYProgress : ySpring
 
     // Main
     const y = useTransform(baseY, [0, 1], ['0vh', '-215vh'])
+    const opacity = useTransform(baseY, [0, 1], [1, 0.25])
+
     // Stars
     const yStars1 = useTransform(baseY, [0, 1], ['10vh', '-70vh'])
     const opacityStars = useTransform(baseY, [0, 0.5], [0.5, 0])
@@ -44,19 +44,20 @@ const Background = ({}) => {
 
     return (
         <>
-            <div
-                id="scroll-holder"
-                className="pointer-events-none absolute top-0 left-0 h-[500vh] w-full"
-            />
             <BgGradients />
             <motion.div
                 id="scene-bg"
-                className="fixed top-0 left-0 z-0 h-[300vh] w-screen overflow-hidden opacity-75"
+                className="fixed top-0 left-0 z-0 h-[300vh] w-screen overflow-hidden"
                 style={{
                     y,
+                    opacity,
                     backgroundImage: `
-                    linear-gradient(70deg, #112 0%, #0000 0%),
                     linear-gradient(#000 30%, #112 45%, #323 55%, #844, #f95, #f90 90%)`,
+                }}
+                initial={{ opacity: 0 }}
+                animate={{
+                    opacity: 1,
+                    transition: { duration: 2, ease: 'easeIn' },
                 }}
             >
                 {/** Stars **/}

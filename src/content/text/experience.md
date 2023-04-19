@@ -71,6 +71,11 @@ certifications:
       description: Learned to use the TensorFlow framework to build several types of neural networks and create more advanced ML programs involving techniques like natural language processing and reinforcement learning.
       href: 'https://www.freecodecamp.org/learn/machine-learning-with-python/'
       src: '/assets/certifications/py_data_analysis.png'
+
+    - title: Front End Development Libraries
+      description: Utilized Bootstrap, CSS logic and Sass functions to build useful tools and created powerful Single Page Applications (SPAs) using React and Redux.
+      href: 'https://www.freecodecamp.org/learn/front-end-development-libraries/'
+      src: '/assets/certifications/frontEndLibraries.png'
 ---
 
 A Chemical Engineer graduate and recently self-taught and certified software engineer/developer, seeking to launch a career in the information technology industry.

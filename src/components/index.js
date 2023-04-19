@@ -1,4 +1,3 @@
-export { default as Loader } from './Loader'
 export { default as Background } from './Background'
 
 export { default as Layout } from './Layout'
@@ -20,4 +19,3 @@ export { default as PageLink } from './items/PageLink'
 //export { default as Paths } from './items/Paths'
 //export { default as SectionGraphic } from './items/SectionGraphic'
 export { default as Styled } from './items/StyledComponents'
-export { default as Title } from './items/Title'

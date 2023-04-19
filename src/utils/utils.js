@@ -1,4 +1,5 @@
 import { router } from 'next/router'
+import { scrollIntoView } from 'seamless-scroll-polyfill'
 
 export const sectionIDs = [
     'intro',
@@ -8,19 +9,25 @@ export const sectionIDs = [
     'contact',
 ]
 
+export const navLinks = [
+    'about',
+    'experience',
+    'projects',
+    'contact',
+    'my Resume',
+]
+
 export function pushPage(id, href = '/', as = '') {
     var el, prevScrollY
 
     if (id === '/') {
         el = document.querySelector('main')
-
         el.style.overflowY = 'hidden'
         el.scrollTo({ top: 0, behavior: 'smooth' })
     } else {
         el = document.getElementById(id)
-
+        scrollIntoView(el, { behavior: 'smooth', block: 'center' })
         document.body.style.overflowY = 'hidden'
-        el.scrollIntoView({ block: 'center', behavior: 'smooth' })
     }
 
     const checkIfAtTop = setInterval(() => {
@@ -33,13 +40,21 @@ export function pushPage(id, href = '/', as = '') {
     }, 50)
 }
 
-/**
- * @param {number} offset - Drag event offset x value
- * @param {number} velocity  - Drag event velocity x value
- * @param {number} currentTab - Index of current open tab
- * @param {number} span - Total number of tabs
- * @param {function} setTab - Function to set new current Tab
- */
+export function reload() {
+    router.reload()
+}
+
+export function handleNavLink(id, callbackFn) {
+    if (id === 'my Resume') {
+        window.open('/assets/misc/resume2022.jpg', '_blank')
+    } else {
+        document.getElementById(id).scrollIntoView({})
+    }
+    if (callbackFn) {
+        setTimeout(() => callbackFn(), 100)
+    }
+}
+
 export function handleSwipe(offset, velocity, currentTab, span, setTab) {
     const threshold = 5000
     const swipe = Math.abs(offset) * velocity
@@ -50,13 +65,6 @@ export function handleSwipe(offset, velocity, currentTab, span, setTab) {
     }
 }
 
-/**
- * Gesture Recognition for Tab Swiping
- * @param {number} newDirection
- * @param {number} currentTab
- * @param {number} span -
- * @param {function} setTab
- */
 export const paginate = (newDirection, currentTab, span, setTab) => {
     if (currentTab + newDirection < span && currentTab + newDirection >= 0) {
         // moving , normal

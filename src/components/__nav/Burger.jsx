@@ -1,66 +1,40 @@
 import { motion } from 'framer-motion'
-import { navVariants } from '@motion'
+import { BurgerVariants } from '@motion'
 
-const Burger = ({ ANIM, handleBurger, size = 28 }) => {
-    // ~Props~
-    const lineProps = {
-        strokeLinecap: 'round',
-        vectorEffect: 'non-scaling-stroke',
-        initial: false,
-        animate: ANIM,
-        transition: {
-            type: 'spring',
-            stiffness: 250,
-            damping: 25,
-        },
-    }
-    // ~Motion~
-    const burgerVars = navVariants.Burger
-    const variants = [burgerVars.Buns, burgerVars.Meat]
-
-    // ~Line Points~ (x1,x2,y1,y2)
-    const line_info = [
-        [0, 2, 0, 0],
-        [0, 1, 1, 1],
-        [1, 2, 1, 1],
-        [0, 2, 2, 2],
-    ]
-
-    return (
-        <motion.div
-            className="flex-center absolute left-0 top-0 z-10 h-14 w-14 cursor-pointer text-white/40 hover:text-white"
-            onClick={handleBurger}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.5, ease: 'easeIn' } }}
-        >
-            <motion.svg
-                viewBox="0 0 2 2"
-                overflow="visible"
-                width={size}
-                height={size}
-                whileTap={{ scale: 0.95 }}
-                whileHover={{ stroke: '#66fcf1' }}
-            >
-                {line_info.map(([x1, x2, y1, y2], i) => {
-                    const vars = i % 3 == 0 ? variants[0] : variants[1]
-                    return (
-                        <motion.line
-                            key={`burger-component-${i}`}
-                            className="fill-transparent stroke-current stroke-[3] transition-colors duration-500"
-                            x1={x1}
-                            x2={x2}
-                            y1={y1}
-                            y2={y2}
-                            variants={vars}
-                            custom={i % 2 == 0 ? 1 : -1}
-                            {...lineProps}
-                        />
-                    )
-                })}
-            </motion.svg>
-        </motion.div>
-    )
+const lineData = {
+    top: { x1: 0, y1: 0, x2: 2, y2: 0, variant: 'outer', custom: 1 },
+    midLeft: { x1: 0, y1: 1, x2: 1, y2: 1, variant: 'inner', custom: -1 },
+    midRight: { x1: 1, y1: 1, x2: 2, y2: 1, variant: 'inner', custom: 1 },
+    bottom: { x1: 0, y1: 2, x2: 2, y2: 2, variant: 'outer', custom: -1 },
 }
 
+const Burger = ({ ANIM, handleBurger }) => (
+    <div
+        className="flex-center absolute left-0 top-0 z-20 aspect-square h-full cursor-pointer lg:hidden"
+        onClick={handleBurger}
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 2 2"
+            className="h-8 select-none overflow-visible"
+        >
+            {Object.entries(lineData).map(
+                ([key, { x1, y1, x2, y2, variant, custom }]) => (
+                    <motion.line
+                        key={key}
+                        x1={x1}
+                        x2={x2}
+                        y1={y1}
+                        y2={y2}
+                        initial={false}
+                        animate={ANIM}
+                        variants={BurgerVariants[variant]}
+                        custom={custom}
+                        className="fill-none stroke-white stroke-[2.5] non-scaling linecap-round"
+                    />
+                )
+            )}
+        </svg>
+    </div>
+)
 export default Burger

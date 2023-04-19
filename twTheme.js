@@ -35,6 +35,7 @@ const fontSizes = {
     'heading-5': clamp(22, 32),
     'heading-6': clamp(20, 28),
     button: clamp(22, 36, 320, 1920),
+    'menu-link': clamp(27, 48, 320, 1024),
 }
 const spacing = {
     px: '1px',
@@ -72,12 +73,6 @@ const spacing = {
     72: '288px',
     80: '320px',
     96: '384px',
-    'title-sm': clamp(72, 124, 320, 1024),
-    'title-lg': clamp(62, 96, 1024),
-    'title-svg': clamp(72, 184),
-    title: clamp(56, 116),
-    icon: clamp(56, 72),
-    view: 'calc(100vh - 56px)',
     vmax: '100vmax',
     vmin: '100vmin',
 }

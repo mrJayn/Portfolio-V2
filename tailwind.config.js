@@ -9,7 +9,9 @@ module.exports = {
         './src/pages/**/*.{js,ts,jsx,tsx}',
         './src/components/**/*.{js,ts,jsx,tsx}',
     ],
-    corePlugins: {},
+    corePlugins: {
+        /** https://tailwindcss.com/docs/configuration#core-plugins */
+    },
     theme: {
         colors: {
             transparent: 'transparent',
@@ -21,18 +23,16 @@ module.exports = {
             },
             black: '#000',
 
-            backgroundRGB: themeConfig.BackgroundRGB,
             background: `rgb(${themeConfig.BackgroundRGB} / <alpha-value>)`,
-            nav: 'rgb(var(--nav-bg) / <alpha-value>)',
+            nav: 'rgb(var(--nav-rgb) / <alpha-value>)',
 
-            zinc: colors.zinc,
             grey: {
-                /** Tailwind's default 'grey' **/
                 5: '#f9fafb',
                 10: '#f3f4f6',
                 20: '#e5e7eb',
                 25: '#dbdee3',
                 30: '#d1d5db',
+                35: '#B7BCC5',
                 40: '#9ca3af',
                 DEFAULT: '#6b7280',
                 60: '#4b5563',
@@ -68,6 +68,12 @@ module.exports = {
                 dark: '#423062',
                 neon: '#cc22aa',
             },
+            nickel: {
+                light: '#737979',
+                DEFAULT: '#667777',
+                dark: '#4b5858',
+                neon: '#99cfb6',
+            },
 
             red: '#B00',
         },
@@ -96,6 +102,12 @@ module.exports = {
             '3xl': '0.15em',
             '4xl': '0.2em',
         },
+        lineHeight: {
+            1: 1,
+            1.25: 1.25,
+            1.75: 1.75,
+            2: 2,
+        },
         zIndex: {
             0: '0',
             10: '1',
@@ -104,28 +116,16 @@ module.exports = {
             40: '4',
             50: '5',
         },
-        boxShadow: {
-            DEFAULT:
-                '0 20px 25px -5px var(--shadow-color), 0 8px 10px -6px var(--shadow-color)',
-            md: '0 17.5px 22.5px -10px var(--shadow-color), 0 6px 8px -4px var(--shadow-color)',
-            sm: '0px 15px 15px -15px var(--shadow-color)',
-            xs: '0px 7.5px 10px -10px var(--shadow-color)',
-            inset: 'inset 0 0.1rem 0.1rem #0008, inset 0 -0.25rem 0.25rem #0005, inset 0 -0.5rem 0.5rem #0005, 0 0.1rem 0.1rem #0008',
-            none: 'none',
-        },
-        perspective: {
-            250: '250px',
-            500: '500px',
-            750: '750px',
-            1000: '1000px',
+        transitionDuration: {
+            150: '150ms',
+            200: '200ms',
+            250: '250ms',
+            500: '500ms',
+            1000: '1s',
         },
         extend: {
             backgroundImage: {
                 'background-gradient': themeConfig.bgGradient,
-                gradient:
-                    'linear-gradient(45deg, var(--theme-purple), var(--theme-teal))',
-                'gradient-loop':
-                    'linear-gradient(45deg,var(--theme-purple),var(--theme-teal),var(--theme-purple))',
             },
             backgroundSize: {
                 '200%': '200%',
@@ -135,13 +135,7 @@ module.exports = {
                 '3.5xl': '2.25rem',
                 '4xl': '3rem',
             },
-            transitionDuration: {
-                0: '0ms',
-                250: '250ms',
-                350: '350ms',
-                400: '400ms',
-                600: '600ms',
-            },
+
             transitionTimingFunction: {
                 tween: 'cubic-bezier(0.5, 0.5, 0.5, 1)',
             },
@@ -223,18 +217,30 @@ module.exports = {
                     'translate-z': (value) => ({
                         '--tw-translate-z': value,
                         transform: ` translate3d(var(--tw-translate-x), var(--tw-translate-y), var(--tw-translate-z)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))`,
-                    }), // this is actual CSS
+                    }),
                 },
                 { values: theme('translate'), supportsNegativeValues: true }
-            ),
-                matchUtilities(
-                    {
-                        perspective: (value) => ({
-                            perspective: value,
-                        }),
+            )
+        }),
+        plugin(function ({ addUtilities, addComponents }) {
+            addUtilities({
+                '.non-scaling': {
+                    'vector-effect': 'non-scaling-stroke',
+                },
+                '.linecap-round': {
+                    'stroke-linecap': 'round',
+                },
+                '.linejoin-round': {
+                    'stroke-linejoin': 'round',
+                },
+            }),
+                addComponents({
+                    '.styled-stroke': {
+                        'stroke-linecap': 'round',
+                        'stroke-linejoin': 'round',
+                        'vector-effect': 'non-scaling-stroke',
                     },
-                    { values: theme('perspective') }
-                )
+                })
         }),
     ],
 }

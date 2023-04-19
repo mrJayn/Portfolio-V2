@@ -106,7 +106,7 @@ const Featured_Slides = ({ inView, ...featured }) => {
                             />
                         </div>
                         <div className="flex-col-center z-10 text-center">
-                            <h5 className="font-semibold leading-none text-slate-30 lg:whitespace-nowrap">
+                            <h5 className="font-semibold leading-1 text-slate-30 lg:whitespace-nowrap">
                                 {data.title}
                             </h5>
                             <TECH {...data} />
@@ -121,7 +121,7 @@ const TECH = ({ tech }) => (
     <div className="flex-evenly w-full max-xl:landscape:flex-col">
         {tech.map((item) => (
             <Fragment key={item}>
-                <p className="relative whitespace-nowrap font-robotoMono leading-tight ">
+                <p className="relative whitespace-nowrap font-robotoMono leading-1.25 ">
                     {item}
                 </p>
                 <span className="px-3 font-semibold text-teal-neon last-of-type:hidden max-xl:landscape:hidden">

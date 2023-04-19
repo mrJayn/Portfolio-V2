@@ -1,20 +1,16 @@
 import { useEffect } from 'react'
+import { scrollIntoView } from 'seamless-scroll-polyfill'
 import { getAllMarkdown } from 'src/lib/markdown'
 import { sectionIDs } from '@utils'
 import { Layout, Section } from '@components'
 
-export default function Home({ data, ...pageProps }) {
-    useEffect(
-        () => {
-            window.scrollTo({
-                top: pageProps.activeSection * window.innerHeight,
-                behavior: 'instant',
-            })
-            document.body.style.overflowY = 'auto'
-        },
+export default function Home({ data, activeSection, setSection }) {
+    useEffect(() => {
+        let active = document.getElementById(sectionIDs[activeSection])
+        scrollIntoView(active, { behavior: 'instant', block: 'center' })
+        document.body.style.overflowY = 'auto'
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        []
-    )
+    }, [])
 
     return (
         <Layout
@@ -26,9 +22,8 @@ export default function Home({ data, ...pageProps }) {
                 return (
                     <Section
                         key={`${id}-section`}
-                        i={i}
-                        featured={data.featured}
-                        {...pageProps}
+                        isActive={activeSection === i}
+                        setActive={() => setSection(i)}
                         {...data[id]}
                     />
                 )

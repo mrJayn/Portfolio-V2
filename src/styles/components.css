@@ -2,88 +2,52 @@
 @tailwind components;
 
 @layer components {
-    #navbar {
-        --nav-ce: cubic-bezier(0.5, 1, 0.5, 1);
-        --before: 0;
-        --pseudos-transition: all 0.5s 0.85s var(--nav-ce);
-
-        & a#logo:after {
-            background: linear-gradient(
-                45deg,
-                var(--theme-teal),
-                var(--theme-slate),
-                var(--theme-purple),
-                var(--theme-slate),
-                var(--theme-teal)
-            );
-
-            @apply absolute inset-0 -z-20 origin-top translate-x-[-0.05px] translate-y-[-5%] scale-y-[1.1] animate-[bgRotate_10s_linear_infinite] bg-300% bg-clip-text text-center font-bold tracking-xl text-transparent blur-[1px] contrast-200 motion-reduce:animate-none;
+    div[data-archive-card] {
+        & > h5 {
+            @apply w-full text-center transition-colors duration-150 ease-tween;
         }
-
-        &[data-menuopen='true'] {
-            --before: 1.15;
-            --pseudos-transition: all 0.5s 0s var(--nav-ce);
-        }
-
-        &.tempered-bg,
-        & .tempered-bg {
-            @apply md:origin-left;
-            &:before,
-            &:after {
-                @apply absolute inset-0 -z-20;
-                content: '';
-            }
-            &:before {
-                @apply origin-top bg-nav;
-                opacity: var(--before);
-                transform: scaleY(var(--before));
-                transition: var(--pseudos-transition);
-            }
-            &:after {
-                content: '';
-                background: linear-gradient(
-                    to bottom,
-                    rgb(var(--nav-bg) / 0.8) 0%,
-                    rgb(var(--nav-bg) / 0.75) 10%,
-                    rgb(var(--nav-bg) / 0.75) 15%,
-                    rgb(var(--nav-bg) / 0.5) 30%,
-                    rgb(var(--nav-bg) / 0.45) 35%,
-                    rgb(var(--nav-bg) / 0.4) 40%,
-                    rgb(var(--nav-bg) / 0.35) 47.5%,
-                    rgb(var(--nav-bg) / 0.3) 52.5%,
-                    rgb(var(--nav-bg) / 0.2) 60%,
-                    rgb(var(--nav-bg) / 0.1) 70%,
-                    rgb(var(--nav-bg) / 0.05) 77.5%,
-                    transparent 85%,
-                    transparent 100%
-                );
-                @apply backdrop-blur-sm;
+        & > ul {
+            @apply flex w-full;
+            & > li {
+                @apply w-full whitespace-nowrap text-center font-inconsolata leading-1 text-slate;
             }
         }
-    }
-
-    menu .socials-icon-bg:after {
-        @apply pointer-events-none absolute inset-[-5px] -z-10 rounded-full bg-grey-80/50 content-[''];
-    }
-
-    .content-innerHTML {
         & > p {
-            @apply mb-1 cursor-text select-text whitespace-pre-line indent-4 last-of-type:mb-0 !important;
+            @apply my-4 text-center;
+        }
+
+        &:after {
+            content: 'Learn More';
+            @apply w-[200px] rounded-xl border-2 border-nav/25 bg-white py-2 text-center font-inconsolata font-bold uppercase shadow;
         }
     }
 
-    .socials-text-style {
-        & > span {
-            @apply relative;
+    .tempered-bg {
+        @apply md:origin-left;
+
+        &:after {
+            background: linear-gradient(
+                to bottom,
+                rgb(var(--nav-rgb) / 0.8) 0%,
+                rgb(var(--nav-rgb) / 0.75) 10%,
+                rgb(var(--nav-rgb) / 0.75) 15%,
+                rgb(var(--nav-rgb) / 0.5) 30%,
+                rgb(var(--nav-rgb) / 0.45) 35%,
+                rgb(var(--nav-rgb) / 0.4) 40%,
+                rgb(var(--nav-rgb) / 0.35) 47.5%,
+                rgb(var(--nav-rgb) / 0.3) 52.5%,
+                rgb(var(--nav-rgb) / 0.2) 60%,
+                rgb(var(--nav-rgb) / 0.1) 70%,
+                rgb(var(--nav-rgb) / 0.05) 77.5%,
+                transparent 85%,
+                transparent 100%
+            );
+            @apply absolute inset-0 -z-10 backdrop-blur-sm content-[''];
         }
-        & > span:after {
-            content: '';
-            @apply absolute -inset-x-0.5 -bottom-1 -z-20 h-[4px] origin-bottom-right scale-x-0  rounded-full bg-slate will-change-transform;
-            transition: transform 0.25s linear;
-        }
-        &:hover > span:after {
-            @apply origin-bottom-left scale-x-100;
-        }
+    }
+
+    .content-innerHTML > p {
+        @apply mb-1 cursor-text select-text whitespace-pre-line indent-4 last-of-type:mb-0 !important;
     }
 
     .styled-a-link {
@@ -91,16 +55,16 @@
     }
 
     .styled-underline {
-        @apply absolute bottom-0 h-0.5 blur-[0.5px];
-        background-color: #fffa;
+        @apply absolute bottom-0 h-1;
+        background-color: #0002;
         border-radius: 40% 40% 0 0;
 
         &:after {
-            content: '';
-            @apply absolute bottom-[-2.5px] left-0 right-0 h-1 bg-gradient blur-[4px] contrast-200;
+            @apply absolute -bottom-1 left-0 right-0 h-1 opacity-50 blur-[1px] contrast-200 content-[''];
+            background: linear-gradient(45deg, #8360c3, #45a29e, #8360c3);
             background-size: 500%;
             background-position: 33%;
-            border-radius: 0 0 40% 40%;
+            border-radius: 0 0 100% 100%;
         }
 
         &.underline-darker {
@@ -111,11 +75,10 @@
         }
     }
 
-    .archiveIndicator-decoration {
+    .tab-decoration {
         &:before,
         &:after {
-            content: '';
-            @apply absolute bottom-[0px] h-1/2 w-1/4 bg-transparent duration-250 ease-tween;
+            @apply absolute bottom-[0px] h-1/2 w-1/4 bg-transparent duration-250 ease-tween content-[''];
         }
         &:before {
             @apply left-[-25%] rounded-br-full;
@@ -147,6 +110,7 @@
             0vw 20vh, 48vw 4vh, 3vw 25vh, 14vw 140vh, 25vw 142vh, 32vw 135vh,
             45vw 67vh;
     }
+
     .use-scrollbar {
         &::-webkit-scrollbar {
             display: block;

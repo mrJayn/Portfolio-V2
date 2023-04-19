@@ -1,40 +1,28 @@
 import { motion } from 'framer-motion'
 import { menuVariants } from '@motion'
 import { Styled } from '@components'
+import NavLinks from './NavLinks'
 
 const Menu = ({ toggleMenu }) => (
     <motion.menu
-        className="fixed inset-0 top-14 z-[99] bg-nav"
+        className="fixed -inset-0.5 top-16 z-[98] overflow-hidden bg-nav"
         initial="hidden"
         animate="show"
         exit="hidden"
-        variants={menuVariants.backgroundClip}
+        variants={menuVariants.Wrapper}
     >
-        <div className="flex-col-btw absolute inset-0 overflow-hidden px-4 landscape:flex-row">
-            <motion.ul
-                className="relative flex w-full flex-col space-y-3 landscape:grid landscape:h-full"
-                variants={menuVariants.Links.Wrap}
-            >
-                <Styled.SectionLinks
-                    className="landscape:flex-left rounded-xl py-[2vh] px-5 tracking-2xl shadow-[inset_1.5px_-1.5px_0rem_#333,_inset_-1.5px_1.5px_0rem_#40606f] saturate-50 landscape:max-h-[4em]"
-                    toggleMenu={toggleMenu}
-                    variants={menuVariants.Links.Items}
-                    whileTap={{
-                        scale: 0.9,
-                        filter: 'brightness(1.5) saturate(0.75)',
-                    }}
-                />
-            </motion.ul>
+        <div className="portrait:flex-col-btw landscape:flex-top absolute inset-1 top-0">
+            <NavLinks
+                loc="menu"
+                wrapClassName="flex-col-evenly full gap-y-2 p-2"
+                className={`flex-left full cursor-pointer select-none whitespace-nowrap  pl-2 text-menu-link uppercase leading-1 tracking-2xl text-white/75`}
+                toggleMenu={toggleMenu}
+                custom={-25}
+            />
 
-            <motion.div
-                className="relative grid w-full portrait:grid-cols-4 landscape:h-full landscape:w-1/2"
-                variants={menuVariants.IconWrap}
-            >
-                <Styled.Socials
-                    variants={menuVariants.Icons}
-                    className="socials-icon-bg relative m-auto aspect-square h-12 max-h-full portrait:mb-4"
-                />
-            </motion.div>
+            <div className="flex-btw min-h-[25vmin] portrait:w-full landscape:h-full landscape:w-1/2 landscape:flex-col">
+                <Styled.Socials className="m-auto h-[15vmin] max-h-[80px]" />
+            </div>
         </div>
     </motion.menu>
 )

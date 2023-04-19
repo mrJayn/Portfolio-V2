@@ -3,7 +3,7 @@ import Archive from './_projects/Archive'
 
 const Projects = ({ ...data }) => {
     return [
-        <Featured key="featured" {...data} />,
+        //<Featured key="featured" {...data} />
         <Archive key="archive" {...data} />,
     ]
 }

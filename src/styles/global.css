@@ -3,99 +3,89 @@
 @tailwind base;
 
 :root {
-    --nav-bg: 0 0 2;
-
-    --background: 70 80 105;
-
-    --text-color: #eee;
-    --shadow-color: #000;
-
-    --theme-slate: theme(colors.slate.DEFAULT);
-    --theme-teal: theme(colors.teal.DEFAULT);
-    --theme-purple: theme(colors.purple.DEFAULT);
+    --nav-rgb: 33 35 40;
 }
 
 @layer base {
-    * {
-        @apply box-border;
-    }
     html {
-        @apply snap-y snap-mandatory snap-normal;
-        @apply whitespace-pre-line font-raleway text-root text-grey-30 antialiased;
+        @apply box-border overflow-x-hidden overflow-y-hidden;
         word-spacing: 1px;
+        height: -webkit-fill-available;
     }
     body {
-        @apply m-0 h-screen w-screen overflow-x-hidden bg-black p-0;
+        @apply relative m-0 h-screen w-screen overflow-x-hidden scroll-smooth bg-white p-0;
+        @apply whitespace-pre-line font-raleway text-root text-black antialiased;
+        height: -webkit-fill-available;
     }
+
     h1 {
         @apply absolute h-px w-px overflow-hidden whitespace-nowrap;
         clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
         clip: rect(1px, 1px, 1px, 1px);
         clip-path: inset(0px 0px 99.9% 99.9%);
     }
+
     h2 {
-        /* @apply bg-gradient-wave; */
-        @apply text-heading-2 font-black uppercase tracking-4xl;
-        -webkit-text-stroke: 1px white;
-        -webkit-text-fill-color: transparent;
+        /* Title */
+        @apply text-heading-2 font-semibold leading-1.25 tracking-lg text-black;
+        /* -webkit-text-stroke: 1px currentColor; -webkit-text-fill-color: transparent; */
+        & + [role='subtitle'] {
+            @apply w-full text-[1.5em] font-light leading-1;
+        }
     }
+
     h3 {
-        @apply text-heading-3a font-semibold uppercase tracking-lg text-white;
+        /* Section heading */
+        @apply whitespace-nowrap text-heading-3a font-semibold uppercase tracking-lg text-black;
+        text-shadow: 1px 1px 5px #fff;
     }
+
     h4 {
-        @apply text-heading-3b font-semibold uppercase leading-none tracking-md text-slate-60;
+        /* Sub-section heading */
+        @apply text-heading-3b font-semibold uppercase leading-1 tracking-md text-slate-60;
         @apply mb-2 max-lg:text-center lg:-ml-4;
     }
+
     h5 {
-        @apply text-heading-5 font-medium leading-none text-black;
+        @apply text-heading-5 font-medium tracking-md text-slate-neon;
     }
+
     h6 {
-        @apply text-heading-6 font-medium leading-none text-grey-70;
+        @apply text-heading-6 font-medium leading-1 text-grey-70;
+    }
+
+    button[data-styled-button],
+    button[type='submit'] {
+        @apply flex-center z-30 cursor-pointer select-none rounded-md border-2 px-10 py-1 text-button uppercase tracking-2xl text-grey-60 transition-colors duration-150 ease-in hover:text-slate-neon;
     }
 
     div[data-reading-section] {
         @apply text-black;
-
-        & > section > div {
-        }
-        /*
-        & p {
-            @apply text-black;
-        }
-        &#projects-section-content h3 {
-            @apply text-center;
-        }
-        &#about-section-content,
-        &#experience-section-content {
-            & h3 {
-                @apply max-md:text-center;
-            }
-        }
-        */
     }
 
-    /* max-width: 768px -- page form style */
     input,
     textarea {
-        @apply z-10 w-full rounded-md bg-white pl-[0.75em] leading-none text-black shadow-inset shadow-black/20 outline-none duration-250 ease-in invalid:bg-[#b5a5a5] focus:border-slate focus:bg-slate-10 focus:valid:bg-white invalid:focus:border-red/25;
-        &:focus {
-            @apply my-0;
-        }
-        &:focus + span.placeholder,
-        &:not(:placeholder-shown) + span.placeholder {
+        @apply z-10 w-full rounded-md bg-white pt-[calc(40px-1.5em)] pl-[5px] leading-1 text-black shadow-[inset_0_-5px_15px_#0004] outline-none transition-[transform,color,background-color,background,border] duration-250 ease-in;
+        @apply focus:bg-slate-10 focus:valid:bg-white;
+        @apply invalid:bg-[#b5a5a5] invalid:focus:border-red/25;
+        /* Focus + No-input */
+        &:focus + .placeholder,
+        &:not(:placeholder-shown) + .placeholder {
             @apply translate-y-0 scale-[0.6];
         }
-
-        &:valid:not(:placeholder-shown) + span.placeholder {
+        /* Valid + some-input*/
+        &:valid:not(:placeholder-shown) + .placeholder {
             @apply text-[#090];
         }
-        &:focus:valid:not(:placeholder-shown) + span.placeholder {
+        /* Focus + Valid + some-input */
+        &:focus:valid:not(:placeholder-shown) + .placeholder {
             @apply text-grey;
         }
     }
     input {
-        @apply h-[3em] pt-[0.75em];
+        @apply h-[40px] lg:h-[55px];
     }
+
     input[data-invalid='true'] {
         & + span {
             @apply text-red;
@@ -106,7 +96,7 @@
     }
 
     textarea {
-        @apply resize-none overflow-y-scroll pt-[1.5em];
+        @apply resize-none overflow-y-scroll;
 
         -ms-overflow-style: visible;
         scrollbar-width: block;

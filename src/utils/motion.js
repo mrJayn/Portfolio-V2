@@ -51,6 +51,36 @@ export const DefVariants = {
             },
         },
     }),
+    StaggerContainer: (
+        stgIn = 0.1,
+        delayIn = 0,
+        dirIn = 1,
+        stgOut = 0.1,
+        delayOut = 0,
+        dirOut = 1
+    ) => ({
+        hidden: {
+            transition: {
+                staggerChildren: stgOut,
+                staggerDirection: dirOut,
+                delayChildren: delayOut,
+            },
+        },
+        show: {
+            transition: {
+                staggerChildren: stgIn,
+                staggerDirection: dirIn,
+                delayChildren: delayIn,
+            },
+        },
+        exit: {
+            transition: {
+                staggerChildren: stgOut,
+                staggerDirection: dirOut,
+                delayChildren: delayOut,
+            },
+        },
+    }),
 }
 
 export const springTransition = {
@@ -71,30 +101,7 @@ export const noBounceSpring = {
     bounce: 0,
 }
 
-export const sectionVariants = {
-    Button: DefVariants.Button(0.5),
-    Border: {
-        hidden: {
-            pathLength: 0,
-            transition: {
-                duration: 0.75,
-                ease: [0.62, 0.01, 0.5, 0.95],
-            },
-        },
-        show: (i = 1) => ({
-            pathLength: i,
-            transition: {
-                delay: 0.25,
-                type: 'spring',
-                duration: 1,
-                bounce: 0,
-            },
-        }),
-    },
-    Graphic: DefVariants.Opacity({
-        transition: { duration: 0.75, ease: 'easeIn' },
-    }),
-}
+export const sectionVariants = { Button: DefVariants.Button(0) }
 export const sectionGraphicVariants = {
     Skills: (i) => {
         const corner = i < 3 ? i % 2 == 0 : i % 2 !== 0
@@ -120,23 +127,25 @@ export const sectionGraphicVariants = {
         }
     },
 }
+
+// SID Variants
 export const sidVariants = {
     Title: {
         hidden: (i) => ({
             opacity: i,
-            color: '#FFFF',
+            color: '#000',
             letterSpacing: '0.05em',
             transition: { duration: 0.75, ...noBounceSpring },
         }),
         show: {
             opacity: 1,
-            color: '#FFF0',
+            color: '#0000',
             letterSpacing: '0.15em',
             transition: { duration: 1, ...noBounceSpring },
         },
         exit: (i) => ({
             opacity: i,
-            color: '#FFFF',
+            color: '#000F',
             letterSpacing: '0.05em',
             transition: { duration: 0.75, ...noBounceSpring },
         }),
@@ -178,294 +187,187 @@ export const sidVariants = {
         },
     },
 }
-export const navVariants = {
-    NavLinks: {
-        hidden: { y: -50 },
-        show: { y: 0 },
+
+// NAV Variants
+export const BurgerVariants = {
+    outer: {
+        default: {
+            x: 0,
+            y: 0,
+            rotate: 0,
+            transition: {
+                x: { duration: 0.35, ease: 'backIn' },
+                y: { duration: 0.35, delay: 0.35, ease: 'easeOut' },
+                rotate: { duration: 0.35, ease: 'easeIn' },
+            },
+        },
+        exit: (i) => ({
+            y: i,
+            rotate: i * 45,
+            transition: {
+                y: { duration: 0.35, ease: 'easeIn' },
+                rotate: { delay: 0.35, duration: 0.35, ease: 'easeOut' },
+            },
+        }),
+        return: (i) => ({
+            x: Math.abs(i) / -2,
+            y: i / 2,
+            rotate: i * -30,
+            transition: {
+                x: { duration: 1, ease: 'anticipate' },
+                y: { duration: 0.35 },
+                rotate: { duration: 0.35 },
+            },
+        }),
     },
-    Burger: {
-        Buns: {
-            closed: {
-                rotate: 0.01,
-                y: 0,
-                transition: {
-                    y: { duration: 0.3, delay: 0.3 },
-                    rotate: { duration: 0.3 },
-                },
+    inner: {
+        default: {
+            opacity: 1,
+            x: 0,
+            y: 0,
+            rotate: 0,
+            scale: 1,
+            transition: {
+                opacity: { duration: 0.5, ease: 'anticipate' },
+                x: { delay: 0.7, duration: 0.35, ease: 'easeOut' },
+                y: { delay: 0.35, duration: 0.35, ease: 'easeIn' },
+                rotate: { duration: 0.35, ease: 'easeIn' },
+                scale: { duration: 0.5, ease: 'circOut' },
             },
-            opened: (i = 1) => ({
-                rotate: i * 45,
-                y: i,
-                transition: {
-                    y: { duration: 0.3 },
-                    rotate: { duration: 0.3, delay: 0.3 },
-                },
-            }),
-            return: (i = 1) => ({
-                rotate: i * -30,
-                y: i / 2,
-                transition: {
-                    y: { duration: 0.3, delay: 0.3 },
-                    rotate: { duration: 0.3 },
-                },
-            }),
         },
-        Meat: {
-            closed: {
-                opacity: 1,
-                rotate: 0.01,
-                scale: 1,
-                y: 0,
-                x: 0,
+        exit: {
+            opacity: 0,
+            transition: { duration: 0.5, ease: 'anticipate' },
+        },
+        return: (i) => ({
+            x: -i / 2 + 0.5,
+            y: i * 0.9,
+            rotate: i * 30,
+            scale: 1.75,
+            originX: 1,
+            transition: {
+                x: { duration: 0.35, ease: 'circOut' },
+                default: { duration: 0.6, delay: 0.35 },
             },
-            opened: (i = -1) => ({
-                opacity: 0,
-                scale: 1,
-                y: 0,
-                x: -i,
-            }),
-            return: (i = -1) => ({
-                originX: 1,
-                opacity: 1,
-                rotate: i * 30,
-                scale: 1.75,
-                y: i * 0.9,
-                x: -i / 2 + 1.1,
-                transition: {
-                    x: { duration: 0.3, delay: 0.3 },
-                    y: { duration: 0.3, delay: 0.6 },
-                    rotate: { duration: 0.3, delay: 0.6 },
-                },
-            }),
+        }),
+    },
+}
+export const navLinkVariants = {
+    Container: DefVariants.StaggerContainer(0.08, 0.5, -1, 0.05, 0, 1),
+    Link: {
+        hidden: (i) => ({
+            opacity: 0,
+            y: i,
+            transition: {
+                opacity: { duration: 0.25 },
+                y: { duration: 0.4 },
+            },
+        }),
+        show: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                opacity: { duration: 0.75 },
+                y: { duration: 0.5, ease: 'circOut' },
+            },
         },
     },
-    BackBtn: {
-        Wrapper: {
-            hidden: {
-                opacity: 0,
-                scaleX: 0,
-                originX: 0,
-                transition: { delay: 0.5, duration: 0.5 },
+}
+export const LogoVariants = {
+    hidden: {
+        pathLength: 0,
+        stroke: '#6199ff',
+        strokeOpacity: 0,
+        strokeWidth: 3,
+        fill: '#FFF',
+        fillOpacity: 0,
+    },
+    show_1: (i) => {
+        const DLY = (xtraDly = 0) => ({
+            delay: xtraDly + i * 0.065,
+        })
+        return {
+            pathLength: 1,
+            stroke: '#FFF',
+            strokeOpacity: 1,
+            strokeWidth: 0,
+            fill: '#FFF',
+            fillOpacity: 1,
+            transition: {
+                strokeOpacity: { duration: 0.01, ...DLY(1) },
+                pathLength: { duration: 1, ...DLY(1) },
+                default: { duration: 0.7, ease: 'easeIn', ...DLY(1.3) },
             },
-            show: {
-                opacity: 1,
-                scaleX: 1,
-                originX: 0,
-                transition: {
-                    delay: 0.5,
-                    duration: 0.5,
-                    when: 'beforeChildren',
-                },
-            },
-        },
-        Line: {
-            hidden: (degrees) => {
-                const typeA = degrees == 0
-                return {
-                    opacity: 0,
-                    scaleX: typeA ? 0 : 1,
-                    rotate: 0,
-                    originX: typeA ? [0, -1] : -1,
-                    transition: { duration: typeA ? 0.5 : 0.25 },
-                }
-            },
-            show: (degrees) => {
-                const typeA = degrees == 0
-                return {
-                    opacity: 1,
-                    scaleX: 1,
-                    rotate: degrees,
-                    originX: typeA ? [2, 1] : 0,
-                    transition: {
-                        delay: typeA ? 0.25 : 0.75,
-                        duration: typeA ? 1 : 1.35,
-                        ease: typeA ? 'easeOut' : 'anticipate',
-                    },
-                }
-            },
-        },
+        }
+    },
+    show_2: {
+        pathLength: 1,
+        stroke: '#FFF',
+        strokeOpacity: 1,
+        strokeWidth: 0,
+        fill: '#FFF',
+        fillOpacity: 1,
+        transition: { duration: 0.5 },
+    },
+    hover: {
+        stroke: '#FFF',
+        strokeWidth: 3,
+        transition: { duration: 0.5 },
     },
 }
 export const menuVariants = {
-    backgroundClip: {
+    Wrapper: {
         hidden: {
-            clipPath: `polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)`,
-            transition: {
-                delay: 0.25,
-                type: 'spring',
-                bounce: 0,
-                stiffness: 45,
-            },
+            clipPath: 'inset(0 0 100% 0)',
+            transition: { duration: 0.5 },
         },
         show: {
-            clipPath: `polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)`,
-            transition: {
-                delay: 0.35,
-                type: 'spring',
-                bounce: 0,
-                stiffness: 50,
-                restDelta: 0.02,
-            },
+            clipPath: 'inset(0 0 0% 0)',
+            transition: { delay: 0.35, duration: 0.5 },
         },
     },
-    Links: {
-        Wrap: {
-            hidden: {
-                opacity: 0,
-                transition: { when: 'afterChildren', staggerChildren: 0.04 },
-            },
-            show: {
-                opacity: 1,
-                transition: { staggerChildren: 0.08 },
-            },
-        },
-        Items: {
-            hidden: (i = 0) => ({
-                opacity: 0,
-                y: `${i * -3}em`,
-                transition: {
-                    y: { ...noBounceSpring },
-                },
-            }),
-            show: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                    y: { ...noBounceSpring },
-                    opacity: { duration: 0.75, ease: 'anticipate' },
-                },
-            },
-        },
-    },
-    IconWrap: {
-        hidden: {
-            opacity: 0,
-            transition: { staggerChildren: 0.04 },
-        },
+    LinksContainer: DefVariants.StaggerContainer(0.08, 0.5, 1, 0.05, 0, -1),
+    Link: {
+        hidden: { opacity: 0, y: -25 },
         show: {
             opacity: 1,
-            transition: { staggerChildren: 0.1, delayChildren: 0.65 },
-        },
-    },
-    Icons: {
-        hidden: { opacity: 0, transition: { ease: 'circOut' } },
-        show: {
-            opacity: 1,
+            y: 0,
             transition: {
-                type: 'spring',
-                stiffness: 3000,
-                restDelta: 0.01,
+                opacity: { duration: 0.75 },
+                y: { duration: 0.5, ease: 'easeOut' },
             },
         },
     },
 }
-
-export const introVariants = {
-    SubTitle: DefVariants.clipPathY(2),
-    Btn: DefVariants.Button(2.25),
-}
-export const TitleVariants = {
-    hidden: {
-        strokeOpacity: 0,
-        pathLength: 0,
-        stroke: theme.colors.slate.neon,
-        strokeWidth: 2,
-        fillOpacity: 0,
-    },
-    show: {
-        strokeOpacity: 1,
-        pathLength: 1,
-        stroke: '#fff',
-        strokeWidth: 0,
-        fillOpacity: 1,
-    },
-    exit: {
-        strokeOpacity: 0,
-        fillOpacity: 0,
-        y: -100,
+export const BackBtnVariants = {
+    hidden: (deg) => ({
+        opacity: 1,
+        scaleX: 0,
+        rotate: 0,
         transition: {
-            duration: 0.5,
-            ease: 'backIn',
+            opacity: { delay: 0.25 },
+            scaleX: deg === 0 ? { duration: 0.5 } : { delay: 0.25 },
+            rotate: { duration: 0.25 },
         },
-    },
-}
-export const contactVariants = {
-    Headline: {
-        h3: {
-            hidden: {
-                opacity: 0,
-                clipPath: 'inset(0 0 100% 0)',
-            },
-            show: {
-                opacity: 1,
-                clipPath: 'inset(0 0 0% 0)',
-                transition: { duration: 1, ease: 'easeInOut' },
-            },
-            exit: {
-                opacity: 0,
-                clipPath: 'inset(0 0 100% 0)',
-                transition: { duration: 0.5 },
-            },
+    }),
+    show: (deg) => ({
+        opacity: 1,
+        scaleX: 1,
+        rotate: deg,
+        transition: {
+            scaleX: { duration: 0.5 },
+            opacity: { delay: 0.25, duration: 0 },
+            rotate: { delay: 0.25, duration: 0.5 },
         },
-        Decoration: {
-            hidden: { opacity: 0, scaleX: 0, bottom: '100%' },
-            show: {
-                opacity: 1,
-                scaleX: 1,
-                bottom: '0%',
-                transition: {
-                    default: { duration: 0.5, ease: 'easeOut' },
-                    bottom: { duration: 1, ease: 'easeInOut' },
-                },
-            },
-            exit: {
-                opacity: 0,
-                scaleX: 0,
-                bottom: '100%',
-                transition: {
-                    default: { delay: 0.5 },
-                    bottom: { duration: 0.5 },
-                },
-            },
-        },
-    },
-    Button: DefVariants.Button(0),
-    Socials: {
-        Container: {
-            hidden: {},
-            show: { transition: { staggerChildren: 0.1 } },
-            exit: {
-                transition: { staggerChildren: 0.05, staggerDirection: -1 },
-            },
-        },
-        Item: {
-            hidden: { opacity: 0, y: '100%' },
-            show: {
-                opacity: 1,
-                y: '0%',
-                transition: { duration: 0.5, ease: 'backOut' },
-            },
-            exit: {
-                opacity: 0,
-                y: '100%',
-                clipPath: 'inset(0 0 100% 0)',
-                transition: { duration: 0.25 },
-            },
-        },
-    },
-    Footer: {
-        hidden: { y: '100%' },
-        show: {
-            y: '0%',
-            transition: { duration: 1, ease: 'backOut' },
-        },
-        exit: {
-            y: '100%',
-            transition: { duration: 0.5, ease: 'backIn' },
-        },
-    },
+    }),
 }
 
+// SECTIONS Variants
+export const introVariants = {
+    Text1: DefVariants.clipPathY(0),
+    Text2: DefVariants.clipPathY(1),
+    Btn: DefVariants.Button(1.25),
+}
 export const aboutVariants = {
     Skills: {
         Container: {
@@ -520,79 +422,7 @@ export const aboutVariants = {
     },
 }
 
-export const projectCardVariants = {
-    Wrap: {
-        hidden: { opacity: 0 },
-        show: {
-            opacity: 1,
-            transition: { staggerChildren: 0.08 },
-        },
-        exit: {
-            opacity: 0,
-            transition: {
-                duration: 0,
-                when: 'afterChildren',
-                staggerChildren: 0.08,
-                staggerDirection: -1,
-            },
-        },
-    },
-    Card: {
-        hidden: { opacity: 0, scale: 0.85 },
-        show: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
-        exit: { opacity: 0, scale: 0.95, transition: { duration: 0.25 } },
-    },
-    Content: {
-        hidden: { opacity: 0, pointerEvents: 'none' },
-        show: { opacity: 1, pointerEvents: 'auto' },
-    },
-    Archive: {
-        Header: {
-            container: {
-                hidden: {},
-                show: { transition: { staggerChildren: 0.1 } },
-            },
-            items: {
-                hidden: { y: 50 },
-                show: {
-                    y: 0,
-                    transition: { duration: 1, ...noBounceSpring },
-                },
-            },
-            decoration: {
-                hidden: { opacity: 0, scaleX: 0 },
-                show: {
-                    opacity: 1,
-                    scaleX: 1,
-                    transition: { duration: 1, delay: 1, ease: 'easeInOut' },
-                },
-            },
-        },
-        Wrap: {
-            hidden: { opacity: 0 },
-            show: {
-                opacity: 1,
-                transition: { staggerChildren: 0.08 },
-            },
-            exit: {
-                opacity: 0,
-                transition: {
-                    duration: 0,
-                    when: 'afterChildren',
-                    staggerChildren: 0.06,
-                    staggerDirection: -1,
-                },
-            },
-        },
-        ProjectCard: {
-            hidden: { opacity: 0, scale: 0.85 },
-            show: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
-            exit: { opacity: 0, scale: 0.95, transition: { duration: 0.25 } },
-        },
-    },
-}
-
-export const featuredProjectVariants = {
+export const featuredVariants = {
     TechWrap: {
         show: (i) => ({
             transition: {
@@ -623,92 +453,85 @@ export const featuredProjectVariants = {
     },
 }
 export const archiveVariants = {
-    Headline: {
-        hidden: { y: 25 },
-        show: {
-            y: 0,
-            transition: { duration: 1, ...noBounceSpring },
-        },
-    },
-    ProjectWrap: {
-        hidden: {
-            transition: { staggerChildren: 0.1, staggerDirection: 1 },
-        },
-        show: {
-            transition: {
-                staggerChildren: 0.1,
-                staggerDirection: 1,
-                delayChildren: 0.25,
-            },
-        },
-    },
     Project: {
         hidden: {
             opacity: 0,
-            y: 25,
-            pointerEvents: 'none',
-            transition: {
-                opacity: { duration: 0.35 },
-                y: { duration: 0.5, ease: 'easeIn' },
-            },
+            scale: 0,
         },
         show: {
             opacity: 1,
-            y: [-25, 0],
-            transition: {
-                opacity: { duration: 0.35 },
-                y: { duration: 0.5, ease: 'circOut' },
-            },
-            transitionEnd: { pointerEvents: 'auto' },
+            scale: 1,
         },
     },
 }
 
-export const styledComponentsVariants = {
-    BackBtn: {
-        Wrapper: {
+export const contactVariants = {
+    Headline: {
+        h3: {
             hidden: {
                 opacity: 0,
-                scaleX: 0,
-                originX: 0,
-                transition: { delay: 0.5, duration: 0.5 },
+                clipPath: 'inset(0 0 100% 0)',
             },
             show: {
                 opacity: 1,
+                clipPath: 'inset(0 0 0% 0)',
+                transition: { duration: 1, ease: 'easeInOut' },
+            },
+            exit: {
+                opacity: 0,
+                clipPath: 'inset(0 0 100% 0)',
+                transition: { duration: 0.5 },
+            },
+        },
+        Decoration: {
+            hidden: { opacity: 0, scaleX: 0, bottom: '100%' },
+            show: {
+                opacity: 1,
                 scaleX: 1,
-                originX: 0,
+                bottom: '0%',
                 transition: {
-                    delay: 0.5,
-                    duration: 0.5,
-                    when: 'beforeChildren',
+                    default: { duration: 0.5, ease: 'easeOut' },
+                    bottom: { duration: 1, ease: 'easeInOut' },
+                },
+            },
+            exit: {
+                opacity: 0,
+                scaleX: 0,
+                bottom: '100%',
+                transition: {
+                    default: { delay: 0.5 },
+                    bottom: { duration: 0.5 },
                 },
             },
         },
-        Line: {
-            hidden: (degrees) => {
-                const typeA = degrees == 0
-                return {
-                    opacity: 0,
-                    scaleX: typeA ? 0 : 1,
-                    rotate: 0,
-                    originX: typeA ? [0, -1] : -1,
-                    transition: { duration: typeA ? 0.5 : 0.25 },
-                }
+    },
+    Button: DefVariants.Button(0),
+    Socials: {
+        Container: {
+            hidden: {},
+            show: { transition: { staggerChildren: 0.1 } },
+            exit: {
+                transition: { staggerChildren: 0.05, staggerDirection: -1 },
             },
-            show: (degrees) => {
-                const typeA = degrees == 0
-                return {
-                    opacity: 1,
-                    scaleX: 1,
-                    rotate: degrees,
-                    originX: typeA ? [2, 1] : 0,
-                    transition: {
-                        delay: typeA ? 0.25 : 0.75,
-                        duration: typeA ? 1 : 1.35,
-                        ease: typeA ? 'easeOut' : 'anticipate',
-                    },
-                }
-            },
+        },
+        Item: {
+            hidden: { opacity: 0, y: '100%' },
+            show: (i) => ({
+                opacity: 1,
+                y: '0%',
+                transition: { delay: i * 0.1, duration: 0.5, ease: 'backOut' },
+            }),
+        },
+    },
+    Footer: {
+        hidden: { y: '100%' },
+        show: {
+            y: '0%',
+            transition: { duration: 1, ease: 'backOut' },
+        },
+        exit: {
+            y: '100%',
+            transition: { duration: 0.5, ease: 'backIn' },
         },
     },
 }

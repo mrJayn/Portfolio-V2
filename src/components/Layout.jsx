@@ -14,7 +14,7 @@ const Layout = ({ title, description, isHome = false, children }) => {
                 className={`flex-col-top top-0 left-0 w-full min-w-[320px] ${
                     isHome
                         ? 'absolute z-10'
-                        : 'fixed z-50 h-screen overflow-y-scroll'
+                        : 'fixed z-50 h-screen overflow-y-scroll scroll-smooth'
                 }`}
                 initial="hidden"
                 animate="show"

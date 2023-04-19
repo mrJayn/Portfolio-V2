@@ -10,7 +10,7 @@ const Summary = ({ introduction }) => (
                 <p>{introduction.replace('<br/>', `\n`)}</p>
             </div>
             <div className="aspect-[4/5] w-full max-w-[300px] p-4 md:-mt-4 md:w-3/4  md:max-w-[400px] md:py-0">
-                <div className="full relative overflow-hidden rounded-3xl shadow-sm">
+                <div className="full relative overflow-hidden rounded-3xl">
                     <Image
                         src="./assets/misc/mikeJayne.JPG"
                         alt="Me accepting congratulations after recieving my diploma"

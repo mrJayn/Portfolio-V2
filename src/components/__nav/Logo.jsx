@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { pushPage, reload } from '@utils'
 import { LogoPaths } from '@config'
-import { LogoVariants } from '@motion'
+import { NavVariants } from '@motion'
 
 const MICHAEL_JAYNE = ({ anim, setAnim }) => (
     <motion.svg
@@ -17,7 +17,7 @@ const MICHAEL_JAYNE = ({ anim, setAnim }) => (
             <motion.path
                 key={`letter-${i}`}
                 d={path}
-                variants={LogoVariants}
+                variants={NavVariants.Logo}
                 custom={i}
                 {...(i === LogoPaths.length - 1 && {
                     onAnimationComplete: () => {
@@ -38,10 +38,10 @@ const Logo = ({ isHome, menuOpen }) => {
     const handleLogo = () => {
         if (!isHome) {
             pushPage('/')
-        } else if (document.body.scrollTop == 0 || typeof window == undefined) {
+        } else if (window.scrollY == 0 || typeof window == undefined) {
             reload()
         } else {
-            document.body.scrollTo({ top: 0, behavior: 'smooth' })
+            window.scrollTo({ top: 0, behavior: 'smooth' })
         }
     }
     return (

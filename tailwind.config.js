@@ -1,8 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 const plugin = require('tailwindcss/plugin')
-const colors = require('tailwindcss/colors')
-const { themeConfig } = require('./twTheme')
+const { themeConfig } = require('./themeConfig')
 
 module.exports = {
     content: [
@@ -13,17 +12,20 @@ module.exports = {
         /** https://tailwindcss.com/docs/configuration#core-plugins */
     },
     theme: {
+        screens: {
+            min: '320px' /*  320-413px............ Mobile Devices  */,
+            sm: '512px' /*  414-767px............. Ipads ~ Tablets  */,
+            md: '768px' /*  768-1023px.......... Small screens ~ laptops  */,
+            lg: '1024px' /*  1024-1199px........  Large screens ~ Desktop  */,
+            xl: '1200px' /*  1200-max............... XL screens ~ TVs  */,
+            max: '1440px',
+        },
         colors: {
             transparent: 'transparent',
             current: 'currentColor',
-            white: {
-                DEFAULT: '#fff',
-                dark: '#f8f8f8',
-                darker: '#f0f0f0',
-            },
+            white: '#fff',
             black: '#000',
 
-            background: `rgb(${themeConfig.BackgroundRGB} / <alpha-value>)`,
             nav: 'rgb(var(--nav-rgb) / <alpha-value>)',
 
             grey: {
@@ -77,14 +79,6 @@ module.exports = {
 
             red: '#B00',
         },
-        screens: {
-            min: '320px' /*  320-413px............ Mobile Devices  */,
-            sm: '414px' /*  414-767px............. Ipads ~ Tablets  */,
-            md: '768px' /*  768-1023px.......... Small screens ~ laptops  */,
-            lg: '1024px' /*  1024-1199px........  Large screens ~ Desktop  */,
-            xl: '1200px' /*  1200-max............... XL screens ~ TVs  */,
-            max: '1440px',
-        },
         fontFamily: {
             montserrat: ['Montserrat', 'sans-serif'],
             inconsolata: ['Inconsolata', 'monospace'],
@@ -103,8 +97,12 @@ module.exports = {
             '4xl': '0.2em',
         },
         lineHeight: {
+            0: 0,
+            0.5: 0.5,
+            0.75: 0.75,
             1: 1,
             1.25: 1.25,
+            1.5: 1.5,
             1.75: 1.75,
             2: 2,
         },
@@ -123,90 +121,45 @@ module.exports = {
             500: '500ms',
             1000: '1s',
         },
+        animation: {
+            none: 'none',
+            'nav-links': 'nav_links 1s',
+            'rotate-bg-300': 'bg-rotate-300 10s linear infinite',
+        },
+        keyframes: {
+            nav_links: {
+                '0%': { opacity: 1 },
+                '50%': { opacity: 1 },
+                '100%': { opacity: 0 },
+            },
+            'bg-rotate-300': {
+                '0%': { backgroundPosition: '0% 0%' },
+                '50%': { backgroundPosition: '75% 0%' },
+                '100%': { backgroundPosition: '150% 0%' },
+            },
+            'clip-reveal-fwd': {
+                '0%': { clipPath: 'inset(0 0 100% 0)', opacity: 0 },
+                '100%': { clipPath: 'inset(0 0 0% 0)', opacity: 1 },
+            },
+            'clip-reveal-bck': {
+                '0%': { clipPath: 'inset(0 0 0% 0)', opacity: 1 },
+                '100%': { clipPath: 'inset(0 0 100% 0)', opacity: 0 },
+            },
+        },
         extend: {
             backgroundImage: {
-                'background-gradient': themeConfig.bgGradient,
+                'grad-1':
+                    'linear-gradient(100deg,#fffa,#ffff), linear-gradient(45deg, #8360c3, #45a29e, #8360c3)',
             },
-            backgroundSize: {
-                '200%': '200%',
-                '300%': '300%',
+            boxShadow: {
+                inset: 'inset 3px 3px 5px #0004, inset 10px 10px 10px -5px #0004',
             },
             borderRadius: {
                 '3.5xl': '2.25rem',
                 '4xl': '3rem',
             },
-
             transitionTimingFunction: {
                 tween: 'cubic-bezier(0.5, 0.5, 0.5, 1)',
-            },
-            animation: {
-                'scroll-left-1': 'scroll-left-1 20s 0s linear infinite',
-                'scroll-left-2': 'scroll-left-2 20s 10s linear infinite',
-            },
-            keyframes: {
-                bgRotate: {
-                    '0%': { backgroundPosition: '0% 0%' },
-                    '50%': { backgroundPosition: '75% 0%' },
-                    '100%': { backgroundPosition: '150% 0%' },
-                },
-                'scroll-left-1': {
-                    '0%': { transform: 'translateX(100%)' },
-                    '100%': { transform: 'translateX(-100%)' },
-                },
-                'scroll-left-2': {
-                    '0%': { transform: 'translateX(0%)' },
-                    '100%': { transform: 'translateX(-200%)' },
-                },
-                orbit: {
-                    '0%': { transform: 'rotateZ(0deg)' },
-                    '100%': { transform: 'rotateZ(-360deg)' },
-                },
-                invert: {
-                    '0%': {
-                        transform:
-                            'rotateX(-75deg) rotateY(360deg) rotateZ(0deg)',
-                    },
-                    '100%': {
-                        transform:
-                            'rotateX(-75deg) rotateY(0deg) rotateZ(0deg)',
-                    },
-                },
-                'shadow-orbital': {
-                    '0%': {
-                        boxShadow: 'inset 0.75em 0 0.5em rgba(0, 0, 0, 0.5)',
-                    },
-
-                    '25%': {
-                        boxShadow: 'inset 0.5em 0 0.25em rgba(0, 0, 0, 0.5)',
-                    },
-
-                    '50%': {
-                        boxShadow: 'inset 0.5em 0 0.25em rgba(0, 0, 0, 0.5)',
-                    },
-
-                    '100%': {
-                        boxShadow: 'inset 0.75em 0 0.5em rgba(0, 0, 0, 0.5)',
-                    },
-                },
-                'rotate-earth': {
-                    '0%': {
-                        backgroundPositionX: '0%',
-                    },
-                    '100%': {
-                        backgroundPositionX: '-166.666%',
-                    },
-                },
-                'rotate-clouds': {
-                    '0%': {
-                        transform: 'rotateX(0deg) rotateY(0deg)',
-                    },
-                    '50%': {
-                        transform: 'rotateX(-5deg) rotateY(20deg)',
-                    },
-                    '100%': {
-                        transform: 'rotateX(0deg) rotateY(0deg)',
-                    },
-                },
             },
         },
     },
@@ -222,7 +175,7 @@ module.exports = {
                 { values: theme('translate'), supportsNegativeValues: true }
             )
         }),
-        plugin(function ({ addUtilities, addComponents }) {
+        plugin(function ({ addUtilities }) {
             addUtilities({
                 '.non-scaling': {
                     'vector-effect': 'non-scaling-stroke',
@@ -233,14 +186,7 @@ module.exports = {
                 '.linejoin-round': {
                     'stroke-linejoin': 'round',
                 },
-            }),
-                addComponents({
-                    '.styled-stroke': {
-                        'stroke-linecap': 'round',
-                        'stroke-linejoin': 'round',
-                        'vector-effect': 'non-scaling-stroke',
-                    },
-                })
+            })
         }),
     ],
 }

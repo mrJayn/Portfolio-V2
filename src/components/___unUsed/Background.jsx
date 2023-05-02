@@ -5,7 +5,7 @@ import {
     useSpring,
     useTransform,
 } from 'framer-motion'
-import { BgPaths } from '@components'
+import BgPaths from './BgPaths'
 
 const springConfig = {
     type: 'spring',

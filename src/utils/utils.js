@@ -1,58 +1,52 @@
 import { router } from 'next/router'
-import { scrollIntoView } from 'seamless-scroll-polyfill'
 
-export const sectionIDs = [
-    'intro',
-    'about',
-    'experience',
-    'projects',
-    'contact',
-]
+export function calculateCh(fontSize) {
+    const el = Object.assign(document.createElement('span'), {
+        style: `position:absolute; font-size:${fontSize}`,
+        textContent: '0',
+    })
 
-export const navLinks = [
-    'about',
-    'experience',
-    'projects',
-    'contact',
-    'my Resume',
-]
+    document.body.appendChild(el)
+    const chPx = el.getBoundingClientRect().width
+    document.body.removeChild(el)
+
+    return chPx
+}
 
 export function pushPage(id, href = '/', as = '') {
-    var el, prevScrollY
+    var scrollRef, prevScrollY
 
+    /** 1. Assign Variables & Begin Scroll */
     if (id === '/') {
-        el = document.querySelector('main')
-        el.style.overflowY = 'hidden'
-        el.scrollTo({ top: 0, behavior: 'smooth' })
+        scrollRef = document.querySelector('main')
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+        //
     } else {
-        el = document.getElementById(id)
-        scrollIntoView(el, { behavior: 'smooth', block: 'center' })
-        document.body.style.overflowY = 'hidden'
+        // let el = document.getElementById('projects')
+        // window.scrollTo({ top: el.offsetTop })
+        scrollRef = document.body
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth' })
     }
 
-    const checkIfAtTop = setInterval(() => {
-        var scrollY = el.scrollTop
-        if (scrollY == prevScrollY) {
-            clearInterval(checkIfAtTop)
+    /** 2. Prevent User Scroll */
+    scrollRef.style.pointerEvents = 'none'
+
+    /** 3. Scroll Interval */
+    const scrollCheckInterval = setInterval(() => {
+        var scrollY = scrollRef.scrollTop
+
+        if (scrollY == prevScrollY || scrollY === 0) {
+            clearInterval(scrollCheckInterval)
             router.push(href, as, { scroll: false })
+            setTimeout(() => (document.body.style.pointerEvents = 'auto'), 750)
         }
+
         prevScrollY = scrollY
     }, 50)
 }
 
 export function reload() {
     router.reload()
-}
-
-export function handleNavLink(id, callbackFn) {
-    if (id === 'my Resume') {
-        window.open('/assets/misc/resume2022.jpg', '_blank')
-    } else {
-        document.getElementById(id).scrollIntoView({})
-    }
-    if (callbackFn) {
-        setTimeout(() => callbackFn(), 100)
-    }
 }
 
 export function handleSwipe(offset, velocity, currentTab, span, setTab) {
@@ -75,27 +69,5 @@ export const paginate = (newDirection, currentTab, span, setTab) => {
     } else if (currentTab + newDirection === -1 && span > 2) {
         // first slide >> last slide
         setTab([span - 1, newDirection])
-    }
-}
-
-/** REACT HOOK */
-function useMousePosition() {
-    const [mousePosition, setMousePosition] = useState({
-        x: null,
-        y: null,
-    })
-    useEffect(() => {
-        const updatePosition = (e) => {
-            setMousePosition({
-                x: (e.clientX / screen.width) * 10,
-                y: (e.clientY / screen.height) * 10,
-            })
-        }
-        window.addEventListener('mousemove', updatePosition)
-        return () => window.removeEventListener('mousemove', updatePosition)
-    }, [])
-    return {
-        cursorX: mousePosition.x,
-        cursorY: mousePosition.y,
     }
 }

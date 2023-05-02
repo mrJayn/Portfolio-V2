@@ -50,8 +50,8 @@ export async function getAllMarkdown() {
     res['experience'] = temp.text.experience
     res['projects'] = {
         ...temp.text.projects,
-        featured: temp.featured,
-        projects: temp.projects,
+        featuredData: temp.featured,
+        projectsData: temp.projects,
     }
     res['contact'] = { id: 'contact' }
 
@@ -65,8 +65,8 @@ export async function getSectionMarkdown(sid) {
         return {
             id: sid,
             data: projects.data,
-            featuredData: projects.featured,
-            projectsData: projects.projects,
+            featuredData: projects.featuredData,
+            projectsData: projects.projectsData,
         }
     } else {
         const sectionPath = path.join(contentDirectory, 'text', sid + '.md')

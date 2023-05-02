@@ -3,8 +3,7 @@ import Image from 'next/image'
 import { motion, useCycle, motionValue, useSpring } from 'framer-motion'
 
 import { skill_icons } from '@config'
-import { sectionGraphicVariants as variants } from '@motion'
-import Icons from './Icons'
+import Icons from './items/Icons'
 
 const About_Images = ({ inView, src, alt }) => {
     const [activeImg, setActiveImg] = useCycle(0, 1, 2)
@@ -77,7 +76,7 @@ const Featured_Slides = ({ inView, ...featured }) => {
 
     return (
         <motion.div
-            className="full flex-center relative z-10 cursor-grab touch-none perspective-[100vh] active:cursor-grabbing"
+            className="full flex-center perspective-[100vh] relative z-10 cursor-grab touch-none active:cursor-grabbing"
             style={{ perspectiveOrigin: '50% 50%' }}
             onPan={onPan}
             onPanEnd={onPanEnd}

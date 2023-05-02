@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 
 import { archiveVariants } from '@motion'
-import Image from 'next/image'
+import { Styled } from '@components'
 
 const Indicators = ({ isActive, handleClick, children }) => (
     <li
         className={`flex-center relative mt-auto flex w-full cursor-pointer select-none rounded-t-xl font-semibold capitalize duration-250 ease-tween md:text-[1.125em] ${
             isActive
                 ? 'z-0 h-full bg-slate-40 text-white'
-                : '-z-10 h-[85%] bg-grey-30 text-grey-60'
+                : '-z-10 h-[85%] bg-white/0 text-slate-60 shadow-[inset_0_0_5px]'
         }`}
         onClick={handleClick}
     >
@@ -18,7 +18,7 @@ const Indicators = ({ isActive, handleClick, children }) => (
             className={`tab-decoration pointer-events-none absolute inset-y-0 -z-10 duration-250 ease-tween ${
                 isActive
                     ? 'inset-x-0 before:text-slate-40 after:text-slate-40'
-                    : 'inset-x-1/4 before:text-grey-30 after:text-grey-30'
+                    : 'inset-x-1/4 before:text-white/0 after:text-white/0'
             }`}
         />
     </li>
@@ -26,46 +26,50 @@ const Indicators = ({ isActive, handleClick, children }) => (
 
 const Archive_Project = ({ i, data, content }) => {
     const { href, src, alt } = data
-    const linkActive = useRef(false)
-    const setLinkState = (on_off) =>
-        setTimeout(() => {
-            linkActive.current = on_off
-        }, 500)
-
-    const handleClick = (e) => {
-        if (!linkActive.current) return
-        window.open(href, '_blank', 'noopener noreferrer')
-    }
 
     return (
-        <motion.div
-            layout
-            className="flex-center group relative mx-auto cursor-pointer overflow-hidden rounded-lg md:w-1/2"
-            style={{ filter: `hue-rotate(${i * 45}deg)` }}
-            initial="hidden"
-            animate="show"
-            exit="hidden"
-            variants={archiveVariants.Project}
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
-            onClick={handleClick}
-            onTouchStart={() => setLinkState(true)}
-            onTouchEnd={() => setLinkState(false)}
-            onMouseEnter={() => setLinkState(true)}
-            onMouseLeave={() => setLinkState(false)}
-        >
-            <div
-                // Image
-                className={`z-0 h-[240px] w-screen max-w-full opacity-100 transition-all duration-500 ease-tween group-hover:scale-90 group-hover:opacity-25 md:h-[300px] lg:h-[350px] ${''}`}
-                style={{ background: `url(${src}) center center/cover` }}
-            />
-            <div
-                // Content
-                data-archive-card
-                className={`flex-col-center absolute inset-1.5 z-10 select-none rounded bg-white px-2.5 opacity-0 group-hover:opacity-100 lg:bg-white/25 ${''}`}
-                style={{ transition: 'opacity 0.5s ease-in' }}
-                dangerouslySetInnerHTML={{ __html: content }}
-            />
-        </motion.div>
+        <>
+            <motion.div
+                layout
+                className="flex-col-center group relative mx-auto cursor-default overflow-hidden rounded-lg bg-slate-neon/10 md:w-1/2"
+                initial="hidden"
+                animate="show"
+                exit="hidden"
+                variants={archiveVariants.Project}
+                transition={{ duration: 0.5, ease: 'easeInOut' }}
+                style={{ filter: `hue-rotate(${i * 45}deg)` }}
+            >
+                <div
+                    // Image
+                    className="z-0 h-[240px] w-screen max-w-full opacity-75 transition-all duration-500 ease-tween group-hover:opacity-25 md:h-[300px] lg:h-[350px] lg:group-hover:scale-90"
+                    style={{
+                        filter: `hue-rotate(${i * -45}deg)`,
+                        background: `url(${src}) center center/cover`,
+                    }}
+                />
+
+                <div
+                    // Content
+                    className="flex-col-center eas absolute inset-1.5 z-10 select-none rounded bg-white px-2.5 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                >
+                    <div
+                        data-project-content
+                        className="flex-col-center full"
+                        dangerouslySetInnerHTML={{ __html: content }}
+                    />
+                    <Styled.Button
+                        style={{ scale: 0.75 }}
+                        /*
+                        onClick={() =>
+                            window.open(href, '_blank', 'noopener noreferrer')
+                        }
+                        */
+                    >
+                        View Project
+                    </Styled.Button>
+                </div>
+            </motion.div>
+        </>
     )
 }
 
@@ -73,12 +77,11 @@ const Archive = ({ projectsData }) => {
     const [curr, setCurr] = useState(0)
     const projects = Object.values(projectsData)
     const tabs = ['all', ...new Set(projects.map(({ data }) => data.category))]
-    // prev method --> projects.filter(({ data }) => data.category === tabNames[1])
 
     return (
         <>
-            <h4 className="text-center">Projects</h4>
-            <ul className="flex-evenly relative z-10 mx-auto h-14 w-full max-w-3xl overflow-hidden rounded-lg">
+            <h3 className="text-center">Projects</h3>
+            <ul className="flex-evenly relative z-10 mx-auto h-14 w-full max-w-4xl overflow-hidden rounded-lg">
                 {tabs.map((tabName, i) => (
                     <Indicators
                         key={tabName}

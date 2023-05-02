@@ -7,8 +7,7 @@ alt: Twitch Integrative Tool screenshot
 
 ##### Twitch Integrative Tool
 
--   PyCharm
+-   Python
 -   Anaconda
--   DateTime
 
-An simple and creative tool used to seamlessly integrate twitch into your browser.
+A simple and creative tool used to seamlessly integrate twitch into your browser.

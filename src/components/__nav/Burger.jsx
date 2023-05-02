@@ -1,25 +1,27 @@
 import { motion } from 'framer-motion'
-import { BurgerVariants } from '@motion'
+import { NavVariants } from '@motion'
 
 const lineData = {
-    top: { x1: 0, y1: 0, x2: 2, y2: 0, variant: 'outer', custom: 1 },
-    midLeft: { x1: 0, y1: 1, x2: 1, y2: 1, variant: 'inner', custom: -1 },
-    midRight: { x1: 1, y1: 1, x2: 2, y2: 1, variant: 'inner', custom: 1 },
-    bottom: { x1: 0, y1: 2, x2: 2, y2: 2, variant: 'outer', custom: -1 },
+    top: { x1: 0, y1: 0, x2: 2, y2: 0, type: 'outer', custom: 1 },
+    midLeft: { x1: 0, y1: 1, x2: 1, y2: 1, type: 'inner', custom: -1 },
+    midRight: { x1: 1, y1: 1, x2: 2, y2: 1, type: 'inner', custom: 1 },
+    bottom: { x1: 0, y1: 2, x2: 2, y2: 2, type: 'outer', custom: -1 },
 }
 
-const Burger = ({ ANIM, handleBurger }) => (
+const Burger = ({ ANIM, ...onclick }) => (
     <div
-        className="flex-center absolute left-0 top-0 z-20 aspect-square h-full cursor-pointer lg:hidden"
-        onClick={handleBurger}
+        id="burger"
+        className="flex-center absolute left-0 top-0 z-20 h-16 w-16 cursor-pointer lg:pointer-events-none lg:invisible"
+        {...onclick}
     >
         <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 2 2"
-            className="h-8 select-none overflow-visible"
+            className="absolute h-8 w-8 select-none overflow-visible"
+            preserveAspectRatio="xMidYMid"
         >
             {Object.entries(lineData).map(
-                ([key, { x1, y1, x2, y2, variant, custom }]) => (
+                ([key, { x1, y1, x2, y2, type, custom }]) => (
                     <motion.line
                         key={key}
                         x1={x1}
@@ -28,7 +30,7 @@ const Burger = ({ ANIM, handleBurger }) => (
                         y2={y2}
                         initial={false}
                         animate={ANIM}
-                        variants={BurgerVariants[variant]}
+                        variants={NavVariants.Burger[type]}
                         custom={custom}
                         className="fill-none stroke-white stroke-[2.5] non-scaling linecap-round"
                     />

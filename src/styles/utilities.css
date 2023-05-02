@@ -2,16 +2,16 @@
 @tailwind utilities;
 
 @layer utilities {
-    .bg-gradient-wave {
-        background: linear-gradient(45deg, #8360c3, #45a29e, #8360c3);
-        @apply animate-[bgRotate_10s_linear_infinite] bg-300% bg-clip-text text-transparent motion-reduce:animate-none;
-    }
     .backdrop-blurred:after {
         content: '';
         @apply absolute inset-0 -z-10 bg-white/10 backdrop-blur-md duration-1000 ease-in-out;
     }
 
     /* Functional */
+    .centered {
+        @apply left-1/2 top-1/2;
+        transform: translate(-50%, -50%);
+    }
     .webkit-fill-available {
         height: 100vh;
         height: -webkit-fill-available;
@@ -85,5 +85,13 @@
     }
     .reverse-flex-col {
         @apply flex flex-col-reverse;
+    }
+
+    /* Toast CSS-Transition Classes */
+    .toast-anim-enter {
+        animation: clip-reveal-fwd 0.3s ease-out both;
+    }
+    .toast-anim-exit {
+        animation: clip-reveal-bck 0.3s ease-in both;
     }
 }

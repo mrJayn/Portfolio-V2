@@ -1,32 +1,29 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/router'
-import { AnimatePresence, motion } from 'framer-motion'
-import { toast } from 'react-toastify'
+import { cssTransition, toast } from 'react-toastify'
 import { Styled } from '@components'
 
 const ToastMsg = ({ success }) => {
     return (
-        <div className="flex-col-top whitespace-pre-line text-center">
-            <p className="mb-1 border-b-2 font-semibold">
-                {success ? 'Thank you!' : 'Uh Oh!'}
-            </p>
-            <p className="leading-1.25">
-                {success ? (
-                    <>
-                        I&apos;ve recieved your message,
-                        <br /> and will get back to you ASAP!
-                    </>
-                ) : (
-                    <>
-                        Oops! Something wasn&apos;t quite right. Please try
-                        again!
-                    </>
-                )}
-            </p>
-        </div>
+        <>
+            <span className="decoration pointer-events-none absolute inset-0 origin-top rounded-b-md rounded-t shadow-[0_2px,_-2px_0,_2px_0]" />
+            <div className="flex-col-top text-center">
+                <div className="font-semibold leading-1.5 underline">
+                    {success ? 'Thank you!' : 'Uh Oh...'}
+                </div>
+                <div className="text-min leading-1.25">
+                    {success
+                        ? `I've recieved your message,\n and will get back to you ASAP!`
+                        : `Oops! Something wasn't quite right. Please try again!`}
+                </div>
+            </div>
+        </>
     )
 }
+const toastTransition = cssTransition({
+    enter: 'toast-anim-enter',
+    exit: 'toast-anim-exit',
+})
 
 const Form = ({}) => {
     const {
@@ -36,7 +33,7 @@ const Form = ({}) => {
         reset,
         formState: { errors },
     } = useForm()
-    // SUBMIT ACTION
+
     const onSubmit = (data) => {
         fetch('/api/form', {
             method: 'POST',
@@ -47,26 +44,15 @@ const Form = ({}) => {
             body: JSON.stringify(data),
         })
             .then((res) => {
-                if (res.status === 200) {
-                    toast.success(<ToastMsg success={true} />, {
-                        toastId: 'success-toast',
-                        position: 'top-right',
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                    })
-                } else {
-                    // console.log("Email/Password is invalid.");
-                    toast.warn(<ToastMsg success={false} />, {
-                        toastId: 'error-toast',
-                        position: 'top-right',
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                    })
-                }
+                const didSucceed = res.status === 200
+
+                toast.success(<ToastMsg success={didSucceed} />, {
+                    toastId: `${didSucceed ? 'success' : 'failure'}-toast`,
+                    position: 'top-right',
+                    draggable: false,
+                    limit: 1,
+                    transition: toastTransition,
+                })
             })
             .catch((e) => console.log(e))
         reset()
@@ -94,9 +80,7 @@ const Form = ({}) => {
                 id="fullName"
                 autoComplete="name"
                 placeholder=" "
-                {...register('fullName', {
-                    required: true,
-                })}
+                {...register('fullName', { required: true })}
             />
         ),
         'Email Address*': (
@@ -110,7 +94,6 @@ const Form = ({}) => {
                     required: true,
                     onChange: (e) => handleEmail(e),
                 })}
-                data-invalid={invalidEmail}
             />
         ),
         'Message*': (
@@ -119,7 +102,7 @@ const Form = ({}) => {
                 name="message"
                 id="message"
                 autoFocus={false}
-                rows={6}
+                rows={10}
                 placeholder=" "
                 defaultValue={''}
                 {...register('message', { required: true })}
@@ -127,10 +110,41 @@ const Form = ({}) => {
         ),
     }
 
+    const isValidForm = () => {
+        var valid = true
+        for (let id of ['fullName', 'email', 'message']) {
+            let inputEl = document.querySelector(`#${id}`)
+            if (
+                inputEl.getAttribute('placeholder') === ' ' ||
+                !inputEl.checkValidity()
+            ) {
+                valid = false
+                break
+            }
+        }
+        return valid
+    }
+
+    const handleButton = (e) => {
+        const btn = e.currentTarget
+        const valid = false
+        if (valid) {
+            btn.classList.add('clicked')
+        } else {
+            toast.error(<ToastMsg success={false} />, {
+                toastId: 'invalid-toast',
+                position: 'top-right',
+                draggable: false,
+                limit: 1,
+                transition: toastTransition,
+            })
+        }
+    }
+
     return (
         <form
             id="form"
-            className="flex-col-center flex w-full gap-x-2 gap-y-1 lg:grid lg:grid-cols-4 lg:p-4"
+            className="flex-col-center flex w-full gap-x-2 gap-y-1 lg:p-4"
             onSubmit={handleSubmit(onSubmit)}
             method="POST"
         >
@@ -146,14 +160,17 @@ const Form = ({}) => {
                     <ReactivePlaceholder name={name} />
                 </div>
             ))}
-            <div className="full flex-center col-span-4">
-                <Styled.Button type="submit">submit</Styled.Button>
+            <div className="full flex-center col-span-4 mt-4">
+                <Styled.Button type="submit" onClick={handleButton}>
+                    submit
+                </Styled.Button>
             </div>
         </form>
     )
 }
+
 const ReactivePlaceholder = ({ name }) => (
-    <span className="placeholder pointer-events-none absolute inset-0 left-[5px] z-10 flex origin-top-left translate-y-[5px] scale-100 select-none justify-start font-medium text-grey duration-150 ease-in">
+    <span className="placeholder pointer-events-none absolute inset-0 left-[5px] z-10 flex origin-top-left translate-y-[5px] scale-100 select-none justify-start text-[0.9em] duration-150 ease-in">
         {name}
     </span>
 )

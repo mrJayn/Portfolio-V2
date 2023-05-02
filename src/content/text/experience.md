@@ -17,65 +17,60 @@ headers:
 education:
     university: University of Massachusetts Amherst
     degree: B.S. in Chemical Engineering
-    dates: September 2015 - May 2020
+    dates: 2015 - 2020
 
 jobs:
     - title: Rochester Electronics
-      position: ChemEng Electro-Plating Internship
-      dates: May 2019 -September 2019
+      position: ChemEng Electroplating Internship
+      dates: 5/2019 -9/2019
       description:
-          - Conducted batch experiments to assess conditions for a new production process.
-          - Collected deposition thickness Data using XRF (X-ray fluorescence)
-          - Presented results, statistical models, and observed trends.
-          - Advised procedural alterations for future experiments and communicated recommendations for full-scale implementation.
-          - Monitored the production line baths chemical makeup via titrations and flame-AA analysis.
-          - Performed tensile calibration for silicon wafer baking clips.
-          - Created VBA brute-force macros to export large quantities of data from a foreign API.
+          - Manufactured conductors per client design by performing experiements to assess optimal bath conditions, responded accordingly to any issue that arose and continued to improve the efficiency of the overall plating process.
+          - Collected conductor deposition data using XRF (X-ray fluorescence) analysis and chemical bath concentrations were monitored via titrations and flame-AA.
+          - Worked closely with other process engineers and helped identify and resolve technical issues.
 
     - title: CVS Pharmacy
-      position: Pharmacy Technician / PCR Test Administrator
-      dates: August 2020 - August 2021
+      position: Pharmacy Technician / Covid-19 PCR Test Administrator
+      dates: 8/2020 - 8/2021
       description:
-          - Managed patient PHI along with prescription and insurance information.
-          - Administered Covid-19 self-performed nasal-swap PCR tests under supervision from a registered nurse practitioner.
-          - Assisted any patient requesting information on prescription medications, insurance policies, Covid-19 or the vacinations.
-          - During this time-period I was preparing to attend MCPHS for a related pharmaceutical discipline, and also used this opportunity to expand my knowledge in this field.
+          - Filled prescriptions, managed patient PHI and administered Covid-19 PCR tests while conveying any issues to a supervising nurse practitioner.
+          - Worked directly with patients and provided any information on prescription medications, insurance policies, Covid-19 or vacinations.
+          - Used accessible information to learn more about pharmacy and prepared to attend MCPHS for further education in a pharmaceutical discipline.
 
 certifications:
     - title: Responsive Web Design
       description: The basics of HTML & CSS including modern CSS and responsive design.
-      href: 'https://www.freecodecamp.org/learn/2022/responsive-web-design/'
-      src: '/assets/certifications/responsive_web.png'
+      src: '/assets/certifications/responsive_web_design.jpg'
+      href: 'https://freecodecamp.org/certification/mjayn/responsive-web-design'
 
     - title: Javascript Algorithms and Data Structures
       description: The fundamentals of JavaScript including dataTypes, OOP, and Functional Programming.
-      href: 'https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/'
-      src: '/assets/certifications/js_algorithms.png'
+      src: '/assets/certifications/javascript_algorithms_and_data_structures.jpg'
+      href: 'https://freecodecamp.org/certification/mjayn/javascript-algorithms-and-data-structures'
 
     - title: Data Visualization with D3.js
       description: The basics of D3.js including building intractive charts, graphs, and maps along with basic JSON manipulation and working with online data using APIs.
-      href: 'https://www.freecodecamp.org/learn/data-visualization/'
-      src: '/assets/certifications/data_vis.png'
+      src: '/assets/certifications/data_visualization.jpg'
+      href: 'https://freecodecamp.org/certification/mjayn/data-visualization'
 
     - title: Scientific Computing with Python
       description: Python fundamentals like variables, loops, conditionals, and functions along with complex data structures, networking, relational databases, and data visualization.
-      href: 'https://www.freecodecamp.org/learn/scientific-computing-with-python/'
-      src: '/assets/certifications/py_computing.png'
+      src: '/assets/certifications/scientific_computing_with_python.jpg'
+      href: 'https://freecodecamp.org/certification/mjayn/scientific-computing-with-python-v7'
 
     - title: Data Analysis with Python
       description: The fundamentals of data analysis with Python including reading data from sources like CSVs and SQL, and using libraries like Numpy, Pandas, Matplotlib, and Seaborn to process and visualize data.
-      href: 'https://www.freecodecamp.org/learn/data-analysis-with-python/'
-      src: '/assets/certifications/py_data_analysis.png'
+      src: '/assets/certifications/data_analysis_with_python.jpg'
+      href: 'https://freecodecamp.org/certification/mjayn/data-analysis-with-python-v7'
 
     - title: Machine Learning with Python
       description: Learned to use the TensorFlow framework to build several types of neural networks and create more advanced ML programs involving techniques like natural language processing and reinforcement learning.
-      href: 'https://www.freecodecamp.org/learn/machine-learning-with-python/'
-      src: '/assets/certifications/py_data_analysis.png'
+      src: '/assets/certifications/blurDataCertificate.png'
+      href:
 
     - title: Front End Development Libraries
       description: Utilized Bootstrap, CSS logic and Sass functions to build useful tools and created powerful Single Page Applications (SPAs) using React and Redux.
-      href: 'https://www.freecodecamp.org/learn/front-end-development-libraries/'
-      src: '/assets/certifications/frontEndLibraries.png'
+      src: '/assets/certifications/front_end_development_libraries.jpg'
+      href: 'https://freecodecamp.org/certification/mjayn/front-end-development-libraries'
 ---
 
 A Chemical Engineer graduate and recently self-taught and certified software engineer/developer, seeking to launch a career in the information technology industry.

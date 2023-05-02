@@ -8,7 +8,5 @@ alt: Cohort Analysis Chart Image
 ##### Cohort Analysis
 
 -   Python
--   MatplotLib
--   Pandas
 
 Cohort Analysis of retained customers over time

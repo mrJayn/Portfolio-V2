@@ -11,9 +11,10 @@ const clamp = (fsMin = 17, fsMax = 21, screenMin = 512, screenMax = 1024) =>
 
     */
 const fontSizes = {
-    min: clamp(14, 19),
-    root: clamp(16, 21),
-    'heading-6': clamp(18, 22),
+    min: clamp(14, 17),
+    root: clamp(16, 19),
+
+    'heading-6': clamp(18, 21),
     'heading-5': clamp(18, 21),
     'heading-4': clamp(19, 24),
     'heading-3': clamp(21, 30),
@@ -46,7 +47,9 @@ const spacing = {
     12: '48px',
     14: '56px',
     16: '64px',
+    18: '72px',
     20: '80px',
+    22: '88px',
     24: '96px',
     28: '112px',
     32: '128px',

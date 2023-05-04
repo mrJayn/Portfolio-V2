@@ -23,7 +23,7 @@ export default function Home({ data }) {
                     <motion.section
                         key={`${id}-section`}
                         id={id}
-                        className={`flex-col-center relative my-12 w-full select-none gap-y-4 px-2 lg:my-24 lg:max-w-[1200px] lg:gap-y-12 lg:px-[5vw] xl:my-40 ${''} first-of-type:mt-14 lg:first-of-type:max-w-none ${''} last-of-type:mb-0 last-of-type:justify-end`}
+                        className={`flex-col-center relative my-14 w-full max-w-[1000px]  ${''} first-of-type:max-w-none first-of-type:py-0 ${''} last-of-type:mb-0 last-of-type:justify-end`}
                     >
                         {{
                             intro: <Intro />,

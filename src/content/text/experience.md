@@ -42,32 +42,32 @@ certifications:
       src: '/assets/certifications/responsive_web_design.jpg'
       href: 'https://freecodecamp.org/certification/mjayn/responsive-web-design'
 
-    - title: Javascript Algorithms and Data Structures
+    - title: JS Algorithms & Data Structures
       description: The fundamentals of JavaScript including dataTypes, OOP, and Functional Programming.
       src: '/assets/certifications/javascript_algorithms_and_data_structures.jpg'
       href: 'https://freecodecamp.org/certification/mjayn/javascript-algorithms-and-data-structures'
 
-    - title: Data Visualization with D3.js
+    - title: Data Visualization w/ D3.js
       description: The basics of D3.js including building intractive charts, graphs, and maps along with basic JSON manipulation and working with online data using APIs.
       src: '/assets/certifications/data_visualization.jpg'
       href: 'https://freecodecamp.org/certification/mjayn/data-visualization'
 
-    - title: Scientific Computing with Python
+    - title: Scientific Computing w/ Python
       description: Python fundamentals like variables, loops, conditionals, and functions along with complex data structures, networking, relational databases, and data visualization.
       src: '/assets/certifications/scientific_computing_with_python.jpg'
       href: 'https://freecodecamp.org/certification/mjayn/scientific-computing-with-python-v7'
 
-    - title: Data Analysis with Python
+    - title: Data Analysis w/ Python
       description: The fundamentals of data analysis with Python including reading data from sources like CSVs and SQL, and using libraries like Numpy, Pandas, Matplotlib, and Seaborn to process and visualize data.
       src: '/assets/certifications/data_analysis_with_python.jpg'
       href: 'https://freecodecamp.org/certification/mjayn/data-analysis-with-python-v7'
 
-    - title: Machine Learning with Python
+    - title: Machine Learning w/ Python
       description: Learned to use the TensorFlow framework to build several types of neural networks and create more advanced ML programs involving techniques like natural language processing and reinforcement learning.
       src: '/assets/certifications/blurDataCertificate.png'
       href:
 
-    - title: Front End Development Libraries
+    - title: Front End Dev. Libraries
       description: Utilized Bootstrap, CSS logic and Sass functions to build useful tools and created powerful Single Page Applications (SPAs) using React and Redux.
       src: '/assets/certifications/front_end_development_libraries.jpg'
       href: 'https://freecodecamp.org/certification/mjayn/front-end-development-libraries'

@@ -53,6 +53,7 @@ module.exports = {
                 neon: '#66fcf1',
             },
             slate: {
+                5: '#f0f2f7',
                 10: '#e0e6ef',
                 20: '#c1cce0',
                 30: '#a3b3d0',
@@ -137,19 +138,26 @@ module.exports = {
                 '50%': { backgroundPosition: '75% 0%' },
                 '100%': { backgroundPosition: '150% 0%' },
             },
-            'clip-reveal-fwd': {
-                '0%': { clipPath: 'inset(0 0 100% 0)', opacity: 0 },
-                '100%': { clipPath: 'inset(0 0 0% 0)', opacity: 1 },
-            },
-            'clip-reveal-bck': {
-                '0%': { clipPath: 'inset(0 0 0% 0)', opacity: 1 },
-                '100%': { clipPath: 'inset(0 0 100% 0)', opacity: 0 },
-            },
         },
         extend: {
             backgroundImage: {
                 'grad-1':
                     'linear-gradient(100deg,#fffa,#ffff), linear-gradient(45deg, #8360c3, #45a29e, #8360c3)',
+                tempered: `linear-gradient(180deg,
+                    rgb(var(--nav-rgb) / 0.8) 0%,
+                    rgb(var(--nav-rgb) / 0.75) 10%,
+                    rgb(var(--nav-rgb) / 0.75) 15%,
+                    rgb(var(--nav-rgb) / 0.5) 30%,
+                    rgb(var(--nav-rgb) / 0.45) 35%,
+                    rgb(var(--nav-rgb) / 0.4) 40%,
+                    rgb(var(--nav-rgb) / 0.35) 47.5%,
+                    rgb(var(--nav-rgb) / 0.3) 52.5%,
+                    rgb(var(--nav-rgb) / 0.2) 60%,
+                    rgb(var(--nav-rgb) / 0.1) 70%,
+                    rgb(var(--nav-rgb) / 0.05) 77.5%,
+                    transparent 85%,
+                    transparent 100%
+                )`,
             },
             boxShadow: {
                 inset: 'inset 3px 3px 5px #0004, inset 10px 10px 10px -5px #0004',
@@ -164,17 +172,6 @@ module.exports = {
         },
     },
     plugins: [
-        plugin(function ({ matchUtilities, theme }) {
-            matchUtilities(
-                {
-                    'translate-z': (value) => ({
-                        '--tw-translate-z': value,
-                        transform: ` translate3d(var(--tw-translate-x), var(--tw-translate-y), var(--tw-translate-z)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))`,
-                    }),
-                },
-                { values: theme('translate'), supportsNegativeValues: true }
-            )
-        }),
         plugin(function ({ addUtilities }) {
             addUtilities({
                 '.non-scaling': {

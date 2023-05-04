@@ -1,12 +1,4 @@
-import { useRef } from 'react'
-import Image from 'next/image'
-import { toast } from 'react-toastify'
-import {
-    AnimatePresence,
-    motion,
-    useAnimationControls,
-    useInView,
-} from 'framer-motion'
+import { motion } from 'framer-motion'
 import { socials } from '@config'
 import Paths from './Paths'
 import { pushPage } from '@utils'
@@ -70,21 +62,18 @@ const BackButton = () => (
     </motion.button>
 )
 
-const Button = ({ children, ...props }) => {
-    //e.currentTarget.classList.add('clicked')
-    return (
-        <motion.button
-            data-styled-btn
-            className="flex-center relative z-30 max-w-[90vw] cursor-pointer select-none tracking-xl text-black opacity-50 transition-opacity duration-250 ease-tween hover:opacity-100"
-            {...props}
-        >
-            <span className="decoration pointer-events-none absolute inset-0 top-[15%] origin-top rounded-b-md rounded-t shadow-[inset_0_-2px,_inset_-2px_0,_inset_2px_0]" />
-            <div className="content whitespace-nowrap px-6 text-heading-5 uppercase leading-1.75">
-                {children}
-            </div>
-        </motion.button>
-    )
-}
+const Button = ({ children, ...props }) => (
+    <motion.button
+        data-styled-btn
+        className="flex-center relative z-30 max-w-[90vw] cursor-pointer select-none tracking-xl text-black opacity-50 transition-opacity duration-250 ease-tween hover:opacity-100"
+        {...props}
+    >
+        <span className="decoration pointer-events-none absolute inset-0 top-[15%] origin-top rounded-b-md rounded-t shadow-[inset_0_-2px,_inset_-2px_0,_inset_2px_0] delay-[250ms] duration-500 ease-tween" />
+        <div className="content whitespace-nowrap px-6 text-heading-5 uppercase leading-1.75 delay-[250ms] duration-500 ease-tween">
+            {children}
+        </div>
+    </motion.button>
+)
 
 const Icon = ({ name }) => (
     <svg
@@ -98,20 +87,28 @@ const Icon = ({ name }) => (
 
 const Indicators = ({ isActive, handleClick, children }) => (
     <li
-        data-styled-indicator
-        data-active={isActive}
-        className={`flex-center relative -z-10 flex w-full min-w-[18ch] cursor-pointer select-none text-min duration-250 ease-tween max-lg:mt-auto max-lg:rounded-t-xl max-lg:text-center lg:max-w-none lg:rounded-r-xl
-        ${
+        className={`flex-center group relative -z-10 flex cursor-pointer select-none text-min duration-250 ease-tween max-lg:mt-auto max-lg:min-w-[18ch] max-lg:rounded-t-xl max-lg:p-2 max-lg:text-center lg:justify-start lg:rounded-r-xl ${
             isActive
-                ? 'z-0 h-full bg-slate-30 text-white lg:w-[95%] lg:pl-[5%]'
-                : '-z-10 h-[80%] bg-white text-slate-60 shadow-[inset_0_3px_3px_-3px,_inset_3px_0_3px_-3px,_inset_-3px_0_3px_-3px] hover:text-slate-neon lg:h-full lg:w-[90%] lg:shadow-[inset_0_3px_3px_-3px,_inset_0_-3px_3px_-3px,_inset_-3px_0_3px_-3px] lg:hover:bg-slate-10'
-        }
-        `}
+                ? 'z-0 h-full bg-slate-30 text-white lg:w-[115%] lg:pl-[15%] lg:pr-[10%]'
+                : '-z-10 h-[80%] bg-slate-5 text-slate-60 lg:h-full lg:w-[95%] lg:pl-[5%] lg:hover:bg-slate-10 lg:hover:text-slate-neon'
+        }`}
         onClick={handleClick}
     >
         {children}
-        <span className="x-decor inset-x-1/4 inset-y-0 lg:hidden" />
-        <span className="y-decor inset-x-0 inset-y-1/4 max-lg:hidden" />
+        <span
+            className={`x-decor pointer-events-none absolute inset-y-0 -z-10 duration-250 ease-tween lg:hidden ${''} before:absolute before:bottom-0 before:left-[-25%] before:h-1/2 before:w-1/4 before:rounded-br-full before:shadow-[20px_10px_0px_10px] before:duration-250 before:ease-tween before:content-[''] group-first-of-type:before:hidden ${''} after:absolute after:bottom-0 after:right-[-25%] after:h-1/2 after:w-1/4 after:rounded-bl-full after:shadow-[-20px_10px_0px_10px] after:duration-250 after:ease-tween after:content-[''] group-last-of-type:after:hidden ${
+                isActive
+                    ? 'inset-x-0.5 before:text-slate-30 after:text-slate-30'
+                    : 'inset-x-1/4 before:text-slate-5 after:text-slate-5'
+            }`}
+        />
+        <span
+            className={`y-decor pointer-events-none absolute inset-x-0 -z-10 duration-250 ease-tween max-lg:hidden ${''} before:absolute before:left-0 before:top-[-33%] before:h-1/3 before:w-1/4 before:rounded-bl-full before:shadow-[-10px_10px_0px_10px] before:duration-250 before:ease-tween before:content-[''] group-first-of-type:before:hidden ${''} after:absolute after:left-0 after:bottom-[-33%] after:h-1/3 after:w-1/4 after:rounded-tl-full after:shadow-[-10px_-10px_0px_10px] after:duration-250 after:ease-tween after:content-[''] group-last-of-type:after:hidden ${
+                isActive
+                    ? 'inset-y-0.5 before:text-slate-30 after:text-slate-30'
+                    : 'inset-y-1/4 before:text-slate-5 after:text-slate-5 group-hover:before:text-slate-10 group-hover:after:text-slate-10'
+            }`}
+        />
     </li>
 )
 

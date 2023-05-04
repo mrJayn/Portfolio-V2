@@ -2,30 +2,9 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { aboutVariants } from '@motion'
 
-const Picture = ({ src, alt }) => (
-    <div className="flex-center relative aspect-[1/1] h-[250px] overflow-hidden shadow-md shadow-black lg:h-[350px]">
-        <motion.div
-            className="absolute top-0 left-[-80%] h-[200%] w-[200%] will-change-transform"
-            style={{ scale: 0.5, originX: 0.8, originY: 0 }}
-            whileInView={{ scale: 1 }}
-            transition={{ duration: 2 }}
-            viewport={{ once: true }}
-        >
-            <Image
-                priority
-                loading="eager"
-                src={src}
-                alt={alt}
-                layout="fill"
-                className="object-cover object-top"
-            />
-        </motion.div>
-    </div>
-)
-
 const Skills = ({ skills }) => (
     <motion.div
-        className="flex-col-left w-full max-w-[475px] max-lg:pl-[2.5%]"
+        className="flex-col-left mx-auto w-full pl-[2.5%] max-md:max-w-[475px] md:col-start-2"
         variants={aboutVariants.Skills.Container}
     >
         {skills.map(({ title, src, colors, rating }, i) => {
@@ -33,12 +12,12 @@ const Skills = ({ skills }) => (
             return (
                 <motion.div
                     key={`${title}-skill-item`}
-                    className="relative flex h-[1.5em] items-center lg:h-[1.75em] lg:text-[1.125em]"
+                    className="relative flex h-[1.5em] items-center"
                     style={{ width: rating + '%' }}
                     variants={aboutVariants.Skills.Item}
                 >
                     <div
-                        className="mr-1 flex pl-[calc(8px+1em)]"
+                        className="mr-1 flex pl-[calc(10px+1em)]"
                         style={{
                             color: c0,
                             background: `no-repeat left / contain url(${src})`,
@@ -46,12 +25,15 @@ const Skills = ({ skills }) => (
                     >
                         {title === 'HTML/CSS' ? (
                             <>
-                                HTML
+                                <span className="my-auto text-[0.8em]">
+                                    HTML
+                                </span>
+                                <span className="text-black/60">|</span>
                                 <span
                                     style={{ color: c2 }}
-                                    className=" first-letter:text-black/50"
+                                    className="my-auto text-[0.8em]"
                                 >
-                                    |CSS
+                                    CSS
                                 </span>
                             </>
                         ) : (
@@ -78,12 +60,28 @@ const Skills = ({ skills }) => (
 const About = ({ data, content }) => (
     <>
         <h2>About Me</h2>
-        <div
-            className="subsection w-[44ch] max-w-full text-start leading-1.25 lg:w-[56ch]"
-            dangerouslySetInnerHTML={{ __html: content }}
-        />
-        <div className="flex-col-center w-full gap-12 lg:flex-row">
-            <Picture {...data} />
+        <div className="grid w-full grid-cols-1 space-y-4 md:grid-cols-[50%_50%]">
+            <div
+                className="subsection mx-auto flex w-[33.5ch] max-w-full md:row-span-2 md:h-full"
+                dangerouslySetInnerHTML={{ __html: content }}
+            />
+            <div className="flex-center relative mx-auto aspect-[1/1] h-[250px] overflow-hidden shadow-md shadow-black md:ml-[2.5%] md:h-[300px]">
+                <motion.div
+                    className="absolute top-0 left-[-80%] h-[200%] w-[200%] select-none will-change-transform"
+                    style={{ scale: 0.5, originX: 0.8, originY: 0 }}
+                    whileHover={{ scale: 1 }}
+                    transition={{ duration: 1.5 }}
+                >
+                    <Image
+                        priority
+                        loading="eager"
+                        src={data.src}
+                        alt={data.alt}
+                        layout="fill"
+                        className="object-cover object-top"
+                    />
+                </motion.div>
+            </div>
             <Skills {...data} />
         </div>
     </>

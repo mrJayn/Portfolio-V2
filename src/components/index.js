@@ -1,12 +1,11 @@
 export { default as Layout } from './Layout'
-export { default as Section } from './Section'
 //export { default as SectionGraphic } from './SectionGraphic'
 
 export { default as Navbar } from './__nav/Navbar'
 export { default as Intro } from './__sections/Intro'
-export { default as About } from './__sections/about/About'
-export { default as Experience } from './__sections/experience/Experience'
-export { default as Projects } from './__sections/projects/Projects'
+export { default as About } from './__sections/About'
+export { default as Experience } from './__sections/Experience'
+export { default as Projects } from './__sections/Projects'
 export { default as Contact } from './__sections/Contact'
 
 export { default as Form } from './Form'

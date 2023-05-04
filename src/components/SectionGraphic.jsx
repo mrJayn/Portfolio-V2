@@ -82,13 +82,13 @@ const Featured_Slides = ({ inView, ...featured }) => {
             onPanEnd={onPanEnd}
         >
             <motion.div
-                className="preserve-3d flex-center absolute inset-0"
+                className="flex-center absolute inset-0"
                 style={{ rotateY, translateZ: '-25vh' }}
             >
                 {Object.values(featured).map(({ data }, i) => (
                     <motion.div
                         key={data.title}
-                        className={`preserve-3d flex-col-center absolute inset-x-0 overflow-hidden rounded-2xl bg-[#111a] shadow-[0_0_2.5px_1px_#FFF4] max-lg:mx-auto max-lg:max-w-md `}
+                        className={`flex-col-center absolute inset-x-0 overflow-hidden rounded-2xl bg-[#111a] shadow-[0_0_2.5px_1px_#FFF4] max-lg:mx-auto max-lg:max-w-md `}
                         style={{
                             transform: `
                             rotateY(calc(360deg / 3 * ${i})) 

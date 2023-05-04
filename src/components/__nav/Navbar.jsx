@@ -32,13 +32,13 @@ const Navbar = ({ isHome }) => {
         <>
             <nav
                 id="navbar"
-                className={`tempered-bg fixed -inset-x-1 top-0 z-[99] h-16 transition-colors ease-in ${
+                className={`fixed -inset-x-1 top-0 z-[99] h-16 transition-[background-color] ease-in ${
                     menuOpen
                         ? 'bg-nav duration-[350ms]'
                         : 'bg-nav/60 delay-[350ms] duration-[350ms]'
-                }`}
+                } after:absolute after:inset-0 after:-z-10 after:bg-tempered after:backdrop-blur-sm after:content-['']`}
             >
-                <div className="flex-center absolute inset-0 z-10 mx-auto max-w-screen-xl lg:justify-start">
+                <div className="flex-center absolute inset-0 z-10 mx-auto max-w-[1440px] lg:justify-start">
                     <Logo isHome={isHome} menuOpen={menuOpen} />
                     <Burger
                         key="nav-burger"

@@ -2,35 +2,12 @@
 @tailwind utilities;
 
 @layer utilities {
-    .backdrop-blurred:after {
-        content: '';
-        @apply absolute inset-0 -z-10 bg-white/10 backdrop-blur-md duration-1000 ease-in-out;
-    }
-
-    /* Functional */
-    .centered {
-        @apply left-1/2 top-1/2;
-        transform: translate(-50%, -50%);
-    }
-    .webkit-fill-available {
-        height: 100vh;
-        height: -webkit-fill-available;
-    }
-    .safe-area-padding {
-        padding-bottom: 0px;
-        padding-bottom: env(safe-area-inset-bottom);
-    }
     .full {
         @apply h-full w-full;
     }
-    .screen {
-        @apply h-screen w-screen;
+    .clip-left {
+        clip-path: inset(-100% -100% -100% 0%);
     }
-    /* 3d Styling */
-    .preserve-3d {
-        transform-style: preserve-3d;
-    }
-
     /* Flex Boxes */
     .absoluteFull {
         @apply absolute top-0 right-0 left-0 bottom-0;
@@ -85,13 +62,5 @@
     }
     .reverse-flex-col {
         @apply flex flex-col-reverse;
-    }
-
-    /* Toast CSS-Transition Classes */
-    .toast-anim-enter {
-        animation: clip-reveal-fwd 0.3s ease-out both;
-    }
-    .toast-anim-exit {
-        animation: clip-reveal-bck 0.3s ease-in both;
     }
 }

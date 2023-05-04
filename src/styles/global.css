@@ -4,6 +4,16 @@
 
 :root {
     --nav-rgb: 33 35 40;
+
+    --fz-xxs: 12px;
+    --fz-xs: 13px;
+    --fz-sm: 14px;
+    --fz-md: 16px;
+    --fz-lg: 18px;
+    --fz-xl: 20px;
+    --fz-xxl: 22px;
+    --fz-heading: 32px;
+
     --toastify-toast-width: 320px;
     --toastify-toast-background: #fff;
     --toastify-toast-min-height: 64px;
@@ -13,79 +23,41 @@
 
 @layer base {
     html {
-        @apply box-border w-full;
+        @apply m-0 box-border w-full p-0;
         height: -webkit-fill-available;
     }
     body {
         @apply overflow-y-auto overflow-x-hidden;
-        @apply relative m-0 w-screen whitespace-pre-line bg-white p-0 font-raleway text-root leading-1 text-black antialiased;
+        @apply relative m-0 w-screen whitespace-pre-line bg-white p-0;
+        @apply font-raleway text-root leading-1.25 text-black antialiased;
         height: -webkit-fill-available;
-    }
-    main {
-    }
-    /*
-    section {
-        @apply last-of-type:flex-col-bottom flex-col-center first-of-type:flex-col-top relative min-h-screen w-full min-w-[320px] max-w-[1024px] select-none first-of-type:max-w-none first-of-type:pt-[20vh];
     }
 
     /* Heading Styles */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply leading-1;
+    }
     h1 {
-        @apply relative whitespace-nowrap bg-black text-center font-montserrat text-heading-1 font-normal uppercase md:text-[14.5vw];
-        text-shadow: 0px 0px 2px #fffa;
-        @apply bg-clip-text text-transparent;
-        /*animate-rotate-bg-300*/
+        @apply relative whitespace-nowrap text-center font-montserrat text-heading-1 font-normal uppercase lg:text-[14.5vw];
+        text-shadow: 1px 1px 5px #fff9;
+        @apply bg-gradient-to-br from-black via-black/75 to-black bg-clip-text text-transparent;
     }
     h2 {
-        @apply relative font-montserrat text-heading-2 uppercase text-black;
-        /*
-        text-shadow: 1px 1px 4px #fff8;
-        word-spacing: 0.075em;
-        */
+        @apply relative font-montserrat text-heading-2 font-medium uppercase text-black;
     }
     h3 {
-        @apply text-heading-3 uppercase tracking-lg text-slate-40 lg:-ml-2;
+        @apply text-heading-3 uppercase tracking-lg text-slate lg:-ml-2;
     }
     h4 {
         @apply text-heading-4 font-semibold text-black/80;
     }
     h5 {
         @apply text-root;
-    }
-
-    /* Form Styles */
-    input,
-    textarea {
-        @apply z-10 w-full rounded-md border-2 border-t-0 border-grey-40 bg-white pl-[5px] leading-1 text-black outline-none transition-[transform,color,background-color,background,border] duration-250 ease-in;
-        @apply focus:bg-slate-20 focus:valid:bg-white;
-        @apply invalid:bg-red/10 invalid:focus:border-red/25;
-        /* Focus + No-input */
-
-        &:not(:placeholder-shown) {
-            & + .placeholder {
-                @apply translate-y-0 scale-[0.6] text-black;
-            }
-        }
-        &:focus {
-            & + .placeholder {
-                @apply translate-y-0 scale-[0.6] text-slate-neon;
-            }
-        }
-        /* Valid + some-input*/
-        &:valid:not(:placeholder-shown) {
-            @apply border-[#090];
-            & + .placeholder {
-                @apply text-[#090];
-            }
-        }
-        /* Focus + Valid + some-input */
-        &:focus:valid:not(:placeholder-shown) + .placeholder {
-        }
-    }
-    input {
-        @apply h-[40px] pt-[calc(40px-1.5em)] lg:h-[55px];
-    }
-    textarea {
-        @apply resize-none overflow-y-scroll pt-[calc(1em)];
     }
 
     /* Selection Styles */
@@ -111,5 +83,20 @@
     /* Placeholder Styles */
     ::placeholder {
         @apply px-4 text-center font-robotoMono font-thin;
+    }
+}
+
+/* Override on Toast-Container Styles */
+.Toastify__toast-container {
+    @apply top-18  !important;
+
+    & .Toastify__toast-icon {
+        @apply absolute top-3.5 left-3.5 !important;
+    }
+    & .Toastify__close-button {
+        @apply absolute top-2.5 right-3 !important;
+    }
+    & .Toastify__close-button > svg {
+        @apply aspect-[14/16] h-[26px] w-auto !important;
     }
 }

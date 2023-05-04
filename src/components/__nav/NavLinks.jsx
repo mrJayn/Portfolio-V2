@@ -6,8 +6,8 @@ function handleLink(sectionName) {
     if (sectionName === 'my Resume') {
         window.open('/assets/misc/resume2022.jpg', '_blank')
     } else {
-        const y = document.querySelector(`#${sectionName}`).offsetTop
-        window.scrollTo({ top: y })
+        const y = document.querySelector(`#${sectionName}`).offsetTop - 72
+        window.scrollTo({ top: y, behavior: 'smooth' })
     }
 }
 

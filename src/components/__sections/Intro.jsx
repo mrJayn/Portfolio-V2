@@ -4,9 +4,9 @@ import { introVariants } from '@motion'
 
 // Software Engineer. A self-taught developer with an interest in Computer Science.
 const springConfig = {
-    stiffness: 400,
-    damping: 90,
-    mass: 0.25,
+    stiffness: 1000,
+    damping: 500,
+    mass: 1,
     restDelta: 0.001,
 }
 
@@ -14,17 +14,21 @@ const Intro = () => {
     const ref = useRef(null)
     const { scrollYProgress } = useScroll({
         target: ref,
-        offset: ['end end', 'center start'],
+        offset: ['start start', 'end start'],
     })
     const ySpring = useSpring(scrollYProgress, springConfig)
-    const opacity = useTransform(ySpring, [0, 0.75], [1, 0])
+
+    const y = useTransform(ySpring, [0, 1], ['0vh', '15vh'])
+    const opacity = useTransform(ySpring, [0, 0.5], [1, 0])
+
     return (
         <div
             className="flex-col-top h-[calc(100vh-56px)] w-full pt-[10vh]"
             ref={ref}
         >
-            <div className="md:absolute md:inset-x-0 md:bottom-0">
-                <motion.h1 style={{ opacity }}>Mike Jayne</motion.h1>
+            <h1 className="lg:hidden">Mike Jayne</h1>
+            <div className="absolute bottom-0 max-lg:hidden">
+                <motion.h1 style={{ y, opacity }}>Mike Jayne</motion.h1>
             </div>
             <motion.div className="my-4 flex" variants={introVariants.Text}>
                 <span className="text-[2em]"> &darr;</span>

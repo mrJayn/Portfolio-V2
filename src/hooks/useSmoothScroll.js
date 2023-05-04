@@ -1,15 +1,10 @@
 import { useEffect, useState } from 'react'
-import {
-    useMotionValueEvent,
-    useScroll,
-    useSpring,
-    useTransform,
-} from 'framer-motion'
+import { useScroll, useSpring, useTransform } from 'framer-motion'
 
 const springConfig = {
-    stiffness: 400,
+    stiffness: 700,
     damping: 90,
-    mass: 0.25,
+    mass: 1,
 }
 
 function useSmoothScroll(scrollRef) {

@@ -27,9 +27,9 @@ const NavLinks = ({ isMenu, toggleMenu }) => {
             {navLinks.map((sectionName) => (
                 <motion.li
                     key={`${sectionName}-link`}
-                    className={`relative flex cursor-pointer select-none items-center whitespace-nowrap font-medium leading-1 tracking-2xl text-grey-30 transition-[color] duration-150 ease-in hover:text-white ${
+                    className={`tracking-2xl relative flex cursor-pointer select-none items-center whitespace-nowrap font-medium leading-[1] text-grey-30 transition-[color] duration-150 ease-in hover:text-white ${
                         isMenu
-                            ? 'h-[min(100%,2.5em)] w-full justify-start pl-2 text-menu-link uppercase shadow-[inset_0_-1.5px_#FFF1]'
+                            ? 'text-menu-link h-[min(100%,2.5em)] w-full justify-start pl-2 uppercase shadow-[inset_0_-1.5px_#FFF1]'
                             : 'full justify-center text-[19px] capitalize'
                     }`}
                     variants={NavVariants.NavLinks.Link}

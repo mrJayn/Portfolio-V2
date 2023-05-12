@@ -2,6 +2,13 @@
 @tailwind components;
 
 @layer components {
+    .styled-content {
+        @apply rounded-lg p-4;
+        box-shadow: inset 0 0 0 3px #0002;
+    }
+    .styled-image {
+        @apply overflow-hidden shadow-md shadow-black/50;
+    }
     [data-styled-btn] {
         & > .decoration {
             @apply scale-y-100 transition-[transform];
@@ -12,7 +19,7 @@
         }
 
         &.clicked {
-            @apply scale-95 text-slate-neon transition-[transform,color] duration-150 ease-in;
+            @apply pointer-events-none scale-95 text-slate-neon transition-[transform,color] duration-150 ease-in;
 
             & > .decoration {
                 @apply scale-y-0;
@@ -25,12 +32,12 @@
 
     [data-project-content] {
         & > h5 {
-            @apply w-full text-center transition-colors duration-150 ease-tween;
+            @apply ease-tween w-full text-center transition-colors duration-150;
         }
         & > ul {
             @apply flex max-w-full;
             & > li {
-                @apply relative w-full whitespace-nowrap text-center font-inconsolata leading-1 text-slate;
+                @apply font-inconsolata relative w-full whitespace-nowrap text-center leading-[1] text-slate;
                 &:not(:last-of-type):after {
                     content: '/';
                     @apply mx-[0.5em] inline-block text-grey-40;
@@ -39,33 +46,6 @@
         }
         & > p {
             @apply my-4 text-center;
-        }
-    }
-
-    .subsection {
-        @apply rounded-xl p-4;
-        box-shadow: inset 0 0 0 3px #0002;
-    }
-
-    /* nbsp==> \00a0 */
-    .styled-underline {
-        @apply absolute bottom-0 h-1;
-        background-color: #0002;
-        border-radius: 40% 40% 0 0;
-
-        &:after {
-            @apply absolute -bottom-1 left-0 right-0 h-1 opacity-50 blur-[1px] contrast-200 content-[''];
-            background: linear-gradient(45deg, #8360c3, #45a29e, #8360c3);
-            background-size: 500%;
-            background-position: 33%;
-            border-radius: 0 0 100% 100%;
-        }
-
-        &.underline-darker {
-            @apply bottom-1 bg-slate -hue-rotate-15;
-            &:after {
-                @apply bottom-[-4px] h-0.5 blur-[3px];
-            }
         }
     }
 

@@ -443,7 +443,39 @@ export const aboutVariants = {
         },
     },
 }
-
+export const experienceMotion = {
+    JobWrap: {
+        initial: 'hidden',
+        animate: 'show',
+        exit: 'exit',
+        variants: {
+            hidden: { opacity: 0 },
+            show: {
+                opacity: 1,
+                transition: {
+                    duration: 0.5,
+                    ease: 'easeIn',
+                    when: 'beforeChildren',
+                    staggerChildren: 0.1,
+                },
+            },
+            exit: { opacity: 0, transition: { duration: 0.5, ease: 'easeIn' } },
+        },
+    },
+    JobItem: {
+        variants: {
+            hidden: { opacity: 0 },
+            show: { opacity: 1 },
+            transition: { duration: 0.5, ease: 'easeIn' },
+        },
+    },
+    CertContent: {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        exit: { opacity: 0 },
+        transition: { duration: 0.25, ease: 'easeIn' },
+    },
+}
 export const featuredVariants = {
     TechWrap: {
         show: (i) => ({

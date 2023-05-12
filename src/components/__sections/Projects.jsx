@@ -1,54 +1,146 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion, wrap } from 'framer-motion'
 import { Styled } from '@components'
+import { useEffect, useRef, useState } from 'react'
 
-const FeaturedProject = ({ data, content }) => {
-    const { title, src, alt, tech, github, external } = data
-    const Technology = tech.map((item) => (
-        <span key={item} className="w-full whitespace-nowrap text-center">
-            {item}
-        </span>
-    ))
-    const Icon_Links = [
-        [github, 'GitHub', 'View on GitHub'],
-        [external, 'External', 'Visit Project'],
-    ].map(([href, name, title], i) => (
-        <a
-            key={`icon-link-${i}`}
-            href={href}
-            target="_blank"
-            rel="noreferrer noopenner"
-            className="relative aspect-[1/1] h-[3.5em]"
-            title={title}
-        >
-            <Styled.Icon name={name} />
-        </a>
-    ))
+const slideMotion = {
+    initial: (i) => ({
+        opacity: 0,
+        x: i * 200 + '%',
+    }),
+    animate: (i) => ({
+        opacity: Math.min(1, 1.5 - Math.abs(i)),
+        x: i * 100 + '%',
+        transition: { duration: 0.75 },
+    }),
+    exit: (i) => ({
+        opacity: 0,
+        x: i * 166 + '%',
+        transition: { duration: 0.5 },
+    }),
+}
+
+function useCanDrag() {
+    const [draggable, setDraggable] = useState(false)
+
+    useEffect(() => {
+        const isTouchDevice =
+            'ontouchstart' in window ||
+            navigator.maxTouchPoints > 0 ||
+            navigator.msMaxTouchPoints > 0 ||
+            window.innerWidth < 1024
+
+        const updateDraggability = () => setDraggable(isTouchDevice)
+
+        updateDraggability()
+
+        window.addEventListener('resize', updateDraggability)
+        return () => window.removeEventListener('resize', updateDraggability)
+    }, [])
+
+    return draggable
+}
+
+const Featured = ({ featuredData }) => {
+    const containerRef = useRef(null)
+    const [active, setActive] = useState(0)
+    const span = 2 // num projects -1
+
+    const handleDragEnd = (e, { offset, velocity }) => {
+        const clientWidth = containerRef.current?.clientWidth || 0
+        const threshold = clientWidth / 4
+
+        if (Math.abs(velocity.y) > Math.abs(velocity.x)) return
+
+        if (offset.x > threshold || offset.x < -threshold) {
+            const selected = active + Math.sign(offset.x)
+            const wrapped = selected > span ? 0 : selected < 0 ? span : selected
+            setActive(wrapped)
+        }
+    }
 
     return (
-        <div className="flex-col-center subsection group relative mt-4 flex w-full gap-4 max-lg:max-w-[512px] lg:h-[400px]">
-            <h3 className="font-medium text-grey-60">{title}</h3>
-            <div className="absolute -z-10 max-w-[850px] select-none max-lg:opacity-30 max-md:inset-0 md:relative md:aspect-[16/9] md:w-[300px]">
-                <Image src={src} alt={alt} layout="fill" objectFit="contain" />
-            </div>
-            <div className="lg:group-odd:flex-col-right lg:group-even:flex-col-left relative w-full">
-                <div
-                    className="full max-w-[512px] bg-white leading-1.25 max-lg:text-center"
-                    dangerouslySetInnerHTML={{ __html: content }}
-                />
-                <div className="flex-center mx-auto w-full max-w-[512px]">
-                    {Technology}
-                </div>
-                <div className="mx-auto flex w-min">{Icon_Links}</div>
-            </div>
+        <div
+            className="flex-bottom relative h-[400px] w-[280px] md:w-[650px] xl:h-[500px] xl:w-[1000px]"
+            ref={containerRef}
+        >
+            <AnimatePresence>
+                {Object.values(featuredData).map(({ data, content }, i) => {
+                    const n = wrap(-2, 2, i - active)
+                    const { title, src, tech, href } = data
+
+                    return (
+                        [-1, 0, 1].includes(n) && (
+                            <motion.div
+                                key={title}
+                                className="flex-col-btw absolute inset-0 cursor-pointer select-none p-4 will-change-transform"
+                                style={{
+                                    background: `
+                                    linear-gradient(0deg, #000, transparent 50%), 
+                                    center / cover no-repeat url(${src})`,
+                                }}
+                                custom={n}
+                                onClick={() => setActive(i)}
+                                {...slideMotion}
+                            >
+                                <h4 className="rounded bg-black p-4 text-white">
+                                    {title}
+                                </h4>
+                            </motion.div>
+                        )
+                    )
+                })}
+            </AnimatePresence>
+            <AnimatePresence mode="wait">
+                {Object.values(featuredData).map(
+                    ({ data, content }, i) =>
+                        i === active && (
+                            <motion.div
+                                key={data.title}
+                                className="flex-col-center fixed z-20 w-[280px] gap-x-6 md:w-[650px] md:flex-row-reverse md:justify-around xl:w-[1000px]"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <div className="flex-col-left max-w-[400px]">
+                                    <div
+                                        className="flex text-white"
+                                        dangerouslySetInnerHTML={{
+                                            __html: content,
+                                        }}
+                                    />
+                                    <div className="text-min flex-left py-2 text-grey-30 md:px-2">
+                                        {data.tech.map((item) => (
+                                            <div key={item} className="group">
+                                                {item}
+                                                <span className="group-last-of-type:hidden">
+                                                    &nbsp;/&nbsp;
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                                <Styled.Button style={{ color: 'white' }}>
+                                    <a
+                                        href={data.href}
+                                        target="_blank"
+                                        rel="noopenner noreferrer"
+                                    >
+                                        Learn More
+                                    </a>
+                                </Styled.Button>
+                            </motion.div>
+                        )
+                )}
+            </AnimatePresence>
         </div>
     )
 }
-
-const Projects = ({ featuredData }) => {
+const ArchiveLink = () => {
     const router = useRouter()
-    const handleLinkBtn = (e) => {
+    const goToArchive = (e) => {
         e.currentTarget.classList.add('clicked')
         router.push(
             { pathname: '/[sid]', query: { sid: 'projects' } },
@@ -58,25 +150,23 @@ const Projects = ({ featuredData }) => {
     }
 
     return (
-        <>
-            <h2>Featured</h2>
+        <div className="flex-col-center my-4">
+            <h4>{`Wanna see more?`}</h4>
+            <h3>{`Some Other Things I've Built`}</h3>
+            <Styled.Button style={{ scale: 1.25 }} onClick={goToArchive}>
+                {`View Projects`}
+            </Styled.Button>
+        </div>
+    )
+}
 
-            {Object.entries(featuredData).map(([key, projProps]) => (
-                <FeaturedProject key={key} {...projProps} />
-            ))}
-
-            <h2>Projects</h2>
-            <div
-                role="subsection"
-                className="flex-col-center max-w-[95vw] rounded-xl bg-white px-8 py-4"
-            >
-                <h4>Wanna see more?</h4>
-                <h3>Check out all of my projects!</h3>
-                <Styled.Button onClick={handleLinkBtn}>
-                    View Projects
-                </Styled.Button>
-            </div>
-        </>
+const Projects = ({ ...data }) => {
+    return (
+        <div id="projects-content" className="flex-col-top relative w-full">
+            <h3>Featured</h3>
+            <Featured {...data} />
+            <ArchiveLink />
+        </div>
     )
 }
 

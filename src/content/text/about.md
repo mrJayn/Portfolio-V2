@@ -8,6 +8,11 @@ btnText: READ MORE
 src: '/assets/misc/me_1.jpg'
 alt: A photo of me recieving congratulations from UMass Amherst's Electrical/Computer Engineering department head, Professor Hollot.
 
+education:
+    university: University of Massachusetts Amherst
+    degree: B.S. in Chemical Engineering
+    dates: 2015 - 2020
+
 skills:
     - title: HTML/CSS
       src: '/assets/skills/htmlcss.png'

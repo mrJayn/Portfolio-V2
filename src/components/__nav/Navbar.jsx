@@ -36,7 +36,7 @@ const Navbar = ({ isHome }) => {
                     menuOpen
                         ? 'bg-nav duration-[350ms]'
                         : 'bg-nav/60 delay-[350ms] duration-[350ms]'
-                } after:absolute after:inset-0 after:-z-10 after:bg-tempered after:backdrop-blur-sm after:content-['']`}
+                } after:bg-tempered after:absolute after:inset-0 after:-z-10 after:backdrop-blur-sm after:content-['']`}
             >
                 <div className="flex-center absolute inset-0 z-10 mx-auto max-w-[1440px] lg:justify-start">
                     <Logo isHome={isHome} menuOpen={menuOpen} />

@@ -52,6 +52,9 @@ export function reload() {
 export function handleSwipe(offset, velocity, currentTab, span, setTab) {
     const threshold = 5000
     const swipe = Math.abs(offset) * velocity
+
+    if (Math.abs(velocity.y) > Math.abs(velocity.x)) return
+
     if (swipe < -threshold) {
         paginate(1, currentTab, span, setTab)
     } else if (swipe > threshold) {
@@ -70,4 +73,27 @@ export const paginate = (newDirection, currentTab, span, setTab) => {
         // first slide >> last slide
         setTab([span - 1, newDirection])
     }
+}
+
+const computeNewX = () => -index * (containerRef.current?.clientWidth || 0)
+
+const handleEndDrag = (e, { offset, velocity }) => {
+    const clientWidth = containerRef.current?.clientWidth || 0
+    const threshold = clientWidth / 4
+    var idxValue = index
+
+    if (Math.abs(velocity.y) > Math.abs(velocity.x)) {
+        return
+    }
+
+    if (offset.x > threshold) {
+        idxValue = index - 1
+        setIndex(index - 1)
+        //
+    } else if (offset.x < -threshold) {
+        idxValue = index + 1
+        setIndex(index + 1)
+        //
+    }
+    animate(x, -idxValue * clientWidth, slideTransition)
 }

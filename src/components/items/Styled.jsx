@@ -69,7 +69,7 @@ const Button = ({ children, ...props }) => (
         {...props}
     >
         <span className="decoration pointer-events-none absolute inset-0 top-[15%] origin-top rounded-b-md rounded-t shadow-[inset_0_-2px,_inset_-2px_0,_inset_2px_0] delay-[250ms] duration-500 ease-tween" />
-        <div className="content whitespace-nowrap px-6 text-heading-5 uppercase leading-1.75 delay-[250ms] duration-500 ease-tween">
+        <div className="content text-h5 whitespace-nowrap px-6 uppercase leading-[1.75] delay-[250ms] duration-500 ease-tween">
             {children}
         </div>
     </motion.button>
@@ -87,7 +87,7 @@ const Icon = ({ name }) => (
 
 const Indicators = ({ isActive, handleClick, children }) => (
     <li
-        className={`flex-center group relative -z-10 flex cursor-pointer select-none text-min duration-250 ease-tween max-lg:mt-auto max-lg:min-w-[18ch] max-lg:rounded-t-xl max-lg:p-2 max-lg:text-center lg:justify-start lg:rounded-r-xl ${
+        className={`group flex-center relative -z-10 flex cursor-pointer select-none text-min duration-250 ease-tween max-lg:mt-auto max-lg:min-w-[18ch] max-lg:rounded-t-xl max-lg:p-2 max-lg:text-center lg:justify-start lg:rounded-r-xl ${
             isActive
                 ? 'z-0 h-full bg-slate-30 text-white lg:w-[115%] lg:pl-[15%] lg:pr-[10%]'
                 : '-z-10 h-[80%] bg-slate-5 text-slate-60 lg:h-full lg:w-[95%] lg:pl-[5%] lg:hover:bg-slate-10 lg:hover:text-slate-neon'

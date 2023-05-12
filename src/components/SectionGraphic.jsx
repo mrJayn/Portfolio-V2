@@ -2,9 +2,6 @@ import { useEffect, useRef, Fragment } from 'react'
 import Image from 'next/image'
 import { motion, useCycle, motionValue, useSpring } from 'framer-motion'
 
-import { skill_icons } from '@config'
-import Icons from './items/Icons'
-
 const About_Images = ({ inView, src, alt }) => {
     const [activeImg, setActiveImg] = useCycle(0, 1, 2)
     useEffect(() => {
@@ -25,35 +22,6 @@ const About_Images = ({ inView, src, alt }) => {
         </div>
     )
 }
-
-const Experience_Skills = () => (
-    <motion.div
-        className="relative grid aspect-square w-3/4 max-w-[450px] grid-cols-3 portrait:mb-auto portrait:pt-[13%] portrait:pb-[20%] landscape:pt-[20%]"
-        initial="hidden"
-        whileInView="show"
-        exit="exit"
-        viewport={{ once: true, amount: 0.33 }}
-    >
-        {skill_icons.map(({ title }, i) => {
-            const corner = i < 3 ? i % 2 == 0 : i % 2 !== 0
-            const xD = i % 3 == 0 ? -1 : 1
-            const yD = i < 3 ? -1 : 1
-            return (
-                <div
-                    key={title}
-                    className="relative mx-auto aspect-square w-full"
-                    style={{
-                        transform: `translateY(${
-                            corner ? 0 : 25 * yD
-                        }%) rotate(${corner ? -25 * xD * yD : 0}deg)`,
-                    }}
-                >
-                    <Icons name={title} />
-                </div>
-            )
-        })}
-    </motion.div>
-)
 
 const Featured_Slides = ({ inView, ...featured }) => {
     const rYref = useRef(0)
@@ -76,7 +44,7 @@ const Featured_Slides = ({ inView, ...featured }) => {
 
     return (
         <motion.div
-            className="full flex-center perspective-[100vh] relative z-10 cursor-grab touch-none active:cursor-grabbing"
+            className="perspective-[100vh] full flex-center relative z-10 cursor-grab touch-none active:cursor-grabbing"
             style={{ perspectiveOrigin: '50% 50%' }}
             onPan={onPan}
             onPanEnd={onPanEnd}
@@ -105,7 +73,7 @@ const Featured_Slides = ({ inView, ...featured }) => {
                             />
                         </div>
                         <div className="flex-col-center z-10 text-center">
-                            <h5 className="font-semibold leading-1 text-slate-30 lg:whitespace-nowrap">
+                            <h5 className="font-semibold leading-[1] text-slate-30 lg:whitespace-nowrap">
                                 {data.title}
                             </h5>
                             <TECH {...data} />
@@ -120,10 +88,10 @@ const TECH = ({ tech }) => (
     <div className="flex-evenly w-full max-xl:landscape:flex-col">
         {tech.map((item) => (
             <Fragment key={item}>
-                <p className="relative whitespace-nowrap font-robotoMono leading-1.25 ">
+                <p className="font-robotoMono relative whitespace-nowrap leading-[1.25] ">
                     {item}
                 </p>
-                <span className="px-3 font-semibold text-teal-neon last-of-type:hidden max-xl:landscape:hidden">
+                <span className="px-3 font-semibold text-slate-neon last-of-type:hidden max-xl:landscape:hidden">
                     &#x2022;
                 </span>
             </Fragment>
@@ -135,7 +103,6 @@ const Graphic = ({ id, data, featured, inView }) => {
     return (
         <>
             {id === 'about' && <About_Images inView={inView} {...data} />}
-            {id === 'experience' && <Experience_Skills />}
 
             {id === 'projects' && (
                 <Featured_Slides inView={inView} {...featured} />

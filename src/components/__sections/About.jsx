@@ -1,10 +1,20 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { aboutVariants } from '@motion'
+import SubSection from '../items/SubSection'
+
+const Education = ({ university, degree, dates }) => (
+    <SubSection title="Education" className="styled-content">
+        <h4>{university}</h4>
+        <h5>{degree}</h5>
+        <span className="text-min italic text-grey">{dates}</span>
+    </SubSection>
+)
 
 const Skills = ({ skills }) => (
-    <motion.div
-        className="flex-col-left mx-auto w-full pl-[2.5%] max-md:max-w-[475px] md:col-start-2"
+    <SubSection
+        title="What Can I do?"
+        className="flex-col-left max-w-[768px] pl-[2.5%]"
         variants={aboutVariants.Skills.Container}
     >
         {skills.map(({ title, src, colors, rating }, i) => {
@@ -12,7 +22,7 @@ const Skills = ({ skills }) => (
             return (
                 <motion.div
                     key={`${title}-skill-item`}
-                    className="relative flex h-[1.5em] items-center"
+                    className="relative flex h-[2.25em] items-center"
                     style={{ width: rating + '%' }}
                     variants={aboutVariants.Skills.Item}
                 >
@@ -44,7 +54,7 @@ const Skills = ({ skills }) => (
                     <motion.div
                         layout
                         data-rating={rating}
-                        className="relative mb-0.5 h-[0.4em] w-full origin-left rounded-sm after:absolute after:right-0 after:font-montserrat after:text-[0.75em] after:font-bold after:leading-[0.4] after:text-current after:content-[attr(data-rating)'%']"
+                        className="after:font-montserrat relative mb-0.5 h-[0.4em] w-full origin-left rounded-sm after:absolute after:right-0 after:text-[0.75em] after:font-bold after:leading-[0.4] after:text-current after:content-[attr(data-rating)'%']"
                         style={{
                             color: c2,
                             background: `no-repeat left / calc(100% - 1.75em) linear-gradient(90deg, ${c0}, ${c1})`,
@@ -54,37 +64,39 @@ const Skills = ({ skills }) => (
                 </motion.div>
             )
         })}
-    </motion.div>
+    </SubSection>
 )
 
-const About = ({ data, content }) => (
-    <>
-        <h2>About Me</h2>
-        <div className="grid w-full grid-cols-1 space-y-4 md:grid-cols-[50%_50%]">
-            <div
-                className="subsection mx-auto flex w-[33.5ch] max-w-full md:row-span-2 md:h-full"
-                dangerouslySetInnerHTML={{ __html: content }}
+const Content = ({ content, src }) => (
+    <SubSection className="flex-col-center gap-5 md:flex-row-reverse">
+        <div className="styled-image relative aspect-[1/1] h-[250px] md:h-[300px]">
+            <motion.div
+                className="absolute top-0 left-[-80%] h-[200%] w-[200%] select-none will-change-transform"
+                style={{
+                    scale: 0.5,
+                    originX: 0.8,
+                    originY: 0,
+                    background: `top / cover no-repeat url(${src})`,
+                }}
+                whileHover={{ scale: 1 }}
+                transition={{ duration: 1 }}
             />
-            <div className="flex-center relative mx-auto aspect-[1/1] h-[250px] overflow-hidden shadow-md shadow-black md:ml-[2.5%] md:h-[300px]">
-                <motion.div
-                    className="absolute top-0 left-[-80%] h-[200%] w-[200%] select-none will-change-transform"
-                    style={{ scale: 0.5, originX: 0.8, originY: 0 }}
-                    whileHover={{ scale: 1 }}
-                    transition={{ duration: 1.5 }}
-                >
-                    <Image
-                        priority
-                        loading="eager"
-                        src={data.src}
-                        alt={data.alt}
-                        layout="fill"
-                        className="object-cover object-top"
-                    />
-                </motion.div>
-            </div>
+        </div>
+        <div
+            className="styled-content flex max-w-[min(37ch,100%)] indent-4 leading-[1.5] md:h-[250px]"
+            dangerouslySetInnerHTML={{ __html: content }}
+        />
+    </SubSection>
+)
+
+const About = ({ data, content }) => {
+    return (
+        <div id="about-content" className="flex-col-top relative w-full">
+            <Content {...{ content: content, ...data }} />
+            <Education {...data.education} />
             <Skills {...data} />
         </div>
-    </>
-)
+    )
+}
 
 export default About

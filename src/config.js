@@ -1,11 +1,13 @@
-export const sectionIDs = [
-    'intro',
-    'about',
-    'experience',
-    'projects',
-    'contact',
-]
-export const navLinks = [...sectionIDs.slice(1), 'my Resume']
+export const sectionNames = {
+    intro: '',
+    about: 'About Me',
+    experience: 'Experience',
+    projects: 'Projects',
+    contact: 'Get in Touch',
+}
+
+export const navLinks = [...Object.keys(sectionNames).slice(1), 'my Resume']
+
 export const socials = [
     {
         name: 'Email',
@@ -22,39 +24,6 @@ export const socials = [
     {
         name: 'Linkedin',
         href: 'https://www.linkedin.com/in/',
-    },
-]
-
-export const skill_icons = [
-    {
-        title: 'Javascript',
-        colors: ['#ffd600', '#ffd600'],
-        viewBox: '0 0 512 512',
-    },
-    {
-        title: 'React',
-        colors: ['#149eca', '#149eca'],
-        viewBox: '0 0 512 512',
-    },
-    {
-        title: 'Next',
-        colors: ['#000', '#000'],
-        viewBox: '0 0 24 24',
-    },
-    {
-        title: 'Tailwind',
-        colors: ['#43a7b2', '#43a7b2'],
-        viewBox: '0 0 24 24',
-    },
-    {
-        title: 'Python',
-        colors: ['#356b98', '#fed040'],
-        viewBox: '0 0 512 512',
-    },
-    {
-        title: 'HTML / CSS',
-        colors: ['#ec6026', '#254ce2'],
-        viewBox: '0 0 512 512',
     },
 ]
 

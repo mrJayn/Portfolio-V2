@@ -16,7 +16,7 @@ const PageLink = ({ children }) => {
     return (
         <motion.button
             data-page-link
-            className="flex-center group relative z-30 max-w-[90vw] scale-100 cursor-pointer select-none tracking-xl text-black opacity-50 transition-opacity duration-250 ease-tween hover:opacity-100"
+            className="group flex-center relative z-30 max-w-[90vw] scale-100 cursor-pointer select-none tracking-xl text-black opacity-50 transition-opacity duration-250 ease-tween hover:opacity-100"
             onClick={handleClick}
         >
             <motion.span
@@ -30,7 +30,7 @@ const PageLink = ({ children }) => {
                 }}
             />
             <motion.span
-                className="whitespace-nowrap px-6 text-heading-5 uppercase leading-1.75"
+                className="text-h5 whitespace-nowrap px-6 uppercase leading-[1.75]"
                 variants={{
                     hidden: {
                         clipPath: 'inset(15% 0 100% 0)',

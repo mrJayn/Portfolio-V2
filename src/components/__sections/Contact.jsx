@@ -4,8 +4,7 @@ import Form from '../Form'
 const ContactSection = () => (
     <>
         <div className="flex-col-top flex-[0.125] gap-y-2">
-            <h2>Get in Touch</h2>
-            <p className="rounded text-center leading-1.25">
+            <p className="rounded text-center leading-[1.25]">
                 Any questions, comments, or inquiries? <br />
                 Send me a message!
             </p>
@@ -19,7 +18,7 @@ const ContactSection = () => (
             <div className="flex-btw relative w-full rounded-xl">
                 <Styled.Socials className="h-[2.5em]" />
             </div>
-            <p className="text-footer font-bold uppercase tracking-4xl text-black">
+            <p className="text-footer tracking-4xl font-bold uppercase text-black">
                 Michael Jayne
                 <span className="ml-1.5 text-slate-neon">
                     &#169;{new Date().getFullYear()}

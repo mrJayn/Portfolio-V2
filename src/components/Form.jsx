@@ -21,7 +21,7 @@ const ToastMsg = ({ success }) => {
 }
 
 const itemProps = (key) => ({
-    className: `peer z-10 w-full rounded-md border-2 border-t-0 border-grey-40 bg-white pl-[5px] leading-1 text-black outline-none transition-[transform,color,background-color,background,border] duration-250 ease-in focus:border-slate-neon ${
+    className: `peer z-10 w-full rounded-md border-2 border-t-0 border-grey-40 bg-white pl-[5px] leading-[1] text-black outline-none transition-[transform,color,background-color,background,border] duration-250 ease-in focus:border-slate-neon ${
         key === 'message'
             ? 'resize-none overflow-y-scroll pt-[calc(1em)]'
             : 'h-[40px] pt-[calc(40px-1.5em)] lg:h-[55px]'

@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react'
 import { useScroll, useSpring, useTransform } from 'framer-motion'
 
 const springConfig = {
-    stiffness: 700,
+    stiffness: 500,
     damping: 90,
-    mass: 1,
+    mass: 0.5,
 }
 
 function useSmoothScroll(scrollRef) {
-    const [[pageHeight, scrollHeight], setPageHeight] = useState([0, 0])
+    const [pageHeight, setPageHeight] = useState(0)
 
     // observe when browser is resizing
     useEffect(() => {
@@ -17,11 +17,8 @@ function useSmoothScroll(scrollRef) {
                 const { height } = entry.contentRect
                 if (height === 0) return
 
-                let pageH = height * (screen.width < 1024 ? 1 : 1)
-                let scrollH = height
-
-                document.body.style.height = pageH + 'px'
-                setPageHeight([pageH, scrollH])
+                document.body.style.height = height + 'px'
+                setPageHeight(height)
             })
         })
 
@@ -30,7 +27,7 @@ function useSmoothScroll(scrollRef) {
     }, [scrollRef, setPageHeight])
 
     const { scrollY } = useScroll()
-    const transform = useTransform(scrollY, [0, pageHeight], [0, -scrollHeight])
+    const transform = useTransform(scrollY, [0, pageHeight], [0, -pageHeight])
 
     return useSpring(transform, springConfig)
 }

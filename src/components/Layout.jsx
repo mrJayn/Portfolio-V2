@@ -20,7 +20,7 @@ const Layout = ({ title, description, children }) => {
             />
             <motion.main
                 id={`${title}-Layout`}
-                className="flex-col-top top-0 left-0 w-full overflow-hidden border-b-2 px-2 will-change-transform sm:px-8 lg:fixed"
+                className="flex w-screen flex-col items-center overflow-hidden px-2 lg:fixed lg:top-0 lg:left-0 lg:will-change-transform"
                 style={{ y: shouldScrollSmooth ? y : 0 }}
                 initial="hidden"
                 animate="show"

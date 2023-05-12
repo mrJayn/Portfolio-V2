@@ -113,4 +113,4 @@ const Archive = ({ projectsData }) => {
     )
 }
 
-export default Archive
+export default Archive_Project

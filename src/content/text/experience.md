@@ -14,14 +14,9 @@ headers:
     education: EDUCATION
     certifications: CERTIFICATIONS
 
-education:
-    university: University of Massachusetts Amherst
-    degree: B.S. in Chemical Engineering
-    dates: 2015 - 2020
-
 jobs:
     - title: Rochester Electronics
-      position: ChemEng Electroplating Internship
+      position: Electroplating Engineer co-op
       dates: 5/2019 -9/2019
       description:
           - Manufactured conductors per client design by performing experiements to assess optimal bath conditions, responded accordingly to any issue that arose and continued to improve the efficiency of the overall plating process.
@@ -29,7 +24,7 @@ jobs:
           - Worked closely with other process engineers and helped identify and resolve technical issues.
 
     - title: CVS Pharmacy
-      position: Pharmacy Technician / Covid-19 PCR Test Administrator
+      position: Pharmacy Tech. / Covid19 Test Admin.
       dates: 8/2020 - 8/2021
       description:
           - Filled prescriptions, managed patient PHI and administered Covid-19 PCR tests while conveying any issues to a supervising nurse practitioner.

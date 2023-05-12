@@ -1,5 +1,5 @@
-@import './utilities.css';
 @import './components.css';
+@tailwind utilities;
 @tailwind base;
 
 :root {
@@ -29,7 +29,7 @@
     body {
         @apply overflow-y-auto overflow-x-hidden;
         @apply relative m-0 w-screen whitespace-pre-line bg-white p-0;
-        @apply font-raleway text-root leading-1.25 text-black antialiased;
+        @apply font-raleway -tracking-md text-root leading-[1.25] text-black antialiased;
         height: -webkit-fill-available;
     }
 
@@ -40,33 +40,33 @@
     h4,
     h5,
     h6 {
-        @apply leading-1;
+        @apply leading-[1];
     }
     h1 {
-        @apply relative whitespace-nowrap text-center font-montserrat text-heading-1 font-normal uppercase lg:text-[14.5vw];
-        text-shadow: 1px 1px 5px #fff9;
-        @apply bg-gradient-to-br from-black via-black/75 to-black bg-clip-text text-transparent;
+        @apply font-montserrat w-screen whitespace-nowrap text-center text-[16vw] font-thin uppercase text-grey-90;
     }
     h2 {
-        @apply relative font-montserrat text-heading-2 font-medium uppercase text-black;
+        @apply font-montserrat text-h2 relative uppercase text-black;
     }
     h3 {
-        @apply text-heading-3 uppercase tracking-lg text-slate lg:-ml-2;
+        @apply text-h3 tracking-lg font-medium uppercase text-slate;
     }
     h4 {
-        @apply text-heading-4 font-semibold text-black/80;
+        @apply text-h4 font-semibold;
     }
     h5 {
         @apply text-root;
     }
 
-    /* Selection Styles */
-    ::selection {
-        @apply bg-black text-white;
+    /* Text Styles */
+    p,
+    li {
     }
+
+    /* Selection Styles */
     html {
         & ::selection {
-            @apply bg-slate-40/50 text-white;
+            @apply bg-slate-30 text-white;
         }
         -webkit-tap-highlight-color: transparent;
     }
@@ -78,11 +78,6 @@
     }
     ::-webkit-scrollbar {
         display: none; /*Chrome,Safari,Opera*/
-    }
-
-    /* Placeholder Styles */
-    ::placeholder {
-        @apply px-4 text-center font-robotoMono font-thin;
     }
 }
 

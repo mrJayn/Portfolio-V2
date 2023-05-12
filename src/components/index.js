@@ -13,4 +13,6 @@ export { default as Form } from './Form'
 export { default as Icons } from './items/Icons'
 export { default as PageLink } from './items/PageLink'
 export { default as Styled } from './items/Styled'
+export { default as SubSection } from './items/SubSection'
+
 //export { default as Paths } from './items/Paths'

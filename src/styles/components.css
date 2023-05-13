@@ -6,12 +6,14 @@
         @apply rounded-lg p-4;
         box-shadow: inset 0 0 0 3px #0002;
     }
+
     .styled-image {
         @apply overflow-hidden shadow-md shadow-black/50;
     }
+
     [data-styled-btn] {
         & > .decoration {
-            @apply scale-y-100 transition-[transform];
+            @apply scale-y-100 transition-transform;
         }
         & > .content {
             @apply transition-[clip-path];
@@ -32,12 +34,12 @@
 
     [data-project-content] {
         & > h5 {
-            @apply ease-tween w-full text-center transition-colors duration-150;
+            @apply w-full text-center transition-colors duration-150 ease-tween;
         }
         & > ul {
             @apply flex max-w-full;
             & > li {
-                @apply font-inconsolata relative w-full whitespace-nowrap text-center leading-[1] text-slate;
+                @apply relative w-full whitespace-nowrap text-center font-inconsolata leading-[1] text-slate;
                 &:not(:last-of-type):after {
                     content: '/';
                     @apply mx-[0.5em] inline-block text-grey-40;
@@ -54,12 +56,12 @@
             @apply block h-5 w-auto;
         }
         &::-webkit-scrollbar-track {
-            @apply bg-slate-30;
+            @apply bg-slate;
         }
         &::-webkit-scrollbar-thumb {
             @apply cursor-pointer bg-white;
             border-radius: 15px / 18px;
-            border: solid 3px theme(colors.slate.30);
+            border: solid 3px theme(colors.slate.DEFAULT);
         }
     }
 }

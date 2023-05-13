@@ -29,7 +29,7 @@
     body {
         @apply overflow-y-auto overflow-x-hidden;
         @apply relative m-0 w-screen whitespace-pre-line bg-white p-0;
-        @apply font-raleway -tracking-md text-root leading-[1.25] text-black antialiased;
+        @apply font-raleway text-root font-light leading-[1.4] text-black antialiased;
         height: -webkit-fill-available;
     }
 
@@ -40,16 +40,16 @@
     h4,
     h5,
     h6 {
-        @apply leading-[1];
+        @apply leading-[1] -tracking-md;
     }
     h1 {
-        @apply font-montserrat w-screen whitespace-nowrap text-center text-[16vw] font-thin uppercase text-grey-90;
+        @apply w-screen whitespace-nowrap text-center font-montserrat text-[16vw] font-thin uppercase text-grey-90;
     }
     h2 {
-        @apply font-montserrat text-h2 relative uppercase text-black;
+        @apply relative font-montserrat text-h2 uppercase text-black;
     }
     h3 {
-        @apply text-h3 tracking-lg font-medium uppercase text-slate;
+        @apply text-h3 font-medium uppercase tracking-lg text-slate;
     }
     h4 {
         @apply text-h4 font-semibold;
@@ -59,8 +59,12 @@
     }
 
     /* Text Styles */
-    p,
+    p {
+    }
     li {
+    }
+    strong {
+        @apply mx-[1px] font-bold uppercase;
     }
 
     /* Selection Styles */

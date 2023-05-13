@@ -8,6 +8,7 @@ import {
     Experience,
     Projects,
     Contact,
+    Featured,
 } from '@components'
 
 export default function Home({ data }) {
@@ -25,13 +26,18 @@ export default function Home({ data }) {
                         id={id}
                         className="mb-40 w-full max-w-[1200px] first-of-type:max-w-none last-of-type:mb-0"
                     >
-                        {title && <h2 id="`${title}-heading`">{title}</h2>}
+                        {title && (
+                            <h2 className="text-center" id="`${title}-heading`">
+                                {title}
+                            </h2>
+                        )}
 
                         {{
                             intro: <Intro />,
                             about: <About {...about} />,
                             experience: <Experience {...experience} />,
-                            projects: <Projects {...projects} />,
+                            featured: <Featured {...projects} />,
+                            projects: <Projects />,
                             contact: <Contact />,
                         }[id] ?? null}
                     </motion.section>

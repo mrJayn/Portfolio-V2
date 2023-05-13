@@ -2,6 +2,7 @@ export const sectionNames = {
     intro: '',
     about: 'About Me',
     experience: 'Experience',
+    featured: 'Featured Work',
     projects: 'Projects',
     contact: 'Get in Touch',
 }

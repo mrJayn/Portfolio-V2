@@ -43,6 +43,19 @@ module.exports = {
                 90: '#111827',
             },
             slate: {
+                5: '#f2f5f9',
+                10: '#dce1ea',
+                20: '#c5cddd',
+                30: '#aeb9cf',
+                40: '#939db2',
+                DEFAULT: '#78859e',
+                60: '#697791',
+                70: '#4e5c75',
+                80: '#354157',
+                90: '#283347',
+                neon: '#6199ff',
+            },
+            blue: {
                 5: '#eff4fc',
                 10: '#d7e0ef',
                 20: '#bdcbe5',
@@ -68,6 +81,37 @@ module.exports = {
         }),
         plugin(function ({ addComponents }) {
             addComponents(twPlugins.components)
+        }),
+        plugin(function ({ addVariant }) {
+            addVariant('child-p', '&>p')
+            addVariant('child-p-first', '&>p:first-of-type')
+            addVariant('child-p-last', '&>p:last-of-type')
+        }),
+        plugin(function ({ matchVariant }) {
+            matchVariant(
+                'nth',
+                (value) => {
+                    return `&:nth-child(${value})`
+                },
+                {
+                    values: {
+                        1: '1',
+                        2: '2',
+                        3: '3',
+                    },
+                }
+            )
+            matchVariant(
+                'child',
+                (value) => {
+                    return `&>${value})`
+                },
+                {
+                    values: {
+                        1: '*',
+                    },
+                }
+            )
         }),
     ],
 }

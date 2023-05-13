@@ -381,95 +381,40 @@ export const introVariants = {
         },
     },
 }
-export const aboutVariants = {
-    Skills: {
-        Container: {
-            hidden: {},
-            show: {
-                transition: { staggerChildren: 0.1, delayChildren: 0.25 },
+
+export const aboutMotion = {
+    skills: {
+        wrap: {
+            initial: 'hidden',
+            whileInView: 'show',
+            viewport: { once: true },
+            variants: { show: { transition: { staggerChildren: 0.125 } } },
+        },
+        item: {
+            variants: {
+                hidden: { opacity: 0, width: 'min-content' },
+                show: (i) => ({
+                    opacity: 1,
+                    width: i + '%',
+                    transition: {
+                        opacity: { duration: 0.25, ease: 'easeIn' },
+                        width: { duration: 2, ease: 'circOut' },
+                    },
+                }),
             },
-        },
-        Item: {
-            hidden: { opacity: 0 },
-            show: { opacity: 1, transition: { duration: 0.5 } },
-        },
-        Rating: {
-            hidden: { scaleX: 0 },
-            show: {
-                scaleX: '100%',
-                transition: {
-                    duration: 1,
-                    ease: 'circOut',
-                },
-            },
-        },
-    },
-    ItemMd: {
-        closed: (i) => ({
-            opacity: 1,
-            x: i % 2 == 0 ? '25%' : '-25%',
-            y: i % 2 == 0 ? '0%' : '50%',
-            width: '48px',
-            transition: {
-                type: 'tween',
-                duration: 0.5,
-                delay: 0.25,
-            },
-        }),
-        opened: {
-            opacity: 1,
-            x: 0,
-            y: 0,
-            width: 'auto',
-            transition: { duration: 0.5, type: 'tween' },
-        },
-    },
-    Text: {
-        closed: {
-            opacity: 0,
-            transition: { duration: 0.25 },
-        },
-        opened: {
-            opacity: 1,
-            transition: { delay: 0.35 },
-        },
-    },
-    Img: {
-        closed: {
-            transition: { type: 'tween', duration: 0.5, delay: 0.25 },
-        },
-        opened: {
-            transition: { type: 'tween', duration: 0.5 },
         },
     },
 }
+
 export const experienceMotion = {
-    JobWrap: {
-        initial: 'hidden',
-        animate: 'show',
-        exit: 'exit',
-        variants: {
-            hidden: { opacity: 0 },
-            show: {
-                opacity: 1,
-                transition: {
-                    duration: 0.5,
-                    ease: 'easeIn',
-                    when: 'beforeChildren',
-                    staggerChildren: 0.1,
-                },
-            },
-            exit: { opacity: 0, transition: { duration: 0.5, ease: 'easeIn' } },
-        },
+    Job: {
+        layout: 'size',
+        initial: { height: 0 },
+        animate: { height: 'auto' },
+        exit: { height: 0 },
+        transition: { duration: 0.5, ease: 'anticipate' },
     },
-    JobItem: {
-        variants: {
-            hidden: { opacity: 0 },
-            show: { opacity: 1 },
-            transition: { duration: 0.5, ease: 'easeIn' },
-        },
-    },
-    CertContent: {
+    Cert: {
         initial: { opacity: 0 },
         animate: { opacity: 1 },
         exit: { opacity: 0 },

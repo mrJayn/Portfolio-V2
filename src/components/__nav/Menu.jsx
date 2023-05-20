@@ -1,22 +1,28 @@
 import { motion } from 'framer-motion'
-import { NavVariants } from '@motion'
+import { NavMotion } from '@motion'
 import { Styled } from '@components'
 import NavLinks from './NavLinks'
 
+const { menuProps, staggerProps, socialsVariants } = NavMotion.MenuMotion
+
 const Menu = ({ toggleMenu }) => (
     <motion.menu
-        className="fixed -inset-0.5 top-[60px] z-[98] overflow-hidden bg-nav"
-        initial="hidden"
-        animate="show"
-        exit="hidden"
-        variants={NavVariants.Menu.Wrapper}
+        id="menu"
+        className="fixed -inset-0.5 z-20 overflow-hidden bg-menu-gradient"
+        {...menuProps}
     >
-        <div className="portrait:flex-col-btw landscape:flex-top absolute inset-1 top-0">
+        <div className="absolute inset-0.5 top-16 portrait:flex-col-btw landscape:flex-top">
             <NavLinks isMenu toggleMenu={toggleMenu} />
 
-            <div className="flex-btw min-h-[25vmin] portrait:w-full landscape:h-full landscape:w-1/2 landscape:flex-col">
-                <Styled.Socials className="m-auto h-[15vmin] max-h-[80px]" />
-            </div>
+            <motion.div
+                className="flex-center w-full text-menu portrait:h-16 landscape:w-1/2 landscape:flex-col landscape:gap-y-2"
+                {...staggerProps}
+            >
+                <Styled.Socials
+                    className="m-auto h-[calc(2.25em)] p-2"
+                    variants={socialsVariants}
+                />
+            </motion.div>
         </div>
     </motion.menu>
 )

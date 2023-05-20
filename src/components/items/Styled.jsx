@@ -2,14 +2,12 @@ import { motion } from 'framer-motion'
 import { socials } from '@config'
 import Paths from './Paths'
 import { pushPage } from '@utils'
+import { useMediaQuery } from '@hooks'
 
 const BackButton = () => (
     <motion.button
         data-styled
-        className="group absolute top-20 left-4 flex aspect-[1/1] h-full items-center"
-        initial="hidden"
-        animate="show"
-        exit="hidden"
+        className="group fixed top-0 left-1/2 flex aspect-[1/1] h-16 -translate-x-1/2 items-center max-lg:hidden"
         variants={{
             hidden: {
                 opacity: 0,
@@ -26,12 +24,12 @@ const BackButton = () => (
             pushPage('/')
         }}
     >
-        <span className="pointer-events-none absolute inset-0 rounded-full opacity-50 shadow-[inset_0_0_10px_-2px] transition-[opacity] duration-250 ease-in group-hover:opacity-100" />
+        <span className="pointer-events-none absolute inset-0 rounded-full text-blue-40 opacity-50 shadow-[inset_0_0_3px_3px] transition-[opacity] duration-250 ease-in group-hover:opacity-100" />
 
         {[0, 50, -50].map((deg, i) => (
             <motion.span
                 key={`line${i}`}
-                className="absolute left-1/4 h-[4px] rounded-r-full bg-nav will-change-transform"
+                className="absolute left-1/4 h-[4px] rounded-r-full bg-white will-change-transform"
                 style={{
                     width: `${[55, 35, 35][i]}%`,
                     originX: 0,
@@ -75,42 +73,74 @@ const Button = ({ children, ...props }) => (
     </motion.button>
 )
 
-const Icon = ({ name }) => (
+const Icon = ({
+    name,
+    className = 'absolute top-1/2 left-1/2 h-2/3 w-2/3 -translate-x-1/2 -translate-y-1/2 fill-none stroke-slate-neon',
+}) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
-        className="absolute top-1/2 left-1/2 h-2/3 w-2/3 -translate-x-1/2 -translate-y-1/2 fill-none stroke-slate-neon linecap-round linejoin-round"
+        className={className}
     >
         <Paths name={name} />
     </svg>
 )
 
-const Indicators = ({ isActive, handleClick, children }) => (
-    <li
-        className={`group flex-center relative -z-10 flex cursor-pointer select-none text-min duration-250 ease-tween max-md:mt-auto max-md:min-w-[18ch] max-md:rounded-t-xl max-md:p-2 max-md:text-center md:justify-start md:rounded-r-xl ${
+const DecorationX = ({ isActive, showOverflow }) => (
+    <span
+        className={`x-decor pointer-events-none absolute inset-y-0 -z-10 duration-250 ease-tween ${''} bafter:absolute bafter:h-1/2 bafter:w-1/4 bafter:duration-250 bafter:ease-tween bafter:content-['']  ${''} before:absolute before:left-[-25%] before:rounded-br-full before:shadow-[10px_10px_0px_10px] bafter:bottom-0 ${''} after:right-[-25%] after:rounded-bl-full after:shadow-[-10px_10px_0px_10px] ${
             isActive
-                ? 'z-0 h-full bg-slate text-white md:w-[115%] md:pl-[15%] md:pr-[10%]'
-                : '-z-10 h-[80%] bg-slate-5 text-slate md:h-full md:w-[95%] md:pl-[5%] md:hover:bg-slate-10 md:hover:text-slate-neon'
+                ? 'inset-x-[1px] bafter:text-slate'
+                : 'inset-x-1/4 bafter:text-slate-5 group-hover:bafter:text-slate-10'
+        }  ${
+            showOverflow
+                ? ''
+                : 'group-first-of-type:before:hidden group-last-of-type:after:hidden'
         }`}
-        onClick={handleClick}
-    >
-        {children}
-        <span
-            className={`x-decor pointer-events-none absolute inset-y-0 -z-10 duration-250 ease-tween md:hidden ${''} before:absolute before:bottom-0 before:left-[-25%] before:h-1/2 before:w-1/4 before:rounded-br-full before:shadow-[20px_10px_0px_10px] before:duration-250 before:ease-tween before:content-[''] group-first-of-type:before:hidden ${''} after:absolute after:bottom-0 after:right-[-25%] after:h-1/2 after:w-1/4 after:rounded-bl-full after:shadow-[-20px_10px_0px_10px] after:duration-250 after:ease-tween after:content-[''] group-last-of-type:after:hidden ${
-                isActive
-                    ? 'inset-x-0.5 before:text-slate after:text-slate'
-                    : 'inset-x-1/4 before:text-slate-5 after:text-slate-5'
-            }`}
-        />
-        <span
-            className={`y-decor pointer-events-none absolute inset-x-0 -z-10 duration-250 ease-tween max-md:hidden ${''} before:absolute before:left-0 before:top-[-33%] before:h-1/3 before:w-1/4 before:rounded-bl-full before:shadow-[-10px_10px_0px_10px] before:duration-250 before:ease-tween before:content-[''] group-first-of-type:before:hidden ${''} after:absolute after:left-0 after:bottom-[-33%] after:h-1/3 after:w-1/4 after:rounded-tl-full after:shadow-[-10px_-10px_0px_10px] after:duration-250 after:ease-tween after:content-[''] group-last-of-type:after:hidden ${
-                isActive
-                    ? 'inset-y-0.5 before:text-slate after:text-slate'
-                    : 'inset-y-1/4 before:text-slate-5 after:text-slate-5 group-hover:before:text-slate-10 group-hover:after:text-slate-10'
-            }`}
-        />
-    </li>
+    />
 )
+const DecorationY = ({ isActive, showOverflow }) => (
+    <span
+        className={`y-decor pointer-events-none absolute inset-x-0 -z-10 duration-250 ease-tween ${''} bafter:absolute bafter:left-0 bafter:h-1/3 bafter:w-1/4 bafter:duration-250 bafter:ease-tween bafter:content-[''] ${''} before:top-[-33%] before:rounded-bl-full before:shadow-[-10px_10px_0px_10px] ${''} after:bottom-[-33%] after:rounded-tl-full after:shadow-[-10px_-10px_0px_10px] ${
+            isActive
+                ? 'inset-y-[1px] bafter:text-slate'
+                : 'inset-y-1/4 bafter:text-slate-5 group-hover:bafter:text-slate-10'
+        } ${
+            showOverflow
+                ? ''
+                : 'group-first-of-type:before:hidden group-last-of-type:after:hidden'
+        }`}
+    />
+)
+const Tabs = ({
+    isActive,
+    className = '',
+    toVerticalAt,
+    children,
+    ...onclick
+}) => {
+    const isVertical = useMediaQuery(toVerticalAt)
+    const showOverflow = /show-overflow/i.test(className)
+
+    return (
+        <li
+            data-active={isActive}
+            className={`group full flex-center relative -z-10 cursor-pointer select-none transition-[transform,color,background-color,z-index] duration-250 ease-tween data-active:z-10 data-active:bg-slate data-active:text-white data-inactive:z-0 data-inactive:bg-grey-10 data-inactive:text-grey-40  data-inactive:hover:bg-grey-20 data-inactive:hover:text-black ${
+                isVertical
+                    ? 'justify-start rounded-r-xl pl-[20%] data-active:translate-x-[0%] data-inactive:translate-x-[-15%] lg:data-inactive:hover:translate-x-[-7.5%]'
+                    : `rounded-t-xl text-center data-active:translate-y-[0%] data-inactive:translate-y-[20%]`
+            } ${className}`}
+            {...onclick}
+        >
+            {children}
+            {isVertical ? (
+                <DecorationY isActive={isActive} showOverflow={showOverflow} />
+            ) : (
+                <DecorationX isActive={isActive} showOverflow={showOverflow} />
+            )}
+        </li>
+    )
+}
 
 const Socials = ({ className = '', variants }) =>
     socials.map(({ name, href }, i) => (
@@ -120,13 +150,12 @@ const Socials = ({ className = '', variants }) =>
             target="_blank"
             rel="noopener noreferrer"
             title={name}
-            className={`relative aspect-square max-h-full rounded-lg ${className}`}
-            style={{ scale: 1, filter: `hue-rotate(${i * 20}deg)` }}
+            className={`relative aspect-[1/1] max-h-full rounded-lg ${className}`}
+            style={{ filter: `hue-rotate(${i * 20}deg)` }}
             variants={variants}
             custom={i + 1}
-            whileHover={{ scale: 1.1 }}
         >
-            <Icon name={name} />
+            <Icon name={name} className="h-full fill-none stroke-slate-neon" />
         </motion.a>
     ))
 
@@ -134,7 +163,7 @@ const StyledComponents = {
     BackButton: BackButton,
     Button: Button,
     Icon: Icon,
-    Indicators: Indicators,
     Socials: Socials,
+    Tabs: Tabs,
 }
 export default StyledComponents

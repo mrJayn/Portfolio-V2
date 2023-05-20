@@ -2,85 +2,86 @@ import matter from 'gray-matter'
 import { remark } from 'remark'
 import html from 'remark-html'
 import { readdir } from 'fs/promises'
-const fs = require('fs')
-const path = require('path')
-
-const contentDirectory = path.join(process.cwd(), 'src/content')
-
-export function getDirectories(dirname) {
-    return fs
-        .readdirSync(dirname, { withFileTypes: true })
-        .filter((dirent) => dirent.isDirectory())
-        .map((dirent) => dirent.name)
+const fs = require('fs'),
+    path = require('path'),
+    cwd = process.cwd()
+// Static Directories
+const contentDir = path.join(cwd, 'src/content'),
+    projectsDir = path.join(cwd, 'src/content/projects'),
+    featuredDir = path.join(cwd, 'src/content/featured')
+// Recycled - Formatters, Filters or Maps
+const file2key = (file) => String(file.replace(/\.md$/, ''))
+const isFolder = (dirent) => dirent.isDirectory()
+const isFile = (dirent) => dirent.name.includes('.md')
+const toName = (dirent) => dirent.name
+// Filter the children of 'src/content' , into files or folders
+function getDirectories(dirname) {
+    const all = fs.readdirSync(dirname, { withFileTypes: true })
+    return {
+        folders: all.filter(isFolder).map(toName),
+        files: all.filter(isFile).map(toName),
+    }
 }
-// =================================================
+// Return object containing:  [data]  /  (optional) remarked html
+async function remarkMatter(file, containerPath) {
+    const filePath = path.join(containerPath, file)
+    const fileRaw = fs.readFileSync(filePath, 'utf-8')
+    const { data, content } = matter(fileRaw)
+    const HTML = await remark()
+        .use(html)
+        .process(content)
+        .then((res) => res.value)
+    return {
+        ...(HTML ? { content: HTML } : {}),
+        ...data,
+    }
+}
 
+// =================================================== //
 export async function getAllMarkdown() {
-    const test = getDirectories(contentDirectory)
-    let temp = {}
-    let res = {}
-
-    for (const folder of test) {
-        const subfolder = path.join(contentDirectory, folder)
-        let files = await readdir(subfolder)
-
-        temp[folder] = {}
-
-        for (const file of files) {
-            const id = file.replace(/\.md$/, '')
-
-            const filePath = path.join(subfolder, file)
-            const fileContent = fs.readFileSync(filePath, 'utf-8')
-            const { data, content } = matter(fileContent)
-
-            const contentHTML = (
-                await remark().use(html).process(content)
-            ).toString()
-
-            temp[folder][id] = {
-                id: id,
-                data: data,
-                content: contentHTML,
-            }
+    const { files, folders } = getDirectories(contentDir)
+    var res = {}
+    // 1 - top level files
+    for (const file of files) {
+        const info = await remarkMatter(file, contentDir)
+        res[file2key(file)] = { ...info }
+    }
+    // 2 - subfolders files
+    for (const folder of folders) {
+        const folderPath = path.join(contentDir, folder)
+        const folderFiles = await readdir(folderPath)
+        res[folder] = {}
+        for (const file of folderFiles) {
+            const info = await remarkMatter(file, folderPath)
+            res[folder][file2key(file)] = { ...info }
         }
     }
-
-    res['intro'] = { id: 'intro' }
-    res['about'] = temp.text.about
-    res['experience'] = temp.text.experience
-    res['projects'] = {
-        ...temp.text.projects,
-        featuredData: temp.featured,
-        projectsData: temp.projects,
-    }
-    res['contact'] = { id: 'contact' }
-
     return res
 }
 
-//=================================================
-export async function getSectionMarkdown(sid) {
-    if (sid === 'projects') {
-        const { projects } = await getAllMarkdown()
-        return {
-            id: sid,
-            data: projects.data,
-            featuredData: projects.featuredData,
-            projectsData: projects.projectsData,
-        }
-    } else {
-        const sectionPath = path.join(contentDirectory, 'text', sid + '.md')
-        const sectionContent = fs.readFileSync(sectionPath, 'utf-8')
-        const { data, content } = matter(sectionContent)
-        const contentHTML = (
-            await remark().use(html).process(content)
-        ).toString()
-        return {
-            id: sid,
-            data: data,
-            content: contentHTML,
-        }
+// =================================================== //
+export async function getHomeProps() {
+    const { files } = getDirectories(contentDir)
+    var res = { featured: {} }
+    for (const file of files) {
+        const info = await remarkMatter(file, contentDir)
+        res[file2key(file)] = { ...info }
     }
+    const featuredFiles = await readdir(featuredDir)
+    for (const file of featuredFiles) {
+        const info = await remarkMatter(file, featuredDir)
+        res['featured'][file2key(file)] = { ...info }
+    }
+    return res
 }
 
-//=================================================
+// =================================================== //
+export async function getProjectsProps() {
+    const files = await readdir(projectsDir)
+    var res = {}
+    for (const file of files) {
+        const info = await remarkMatter(file, projectsDir)
+        res[file2key(file)] = { ...info }
+    }
+    return res
+}

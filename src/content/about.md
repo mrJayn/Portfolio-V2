@@ -1,10 +1,4 @@
 ---
-id: about
-
-title: About Me
-subtitle: Get to know me.
-btnText: READ MORE
-
 src: '/assets/misc/me_1.jpg'
 alt: A photo of me recieving congratulations from UMass Amherst's Electrical/Computer Engineering department head, Professor Hollot.
 

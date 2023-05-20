@@ -1,17 +1,28 @@
-
-// Font-Sizes 
+// Font-Sizes
 const clamp = (fsMin = 17, fsMax = 21, screenMin = 512, screenMax = 1024) =>
     `clamp(${fsMin}px, calc(${fsMin}px + (${fsMax} - ${fsMin}) * ((100vw - ${screenMin}px) / (${screenMax} - ${screenMin}))), ${fsMax}px)`
+const h1LgClamp = (vw) =>
+    `clamp(calc(1025px*${vw / 100}),${vw}vw, calc(1440px*${vw / 100}))`
 const fontSizes = {
+    /* Bases */
     min: clamp(14, 17),
     root: clamp(16, 19),
+    /* h1 styles */
+    'h1--min-lg': clamp(60, 120, 320, 1024),
+    'h1--lg-max': h1LgClamp(16),
+    'h1-sub': clamp(32, 64, 768, 1440),
+
+    /* Headings */
     h2: clamp(44, 64),
     h3: clamp(24, 32),
     h4: clamp(19, 24),
     h5: clamp(18, 21),
     h6: clamp(18, 21),
     button: clamp(22, 36),
-    'menu-link': clamp(27, 48, 320, 1024),
+    /* Intro Components */
+
+    /* Components */
+    menu: clamp(24, 32),
     footer: clamp(14, 17),
 }
 
@@ -20,10 +31,15 @@ const spacing = {
     vmax: '100vmax',
     vmin: '100vmin',
     img: clamp(150, 225),
-    px:"1px",
+    px: '1px',
 }
-const spaces = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 72, 80, 96]
-spaces.forEach(( n ) => { spacing[n]=n*4+"px" })
+const spaces = [
+    0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 18,
+    20, 22, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 72, 80, 96,
+]
+spaces.forEach((n) => {
+    spacing[n] = n * 4 + 'px'
+})
 
 // Dynamic/Computed Values Above
 // Static Values just typed out below
@@ -96,6 +112,9 @@ module.exports = {
                     transparent 85%,
                     transparent 100%
                 )`,
+                'menu-gradient': 'linear-gradient(to top, #141a24, #f3f4f6)',
+                'radial-black-slate':
+                    'linear-gradient(to top, transparent, #fff3),radial-gradient(circle at 50% 125%,#354157, #000)',
             },
             transitionTimingFunction: {
                 tween: 'cubic-bezier(0.5, 0.5, 0.5, 1)',

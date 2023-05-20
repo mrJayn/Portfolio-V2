@@ -1,30 +1,41 @@
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
-import { Styled } from '@components'
+import { Featured, Styled } from '@components'
 
-const Projects = ({}) => {
+const ArchiveLink = () => {
     const router = useRouter()
     const goToArchive = (e) => {
         e.currentTarget.classList.add('clicked')
-        router.push(
-            { pathname: '/[sid]', query: { sid: 'projects' } },
-            `/projects`,
-            { scroll: false }
-        )
+        setTimeout(() => {
+            router.push('/projects', `/projects`, { scroll: false })
+        }, 1000)
     }
+
     return (
-        <div id="projects-content" className="flex-center h-[75vh] w-full">
-            <div className="flex-col-center absolute left-0 h-[50vh] w-screen bg-grey-80">
-                <h4 className="text-[2em] text-white">
-                    Check out the rest of my work.
-                </h4>
-                <Styled.Button style={{ color: 'white' }} onClick={goToArchive}>
-                    <span className="text-[2em] tracking-2xl">
-                        View Projects
-                    </span>
-                </Styled.Button>
-            </div>
+        <motion.div
+            className="flex-col-center my-[15vh] gap-y-4"
+            exit={{ opacity: 0, transition: { duration: 1, ease: 'easeIn' } }}
+        >
+            <h4 className="text-[2em] text-black">
+                Check out the rest of my work.
+            </h4>
+            <Styled.Button onClick={goToArchive}>
+                <span
+                    className="text-[1.66em] tracking-md"
+                    style={{ wordSpacing: '5px' }}
+                >
+                    View All Projects
+                </span>
+            </Styled.Button>
+        </motion.div>
+    )
+}
+
+const Projects = ({ ...data }) => {
+    return (
+        <div id="projects" className="flex-col-center w-full">
+            <Featured {...data} />
+            <ArchiveLink />
         </div>
     )
 }

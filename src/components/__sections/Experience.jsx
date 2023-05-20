@@ -4,20 +4,18 @@ import { Styled, SubSection } from '@components'
 import { experienceMotion } from '@motion'
 
 const PlusMinus = ({ isActive }) => (
-    <div
-        className="absolute right-4 text-transparent"
-        style={{ textShadow: '0px 0px 0px #b16580' }}
-    >
-        &#10134;
-        <motion.span
-            className="absolute inset-0"
+    <div className="flex-center absolute right-0 top-0 aspect-[1/1] w-12">
+        <div
+            data-active={isActive}
+            className="absolute h-[3px] w-1/3 rounded-full  duration-250 ease-in data-active:bg-red data-inactive:bg-slate"
+        />
+        <motion.div
+            className="absolute h-1/3 w-[3px] rounded-full bg-slate"
             style={{ textShadow: '0px 0px 0px #78859e' }}
             initial={false}
             animate={{ opacity: isActive ? 0 : 1 }}
-            transition={{ duration: 0.25 }}
-        >
-            &#10133;
-        </motion.span>
+            transition={{ duration: 0.25, ease: 'easeIn' }}
+        />
     </div>
 )
 
@@ -32,38 +30,35 @@ const Jobs = ({ jobs }) => {
             {jobs.map(({ title, position, dates, description }, i) => (
                 <div key={`${title}-${i}`} className="relative w-full">
                     <div
-                        className={`flex-col-left h-min w-full cursor-pointer select-none overflow-hidden rounded-lg p-4 duration-250 ease-tween ${
-                            active === i
-                                ? 'bg-slate text-white'
-                                : ' bg-slate-5 lg:hover:bg-slate-10 lg:hover:text-slate-neon'
-                        }`}
+                        data-active={active === i}
+                        className="styled-content flex-col-left w-full cursor-pointer select-none overflow-hidden duration-250 ease-tween data-active:text-black data-active:shadow-[inset_0_0_0_2px_#78859e] data-inactive:bg-grey-10 data-inactive:text-grey-40 data-inactive:shadow-[inset_0_0_0_2px_#0003] data-inactive:hover:shadow-[inset_0_0_0_2px_#0005] lg:data-inactive:hover:bg-grey-20  lg:data-inactive:hover:text-black"
                         onClick={() => setActive(active === i ? -1 : i)}
                     >
                         <h4>{title}</h4>
                         <h5>{position}</h5>
-                        <span className="text-min italic opacity-50">
+                        <span className="text-min italic opacity-75">
                             {dates}
                         </span>
                         <PlusMinus isActive={active === i} />
+                        <AnimatePresence>
+                            {active === i && (
+                                <motion.div
+                                    key={`job-content-${i}`}
+                                    className="w-full overflow-hidden"
+                                    {...experienceMotion.Job}
+                                >
+                                    {description.map((line, k) => (
+                                        <p
+                                            key={`jobDesc${k}`}
+                                            className="my-2 text-min"
+                                        >
+                                            {'» ' + line}
+                                        </p>
+                                    ))}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
-                    <AnimatePresence>
-                        {active === i && (
-                            <motion.div
-                                key={`job-content-${i}`}
-                                className="styled-content mx-auto w-[97.5%] overflow-hidden p-0"
-                                {...experienceMotion.Job}
-                            >
-                                {description.map((line, k) => (
-                                    <p
-                                        key={`jobDesc${k}`}
-                                        className="px-4 py-1 text-start text-min leading-[1.25] first-of-type:pt-4 last-of-type:pb-4"
-                                    >
-                                        {'» ' + line}
-                                    </p>
-                                ))}
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
                 </div>
             ))}
         </SubSection>
@@ -73,24 +68,28 @@ const Jobs = ({ jobs }) => {
 const Certs = ({ certifications }) => {
     const [active, setActive] = useState(0)
     const { title, description, src, href } = certifications[active]
-    const formatTitle = (str) =>
-        str.replace(/&/i, '\n&').replace(/w\//i, '\nw/')
+
+    function formatTitle(str) {
+        return str.replace(/&/i, '\n&').replace(/w\//i, '\nw/')
+    }
 
     return (
         <SubSection
             title="Certifications"
             className="relative w-full max-md:text-center"
         >
-            <div className="relative flex w-screen max-md:-ml-2 max-md:flex-col md:h-[575px] md:w-full md:overflow-hidden md:rounded-l-xl md:shadow-[-8px_0_#78859e]">
-                <ul className="max-md:use-scrollbar z-10 flex h-24 gap-y-1.5 overflow-x-scroll max-md:pt-2 md:h-auto md:min-w-[225px] md:flex-col md:overflow-visible">
+            <div className="relative flex w-full overflow-hidden max-md:flex-col max-md:pt-4 md:mt-4 md:h-[575px] md:w-full md:rounded-l-xl md:shadow-[-8px_0_#78859e]">
+                <ul className="max-md:use-scrollbar z-10 touch-pan-x gap-0.5 overflow-y-hidden overflow-x-scroll max-md:flex-left max-md:h-24 md:flex-col-left md:min-w-[20ch] md:overflow-x-visible">
                     {certifications.map((data, i) => (
-                        <Styled.Indicators
+                        <Styled.Tabs
                             key={data.title}
                             isActive={i === active}
-                            handleClick={() => setActive(i)}
+                            className="min-w-[16ch] leading-[1.1] -tracking-md "
+                            toVerticalAt={768}
+                            onClick={() => setActive(i)}
                         >
                             {formatTitle(data.title)}
-                        </Styled.Indicators>
+                        </Styled.Tabs>
                     ))}
                 </ul>
                 <div className="content relative z-0 h-[550px] w-full overflow-hidden p-2 py-6 md:my-auto">
@@ -126,10 +125,10 @@ const Certs = ({ certifications }) => {
     )
 }
 
-const Experience = ({ data }) => (
+const Experience = ({ ...data }) => (
     <div
         id="experience-content"
-        className="flex-col-top relative mx-auto w-full max-w-[1024px]"
+        className="flex-col-top relative mx-auto w-full max-w-[1024px] px-2"
     >
         <Jobs {...data} />
         <Certs {...data} />

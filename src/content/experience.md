@@ -1,19 +1,4 @@
 ---
-id: experience
-
-title: Experience
-subtitle: Past Work and<br/>Education
-btnText: READ MORE
-
-src: '/assets/misc/resume2022.jpg'
-alt: /
-
-headers:
-    summary: PROFESSIONAL SUMMARY
-    jobs: WORK EXPERIENCE
-    education: EDUCATION
-    certifications: CERTIFICATIONS
-
 jobs:
     - title: Rochester Electronics
       position: Electroplating Engineer co-op
@@ -22,7 +7,6 @@ jobs:
           - Manufactured conductors per client design by performing experiements to assess optimal bath conditions, responded accordingly to any issue that arose and continued to improve the efficiency of the overall plating process.
           - Collected conductor deposition data using XRF (X-ray fluorescence) analysis and chemical bath concentrations were monitored via titrations and flame-AA.
           - Worked closely with other process engineers and helped identify and resolve technical issues.
-
     - title: CVS Pharmacy
       position: Pharmacy Tech. / Covid19 Test Admin.
       dates: 8/2020 - 8/2021
@@ -67,7 +51,3 @@ certifications:
       src: '/assets/certifications/front_end_development_libraries.jpg'
       href: 'https://freecodecamp.org/certification/mjayn/front-end-development-libraries'
 ---
-
-A Chemical Engineer graduate and recently self-taught and certified software engineer/developer, seeking to launch a career in the information technology industry.
-
-Fluent in javascript full-stack development and Python based data analysis, and day-by-day, becoming more acquainted with a variety of other coding languages and their related resources.

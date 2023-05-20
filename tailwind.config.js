@@ -19,7 +19,7 @@ module.exports = {
             md: '768px',
             lg: '1024px',
             xl: '1200px',
-            max: '1440px',
+            max: '1920px',
         },
         colors: {
             transparent: 'transparent',
@@ -53,6 +53,7 @@ module.exports = {
                 70: '#4e5c75',
                 80: '#354157',
                 90: '#283347',
+                95: '#141a24',
                 neon: '#6199ff',
             },
             blue: {
@@ -73,6 +74,11 @@ module.exports = {
             'roman-silver': '#808292',
             red: '#B00',
         },
+        data: {
+            /* Styled Indicator */
+            active: 'active~="true"',
+            inactive: 'active~="false"',
+        },
         ...twTheme,
     },
     plugins: [
@@ -83,32 +89,27 @@ module.exports = {
             addComponents(twPlugins.components)
         }),
         plugin(function ({ addVariant }) {
-            addVariant('child-p', '&>p')
-            addVariant('child-p-first', '&>p:first-of-type')
-            addVariant('child-p-last', '&>p:last-of-type')
-        }),
+            addVariant('inner-p', '&>p')
+            addVariant('inner-p-first', '&>p:first-of-type')
+            addVariant('inner-p-last', '&>p:last-of-type')
+            addVariant('bafter', ['&:before', '&:after'])
+        }) /** beforeAfter */,
         plugin(function ({ matchVariant }) {
-            matchVariant(
-                'nth',
-                (value) => {
-                    return `&:nth-child(${value})`
-                },
-                {
-                    values: {
-                        1: '1',
-                        2: '2',
-                        3: '3',
-                    },
-                }
-            )
             matchVariant(
                 'child',
                 (value) => {
-                    return `&>${value})`
+                    return `& ${value}`
                 },
                 {
                     values: {
-                        1: '*',
+                        DEFAULT: '*',
+                        p: 'p',
+                        'p-first': 'p:first-of-type',
+                        'p-last': 'p:last-of-type',
+                        'p-btw': 'p:not(:last-of-type):after',
+                        li: 'li',
+                        'li-btw': 'li:not(:last-of-type):after',
+                        ul: 'ul',
                     },
                 }
             )

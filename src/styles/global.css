@@ -3,7 +3,9 @@
 @tailwind base;
 
 :root {
-    --nav-rgb: 33 35 40;
+    /* 33 35 40 */
+    --nav-rgb: 243 244 246; /* white */
+    --menu-rgb: 243 244 246; /* grey-10 */
 
     --fz-xxs: 12px;
     --fz-xs: 13px;
@@ -29,7 +31,7 @@
     body {
         @apply overflow-y-auto overflow-x-hidden;
         @apply relative m-0 w-screen whitespace-pre-line bg-white p-0;
-        @apply font-raleway text-root font-light leading-[1.4] text-black antialiased;
+        @apply font-raleway text-root leading-[1.4] text-black antialiased;
         height: -webkit-fill-available;
     }
 
@@ -40,28 +42,28 @@
     h4,
     h5,
     h6 {
-        @apply leading-[1] -tracking-md;
+        @apply font-normal leading-[1] -tracking-md;
     }
     h1 {
-        @apply w-screen whitespace-nowrap text-center font-montserrat text-[16vw] font-thin uppercase text-grey-90;
+        @apply text-h1--min-lg lg:text-h1--lg-max whitespace-nowrap text-center font-montserrat uppercase text-white;
     }
     h2 {
-        @apply relative font-montserrat text-h2 uppercase text-black;
+        @apply relative text-center font-montserrat text-h2 uppercase tracking-md text-black;
     }
     h3 {
-        @apply text-h3 font-medium uppercase tracking-lg text-slate;
+        @apply text-h3 font-medium uppercase tracking-lg text-slate max-lg:w-full max-lg:text-center;
     }
     h4 {
-        @apply text-h4 font-semibold;
+        @apply text-h4 font-medium tracking-normal;
     }
     h5 {
         @apply text-root;
     }
 
     /* Text Styles */
-    p {
-    }
+    p,
     li {
+        @apply font-light;
     }
     strong {
         @apply mx-[1px] font-bold uppercase;

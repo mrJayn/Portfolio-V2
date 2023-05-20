@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { NavVariants } from '@motion'
+import { NavMotion } from '@motion'
 
 const lineData = {
     top: { x1: 0, y1: 0, x2: 2, y2: 0, type: 'outer', custom: 1 },
@@ -8,10 +8,10 @@ const lineData = {
     bottom: { x1: 0, y1: 2, x2: 2, y2: 2, type: 'outer', custom: -1 },
 }
 
-const Burger = ({ ANIM, ...onclick }) => (
+const Burger = ({ anim, ...onclick }) => (
     <div
         id="burger"
-        className="flex-center absolute left-0 top-0 z-20 h-16 w-16 cursor-pointer lg:pointer-events-none lg:invisible"
+        className="flex-center absolute left-0 top-0 z-30 h-16 w-16 cursor-pointer lg:pointer-events-none lg:invisible"
         {...onclick}
     >
         <svg
@@ -28,11 +28,11 @@ const Burger = ({ ANIM, ...onclick }) => (
                         x2={x2}
                         y1={y1}
                         y2={y2}
-                        initial={false}
-                        animate={ANIM}
-                        variants={NavVariants.Burger[type]}
+                        initial="burg"
+                        animate={anim}
+                        variants={NavMotion.Burger[type]}
                         custom={custom}
-                        className="fill-none stroke-white stroke-[2.5] non-scaling linecap-round"
+                        className="fill-none stroke-black stroke-[2.5] non-scaling linecap-round"
                     />
                 )
             )}

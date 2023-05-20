@@ -39,7 +39,7 @@ const Skills = ({ skills }) => (
     </SubSection>
 )
 
-const ScalingImage = ({ src }) => (
+const ScalingImage = ({ src, alt }) => (
     <div className="styled-image relative aspect-[1/1] h-[250px] md:h-[300px]">
         <motion.div
             className="absolute top-0 left-[-80%] h-[200%] w-[200%] select-none will-change-transform"
@@ -65,12 +65,12 @@ const Content = ({ content }) => (
     </SubSection>
 )
 
-const About = ({ ...props }) => {
+const About = ({ ...data }) => {
     return (
-        <div id="about-content" className="flex-col-top relative">
-            <Content {...props} />
-            <Skills {...props.data} />
-            <ScalingImage {...props.data} />
+        <div id="about-content" className="flex-col-top px-2">
+            <Content {...data} />
+            <Skills {...data} />
+            <ScalingImage {...data} />
         </div>
     )
 }

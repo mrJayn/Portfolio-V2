@@ -9,6 +9,27 @@ import { Navbar } from '@components'
 import '../styles/global.css'
 import 'react-toastify/dist/ReactToastify.css'
 
+function useDarkMode(defaultValue) {
+    const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)')
+    const [isDarkMode, setDarkMode] = useLocalStorage(
+        'usehooks-ts-dark-mode',
+        defaultValue ?? isDarkOS ?? false
+    )
+
+    // Update darkMode if os prefers changes
+    useEffect(() => {
+        setDarkMode(isDarkOS)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isDarkOS])
+
+    return {
+        isDarkMode,
+        toggle: () => setDarkMode((prev) => !prev),
+        enable: () => setDarkMode(true),
+        disable: () => setDarkMode(false),
+    }
+}
+
 function MyApp({ Component, pageProps }) {
     const router = useRouter()
     const url = `https://mikejayne.com/Portfolio${router.asPath}`
@@ -57,6 +78,7 @@ function MyApp({ Component, pageProps }) {
             <MotionConfig reducedMotion="user">
                 <>
                     <Navbar isHome={isHome} />
+
                     <AnimatePresence
                         mode="wait"
                         onExitComplete={() => {

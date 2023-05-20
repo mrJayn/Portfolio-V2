@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useScroll, useSpring, useTransform } from 'framer-motion'
+import { ssOffset } from '@config'
 
 const springConfig = {
     stiffness: 500,
@@ -7,27 +8,37 @@ const springConfig = {
     mass: 0.5,
 }
 
-function useSmoothScroll(scrollRef) {
-    const [pageHeight, setPageHeight] = useState(0)
+function useSmoothScroll(scrollRef, shouldAnimate = true) {
+    const [[scrollHeight, pageHeight], setPageHeight] = useState([0, 0])
+
+    const handleResize = useCallback(
+        (height) => {
+            if (height <= 0) return
+            const scrollH = height + (shouldAnimate ? ssOffset : 0)
+
+            document.body.style.height = scrollH + 'px'
+            setPageHeight([scrollH, height])
+        },
+        [shouldAnimate]
+    )
 
     // observe when browser is resizing
     useEffect(() => {
         const resizeObserver = new ResizeObserver((entries) => {
-            entries.forEach((entry) => {
-                const { height } = entry.contentRect
-                if (height === 0) return
-
-                document.body.style.height = height + 'px'
-                setPageHeight(height)
-            })
+            entries.forEach((entry) => handleResize(entry.contentRect.height))
         })
 
         scrollRef && resizeObserver.observe(scrollRef.current)
         return () => resizeObserver.disconnect()
-    }, [scrollRef, setPageHeight])
+    }, [scrollRef, handleResize])
 
+    // Framer-Scroll Functions
     const { scrollY } = useScroll()
-    const transform = useTransform(scrollY, [0, pageHeight], [0, -pageHeight])
+    const transform = useTransform(
+        scrollY,
+        [ssOffset, scrollHeight],
+        [0, -pageHeight]
+    )
 
     return useSpring(transform, springConfig)
 }

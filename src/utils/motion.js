@@ -198,10 +198,10 @@ export const sidVariants = {
 }
 
 // NAV Variants
-export const NavVariants = {
+export const NavMotion = {
     Burger: {
         outer: {
-            default: {
+            burg: {
                 x: 0,
                 y: 0,
                 rotate: 0,
@@ -219,7 +219,7 @@ export const NavVariants = {
                     rotate: { delay: 0.35, duration: 0.35, ease: 'easeOut' },
                 },
             }),
-            return: (i) => ({
+            back: (i) => ({
                 x: Math.abs(i) / -2,
                 y: i / 2,
                 rotate: i * -30,
@@ -231,7 +231,7 @@ export const NavVariants = {
             }),
         },
         inner: {
-            default: {
+            burg: {
                 opacity: 1,
                 x: 0,
                 y: 0,
@@ -249,7 +249,7 @@ export const NavVariants = {
                 opacity: 0,
                 transition: { delay: 0.35, duration: 0.01 },
             },
-            return: (i) => ({
+            back: (i) => ({
                 x: -i / 2 + 0.5,
                 y: i * 0.9,
                 rotate: i * 30,
@@ -262,69 +262,99 @@ export const NavVariants = {
             }),
         },
     },
-    Logo: {
+    OLD_LogoVariants: {
+        hidden: (custom) => {
+            const [colorA, colorB] = custom.split('-')
+            return {
+                pathLength: 0,
+                stroke: colorB,
+                strokeOpacity: 0,
+                strokeWidth: 3,
+                fill: colorA,
+                fillOpacity: 0,
+            }
+        },
+        show: (custom) => {
+            const color = custom.split('-')[0]
+            return {
+                pathLength: 1,
+                stroke: color,
+                strokeOpacity: 1,
+                strokeWidth: 0,
+                fill: color,
+                fillOpacity: 1,
+            }
+        },
+        hover: (custom) => {
+            const color = custom.split('-')[0]
+            return {
+                stroke: color,
+                strokeWidth: 3,
+            }
+        },
+    },
+    LogoVariants: {
         hidden: {
             pathLength: 0,
             stroke: '#6199ff',
             strokeOpacity: 0,
-            strokeWidth: 3,
-            fill: '#FFF',
+            strokeWidth: 30,
+            fill: '#9ca3af',
             fillOpacity: 0,
         },
-        show_1: (i) => {
-            const DLY = (xtraDly = 0) => ({
-                delay: xtraDly + i * 0.065,
-            })
-            return {
-                pathLength: 1,
-                stroke: '#FFF',
-                strokeOpacity: 1,
-                strokeWidth: 0,
-                fill: '#FFF',
-                fillOpacity: 1,
-                transition: {
-                    strokeOpacity: { duration: 0.01, ...DLY(1) },
-                    pathLength: { duration: 1, ...DLY(1) },
-                    default: { duration: 0.7, ease: 'easeIn', ...DLY(1.3) },
-                },
-            }
-        },
-        show_2: {
+        show: {
             pathLength: 1,
-            stroke: '#FFF',
+            stroke: '#9ca3af',
             strokeOpacity: 1,
             strokeWidth: 0,
-            fill: '#FFF',
+            fill: '#9ca3af',
             fillOpacity: 1,
-            transition: { duration: 0.5 },
         },
         hover: {
-            stroke: '#FFF',
-            strokeWidth: 3,
-            transition: { duration: 0.5 },
+            fill: '#78859e',
         },
     },
-    Menu: {
-        Wrapper: {
-            hidden: {
-                clipPath: 'inset(0 0 100% 0)',
-                transition: { duration: 0.5 },
-            },
-            show: {
-                clipPath: 'inset(0 0 0% 0)',
-                transition: { delay: 0.35, duration: 0.5 },
+    MenuMotion: {
+        menuProps: {
+            initial: 'hidden',
+            animate: 'show',
+            exit: 'hidden',
+            variants: {
+                hidden: {
+                    opacity: 0,
+                    clipPath: 'inset(100% 0 0% 0)',
+                    transition: {
+                        opacity: { delay: 0.5, duration: 0 },
+                        clipPath: { duration: 0.5 },
+                    },
+                },
+                show: {
+                    opacity: 1,
+                    clipPath: ['inset(0% 0 100% 0)', 'inset(0% 0 0% 0)'],
+                    transition: {
+                        opacity: { delay: 0.1, duration: 0.5 },
+                        clipPath: { duration: 1, ease: 'anticipate' },
+                    },
+                },
             },
         },
-        LinksContainer: DefVariants.StaggerContainer(0.08, 0.5, 1, 0.05, 0, -1),
-        Link: {
-            hidden: { opacity: 0, y: -25 },
+        staggerProps: {
+            initial: 'hidden',
+            animate: 'show',
+            variants: {
+                show: {
+                    transition: {
+                        delayChildren: 0.5,
+                        staggerChildren: 0.1,
+                    },
+                },
+            },
+        },
+        socialsVariants: {
+            hidden: { opacity: 0 },
             show: {
                 opacity: 1,
-                y: 0,
-                transition: {
-                    opacity: { duration: 0.75 },
-                    y: { duration: 0.5, ease: 'easeOut' },
-                },
+                transition: { duration: 0.3, ease: 'easeIn' },
             },
         },
     },
@@ -420,6 +450,35 @@ export const experienceMotion = {
         exit: { opacity: 0 },
         transition: { duration: 0.25, ease: 'easeIn' },
     },
+}
+export const projectsMotion = {
+    ftdSlideProps: {
+        initial: (i) => ({
+            opacity: 0,
+            x: i * 200 + '%',
+        }),
+        animate: (i) => ({
+            opacity: Math.min(1, 1.5 - Math.abs(i)),
+            x: i * 103 + '%',
+            transition: { duration: 0.75 },
+        }),
+        exit: (i) => ({
+            opacity: 0,
+            x: i * 166 + '%',
+            transition: { duration: 0.5 },
+        }),
+    },
+    ftdContentProps: {
+        initial: 'hidden',
+        animate: 'show',
+        exit: 'hidden',
+        variants: {
+            hidden: { opacity: 0 },
+            show: { opacity: 1 },
+        },
+        transition: { duration: 0.35, ease: 'easeIn' },
+    },
+    projects: {},
 }
 export const featuredVariants = {
     TechWrap: {

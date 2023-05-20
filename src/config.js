@@ -1,13 +1,27 @@
-export const sectionNames = {
-    intro: '',
-    about: 'About Me',
-    experience: 'Experience',
-    featured: 'Featured Work',
-    projects: 'Projects',
-    contact: 'Get in Touch',
-}
+export const ssOffset = 1000
 
-export const navLinks = [...Object.keys(sectionNames).slice(1), 'my Resume']
+export const sections = [
+    {
+        id: 'intro',
+        title: null,
+    },
+    {
+        id: 'about',
+        title: 'About Me',
+    },
+    {
+        id: 'experience',
+        title: 'experience',
+    },
+    {
+        id: 'projects',
+        title: 'projects',
+    },
+    {
+        id: 'contact',
+        title: 'get in touch',
+    },
+]
 
 export const socials = [
     {

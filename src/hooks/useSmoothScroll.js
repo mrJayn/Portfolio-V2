@@ -1,12 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useScroll, useSpring, useTransform } from 'framer-motion'
+import { useMotionValueEvent, useScroll, useSpring, useTransform } from 'framer-motion'
 import { ssOffset } from '@config'
-
-const springConfig = {
-    stiffness: 500,
-    damping: 90,
-    mass: 0.5,
-}
 
 function useSmoothScroll(scrollRef, shouldAnimate = true) {
     const [[scrollHeight, pageHeight], setPageHeight] = useState([0, 0])
@@ -34,13 +28,20 @@ function useSmoothScroll(scrollRef, shouldAnimate = true) {
 
     // Framer-Scroll Functions
     const { scrollY } = useScroll()
+
     const transform = useTransform(
         scrollY,
         [ssOffset, scrollHeight],
         [0, -pageHeight]
     )
 
-    return useSpring(transform, springConfig)
+    useMotionValueEvent(scrollY,"change",last=>console.log(last))
+
+    return useSpring(transform, {
+        stiffness: 400,
+        damping: 90,
+        mass: 0.25,
+    })
 }
 
 export default useSmoothScroll

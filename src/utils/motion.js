@@ -1,5 +1,15 @@
 import { theme } from 'tailwind.config'
 
+const reverseEasing = (easing) => (p) => 1 - easing(1 - p)
+const mirrorEasing = (easing) => (p) => p <= 0.5 ? easing(2 * p) / 2 : (2 - easing(2 * (1 - p))) / 2;
+export const easeIn = (p) => p * p;
+export const easeOut = reverseEasing(easeIn);
+export const easeInOut = mirrorEasing(easeIn);
+export const circIn = (p) => 1 - Math.sin(Math.acos(p));
+export const circOut = reverseEasing(circIn);
+export const circInOut = mirrorEasing(circOut);
+export const noop = (p)=>p
+
 export const DefVariants = {
     Opacity: (transition = {}) => ({
         hidden: { opacity: 0 },
@@ -205,28 +215,31 @@ export const NavMotion = {
                 x: 0,
                 y: 0,
                 rotate: 0,
+                stroke: '#000',
                 transition: {
                     x: { duration: 0.35, ease: 'backIn' },
                     y: { duration: 0.35, delay: 0.35, ease: 'easeOut' },
-                    rotate: { duration: 0.35, ease: 'easeIn' },
+                    default: { duration: 0.35, ease: 'easeIn' },
                 },
             },
             exit: (i) => ({
                 y: i,
                 rotate: i * 45,
+                stroke: '#b00',
                 transition: {
                     y: { duration: 0.35, ease: 'easeIn' },
-                    rotate: { delay: 0.35, duration: 0.35, ease: 'easeOut' },
+                    default: { delay: 0.35, duration: 0.35, ease: 'easeOut' },
                 },
             }),
             back: (i) => ({
                 x: Math.abs(i) / -2,
                 y: i / 2,
                 rotate: i * -30,
+                stroke: '#000',
                 transition: {
                     x: { duration: 1, ease: 'anticipate' },
                     y: { duration: 0.35 },
-                    rotate: { duration: 0.35 },
+                    default: { duration: 0.35 },
                 },
             }),
         },
@@ -237,6 +250,7 @@ export const NavMotion = {
                 y: 0,
                 rotate: 0,
                 scale: 1,
+                stroke: '#000',
                 transition: {
                     opacity: { delay: 0.35, duration: 0.01 },
                     x: { delay: 0.7, duration: 0.35, ease: 'easeOut' },
@@ -247,6 +261,7 @@ export const NavMotion = {
             },
             exit: {
                 opacity: 0,
+                stroke: '#000',
                 transition: { delay: 0.35, duration: 0.01 },
             },
             back: (i) => ({
@@ -255,6 +270,7 @@ export const NavMotion = {
                 rotate: i * 30,
                 scale: 1.75,
                 originX: 1,
+                stroke: '#000',
                 transition: {
                     x: { duration: 0.35, ease: 'circOut' },
                     default: { duration: 0.6, delay: 0.35 },
@@ -262,78 +278,66 @@ export const NavMotion = {
             }),
         },
     },
-    OLD_LogoVariants: {
-        hidden: (custom) => {
-            const [colorA, colorB] = custom.split('-')
-            return {
+
+    LogoVariants: {
+        path: {
+            hidden: {
                 pathLength: 0,
-                stroke: colorB,
+                stroke: '#6199ff',
                 strokeOpacity: 0,
-                strokeWidth: 3,
-                fill: colorA,
+                strokeWidth: 20,
+                fill: '#9ca3af',
                 fillOpacity: 0,
-            }
-        },
-        show: (custom) => {
-            const color = custom.split('-')[0]
-            return {
+            },
+            show: {
                 pathLength: 1,
-                stroke: color,
+                stroke: '#9ca3af',
                 strokeOpacity: 1,
                 strokeWidth: 0,
-                fill: color,
+                fill: '#000',
                 fillOpacity: 1,
-            }
+            },
         },
-        hover: (custom) => {
-            const color = custom.split('-')[0]
-            return {
-                stroke: color,
-                strokeWidth: 3,
-            }
-        },
-    },
-    LogoVariants: {
-        hidden: {
-            pathLength: 0,
-            stroke: '#6199ff',
-            strokeOpacity: 0,
-            strokeWidth: 30,
-            fill: '#9ca3af',
-            fillOpacity: 0,
-        },
-        show: {
-            pathLength: 1,
-            stroke: '#9ca3af',
-            strokeOpacity: 1,
-            strokeWidth: 0,
-            fill: '#9ca3af',
-            fillOpacity: 1,
-        },
-        hover: {
-            fill: '#78859e',
+        rect: {
+            hidden: {
+                pathLength: 0,
+                stroke: '#6199ff',
+                strokeOpacity: 0,
+                strokeWidth: 20,
+                fill: '#9ca3af',
+                fillOpacity: 0,
+            },
+            show: {
+                pathLength: 1,
+                stroke: '#9ca3af',
+                strokeOpacity: 1,
+                strokeWidth: 0,
+                fill: '#000',
+                fillOpacity: 1,
+                x: 0,
+            },
         },
     },
     MenuMotion: {
-        menuProps: {
+        menuClipProps: {
             initial: 'hidden',
             animate: 'show',
             exit: 'hidden',
             variants: {
                 hidden: {
-                    opacity: 0,
                     clipPath: 'inset(100% 0 0% 0)',
                     transition: {
-                        opacity: { delay: 0.5, duration: 0 },
-                        clipPath: { duration: 0.5 },
+                        delay: 0,
+                        duration: 0.5,
+                        ease: 'easeInOut',
                     },
                 },
                 show: {
-                    opacity: 1,
                     clipPath: ['inset(0% 0 100% 0)', 'inset(0% 0 0% 0)'],
                     transition: {
-                        opacity: { delay: 0.1, duration: 0.5 },
-                        clipPath: { duration: 1, ease: 'anticipate' },
+                        delay: 0.25,
+                        duration: 0.5,
+                        ease: 'easeInOut',
                     },
                 },
             },
@@ -355,6 +359,21 @@ export const NavMotion = {
             show: {
                 opacity: 1,
                 transition: { duration: 0.3, ease: 'easeIn' },
+            },
+        },
+        backdropProps: {
+            initial: 'hidden',
+            animate: 'show',
+            exit: 'hidden',
+            variants: {
+                hidden: {
+                    opacity: 0,
+                    transition: { delay: 0.25, duration: 0.5 },
+                },
+                show: {
+                    opacity: 1,
+                    transition: { duration: 0.5 },
+                },
             },
         },
     },

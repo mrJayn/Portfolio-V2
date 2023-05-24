@@ -1,32 +1,23 @@
-// Font-Sizes
+/** -- Functions -- **/
 const clamp = (fsMin = 17, fsMax = 21, screenMin = 512, screenMax = 1024) =>
     `clamp(${fsMin}px, calc(${fsMin}px + (${fsMax} - ${fsMin}) * ((100vw - ${screenMin}px) / (${screenMax} - ${screenMin}))), ${fsMax}px)`
-const h1LgClamp = (vw) =>
-    `clamp(calc(1025px*${vw / 100}),${vw}vw, calc(1440px*${vw / 100}))`
+
+/** ---- THEME ---- **/
 const fontSizes = {
-    /* Bases */
     min: clamp(14, 17),
     root: clamp(16, 19),
-    /* h1 styles */
-    'h1--min-lg': clamp(60, 120, 320, 1024),
-    'h1--lg-max': h1LgClamp(16),
+    h1: clamp(62, 124),
     'h1-sub': clamp(32, 64, 768, 1440),
-
-    /* Headings */
     h2: clamp(44, 64),
     h3: clamp(24, 32),
     h4: clamp(19, 24),
     h5: clamp(18, 21),
     h6: clamp(18, 21),
     button: clamp(22, 36),
-    /* Intro Components */
-
-    /* Components */
     menu: clamp(24, 32),
     footer: clamp(14, 17),
 }
 
-// Spacing
 const spacing = {
     vmax: '100vmax',
     vmin: '100vmin',
@@ -40,9 +31,6 @@ const spaces = [
 spaces.forEach((n) => {
     spacing[n] = n * 4 + 'px'
 })
-
-// Dynamic/Computed Values Above
-// Static Values just typed out below
 
 module.exports = {
     twTheme: {
@@ -95,6 +83,10 @@ module.exports = {
                 '100%': { backgroundPosition: '150% 0%' },
             },
         },
+        data: {
+            active: 'active~="true"',
+            inactive: 'active~="false"',
+        },
         extend: {
             backgroundImage: {
                 tempered: `linear-gradient(180deg,
@@ -112,9 +104,11 @@ module.exports = {
                     transparent 85%,
                     transparent 100%
                 )`,
-                'menu-gradient': 'linear-gradient(to top, #141a24, #f3f4f6)',
+                'menu-gradient':
+                    'linear-gradient(to top, rgb(var(--nav-rgb)), #f3f4f6)',
                 'radial-black-slate':
                     'linear-gradient(to top, transparent, #fff3),radial-gradient(circle at 50% 125%,#354157, #000)',
+                'device-camera-gradient': `linear-gradient( 75deg, #060 15%, #000 50%, #00b 75%)`,
             },
             transitionTimingFunction: {
                 tween: 'cubic-bezier(0.5, 0.5, 0.5, 1)',

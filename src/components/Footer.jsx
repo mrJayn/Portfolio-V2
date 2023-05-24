@@ -4,7 +4,7 @@ const Footer = () => (
     <div className="flex w-full justify-center">
         <div className="flex-col-center py-4">
             <div className="flex-btw relative w-full rounded-xl">
-                <Styled.Socials className="h-[2.5em] rounded-full p-2 duration-150 ease-tween hover:bg-grey-20" />
+                <Styled.Socials className=" stroke-grey duration-150 ease-tween hover:stroke-black" />
             </div>
             <p className="text-footer font-bold uppercase tracking-4xl text-black">
                 Michael Jayne

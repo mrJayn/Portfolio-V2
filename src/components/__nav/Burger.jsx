@@ -32,7 +32,8 @@ const Burger = ({ anim, ...onclick }) => (
                         animate={anim}
                         variants={NavMotion.Burger[type]}
                         custom={custom}
-                        className="fill-none stroke-black stroke-[2.5] non-scaling linecap-round"
+                        className="fill-none stroke-[4] non-scaling"
+                        strokeLinecap="butt"
                     />
                 )
             )}

@@ -30,7 +30,7 @@ const Navbar = ({ isHome }) => {
     return (
         <nav
             id="navbar"
-            className={`fixed inset-x-0 top-0 z-[100] h-16 bg-white/80 after:absolute after:inset-0 after:-z-10 after:bg-tempered after:backdrop-blur-sm after:content-['']`}
+            className={`fixed inset-x-0 top-0 z-[100] h-16 after:absolute after:inset-0 after:-z-10 after:bg-tempered after:backdrop-blur-sm after:content-['']`}
         >
             <div className="full flex-center z-10 mx-auto max-w-[1440px] lg:justify-start">
                 <Logo />

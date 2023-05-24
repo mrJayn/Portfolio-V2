@@ -67,11 +67,17 @@ const Content = ({ content }) => (
 
 const About = ({ ...data }) => {
     return (
-        <div id="about-content" className="flex-col-top px-2">
-            <Content {...data} />
-            <Skills {...data} />
-            <ScalingImage {...data} />
-        </div>
+        <>
+            <div
+                id="about-content"
+                className="flex-col-top px-2"
+                style={{ perspective: '800px', perspectiveOrigin: '50% 40%' }}
+            >
+                <Content {...data} />
+                <Skills {...data} />
+                <ScalingImage {...data} />
+            </div>
+        </>
     )
 }
 

@@ -3,18 +3,10 @@
 @tailwind base;
 
 :root {
-    /* 33 35 40 */
-    --nav-rgb: 243 244 246; /* white */
-    --menu-rgb: 243 244 246; /* grey-10 */
-
-    --fz-xxs: 12px;
-    --fz-xs: 13px;
-    --fz-sm: 14px;
-    --fz-md: 16px;
-    --fz-lg: 18px;
-    --fz-xl: 20px;
-    --fz-xxl: 22px;
-    --fz-heading: 32px;
+    --body-rgb: 243 244 246;
+    --nav-rgb: 243 244 246;
+    --menu-a-rgb: 243 244 246;
+    --menu-b-rgb: 50 55 66;
 
     --toastify-toast-width: 320px;
     --toastify-toast-background: #fff;
@@ -30,7 +22,7 @@
     }
     body {
         @apply overflow-y-auto overflow-x-hidden;
-        @apply relative m-0 w-screen whitespace-pre-line bg-white p-0;
+        @apply relative m-0 w-screen whitespace-pre-line bg-body p-0;
         @apply font-raleway text-root leading-[1.4] text-black antialiased;
         height: -webkit-fill-available;
     }
@@ -45,7 +37,7 @@
         @apply font-normal leading-[1] -tracking-md;
     }
     h1 {
-        @apply text-h1--min-lg lg:text-h1--lg-max whitespace-nowrap text-center font-montserrat uppercase text-white;
+        @apply text-center font-montserrat text-h1 uppercase;
     }
     h2 {
         @apply relative text-center font-montserrat text-h2 uppercase tracking-md text-black;

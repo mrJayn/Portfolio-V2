@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
+//const colors = require('tailwindcss/colors')
 const plugin = require('tailwindcss/plugin')
 const { twTheme } = require('./twTheme')
 const { twPlugins } = require('./twPlugins')
@@ -22,12 +23,14 @@ module.exports = {
             max: '1920px',
         },
         colors: {
-            transparent: 'transparent',
-            current: 'currentColor',
             white: '#fff',
             black: '#000',
-
+            current: 'currentColor',
+            transparent: 'transparent',
+            body: 'rgb(var(--body-rgb) / <alpha-value>)',
             nav: 'rgb(var(--nav-rgb) / <alpha-value>)',
+            'menu-a': 'rgb(var(--menu-a-rgb) / <alpha-value>)',
+            'menu-b': 'rgb(var(--menu-b-rgb) / <alpha-value>)',
 
             grey: {
                 5: '#f9fafb',
@@ -71,13 +74,9 @@ module.exports = {
             },
             green: '#80b165',
             'rose-gold': '#b16580',
+            pink: '#d8b2c0',
             'roman-silver': '#808292',
             red: '#B00',
-        },
-        data: {
-            /* Styled Indicator */
-            active: 'active~="true"',
-            inactive: 'active~="false"',
         },
         ...twTheme,
     },

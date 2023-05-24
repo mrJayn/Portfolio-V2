@@ -47,4 +47,136 @@
             border: solid 3px theme(colors.slate.DEFAULT);
         }
     }
+
+    #device-frame {
+        --device-height: 90vh;
+        --device-width: calc(var(--device-height) * (71.44 / 144));
+        --device-aspect-ratio: 71.4/144;
+        --device-radius: calc(var(--device-width) * 0.165);
+
+        --screen-width: calc(var(--device-width) * (63 / 71.44));
+        --screen-aspect-ratio: 9/19.5;
+        --screen-radius: calc(var(--device-radius) * 0.69);
+
+        --protector-width: calc(var(--device-width) * (65 / 71.44));
+        --protector-aspect-ratio: 65/137.7;
+        --protector-radius: calc(var(--device-radius) * 0.77);
+
+        --island-aspect-ratio: 33.9/8.9;
+        --island-width: calc(var(--device-width) * (33.9 / 71.44));
+
+        --speaker-width: calc(var(--device-width) * (8.7 / 71.44));
+        --speaker-aspect-ratio: 8.7/1.2;
+
+        @apply flex-center pointer-events-none relative h-[var(--device-height)] w-[var(--device-width)] rounded-[var(--device-radius)] bg-black;
+        font-size: var(--device-width);
+
+        & .island {
+            @apply flex-center absolute top-0 z-40 w-[var(--island-width)];
+            aspect-ratio: var(--island-aspect-ratio);
+            background: linear-gradient(
+                180deg,
+                #fff0 var(--pt9),
+                #000 var(--pt10)
+            );
+            border-radius: 0 0 var(--pt52) var(--pt52) / var(--pt52);
+            box-shadow: inset 0 var(--pt-2) #333;
+
+            &:before,
+            &:after {
+                @apply absolute top-[var(--pt14)] z-10 aspect-[1/1] h-[var(--pt20)] bg-transparent content-[''];
+                clip-path: inset(
+                    var(--pt-2) var(--pt-2) var(--pt10) var(--pt-2)
+                );
+            }
+            &:before {
+                @apply left-[var(--pt-20)] rounded-tr-[var(--pt5)];
+                box-shadow: var(--pt1) 0 #333, var(--pt5) var(--pt-5) #000;
+            }
+            &:after {
+                @apply right-[var(--pt-20)] rounded-tl-[var(--pt5)];
+                box-shadow: var(--pt-1) 0 #333, var(--pt-5) var(--pt-5) #000;
+            }
+
+            & .camera {
+                @apply flex-center absolute ml-[50%] aspect-[1/1] h-[var(--pt11)] overflow-hidden rounded-full bg-[#181818];
+                &:after {
+                    @apply absolute mt-[-1px] mr-[-1px] aspect-[1/1] h-[var(--pt7)] rounded-full opacity-40 content-[''];
+                    background: linear-gradient(75deg, #060e, #000, #00ba);
+                }
+            }
+            & .speaker {
+                @apply absolute w-[var(--speaker-width)];
+                aspect-ratio: var(--speaker-aspect-ratio);
+                background-image: linear-gradient(135deg, #333 25%, #fff0 25%),
+                    linear-gradient(225deg, #333 25%, #fff0 25%),
+                    linear-gradient(45deg, #333 25%, #fff0 25%),
+                    linear-gradient(315deg, #333 25%, #111 25%);
+                background-position: var(--pt4) 0, var(--pt4) 0, 0 0, 0 0;
+                background-size: var(--pt3) var(--pt3);
+                background-repeat: repeat;
+                box-shadow: 0 0 0 var(--pt1) #222d, inset 0 0 0 var(--pt1) #000;
+                border-radius: var(--pt50) / var(--pt40);
+            }
+        }
+        & .btn-right {
+            @apply top-1/4 right-[var(--pt-5)] h-[var(--pt75)];
+            background: linear-gradient(to left, #fff, #000 70%);
+        }
+        & .btns-left {
+            @apply absolute top-[15%] left-[var(--pt-5)] h-[23.624339%];
+
+            & .btn {
+                @apply bottom-[var(--pt57-5)] h-[var(--pt45)] first:top-0 first:h-[var(--pt25)] last:bottom-0 last:h-[var(--pt45)];
+                background: linear-gradient(to right, #fff, #000 70%);
+            }
+        }
+        & .btn {
+            @apply absolute -z-10 w-[var(--pt5)] rounded-[var(--pt10)_/_var(--pt5)];
+            box-shadow: inset 0 0 var(--pt5) #0008;
+        }
+
+        & .screen-protector {
+            @apply absolute z-30 aspect-[var(--protector-aspect-ratio)] w-[var(--protector-width)] rounded-[var(--protector-radius)];
+            box-shadow: 0 0 var(--pt7) var(--pt1) #000,
+                inset 0 0 var(--pt1) var(--pt1) #fff5;
+        }
+        & .screen-glare {
+            @apply absolute inset-0 z-20 rounded-[var(--device-radius)];
+            box-shadow: inset 0 0 var(--pt2-5) var(--pt1) #fff4,
+                inset 0 0 var(--pt7) #fff8, inset 0 0 var(--pt10) #fff4,
+                0 0 0 3px #777,
+                var(--pt5) var(--pt10) var(--pt5) var(--pt-5) #000;
+        }
+        & .screen {
+            @apply absolute m-auto -mt-1 flex aspect-[var(--screen-aspect-ratio)] w-[var(--screen-width)] overflow-hidden rounded-[var(--screen-radius)] bg-slate-20;
+        }
+
+        --pt-20: calc(1em * (-20 / 315));
+        --pt-5: calc(1em * (-5 / 315));
+        --pt-2: calc(1em * (-2 / 315));
+        --pt-1: calc(1em * (-1 / 315));
+        --pt1: calc(1em * (1 / 315));
+        --pt1-5: calc(1em * (1.5 / 315));
+        --pt2: calc(1em * (2 / 315));
+        --pt2-5: calc(1em * (2.5 / 315));
+        --pt2-75: calc(1em * (2.75 / 315));
+        --pt3: calc(1em * (3 / 315));
+        --pt4: calc(1em * (4 / 315));
+        --pt5: calc(1em * (5 / 315));
+        --pt7: calc(1em * (7 / 315));
+        --pt9: calc(1em * (9 / 315));
+        --pt10: calc(1em * (10 / 315));
+        --pt11: calc(1em * (11 / 315));
+        --pt12: calc(1em * (12 / 315));
+        --pt14: calc(1em * (14 / 315));
+        --pt20: calc(1em * (20 / 315));
+        --pt25: calc(1em * (25 / 315));
+        --pt40: calc(1em * (40 / 315));
+        --pt45: calc(1em * (45 / 315));
+        --pt50: calc(1em * (50 / 315));
+        --pt52: calc(1em * (52 / 315));
+        --pt57-5: calc(1em * (57.5 / 315));
+        --pt75: calc(1em * (75 / 315));
+    }
 }

@@ -125,10 +125,10 @@ const Tabs = ({
     return (
         <li
             data-active={isActive}
-            className={`group full flex-center relative -z-10 cursor-pointer select-none transition-[transform,color,background-color,z-index] duration-250 ease-tween data-active:z-10 data-active:bg-slate data-active:text-white data-inactive:z-0 data-inactive:bg-grey-10 data-inactive:text-grey-40  data-inactive:hover:bg-grey-20 data-inactive:hover:text-black ${
+            className={`data-active:z-10 data-active:bg-slate data-active:text-white data-inactive:z-0 data-inactive:bg-grey-10 data-inactive:text-grey-40 data-inactive:hover:bg-grey-20 data-inactive:hover:text-black group full flex-center relative -z-10 cursor-pointer select-none transition-[transform,color,background-color,z-index]  duration-250 ease-tween ${
                 isVertical
-                    ? 'justify-start rounded-r-xl pl-[20%] data-active:translate-x-[0%] data-inactive:translate-x-[-15%] lg:data-inactive:hover:translate-x-[-7.5%]'
-                    : `rounded-t-xl text-center data-active:translate-y-[0%] data-inactive:translate-y-[20%]`
+                    ? 'data-active:translate-x-[0%] data-inactive:translate-x-[-15%] lg:data-inactive:hover:translate-x-[-7.5%] justify-start rounded-r-xl pl-[20%]'
+                    : `data-active:translate-y-[0%] data-inactive:translate-y-[20%] rounded-t-xl text-center`
             } ${className}`}
             {...onclick}
         >
@@ -150,12 +150,11 @@ const Socials = ({ className = '', variants }) =>
             target="_blank"
             rel="noopener noreferrer"
             title={name}
-            className={`relative aspect-[1/1] max-h-full rounded-lg ${className}`}
-            style={{ filter: `hue-rotate(${i * 20}deg)` }}
+            className={`flex-center relative aspect-[1/1] h-[2.35em] max-h-full rounded-lg stroke-black p-2 ${className}`}
             variants={variants}
             custom={i + 1}
         >
-            <Icon name={name} className="h-full fill-none stroke-slate-neon" />
+            <Icon name={name} className="h-full fill-none" />
         </motion.a>
     ))
 

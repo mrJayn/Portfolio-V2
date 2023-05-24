@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { motion } from 'framer-motion'
+import { motion, eas } from 'framer-motion'
 import { getHomeProps } from 'src/lib/markdown'
 import { sections } from '@config'
 import { useShouldAnimate, useSmoothScroll } from '@hooks'
@@ -13,7 +13,7 @@ import {
     Footer,
 } from '@components'
 
-const SmoothScrollContainer = ({ shouldAnimate, children }) => {
+const AnimatedScrollContainer = ({ shouldAnimate, children }) => {
     const scrollRef = useRef(null)
     const y = useSmoothScroll(scrollRef, shouldAnimate)
 
@@ -38,13 +38,13 @@ export default function Home({ data }) {
             title="Portfolio"
             description="Hello, I'm Michael👋 - I'm an ChemEng graduate and a recent self-taught developer, aiming to break into tech ASAP!"
         >
-            <SmoothScrollContainer shouldAnimate={shouldAnimate}>
+            <AnimatedScrollContainer shouldAnimate={shouldAnimate}>
                 {sections.map(({ id, title }) => {
                     return (
                         <motion.section
                             key={`${id}-section`}
                             id={id}
-                            className="group/section mb-20 w-full max-w-[1920px] py-16 first-of-type:py-0 last-of-type:mb-0"
+                            className="relative z-0 mb-20 w-full max-w-[1920px] py-16 first-of-type:py-0 last-of-type:mb-0"
                         >
                             {title && <h2>{title}</h2>}
 
@@ -63,7 +63,7 @@ export default function Home({ data }) {
                     )
                 })}
                 <Footer />
-            </SmoothScrollContainer>
+            </AnimatedScrollContainer>
         </Layout>
     )
 }

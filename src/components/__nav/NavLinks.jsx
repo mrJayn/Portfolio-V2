@@ -42,7 +42,7 @@ export default function NavLinks({ isMenu, toggleMenu }) {
                     <button
                         className={`relative flex w-full cursor-pointer select-none items-center tracking-2xl ${
                             isMenu
-                                ? 'h-[2.25em] pl-2 text-menu font-medium uppercase shadow-[inset_0_-2px_#0001] hover:bg-slate-10'
+                                ? 'h-[2.25em] pl-2 text-menu font-medium uppercase text-current shadow-[inset_0_-3px_2px_-1px_#0002] hover:bg-white/25'
                                 : `group h-full justify-center text-[19px]  capitalize`
                         }`}
                         onClick={() => handleClick(id)}

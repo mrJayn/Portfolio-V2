@@ -1,4 +1,23 @@
+import { ssOffset } from '@config'
 import { router } from 'next/router'
+
+export function scroll2id(id, extraAction) {
+    const isLg = screen.width >= 1024
+
+    const elTop = document.getElementById(id).getBoundingClientRect().top
+    const scrollY = window.scrollY
+    const scrollOffset = isLg ? Math.max(0, ssOffset - scrollY) : 0
+
+    const top = elTop + scrollY + scrollOffset
+    const behaivor = isLg ? 'smooth' : 'auto'
+
+    setTimeout(() => {
+        window.parent.scrollTo({ top: top, behavior: behaivor })
+        if (extraAction) extraAction()
+    }, 1)
+}
+export const openResumeJPG = () =>
+    window.open('/assets/misc/resume2022.jpg', '_blank', 'noopener noreferrer')
 
 export function calculateCh(fontSize) {
     const el = Object.assign(document.createElement('span'), {
@@ -73,6 +92,14 @@ export const paginate = (newDirection, currentTab, span, setTab) => {
         // first slide >> last slide
         setTab([span - 1, newDirection])
     }
+}
+
+export function getFormattedDate(date) {
+    let weekday = date.toLocaleDateString('en-us', { weekday: 'long' })
+    let month = date.toLocaleString('en-us', { month: 'long' })
+    let day = date.getDate().toString().padStart(2, '0')
+
+    return weekday + ', ' + month + ' ' + day
 }
 
 const computeNewX = () => -index * (containerRef.current?.clientWidth || 0)

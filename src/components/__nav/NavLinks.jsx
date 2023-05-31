@@ -1,31 +1,22 @@
 import { motion } from 'framer-motion'
 import { NavMotion } from '@motion'
-import { sections, ssOffset } from '@config'
+import { sections } from '@config'
+import { scroll2id } from '@utils'
 
 const sids = sections.map(({ id }) => id).slice(1)
 
 export default function NavLinks({ isMenu, toggleMenu }) {
-    function handleClick(id) {
-        const isLg = window.innerWidth >= 1024
-        const elTop = document.getElementById(id).getBoundingClientRect().top
-        const scrollY = window.scrollY
-        const scrollOffset = isLg ? Math.max(0, ssOffset - scrollY) : 0
-
-        const top = elTop + scrollY + scrollOffset
-        const behaivor = isLg ? 'smooth' : 'auto'
-
-        setTimeout(() => {
-            window.parent.scrollTo({ top: top, behavior: behaivor })
+    const handleClick = (id) =>
+        scroll2id(id, () => {
             if (isMenu) toggleMenu()
-        }, 1)
-    }
+        })
 
     return (
         <motion.ul
             className={
                 isMenu
                     ? 'full flex-col-top px-2 portrait:gap-y-[2.5vh] landscape:gap-y-2'
-                    : 'absolute top-0 right-4 flex h-full gap-x-8 max-lg:hidden'
+                    : 'absolute right-4 top-0 flex h-full gap-x-8 max-lg:hidden'
             }
             initial="hidden"
             animate="show"

@@ -80,38 +80,5 @@ module.exports = {
         },
         ...twTheme,
     },
-    plugins: [
-        plugin(function ({ addUtilities }) {
-            addUtilities(twPlugins.utilities)
-        }),
-        plugin(function ({ addComponents }) {
-            addComponents(twPlugins.components)
-        }),
-        plugin(function ({ addVariant }) {
-            addVariant('inner-p', '&>p')
-            addVariant('inner-p-first', '&>p:first-of-type')
-            addVariant('inner-p-last', '&>p:last-of-type')
-            addVariant('bafter', ['&:before', '&:after'])
-        }) /** beforeAfter */,
-        plugin(function ({ matchVariant }) {
-            matchVariant(
-                'child',
-                (value) => {
-                    return `& ${value}`
-                },
-                {
-                    values: {
-                        DEFAULT: '*',
-                        p: 'p',
-                        'p-first': 'p:first-of-type',
-                        'p-last': 'p:last-of-type',
-                        'p-btw': 'p:not(:last-of-type):after',
-                        li: 'li',
-                        'li-btw': 'li:not(:last-of-type):after',
-                        ul: 'ul',
-                    },
-                }
-            )
-        }),
-    ],
+    plugins: twPlugins,
 }

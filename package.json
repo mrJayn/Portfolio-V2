@@ -10,13 +10,17 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@react-three/drei": "^9.70.0",
+        "@react-three/fiber": "^8.13.0",
         "dotenv": "^16.0.1",
-        "framer-motion": "^7.10.3",
+        "framer-motion": "^10.12.16",
+        "framer-motion-3d": "^10.12.16",
         "next": "12.1.6",
         "nodemailer": "^6.7.7",
         "prop-types": "^15.8.1",
         "react": "18.2.0",
-        "react-dom": "18.2.0"
+        "react-dom": "18.2.0",
+        "three": "^0.152.2"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.7",
@@ -24,6 +28,7 @@
         "eslint-config-next": "12.1.6",
         "gray-matter": "^4.0.3",
         "next-seo": "^5.5.0",
+        "next-transpile-modules": "^10.0.0",
         "postcss": "^8.4.14",
         "postcss-import": "^14.1.0",
         "postcss-nesting": "^10.1.10",

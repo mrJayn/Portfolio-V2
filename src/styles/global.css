@@ -1,4 +1,5 @@
 @import './components.css';
+@import './deviceFrame.css';
 @tailwind utilities;
 @tailwind base;
 
@@ -13,6 +14,8 @@
     --toastify-toast-min-height: 64px;
     --toastify-toast-max-height: 800px;
     --toastify-font-family: sans-serif;
+
+
 }
 
 @layer base {
@@ -37,7 +40,7 @@
         @apply font-normal leading-[1] -tracking-md;
     }
     h1 {
-        @apply text-center font-montserrat text-h1 uppercase;
+        @apply text-center font-montserrat uppercase;
     }
     h2 {
         @apply relative text-center font-montserrat text-h2 uppercase tracking-md text-black;
@@ -84,10 +87,10 @@
     @apply top-18  !important;
 
     & .Toastify__toast-icon {
-        @apply absolute top-3.5 left-3.5 !important;
+        @apply absolute left-3.5 top-3.5 !important;
     }
     & .Toastify__close-button {
-        @apply absolute top-2.5 right-3 !important;
+        @apply absolute right-3 top-2.5 !important;
     }
     & .Toastify__close-button > svg {
         @apply aspect-[14/16] h-[26px] w-auto !important;

@@ -1,0 +1,171 @@
+@import './global.css';
+@tailwind components;
+
+:root {
+    /* https://cdn.shopify.com/s/files/1/0298/2357/files/iphone-11-pro-schematic.jpg?v=1605788223 */
+    --device-w: 71.36; /* 8.80987654 */
+    --device-h: 143.99; /* 17.7765432 */
+    --device-d: 8.1; /* 1 */
+    --device-xy-ratio: var(--device-w) / var(--device-h);
+    --device-yx-ratio: var(--device-h) / var(--device-w);
+    --device-zx-ratio: var(--device-d) / var(--device-w);
+
+    --device-height: min(var(--device-base-height), var(--device-max-height));
+    --device-width: min(var(--device-base-width), var(--device-max-width));
+    --device-depth: calc(var(--device-width) * var(--device-zx-ratio));
+    --device-radius: calc(var(--device-width) * 0.165);
+
+    --screen-inset: calc(var(--device-height) * (4.4 / var(--device-h)));
+    --screen-width: calc(var(--device-width) * (63.5 / var(--device-w)));
+    --screen-radius: calc(var(--device-radius) * 0.675);
+    --screen-xy-ratio: 63/135.5;
+
+    --display-inset: calc(var(--device-height) * (4.45 / var(--device-h)));
+    --display-xy-ratio: 63/134.5;
+    --display-width: calc(var(--device-width) * (63.5 / var(--device-w)));
+    --display-height: calc(var(--display-height) * (134.5 / var(--device-h)));
+
+    --display-radius: calc(var(--device-radius) * 0.675);
+
+    --protector-xy-ratio: 65/137.7;
+    --protector-inset: calc(var(--device-height) * (3.45 / var(--device-h)));
+    --protector-radius: calc(var(--device-radius) * 0.75);
+
+    --island-xy-ratio: 34.8/9.51;
+    --island-width: calc(var(--device-width) * (34.8 / var(--device-w)));
+
+    --speaker-xy-ratio: 7.84/1.38;
+    --speaker-width: calc(var(--device-width) * (7.84 / var(--device-w)));
+}
+
+:root {
+    --device-base-width: 85vw;
+    --device-max-width: calc(var(--device-max-height) * var(--device-xy-ratio));
+
+    --device-base-height: calc(var(--device-width) * var(--device-yx-ratio));
+    --device-max-height: 50vh;
+}
+
+@media screen(lg), (orientation: landscape) {
+    :root {
+        --device-base-height: 85vh;
+        --device-max-height: calc(
+            var(--device-max-width) * var(--device-yx-ratio)
+        );
+
+        --device-base-width: calc(
+            var(--device-height) * var(--device-xy-ratio)
+        );
+        --device-max-width: 33vw;
+    }
+}
+
+@layer components {
+    #device-frame {
+        font-size: calc(var(--device-width) / 315);
+        /*
+        height: var(--device-height);
+        width: var(--device-width);
+        border-radius: var(--device-radius);
+        */
+        transform-origin: 50% calc(100%+ (var(--device-depth) * -1));
+        /* @apply max-lg:mt-16 max-lg:rotate-x-[100deg] !important; */
+
+        & .island {
+            @apply flex-center absolute top-0 z-50 aspect-[var(--island-xy-ratio)] w-[var(--island-width)] shadow-[inset_0_-1.25em_#444];
+            background: linear-gradient(180deg, transparent 9em, #000 10em);
+            border-radius: 0 0 20em 20em / 15em;
+
+            & .camera {
+                @apply flex-center absolute ml-[50%] aspect-[1/1] h-[11em] overflow-hidden rounded-full bg-[#181818];
+                &:after {
+                    @apply absolute mr-[-1px] mt-[-1px] aspect-[1/1] h-[7em] rounded-full bg-device-camera-gradient opacity-40 content-[''];
+                }
+            }
+            & .speaker {
+                @apply absolute aspect-[var(--speaker-xy-ratio)] w-[var(--speaker-width)] rounded-full;
+                background-image: linear-gradient(135deg, #111 25%, #fff0 25%),
+                    linear-gradient(225deg, #111 25%, #fff0 25%),
+                    linear-gradient(45deg, #111 25%, #fff0 25%),
+                    linear-gradient(315deg, #111 25%, #fff0 25%);
+                background-position: 4em 0, 0 0, 0 0;
+                background-size: 3em 3em;
+                background-repeat: repeat;
+                box-shadow: 0 -0.75em #222;
+            }
+            & > span {
+                @apply absolute top-[var(--screen-inset)] z-20 h-[15em] w-[20.25em] bg-transparent content-[''];
+                clip-path: inset(0em -1em 4.5em -1em);
+
+                &:first-of-type {
+                    @apply left-[-20em] rounded-tr-[7em];
+                    box-shadow: 1em -0.5em #3a3a3a, 5em -5em #000;
+                }
+                &:last-of-type {
+                    @apply right-[-20em] rounded-tl-[7em];
+                    box-shadow: -1em -0.5em #3a3a3a, -5em -5em #000;
+                }
+            }
+        }
+
+        & .btn-right {
+            @apply right-[-4em] top-1/4 h-[75em];
+        }
+        & .btns-left {
+            @apply absolute left-[-3.5em] top-[15%] h-[23.62%];
+
+            & .device-btn {
+                @apply bottom-[57.5em] h-[45em] first:top-0 first:h-[25em] last:bottom-0 last:h-[45em];
+            }
+        }
+        & .device-btn {
+            @apply absolute -z-10 w-[4em] rounded bg-[#111b] shadow-[inset_0_0_2em_1em_#000];
+        }
+
+        & .protector {
+            @apply absolute inset-[var(--protector-inset)] top-[var(--display-inset)] z-30 rounded-[var(--protector-radius)];
+            box-shadow: inset 0 0 1em 1em#555;
+            background: radial-gradient(circle at -17% 17%, #4444, #1116);
+        }
+
+        & #display {
+            @apply absolute inset-[var(--display-inset)] z-30 grid grid-cols-1 grid-rows-[35%_65%] overflow-hidden rounded-[var(--display-radius)] bg-white;
+
+            & #notification {
+                @apply flex-col-left relative m-auto mt-0 h-[4em] w-[90%] rounded-xl bg-grey p-[0.25em] pl-[3.25em] text-[18em] text-white after:flex-center after:absolute after:left-[0.5em] after:aspect-[1/1] after:h-[1.5em] after:rounded-full after:bg-grey-40 after:text-[1.35em] after:content-['✉'];
+
+                & > span {
+                    @apply ml-auto w-full first-of-type:text-[0.75em] first-of-type:font-medium last-of-type:leading-[1];
+                }
+            }
+        }
+
+        & .glare {
+            @apply absolute inset-0 z-20 rounded-[var(--device-radius)];
+            box-shadow: inset 0 0 5em 0 #fff2, inset 0 0 5em 2em #fff4;
+        }
+
+        & .device-bottom {
+            --y: calc(var(--device-height) + (var(--device-depth) * -1.01));
+            --z: calc((var(--device-depth) * 1));
+            --clip: calc(var(--device-height) - (var(--device-depth) * 1.18));
+
+            @apply absolute z-0 h-[var(--device-height)] w-[calc(var(--device-width)*0.99)] origin-[50%_100%] rounded-[var(--device-radius)_/_calc(var(--device-radius)*0.5)] bg-black preserve-3d;
+
+            box-shadow: 0 -10em 6em -6em #000a, inset 0 4em 10em #0005,
+                inset 0 90em 5em -55em #80829244,
+                inset 0 60em 16em -35em #808292,
+                inset 0 0 0 var(--device-depth) #000;
+
+            transform: rotateX(100deg) translateY(var(--y)) translateZ(var(--z));
+            clip-path: inset(-100% 0 var(--clip) 0);
+
+            &:after {
+                @apply absolute left-1/2 top-[calc(var(--device-depth)*0.33)] h-[calc(var(--device-depth)*0.3)] w-[calc(var(--device-depth)*1.36)] -translate-x-1/2 rounded-[var(--device-radius)] bg-black shadow-[inset_0_3em_0_0#555] content-[''];
+            }
+        }
+    }
+    .dvc {
+        transform: rotateX(-90deg) !important;
+    }
+}

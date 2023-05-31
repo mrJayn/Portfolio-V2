@@ -6,8 +6,9 @@ const clamp = (fsMin = 17, fsMax = 21, screenMin = 512, screenMax = 1024) =>
 const fontSizes = {
     min: clamp(14, 17),
     root: clamp(16, 19),
-    h1: clamp(62, 124),
-    'h1-sub': clamp(32, 64, 768, 1440),
+    h1: clamp(56, 112),
+    'h1-pre': clamp(19, 24),
+    'h1-sub': clamp(32, 40),
     h2: clamp(44, 64),
     h3: clamp(24, 32),
     h4: clamp(19, 24),
@@ -108,7 +109,7 @@ module.exports = {
                     'linear-gradient(to top, rgb(var(--nav-rgb)), #f3f4f6)',
                 'radial-black-slate':
                     'linear-gradient(to top, transparent, #fff3),radial-gradient(circle at 50% 125%,#354157, #000)',
-                'device-camera-gradient': `linear-gradient( 75deg, #060 15%, #000 50%, #00b 75%)`,
+                'device-camera-gradient': `linear-gradient(75deg, #060e, #000, #00ba)`,
             },
             transitionTimingFunction: {
                 tween: 'cubic-bezier(0.5, 0.5, 0.5, 1)',

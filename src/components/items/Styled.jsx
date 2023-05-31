@@ -7,7 +7,7 @@ import { useMediaQuery } from '@hooks'
 const BackButton = () => (
     <motion.button
         data-styled
-        className="group fixed top-0 left-1/2 flex aspect-[1/1] h-16 -translate-x-1/2 items-center max-lg:hidden"
+        className="group fixed left-1/2 top-0 flex aspect-[1/1] h-16 -translate-x-1/2 items-center max-lg:hidden"
         variants={{
             hidden: {
                 opacity: 0,
@@ -60,14 +60,14 @@ const BackButton = () => (
     </motion.button>
 )
 
-const Button = ({ children, ...props }) => (
+const Button = ({ children, className = '', ...props }) => (
     <motion.button
         data-styled-btn
-        className="flex-center relative z-30 max-w-[90vw] cursor-pointer select-none text-black opacity-50 transition-opacity duration-250 ease-tween hover:opacity-100"
+        className={`flex-center relative z-30 max-w-[90vw] cursor-pointer select-none text-black opacity-50 ${className}`}
         {...props}
     >
         <span className="decoration pointer-events-none absolute inset-0 top-[15%] origin-top rounded-b-md rounded-t shadow-[inset_0_-2px,_inset_-2px_0,_inset_2px_0] delay-[250ms] duration-500 ease-tween" />
-        <div className="content whitespace-nowrap px-6 text-h5 uppercase leading-[1.75] delay-[250ms] duration-500 ease-tween">
+        <div className="content whitespace-nowrap px-6 uppercase leading-[1.75]">
             {children}
         </div>
     </motion.button>
@@ -125,10 +125,10 @@ const Tabs = ({
     return (
         <li
             data-active={isActive}
-            className={`data-active:z-10 data-active:bg-slate data-active:text-white data-inactive:z-0 data-inactive:bg-grey-10 data-inactive:text-grey-40 data-inactive:hover:bg-grey-20 data-inactive:hover:text-black group full flex-center relative -z-10 cursor-pointer select-none transition-[transform,color,background-color,z-index]  duration-250 ease-tween ${
+            className={`group full flex-center relative -z-10 cursor-pointer select-none transition-[transform,color,background-color,z-index] duration-250 ease-tween data-active:z-10 data-active:bg-slate data-active:text-white data-inactive:z-0 data-inactive:bg-grey-10 data-inactive:text-grey-40  data-inactive:hover:bg-grey-20 data-inactive:hover:text-black ${
                 isVertical
-                    ? 'data-active:translate-x-[0%] data-inactive:translate-x-[-15%] lg:data-inactive:hover:translate-x-[-7.5%] justify-start rounded-r-xl pl-[20%]'
-                    : `data-active:translate-y-[0%] data-inactive:translate-y-[20%] rounded-t-xl text-center`
+                    ? 'justify-start rounded-r-xl pl-[20%] data-active:translate-x-[0%] data-inactive:translate-x-[-15%] lg:data-inactive:hover:translate-x-[-7.5%]'
+                    : `rounded-t-xl text-center data-active:translate-y-[0%] data-inactive:translate-y-[20%]`
             } ${className}`}
             {...onclick}
         >

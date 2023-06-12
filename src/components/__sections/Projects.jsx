@@ -4,6 +4,7 @@ import { Featured, Styled } from '@components'
 
 const ArchiveLink = () => {
     const router = useRouter()
+
     const goToArchive = (e) => {
         e.currentTarget.classList.add('clicked')
         setTimeout(() => {
@@ -16,16 +17,8 @@ const ArchiveLink = () => {
             className="flex-col-center my-[15vh] gap-y-4"
             exit={{ opacity: 0, transition: { duration: 1, ease: 'easeIn' } }}
         >
-            <h4 className="text-[2em] text-black">
-                Check out the rest of my work.
-            </h4>
             <Styled.Button onClick={goToArchive}>
-                <span
-                    className="text-[1.66em] tracking-md"
-                    style={{ wordSpacing: '5px' }}
-                >
-                    View All Projects
-                </span>
+                <span className="text-[1.66em] leading-[3]">View All Projects</span>
             </Styled.Button>
         </motion.div>
     )
@@ -33,7 +26,7 @@ const ArchiveLink = () => {
 
 const Projects = ({ ...data }) => {
     return (
-        <div id="projects" className="flex-col-center w-full">
+        <div id="projects" className="flex-col-center w-full gap-12">
             <Featured {...data} />
             <ArchiveLink />
         </div>

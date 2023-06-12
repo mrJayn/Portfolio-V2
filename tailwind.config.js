@@ -4,12 +4,10 @@
 const plugin = require('tailwindcss/plugin')
 const { twTheme } = require('./twTheme')
 const { twPlugins } = require('./twPlugins')
+const colors = require('tailwindcss/colors')
 
 module.exports = {
-    content: [
-        './src/pages/**/*.{js,ts,jsx,tsx}',
-        './src/components/**/*.{js,ts,jsx,tsx}',
-    ],
+    content: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
     corePlugins: {
         /** https://tailwindcss.com/docs/configuration#core-plugins */
     },
@@ -27,12 +25,25 @@ module.exports = {
             black: '#000',
             current: 'currentColor',
             transparent: 'transparent',
-            body: 'rgb(var(--body-rgb) / <alpha-value>)',
+            body: '#131313',
             nav: 'rgb(var(--nav-rgb) / <alpha-value>)',
-            'menu-a': 'rgb(var(--menu-a-rgb) / <alpha-value>)',
-            'menu-b': 'rgb(var(--menu-b-rgb) / <alpha-value>)',
+            'root-color': '#c0c0c0',
 
             grey: {
+                5: '#fafafa',
+                10: '#f5f5f5',
+                20: '#e5e5e5',
+                30: '#d4d4d4',
+                40: '#a3a3a3',
+                DEFAULT: '#737373',
+                60: '#525252',
+                70: '#404040',
+                75: '#333',
+                80: '#262626',
+                90: '#171717',
+                95: '#0c0c0c',
+            },
+            /* old grey
                 5: '#f9fafb',
                 10: '#f3f4f6',
                 20: '#e5e7eb',
@@ -44,7 +55,7 @@ module.exports = {
                 75: '#2b3544',
                 80: '#1f2937',
                 90: '#111827',
-            },
+             */
             slate: {
                 5: '#f2f5f9',
                 10: '#dce1ea',
@@ -59,18 +70,19 @@ module.exports = {
                 95: '#141a24',
                 neon: '#6199ff',
             },
-            blue: {
-                5: '#eff4fc',
-                10: '#d7e0ef',
-                20: '#bdcbe5',
-                30: '#a3b6da',
-                40: '#7b96ca',
-                DEFAULT: '#6580b1',
-                60: '#5b739f',
-                70: '#415882',
-                80: '#2a3e62',
-                90: '#1e3051',
-                neon: '#6199ff',
+            purple: {
+                5: '#f5f4f7',
+                10: '#e0dfe8',
+                20: '#ccc9d9',
+                30: '#b8b3c9',
+                40: '#ada9c1',
+                DEFAULT: '#9993B2',
+                60: '#7a768e',
+                70: '#5c586b',
+                80: '#4d4a59',
+                90: '#3d3b47',
+                95: '#1f1d24',
+                neon: '#',
             },
             green: '#80b165',
             'rose-gold': '#b16580',

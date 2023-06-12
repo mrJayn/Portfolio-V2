@@ -1,23 +1,18 @@
-import { ssOffset } from '@config'
 import { router } from 'next/router'
 
 export function scroll2id(id, extraAction) {
-    const isLg = screen.width >= 1024
-
     const elTop = document.getElementById(id).getBoundingClientRect().top
-    const scrollY = window.scrollY
-    const scrollOffset = isLg ? Math.max(0, ssOffset - scrollY) : 0
-
-    const top = elTop + scrollY + scrollOffset
-    const behaivor = isLg ? 'smooth' : 'auto'
 
     setTimeout(() => {
-        window.parent.scrollTo({ top: top, behavior: behaivor })
+        window.parent.scrollTo({
+            top: elTop + window.scrollY,
+            behavior: screen.width >= 1024 ? 'smooth' : 'auto',
+        })
         if (extraAction) extraAction()
     }, 1)
 }
-export const openResumeJPG = () =>
-    window.open('/assets/misc/resume2022.jpg', '_blank', 'noopener noreferrer')
+
+export const openResumeJPG = () => window.open('/assets/misc/resume2022.jpg', '_blank', 'noopener noreferrer')
 
 export function calculateCh(fontSize) {
     const el = Object.assign(document.createElement('span'), {

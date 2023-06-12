@@ -34,28 +34,18 @@ const FtdImage = ({ src, ...props }) => (
         }}
         {...props}
         {...projectsMotion.ftdSlideProps}
-    ></motion.div>
+    />
 )
 const FtdContent = ({ title, tech, content }) => (
-    <motion.div
-        className="flex-col-center z-20 w-full"
-        {...projectsMotion.ftdContentProps}
-    >
-        <h4 className="absolute bottom-[100%] px-4 py-2 text-[2em] text-white">
-            {title}
-        </h4>
+    <motion.div className="flex-col-center z-20 w-full" {...projectsMotion.ftdContentProps}>
+        <h4 className="absolute bottom-[100%] px-4 py-2 text-white">{title}</h4>
         <div className="flex-col-left p-2 max-md:max-w-[400px] max-md:text-center md:ml-auto md:w-[36ch] xl:w-[768px]">
-            <div
-                className="flex text-white"
-                dangerouslySetInnerHTML={{ __html: content }}
-            />
-            <div className="flex-left py-2 text-min text-slate max-md:mx-auto md:leading-[2]">
+            <div className="flex text-white" dangerouslySetInnerHTML={{ __html: content }} />
+            <div className="flex-left py-2 text-slate max-md:mx-auto md:leading-[2]">
                 {tech.map((item) => (
                     <div key={item} className="group">
                         {item}
-                        <span className="group-last-of-type:hidden md:mx-1">
-                            &nbsp;/&nbsp;
-                        </span>
+                        <span className="group-last-of-type:hidden md:mx-1">&nbsp;/&nbsp;</span>
                     </div>
                 ))}
             </div>
@@ -83,37 +73,24 @@ const Featured = ({ ...featuredProjects }) => {
     }
 
     return (
-        <div
-            id="featured-content"
-            className="flex-col-center w-full py-24 md:pb-0"
-        >
-            <div
-                className="flex-bottom relative h-[500px] w-full md:w-[650px] xl:w-[1000px]"
-                ref={containerRef}
-            >
+        <div id="featured-content" className="flex-col-center w-full">
+            <h3 className="max-lg:mb-[calc(1em+20px)]">Featured Works</h3>
+            <div className="flex-bottom relative h-[500px] w-full md:w-[650px] xl:w-[1000px]" ref={containerRef}>
                 <AnimatePresence>
                     {data.map(({ title, src }, i) => {
                         const n = wrap(-2, 2, i - active)
                         return (
                             [-1, 0, 1].includes(n) && (
-                                <FtdImage
-                                    key={`${title}-image`}
-                                    src={src}
-                                    custom={n}
-                                    onClick={() => setActive(i)}
-                                />
+                                <FtdImage key={`${title}-image`} src={src} custom={n} onClick={() => setActive(i)} />
                             )
                         )
                     })}
                 </AnimatePresence>
                 <AnimatePresence mode="wait">
-                    <FtdContent
-                        key={`${data[active].title}-content-banner`}
-                        {...data[active]}
-                    />
+                    <FtdContent key={`${data[active].title}-content-banner`} {...data[active]} />
                 </AnimatePresence>
                 <div className="absolute bottom-0 max-md:translate-y-[100%] md:left-0 md:p-[1em]">
-                    <Styled.Button style={{ color: 'white' }}>
+                    <Styled.Button className="text-white">
                         <a
                             href={data[active].href}
                             target="_blank"

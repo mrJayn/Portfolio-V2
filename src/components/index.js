@@ -10,5 +10,6 @@ export { default as Featured } from './__sections/Featured'
 export { default as Projects } from './__sections/Projects'
 export { default as Contact } from './__sections/Contact'
 
+export { default as ResizeCover } from './ResizeCover'
 export { default as Styled } from './items/Styled'
 export { default as SubSection } from './items/SubSection'

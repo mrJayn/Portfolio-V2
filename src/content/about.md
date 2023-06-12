@@ -39,8 +39,4 @@ skills:
       rating: 75
 ---
 
-Hello, my name is Michael!
-
-I'm a chemical engineer turned full stack developer and I absolutely **love** to solve all sorts of problems. After graduating from UMass Amherst in 2020, I worked in a few different industries and even considered post-grad in a pharmaceutical discipline, but in the end I was STUCK. As I looked forward to my next escapade (whatever that might have been), I stumbled into development and still can't seem to get sick of it!
-
-Fast-forward to today, and I still haven't skipped a beat ( or a single day of problem solving ). And with all of the bootcamps, leetCode problems and recorded lectures, now seemingly a part of me... I'm more confident and motivated than ever to continue to learn, grow, and succeed as a software developer.
+I'm a chemical engineer turned developer and I absolutely **LOVE** making difficult tasks as simple as possible.

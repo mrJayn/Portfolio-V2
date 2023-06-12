@@ -34,13 +34,13 @@ export default function NavLinks({ isMenu, toggleMenu }) {
                         className={`relative flex w-full cursor-pointer select-none items-center tracking-2xl ${
                             isMenu
                                 ? 'h-[2.25em] pl-2 text-menu font-medium uppercase text-current shadow-[inset_0_-3px_2px_-1px_#0002] hover:bg-white/25'
-                                : `group h-full justify-center text-[19px]  capitalize`
+                                : `group h-full justify-center text-[19px] capitalize transition-[color] duration-[300ms] ease-in hover:text-grey-20`
                         }`}
                         onClick={() => handleClick(id)}
                     >
                         {id}
                         {!isMenu && (
-                            <span className="absolute inset-x-0 h-[1px] origin-left translate-y-[0.65em] scale-x-0 rounded-full bg-black transition-transform delay-[100ms] duration-200 ease-tween group-hover:scale-x-100" />
+                            <span className="absolute inset-x-0 bottom-[17px] h-[1px] origin-bottom-left scale-x-0 rounded-full bg-grey-20 transition-transform delay-[100ms] duration-200 ease-tween group-hover:scale-x-100" />
                         )}
                     </button>
                 </motion.li>

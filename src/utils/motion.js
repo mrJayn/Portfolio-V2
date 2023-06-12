@@ -1,14 +1,14 @@
 import { theme } from 'tailwind.config'
 
 const reverseEasing = (easing) => (p) => 1 - easing(1 - p)
-const mirrorEasing = (easing) => (p) => p <= 0.5 ? easing(2 * p) / 2 : (2 - easing(2 * (1 - p))) / 2;
-export const easeIn = (p) => p * p;
-export const easeOut = reverseEasing(easeIn);
-export const easeInOut = mirrorEasing(easeIn);
-export const circIn = (p) => 1 - Math.sin(Math.acos(p));
-export const circOut = reverseEasing(circIn);
-export const circInOut = mirrorEasing(circOut);
-export const noop = (p)=>p
+const mirrorEasing = (easing) => (p) => p <= 0.5 ? easing(2 * p) / 2 : (2 - easing(2 * (1 - p))) / 2
+export const easeIn = (p) => p * p
+export const easeOut = reverseEasing(easeIn)
+export const easeInOut = mirrorEasing(easeIn)
+export const circIn = (p) => 1 - Math.sin(Math.acos(p))
+export const circOut = reverseEasing(circIn)
+export const circInOut = mirrorEasing(circOut)
+export const noop = (p) => p
 
 export const DefVariants = {
     Opacity: (transition = {}) => ({
@@ -115,6 +115,11 @@ export const noBounceSpring = {
     bounce: 0,
 }
 
+export const bounce = (value) => [0, 0.1, 0.43, 0.98, 0.75, 0.98, 0.93, 0.99, 0.98, 1].map((v) => v * value)
+export const revbounce = (value) => [0, 0.1, 0.43, 0.98, 0.75, 0.98, 0.93, 0.99, 0.98, 1].map((v) => (1 - v) * value)
+export const agitate = (value) => [0, 0.05, 0.19, 0.21, -1, -0.8, 0.68, 0.4, 0, 0].map((v) => v * value)
+export const bounceTimes = [0, 0.12, 0.24, 0.36, 0.54, 0.74, 0.82, 0.94, 0.96, 1]
+
 export const sectionGraphicVariants = {
     Skills: (i) => {
         const corner = i < 3 ? i % 2 == 0 : i % 2 !== 0
@@ -208,6 +213,8 @@ export const sidVariants = {
 }
 
 // NAV Variants
+const NAV_TEXT_COLOR = theme.colors.grey[40]
+const LOGO_COLOR = theme.colors.grey[40]
 export const NavMotion = {
     Burger: {
         outer: {
@@ -215,7 +222,7 @@ export const NavMotion = {
                 x: 0,
                 y: 0,
                 rotate: 0,
-                stroke: '#000',
+                stroke: NAV_TEXT_COLOR,
                 transition: {
                     x: { duration: 0.35, ease: 'backIn' },
                     y: { duration: 0.35, delay: 0.35, ease: 'easeOut' },
@@ -235,7 +242,7 @@ export const NavMotion = {
                 x: Math.abs(i) / -2,
                 y: i / 2,
                 rotate: i * -30,
-                stroke: '#000',
+                stroke: NAV_TEXT_COLOR,
                 transition: {
                     x: { duration: 1, ease: 'anticipate' },
                     y: { duration: 0.35 },
@@ -250,7 +257,7 @@ export const NavMotion = {
                 y: 0,
                 rotate: 0,
                 scale: 1,
-                stroke: '#000',
+                stroke: NAV_TEXT_COLOR,
                 transition: {
                     opacity: { delay: 0.35, duration: 0.01 },
                     x: { delay: 0.7, duration: 0.35, ease: 'easeOut' },
@@ -261,7 +268,7 @@ export const NavMotion = {
             },
             exit: {
                 opacity: 0,
-                stroke: '#000',
+                stroke: NAV_TEXT_COLOR,
                 transition: { delay: 0.35, duration: 0.01 },
             },
             back: (i) => ({
@@ -270,7 +277,7 @@ export const NavMotion = {
                 rotate: i * 30,
                 scale: 1.75,
                 originX: 1,
-                stroke: '#000',
+                stroke: NAV_TEXT_COLOR,
                 transition: {
                     x: { duration: 0.35, ease: 'circOut' },
                     default: { duration: 0.6, delay: 0.35 },
@@ -286,15 +293,15 @@ export const NavMotion = {
                 stroke: '#6199ff',
                 strokeOpacity: 0,
                 strokeWidth: 20,
-                fill: '#9ca3af',
+                fill: LOGO_COLOR,
                 fillOpacity: 0,
             },
             show: {
                 pathLength: 1,
-                stroke: '#9ca3af',
+                stroke: LOGO_COLOR,
                 strokeOpacity: 1,
                 strokeWidth: 0,
-                fill: '#000',
+                fill: LOGO_COLOR,
                 fillOpacity: 1,
             },
         },
@@ -304,15 +311,15 @@ export const NavMotion = {
                 stroke: '#6199ff',
                 strokeOpacity: 0,
                 strokeWidth: 20,
-                fill: '#9ca3af',
+                fill: LOGO_COLOR,
                 fillOpacity: 0,
             },
             show: {
                 pathLength: 1,
-                stroke: '#9ca3af',
+                stroke: LOGO_COLOR,
                 strokeOpacity: 1,
                 strokeWidth: 0,
-                fill: '#000',
+                fill: LOGO_COLOR,
                 fillOpacity: 1,
                 x: 0,
             },
@@ -479,12 +486,12 @@ export const projectsMotion = {
         animate: (i) => ({
             opacity: Math.min(1, 1.5 - Math.abs(i)),
             x: i * 103 + '%',
-            transition: { duration: 0.75 },
+            transition: { duration: 0.75, ease: 'easeInOut' },
         }),
         exit: (i) => ({
             opacity: 0,
             x: i * 166 + '%',
-            transition: { duration: 0.5 },
+            transition: { duration: 0.5, ease: 'easeInOut' },
         }),
     },
     ftdContentProps: {

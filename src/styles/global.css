@@ -3,11 +3,15 @@
 @tailwind utilities;
 @tailwind base;
 
+*,
+::after,
+::before {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 :root {
-    --body-rgb: 243 244 246;
-    --nav-rgb: 243 244 246;
-    --menu-a-rgb: 243 244 246;
-    --menu-b-rgb: 50 55 66;
+    --nav-rgb: 10 10 10;
 
     --toastify-toast-width: 320px;
     --toastify-toast-background: #fff;
@@ -15,19 +19,81 @@
     --toastify-toast-max-height: 800px;
     --toastify-font-family: sans-serif;
 
+    --iphone-ratio: 70.9/143.6;
+    /*==============================*/
 
+    --fs-h6-a: 0.67rem;
+    --fs-h6-b: 0.875rem;
+    --fs-h6-c: 1rem;
+
+    /*
+    h0 - 5 / 6.875 / 8.75 (rem)
+    h2 -  2.75 / 3.75 / 5 (rem)
+    h3 - 
+    h4 - 
+    h5 - 
+    h6 - 0.67 / 0.875 / 1 (rem)
+
+    text - 5rem
+    
+    section heading - 0.875 / 
+    */
+
+    /*==============================*/
+
+    --screen-x: 1.25rem;
+    --break-line: 1.2em;
+    --border-size-large: 1px;
+    --viewSizeX: 375px;
+    --viewSizeY: 682px;
+    --spacing-supper: 10rem;
+    --spacing-xl: 10rem;
+    --spacing-xlx: 10rem;
+    --spacing-lg: 5rem;
+    --spacing-md: 5rem;
+    --spacing-sm: 3rem;
+    --spacing-sx: 1.5rem;
+    --screen-left: 3rem;
+    --size-btn: 78px;
+}
+@media screen(md) {
+    :root {
+        --screen-x: 2.6666666667vw;
+        --spacing-supper: 16.5625rem;
+    }
+}
+@media screen(lg) {
+    :root {
+        --screen-x: 4.0509259259vw;
+        --border-size-large: 2px;
+        --spacing-supper: 29.0625rem;
+        --spacing-xl: 18.75rem;
+        --spacing-xlx: 12.5rem;
+        --spacing-lg: 10rem;
+        --spacing-md: 7.5rem;
+        --spacing-sm: 5rem;
+        --spacing-sx: 2.5rem;
+
+        --bg-grid-color-a: #1e1e1e;
+        --bg-grid-color-b: #1114;
+    }
 }
 
 @layer base {
-    html {
-        @apply m-0 box-border w-full p-0;
+    html,
+    body {
+        @apply min-h-full select-none whitespace-pre-line bg-body  font-raleway text-root font-normal leading-[1.3] text-root-color antialiased;
+        @apply sm:touch-pan-y;
         height: -webkit-fill-available;
     }
+    html {
+        @apply w-full;
+    }
     body {
-        @apply overflow-y-auto overflow-x-hidden;
-        @apply relative m-0 w-screen whitespace-pre-line bg-body p-0;
-        @apply font-raleway text-root leading-[1.4] text-black antialiased;
-        height: -webkit-fill-available;
+        @apply relative w-screen overflow-y-auto overflow-x-hidden;
+    }
+    section {
+        @apply even:bg-gradient-to-br even:from-grey-95 even:to-grey-90;
     }
 
     /* Heading Styles */
@@ -37,22 +103,25 @@
     h4,
     h5,
     h6 {
-        @apply font-normal leading-[1] -tracking-md;
+        @apply font-semibold leading-[1] tracking-normal;
     }
     h1 {
-        @apply text-center font-montserrat uppercase;
+        @apply font-montserrat text-h1 font-medium uppercase leading-[1] tracking-[-0.07em];
     }
     h2 {
-        @apply relative text-center font-montserrat text-h2 uppercase tracking-md text-black;
+        @apply relative text-center text-h2;
     }
     h3 {
-        @apply text-h3 font-medium uppercase tracking-lg text-slate max-lg:w-full max-lg:text-center;
+        @apply text-h3 font-medium uppercase tracking-normal max-lg:w-full max-lg:text-center;
     }
     h4 {
-        @apply text-h4 font-medium tracking-normal;
+        @apply text-h4;
     }
     h5 {
-        @apply text-root;
+        @apply text-h5;
+    }
+    h6 {
+        @apply text-h5;
     }
 
     /* Text Styles */
@@ -61,7 +130,7 @@
         @apply font-light;
     }
     strong {
-        @apply mx-[1px] font-bold uppercase;
+        @apply font-semibold text-slate-neon;
     }
 
     /* Selection Styles */

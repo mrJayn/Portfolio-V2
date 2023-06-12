@@ -1,5 +1,3 @@
-export const ssOffset = 1500
-
 export const sections = [
     {
         id: 'intro',
@@ -10,12 +8,12 @@ export const sections = [
         title: 'About Me',
     },
     {
-        id: 'experience',
-        title: 'experience',
-    },
-    {
         id: 'projects',
         title: 'projects',
+    },
+    {
+        id: 'experience',
+        title: 'experience',
     },
     {
         id: 'contact',

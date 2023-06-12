@@ -165,7 +165,4 @@
             }
         }
     }
-    .dvc {
-        transform: rotateX(-90deg) !important;
-    }
 }

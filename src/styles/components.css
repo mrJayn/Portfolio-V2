@@ -3,7 +3,7 @@
 
 @layer components {
     .styled-content {
-        @apply rounded-lg p-4 shadow-[inset_0_0_0_2px_#0003];
+        @apply rounded-lg p-4 shadow-[inset_0_0_0_2px_#fff3];
     }
 
     .styled-image {
@@ -35,7 +35,8 @@
 
     .use-scrollbar {
         -ms-overflow-style: scrollbar; /*IE,Edge*/
-        scrollbar-width: 100vw; /*FireFox*/
+        scrollbar-width: 100vw !important; /*FireFox*/
+        scrollbar-color: theme(colors.white) theme(colors.slate.DEFAULT) !important;
 
         &::-webkit-scrollbar {
             @apply block h-5 w-auto !important;

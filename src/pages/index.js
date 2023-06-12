@@ -1,58 +1,68 @@
 import { useRef } from 'react'
-import { motion, eas } from 'framer-motion'
+import { motion, useMotionValue, useMotionValueEvent, useTransform } from 'framer-motion'
 import { getHomeProps } from 'src/lib/markdown'
 import { sections } from '@config'
-import { useShouldAnimate, useSmoothScroll } from '@hooks'
-import {
-    Layout,
-    Intro,
-    About,
-    Experience,
-    Projects,
-    Contact,
-    Footer,
-} from '@components'
+import { useShouldAnimate, useSmoothScroll, useViewport } from '@hooks'
+import { Layout, Intro, About, Experience, Projects, Contact, Footer } from '@components'
+import { Canvas } from '@react-three/fiber'
+import { Environment, Float, MeshReflectorMaterial } from '@react-three/drei'
 
-const AnimatedScrollContainer = ({ shouldAnimate, children }) => {
+const AnimatedScrollContainer = ({ children }) => {
     const scrollRef = useRef(null)
-    const y = useSmoothScroll(scrollRef, shouldAnimate)
+    const bgRef = useRef(null)
+
+    const shouldAnimate = useShouldAnimate()
+    useSmoothScroll(scrollRef, shouldAnimate ? 0.07 : 1, { ref2: bgRef, multiplier: 0.5 })
+    const translateY = useMotionValue(0)
+    const y2 = useTransform(translateY, (v) => v * 0.75)
+
+    useMotionValueEvent(translateY, 'change', (last) => console.log(last))
 
     return (
-        <motion.div
-            className={`flex-col-center w-full lg:motion-safe:fixed lg:motion-safe:top-0 lg:motion-safe:left-0 lg:motion-safe:will-change-transform`}
-            style={{ y: shouldAnimate ? y : 0 }}
-            ref={scrollRef}
-        >
-            {children}
-        </motion.div>
+        <>
+            <motion.div
+                className="flex-col-center fixed left-0 top-0 z-10 w-screen will-change-transform"
+                ref={scrollRef}
+                style={{ y: translateY }}
+            >
+                {children}
+            </motion.div>
+            <motion.div className="flex-col-top fixed left-0 top-0 z-0 h-screen w-screen" ref={bgRef}>
+                <div
+                    className="full"
+                    style={{
+                        background: '50% 100% url(/assets/misc/earth.jpg) no-repeat',
+                        filter: 'grayscale(1)',
+                        y: '50%',
+                    }}
+                />
+            </motion.div>
+        </>
     )
 }
 
 export default function Home({ data }) {
     const { about, experience, featured } = data
-    const shouldAnimate = useShouldAnimate()
-
+    const { height } = useViewport()
     return (
         <Layout
-            isHome
             title="Portfolio"
             description="Hello, I'm Michael👋 - I'm an ChemEng graduate and a recent self-taught developer, aiming to break into tech ASAP!"
         >
-            <AnimatedScrollContainer shouldAnimate={shouldAnimate}>
+            <AnimatedScrollContainer>
                 {sections.map(({ id, title }) => {
                     return (
                         <motion.section
-                            key={`${id}-section`}
+                            key={id}
                             id={id}
-                            className="relative z-0 mb-20 w-full max-w-[1920px] py-16 first-of-type:py-0 last-of-type:mb-0"
+                            className="flex-center relative z-0 w-full overflow-hidden px-4 py-24"
+                            style={{ minHeight: height }}
                         >
-                            {title && <h2>{title}</h2>}
+                            {/*  {title && <h2>{title}</h2>} */}
 
                             {
                                 {
-                                    intro: (
-                                        <Intro shouldAnimate={shouldAnimate} />
-                                    ),
+                                    intro: <Intro />,
                                     about: <About {...about} />,
                                     experience: <Experience {...experience} />,
                                     projects: <Projects {...featured} />,

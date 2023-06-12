@@ -1,14 +1,14 @@
 ---
 jobs:
     - title: Rochester Electronics
-      position: Electroplating Engineer co-op
+      position: Electroplating Engineer Intern
       dates: 5/2019 -9/2019
       description:
           - Manufactured conductors per client design by performing experiements to assess optimal bath conditions, responded accordingly to any issue that arose and continued to improve the efficiency of the overall plating process.
           - Collected conductor deposition data using XRF (X-ray fluorescence) analysis and chemical bath concentrations were monitored via titrations and flame-AA.
           - Worked closely with other process engineers and helped identify and resolve technical issues.
     - title: CVS Pharmacy
-      position: Pharmacy Tech. / Covid19 Test Admin.
+      position: Pharmacy Tech/Covid19 Test Admin.
       dates: 8/2020 - 8/2021
       description:
           - Filled prescriptions, managed patient PHI and administered Covid-19 PCR tests while conveying any issues to a supervising nurse practitioner.

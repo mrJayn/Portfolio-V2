@@ -1,3 +1,4 @@
+// Project Config
 export const sections = [
     {
         id: 'intro',

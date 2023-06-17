@@ -1,216 +1,8 @@
 import { theme } from 'tailwind.config'
 
-const reverseEasing = (easing) => (p) => 1 - easing(1 - p)
-const mirrorEasing = (easing) => (p) => p <= 0.5 ? easing(2 * p) / 2 : (2 - easing(2 * (1 - p))) / 2
-export const easeIn = (p) => p * p
-export const easeOut = reverseEasing(easeIn)
-export const easeInOut = mirrorEasing(easeIn)
-export const circIn = (p) => 1 - Math.sin(Math.acos(p))
-export const circOut = reverseEasing(circIn)
-export const circInOut = mirrorEasing(circOut)
-export const noop = (p) => p
-
-export const DefVariants = {
-    Opacity: (transition = {}) => ({
-        hidden: { opacity: 0 },
-        show: { opacity: 1, transition: transition },
-        exit: { opacity: 0 },
-    }),
-    OpacityY: (Y = 25, Duration = 1, Delay = 0) => ({
-        hidden: { opacity: 0, y: Y },
-        show: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                delay: Delay,
-                opacity: { duration: Duration },
-                y: { duration: Duration, ease: 'circOut' },
-            },
-        },
-        exit: {
-            opacity: 0,
-            y: Y,
-            transition: {
-                opacity: { duration: 0.5 },
-                y: { duration: 0.5, ease: 'circIn' },
-            },
-        },
-    }),
-    clipPathY: (delay = 0) => ({
-        hidden: {
-            y: '100%',
-            clipPath: 'inset(0% 0% 100% 0%)',
-        },
-        show: {
-            y: '0%',
-            clipPath: 'inset(0% 0% 0% 0%)',
-            transition: {
-                duration: 1,
-                ease: 'circOut',
-                ...(delay !== 0 ? { delay: delay } : {}),
-            },
-        },
-        exit: {
-            y: '100%',
-            clipPath: 'inset(0% 0% 100% 0%)',
-            transition: { duration: 0.5, ease: 'circOut' },
-        },
-    }),
-    Button: (delay = 0) => ({
-        hidden: {
-            opacity: 0,
-            scale: 0.7,
-            pointerEvents: 'none',
-            transition: {
-                opacity: { duration: 0.4 },
-                scale: { duration: 0.5 },
-            },
-        },
-        show: {
-            opacity: 1,
-            scale: 1,
-            pointerEvents: 'auto',
-            transition: {
-                opacity: { delay: delay, duration: 0.5 },
-                scale: { delay: delay, duration: 1, ease: 'circOut' },
-            },
-        },
-        exit: {
-            opacity: 0,
-            scale: 0.7,
-            pointerEvents: 'none',
-            transition: {
-                opacity: { duration: 0.4 },
-                scale: { duration: 0.5 },
-            },
-        },
-    }),
-    StaggerContainer: (stgIn, delayIn, dirIn, stgOut, delayOut, dirOut) => ({
-        hidden: {
-            transition: {
-                staggerChildren: stgOut,
-                staggerDirection: dirOut,
-                delayChildren: delayOut,
-            },
-        },
-        show: {
-            transition: {
-                staggerChildren: stgIn,
-                staggerDirection: dirIn,
-                delayChildren: delayIn,
-            },
-        },
-        exit: {
-            transition: {
-                staggerChildren: stgOut,
-                staggerDirection: dirOut,
-                delayChildren: delayOut,
-            },
-        },
-    }),
-}
-
-export const noBounceSpring = {
-    type: 'spring',
-    bounce: 0,
-}
-
-export const bounce = (value) => [0, 0.1, 0.43, 0.98, 0.75, 0.98, 0.93, 0.99, 0.98, 1].map((v) => v * value)
-export const revbounce = (value) => [0, 0.1, 0.43, 0.98, 0.75, 0.98, 0.93, 0.99, 0.98, 1].map((v) => (1 - v) * value)
-export const agitate = (value) => [0, 0.05, 0.19, 0.21, -1, -0.8, 0.68, 0.4, 0, 0].map((v) => v * value)
+export const bounce = (value, { reverse = false } = {}) =>
+    [0, 0.1, 0.43, 0.98, 0.75, 0.98, 0.93, 0.99, 0.98, 1].map((v) => (reverse ? 1 - v : v) * value)
 export const bounceTimes = [0, 0.12, 0.24, 0.36, 0.54, 0.74, 0.82, 0.94, 0.96, 1]
-
-export const sectionGraphicVariants = {
-    Skills: (i) => {
-        const corner = i < 3 ? i % 2 == 0 : i % 2 !== 0
-        const xD = i % 3 == 0 ? -1 : 1
-        const yD = i < 3 ? -1 : 1
-        return {
-            hidden: {
-                x: corner ? -15 * xD + '%' : 0,
-                y: -10 * yD + '%',
-                rotate: 0,
-            },
-            show: {
-                x: '0%',
-                y: corner ? 0 : 25 * yD + '%',
-                rotate: corner ? -15 * xD * yD : 0,
-                transition: { duration: 0.75, ease: 'easeOut' },
-            },
-            exit: {
-                x: corner ? 400 * xD + '%' : 0,
-                y: 500 * yD + '%',
-                transition: { duration: 0.5 },
-            },
-        }
-    },
-}
-
-// SID Variants
-export const sidVariants = {
-    Title: {
-        hidden: (i) => ({
-            opacity: i,
-            color: '#000',
-            letterSpacing: '0.05em',
-            transition: { duration: 0.75, ...noBounceSpring },
-        }),
-        show: {
-            opacity: 1,
-            color: '#0000',
-            letterSpacing: '0.15em',
-            transition: { delay: 0.5, duration: 1, ...noBounceSpring },
-        },
-        exit: (i) => ({
-            opacity: i,
-            color: '#000F',
-            letterSpacing: '0.05em',
-            transition: { duration: 0.75, ...noBounceSpring },
-        }),
-    },
-    ScrollDown: {
-        hidden: { opacity: 0, y: '100%' },
-        show: {
-            opacity: 1,
-            y: '0%',
-            transition: {
-                opacity: { duration: 1 },
-                y: { duration: 1, ease: 'circOut' },
-            },
-        },
-        exit: {
-            opacity: 0,
-            y: '100%',
-            transition: {
-                opacity: { duration: 0.5 },
-                y: { duration: 0.5, ease: 'circIn' },
-            },
-        },
-    },
-    Underline: {
-        hidden: { opacity: 0, scaleX: 0, transition: { duration: 0.5 } },
-        show: {
-            opacity: 1,
-            scaleX: 1,
-            transition: { duration: 1.5, ...noBounceSpring },
-        },
-        exit: { opacity: 0, scaleX: 0, transition: { duration: 0.5 } },
-    },
-    Content: {
-        hidden: {
-            y: '0vh',
-            transition: { duration: 0.75, ease: 'easeInOut' },
-        },
-        show: {
-            y: '0vh',
-            transition: { duration: 0.75, ease: 'easeInOut' },
-        },
-        exit: {
-            y: '0vh',
-            transition: { duration: 0.75, ease: 'easeInOut' },
-        },
-    },
-}
 
 // NAV Variants
 const NAV_TEXT_COLOR = theme.colors.grey[40]
@@ -414,30 +206,6 @@ export const NavMotion = {
 }
 
 // SECTIONS Variants
-export const introVariants = {
-    Container: DefVariants.StaggerContainer(0.1, 1, 1, 0, 0, 1),
-    Title: {
-        hidden: {
-            opacity: 0,
-        },
-        show: {
-            opacity: 1,
-            transition: { delay: 0.5, duration: 0.5 },
-        },
-    },
-    Text: {
-        hidden: { opacity: 0, y: 25 },
-        show: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                opacity: { duration: 1 },
-                y: { duration: 1, ease: 'circOut' },
-            },
-        },
-    },
-}
-
 export const aboutMotion = {
     skills: {
         wrap: {
@@ -477,65 +245,42 @@ export const experienceMotion = {
         transition: { duration: 0.25, ease: 'easeIn' },
     },
 }
-export const projectsMotion = {
-    ftdSlideProps: {
-        initial: (i) => ({
-            opacity: 0,
-            x: i * 200 + '%',
-        }),
-        animate: (i) => ({
-            opacity: Math.min(1, 1.5 - Math.abs(i)),
-            x: i * 103 + '%',
-            transition: { duration: 0.75, ease: 'easeInOut' },
-        }),
-        exit: (i) => ({
-            opacity: 0,
-            x: i * 166 + '%',
-            transition: { duration: 0.5, ease: 'easeInOut' },
-        }),
-    },
-    ftdContentProps: {
+
+export const featuredMotion = {
+    imgProps: {
         initial: 'hidden',
         animate: 'show',
-        exit: 'hidden',
+        exit: 'exit',
         variants: {
-            hidden: { opacity: 0 },
-            show: { opacity: 1 },
+            hidden: (i) => ({
+                opacity: 0,
+                x: i * 150 + '%',
+                z: Math.abs(i) * -1000,
+                rotateY: i * -20,
+            }),
+            show: (i) => ({
+                opacity: 1,
+                x: i * 105 + '%',
+                z: Math.abs(i) * -400,
+                rotateY: i * -20,
+            }),
+            exit: (i) => ({
+                opacity: 1,
+                x: i * 150 + '%',
+                z: Math.abs(i) * -1000,
+                rotateY: i * -20,
+            }),
         },
-        transition: { duration: 0.35, ease: 'easeIn' },
+        transition: { duration: 0.5, ease: 'easeInOut' },
     },
-    projects: {},
-}
-export const featuredVariants = {
-    TechWrap: {
-        show: (i) => ({
-            transition: {
-                staggerChildren: 0.125,
-                staggerDirection: i,
-            },
-        }),
-    },
-    Tech: {
-        hidden: { opacity: 0, y: '-150%' },
-        show: {
-            opacity: 1,
-            y: '0%',
-            transition: { duration: 0.5, ease: 'backOut' },
-        },
-    },
-    Item: {
-        hidden: { opacity: 0, y: 20 },
-        show: (i = 0) => ({
-            opacity: 1,
-            y: 0,
-            transition: {
-                delay: i * 0.125,
-                duration: 0.5,
-                ease: 'easeOut',
-            },
-        }),
+    contentProps: {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        exit: { opacity: 0 },
+        transition: { duration: 0.25, ease: 'easeIn' },
     },
 }
+
 export const archiveVariants = {
     Project: {
         hidden: {
@@ -549,73 +294,58 @@ export const archiveVariants = {
     },
 }
 
-export const contactVariants = {
-    Headline: {
-        h3: {
+// PROJECTS
+export const projectsMotion = {
+    options: {
+        wrapProps: {
+            initial: 'hidden',
+            animate: 'show',
+            exit: 'hidden',
+            variants: {
+                hidden: {
+                    x: '-100%',
+                    transition: { when: 'afterChildren', duration: 0.5 },
+                },
+                show: {
+                    x: 0,
+                    transition: {
+                        when: 'beforeChildren',
+                        duration: 0.5,
+                        ease: 'circOut',
+                    },
+                },
+            },
+        },
+    },
+    backBtn: {
+        wrap: {
             hidden: {
                 opacity: 0,
-                clipPath: 'inset(0 0 100% 0)',
-            },
-            show: {
-                opacity: 1,
-                clipPath: 'inset(0 0 0% 0)',
-                transition: { duration: 1, ease: 'easeInOut' },
-            },
-            exit: {
-                opacity: 0,
-                clipPath: 'inset(0 0 100% 0)',
-                transition: { duration: 0.5 },
-            },
-        },
-        Decoration: {
-            hidden: { opacity: 0, scaleX: 0, bottom: '100%' },
-            show: {
-                opacity: 1,
-                scaleX: 1,
-                bottom: '0%',
                 transition: {
-                    default: { duration: 0.5, ease: 'easeOut' },
-                    bottom: { duration: 1, ease: 'easeInOut' },
+                    when: 'afterChildren',
+                    duration: 0.5,
+                    ease: 'easeIn',
                 },
             },
-            exit: {
-                opacity: 0,
+            show: { opacity: 1 },
+        },
+        lines: {
+            hidden: (deg) => ({
                 scaleX: 0,
-                bottom: '100%',
+                rotate: 0,
                 transition: {
-                    default: { delay: 0.5 },
-                    bottom: { duration: 0.5 },
+                    scaleX: deg === 0 ? { duration: 0.5 } : { delay: 0.25 },
+                    rotate: { duration: 0.25 },
                 },
-            },
-        },
-    },
-    Button: DefVariants.Button(0),
-    Socials: {
-        Container: {
-            hidden: {},
-            show: { transition: { staggerChildren: 0.1 } },
-            exit: {
-                transition: { staggerChildren: 0.05, staggerDirection: -1 },
-            },
-        },
-        Item: {
-            hidden: { opacity: 0, y: '100%' },
-            show: (i) => ({
-                opacity: 1,
-                y: '0%',
-                transition: { delay: i * 0.1, duration: 0.5, ease: 'backOut' },
             }),
-        },
-    },
-    Footer: {
-        hidden: { y: '100%' },
-        show: {
-            y: '0%',
-            transition: { duration: 1, ease: 'backOut' },
-        },
-        exit: {
-            y: '100%',
-            transition: { duration: 0.5, ease: 'backIn' },
+            show: (deg) => ({
+                scaleX: 1,
+                rotate: deg,
+                transition: {
+                    scaleX: { duration: 0.5 },
+                    rotate: { delay: 0.25, duration: 0.5 },
+                },
+            }),
         },
     },
 }

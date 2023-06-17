@@ -11,8 +11,7 @@ import 'react-toastify/dist/ReactToastify.css'
 function MyApp({ Component, pageProps, router }) {
     const url = `https://mikejayne.com/Portfolio${router.asPath}`
 
-    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'auto' })
-    useEffect(() => scrollToTop(), [])
+    useEffect(() => window.scrollTo({ top: 0, behavior: 'auto' }), [])
 
     return (
         <>
@@ -36,7 +35,7 @@ function MyApp({ Component, pageProps, router }) {
                 <>
                     <Navbar isHome={router.pathname === '/'} />
 
-                    <AnimatePresence mode="wait" onExitComplete={() => scrollToTop()}>
+                    <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo({ top: 0, behavior: 'auto' })}>
                         <Component key={url} {...pageProps} />
                     </AnimatePresence>
                 </>

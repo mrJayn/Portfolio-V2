@@ -3,7 +3,7 @@ title: Jyn Minimal Theme
 category: vsCode
 tech: [Visual Studio Code API, JSON]
 href: ' '
-src: /assets/featured/notMyTheme.png
+src: /assets/featured/notMyTheme_ratio32.png
 alt: Jyn Minimal Theme on vsCode
 ---
 

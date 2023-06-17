@@ -11,7 +11,7 @@ const fontSizes = {
     h1: clamp(60, 120),
     h2: clamp(30, 60), // x0.5
     h3: clamp(28, 40), // x0.25
-    h4: clamp(21, 36), // x0.66
+    h4: clamp(21, 32), // x0.66
     h5: '1.2rem', // x0.5
     h6: '1rem', // x0.375
     /**/
@@ -113,6 +113,9 @@ module.exports = {
             },
             transitionTimingFunction: {
                 tween: 'cubic-bezier(0.5, 0.5, 0.5, 1)',
+            },
+            aspectRatio: {
+                '3/2': '3 / 2',
             },
         },
     },

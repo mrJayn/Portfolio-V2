@@ -1,5 +1,4 @@
 @import './components.css';
-@import './deviceFrame.css';
 @tailwind utilities;
 @tailwind base;
 
@@ -12,71 +11,6 @@
 
 :root {
     --nav-rgb: 10 10 10;
-
-    --toastify-toast-width: 320px;
-    --toastify-toast-background: #fff;
-    --toastify-toast-min-height: 64px;
-    --toastify-toast-max-height: 800px;
-    --toastify-font-family: sans-serif;
-
-    --iphone-ratio: 70.9/143.6;
-    /*==============================*/
-
-    --fs-h6-a: 0.67rem;
-    --fs-h6-b: 0.875rem;
-    --fs-h6-c: 1rem;
-
-    /*
-    h0 - 5 / 6.875 / 8.75 (rem)
-    h2 -  2.75 / 3.75 / 5 (rem)
-    h3 - 
-    h4 - 
-    h5 - 
-    h6 - 0.67 / 0.875 / 1 (rem)
-
-    text - 5rem
-    
-    section heading - 0.875 / 
-    */
-
-    /*==============================*/
-
-    --screen-x: 1.25rem;
-    --break-line: 1.2em;
-    --border-size-large: 1px;
-    --viewSizeX: 375px;
-    --viewSizeY: 682px;
-    --spacing-supper: 10rem;
-    --spacing-xl: 10rem;
-    --spacing-xlx: 10rem;
-    --spacing-lg: 5rem;
-    --spacing-md: 5rem;
-    --spacing-sm: 3rem;
-    --spacing-sx: 1.5rem;
-    --screen-left: 3rem;
-    --size-btn: 78px;
-}
-@media screen(md) {
-    :root {
-        --screen-x: 2.6666666667vw;
-        --spacing-supper: 16.5625rem;
-    }
-}
-@media screen(lg) {
-    :root {
-        --screen-x: 4.0509259259vw;
-        --border-size-large: 2px;
-        --spacing-supper: 29.0625rem;
-        --spacing-xl: 18.75rem;
-        --spacing-xlx: 12.5rem;
-        --spacing-lg: 10rem;
-        --spacing-md: 7.5rem;
-        --spacing-sm: 5rem;
-        --spacing-sx: 2.5rem;
-
-        --bg-grid-color-a: #1e1e1e;
-        --bg-grid-color-b: #1114;
-    }
 }
 
 @layer base {
@@ -92,6 +26,8 @@
     body {
         @apply relative w-screen overflow-y-auto overflow-x-hidden;
     }
+
+    /* Sections Style */
     section {
         @apply even:bg-gradient-to-br even:from-grey-95 even:to-grey-90;
     }
@@ -109,7 +45,7 @@
         @apply font-montserrat text-h1 font-medium uppercase leading-[1] tracking-[-0.07em];
     }
     h2 {
-        @apply relative text-center text-h2;
+        @apply relative text-center text-h2 leading-[1.15];
     }
     h3 {
         @apply text-h3 font-medium uppercase tracking-normal max-lg:w-full max-lg:text-center;

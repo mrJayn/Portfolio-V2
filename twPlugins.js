@@ -1,6 +1,6 @@
 const plugin = require('tailwindcss/plugin')
 
-const components = plugin(function({addComponents}){
+const components = plugin(function ({ addComponents }) {
     addComponents({
         '.full': {
             height: '100%',
@@ -97,27 +97,28 @@ const components = plugin(function({addComponents}){
     })
 })
 
-const bases = plugin(function({addBase}){
+const bases = plugin(function ({ addBase }) {
     addBase({
         '*, ::before, ::after': {
-          '--tw-translate-x': 0,
-          '--tw-translate-y': 0,
-          '--tw-translate-z': 0,
-          '--tw-rotate-x': 0,
-          '--tw-rotate-y': 0,
-          '--tw-rotate': 0,
-          '--tw-skew-x': 0,
-          '--tw-skew-y': 0,
-          '--tw-scale-x': 1,
-          '--tw-scale-y': 1,
-          '--tw-transform': 'translate3d(var(--tw-translate-x), var(--tw-translate-y), var(--tw-translate-z)) rotateX(var(--tw-rotate-x)) rotateY(var(--tw-rotate-y)) rotateZ(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))'
-        }
-      });
+            '--tw-translate-x': 0,
+            '--tw-translate-y': 0,
+            '--tw-translate-z': 0,
+            '--tw-rotate-x': 0,
+            '--tw-rotate-y': 0,
+            '--tw-rotate': 0,
+            '--tw-skew-x': 0,
+            '--tw-skew-y': 0,
+            '--tw-scale-x': 1,
+            '--tw-scale-y': 1,
+            '--tw-transform':
+                'translate3d(var(--tw-translate-x), var(--tw-translate-y), var(--tw-translate-z)) rotateX(var(--tw-rotate-x)) rotateY(var(--tw-rotate-y)) rotateZ(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))',
+        },
+    })
 })
 
-const utilities = plugin(function({addUtilities,matchUtilities,theme}){
+const utilities = plugin(function ({ addUtilities, matchUtilities, theme }) {
     addUtilities({
-          '.preserve-3d': {
+        '.preserve-3d': {
             'transform-style': 'preserve-3d',
         },
         '.non-scaling': {
@@ -129,12 +130,21 @@ const utilities = plugin(function({addUtilities,matchUtilities,theme}){
         '.linejoin-round': {
             'stroke-linejoin': 'round',
         },
+        '.mask-reflection': {
+            'mask-image': `linear-gradient(
+                transparent 60%, 
+                rgb(255 255 255 / 0.05) 80%, 
+                rgb(255 255 255 / 0.1) 85%, 
+                rgb(255 255 255 / 0.3) 95%,
+                rgb(255 255 255 / 0.5) 100%
+                )`,
+        },
     })
     matchUtilities(
         {
             'rotate-x': (value) => ({
                 '--tw-rotate-x': value,
-                transform:  'var(--tw-transform)',
+                transform: 'var(--tw-transform)',
             }),
         },
         { values: theme('rotate'), supportsNegativeValues: true }
@@ -143,7 +153,7 @@ const utilities = plugin(function({addUtilities,matchUtilities,theme}){
         {
             'rotate-y': (value) => ({
                 '--tw-rotate-y': value,
-                transform:  'var(--tw-transform)',
+                transform: 'var(--tw-transform)',
             }),
         },
         { values: theme('rotate'), supportsNegativeValues: true }
@@ -152,14 +162,14 @@ const utilities = plugin(function({addUtilities,matchUtilities,theme}){
         {
             'translate-z': (value) => ({
                 '--tw-translate-z': value,
-                transform:  'var(--tw-transform)',
+                transform: 'var(--tw-transform)',
             }),
         },
         { values: theme('translate'), supportsNegativeValues: true }
     )
 })
 
-const variants= plugin(function ({ addVariant,matchVariant }) {
+const variants = plugin(function ({ addVariant, matchVariant }) {
     addVariant('inner-p', '&>p')
     addVariant('inner-p-first', '&>p:first-of-type')
     addVariant('inner-p-last', '&>p:last-of-type')
@@ -185,10 +195,5 @@ const variants= plugin(function ({ addVariant,matchVariant }) {
 })
 
 module.exports = {
-    twPlugins:[
-        bases,
-        utilities,
-        components,
-        variants,
-    ]
+    twPlugins: [bases, utilities, components, variants],
 }

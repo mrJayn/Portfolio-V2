@@ -16,9 +16,7 @@ const Archive_Project = ({ listMode, i, href, src, content }) => (
         <div
             // Image
             className={`z-0 h-[240px] w-screen max-w-full md:h-[300px] lg:h-[350px] ${
-                listMode
-                    ? 'opacity-25'
-                    : 'opacity-75 transition-all duration-500 ease-tween group-hover:opacity-25'
+                listMode ? 'opacity-25' : 'opacity-75 transition-all duration-500 ease-tween group-hover:opacity-25'
             }`}
             style={{
                 filter: `hue-rotate(${i * -45}deg)`,
@@ -37,7 +35,7 @@ const Archive_Project = ({ listMode, i, href, src, content }) => (
             <div
                 className={`full child-li:relative child-li:w-full child-li:whitespace-nowrap child-li:font-inconsolata child-li:leading-[1] child-li:text-slate child-li-btw:mx-[0.5em] child-li-btw:inline-block child-li-btw:text-grey-40 child-li-btw:content-['/'] child-ul:flex child-ul:max-w-full ${
                     listMode
-                        ? 'grid grid-cols-[20%,15%,60%] items-center gap-x-2 overflow-hidden leading-[1] child-p:text-[16px] child-li:w-min child-li:text-[16px] child-ul:flex-left child-ul:hidden child:whitespace-nowrap  max-lg:child-p:hidden min-[414px]:child-ul:flex-left min-[414px]:child:whitespace-normal'
+                        ? 'grid grid-cols-[20%,15%,60%] items-center gap-x-2 overflow-hidden leading-[1] child-ul:flex-left min-[414px]:child-ul:flex-left child-p:text-[16px] child-li:w-min child-li:text-[16px] child-ul:hidden  child:whitespace-nowrap max-lg:child-p:hidden min-[414px]:child:whitespace-normal'
                         : 'flex-col-center text-center child-p:my-4 child-ul:overflow-hidden'
                 }`}
                 dangerouslySetInnerHTML={{ __html: content }}
@@ -52,10 +50,8 @@ const Archive_Project = ({ listMode, i, href, src, content }) => (
                     <Styled.Icon name="External" />
                 </a>
             ) : (
-                <Styled.Button>
-                    <a href={href} target="_blank" rel="noopenner noreferrer">
-                        View Project
-                    </a>
+                <Styled.Button onClick={() => window.open(href, '_blank', 'noopenner noreferrer')}>
+                    View Project
                 </Styled.Button>
             )}
         </div>

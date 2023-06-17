@@ -1,8 +1,32 @@
-import { motion } from 'framer-motion'
+import { motion, useAnimate } from 'framer-motion'
 import { socials } from '@config'
 import Paths from './Paths'
 import { pushPage } from '@utils'
 import { useMediaQuery } from '@hooks'
+
+function Styled_Button({ children, onClick = null, ...props }) {
+    const [scope, animate] = useAnimate()
+    const handleClick = async (e) => {
+        await animate(scope.current, { scale: 0.9 }, { duration: 0.15 })
+        if (onClick) onClick()
+        animate(scope.current, { scale: 1 }, { delay: 0.15, duration: 0.15 })
+    }
+
+    return (
+        <motion.button
+            className=" flex-center relative z-30 aspect-[3/1] cursor-pointer select-none overflow-hidden whitespace-nowrap rounded-lg bg-grey-95 p-[1.25em] text-grey shadow-lg shadow-black/50 transition-colors duration-250 ease-in-out hover:bg-grey-80 hover:text-white"
+            onClick={handleClick}
+            ref={scope}
+            {...props}
+        >
+            {children}
+        </motion.button>
+    )
+}
+/*
+<span className="decoration pointer-events-none absolute inset-0 top-[15%] origin-top rounded-b-md rounded-t shadow-[inset_0_-2px,_inset_-2px_0,_inset_2px_0] delay-[250ms] duration-500 ease-tween" />
+*/
+/* ========= */
 
 const BackButton = () => (
     <motion.button
@@ -56,17 +80,6 @@ const BackButton = () => (
                 custom={deg}
             />
         ))}
-    </motion.button>
-)
-
-const Button = ({ children, className = '', ...props }) => (
-    <motion.button
-        data-styled-btn
-        className={`flex-center relative z-30 max-w-[90vw] cursor-pointer select-none text-grey opacity-50 ${className}`}
-        {...props}
-    >
-        <span className="decoration pointer-events-none absolute inset-0 top-[15%] origin-top rounded-b-md rounded-t shadow-[inset_0_-2px,_inset_-2px_0,_inset_2px_0] delay-[250ms] duration-500 ease-tween" />
-        <div className="content whitespace-nowrap px-6 uppercase leading-[1.75]">{children}</div>
     </motion.button>
 )
 
@@ -135,7 +148,7 @@ const Socials = ({ className = '', variants }) =>
 
 const StyledComponents = {
     BackButton: BackButton,
-    Button: Button,
+    Button: Styled_Button,
     Icon: Icon,
     Socials: Socials,
     Tabs: Tabs,

@@ -3,7 +3,7 @@ title: Choropleth
 category: JS
 tech: [D3.js, SCSS, HTML]
 href: 'https://codepen.io/mrjayn/pen/abqbZGV'
-src: '/assets/featured/choropleth_map.png'
+src: '/assets/featured/choropleth_map_ratio32.png'
 alt: Choropleth Map Image
 ---
 

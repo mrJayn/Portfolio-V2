@@ -5,26 +5,20 @@ import { Styled } from '@components'
 const emailPattern =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-const ToastMsg = ({ success }) => {
-    return (
-        <div className="py-2 text-center font-raleway text-black">
-            <div className="mb-[0.5em] text-[1.125em] font-semibold">
-                {success ? 'Thank you!' : 'Uh Oh...'}
-            </div>
-            <div className="text-min leading-[1.125]">
-                {success
-                    ? `I've recieved your message,\n and will get back to you ASAP!`
-                    : `Oops! Something wasn't quite right. Please try again!`}
-            </div>
+const ToastMsg = ({ success }) => (
+    <div className="py-2 text-center font-raleway text-black">
+        <div className="mb-[0.5em] text-[1.125em] font-semibold">{success ? 'Thank you!' : 'Uh Oh...'}</div>
+        <div className="text-min leading-[1.125]">
+            {success
+                ? `I've recieved your message,\n and will get back to you ASAP!`
+                : `Oops! Something wasn't quite right. Please try again!`}
         </div>
-    )
-}
+    </div>
+)
 
 const itemProps = (key) => ({
     className: `peer z-10 w-full rounded-md border-2 border-t-0 border-grey-40 bg-white pl-[5px] leading-[1] text-black outline-none transition-[transform,color,background-color,background,border] duration-250 ease-in focus:border-slate-neon ${
-        key === 'message'
-            ? 'resize-none overflow-y-scroll pt-[calc(1em)]'
-            : 'h-[40px] pt-[calc(40px-1.5em)] lg:h-[55px]'
+        key === 'message' ? 'resize-none overflow-y-scroll pt-[calc(1em)]' : 'h-[40px] pt-[calc(40px-1.5em)] lg:h-[55px]'
     }`,
     name: { key },
     id: { key },
@@ -86,8 +80,7 @@ const Form = ({}) => {
                         required: 'Enter a valid or alternate email address.',
                         pattern: {
                             value: emailPattern,
-                            message:
-                                'Enter a valid or alternate email address.',
+                            message: 'Enter a valid or alternate email address.',
                         },
                     })}
                 />
@@ -109,34 +102,15 @@ const Form = ({}) => {
     }
 
     return (
-        <form
-            id="form"
-            className="flex-col-center flex w-full gap-x-2 gap-y-1 lg:p-4"
-            onSubmit={handleSubmit(onSubmit)}
-            method="POST"
-        >
+        <form id="form" className="flex-col-center w-full" onSubmit={handleSubmit(onSubmit)} method="POST">
             {Object.entries(formItems).map(([key, { text, component }]) => (
-                <div
-                    key={text}
-                    className="form-item-container group relative w-full"
-                >
+                <div key={text} className="group relative w-full">
                     {component}
                     <ReactivePlaceholder>{text}</ReactivePlaceholder>
-                    <ErrorMessage error={errors[key]}>
-                        {errors[key]?.message}
-                    </ErrorMessage>
+                    <ErrorMessage error={errors[key]}>{errors[key]?.message}</ErrorMessage>
                 </div>
             ))}
-
-            <div className="full flex-center">
-                <Styled.Button
-                    type="submit"
-                    style={{ scale: 1.125 }}
-                    whileTap={{ scale: 1 }}
-                >
-                    submit
-                </Styled.Button>
-            </div>
+            <Styled.Button type="submit">SUBMIT</Styled.Button>
         </form>
     )
 }
@@ -150,7 +124,7 @@ const ReactivePlaceholder = ({ children }) => (
 const ErrorMessage = ({ error = false, children }) => (
     <div className="err-msg h-[1em] w-full overflow-hidden pt-[0.15em]">
         <div
-            className={`pl-[1.4em] text-[0.85em] text-red duration-150 ease-in before:absolute before:left-[1px] before:bottom-[0.15em] before:rotate-180 before:text-[0.9em] before:font-semibold before:content-['ⓘ'] group-focus-within:opacity-0 ${
+            className={`pl-[1.1em] text-min leading-[0.85] text-red duration-150 ease-in before:absolute before:bottom-[0.35em] before:left-[1px] before:rotate-180 before:text-[0.9em] before:font-semibold before:content-['ⓘ'] group-focus-within:opacity-0 ${
                 error ? 'opacity-100' : 'opacity-0'
             }`}
         >

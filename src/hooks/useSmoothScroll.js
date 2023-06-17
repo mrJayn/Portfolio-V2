@@ -2,8 +2,9 @@ import { useEffect, useRef, useCallback } from 'react'
 
 const data = { scrollY: 0, y: 0, sigY: 0 }
 
-export default function useSmoothScroll(ref, ease, { ref2 = null, multiplier = 1 } = {}) {
+export default function useSmoothScroll(ref, ease) {
     const frame = useRef()
+    const is1st = useRef(true)
 
     useEffect(() => {
         const resizeObserver = new ResizeObserver((entries) => {
@@ -22,14 +23,19 @@ export default function useSmoothScroll(ref, ease, { ref2 = null, multiplier = 1
             data.y += (data.scrollY - data.y) * ease
             data.sigY = Math.round(data.y * 100) / 100
             ref.current.style.transform = `translateY(-${data.sigY}px)`
-            if (ref2 && screen.width >= 1024) ref2.current.style.transform = `translateY(-${data.sigY * multiplier}px)`
             frame.current = requestAnimationFrame(() => animate(ease))
         },
-        [ref, ref2, multiplier]
+        [ref]
     )
 
     useEffect(() => {
         if (frame.current) cancelAnimationFrame(frame.current)
+        if (is1st.current) {
+            data.scrollY = 0
+            data.y = 0
+            data.sigY = 0
+            is1st.current = false
+        }
         frame.current = requestAnimationFrame(() => animate(ease))
         return () => cancelAnimationFrame(frame.current)
     }, [ease, animate])

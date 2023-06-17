@@ -1,30 +1,7 @@
 import { router } from 'next/router'
 
-export function scroll2id(id, extraAction) {
-    const elTop = document.getElementById(id).getBoundingClientRect().top
-
-    setTimeout(() => {
-        window.parent.scrollTo({
-            top: elTop + window.scrollY,
-            behavior: screen.width >= 1024 ? 'smooth' : 'auto',
-        })
-        if (extraAction) extraAction()
-    }, 1)
-}
-
-export const openResumeJPG = () => window.open('/assets/misc/resume2022.jpg', '_blank', 'noopener noreferrer')
-
-export function calculateCh(fontSize) {
-    const el = Object.assign(document.createElement('span'), {
-        style: `position:absolute; font-size:${fontSize}`,
-        textContent: '0',
-    })
-
-    document.body.appendChild(el)
-    const chPx = el.getBoundingClientRect().width
-    document.body.removeChild(el)
-
-    return chPx
+export function reload() {
+    router.reload()
 }
 
 export function pushPage(id, href = '/', as = '') {
@@ -59,63 +36,31 @@ export function pushPage(id, href = '/', as = '') {
     }, 50)
 }
 
-export function reload() {
-    router.reload()
+export function scroll2id(id, extraAction) {
+    const elTop = document.getElementById(id).getBoundingClientRect().top
+
+    setTimeout(() => {
+        window.parent.scrollTo({
+            top: elTop + window.scrollY,
+            behavior: screen.width >= 1024 ? 'smooth' : 'auto',
+        })
+        if (extraAction) extraAction()
+    }, 1)
 }
 
-export function handleSwipe(offset, velocity, currentTab, span, setTab) {
-    const threshold = 5000
-    const swipe = Math.abs(offset) * velocity
+export const openResumeJPG = () => window.open('/assets/misc/resume2022.jpg', '_blank', 'noopener noreferrer')
 
-    if (Math.abs(velocity.y) > Math.abs(velocity.x)) return
+/*
+function calculateCh(fontSize) {
+    const el = Object.assign(document.createElement('span'), {
+        style: `position:absolute; font-size:${fontSize}`,
+        textContent: '0',
+    })
 
-    if (swipe < -threshold) {
-        paginate(1, currentTab, span, setTab)
-    } else if (swipe > threshold) {
-        paginate(-1, currentTab, span, setTab)
-    }
+    document.body.appendChild(el)
+    const chPx = el.getBoundingClientRect().width
+    document.body.removeChild(el)
+
+    return chPx
 }
-
-export const paginate = (newDirection, currentTab, span, setTab) => {
-    if (currentTab + newDirection < span && currentTab + newDirection >= 0) {
-        // moving , normal
-        setTab([currentTab + newDirection, newDirection])
-    } else if (currentTab + newDirection === span && span > 2) {
-        // last slide >> first slide
-        setTab([0, newDirection])
-    } else if (currentTab + newDirection === -1 && span > 2) {
-        // first slide >> last slide
-        setTab([span - 1, newDirection])
-    }
-}
-
-export function getFormattedDate(date) {
-    let weekday = date.toLocaleDateString('en-us', { weekday: 'long' })
-    let month = date.toLocaleString('en-us', { month: 'long' })
-    let day = date.getDate().toString().padStart(2, '0')
-
-    return weekday + ', ' + month + ' ' + day
-}
-
-const computeNewX = () => -index * (containerRef.current?.clientWidth || 0)
-
-const handleEndDrag = (e, { offset, velocity }) => {
-    const clientWidth = containerRef.current?.clientWidth || 0
-    const threshold = clientWidth / 4
-    var idxValue = index
-
-    if (Math.abs(velocity.y) > Math.abs(velocity.x)) {
-        return
-    }
-
-    if (offset.x > threshold) {
-        idxValue = index - 1
-        setIndex(index - 1)
-        //
-    } else if (offset.x < -threshold) {
-        idxValue = index + 1
-        setIndex(index + 1)
-        //
-    }
-    animate(x, -idxValue * clientWidth, slideTransition)
-}
+*/

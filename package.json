@@ -10,19 +10,14 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@react-three/drei": "^9.70.0",
-        "@react-three/fiber": "^8.13.0",
         "dotenv": "^16.0.1",
         "eslint-plugin-react-hooks": "^5.0.0-canary-e1ad4aa36-20230601",
         "framer-motion": "^10.12.16",
-        "framer-motion-3d": "^10.12.16",
-        "maath": "^0.6.0",
         "next": "12.1.6",
         "nodemailer": "^6.7.7",
         "prop-types": "^15.8.1",
         "react": "18.2.0",
-        "react-dom": "18.2.0",
-        "three": "^0.152.2"
+        "react-dom": "18.2.0"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.7",

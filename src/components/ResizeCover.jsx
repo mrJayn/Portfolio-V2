@@ -28,5 +28,5 @@ export default function ResizeCover() {
         return () => window.removeEventListener('resize', enableCover)
     }, [animate, scope])
 
-    return <div ref={scope} className="fixed left-0 top-0 -z-10 h-screen w-screen bg-black/0 opacity-0" />
+    return <div ref={scope} className="fixed left-0 top-0 -z-10 h-screen w-screen bg-black opacity-0" />
 }

@@ -4,7 +4,7 @@ import { archiveMotion } from '@motion'
 const GridProject = ({ src, children }) => (
     <>
         <div className="absolute inset-x-0 bottom-0 z-10 h-[35%] rounded-t-lg bg-grey-80" />
-        <div className="flex-col-top absolute inset-x-0 bottom-0 z-20 h-[35%] p-5 lg:transition-opacity lg:items-start lg:opacity-50 lg:group-hover:opacity-100">
+        <div className="flex-col-top absolute inset-x-0 bottom-0 z-20 h-[35%] p-5 lg:transition-opacity items-start lg:opacity-50 lg:group-hover:opacity-100">
             {children}
         </div>
         <div className="absolute inset-0 bottom-[30%] top-0 z-0 overflow-hidden rounded-t-lg">
@@ -34,7 +34,7 @@ const ListProject = ({ children, ...onclick }) => (
 function Archive_Project({ viewMode, ...data }) {
     const visitProject = () => window.open(data.href, '_blank', 'noopenner noreferrer')
     const Title = ({ className = '' }) => (
-        <h5 className={`whitespace-nowrap font-medium text-white ${className}`}>{data.title}</h5>
+        <h5 className={`lg:whitespace-nowrap font-medium text-white ${className}`}>{data.title}</h5>
     )
     const Content = ({ ...props }) => <div dangerouslySetInnerHTML={{ __html: data.content }} {...props} />
     const Tech = ({ ...props }) => (
@@ -64,8 +64,10 @@ function Archive_Project({ viewMode, ...data }) {
             {viewMode === 'grid' && (
                 <GridProject src={data.src}>
                     <Title />
-                    <Content className="flex h-full text-[max(14px,0.85rem)] max-md:text-center" />
-                    <Tech className="flex max-w-full" />
+                   <div className="full flex-col-left">
+                        <Content className="flex text-[max(14px,0.85rem)]" />
+                        <Tech className="flex max-w-full" />
+                   </div>
                 </GridProject>
             )}
             {viewMode === 'list' && (

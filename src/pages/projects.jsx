@@ -1,5 +1,5 @@
 import { getProjectsProps } from 'src/lib/markdown'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, LayoutGroup, motion, useCycle } from 'framer-motion'
 import { FadeInOut, projectsMotion } from '@motion'
 import { Archive, Layout, Sidebar } from '@components'
@@ -22,6 +22,10 @@ export default function ProjectsPage({ data }) {
     const projects = Object.values(data)
     const categories = ['all', ...new Set(projects.map(({ category }) => category))]
 
+    useEffect(()=>{
+        document.body.style.height="auto"
+    },[])
+
     return (
         <>
             <LayoutButton viewMode={viewMode} setViewMode={setViewMode} />
@@ -34,7 +38,7 @@ export default function ProjectsPage({ data }) {
                         {...projectsMotion.containerProps}
                     >
                         <div
-                            className={` relative w-full px-2 lg:w-[calc(100%-64px)] lg:px-10 ${
+                            className={`relative w-full px-2 lg:w-[calc(100%-64px)] lg:px-10 ${
                                 viewMode === 'grid'
                                     ? ' grid max-w-[calc(1410px*(3/2))] grid-cols-1 gap-5 lg:grid-cols-2 max:grid-cols-3'
                                     : 'flex-col-top mr-auto max-w-[1280px]'

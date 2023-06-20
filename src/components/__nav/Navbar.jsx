@@ -1,12 +1,11 @@
 import { useState, useEffect, useCallback } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { useMediaQuery } from '@hooks'
-import { pushPage } from '@utils'
 import Burger from './Burger'
-import Logo from './Logo'
+//import Logo from './Logo'
 import Menu from './Menu'
 import NavLinks from './NavLinks'
-import BackButton from '../__projects/BackButton'
+import BackButton from './BackButton'
 
 const Navbar = ({ isHome }) => {
     const isLg = useMediaQuery(1024)
@@ -29,13 +28,10 @@ const Navbar = ({ isHome }) => {
             <div className="full flex-center z-10 mx-auto max-w-[1440px] lg:justify-start">
                 {/* <Logo /> */}
                 <AnimatePresence mode="wait">
-                    {!isHome || isLg ? (
+                    {!isHome || (!isHome && isLg) ? (
                         <BackButton key="back-btn" />
                     ) : (
-                        <Burger
-                            anim={menu ? 'x' : 'burg'}
-                            onClick={()=>toggleMenu()}
-                        />
+                        <Burger anim={menu ? 'x' : 'burg'} onClick={() => toggleMenu()} />
                     )}
                 </AnimatePresence>
                 <AnimatePresence>

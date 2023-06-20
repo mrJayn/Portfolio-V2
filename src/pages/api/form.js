@@ -17,7 +17,7 @@ export default function handler(req, res) {
         text: req.body.message,
         html: `
     <hr/>
-    <div><strong>Name:</strong> ${req.body.fullName}</div>
+    <div><strong>Name:</strong> ${req.body.name}</div>
     <div><strong>Email:</strong> ${req.body.email}</div>
     <hr/>
     <br/>

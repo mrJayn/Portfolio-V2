@@ -1,23 +1,20 @@
 import { getProjectsProps } from 'src/lib/markdown'
 import { useState } from 'react'
 import { AnimatePresence, LayoutGroup, motion, useCycle } from 'framer-motion'
-import { projectsMotion } from '@motion'
+import { FadeInOut, projectsMotion } from '@motion'
 import { Archive, Layout, Sidebar } from '@components'
 
-function LayoutButton({ viewMode, setViewMode }) {
-    return (
-        <motion.div
-            key={viewMode === 'list' ? '⋮' : '▤'}
-            className="flex-center fixed right-2 top-1 z-[100] aspect-[1/1] h-14 cursor-pointer rounded-md text-[48px] tracking-[-0.025em] text-grey-40 transition-colors duration-250 ease-in-out hover:text-white max-lg:bg-grey-95"
-            onClick={() => setViewMode()}
-            title={`${viewMode === 'list' ? 'Grid' : 'List'} layout`}
-            {...projectsMotion.layoutBtn.wrapProps}
-        >
-            {viewMode === 'list' && `⋮⋮⋮`}
-            {viewMode === 'grid' && `▤`}
-        </motion.div>
-    )
-}
+const LayoutButton = ({ viewMode, setViewMode }) => (
+    <motion.div
+        className="flex-center transition-colors fixed right-2 top-2 z-[100] aspect-[1/1] h-14 cursor-pointer rounded-md bg-grey-75 text-[48px] tracking-[-0.025em] text-grey-40 hover:bg-grey-60 hover:text-white"
+        onClick={() => setViewMode()}
+        title={`${viewMode === 'list' ? 'Grid' : 'List'} layout`}
+        {...FadeInOut()}
+    >
+        {viewMode === 'list' && `⋮⋮⋮`}
+        {viewMode === 'grid' && `▤`}
+    </motion.div>
+)
 
 export default function ProjectsPage({ data }) {
     const [active, setActive] = useState(0)
@@ -33,14 +30,14 @@ export default function ProjectsPage({ data }) {
                 <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
                     <motion.div
                         key={viewMode + 'container'}
-                        className="pl-sidebar relative my-20 min-h-[calc(100vh-160px)] w-full overflow-hidden"
+                        className="relative my-20 min-h-[calc(100vh-160px)] w-full overflow-hidden pl-sidebar"
                         {...projectsMotion.containerProps}
                     >
                         <div
-                            className={` relative w-full max-w-[calc(1410px*(3/2))] px-2 lg:w-[calc(100%-64px)] lg:px-10 ${
+                            className={` relative w-full px-2 lg:w-[calc(100%-64px)] lg:px-10 ${
                                 viewMode === 'grid'
-                                    ? ' grid grid-cols-1 gap-5 lg:grid-cols-2 max:grid-cols-3'
-                                    : 'flex-col-top mx-auto'
+                                    ? ' grid max-w-[calc(1410px*(3/2))] grid-cols-1 gap-5 lg:grid-cols-2 max:grid-cols-3'
+                                    : 'flex-col-top mr-auto max-w-[1280px]'
                             }`}
                         >
                             <LayoutGroup>

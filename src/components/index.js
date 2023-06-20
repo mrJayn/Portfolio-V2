@@ -4,7 +4,7 @@ export { default as Navbar } from './__nav/Navbar'
 export { default as Footer } from './Footer'
 export { default as Form } from './Form'
 export { default as ResizeCover } from './ResizeCover'
-export { default as Styled } from './items/Styled'
+export { default as StyledBtn } from './StyledButton'
 
 /** HOME PAGE **/
 export { default as Intro } from './__sections/Intro'

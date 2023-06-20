@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useAnimate, stagger } from 'framer-motion'
 import { scroll2id, openResumeJPG } from '@utils'
-import { Styled } from '@components'
+import { StyledBtn } from '@components'
 
 const transitions = {
     stagger: { delay: stagger(0.1), duration: 0.6, ease: [0.33, 1, 0.68, 1] },
@@ -47,7 +47,7 @@ const Intro = () => {
                 </h2>
             </div>
             {/* <Buttons /> */}
-            <div>{`[ placeholder ]`}</div>
+            <div>{` `}</div>
             {/***/}
             <div className=" absolute inset-0 top-16 -z-10">
                 <Graphic />
@@ -64,9 +64,9 @@ const btnFns = {
 const Buttons = () => (
     <div className="w-full gap-[1rem] text-[1.25rem] max-lg:flex-col-center lg:flex-evenly">
         {Object.entries(btnFns).map(([text, fn], i) => (
-            <Styled.Button key={`intro-btn-${i}`} onClick={fn}>
+            <StyledBtn key={`intro-btn-${i}`} onClick={fn}>
                 {text}
-            </Styled.Button>
+            </StyledBtn>
         ))}
     </div>
 )

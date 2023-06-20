@@ -6,7 +6,7 @@ const AboutMe = ({ content, src }) => (
         <h3>Who Am I</h3>
         <div className="flex-col-center mt-5 w-full gap-5 lg:flex-row">
             <div
-                className="styled-content flex w-[min(37ch,100%)] flex-col indent-4 lg:mb-auto"
+                className="flex w-[min(37ch,100%)] flex-col rounded-lg p-5 indent-4 shadow-[inset_0_0_0_2px_#404040] lg:mb-auto"
                 dangerouslySetInnerHTML={{ __html: content }}
             />
             <div className="relative aspect-[1/1] h-[290px] overflow-hidden lg:h-[350px] lg:min-w-[350px]">

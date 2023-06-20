@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import { AnimatePresence, motion, wrap } from 'framer-motion'
 import { featuredMotion } from '@motion'
-import { Styled } from '@components'
+import { StyledBtn } from '@components'
 
 function ProjectFrame({ n, handleSwipe, children }) {
     const [drag, setDrag] = useState(false)
@@ -50,7 +50,7 @@ const FtdContent = ({ tech, content, href }) => (
                 ))}
             </div>
         </div>
-        <Styled.Button onClick={() => window.open(href, '_blank', 'noopenner noreferrer')}>Learn More</Styled.Button>
+        <StyledBtn onClick={() => window.open(href, '_blank', 'noopenner noreferrer')}>Learn More</StyledBtn>
     </motion.div>
 )
 
@@ -121,9 +121,7 @@ function ArchiveLink() {
             className="flex-col-center gap-y-4 text-[1.5em]"
             exit={{ opacity: 0, transition: { duration: 1, ease: 'easeIn' } }}
         >
-            <Styled.Button onClick={() => router.push('/projects', `/projects`, { scroll: false })}>
-                View All Projects
-            </Styled.Button>
+            <StyledBtn onClick={() => router.push('/projects', `/projects`, { scroll: false })}>View All Projects</StyledBtn>
         </motion.div>
     )
 }

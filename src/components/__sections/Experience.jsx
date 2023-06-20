@@ -1,20 +1,6 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Styled } from '@components'
 import { experienceMotion } from '@motion'
-
-const PlusMinus = ({ isActive }) => (
-    <div className="flex-center absolute -right-1.5 top-1 aspect-[1/1] w-14">
-        <div
-            data-active={isActive}
-            className="absolute h-[3px] w-1/3 rounded-full data-active:bg-red data-inactive:bg-slate-70"
-        />
-        <div
-            className="absolute h-1/3 w-[3px] rounded-full bg-slate-70"
-            style={{ textShadow: '0px 0px 0px #78859e', opacity: isActive ? 0 : 1 }}
-        />
-    </div>
-)
 
 function Jobs({ jobs }) {
     const [active, setActive] = useState(-1)
@@ -35,7 +21,9 @@ function Jobs({ jobs }) {
                             {title}
                         </p>
                         <span className="whitespace-nowrap text-min italic opacity-75">{dates}</span>
-                        <PlusMinus isActive={active === i} />
+                        <div className="flex-center absolute -right-1.5 top-1 aspect-[1/1] w-14 text-[56px] leading-[1]">
+                            {active === i ? '-' : '+'}
+                        </div>
                     </div>
                     <AnimatePresence>
                         {active === i && (
@@ -61,52 +49,49 @@ function Jobs({ jobs }) {
 }
 
 function Certs({ certifications }) {
-    const scrollContainer = useRef(null)
     const [active, setActive] = useState(0)
     const { title, description, href } = certifications[active]
-
-    function formatTitle(str) {
-        return str.replace(/&/i, '\n&').replace(/w\//i, '\nw/')
-    }
+    const formatTitle = (str) => str.replace(/&/i, '\n&').replace(/w\//i, '\nw/')
 
     function handleTabClick(i, e) {
         if (active === i) return
         if (screen.width >= 1024) return setActive(i)
+
+        const scrollContainer = e.currentTarget.parentElement
         const { left, width } = e.currentTarget.getBoundingClientRect()
-        const x = scrollContainer.current.scrollLeft + left + width / 2 - screen.width / 2
-        scrollContainer.current.scrollTo(x, 0)
+        const x = scrollContainer.scrollLeft + left + width / 2 - screen.width / 2
+
+        scrollContainer.scrollTo(x, 0)
         setActive(i)
     }
 
     return (
         <div className="relative w-full max-lg:text-center">
             <h3>Certifications</h3>
-            <div className="relative mt-5 flex w-full overflow-hidden max-lg:flex-col lg:h-[575px] lg:rounded-l-xl lg:shadow-[-8px_0_#78859e]">
-                <ul
-                    className="max-lg:use-scrollbar z-10 touch-pan-x gap-0.5 overflow-y-hidden overflow-x-scroll max-lg:flex-left lg:flex-col-left max-lg:h-24 max-lg:scroll-smooth lg:min-w-[20ch] lg:overflow-x-visible"
-                    ref={scrollContainer}
-                >
-                    {certifications.map((data, i) => (
-                        <Styled.Tabs
-                            key={data.title}
-                            isActive={i === active}
-                            className="min-w-[16ch] leading-[0.9] tracking-[-0.025em]"
-                            toVerticalAt={1024}
+            <div className="relative flex w-full max-lg:flex-col lg:h-[650px]">
+                <ul className="max-lg:use-scrollbar z-10 touch-pan-x gap-2.5 overflow-y-hidden py-5 max-lg:flex-left lg:flex-col-left max-lg:-ml-4 max-lg:w-screen max-lg:overflow-x-scroll max-lg:scroll-smooth max-lg:px-[6ch] lg:min-w-fit lg:py-10">
+                    {certifications.map(({ shortend }, i) => (
+                        <motion.li
+                            key={shortend}
+                            className="styled-tab group h-[3rem] min-w-[18ch] max-lg:p-2.5 lg:min-w-[20ch] lg:translate-x-[-10%] lg:justify-start lg:rounded-r-md lg:pl-[15%] lg:pr-[5%] lg:text-start"
+                            data-active={i === active}
                             onClick={(e) => handleTabClick(i, e)}
                         >
-                            {formatTitle(data.title)}
-                        </Styled.Tabs>
+                            {formatTitle(shortend)}
+                            <span className="lg:tab-decoration" />
+                        </motion.li>
                     ))}
+                    <div className="absolute inset-y-0 -left-2 z-30 w-2 rounded-r-full bg-slate-60 max-lg:hidden" />
                 </ul>
-                <div className="relative z-0 h-[320px] w-full overflow-hidden p-2 py-6 lg:my-auto">
+                <div className="relative z-0 mt-2.5 h-[320px] w-full overflow-hidden lg:my-auto lg:h-2/3">
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={title}
-                            className="flex-col-center mx-auto max-w-[500px] gap-y-4 lg:justify-start"
+                            className="flex-col-center mx-auto max-w-[550px] gap-y-5 lg:items-start"
                             {...experienceMotion.Cert}
                         >
-                            <h4>{formatTitle(title)}</h4>
-                            <p className="w-full leading-[1.5]">{description}</p>
+                            <h4 className="lg:whitespace-nowrap">{formatTitle(title)}</h4>
+                            <p className="w-full leading-[1.5] lg:-ml-5 lg:indent-2">{description}</p>
                             <a
                                 href={href}
                                 target="_blank"

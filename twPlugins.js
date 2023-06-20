@@ -1,6 +1,6 @@
 const plugin = require('tailwindcss/plugin')
 
-const components = plugin(function ({ addComponents }) {
+const components = plugin(function ({ addComponents, matchComponents, theme }) {
     addComponents({
         '.full': {
             height: '100%',
@@ -95,6 +95,16 @@ const components = plugin(function ({ addComponents }) {
             justifyContent: 'space-around',
         },
     })
+    matchComponents(
+        {
+            transition: (value) => ({
+                'transition-property': value['property'] ?? value,
+                'transition-timing-function': value['timing'] ?? 'cubic-bezier(0.4, 0, 0.2, 1)',
+                'transition-duration': value['duration'] ?? '0.3s',
+            }),
+        },
+        { values: theme('customTransitions'), supportsNegativeValues: false }
+    )
 })
 
 const bases = plugin(function ({ addBase }) {

@@ -4,196 +4,6 @@ export const bounce = (value, { reverse = false } = {}) =>
     [0, 0.1, 0.43, 0.98, 0.75, 0.98, 0.93, 0.99, 0.98, 1].map((v) => (reverse ? 1 - v : v) * value)
 export const bounceTimes = [0, 0.12, 0.24, 0.36, 0.54, 0.74, 0.82, 0.94, 0.96, 1]
 
-// ====================
-
-const hsh = {
-    initial: 'hidden',
-    animate: 'show',
-    exit: 'hidden',
-}
-
-// ====================
-
-// NAV Variants
-const NAV_TEXT_COLOR = theme.colors.grey[40]
-const LOGO_COLOR = theme.colors.grey[40]
-export const NavMotion = {
-    Burger: {
-        wrapProps: {
-            initial: { opacity: 0 },
-            animate: { opacity: 1 },
-            exit: { opacity: 0 },
-            transition: { duration: 0.5, ease: 'easeIn' },
-        },
-        outer: {
-            burg: {
-                stroke: NAV_TEXT_COLOR,
-                y: 0,
-                rotate: 0,
-                scaleX: 1,
-                pathLength: 16,
-                pathSpacing: 0,
-                transition: {
-                    originX: { delay: 0.35, duration: 0 },
-                    y: { delay: 0.35, duration: 0.35, ease: 'easeOut' },
-                    default: { duration: 0.35, ease: 'easeIn' },
-                },
-            },
-            x: (i) => ({
-                stroke: '#b00',
-                y: i,
-                rotate: i * 45,
-                originX: 0.5,
-                transition: {
-                    originX: { duration: 0 },
-                    y: { duration: 0.35, ease: 'easeIn' },
-                    default: { delay: 0.35, duration: 0.35, ease: 'easeOut' },
-                },
-            }),
-        },
-        inner: {
-            burg: {
-                stroke: NAV_TEXT_COLOR,
-                opacity: 1,
-                x: 0,
-                transition: {
-                    opacity: { delay: 0.35, duration: 0.01 },
-                    x: { duration: 0.35, ease: 'easeOut' },
-                },
-            },
-            x: {
-                opacity: 0,
-                transition: { delay: 0.35, duration: 0.01 },
-            },
-        },
-    },
-    LogoVariants: {
-        path: {
-            hidden: {
-                pathLength: 0,
-                stroke: '#6199ff',
-                strokeOpacity: 0,
-                strokeWidth: 20,
-                fill: LOGO_COLOR,
-                fillOpacity: 0,
-            },
-            show: {
-                pathLength: 1,
-                stroke: LOGO_COLOR,
-                strokeOpacity: 1,
-                strokeWidth: 0,
-                fill: LOGO_COLOR,
-                fillOpacity: 1,
-            },
-        },
-        rect: {
-            hidden: {
-                pathLength: 0,
-                stroke: '#6199ff',
-                strokeOpacity: 0,
-                strokeWidth: 20,
-                fill: LOGO_COLOR,
-                fillOpacity: 0,
-            },
-            show: {
-                pathLength: 1,
-                stroke: LOGO_COLOR,
-                strokeOpacity: 1,
-                strokeWidth: 0,
-                fill: LOGO_COLOR,
-                fillOpacity: 1,
-                x: 0,
-            },
-        },
-    },
-    MenuMotion: {
-        menuClipProps: {
-            initial: 'hidden',
-            animate: 'show',
-            exit: 'hidden',
-            variants: {
-                hidden: {
-                    clipPath: 'inset(100% 0 0% 0)',
-                    transition: {
-                        delay: 0,
-                        duration: 0.5,
-                        ease: 'easeInOut',
-                    },
-                },
-                show: {
-                    clipPath: ['inset(0% 0 100% 0)', 'inset(0% 0 0% 0)'],
-                    transition: {
-                        delay: 0.3,
-                        duration: 0.5,
-                        ease: 'easeInOut',
-                    },
-                },
-            },
-        },
-        staggerProps: {
-            initial: 'hidden',
-            animate: 'show',
-            variants: {
-                show: {
-                    transition: {
-                        delayChildren: 0.5,
-                        staggerChildren: 0.1,
-                    },
-                },
-            },
-        },
-        socialsVariants: {
-            hidden: { opacity: 0 },
-            show: {
-                opacity: 1,
-                transition: { duration: 0.3, ease: 'easeIn' },
-            },
-        },
-        backdropProps: {
-            initial: 'hidden',
-            animate: 'show',
-            exit: 'hidden',
-            variants: {
-                hidden: {
-                    opacity: 0,
-                    transition: { delay: 0.25, duration: 0.5 },
-                },
-                show: {
-                    opacity: 1,
-                    transition: { duration: 0.5 },
-                },
-            },
-        },
-    },
-    NavLinks: {
-        Container: {
-            hidden: { transition: { staggerChildren: 0.08 } },
-            show: {
-                transition: {
-                    delayChildren: 0.5,
-                    staggerChildren: 0.08,
-                    staggerDirection: -1,
-                },
-            },
-        },
-        Link: {
-            hidden: (isMenu) => ({
-                opacity: isMenu ? 0 : 1,
-                y: isMenu ? -10 : -50,
-                transition: { duration: 0.5, ease: 'circIn' },
-            }),
-            show: (isMenu) => ({
-                opacity: 1,
-                y: 0,
-                transition: {
-                    opacity: { duration: 0.75 },
-                    y: { duration: isMenu ? 0.5 : 0.75, ease: 'circOut' },
-                },
-            }),
-        },
-    },
-}
-
 // SECTIONS Variants
 export const aboutMotion = {
     skills: {
@@ -282,29 +92,6 @@ export const projectsMotion = {
         },
         transition: { duration: 0.2, ease: 'easeIn', when: 'beforeChildren' },
     },
-    layoutBtn: {
-        wrapProps: {
-            initial: 'hidden',
-            animate: 'show',
-            exit: 'hidden',
-            variants: {
-                hidden: {
-                    opacity: 0,
-                    transition: { duration: 0.3, ease: 'easeIn' },
-                },
-                show: {
-                    opacity: 1,
-                    transition: { delay: 0.5, duration: 0.3, ease: 'easeIn' },
-                },
-            },
-        },
-        textProps: {
-            initial: { opacity: 0 },
-            animate: { opacity: 1 },
-            exit: { opacity: 0 },
-            transition: { duration: 0.25, ease: 'easeIn' },
-        },
-    },
 }
 
 export const archiveMotion = {
@@ -383,3 +170,9 @@ export const sidebarMotion = {
         }),
     },
 }
+
+export const FadeInOut = ({ duration = 0.5, delay = 0, delayShow = 0, delayExit = 0 } = {}) => ({
+    initial: { opacity: 0 },
+    animate: { opacity: 1, transition: { delay: delay + delayShow, duration: duration, ease: 'easeIn' } },
+    exit: { opacity: 0, transition: { delay: delay + delayExit, duration: duration, ease: 'easeIn' } },
+})

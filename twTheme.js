@@ -63,6 +63,33 @@ module.exports = {
             40: '4',
             50: '5',
         },
+        customTransitions: {
+            none: {
+                property: 'none',
+                timing: null,
+                duration: null,
+            },
+            all: {
+                property: 'all',
+                timing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                duration: '0.3s',
+            },
+            colors: {
+                property: 'color, background-color, border-color, text-decoration-color, fill, stroke',
+                timing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                duration: '0.3s',
+            },
+            opacity: {
+                property: 'opacity',
+                timing: 'easeIn',
+                duration: '0.3s',
+            },
+            transform: {
+                property: 'transform',
+                timing: null,
+                duration: null,
+            },
+        },
         transitionDuration: {
             150: '150ms',
             200: '200ms',

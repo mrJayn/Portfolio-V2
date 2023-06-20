@@ -6,6 +6,7 @@
             "@hooks": ["src/hooks/index.js"],
             "@utils": ["src/utils/utils.js"],
             "@motion": ["src/utils/motion.js"],
+            "@motion-nav": ["src/components/__nav/motion.js"],
             "@config": ["src/config.js"]
         }
     }

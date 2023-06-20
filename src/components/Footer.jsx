@@ -1,10 +1,9 @@
 import { useRef } from 'react'
 import { motion, useSpring } from 'framer-motion'
 import { socials } from '@config'
-import Paths from './items/Paths'
+import Paths from './Paths'
 
 const cursorSpring = { type: 'spring', stiffness: 700, damping: 40 }
-
 function MagnetElement({ children }) {
     const x = useSpring(0, cursorSpring)
     const y = useSpring(0, cursorSpring)
@@ -22,7 +21,6 @@ function MagnetElement({ children }) {
         x.set(0)
         y.set(0)
     }
-
     return (
         <motion.div
             className="group absolute inset-0 flex touch-none"
@@ -34,7 +32,7 @@ function MagnetElement({ children }) {
             onHoverEnd={reset}
         >
             <motion.div
-                className="pointer-events-none absolute inset-1.5 rounded-full stroke-grey p-2 transition-[background-color,stroke] duration-[100ms] ease-in lg:group-hover:bg-grey-80 lg:group-hover:stroke-slate"
+                className="transition-colors pointer-events-none absolute inset-1.5 rounded-full stroke-grey p-2 duration-[100ms] ease-in lg:group-hover:bg-grey-80 lg:group-hover:stroke-slate"
                 style={{ x, y }}
             >
                 {children}

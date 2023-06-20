@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { Styled } from '@components'
+import { StyledBtn } from '@components'
 
 const emailPattern =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -17,7 +17,7 @@ const ToastMsg = ({ success }) => (
 )
 
 const itemProps = (key) => ({
-    className: `peer z-10 w-full rounded-md border-2 border-t-0 border-grey-40 bg-white pl-[5px] leading-[1] text-black outline-none transition-[transform,color,background-color,background,border] duration-250 ease-in focus:border-slate-neon ${
+    className: `peer z-10 w-full rounded-md border-2 border-t-0 border-grey-40 bg-[#e0e0e0] pl-[5px] leading-[1] text-black outline-none transition-colors focus:border-slate-neon ${
         key === 'message' ? 'resize-none overflow-y-scroll pt-[calc(1em)]' : 'h-[40px] pt-[calc(40px-1.5em)] lg:h-[55px]'
     }`,
     name: { key },
@@ -94,6 +94,7 @@ const Form = ({}) => {
                     autoFocus={false}
                     rows={10}
                     defaultValue={''}
+                    maxLength={1000}
                     {...itemProps('message')}
                     {...register('message', { required: 'Enter a message.' })}
                 />
@@ -110,21 +111,21 @@ const Form = ({}) => {
                     <ErrorMessage error={errors[key]}>{errors[key]?.message}</ErrorMessage>
                 </div>
             ))}
-            <Styled.Button type="submit">SUBMIT</Styled.Button>
+            <StyledBtn type="submit">SUBMIT</StyledBtn>
         </form>
     )
 }
 
 const ReactivePlaceholder = ({ children }) => (
-    <span className="reactive-placeholder pointer-events-none absolute inset-0 left-[5px] z-10 flex origin-top-left translate-y-[0px] scale-[0.6] select-none justify-start text-[0.9em] duration-150 ease-in peer-placeholder-shown:translate-y-[5px] peer-placeholder-shown:scale-[1] peer-focus:scale-[0.6] peer-focus:text-slate-neon peer-placeholder-shown:peer-focus:translate-y-[0px]">
+    <span className="reactive-placeholder pointer-events-none absolute inset-0 left-[5px] z-10 flex origin-top-left translate-y-[0px] scale-[0.6] select-none justify-start text-[0.9em] text-black duration-150 ease-in peer-placeholder-shown:translate-y-[5px] peer-placeholder-shown:scale-[1] peer-focus:scale-[0.6] peer-focus:text-slate-neon peer-placeholder-shown:peer-focus:translate-y-[0px]">
         {children}
     </span>
 )
 
 const ErrorMessage = ({ error = false, children }) => (
-    <div className="err-msg h-[1em] w-full overflow-hidden pt-[0.15em]">
+    <div className="err-msg relative ml-[-0.5em] h-[1em] overflow-hidden pt-[0.1em]">
         <div
-            className={`pl-[1.1em] text-min leading-[0.85] text-red duration-150 ease-in before:absolute before:bottom-[0.35em] before:left-[1px] before:rotate-180 before:text-[0.9em] before:font-semibold before:content-['ⓘ'] group-focus-within:opacity-0 ${
+            className={`pl-[1.1em] text-min leading-[0.85] text-red duration-150 ease-in before:absolute before:left-0 before:rotate-180 before:text-[0.9em] before:font-semibold before:content-['ⓘ'] group-focus-within:opacity-0 ${
                 error ? 'opacity-100' : 'opacity-0'
             }`}
         >

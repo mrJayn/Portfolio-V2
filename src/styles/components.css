@@ -2,9 +2,16 @@
 @tailwind components;
 
 @layer components {
-    .styled-content {
-        @apply rounded-lg p-5;
-        box-shadow: inset 0 0 0 2px theme(colors.grey.70);
+    .styled-button {
+        @apply flex-center transition-colors relative z-30 aspect-[3/1] cursor-pointer select-none overflow-hidden whitespace-nowrap rounded-lg bg-grey-75 p-[1.25em] text-grey shadow-lg shadow-black/50 duration-250 ease-in-out hover:bg-grey-60 hover:text-white !important;
+    }
+
+    .styled-tab {
+        @apply flex-center transition-[transform,color,background-color,z-index] relative z-0 w-full cursor-pointer select-none bg-grey-75 text-center font-normal capitalize text-grey shadow-md shadow-black/50 data-active:z-10 data-active:translate-x-[0%] data-active:translate-y-[0%] data-active:bg-slate-60 data-active:text-white lg:data-inactive:hover:translate-x-[-7.5%] lg:data-inactive:hover:bg-grey-65 lg:data-inactive:hover:text-white;
+    }
+
+    .tab-decoration {
+        @apply transition-all pointer-events-none absolute inset-0 -z-10 bafter:transition-all before:-top-1/4 before:rounded-bl-full before:shadow-[-10px_10px_0px_10px] after:-bottom-1/4 after:rounded-tl-full after:shadow-[-10px_-10px_0px_10px] bafter:absolute bafter:left-0 bafter:h-1/4 bafter:w-1/4 bafter:content-[''] group-data-active:bafter:text-slate-60 group-data-inactive:bafter:text-grey-75 group-data-inactive:lg:group-hover:bafter:text-grey-65;
     }
 
     .use-scrollbar {

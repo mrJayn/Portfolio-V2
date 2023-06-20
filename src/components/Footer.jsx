@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { motion, useSpring } from 'framer-motion'
 import { socials } from '@config'
-import { Styled } from '@components'
+import Paths from './items/Paths'
 
 const cursorSpring = { type: 'spring', stiffness: 700, damping: 40 }
 
@@ -50,7 +50,9 @@ const Footer = () => (
                 <div key={`social-icon-${i}`} className="relative aspect-[1/1] h-full">
                     <a href={href} target="_blank" rel="noopener noreferrer" title={name}>
                         <MagnetElement>
-                            <Styled.Icon name={name} className=" fill-none" />
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                                <Paths name={name} />
+                            </svg>
                         </MagnetElement>
                     </a>
                 </div>

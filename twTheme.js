@@ -24,6 +24,8 @@ const spacing = {
     vmax: '100vmax',
     vmin: '100vmin',
     img: clamp(150, 225),
+    sidebar: clamp(80, 160),
+    'sidebar-padding': clamp(100, 200),
     px: '1px',
 }
 const spaces = [
@@ -116,6 +118,11 @@ module.exports = {
             },
             aspectRatio: {
                 '3/2': '3 / 2',
+            },
+            backgroundSize: {
+                '50%': '50%',
+                '100%': '100%',
+                '110%': '110%',
             },
         },
     },

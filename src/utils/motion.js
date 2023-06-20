@@ -4,80 +4,69 @@ export const bounce = (value, { reverse = false } = {}) =>
     [0, 0.1, 0.43, 0.98, 0.75, 0.98, 0.93, 0.99, 0.98, 1].map((v) => (reverse ? 1 - v : v) * value)
 export const bounceTimes = [0, 0.12, 0.24, 0.36, 0.54, 0.74, 0.82, 0.94, 0.96, 1]
 
+// ====================
+
+const hsh = {
+    initial: 'hidden',
+    animate: 'show',
+    exit: 'hidden',
+}
+
+// ====================
+
 // NAV Variants
 const NAV_TEXT_COLOR = theme.colors.grey[40]
 const LOGO_COLOR = theme.colors.grey[40]
 export const NavMotion = {
     Burger: {
+        wrapProps: {
+            initial: { opacity: 0 },
+            animate: { opacity: 1 },
+            exit: { opacity: 0 },
+            transition: { duration: 0.5, ease: 'easeIn' },
+        },
         outer: {
             burg: {
-                x: 0,
+                stroke: NAV_TEXT_COLOR,
                 y: 0,
                 rotate: 0,
-                stroke: NAV_TEXT_COLOR,
+                scaleX: 1,
+                pathLength: 16,
+                pathSpacing: 0,
                 transition: {
-                    x: { duration: 0.35, ease: 'backIn' },
-                    y: { duration: 0.35, delay: 0.35, ease: 'easeOut' },
+                    originX: { delay: 0.35, duration: 0 },
+                    y: { delay: 0.35, duration: 0.35, ease: 'easeOut' },
                     default: { duration: 0.35, ease: 'easeIn' },
                 },
             },
-            exit: (i) => ({
+            x: (i) => ({
+                stroke: '#b00',
                 y: i,
                 rotate: i * 45,
-                stroke: '#b00',
+                originX: 0.5,
                 transition: {
+                    originX: { duration: 0 },
                     y: { duration: 0.35, ease: 'easeIn' },
                     default: { delay: 0.35, duration: 0.35, ease: 'easeOut' },
-                },
-            }),
-            back: (i) => ({
-                x: Math.abs(i) / -2,
-                y: i / 2,
-                rotate: i * -30,
-                stroke: NAV_TEXT_COLOR,
-                transition: {
-                    x: { duration: 1, ease: 'anticipate' },
-                    y: { duration: 0.35 },
-                    default: { duration: 0.35 },
                 },
             }),
         },
         inner: {
             burg: {
+                stroke: NAV_TEXT_COLOR,
                 opacity: 1,
                 x: 0,
-                y: 0,
-                rotate: 0,
-                scale: 1,
-                stroke: NAV_TEXT_COLOR,
                 transition: {
                     opacity: { delay: 0.35, duration: 0.01 },
-                    x: { delay: 0.7, duration: 0.35, ease: 'easeOut' },
-                    y: { delay: 0.35, duration: 0.35, ease: 'easeIn' },
-                    rotate: { duration: 0.35, ease: 'easeIn' },
-                    scale: { duration: 0.5, ease: 'circOut' },
+                    x: { duration: 0.35, ease: 'easeOut' },
                 },
             },
-            exit: {
+            x: {
                 opacity: 0,
-                stroke: NAV_TEXT_COLOR,
                 transition: { delay: 0.35, duration: 0.01 },
             },
-            back: (i) => ({
-                x: -i / 2 + 0.5,
-                y: i * 0.9,
-                rotate: i * 30,
-                scale: 1.75,
-                originX: 1,
-                stroke: NAV_TEXT_COLOR,
-                transition: {
-                    x: { duration: 0.35, ease: 'circOut' },
-                    default: { duration: 0.6, delay: 0.35 },
-                },
-            }),
         },
     },
-
     LogoVariants: {
         path: {
             hidden: {
@@ -134,7 +123,7 @@ export const NavMotion = {
                 show: {
                     clipPath: ['inset(0% 0 100% 0)', 'inset(0% 0 0% 0)'],
                     transition: {
-                        delay: 0.25,
+                        delay: 0.3,
                         duration: 0.5,
                         ease: 'easeInOut',
                     },
@@ -281,71 +270,116 @@ export const featuredMotion = {
     },
 }
 
-export const archiveVariants = {
-    Project: {
-        hidden: {
-            opacity: 0,
-            scale: 0,
-        },
-        show: {
-            opacity: 1,
-            scale: 1,
-        },
-    },
-}
-
 // PROJECTS
 export const projectsMotion = {
-    options: {
+    containerProps: {
+        initial: 'show',
+        animate: 'show',
+        exit: 'exit',
+        variants: {
+            show: { opacity: 1 },
+            exit: { opacity: 0 },
+        },
+        transition: { duration: 0.2, ease: 'easeIn', when: 'beforeChildren' },
+    },
+    layoutBtn: {
         wrapProps: {
             initial: 'hidden',
             animate: 'show',
             exit: 'hidden',
             variants: {
                 hidden: {
-                    x: '-100%',
-                    transition: { when: 'afterChildren', duration: 0.5 },
+                    opacity: 0,
+                    transition: { duration: 0.3, ease: 'easeIn' },
                 },
                 show: {
-                    x: 0,
-                    transition: {
-                        when: 'beforeChildren',
-                        duration: 0.5,
-                        ease: 'circOut',
-                    },
+                    opacity: 1,
+                    transition: { delay: 0.5, duration: 0.3, ease: 'easeIn' },
                 },
+            },
+        },
+        textProps: {
+            initial: { opacity: 0 },
+            animate: { opacity: 1 },
+            exit: { opacity: 0 },
+            transition: { duration: 0.25, ease: 'easeIn' },
+        },
+    },
+}
+
+export const archiveMotion = {
+    wrapProps: {
+        grid: {
+            initial: 'hidden',
+            animate: 'show',
+            exit: 'hidden',
+            variants: {
+                hidden: { opacity: 0, scale: 0 },
+                show: { opacity: 1, scale: 1 },
+            },
+            transition: { duration: 0.5, ease: 'easeInOut' },
+        },
+        list: {
+            initial: 'hidden',
+            animate: 'show',
+            exit: 'hidden',
+            variants: {
+                hidden: { opacity: 0 },
+                show: { opacity: 1 },
+            },
+            transition: { duration: 0.25, ease: 'easeIn' },
+        },
+    },
+}
+
+export const sidebarMotion = {
+    wrapProps: {
+        initial: 'hidden',
+        animate: 'show',
+        exit: 'hidden',
+        variants: {
+            hidden: { x: '-100%' },
+            show: {
+                x: '0%',
+                transition: {
+                    duration: 0.25,
+                    ease: 'easeOut',
+                    staggerChildren: 0.1,
+                    delayChildren: 0,
+                    when: 'beforeChildren',
+                },
+            },
+        },
+        transition: { duration: 0.25, ease: 'easeOut' },
+    },
+    itemProps: {
+        variants: {
+            hidden: {
+                opacity: 0,
+                transition: { when: 'afterChildren', duration: 0.25, ease: 'easeIn' },
+            },
+            show: {
+                opacity: 1,
+                transition: { when: 'beforeChildren', duration: 0.25, ease: 'easeIn' },
             },
         },
     },
-    backBtn: {
-        wrap: {
-            hidden: {
-                opacity: 0,
-                transition: {
-                    when: 'afterChildren',
-                    duration: 0.5,
-                    ease: 'easeIn',
-                },
+    arrowVars: {
+        hidden: (deg) => ({
+            scaleX: 0,
+            rotate: 0,
+            transition: {
+                scaleX: deg === 0 ? { duration: 0.5 } : { delay: 0.25 },
+                rotate: { duration: 0.25 },
             },
-            show: { opacity: 1 },
-        },
-        lines: {
-            hidden: (deg) => ({
-                scaleX: 0,
-                rotate: 0,
-                transition: {
-                    scaleX: deg === 0 ? { duration: 0.5 } : { delay: 0.25 },
-                    rotate: { duration: 0.25 },
-                },
-            }),
-            show: (deg) => ({
-                scaleX: 1,
-                rotate: deg,
-                transition: {
-                    scaleX: { duration: 0.5 },
-                    rotate: { delay: 0.25, duration: 0.5 },
-                },
-            }),
-        },
+        }),
+        show: (deg) => ({
+            scaleX: 1,
+            rotate: deg,
+            transition: {
+                scaleX: { duration: 0.5 },
+                rotate: { delay: 0.25, duration: 0.5 },
+            },
+        }),
     },
 }

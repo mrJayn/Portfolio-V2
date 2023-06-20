@@ -1,12 +1,9 @@
 ---
+title: Cohort Analysis
 category: python
+tech: ['Matplotlib']
 href: 'https://github.com/mrJayn/Cohort-Analysis'
 src: '/assets/featured/cohort_analysis.png'
-alt: Cohort Analysis Chart Image
 ---
-
-##### Cohort Analysis
-
--   Python
 
 Cohort Analysis of retained customers over time

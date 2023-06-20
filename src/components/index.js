@@ -15,3 +15,4 @@ export { default as Contact } from './__sections/Contact'
 
 /** PROJECTS PAGE **/
 export { default as Archive } from './__projects/Archive'
+export { default as Sidebar } from './__projects/Sidebar'

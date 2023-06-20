@@ -7,7 +7,7 @@ export default function Layout({ title, description, children }) {
             <NextSeo title={title} description={description} openGraph={{ title, description }} />
             <motion.main
                 id={`${title}-Layout`}
-                className="flex w-screen flex-col items-center overflow-hidden"
+                className="z-0 flex w-screen flex-col items-center overflow-hidden"
                 initial="hidden"
                 animate="show"
                 exit="exit"

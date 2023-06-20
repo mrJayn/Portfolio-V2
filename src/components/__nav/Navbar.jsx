@@ -6,6 +6,7 @@ import Burger from './Burger'
 import Logo from './Logo'
 import Menu from './Menu'
 import NavLinks from './NavLinks'
+import BackButton from '../__projects/BackButton'
 
 const Navbar = ({ isHome }) => {
     const isLg = useMediaQuery(1024)
@@ -13,12 +14,8 @@ const Navbar = ({ isHome }) => {
 
     const toggleMenu = useCallback(
         (open = !menu) => {
-            let _logo = document.getElementById('logo'),
-                _body = document.body
-
             setMenu(open)
-            _body.style.overflowY = open ? 'hidden' : 'auto'
-            _logo.style.pointerEvents = open ? 'none' : 'auto'
+            document.body.style.overflowY = open ? 'hidden' : 'auto'
         },
         [menu]
     )
@@ -28,18 +25,21 @@ const Navbar = ({ isHome }) => {
     }, [isLg, isHome, menu, toggleMenu])
 
     return (
-        <nav
-            id="navbar"
-            className={`fixed inset-x-0 top-0 z-[100] h-16 after:absolute after:inset-0 after:-z-10 after:bg-tempered after:content-['']`}
-        >
+        <nav id="navbar" className={`fixed inset-x-0 top-0 z-[99] h-16`}>
             <div className="full flex-center z-10 mx-auto max-w-[1440px] lg:justify-start">
-                <Logo />
-                <Burger
-                    anim={!isHome ? 'back' : menu ? 'exit' : 'burg'}
-                    onClick={() => (isHome ? toggleMenu() : pushPage('/'))}
-                />
+                {/* <Logo /> */}
+                <AnimatePresence mode="wait">
+                    {!isHome || isLg ? (
+                        <BackButton key="back-btn" />
+                    ) : (
+                        <Burger
+                            anim={menu ? 'x' : 'burg'}
+                            onClick={()=>toggleMenu()}
+                        />
+                    )}
+                </AnimatePresence>
                 <AnimatePresence>
-                    {isHome && <NavLinks key="nav-section-links" />}
+                    {isHome && <NavLinks key="links" />}
                     {menu && <Menu key="menu" toggleMenu={toggleMenu} />}
                 </AnimatePresence>
             </div>

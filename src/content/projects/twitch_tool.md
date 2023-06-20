@@ -1,13 +1,9 @@
 ---
+title: Twitch Integrative Tool
 category: python
+tech: ['Anaconda3']
 href: 'https://codepen.io/mrjayn/pen/abqbZGV'
 src: '/assets/projects/twitch.jpg'
-alt: Twitch Integrative Tool screenshot
 ---
 
-##### Twitch Integrative Tool
-
--   Python
--   Anaconda
-
-A simple and creative tool used to seamlessly integrate twitch into your browser.
+Seamlessly integrates twitch into your browser.

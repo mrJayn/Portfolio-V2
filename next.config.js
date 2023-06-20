@@ -1,10 +1,9 @@
 /** @type {import('next').NextConfig} */
-const withTM = require('next-transpile-modules')(['three'])
 
 let assetPrefix = ''
 let basePath = ''
 
-module.exports = withTM({
+module.exports = {
     basePath: basePath,
     assetPrefix: assetPrefix,
     images: {
@@ -16,4 +15,4 @@ module.exports = withTM({
         config.resolve.fallback = { fs: false }
         return config
     },
-})
+}

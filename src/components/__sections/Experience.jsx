@@ -17,7 +17,7 @@ function Jobs({ jobs }) {
                     >
                         <p>
                             {position} <br className="md:hidden" />
-                            <span className="mr-1 text-[1.25em] font-semibold leading-[0] text-purple-90">@</span>
+                            <span className="mr-1 text-[1.25em] font-semibold leading-[0] text-[#3d3b47]">@</span>
                             {title}
                         </p>
                         <span className="whitespace-nowrap text-min italic opacity-75">{dates}</span>
@@ -96,7 +96,7 @@ function Certs({ certifications }) {
                                 href={href}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="cursor-pointer select-none whitespace-nowrap font-medium text-slate underline underline-offset-[3px] visited:text-rose-gold lg:hover:text-slate-neon"
+                                className="cursor-pointer select-none whitespace-nowrap font-medium text-slate underline underline-offset-[3px] visited:text-[#b16580] lg:hover:text-slate-neon"
                             >
                                 More Information
                             </a>

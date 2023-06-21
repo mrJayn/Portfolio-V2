@@ -22,11 +22,13 @@ export default function handler(req, res) {
     <hr/>
     <br/>
     <div>${req.body.message}</div>`,
-    }
+    }``
 
-    transporter.sendMail(mailData, function (err, info) {
-        if (err) console.log('err--', err)
-        else console.log('Message sent: ' + info)
+    new Promise((resolve, reject) => {
+        transporter.sendMail(mailData, function (err, info) {
+            if (err) console.log('err--', err)
+            else console.log('Message sent: ' + info)
+        })
     })
 
     res.status(200).end()

@@ -86,6 +86,18 @@ const Form = ({}) => {
                 />
             ),
         },
+        subject: {
+            text: 'Subject*',
+            component: (
+                <input
+                    className="peer"
+                    type="text"
+                    autoComplete="subject"
+                    {...itemProps('subject')}
+                    {...register('subject', { required: 'Enter a subject.' })}
+                />
+            ),
+        },
         message: {
             text: 'Message*',
             component: (

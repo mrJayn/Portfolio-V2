@@ -1,4 +1,4 @@
-import Form from '../Form'
+import { Form } from '@components'
 
 const Contact = () => (
     <div id="contact-content" className="flex-col-bottom relative w-full">

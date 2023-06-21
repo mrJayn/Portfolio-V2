@@ -26,7 +26,7 @@ const itemProps = (key) => ({
 })
 
 /********************************************************************/
-const Form = ({}) => {
+const NodeForm = () => {
     const {
         register,
         handleSubmit,
@@ -115,7 +115,7 @@ const Form = ({}) => {
     }
 
     return (
-        <form id="form" className="flex-col-center w-full" onSubmit={handleSubmit(onSubmit)} method="POST">
+        <form id="node-form" className="flex-col-center w-full" onSubmit={handleSubmit(onSubmit)} method="POST">
             {Object.entries(formItems).map(([key, { text, component }]) => (
                 <div key={text} className="group relative w-full">
                     {component}
@@ -146,4 +146,4 @@ const ErrorMessage = ({ error = false, children }) => (
     </div>
 )
 
-export default Form
+export default NodeForm

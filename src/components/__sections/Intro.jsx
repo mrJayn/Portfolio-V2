@@ -1,7 +1,8 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { useAnimate, stagger } from 'framer-motion'
 import { scroll2id, openResumeJPG } from '@utils'
 import { StyledBtn } from '@components'
+import { useViewport } from '@hooks'
 
 const transitions = {
     stagger: { delay: stagger(0.1), duration: 0.6, ease: [0.33, 1, 0.68, 1] },
@@ -10,6 +11,7 @@ const transitions = {
 
 const Intro = () => {
     const [scope, animate] = useAnimate()
+    const { height } = useViewport()
 
     useEffect(() => {
         const mount = [
@@ -27,10 +29,7 @@ const Intro = () => {
     }, [animate, scope])
 
     return (
-        <div
-            id="intro-content"
-            className="flex-col-around relative h-[calc(100vmax-56px)] overflow-hidden lg:h-[calc(100vh-112px)]"
-        >
+        <div id="intro-content" className="flex-col-around relative overflow-hidden" style={{ height: `${height - 64}px` }}>
             <div className="relative text-center" ref={scope}>
                 <h1 className="flex-center max-lg:flex-col">
                     <span>Michael</span>

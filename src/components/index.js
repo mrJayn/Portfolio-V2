@@ -2,9 +2,8 @@
 export { default as Layout } from './Layout'
 export { default as Navbar } from './__nav/Navbar'
 export { default as Footer } from './Footer'
-export { default as NodeForm } from './Form'
-export { default as Form } from './Form2'
 export { default as ResizeCover } from './ResizeCover'
+export { default as Form } from './Form'
 export { default as StyledBtn } from './StyledButton'
 
 /** HOME PAGE **/

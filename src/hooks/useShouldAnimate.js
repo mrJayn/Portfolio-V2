@@ -15,7 +15,7 @@ export default function useShouldAnimate() {
         const wheel = (e) => {
             var isTouchPad = e.wheelDeltaY ? e.wheelDeltaY === -3 * e.deltaY : e.deltaMode === 0
             if (isTouchPad) {
-                trackPadLock.current = Array(3)
+                trackPadLock.current = Array(4)
             } else if (trackPadLock.current.length > 0) {
                 trackPadLock.current.pop()
             }

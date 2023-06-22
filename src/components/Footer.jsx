@@ -41,27 +41,27 @@ function MagnetElement({ children }) {
     )
 }
 
-const Footer = () => (
-    <div className="flex-col-center mb-10 w-full gap-5">
-        <div className="flex-center relative h-16 max-w-full gap-x-2.5">
-            {socials.map(({ name, href }, i) => (
-                <div key={`social-icon-${i}`} className="relative aspect-[1/1] h-full">
-                    <a href={href} target="_blank" rel="noopener noreferrer" title={name}>
-                        <MagnetElement>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
-                                <Paths name={name} />
-                            </svg>
-                        </MagnetElement>
-                    </a>
-                </div>
-            ))}
+export default function Footer() {
+    return (
+        <div className="flex-col-center mb-10 w-full gap-5">
+            <div className="flex-center relative h-16 max-w-full gap-x-2.5">
+                {socials.map(({ name, href }, i) => (
+                    <div key={`social-icon-${i}`} className="relative aspect-[1/1] h-full">
+                        <a href={href} target="_blank" rel="noopener noreferrer" title={name}>
+                            <MagnetElement>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                                    <Paths name={name} />
+                                </svg>
+                            </MagnetElement>
+                        </a>
+                    </div>
+                ))}
+            </div>
+            <p className="text-[17px] font-semibold tracking-[0.225em]">
+                <span className="uppercase text-white">Michael Jayne</span>
+                &nbsp;&nbsp;
+                <span className="font-montserrat text-slate-neon">&#169;{new Date().getFullYear()}</span>
+            </p>
         </div>
-        <p className="text-[17px] font-semibold tracking-[0.225em]">
-            <span className="uppercase text-white">Michael Jayne</span>
-            &nbsp;&nbsp;
-            <span className="font-montserrat text-slate-neon">&#169;{new Date().getFullYear()}</span>
-        </p>
-    </div>
-)
-
-export default Footer
+    )
+}

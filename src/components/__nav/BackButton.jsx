@@ -12,7 +12,7 @@ export default function BackButton() {
     return (
         <motion.button
             ref={scope}
-            className="transition-colors group absolute left-2 top-2 z-[100] flex aspect-[1/1] h-14 select-none items-center rounded-md bg-grey-75 shadow-lg shadow-black/50 hover:bg-grey-65"
+            className="group transition-colors absolute left-2 top-2 z-[100] flex aspect-[1/1] h-14 select-none items-center rounded-md bg-grey-75 shadow-lg shadow-black/50 hover:bg-grey-65"
             onClick={handleClick}
             title="Back to Portfolio"
             initial="hidden"

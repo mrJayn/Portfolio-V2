@@ -31,10 +31,4 @@
             border: solid 3px theme(colors.slate.DEFAULT);
         }
     }
-
-    input:after,
-    textarea:after {
-        content: attr(data-text);
-        @apply pointer-events-none absolute inset-0 left-[5px] z-10 flex origin-top-left translate-y-[0px] scale-[0.6] select-none justify-start text-[0.9em] text-black duration-150 ease-in peer-placeholder-shown:translate-y-[5px] peer-placeholder-shown:scale-[1] peer-focus:scale-[0.6] peer-focus:text-slate-neon peer-placeholder-shown:peer-focus:translate-y-[0px] !important;
-    }
 }

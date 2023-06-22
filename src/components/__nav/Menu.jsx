@@ -19,15 +19,17 @@ const Socials = () =>
             target="_blank"
             rel="noopener noreferrer"
             title={name}
-            className="flex-center relative aspect-[1/1] h-[2.35em] max-h-full rounded-lg bg-grey-75 stroke-current p-2 hover:bg-grey-60 hover:stroke-white"
+            className="group flex-center relative z-10 aspect-[1/1] h-[2.35em] max-h-full"
             variants={{
                 hidden: { opacity: 0 },
                 show: { opacity: 1, transition: { duration: 0.3, ease: 'easeIn' } },
             }}
         >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="fill-none">
-                <Paths name={name} />
-            </svg>
+            <div className="transition-colors absolute inset-0 rounded-full bg-grey-90 stroke-grey p-2 duration-[100ms] ease-in group-hover:bg-grey-80 group-hover:stroke-slate">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                    <Paths name={name} />
+                </svg>
+            </div>
         </motion.a>
     ))
 
@@ -37,7 +39,7 @@ export default function Menu({ toggleMenu }) {
             <BackDrop />
             <motion.menu
                 id="menu"
-                className="fixed -inset-0.5 z-20 overflow-hidden bg-grey-95"
+                className="fixed -inset-0.5 z-20 overflow-hidden bg-grey-95 landscape:overflow-y-scroll"
                 {...FadeInOut({ delayShow: 0.3, duration: 0.5 })}
             >
                 <div className="absolute inset-4 top-16 portrait:flex-col-btw landscape:flex-top">

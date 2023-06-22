@@ -6,7 +6,7 @@ import { Archive, Layout, Sidebar } from '@components'
 
 const LayoutButton = ({ viewMode, setViewMode }) => (
     <motion.div
-        className="flex-center transition-colors fixed right-2 top-2 z-[100] aspect-[1/1] h-14 cursor-pointer rounded-md bg-grey-75 text-[48px] tracking-[-0.025em] text-grey-40 hover:bg-grey-60 hover:text-white"
+        className="flex-center transition-colors fixed right-2 top-1 z-[100] aspect-[1/1] h-14 cursor-pointer rounded-md bg-grey-75 text-[44px] tracking-[-0.025em] text-grey-40 hover:bg-grey-60 hover:text-white"
         onClick={() => setViewMode()}
         title={`${viewMode === 'list' ? 'Grid' : 'List'} layout`}
         {...FadeInOut()}
@@ -22,9 +22,9 @@ export default function ProjectsPage({ data }) {
     const projects = Object.values(data)
     const categories = ['all', ...new Set(projects.map(({ category }) => category))]
 
-    useEffect(()=>{
-        document.body.style.height="auto"
-    },[])
+    useEffect(() => {
+        document.body.style.height = 'auto'
+    }, [])
 
     return (
         <>

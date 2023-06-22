@@ -1,20 +1,15 @@
-/** -- Functions -- **/
 const clamp = (fsMin = 17, fsMax = 21, screenMin = 320, screenMax = 1200) =>
     `clamp(${fsMin}px, calc(${fsMin}px + (${fsMax} - ${fsMin}) * ((100vw - ${screenMin}px) / (${screenMax} - ${screenMin}))), ${fsMax}px)`
 
-/** ---- THEME ---- **/
-
 const fontSizes = {
     min: clamp(14, 17),
-    root: clamp(17, 24),
-    /**/
+    root: clamp(17, 22),
     h1: clamp(60, 120),
-    h2: clamp(30, 60), // x0.5
-    h3: clamp(28, 40), // x0.25
-    h4: clamp(21, 32), // x0.66
-    h5: '1.2rem', // x0.5
-    h6: '1rem', // x0.375
-    /**/
+    h2: clamp(30, 60),
+    h3: clamp(28, 40),
+    h4: clamp(21, 28),
+    h5: '1.2rem',
+    h6: '1rem',
     button: clamp(22, 36),
     menu: clamp(24, 32),
     footer: clamp(14, 17),

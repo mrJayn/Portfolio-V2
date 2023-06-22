@@ -91,7 +91,7 @@ function Certs({ certifications }) {
                             {...experienceMotion.Cert}
                         >
                             <h4 className="lg:whitespace-nowrap">{formatTitle(title)}</h4>
-                            <p className="w-full leading-[1.5] lg:-ml-5 lg:indent-2">{description}</p>
+                            <p className="w-full leading-[1.5]">{description}</p>
                             <a
                                 href={href}
                                 target="_blank"

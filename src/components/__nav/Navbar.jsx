@@ -24,7 +24,10 @@ const Navbar = ({ isHome }) => {
     }, [isLg, isHome, menu, toggleMenu])
 
     return (
-        <nav id="navbar" className={`fixed inset-x-0 top-0 z-[99] h-16`}>
+        <nav
+            id="navbar"
+            className={`fixed inset-x-0 top-0 z-[99] h-16 bg-nav/80 after:absolute after:inset-0 after:-z-10 after:bg-tempered after:backdrop-blur-sm after:content-['']`}
+        >
             <div className="full flex-center z-10 mx-auto max-w-[1440px] lg:justify-start">
                 {/* <Logo /> */}
                 <AnimatePresence mode="wait">

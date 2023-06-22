@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'framer-motion'
 import { getHomeProps } from 'src/lib/markdown'
 import { sections } from '@config'
-import { useShouldAnimate, useSmoothScroll, useViewport } from '@hooks'
+import { useShouldAnimate, useSmoothScroll } from '@hooks'
 import { Layout, Intro, About, Experience, Projects, Contact, Footer } from '@components'
 
 const AnimatedScrollContainer = ({ children }) => {
     const scrollRef = useRef(null)
     const shouldAnimate = useShouldAnimate()
     useSmoothScroll(scrollRef, shouldAnimate ? 0.07 : 1)
+
     return (
         <motion.div className="flex-col-center fixed left-0 top-0 z-10 w-screen will-change-transform" ref={scrollRef}>
             {children}
@@ -18,7 +19,6 @@ const AnimatedScrollContainer = ({ children }) => {
 
 export default function Home({ data }) {
     const { about, experience, featured } = data
-    const { height } = useViewport()
 
     return (
         <>

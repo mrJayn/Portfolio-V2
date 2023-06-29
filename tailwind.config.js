@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 
-//const colors = require('tailwindcss/colors')
 const { twTheme } = require('./twTheme')
 const { twPlugins } = require('./twPlugins')
 

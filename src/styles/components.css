@@ -16,19 +16,19 @@
 
     .use-scrollbar {
         -ms-overflow-style: scrollbar; /*IE,Edge*/
-        scrollbar-width: 100vw !important; /*FireFox*/
-        scrollbar-color: theme(colors.white) theme(colors.slate.DEFAULT) !important;
+        scrollbar-width: 60vw !important; /*FireFox*/
+        scrollbar-color: theme(colors.white) theme(colors.slate.DEFAULT/0.25) !important;
 
         &::-webkit-scrollbar {
-            @apply block h-5 w-auto !important;
+            @apply block h-3 w-auto !important;
         }
         &::-webkit-scrollbar-track {
-            @apply bg-slate !important;
+            @apply bg-slate/25 !important;
         }
         &::-webkit-scrollbar-thumb {
             @apply cursor-pointer bg-white !important;
             border-radius: 15px / 18px;
-            border: solid 3px theme(colors.slate.DEFAULT);
+            border: solid 2px theme(colors.grey.65);
         }
     }
 }

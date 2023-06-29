@@ -55,7 +55,7 @@ const FtdContent = ({ tech, content, href }) => (
 
 const Featured = ({ ...featuredProjects }) => {
     const containerRef = useRef(null)
-    const [active, activate] = useState(0)
+    const [active, activate] = useState(2)
 
     const data = Object.values(featuredProjects)
     const span = data.length - 1

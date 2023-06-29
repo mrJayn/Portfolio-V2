@@ -68,8 +68,8 @@ function Certs({ certifications }) {
     return (
         <div className="relative w-full max-lg:text-center">
             <h3>Certifications</h3>
-            <div className="relative flex w-full max-lg:flex-col lg:h-[650px]">
-                <ul className="max-lg:use-scrollbar z-10 touch-pan-x gap-2.5 overflow-y-hidden py-5 max-lg:flex-left lg:flex-col-left max-lg:-ml-4 max-lg:w-screen max-lg:overflow-x-scroll max-lg:scroll-smooth max-lg:px-[6ch] lg:min-w-fit lg:py-10">
+            <div className="relative mt-5 flex w-full max-lg:flex-col lg:h-[600px]">
+                <ul className="max-lg:use-scrollbar z-10 touch-pan-x gap-2.5 overflow-y-hidden py-5 max-lg:flex-left lg:flex-col-left max-lg:-ml-4 max-lg:w-screen max-lg:overflow-x-scroll max-lg:scroll-smooth max-lg:px-[6ch] lg:min-w-fit lg:py-5">
                     {certifications.map(({ shortend }, i) => (
                         <motion.li
                             key={shortend}
